@@ -1,5 +1,8 @@
 # Astra × RealMan
 
+[![English](https://img.shields.io/badge/Language-English-2ea44f)](README.md)
+[![简体中文](https://img.shields.io/badge/语言-简体中文-blue)](README_CN.md)
+
 Experimental real-robot manipulation harness for running Astra-style vision-language decision loops on a RealMan platform.
 
 > **Status:** v0.1 — first public real-robot baseline snapshot (2026-10-05).  
