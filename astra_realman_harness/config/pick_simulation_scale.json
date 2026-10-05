@@ -1,0 +1,39 @@
+{
+  "profile": "rm65_simulation_scale",
+  "source_bridge": "/home/tongji/alex/ASTRA_LAB_2026-10-02/01_CODE/astra_controller/scripts/rm65_model_bridge.py",
+  "source_scene": "/home/tongji/alex/ASTRA_LAB_2026-10-02/01_CODE/astra_controller/scripts/rm65_scene.py",
+  "translation_axis_limit_m": null,
+  "translation_norm_limit_m": null,
+  "rotation_axis_limit_rad": null,
+  "gripper_normalized_range": [
+    0,
+    1
+  ],
+  "real_work_frame": "realman:left:work:World",
+  "real_tool_frame": "realman:left:tool:Arm_Tip",
+  "cartesian_speed_percent": 1,
+  "max_steps": 50,
+  "max_observation_age_s": 180,
+  "actions_per_observation": 1,
+  "tracking_telemetry_only": true,
+  "simulation_geometry_is_lab_calibration": false,
+  "real_collision_planner_equivalence": false,
+  "source_hashes": {
+    "/home/tongji/alex/ASTRA_LAB_2026-10-02/01_CODE/astra_controller/scripts/rm65_model_bridge.py": "12ca47cfec8a1fa2a03387303bf9d0a6d343e512b608fd6eace05c8428731e59",
+    "/home/tongji/alex/ASTRA_LAB_2026-10-02/01_CODE/astra_controller/scripts/rm65_scene.py": "e6efa8d5571d71ad0bcca89951f3fa072dd737a5a5d32ee21923f59551ccfac4",
+    "/home/tongji/alex/ASTRA_LAB_2026-10-02/01_CODE/astra_controller/configs/rm65_ctag_reference/assembly.json": "1175fd01fc55e74b5bd310ed32a07424205626722be0a9e4e0429e899e629e11"
+  },
+  "action_passthrough": true,
+  "ik_projection": false,
+  "automatic_recovery": false,
+  "decision_source": "Astra only",
+  "actuator_channels_per_action": [
+    "arm",
+    "gripper"
+  ],
+  "channel_order": "arm_then_gripper",
+  "skip_gripper_if_feedback_satisfies_target": true,
+  "arm_executor": "rm_movej_p",
+  "target_xyz_semantics": "current_xyz + original translation_m, componentwise",
+  "target_rpy_semantics": "current_rpy + original rotation_rpy_rad, componentwise, no wrapping"
+}

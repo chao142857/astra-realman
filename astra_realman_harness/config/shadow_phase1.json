@@ -1,0 +1,101 @@
+{
+  "schema_version": "astra.shadow_safety.v2",
+  "mode": "dry_run_only",
+  "phase": "local_translation_shadow",
+  "fixture_only": false,
+  "allowed_arms": [
+    "left"
+  ],
+  "max_translation_axis_m": 0.002,
+  "max_observation_age_s": 30,
+  "max_proposal_age_s": 30,
+  "max_clock_skew_s": 1,
+  "max_camera_skew_s": 1,
+  "arm_identities": {
+    "left": {
+      "host": "192.168.1.19",
+      "port": 8080,
+      "software_endpoint_mapping": {
+        "status": "VERIFIED",
+        "evidence": [
+          "/home/tongji/aloha/shadow_rm_aloha/config/rm_left_arm.yaml:1",
+          "/home/tongji/aloha/RealMan_Control/config/rm_left_arm.yaml:1",
+          "/home/tongji/DP/diffusion_policy/real_world/realman_env.py:59"
+        ]
+      },
+      "physical_side_identity": {
+        "status": "VERIFIED",
+        "evidence": {
+          "kind": "direct_user_confirmation",
+          "quote": "19左，用19",
+          "scope": "192.168.1.19 is physical left; no claim about camera orientation or frame axes"
+        }
+      }
+    },
+    "right": {
+      "host": "192.168.1.18",
+      "port": 8080,
+      "software_endpoint_mapping": {
+        "status": "VERIFIED",
+        "evidence": [
+          "/home/tongji/aloha/shadow_rm_aloha/config/rm_right_arm.yaml:1",
+          "/home/tongji/aloha/RealMan_Control/config/rm_right_arm.yaml:1",
+          "/home/tongji/DP/diffusion_policy/real_world/realman_env.py:62"
+        ]
+      },
+      "physical_side_identity": {
+        "status": "UNKNOWN",
+        "evidence": null
+      }
+    }
+  },
+  "local_workspaces": {
+    "left": {
+      "status": "UNCONFIRMED",
+      "frame_id": null,
+      "tool_frame_id": null,
+      "frame_fingerprint": null,
+      "tool_fingerprint": null,
+      "bounds_m": null,
+      "human_confirmed": false,
+      "swept_tool_clearance_verified": false,
+      "scope": "local_free_space_translation_only",
+      "evidence": null,
+      "note": "User offered manual teaching; no trajectory or collision-free volume has yet been confirmed. 2 mm is a step limit, never a clearance radius."
+    },
+    "right": {
+      "status": "UNCONFIRMED",
+      "bounds_m": null,
+      "evidence": null
+    }
+  },
+  "full_gripper_geometry": {
+    "status": "UNCONFIRMED",
+    "required_before": [
+      "approach",
+      "descend",
+      "grasp",
+      "gripper_close"
+    ],
+    "evidence": null
+  },
+  "camera_extrinsics": {
+    "status": "UNCONFIRMED",
+    "evidence": null
+  },
+  "execution_readiness": {
+    "operator_authorization": {
+      "status": "NOT_GRANTED",
+      "evidence": "User explicitly requires zero robot/gripper motion"
+    },
+    "trajectory_validation": {
+      "status": "UNCONFIRMED",
+      "evidence": null
+    },
+    "hardware_executor": {
+      "status": "NOT_IMPLEMENTED",
+      "evidence": "DryRunExecutor only"
+    }
+  },
+  "note": "Verification records do not grant actuation. Unknown EE pose binding and workspace remain blocked for nonzero motion."
+}

@@ -1,0 +1,570 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Astra RealMan proposal v1 (dry-run)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "proposal_id",
+    "observation_id",
+    "created_at",
+    "expires_at",
+    "reason",
+    "actions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "astra.realman.proposal.v1"
+    },
+    "proposal_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+    },
+    "observation_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.:-]{1,128}$"
+    },
+    "created_at": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "expires_at": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "actions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame",
+              "target",
+              "delta_m",
+              "speed_m_s"
+            ],
+            "properties": {
+              "type": {
+                "const": "move_delta"
+              },
+              "arm": {
+                "const": "left"
+              },
+              "frame": {
+                "const": "left_base"
+              },
+              "target": {
+                "enum": [
+                  "tcp",
+                  "flange"
+                ]
+              },
+              "delta_m": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "speed_m_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame",
+              "target",
+              "delta_m",
+              "speed_m_s"
+            ],
+            "properties": {
+              "type": {
+                "const": "move_delta"
+              },
+              "arm": {
+                "const": "right"
+              },
+              "frame": {
+                "const": "right_base"
+              },
+              "target": {
+                "enum": [
+                  "tcp",
+                  "flange"
+                ]
+              },
+              "delta_m": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "speed_m_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame",
+              "target",
+              "position_m",
+              "quaternion_wxyz",
+              "speed_m_s"
+            ],
+            "properties": {
+              "type": {
+                "const": "move_pose"
+              },
+              "arm": {
+                "const": "left"
+              },
+              "frame": {
+                "const": "left_base"
+              },
+              "target": {
+                "enum": [
+                  "tcp",
+                  "flange"
+                ]
+              },
+              "position_m": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "quaternion_wxyz": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "speed_m_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame",
+              "target",
+              "position_m",
+              "quaternion_wxyz",
+              "speed_m_s"
+            ],
+            "properties": {
+              "type": {
+                "const": "move_pose"
+              },
+              "arm": {
+                "const": "right"
+              },
+              "frame": {
+                "const": "right_base"
+              },
+              "target": {
+                "enum": [
+                  "tcp",
+                  "flange"
+                ]
+              },
+              "position_m": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "quaternion_wxyz": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "speed_m_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame",
+              "opening_fraction"
+            ],
+            "properties": {
+              "type": {
+                "const": "gripper"
+              },
+              "arm": {
+                "const": "left"
+              },
+              "frame": {
+                "const": "left_gripper"
+              },
+              "opening_fraction": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame",
+              "opening_fraction"
+            ],
+            "properties": {
+              "type": {
+                "const": "gripper"
+              },
+              "arm": {
+                "const": "right"
+              },
+              "frame": {
+                "const": "right_gripper"
+              },
+              "opening_fraction": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame",
+              "duration_s"
+            ],
+            "properties": {
+              "type": {
+                "const": "hold"
+              },
+              "arm": {
+                "const": "left"
+              },
+              "frame": {
+                "const": "left_base"
+              },
+              "duration_s": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 2
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame",
+              "duration_s"
+            ],
+            "properties": {
+              "type": {
+                "const": "hold"
+              },
+              "arm": {
+                "const": "right"
+              },
+              "frame": {
+                "const": "right_base"
+              },
+              "duration_s": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 2
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame"
+            ],
+            "properties": {
+              "type": {
+                "const": "observe"
+              },
+              "arm": {
+                "const": "left"
+              },
+              "frame": {
+                "const": "left_base"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame"
+            ],
+            "properties": {
+              "type": {
+                "const": "observe"
+              },
+              "arm": {
+                "const": "right"
+              },
+              "frame": {
+                "const": "right_base"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame",
+              "target",
+              "delta_m",
+              "speed_m_s",
+              "tool_frame"
+            ],
+            "properties": {
+              "type": {
+                "const": "move_delta"
+              },
+              "arm": {
+                "const": "left"
+              },
+              "frame": {
+                "type": "string",
+                "pattern": "^realman:left:work:[A-Za-z0-9_.%~-]{1,256}$"
+              },
+              "target": {
+                "const": "controller_tool"
+              },
+              "delta_m": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "speed_m_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "tool_frame": {
+                "type": "string",
+                "pattern": "^realman:left:tool:[A-Za-z0-9_.%~-]{1,256}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame",
+              "target",
+              "position_m",
+              "quaternion_wxyz",
+              "speed_m_s",
+              "tool_frame"
+            ],
+            "properties": {
+              "type": {
+                "const": "move_pose"
+              },
+              "arm": {
+                "const": "left"
+              },
+              "frame": {
+                "type": "string",
+                "pattern": "^realman:left:work:[A-Za-z0-9_.%~-]{1,256}$"
+              },
+              "target": {
+                "const": "controller_tool"
+              },
+              "position_m": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "quaternion_wxyz": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "speed_m_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "tool_frame": {
+                "type": "string",
+                "pattern": "^realman:left:tool:[A-Za-z0-9_.%~-]{1,256}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame",
+              "target",
+              "delta_m",
+              "speed_m_s",
+              "tool_frame"
+            ],
+            "properties": {
+              "type": {
+                "const": "move_delta"
+              },
+              "arm": {
+                "const": "right"
+              },
+              "frame": {
+                "type": "string",
+                "pattern": "^realman:right:work:[A-Za-z0-9_.%~-]{1,256}$"
+              },
+              "target": {
+                "const": "controller_tool"
+              },
+              "delta_m": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "speed_m_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "tool_frame": {
+                "type": "string",
+                "pattern": "^realman:right:tool:[A-Za-z0-9_.%~-]{1,256}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "arm",
+              "frame",
+              "target",
+              "position_m",
+              "quaternion_wxyz",
+              "speed_m_s",
+              "tool_frame"
+            ],
+            "properties": {
+              "type": {
+                "const": "move_pose"
+              },
+              "arm": {
+                "const": "right"
+              },
+              "frame": {
+                "type": "string",
+                "pattern": "^realman:right:work:[A-Za-z0-9_.%~-]{1,256}$"
+              },
+              "target": {
+                "const": "controller_tool"
+              },
+              "position_m": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "quaternion_wxyz": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "speed_m_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "tool_frame": {
+                "type": "string",
+                "pattern": "^realman:right:tool:[A-Za-z0-9_.%~-]{1,256}$"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

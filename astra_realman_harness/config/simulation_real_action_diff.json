@@ -1,0 +1,53 @@
+{
+  "basis": "RM65Scene / rm65_model_bridge (not the older Aloha Gate E protocols)",
+  "translation_range": {
+    "simulation": "move_delta: 3 finite numbers in meters; no numeric step cap in ModelAdapter",
+    "previous_real": "axis <=0.05 m and norm <=0.05 m",
+    "current_real": "3 finite metre deltas; no planner axis/norm cap"
+  },
+  "rotation_range": {
+    "simulation": "move_delta preserves orientation; move_pose accepts all unit wxyz quaternion orientations (norm tolerance 0.001)",
+    "previous_real": "work-frame RPY delta per axis <=5 degrees",
+    "current_real": "Finite RPY radian delta; componentwise target_rpy=current_rpy+rotation_rpy_rad, no planner cap/wrapping"
+  },
+  "gripper_semantics": {
+    "simulation": "continuous opening 0..1; 1=open/0=close; simulated master angle=-0.91*(1-opening), contact latch/preload enabled",
+    "previous_real": "open/close/hold only",
+    "current_real": "Normalized input passed unchanged to original RmArm.set_gripper_position; original driver uses integer wire units int(opening*1000). No additional rounding/rescaling of proposal."
+  },
+  "frame_semantics": {
+    "simulation": "world origin from temporary stand/table scene; position=mean distal pad faces; orientation=Link6 flange; offset determined from simulated geometry",
+    "current_real": "explicit realman:left:work:World + realman:left:tool:Arm_Tip; active controller tool pose; no pad-center/world registration inferred",
+    "equivalent_absolute_pose": false,
+    "reason": "simulation assembly explicitly not laboratory calibration; no reliable pad-center transform supplied"
+  },
+  "planning": {
+    "simulation": "IK + OMPL/FCL full path and joint limits; simulated geometry",
+    "current_real": "RealMan API2 rm_movej_p joint-space interpolation to the unchanged target pose at v=1%; existing controller limits unchanged; no harness IK/projection",
+    "equivalent_collision_guarantee": false
+  },
+  "extra_real_constraints": [
+    "left only; right read-only",
+    "finite exact action schema and explicit unchanged work/tool frames",
+    "one proposal per observation; up to one arm and one gripper command, serialized arm then gripper; no retry",
+    "controller/robot/gripper error or command/API/camera/state failure stops",
+    "STOP/interruption; done; max 50 steps",
+    "latest observation TTL180s (simulation same TTL); fresh state before dispatch",
+    "RPY conversion failure stops as adapter failure"
+  ],
+  "not_migrated": [
+    "simulation absolute pad-center move_pose (unknown physical transform)",
+    "simulation chunks up to3; real one command then observe",
+    "simulation finite hold and grasp contact-latch/reflex",
+    "simulation scene workspace coordinates not copied into laboratory"
+  ],
+  "passive_only": [
+    "tracking residual",
+    "commanded vs actual pose",
+    "grasp outcome",
+    "apparent progress",
+    "NOOP count"
+  ],
+  "restart_from_joint_return_log": "/home/tongji/alex/astra_realman_harness/logs/return-auto-start-1790947324258743885/summary.json",
+  "execution_policy": "Unchanged proposal values; one semantic action may command both channels; skip gripper only if actual feedback already satisfies requested state; no IK/projection/retries"
+}

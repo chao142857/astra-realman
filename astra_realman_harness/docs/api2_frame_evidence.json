@@ -1,0 +1,69 @@
+{
+  "scope": "Local pinned API2 source and local manuals only; no API/algorithm motion or configuration calls",
+  "sources": {
+    "python_sdk": "/home/tongji/aloha/RealMan_Control/Robotic_Arm/rm_robot_interface.py",
+    "ctypes": "/home/tongji/aloha/RealMan_Control/Robotic_Arm/rm_ctypes_wrap.py",
+    "c_interface": "/home/tongji/aloha/RealMan_Control/RM_API2-main/C/include/rm_interface.h",
+    "c_define": "/home/tongji/aloha/RealMan_Control/RM_API2-main/C/include/rm_define.h",
+    "python_manual": "/home/tongji/aloha/shadow_rm_robot/docs/睿尔曼机械臂接口函数说明(Python)V1.5.pdf",
+    "json_manual": "/home/tongji/aloha/shadow_rm_robot/docs/睿尔曼机械臂JSON通信协议v3.7.1.pdf"
+  },
+  "units": {
+    "status": "VERIFIED",
+    "joint": "degree",
+    "xyz": "metre",
+    "rpy": "radian",
+    "evidence": "rm_position_t (ctypes line 1420), rm_euler_t (1460), rm_pose_t (1500), rm_current_arm_state_t (1823), to_dictionary (1845). API2 structs/arrays contain floats already in these units."
+  },
+  "work_frame": {
+    "status": "VERIFIED",
+    "semantics": "Currently selected work coordinate system; pose is work frame relative to controller base.",
+    "evidence": [
+      "API2 rm_get_current_work_frame at Python line 1125",
+      "API2 C rm_set_manual_work_frame comment: new work pose relative to base",
+      "Python manual PDF page 60, section 5.8.2; page 62 section 5.9.1"
+    ]
+  },
+  "tool_frame": {
+    "status": "VERIFIED",
+    "semantics": "Currently selected tool coordinate system; pose is tool endpoint relative to robot flange center. It is not automatically the actual grasp-center TCP.",
+    "evidence": [
+      "API2 rm_get_current_tool_frame at Python line 907",
+      "Python manual PDF page 56 section 5.6.6 and page 58 section 5.7.1"
+    ]
+  },
+  "current_arm_state_pose": {
+    "status": "UNKNOWN",
+    "verified": "API2 returns current end pose values in m/rad, unaltered except output rounding in Python to_dictionary.",
+    "unresolved": "The inspected local current-state function/struct and manual section do not explicitly say whether the reported pose is default-end in base/world or current-tool in current-work. Do not infer this binding from the active frame names.",
+    "evidence": [
+      "API2 Python rm_get_current_arm_state line 1150",
+      "API2 C rm_current_arm_state_t pose field (rm_define.h line 251): current pose only",
+      "Python manual PDF page 64 section 5.10.1",
+      "JSON manual PDF pages 55-56, section 2.9(1)"
+    ],
+    "limitation": "If work/tool offsets are zero, static numeric agreement cannot distinguish the two frame interpretations. Do not change a controller frame to investigate under this authorization."
+  },
+  "end2tool": {
+    "status": "VERIFIED",
+    "input": "Default-end pose expressed in controller world/base frame (API2 uses wording world coordinate system + default tool).",
+    "output": "Current tool endpoint pose expressed in current work frame.",
+    "python_line": 6033,
+    "c_interface_line": 4143,
+    "manual": "Python manual PDF page 138 section 5.26.11",
+    "called": false
+  },
+  "tool2end": {
+    "status": "VERIFIED",
+    "input": "Current tool endpoint pose expressed in current work frame.",
+    "output": "Default-end pose expressed in controller world/base frame (API2 wording: world coordinate system + default tool).",
+    "python_line": 6057,
+    "c_interface_line": 4151,
+    "manual": "Python manual PDF page 138 section 5.26.12",
+    "called": false
+  },
+  "terminology": {
+    "note": "API2 calls the fixed reference 'world'; the older manual calls it 'base'. No shared physical lab-world identity is inferred. These definitions establish transform semantics, not robot installation or camera calibration."
+  },
+  "canonical_policy": "Keep ee_pose.reference_frame and target_frame null with UNKNOWN status; separately save active work/tool names and all raw SDK return values. Never set a calibration confirmation flag from SDK presence or connection success."
+}

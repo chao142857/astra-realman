@@ -1,0 +1,67 @@
+{
+  "scope": "Only local API2 sources/manuals and explicit user confirmation. No robot motion, configuration or algorithm calls.",
+  "identity": {
+    "left": {
+      "status": "VERIFIED",
+      "ip": "192.168.1.19",
+      "evidence": "Direct user confirmation: 19左，用19"
+    },
+    "right": {
+      "software_ip": "192.168.1.18",
+      "physical_identity_status": "UNKNOWN"
+    }
+  },
+  "frame_ids": {
+    "format": "realman:<logical-arm>:<work|tool>:<controller-name>",
+    "binding": "Connection records bind logical left to verified controller .19; handle IDs are process-local. Definitions are also fingerprinted; same name with changed offsets is not accepted against old workspace evidence."
+  },
+  "work": {
+    "status": "VERIFIED",
+    "semantics": "Active work frame pose is relative to controller base.",
+    "sources": [
+      "/home/tongji/aloha/RealMan_Control/RM_API2-main/C/include/rm_interface.h:830",
+      "Local Python manual PDF p60 §5.8.2 and p62 §5.9.1"
+    ]
+  },
+  "tool": {
+    "status": "VERIFIED",
+    "semantics": "Active tool endpoint pose is relative to flange center. This does not verify physical grasp TCP or full gripper geometry.",
+    "sources": [
+      "/home/tongji/aloha/RealMan_Control/RM_API2-main/C/include/rm_interface.h:764",
+      "Local Python manual PDF p56 §5.6.6 and p58 §5.7.1"
+    ]
+  },
+  "ee_pose_binding": {
+    "status": "UNKNOWN",
+    "reference_frame_id": null,
+    "target_frame_id": null,
+    "reason": "Local current-state function/struct/manual only says current pose; it does not explicitly identify reference and target frames.",
+    "sources": [
+      "/home/tongji/aloha/RealMan_Control/Robotic_Arm/rm_robot_interface.py:1150",
+      "/home/tongji/aloha/RealMan_Control/RM_API2-main/C/include/rm_interface.h:929",
+      "/home/tongji/aloha/RealMan_Control/RM_API2-main/C/include/rm_define.h:251",
+      "Local Python manual PDF p64 §5.10.1"
+    ],
+    "inference_only": "TubePickingSimulation demo uses current pose then a work-axis movel offset, but without nondefault work/tool this does not prove the state contract."
+  },
+  "workspace": {
+    "status": "UNKNOWN",
+    "bounds_m": null,
+    "evidence": "User offered 我可以手动先示教一遍; no recorded demonstration or collision-free volume provided.",
+    "note": "A demonstrated curve or observed EE pose does not certify a surrounding AABB. Record work/tool definitions and then obtain explicit human-confirmed tool-swept clearance bounds; never derive them from the 2 mm step limit."
+  },
+  "camera": {
+    "extrinsics_status": "UNKNOWN",
+    "adapter_uses_camera_to_robot_transform": false,
+    "consequence": "Grounding warning, not unconditional rejection of an explicitly robot-work-frame delta. A future explicit camera transform requires verified extrinsics."
+  },
+  "full_gripper_geometry": {
+    "status": "UNKNOWN",
+    "required_before": [
+      "approach",
+      "descent",
+      "closure/grasp"
+    ],
+    "local_phase_exception": "Only fixed-orientation local free-space translation with human-certified swept-tool clearance, not a grasp approach."
+  }
+}

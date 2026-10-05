@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "One left-arm Cartesian waypoint: translation norm <=50 mm",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "action_type",
+    "arm",
+    "frame",
+    "tool_frame",
+    "translation_m",
+    "rotation_rpy_rad",
+    "gripper",
+    "done"
+  ],
+  "properties": {
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "cartesian_delta"
+      ]
+    },
+    "arm": {
+      "type": "string",
+      "enum": [
+        "left"
+      ]
+    },
+    "frame": {
+      "type": "string",
+      "pattern": "^realman:left:work:[A-Za-z0-9_.:-]{1,64}$"
+    },
+    "translation_m": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "number",
+        "minimum": -0.05,
+        "maximum": 0.05
+      }
+    },
+    "rotation_rpy_rad": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "number",
+        "minimum": -0.08726646259971647,
+        "maximum": 0.08726646259971647
+      }
+    },
+    "gripper": {
+      "type": "string",
+      "enum": [
+        "open",
+        "close",
+        "hold"
+      ]
+    },
+    "done": {
+      "type": "boolean"
+    },
+    "tool_frame": {
+      "type": "string",
+      "pattern": "^realman:left:tool:[A-Za-z0-9_.:-]{1,64}$"
+    }
+  }
+}

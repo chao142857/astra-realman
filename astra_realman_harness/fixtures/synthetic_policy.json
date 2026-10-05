@@ -1,0 +1,129 @@
+{
+  "description": "SYNTHETIC TEST ONLY. Coordinates are invented test fixtures, NOT laboratory calibration.",
+  "api": {
+    "contract": "astra.proposal_http.v1",
+    "endpoint": null,
+    "model": null,
+    "api_key_env": null,
+    "timeout_s": 45
+  },
+  "devices": {
+    "arms": {
+      "left": {
+        "host": "192.168.1.19",
+        "port": 8080,
+        "source": "/home/tongji/aloha/shadow_rm_aloha/config/rm_left_arm.yaml"
+      },
+      "right": {
+        "host": "192.168.1.18",
+        "port": 8080,
+        "source": "/home/tongji/aloha/shadow_rm_aloha/config/rm_right_arm.yaml"
+      }
+    },
+    "cameras": [
+      {
+        "serial": "344422071480",
+        "role": "cam_high",
+        "role_confirmed": false,
+        "width": 640,
+        "height": 480,
+        "fps": 30,
+        "source": "DP config.yaml mapping; serial verified by pyrealsense2 SDK enumeration; physical placement unconfirmed"
+      },
+      {
+        "serial": "254522073676",
+        "role": "cam_left",
+        "role_confirmed": false,
+        "width": 640,
+        "height": 480,
+        "fps": 30,
+        "source": "DP config.yaml mapping; serial verified by pyrealsense2 SDK enumeration; physical placement unconfirmed"
+      },
+      {
+        "serial": "346222072496",
+        "role": "cam_low",
+        "role_confirmed": false,
+        "width": 640,
+        "height": 480,
+        "fps": 30,
+        "source": "DP config.yaml mapping; serial verified by pyrealsense2 SDK enumeration; physical placement unconfirmed"
+      },
+      {
+        "serial": "348522072063",
+        "role": "cam_right",
+        "role_confirmed": false,
+        "width": 640,
+        "height": 480,
+        "fps": 30,
+        "source": "DP config.yaml mapping; serial verified by pyrealsense2 SDK enumeration; physical placement unconfirmed"
+      }
+    ],
+    "camera_python": "/home/tongji/miniconda3/envs/dp/bin/python"
+  },
+  "frames": {
+    "left_base": {
+      "status": "UNCONFIRMED",
+      "definition": "physical left controller base; identity and axes require verification"
+    },
+    "right_base": {
+      "status": "UNCONFIRMED",
+      "definition": "physical right controller base; identity and axes require verification"
+    },
+    "tcp": {
+      "status": "UNCONFIRMED",
+      "definition": "chosen grasp center/tool point; requires measured flange-to-TCP transform"
+    },
+    "camera_optical": {
+      "definition": "x right, y down, z forward; image pixel u right, v down",
+      "base_transform": null
+    },
+    "cross_arm_transform": null,
+    "world_transform": null
+  },
+  "safety": {
+    "mode": "dry_run_only",
+    "fixture_only": true,
+    "allowed_arms": [
+      "right"
+    ],
+    "max_actions": 1,
+    "max_observation_age_s": 30,
+    "max_proposal_age_s": 30,
+    "max_proposal_ttl_s": 30,
+    "max_clock_skew_s": 1,
+    "max_translation_m": 0.01,
+    "max_rotation_deg": 5,
+    "max_speed_m_s": 0.01,
+    "max_gripper_change": 0.1,
+    "max_camera_skew_s": 1,
+    "arms": {
+      "left": {
+        "arm_identity_confirmed": false,
+        "base_frame_confirmed": false,
+        "tcp_confirmed": false,
+        "gripper_mapping_confirmed": false,
+        "camera_registration_confirmed": false,
+        "workspace_m": null
+      },
+      "right": {
+        "arm_identity_confirmed": true,
+        "base_frame_confirmed": true,
+        "tcp_confirmed": true,
+        "gripper_mapping_confirmed": true,
+        "camera_registration_confirmed": true,
+        "workspace_m": {
+          "min": [
+            0.1,
+            -0.2,
+            0.1
+          ],
+          "max": [
+            0.5,
+            0.2,
+            0.5
+          ]
+        }
+      }
+    }
+  }
+}

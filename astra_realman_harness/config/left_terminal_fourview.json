@@ -1,0 +1,49 @@
+{
+  "mode": "dry_run_default_execute_requires_flag",
+  "arm": {
+    "name": "left",
+    "host": "192.168.1.19",
+    "port": 8080
+  },
+  "cameras": [
+    {
+      "serial": "254522073676",
+      "role": "left_wrist",
+      "role_confirmed": true,
+      "width": 640,
+      "height": 480,
+      "fps": 30,
+      "confirmation_source": "Operator explicitly confirmed these three role/serial pairs in chat on 2026-10-05 Asia/Shanghai."
+    },
+    {
+      "serial": "346222072496",
+      "role": "tabletop",
+      "role_confirmed": true,
+      "width": 640,
+      "height": 480,
+      "fps": 30,
+      "confirmation_source": "Operator explicitly confirmed these three role/serial pairs in chat on 2026-10-05 Asia/Shanghai."
+    },
+    {
+      "serial": "344422071480",
+      "role": "overhead",
+      "role_confirmed": true,
+      "width": 640,
+      "height": 480,
+      "fps": 30,
+      "confirmation_source": "Operator explicitly confirmed these three role/serial pairs in chat on 2026-10-05 Asia/Shanghai."
+    },
+    {
+      "serial": "348522072063",
+      "role": "additional_view",
+      "role_confirmed": false,
+      "width": 640,
+      "height": 480,
+      "fps": 30,
+      "source": "Restored fourth serial from historical four-camera setup at operator request; physical mounting not claimed."
+    }
+  ],
+  "camera_mapping_status": "First three operator-confirmed unchanged; fourth historical serial restored as additional_view, physical mounting unspecified.",
+  "gripper_semantics": "opening target 0 fully closed, 1 fully open; no force control",
+  "executor": "DryRunExecutor default; RealLeftExecutor only with --live --execute and no fixture/replay"
+}

@@ -1,0 +1,127 @@
+{
+  "description": "Left-arm-only dry-run per user request. Right endpoint retained as inactive reference; no right-arm queries. No executor.",
+  "api": {
+    "contract": "astra.proposal_http.v1",
+    "endpoint": null,
+    "model": null,
+    "api_key_env": null,
+    "timeout_s": 45
+  },
+  "devices": {
+    "arms": {
+      "left": {
+        "host": "192.168.1.19",
+        "port": 8080,
+        "source": "/home/tongji/aloha/shadow_rm_aloha/config/rm_left_arm.yaml"
+      },
+      "right": {
+        "host": "192.168.1.18",
+        "port": 8080,
+        "source": "/home/tongji/aloha/shadow_rm_aloha/config/rm_right_arm.yaml"
+      }
+    },
+    "cameras": [
+      {
+        "serial": "344422071480",
+        "role": "cam_high",
+        "role_confirmed": false,
+        "width": 640,
+        "height": 480,
+        "fps": 30,
+        "source": "DP config.yaml mapping; serial verified by pyrealsense2 SDK enumeration; physical placement unconfirmed"
+      },
+      {
+        "serial": "254522073676",
+        "role": "cam_left",
+        "role_confirmed": false,
+        "width": 640,
+        "height": 480,
+        "fps": 30,
+        "source": "DP config.yaml mapping; serial verified by pyrealsense2 SDK enumeration; physical placement unconfirmed"
+      },
+      {
+        "serial": "346222072496",
+        "role": "cam_low",
+        "role_confirmed": false,
+        "width": 640,
+        "height": 480,
+        "fps": 30,
+        "source": "DP config.yaml mapping; serial verified by pyrealsense2 SDK enumeration; physical placement unconfirmed"
+      },
+      {
+        "serial": "348522072063",
+        "role": "cam_right",
+        "role_confirmed": false,
+        "width": 640,
+        "height": 480,
+        "fps": 30,
+        "source": "DP config.yaml mapping; serial verified by pyrealsense2 SDK enumeration; physical placement unconfirmed"
+      }
+    ],
+    "camera_python": "/home/tongji/miniconda3/envs/dp/bin/python"
+  },
+  "frames": {
+    "left_base": {
+      "status": "UNCONFIRMED",
+      "definition": "physical left controller base; identity and axes require verification"
+    },
+    "right_base": {
+      "status": "UNCONFIRMED",
+      "definition": "physical right controller base; identity and axes require verification"
+    },
+    "tcp": {
+      "status": "UNCONFIRMED",
+      "definition": "chosen grasp center/tool point; requires measured flange-to-TCP transform"
+    },
+    "camera_optical": {
+      "definition": "x right, y down, z forward; image pixel u right, v down",
+      "base_transform": null
+    },
+    "cross_arm_transform": null,
+    "world_transform": null,
+    "controller_reported": {
+      "status": "READ_ONLY_NAMES_AND_OFFSETS",
+      "definition": "Per-arm realman:<arm>:work:<reported name> and realman:<arm>:tool:<reported name>. Controller World names do not imply a shared lab world; Arm_Tip does not imply a grasp TCP."
+    }
+  },
+  "safety": {
+    "mode": "dry_run_only",
+    "fixture_only": false,
+    "allowed_arms": [
+      "left"
+    ],
+    "max_actions": 1,
+    "max_observation_age_s": 30,
+    "max_proposal_age_s": 30,
+    "max_proposal_ttl_s": 30,
+    "max_clock_skew_s": 1,
+    "max_translation_m": 0.01,
+    "max_rotation_deg": 5,
+    "max_speed_m_s": 0.01,
+    "max_gripper_change": 0.1,
+    "max_camera_skew_s": 1,
+    "arms": {
+      "left": {
+        "arm_identity_confirmed": false,
+        "base_frame_confirmed": false,
+        "tcp_confirmed": false,
+        "gripper_mapping_confirmed": false,
+        "camera_registration_confirmed": false,
+        "workspace_m": null,
+        "controller_frame_mapping_confirmed": false,
+        "controller_tool_geometry_confirmed": false
+      },
+      "right": {
+        "arm_identity_confirmed": false,
+        "base_frame_confirmed": false,
+        "tcp_confirmed": false,
+        "gripper_mapping_confirmed": false,
+        "camera_registration_confirmed": false,
+        "workspace_m": null,
+        "controller_frame_mapping_confirmed": false,
+        "controller_tool_geometry_confirmed": false
+      }
+    }
+  },
+  "fixture_arm": "left"
+}

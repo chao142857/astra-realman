@@ -1,0 +1,50 @@
+{
+  "schema_version": "supervised.relative_step_binding.v1",
+  "scope": "Only left 192.168.1.19, World +Z 0.01 m, fixed orientation, gripper hold, one attempt at v=1%. No automatic follow-up.",
+  "human_evidence": {
+    "arm": "19左，用19",
+    "supervision": "让codex操作，缓慢操作，我手一直放在断电按钮上",
+    "environment": "现在旁边都是空的啊",
+    "world_z": "worldz是竖直向上",
+    "clearance": "不会碰到",
+    "latest_distance_authorization": "现在可以执行单步1cm的移动验证了"
+  },
+  "binding": {
+    "kind": "operator_ui_work_mode_and_documented_relative_position_step",
+    "sdk_header": "/home/tongji/aloha/RealMan_Control/RM_API2-main/C/include/rm_interface.h:1404",
+    "function": "rm_set_pos_step",
+    "axis": 2,
+    "step_unit": "m",
+    "speed_unit": "percent 1..100",
+    "mode_getter": "rm_get_teach_frame must return [0,0] meaning work",
+    "active_work_required": "World (all six definition offsets zero)",
+    "active_tool_required": "Arm_Tip (all six definition offsets zero)",
+    "note": "Uses documented relative work-position step. Does not promote the unspecified generic get_current_arm_state pose contract to VERIFIED."
+  },
+  "screenshot": {
+    "source": "user attachment codex-clipboard-ac98b919-feef-484e-9e8c-5f336cd14105.jpg",
+    "work": "World",
+    "tool": "Arm_Tip",
+    "position_mode": "工作坐标系",
+    "xyz_m": [
+      -0.356175,
+      0.073486,
+      0.343498
+    ],
+    "rpy_rad": [
+      -3.043,
+      0.214,
+      0.076
+    ],
+    "interpretation": "UI observation agrees with SDK readback; World+Z and Tool+Z have different directions. UI49% unchanged."
+  },
+  "limitations": [
+    "No autonomous grasp execution",
+    "No calibrated whole-scene collision model",
+    "No global workspace declaration",
+    "Tool physical grasp geometry unconfirmed",
+    "Specific onsite operator clearance, not URDF, covers mounted tool/cables and environment",
+    "Offline self-collision checks cover only native robot algorithm model; motion is controller-planned",
+    "Native SDK self-collision returns are numerical diagnostics only: full 6FB geometry coverage under DH-only initialization is UNKNOWN. This supervised segment uses the onsite operator clearance; no general collision-free workspace is asserted."
+  ]
+}

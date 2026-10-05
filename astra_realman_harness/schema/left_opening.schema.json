@@ -1,0 +1,68 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "cartesian_delta"
+      ]
+    },
+    "arm": {
+      "type": "string",
+      "enum": [
+        "left"
+      ]
+    },
+    "frame": {
+      "type": "string",
+      "enum": [
+        "realman:left:work:World"
+      ]
+    },
+    "tool_frame": {
+      "type": "string",
+      "enum": [
+        "realman:left:tool:Arm_Tip"
+      ]
+    },
+    "translation_m": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3,
+      "description": "Componentwise delta in the current work frame, metres."
+    },
+    "rotation_rpy_rad": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3,
+      "description": "Componentwise increment to current RPY, radians; same existing executor semantics."
+    },
+    "gripper_opening": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Desired opening target: 0=fully closed, 1=fully open. Not force control."
+    },
+    "done": {
+      "type": "boolean",
+      "description": "Terminal completion. No actuator commands are sent when true; opening target is ignored and arm delta must be zero."
+    }
+  },
+  "required": [
+    "action_type",
+    "arm",
+    "frame",
+    "tool_frame",
+    "translation_m",
+    "rotation_rpy_rad",
+    "gripper_opening",
+    "done"
+  ]
+}
