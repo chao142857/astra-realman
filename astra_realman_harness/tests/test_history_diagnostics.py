@@ -181,7 +181,7 @@ class LoopTests(unittest.TestCase):
             stack.enter_context(patch.dict(sys.modules,{'camera_session':types.SimpleNamespace(CameraSession=Cameras),
                 'realman_api2_readonly':types.SimpleNamespace(SDKReadOnly=SDK),
                 'lab_gripper_adapter':types.SimpleNamespace(LabGripperAdapter=Grip)}))
-            for context in (patch.object(runner,'new_run',new),patch.object(runner.signal,'signal'),
+            for context in (patch('episode_archive.ARCHIVES',folder/'archives'),patch.object(runner,'new_run',new),patch.object(runner.signal,'signal'),
                 patch.object(sys,'argv',argv),patch.object(sys,'stdin',io.StringIO('')),
                 patch.object(Path,'read_text',read),patch('codex_astra_backend.urllib.request.urlopen',transport),redirect_stdout(io.StringIO())):
                 stack.enter_context(context)

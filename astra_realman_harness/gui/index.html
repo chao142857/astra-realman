@@ -31,6 +31,7 @@
 </div><div id="console-panel" class="console-panel" hidden><div class="console-note">原始输出持续保留在日志中。此处显示最近 600 行。</div><pre id="console-output" tabindex="0">等待进程输出…</pre></div>
 <div class="decision-bottom"><span id="log-path" title="尚未生成日志">LOG · 尚未生成日志</span><button class="text-button" id="export-report" disabled>导出报告 ↗</button></div>
 </aside></div>
+<div class="workflow panel" id="archive-bar"><span id="archive-status">每轮结束后自动保存全部输入照片、公开诊断与动作决策。</span><button id="download-episode" class="button secondary" disabled>下载整轮归档</button></div>
 <footer><span>REALMAN · LEFT ARM <i>·</i> WORLD / ARM_TIP <i>·</i> 速度 1%</span><span>诊断为模型公开摘要；未输出的内部推理不作补写。</span></footer>
 </main>
 <dialog id="replay-dialog" class="replay-dialog"><div class="dialog-heading"><div><div class="eyebrow">READ-ONLY EVIDENCE</div><h2>动作前 → 实际动作 → 动作后</h2></div><button class="icon-button" data-close="replay-dialog" aria-label="关闭回放">×</button></div><p id="replay-heading"></p><p id="replay-warning" class="muted"></p><div class="workflow"><label>左侧图像 <select id="replay-stage"><option value="before">执行前图</option><option value="decision">模型决策输入图（单独来源）</option></select></label><button id="export-evidence" class="button secondary">下载本步证据 ZIP</button></div><div id="replay-action" class="result-card"></div><div id="replay-pairs"></div><details><summary>提案、实发、回读与原始证据</summary><pre id="replay-facts"></pre></details>

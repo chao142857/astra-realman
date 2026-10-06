@@ -27,6 +27,7 @@ class EvidenceAndLaunch(unittest.TestCase):
         (ROOT/'logs').mkdir(exist_ok=True)
         self.tmp=tempfile.TemporaryDirectory(dir=ROOT/'logs',prefix='synthetic-gui-test-');self.addCleanup(self.tmp.cleanup)
         self.folder=Path(self.tmp.name)
+        archive_patch=patch('episode_archive.ARCHIVES',self.folder/'episodes');archive_patch.start();self.addCleanup(archive_patch.stop)
     def test_action_mm_degrees_opening_and_done(self):
         a=action();a.update(translation_m=[.012,-.003,0],rotation_rpy_rad=[0,0,3.141592653589793/2],gripper_opening=.42)
         result=action_summary(a)
@@ -113,7 +114,9 @@ class EvidenceAndLaunch(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'已有'):console.start({'task':'task'})
         with patch.object(console.demo_stop,'wait',return_value=False):console._demo_run()
         run=console.current_run;self.addCleanup(lambda:shutil.rmtree(run))
-        state=console.state();self.assertEqual(state['summary']['model_calls'],0)
+        state=console.state();self.assertEqual(state['auto_archive']['status'],'SAVED')
+        self.assertTrue((Path(state['auto_archive']['path'])/'index.html').is_file())
+        self.assertEqual(state['summary']['model_calls'],0)
         self.assertEqual(state['summary']['hardware_commands_sent'],0)
         self.assertEqual(state['independent_success'],'unknown')
         self.assertEqual(state['steps'][1]['actual_xyz_delta_mm'],[0,0,0])
@@ -166,6 +169,20 @@ class HTTPTests(unittest.TestCase):
         self.assertEqual(images,[{'synthetic':True}]);self.assertEqual(failures,[])
         self.assertEqual(len(fake.snapshot.call_args.kwargs['configs']),3)
         self.assertEqual(fake.snapshot.call_count,1)
+    def test_whole_episode_archive_download(self):
+        from episode_archive import archive_episode
+        from fixtures.synthetic_history import make_run
+        import uuid,zipfile
+        run=ROOT/'logs'/('archive-http-'+uuid.uuid4().hex)
+        make_run(run);self.addCleanup(shutil.rmtree,run)
+        write_json(run/'summary.json',{'status':'STOPPED'})
+        with tempfile.TemporaryDirectory(dir=ROOT/'logs') as folder,patch('episode_archive.ARCHIVES',Path(folder)):
+            receipt=archive_episode(run,'测试完整一轮')
+            self.assertEqual(self.console.state(run.name)['auto_archive']['status'],'SAVED')
+            with urllib.request.urlopen(self.base+'/api/episode-archive?run='+run.name) as response:
+                with zipfile.ZipFile(io.BytesIO(response.read())) as z:
+                    self.assertIn(Path(receipt['path']).name+'/index.html',z.namelist())
+                    self.assertIn(Path(receipt['path']).name+'/task.txt',z.namelist())
     def test_replay_http_markers_export_and_preparation(self):
         from fixtures.synthetic_history import make_run
         import uuid,zipfile,io

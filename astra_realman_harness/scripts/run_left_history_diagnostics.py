@@ -292,6 +292,8 @@ def main():
                        budget_overrun_s=max(0,time.monotonic()-deadline))
         write_json(run/'summary.json',summary)
         emit('SUMMARY',summary)
+        from episode_archive import finalize_archive
+        finalize_archive(run,task,emit)
     return 1 if summary['status']=='STOPPED' else 0
 
 if __name__ == '__main__':

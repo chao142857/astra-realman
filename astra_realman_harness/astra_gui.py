@@ -330,6 +330,7 @@ class Console:
                 'selected_synthetic':bool(run and (run/'SYNTHETIC.json').exists()),
                 'run_path':str(run) if run else None,'settings':self.settings,'summary':summary,'profile':profile,
                 'steps':steps,'latest':latest,'independent_success':stable,'labels':labels,
+                'auto_archive':load(run/'auto_archive.json') if run else {},
                 'return_code':self.return_code,'error':self.error,'budget_expired':bool((run and load(run/'gui_budget.json')) or (run==self.current_run and self.last_budget)),
                 'console':console_lines,'console_sequence':self.console_sequence,'runs':self.runs()}
     def annotate(self,body):
@@ -421,6 +422,8 @@ class Console:
                      'episode_total_s':time.monotonic()-start,'synthetic':True,'independent_success':'unknown',
                      'reason':'HUMAN_STOP' if status=='STOPPED' and self.demo_stop.is_set() else self.error}
             write_json(run/'summary.json',summary);self._line('SUMMARY → '+json.dumps(summary))
+            from episode_archive import finalize_archive
+            finalize_archive(run,settings['task'],lambda label,value:self._line(label+' → '+json.dumps(value,ensure_ascii=False)))
             self.active=False;self.return_code=0
     def close(self):
         self.closing=True;self.stop()
@@ -483,6 +486,17 @@ def make_server(console,port=8877):
                     output=(ROOT/'logs'/name).resolve()
                     if output.parent!=(ROOT/'logs').resolve():raise ValueError('PREPARED_PATH')
                     return self.send((output/'prepared-evidence.zip').read_bytes(),'application/zip')
+                if u.path=='/api/episode-archive':
+                    import zipfile
+                    from episode_archive import ARCHIVES
+                    run=console.resolve_run(q['run'][0]);receipt=load(run/'auto_archive.json')
+                    folder=Path(receipt.get('path','/')).resolve()
+                    if receipt.get('status')!='SAVED' or folder.parent!=ARCHIVES.resolve():raise ValueError('ARCHIVE_NOT_READY')
+                    output=io.BytesIO()
+                    with zipfile.ZipFile(output,'w',zipfile.ZIP_DEFLATED) as z:
+                        for p in sorted(folder.rglob('*')):
+                            if p.is_file() and not p.is_symlink() and p.resolve().is_relative_to(folder):z.write(p,folder.name+'/'+str(p.relative_to(folder)))
+                    return self.send(output.getvalue(),'application/zip')
                 if u.path=='/api/export':
                     run=console.resolve_run(q['run'][0]);from scripts.report_history_experiment import report
                     return self.send(report(run))

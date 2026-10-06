@@ -153,3 +153,7 @@ bash launch/diagnostic_controls.sh --run logs/实际回合 --step 3 \
 - 四附件已通过真实 backend 编码/上下文一致性 + mock HTTP payload + bridge CLI 四次 `--image` + portable ZIP 校验；未作在线模型调用。
 - **未核实**：实验室部署、真实三/四路 RealSense 吞吐与帧龄/跨度、GUI 预览开启时的 CPU/端到端推理延迟、SSH/bridge 在线状态、真实模型对 D1/3+1 的接受性、真实 SDK 回读与实物结果。
 - 没有推送、部署或真机动作。保留明日原实验路径；如现场新 GUI 有问题，结束 GUI 后回到原 CLI。停止为合作式停止，需等待在途 SDK 返回，不替代硬件急停。
+
+## 后续补充：整轮自动保存
+
+任务指令＋北京时间命名、整轮照片/公开诊断/动作自动归档已经实现，使用新 autosave 包。详见 [自动归档说明](AUTO_ARCHIVE_20261007.md)。
