@@ -34,6 +34,7 @@ class CodexAstraBackend:
             if images != context['images_in_attachment_order']:
                 raise BackendFailure('CODEX_ASTRA_IMAGES_CONTEXT_MISMATCH')
             if self.stop.is_set():raise BackendFailure('CODEX_ASTRA_CANCELLED')
+            preparation_started=time.monotonic()
             attachments=[]
             for item in images:
                 path=Path(item['image_path']).resolve()
@@ -48,10 +49,14 @@ class CodexAstraBackend:
             (self.run/'prompt.txt').write_text(prompt)
             payload={'request_id':request_id,'context':context,'images':attachments,
                      'schema':json.loads(self.schema.read_text())}
+            write_json(self.run/'attachments.json', images)
+            meta['request_preparation_s']=time.monotonic()-preparation_started
             box={}
             def invoke():
+                transport_started=time.monotonic()
                 try:box['response']=request('/decide',payload,self.config['timeout_s']+5)
                 except Exception as exc:box['error']=type(exc).__name__+':'+str(exc)
+                finally:meta['transport_including_remote_cli_s']=time.monotonic()-transport_started
             thread=threading.Thread(target=invoke,daemon=True);thread.start();notified=0
             while thread.is_alive():
                 elapsed=time.monotonic()-started
@@ -74,8 +79,11 @@ class CodexAstraBackend:
                 raise BackendFailure('CODEX_ASTRA_CALL_FAILED',{'detail':response.get('error')})
             # Only adapt the known startup notice's host path for the existing audit.
             events=[]
+            meta['token_usage']=None
             for line in response['events'].splitlines():
                 event=json.loads(line);item=event.get('item',{})
+                if event.get('type')=='turn.completed' and isinstance(event.get('usage'),dict):
+                    meta['token_usage']=event['usage']
                 old='in '+response.get('mac_home','')+'/.codex/config.toml.'
                 if item.get('type')=='error' and item.get('message','').startswith('Under-development features enabled: skip_host_skill_discovery. '):
                     item['message']=item['message'].replace(old,'in /home/tongji/.codex/config.toml.')

@@ -131,16 +131,16 @@ class DryRunExecutor:
         return {'status':'DRY_RUN_NOT_SENT','executed_action':{'arm':None,'gripper':None},
                 'sdk_result':{'called':False,'return_code':None},'hardware_commands_sent':0}
 
-def call_astra(context, run, config, model, stop, emit):
+def call_astra(context, run, config, model, stop, emit, *, schema_path=SCHEMA_PATH, decoder=parse):
     if config.get('backend') == 'CodexAstraBackend':
         from codex_astra_backend import CodexAstraBackend
-        backend=CodexAstraBackend(config,run,model,stop,emit,SCHEMA_PATH,parse)
+        backend=CodexAstraBackend(config,run,model,stop,emit,schema_path,decoder)
         backend.decide(context,context['images_in_attachment_order'])
         return backend.raw
     (run/'input_only').mkdir();(run/'runtime').mkdir()
     prompt=json.dumps(context,ensure_ascii=False,allow_nan=False)
     (run/'prompt.txt').write_text(prompt)
-    command=codex_command(config['executable'],model,context['images_in_attachment_order'],run,config['provider'],schema=SCHEMA_PATH)
+    command=codex_command(config['executable'],model,context['images_in_attachment_order'],run,config['provider'],schema=schema_path)
     write_json(run/'command.json',command)
     env={k:v for k,v in os.environ.items() if k in ('HOME','USER','LOGNAME','LANG','LC_ALL','SSL_CERT_FILE','SSL_CERT_DIR')}
     env.update(PATH='/usr/bin:/bin',TMPDIR=str(run/'runtime'))

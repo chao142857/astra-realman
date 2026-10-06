@@ -1,0 +1,846 @@
+............E.........................FE.............................................................EEEEEEEEEEE........EE.......EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.......................E.....................................................................
+======================================================================
+ERROR: test_original_pose_reader_reused_without_constructor (test_api2_readonly.ComparisonTests.test_original_pose_reader_reused_without_constructor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_api2_readonly.py", line 235, in test_original_pose_reader_reused_without_constructor
+    s=read_legacy("localhost",1)
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/legacy_state_compare.py", line 58, in read_legacy
+    cls, provenance = load_legacy_read_methods()
+                      ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/legacy_state_compare.py", line 17, in load_legacy_read_methods
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+======================================================================
+ERROR: test_exact_context_action_and_raw (test_codex_astra_backend.Tests.test_exact_context_action_and_raw)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/codex_astra_backend.py", line 33, in decide
+    token = (ROOT/'config/codex_astra_bridge.token').read_text().strip()
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/config/codex_astra_bridge.token'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_codex_astra_backend.py", line 39, in test_exact_context_action_and_raw
+    before=copy.deepcopy(self.context);self.assertEqual(self.call(),self.action)
+                                                        ~~~~~~~~~^^
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_codex_astra_backend.py", line 37, in call
+    return self.backend.decide(self.context,self.context['images_in_attachment_order'])
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/codex_astra_backend.py", line 96, in decide
+    raise BackendFailure('CODEX_ASTRA_BACKEND_ERROR',meta) from exc
+decision_backends.BackendFailure: CODEX_ASTRA_BACKEND_ERROR
+
+======================================================================
+ERROR: test_api_fault_not_rejection (test_exact_target_feasibility.Checks.test_api_fault_not_rejection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 12, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_changed_state_cannot_reuse_check (test_exact_target_feasibility.Checks.test_changed_state_cannot_reuse_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 12, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_changed_target_cannot_reuse_check (test_exact_target_feasibility.Checks.test_changed_target_cannot_reuse_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 12, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_exact_target_once (test_exact_target_feasibility.Checks.test_exact_target_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 12, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_invalid_solution_fault (test_exact_target_feasibility.Checks.test_invalid_solution_fault)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 12, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_no_motion_no_ik (test_exact_target_feasibility.Checks.test_no_motion_no_ik)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 12, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_reject_never_constructs_executor_or_moves_gripper (test_exact_target_feasibility.Checks.test_reject_never_constructs_executor_or_moves_gripper)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 12, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_four_reject_then_next_model_then_execute (test_exact_target_feasibility.LoopTests.test_four_reject_then_next_model_then_execute)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 109, in test_four_reject_then_next_model_then_execute
+    def test_four_reject_then_next_model_then_execute(self):self.run_loop('run_left_fourview.py')
+                                                            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 47, in run_loop
+    source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_hardware_failure_stops_not_reclassified (test_exact_target_feasibility.LoopTests.test_hardware_failure_stops_not_reclassified)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 111, in test_hardware_failure_stops_not_reclassified
+    def test_hardware_failure_stops_not_reclassified(self):self.run_loop('run_left_fourview.py',command_fault=True)
+                                                           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 47, in run_loop
+    source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_ik_api_fault_stops (test_exact_target_feasibility.LoopTests.test_ik_api_fault_stops)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 110, in test_ik_api_fault_stops
+    def test_ik_api_fault_stops(self):self.run_loop('run_left_terminal.py',ik_fault=True)
+                                      ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 47, in run_loop
+    source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_three_reject_then_next_model_then_execute (test_exact_target_feasibility.LoopTests.test_three_reject_then_next_model_then_execute)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 108, in test_three_reject_then_next_model_then_execute
+    def test_three_reject_then_next_model_then_execute(self):self.run_loop('run_left_terminal.py')
+                                                             ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_exact_target_feasibility.py", line 47, in run_loop
+    source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_harness (unittest.loader._FailedTest.test_harness)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_harness
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_harness.py", line 15, in <module>
+    from safety import assess
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/safety.py", line 5, in <module>
+    from transforms import rpy_to_quaternion, delta_preview
+ModuleNotFoundError: No module named 'transforms'
+
+
+======================================================================
+ERROR: test_actual_threeview_context (test_history5_context.HistoryTests.test_actual_threeview_context)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_history5_context.py", line 47, in test_actual_threeview_context
+    src=read_json(ROOT/"logs/left-fourview-20261005T115659Z-8c246671/step-01/input/observation.json")
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/left-fourview-20261005T115659Z-8c246671/step-01/input/observation.json'
+
+======================================================================
+ERROR: test_arm_failure_no_gripper_no_retry (test_left_executor.Tests.test_arm_failure_no_gripper_no_retry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_executor.py", line 29, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_done_no_commands (test_left_executor.Tests.test_done_no_commands)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_executor.py", line 29, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_error_blocks (test_left_executor.Tests.test_error_blocks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_executor.py", line 29, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_exact_two_channels (test_left_executor.Tests.test_exact_two_channels)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_executor.py", line 29, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_gripper_failure_no_retry (test_left_executor.Tests.test_gripper_failure_no_retry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_executor.py", line 29, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_numeric_zero_close (test_left_executor.Tests.test_numeric_zero_close)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_executor.py", line 29, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_right_session_rejected (test_left_executor.Tests.test_right_session_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_executor.py", line 29, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_satisfied_no_resend (test_left_executor.Tests.test_satisfied_no_resend)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_executor.py", line 29, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_stale_blocks (test_left_executor.Tests.test_stale_blocks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_executor.py", line 29, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_stop_before_dispatch (test_left_executor.Tests.test_stop_before_dispatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_executor.py", line 29, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_stop_between_channels (test_left_executor.Tests.test_stop_between_channels)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_executor.py", line 29, in setUp
+    src=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_four_cli_image_flags (test_left_fourview.FourViews.test_four_cli_image_flags)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_fourview.py", line 12, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_fourth_preview (test_left_fourview.FourViews.test_fourth_preview)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_fourview.py", line 12, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_live_config (test_left_fourview.FourViews.test_live_config)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_fourview.py", line 12, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_missing_image_reject (test_left_fourview.FourViews.test_missing_image_reject)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_fourview.py", line 12, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_model_four_left_only (test_left_fourview.FourViews.test_model_four_left_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_fourview.py", line 12, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_same_input_except_extra_image (test_left_fourview.FourViews.test_same_input_except_extra_image)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_fourview.py", line 12, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_shared_action_semantics (test_left_fourview.FourViews.test_shared_action_semantics)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_fourview.py", line 12, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_bad_vectors (test_left_terminal.LeftInterfaceTests.test_bad_vectors)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_baseline_state_valid_for_offline_replay (test_left_terminal.LeftInterfaceTests.test_baseline_state_valid_for_offline_replay)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_controller_error_rejected (test_left_terminal.LeftInterfaceTests.test_controller_error_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_done_has_no_actuation (test_left_terminal.LeftInterfaceTests.test_done_has_no_actuation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_done_with_arm_motion_rejected (test_left_terminal.LeftInterfaceTests.test_done_with_arm_motion_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_dry_executor_never_dispatches (test_left_terminal.LeftInterfaceTests.test_dry_executor_never_dispatches)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_duplicate_keys (test_left_terminal.LeftInterfaceTests.test_duplicate_keys)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_fractional_opening_preserved (test_left_terminal.LeftInterfaceTests.test_fractional_opening_preserved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_frame_change_rejected (test_left_terminal.LeftInterfaceTests.test_frame_change_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_hash_failure (test_left_terminal.LeftInterfaceTests.test_hash_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_invalid_opening_rejected (test_left_terminal.LeftInterfaceTests.test_invalid_opening_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_model_input_task_exact_left_three_only (test_left_terminal.LeftInterfaceTests.test_model_input_task_exact_left_three_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_no_clamp (test_left_terminal.LeftInterfaceTests.test_no_clamp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_no_motion_imports_or_dispatch (test_left_terminal.LeftInterfaceTests.test_no_motion_imports_or_dispatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_original_archive_unchanged (test_left_terminal.LeftInterfaceTests.test_original_archive_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_preview_readonly (test_left_terminal.LeftInterfaceTests.test_preview_readonly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_right_or_unknown_frame_rejected (test_left_terminal.LeftInterfaceTests.test_right_or_unknown_frame_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_satisfied_gripper_not_resent (test_left_terminal.LeftInterfaceTests.test_satisfied_gripper_not_resent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_stale_replay_not_valid_live (test_left_terminal.LeftInterfaceTests.test_stale_replay_not_valid_live)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_stop_terminates_owned_model_process (test_left_terminal.LeftInterfaceTests.test_stop_terminates_owned_model_process)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_unconfirmed_mapping_blocks_live (test_left_terminal.LeftInterfaceTests.test_unconfirmed_mapping_blocks_live)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_left_terminal.py", line 11, in setUp
+    self.source=read_json(ROOT/'logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json')
+                ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/io_utils.py", line 23, in read_json
+    if path.stat().st_size > 2 * 1024 * 1024:
+       ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/logs/auto-pick-20261002T134809Z-ed07af0a/step-01/observation.json'
+
+======================================================================
+ERROR: test_state_semantics (unittest.loader._FailedTest.test_state_semantics)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_state_semantics
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_state_semantics.py", line 17, in <module>
+    from safety import assess
+  File "/private/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/safety.py", line 5, in <module>
+    from transforms import rpy_to_quaternion, delta_preview
+ModuleNotFoundError: No module named 'transforms'
+
+
+======================================================================
+FAIL: test_backend_failure_not_ik (test_codex_astra_backend.Tests.test_backend_failure_not_ik)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/astra-prep-baseline-22bfb2e/astra_realman_harness/tests/test_codex_astra_backend.py", line 45, in test_backend_failure_not_ik
+    self.assertEqual(got.exception.code,'CODEX_ASTRA_CALL_FAILED')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'CODEX_ASTRA_BACKEND_ERROR' != 'CODEX_ASTRA_CALL_FAILED'
+- CODEX_ASTRA_BACKEND_ERROR
++ CODEX_ASTRA_CALL_FAILED
+
+
+----------------------------------------------------------------------
+Ran 261 tests in 0.239s
+
+FAILED (failures=1, errors=55)

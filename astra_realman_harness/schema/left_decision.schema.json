@@ -1,0 +1,114 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scene_assessment": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600,
+          "description": "Current task stage, visible ball/gripper and basket interior relation; cite current camera roles. Holding may be unknown. Use one or two short sentences; unknown is allowed."
+        },
+        "previous_result_assessment": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600,
+          "description": "Compare proposal with actual commands, SDK and measured motion. Object change and failure time are unknown without paired images or reliable historical object evidence. Use one or two short sentences; unknown is allowed."
+        },
+        "next_action_intent": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600,
+          "description": "Intended relationship change and a brief evidence-based reason. Use one or two short sentences; unknown is allowed."
+        },
+        "expected_visible_change": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600,
+          "description": "Observable change to check at the next observation; a prediction, not a fact. Use one or two short sentences; unknown is allowed."
+        }
+      },
+      "required": [
+        "scene_assessment",
+        "previous_result_assessment",
+        "next_action_intent",
+        "expected_visible_change"
+      ]
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "action_type": {
+          "type": "string",
+          "enum": [
+            "cartesian_delta"
+          ]
+        },
+        "arm": {
+          "type": "string",
+          "enum": [
+            "left"
+          ]
+        },
+        "frame": {
+          "type": "string",
+          "enum": [
+            "realman:left:work:World"
+          ]
+        },
+        "tool_frame": {
+          "type": "string",
+          "enum": [
+            "realman:left:tool:Arm_Tip"
+          ]
+        },
+        "translation_m": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "description": "Componentwise delta in the current work frame, metres."
+        },
+        "rotation_rpy_rad": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "description": "Componentwise increment to current RPY, radians; same existing executor semantics."
+        },
+        "gripper_opening": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Desired opening target: 0=fully closed, 1=fully open. Not force control."
+        },
+        "done": {
+          "type": "boolean",
+          "description": "Terminal completion. No actuator commands are sent when true; opening target is ignored and arm delta must be zero."
+        }
+      },
+      "required": [
+        "action_type",
+        "arm",
+        "frame",
+        "tool_frame",
+        "translation_m",
+        "rotation_rpy_rad",
+        "gripper_opening",
+        "done"
+      ]
+    }
+  },
+  "required": [
+    "diagnostics",
+    "action"
+  ]
+}

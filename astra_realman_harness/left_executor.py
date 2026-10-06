@@ -1,15 +1,19 @@
 """Explicitly enabled left executor. Same verified calls; no retries or planning."""
 import json, os, time
+from contextlib import nullcontext
 from io_utils import write_json
 from left_terminal import parse, command_plan, validate_state
 
 class RealLeftExecutor:
-    def __init__(self, session, capture, stop, step, gripper_factory=None):
+    def __init__(self, session, capture, stop, step, gripper_factory=None, timings=None):
         self.session,self.capture,self.stop,self.step=session,capture,stop,step
         self.gripper_factory=gripper_factory
+        self.timings=timings
         self.used=False
         self.result={'status':'NOT_SENT','executed_action':{'arm':None,'gripper':None},
                      'sdk_result':{'called':False,'arm':None,'gripper':None},'hardware_commands_sent':0}
+    def measure(self, stage):
+        return self.timings.measure(stage, "executor") if self.timings else nullcontext()
     def guard(self,obs):
         if self.stop.is_set():raise RuntimeError('HUMAN_STOP')
         if set(self.session.connected)!={'left'}:raise RuntimeError('LEFT_SESSION_ONLY')
@@ -37,7 +41,8 @@ class RealLeftExecutor:
                 self.result['executed_action']['arm']=command
                 self.result['sdk_result']['called']=True
                 self.result['hardware_commands_sent']+=1
-                ret=self.session.connected['left'].rm_movej_p(command['pose'],1,0,0,1)
+                with self.measure('arm_command'):
+                    ret=self.session.connected['left'].rm_movej_p(command['pose'],1,0,0,1)
                 self.result['sdk_result']['arm']=ret
                 write_json(self.step/'arm-command-result.json',{'request':command,'return':ret})
                 if type(ret) is not int or ret!=0:raise RuntimeError('ARM_COMMAND_RETURN:'+str(ret))
@@ -57,7 +62,8 @@ class RealLeftExecutor:
                         self.result['executed_action']['gripper']=plan['gripper']
                         self.result['sdk_result']['called']=True
                         self.result['hardware_commands_sent']+=1
-                        response=adapter.set_gripper('left',action['gripper_opening'])
+                        with self.measure('gripper_communication'):
+                            response=adapter.set_gripper('left',action['gripper_opening'])
                         self.result['sdk_result']['gripper']=response
                         if response.get('command_return')!={'command':'hand_follow_pos','set_state':True}:
                             raise RuntimeError('GRIPPER_COMMAND_RETURN')
@@ -65,7 +71,8 @@ class RealLeftExecutor:
                         if adapter.last_result is not None:self.result['sdk_result']['gripper']=adapter.last_result
                         adapter.close()
                     # Existing settling interval, interruptible; no position/force servo or retry.
-                    if self.stop.wait(2):raise RuntimeError('HUMAN_STOP')
+                    with self.measure('gripper_settle'):
+                        if self.stop.wait(2):raise RuntimeError('HUMAN_STOP')
             self.result['status']='EXECUTED' if self.result['hardware_commands_sent'] else 'NOOP'
             return self.result
         except Exception as exc:
