@@ -17,6 +17,7 @@ def optional(path):
 def report(run):
     summary = optional(run/'summary.json')
     profile = optional(run/'history_profile.json')
+    profile.update(optional(run/'gui_launch.json').get('settings',{}))
     rows = []
     for step in sorted(run.glob('step-*')):
         timing = optional(step/'timing.json')
@@ -68,7 +69,7 @@ def report(run):
         if raw.exists() and profile.get('profile') in PROFILES:
             try:decode(raw.read_text(),profile['profile'])
             except (ValueError,TypeError):invalid_outputs += 1
-    return {'run':str(run),'profile':profile,'summary':summary,'steps':rows,'timing_totals_and_medians':metrics,
+    return {'run':str(run),'synthetic':bool(profile.get('synthetic') or (run/'SYNTHETIC.json').exists()),'profile':profile,'summary':summary,'steps':rows,'timing_totals_and_medians':metrics,
             'independent_labels':labels,'independent_success':success,
             'ik_rejections':sum(r['ik_status']=='REJECTED_IK' for r in rows),
             'noop_actions':sum(r['execution_status']=='NOOP' for r in rows),
@@ -95,7 +96,7 @@ def main():
     for result in results:
         phase = result['profile'].get('phase','unknown')
         profile = result['profile'].get('profile','unknown')
-        key = phase+'/'+profile
+        key = ('synthetic/' if result['synthetic'] else 'real/')+phase+'/'+profile
         count = counts.setdefault(key,{'episodes':0,'independently_observed_successes':0,'unknown_outcomes':0,'model_done':0})
         count['episodes'] += 1
         count['independently_observed_successes'] += result['independent_success'] is True

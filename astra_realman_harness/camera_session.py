@@ -138,8 +138,13 @@ class CameraSession:
             if started:
                 pipeline.stop()  # Release only the stream owned by this session.
 
-    def snapshot(self, run):
+    def snapshot(self, run, configs=None):
         from observation import png_rgb
+        configs = self.configs if configs is None else list(configs)
+        known = {c["serial"]: c for c in self.configs}
+        if any(c != known.get(c["serial"]) for c in configs):
+            raise ValueError("UNKNOWN_CAMERA_CONFIGURATION")
+        requested = {c["serial"] for c in configs}
         deadline = time.monotonic() + self.snapshot_timeout
         with self.condition:
             while True:
@@ -147,14 +152,14 @@ class CameraSession:
                             (self.latest.get(c["serial"], {}).get("sequence", 0) >
                              self.last_sequence.get(c["serial"], 0) and
                              time.monotonic()-self.latest[c["serial"]]["host_received_monotonic"] < .5)
-                            for c in self.configs)
+                            for c in configs)
                 if ready or time.monotonic() >= deadline:
                     break
                 self.condition.wait(.02)
-            selected = [dict(self.latest[c["serial"]]) for c in self.configs
+            selected = [dict(self.latest[c["serial"]]) for c in configs
                         if c["serial"] in self.latest and c["serial"] not in self.errors]
-            failures = [{"device": s, "message": e} for s, e in self.errors.items()]
-            for c in self.configs:
+            failures = [{"device": s, "message": e} for s, e in self.errors.items() if s in requested]
+            for c in configs:
                 s = c["serial"]
                 item = self.latest.get(s)
                 if s not in self.errors and (not item or
@@ -183,7 +188,7 @@ class CameraSession:
             "hardware_synchronized": False, "camera_session_id": self.session_id,
             "observation_index": self.snapshot_count,
             "pipeline_start_count": dict(self.starts),
-            "expected_serials": [c["serial"] for c in self.configs],
+            "expected_serials": [c["serial"] for c in configs],
             "device_enumeration": copy.deepcopy(self.enumeration),
             "frame_warmup": dict(self.frame_warmup),
             "startup_wait_budget_s": 2 * self.startup_timeout,
