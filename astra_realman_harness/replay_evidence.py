@@ -3,6 +3,7 @@ import copy
 import hashlib
 import io
 import json
+import math
 import re
 import struct
 import time
@@ -20,23 +21,25 @@ def optional(path):
 
 def image_record(camera, observation_id=None):
     result={k:camera.get(k) for k in ('serial','role','captured_at','sha256','image_path')}
-    result.update(observation_id=observation_id,available=False,errors=[])
+    result.update(observation_id=observation_id,available=False,errors=[],expected_hash=camera.get('sha256'),actual_hash=None,integrity_status='invalid')
     try:
         path=Path(camera['image_path']).resolve()
         if not path.is_relative_to((ROOT/'logs').resolve()) or not 0<path.stat().st_size<=8*1024*1024:
             raise ValueError('IMAGE_PATH_OR_SIZE')
         data=path.read_bytes()
-        if hashlib.sha256(data).hexdigest()!=camera.get('sha256'):raise ValueError('IMAGE_HASH')
+        result['actual_hash']=hashlib.sha256(data).hexdigest()
+        if result['actual_hash']!=camera.get('sha256'):result['errors'].append('IMAGE_HASH')
         if len(data)<24 or data[:8]!=b'\x89PNG\r\n\x1a\n':raise ValueError('PNG_HEADER')
         w,h=struct.unpack('>II',data[16:24])
         if not w or not h:raise ValueError('IMAGE_DIMENSIONS')
         result.update(width=w,height=h)
         shape=camera.get('shape')
-        if shape and shape[:2]!=[h,w]:raise ValueError('IMAGE_SHAPE_MISMATCH')
-        if camera.get('width') and (camera['width'],camera.get('height'))!=(w,h):
+        if shape is not None and (not isinstance(shape,list) or shape[:2]!=[h,w]):raise ValueError('IMAGE_SHAPE_MISMATCH')
+        if ('width' in camera or 'height' in camera) and (camera.get('width'),camera.get('height'))!=(w,h):
             raise ValueError('CONFIG_DIMENSIONS_DIFFER_FROM_PNG')
-        if not isinstance(camera.get('captured_at'),(float,int)):raise ValueError('IMAGE_TIMESTAMP_MISSING')
-        result['available']=True
+        if type(camera.get('captured_at')) not in (float,int) or not math.isfinite(camera['captured_at']):raise ValueError('IMAGE_TIMESTAMP_MISSING')
+        result['available']=not result['errors']
+        result['integrity_status']='valid' if result['available'] else 'invalid'
     except (KeyError,ValueError,OSError,TypeError) as exc:result['errors'].append(str(exc))
     return result
 
@@ -66,7 +69,9 @@ def replay(run,name):
             item=image_record(c,obs.get('observation_id'));key=(item['serial'],item['role'])
             if key in seen:item['errors'].append('DUPLICATE_CAMERA_IDENTITY');item['available']=False
             seen.add(key);groups[stage].append(item)
-        if obs and not obs.get('observation_id'):warnings.append(stage+': OBSERVATION_ID_MISSING')
+        if obs and not obs.get('observation_id'):
+            warnings.append(stage+': OBSERVATION_ID_MISSING')
+            for item in groups[stage]:item['available']=False;item['errors'].append('OBSERVATION_ID_MISSING')
     if transition:
         for stage in ('decision','after'):
             obs={'decision':decision,'after':after}[stage]
@@ -86,15 +91,60 @@ def replay(run,name):
             warnings.append('TRANSITION_EPISODE_OR_STEP_MISMATCH')
             for items in groups.values():
                 for item in items:item['available']=False;item['errors'].append('TRANSITION_EPISODE_OR_STEP_MISMATCH')
+    for items in groups.values():
+        for item in items:item['integrity_status']='valid' if item['available'] else 'invalid'
     identities=list(dict.fromkeys((c['serial'],c['role']) for items in groups.values() for c in items))
     pairs=[{'serial':serial,'role':role,**{stage:next((c for c in items if (c['serial'],c['role'])==(serial,role)),None) for stage,items in groups.items()}} for serial,role in identities]
     execution=optional(step/'execution_result.json');check=optional(step/'feasibility.json')
     factual={'transition':transition,'execution':execution,'feasibility':check,
              'proposal':optional(step/'parsed_action.json'),'diagnostics_hypotheses':optional(step/'diagnostics.json')}
     events=[read_json(p) for p in sorted(run.glob('review-marker-*.json')) if read_json(p).get('step')==name]
-    return {'run':run.name,'step':name,'pairs':pairs,'warnings':warnings,'facts':factual,'markers':events,
+    result={'run':run.name,'step':name,'pairs':pairs,'warnings':warnings,'facts':factual,'markers':events,
             'synthetic':(run/'SYNTHETIC.json').exists(),'readonly':True,
             'note':'图像变化是观察；模型诊断是待验证判断。画面右侧不代表 work +X，未推断因果。'}
+
+    request=_request_image_evidence(run,name,result)
+    if request['source']=='recorded_request_attachments':
+        for pair in pairs:
+            item=pair['decision']
+            if item is None:continue
+            matches=[c for c in request['images'] if (c['serial'],c['role'])==(item['serial'],item['role'])]
+            if len(matches)!=1:item['errors'].append('REQUEST_IMAGE_REFERENCE_MISSING_OR_AMBIGUOUS')
+            else:item['errors']=list(dict.fromkeys(item['errors']+matches[0]['errors']))
+            item['available']=not item['errors'];item['integrity_status']='valid' if item['available'] else 'invalid'
+    return result
+
+
+def request_image_evidence(run,name):
+    return _request_image_evidence(run,name,replay(run,name))
+
+
+def _request_image_evidence(run,name,view):
+    step=step_folder(run,name)
+    obs=optional(step/'input_observation.json') or optional(step/'input/observation.json')
+    decision=[p['decision'] for p in view['pairs'] if p['decision']]
+    path=step/'decision/attachments.json'
+    attachments=read_json(path) if path.is_file() else optional(step/'model_input.json').get('images_in_attachment_order')
+    source='recorded_request_attachments' if attachments is not None else 'observation_only_request_unconfirmed'
+    if attachments is None:attachments=obs.get('cameras',[])
+    if not isinstance(attachments,list):raise ValueError('ATTACHMENTS_LIST_REQUIRED')
+    result=[]
+    for attachment in attachments:
+        matches=[c for c in obs.get('cameras',[]) if (c.get('serial'),c.get('role'))==(attachment.get('serial'),attachment.get('role'))]
+        reference=matches[0] if len(matches)==1 else {}
+        item=image_record(dict(reference,**attachment),obs.get('observation_id'))
+        qualified=[c for c in decision if (c['serial'],c['role'])==(attachment.get('serial'),attachment.get('role'))]
+        if len(matches)!=1 or len(qualified)!=1:
+            item['errors'].append('REQUEST_IMAGE_REFERENCE_MISSING_OR_AMBIGUOUS')
+        else:
+            for key in ('image_path','captured_at','sha256','observation_id'):
+                expected=obs.get('observation_id') if key=='observation_id' else reference.get(key)
+                if key in attachment and attachment[key]!=expected:item['errors'].append('REQUEST_IMAGE_REFERENCE_MISMATCH:'+key)
+            item['errors'].extend(qualified[0]['errors'])
+        item['errors']=list(dict.fromkeys(item['errors']))
+        item['available']=not item['errors'];item['integrity_status']='valid' if item['available'] else 'invalid'
+        result.append(item)
+    return {'source':source,'images':result}
 
 
 def mark(run,body):
@@ -103,7 +153,7 @@ def mark(run,body):
     if not all(isinstance(body.get(k),str) and 0<len(body[k].strip())<=2000 for k in ('observer','evidence')):
         raise ValueError('MARKER_OBSERVER_AND_EVIDENCE_REQUIRED')
     value={k:body[k] for k in ('step','kind','observer','evidence')}
-    value.update(recorded_at=time.time(),post_hoc=True,model_input=False,run=run.name)
+    value.update(recorded_at=time.time(),post_hoc=True,model_input=False,run=run.name,episode_id=optional(run/'summary.json').get('episode_id',run.name))
     write_json(run/('review-marker-'+uuid.uuid4().hex+'.json'),value)
     return value
 
@@ -126,7 +176,9 @@ def evidence_zip(run,name=None):
         value=re.sub(r'(?i)(bearer\s+)[A-Za-z0-9_.-]+',r'\1[REDACTED]',value)
         return value
     def scrub(value,key=''):
-        if any(word in key.lower() for word in ('token','authorization','api_key','credential','secret')):return '[REDACTED]'
+        from evidence_redaction import sensitive_key,statistic,STATS,STAT_OBJECTS
+        if sensitive_key(key):return '[REDACTED]'
+        if key in STATS|STAT_OBJECTS:return statistic(key,value)
         if isinstance(value,dict):return {k:scrub(v,k) for k,v in value.items()}
         if isinstance(value,list):return [scrub(v,key) for v in value]
         if not isinstance(value,str):return value
@@ -141,15 +193,15 @@ def evidence_zip(run,name=None):
             if p.is_relative_to(run):return str(p.relative_to(run))
             return '[EXTERNAL_LOCAL_PATH]/'+p.name
         return value.replace(str(ROOT),'[HARNESS_ROOT]')
-    allowed=['summary.json','history_profile.json','gui_launch.json','launch_manifest.json','independent_observation.json','SYNTHETIC.json']
+    allowed=['summary.json','history_profile.json','gui_launch.json','launch_manifest.json','independent_observation.json','SYNTHETIC.json','source_manifest.json','config.json','action_schema.json','camera_streams.json','failure.json']
     sources=[(run/n,n) for n in allowed]+[(p,p.name) for p in run.glob('review-marker-*.json')]
-    stepnames=['input_observation.json','input/observation.json','pre-execution/observation.json','after/observation.json','next_observation.json','transition.json','model_input.json','parsed_action.json','planned_commands.json','executed_action.json','execution_result.json','feasibility.json','diagnostics.json','timing.json','decision/attachments.json','decision/backend_result.json','decision/prompt.txt','decision/astra_raw.txt','raw_proposal.txt']
+    stepnames=['input_observation.json','input/observation.json','pre-execution/observation.json','after/observation.json','next_observation.json','transition.json','model_input.json','parsed_action.json','planned_commands.json','executed_action.json','execution_result.json','feasibility.json','diagnostics.json','timing.json','decision/attachments.json','decision/backend_result.json','decision/prompt.txt','decision/astra_raw.txt','raw_proposal.txt','safety.json','input_validation.json','after_validation.json','after_state.json','sdk_result.json','pose-telemetry.json','failure.json']
     if name:sources += [(step/n,name+'/'+n) for n in stepnames]
     else:
         allowed_names={'controls_manifest.json','human_verification.json','replay_manifest.json','final_transitions.json','model_input.json','attachments.json','backend_result.json','prompt.txt','astra_raw.txt','raw_proposal.txt','parsed_action.json','diagnostics.json'}
         sources=[(p,str(p.relative_to(run))) for p in run.rglob('*') if p.is_file() and p.name in allowed_names and p.resolve().is_relative_to(run)]
     for path,dest in sources:
-        if not path.is_file():continue
+        if not path.is_file() or path.is_symlink() or not path.resolve().is_relative_to(run):continue
         if path.suffix=='.json':value=scrub(read_json(path));raw=json.dumps(value,ensure_ascii=False,indent=2).encode()
         elif path.name=='prompt.txt':
             try:raw=json.dumps(scrub(json.loads(path.read_text())),ensure_ascii=False,indent=2).encode()

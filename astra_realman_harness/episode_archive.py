@@ -51,7 +51,8 @@ def archive_episode(run,task):
         try:
             result=_build_archive(run,task,staging,stamp)
             staging.rename(destination)
-            result.update(status='SAVED',path=str(destination),index=str(destination/'index.html'))
+            result.update(status='SAVED',path=str(destination),index=str(destination/'index.html'),
+                          capture_manifest_sha256=hashlib.sha256((destination/'manifest.json').read_bytes()).hexdigest())
             atomic_json(receipt,result)
             return result
         except BaseException:
@@ -90,7 +91,9 @@ def _build_archive(run,task,output,stamp):
         images[str(path)]=relative
         return relative
     def portable(value,key=''):
-        if key.lower() in {'token','authorization','api_key','secret','credential','password'}:return '[REDACTED]'
+        from evidence_redaction import sensitive_key,statistic,STATS,STAT_OBJECTS
+        if sensitive_key(key):return '[REDACTED]'
+        if key in STATS|STAT_OBJECTS:return statistic(key,value)
         if isinstance(value,dict):
             result={k:portable(v,k) for k,v in value.items() if k!='image_path'}
             if 'image_path' in value:result['image_path']=picture(value['image_path'],value.get('sha256')) or 'MISSING_IMAGE'
@@ -134,24 +137,28 @@ def _build_archive(run,task,output,stamp):
     for folder in sorted(run.glob('step-*')):
         if not folder.is_dir():continue
         name=folder.name;prefix=name+'/'
-        attachments=documents.get(prefix+'decision/attachments.json')
-        source='已记录的模型请求附件'
-        if attachments is None:
-            attachments=documents.get(prefix+'model_input.json',{}).get('images_in_attachment_order')
-        if attachments is None:
-            obs=documents.get(prefix+'input_observation.json') or documents.get(prefix+'input/observation.json',{})
-            attachments=obs.get('cameras',[]);source='采集记录；未确认已发送模型请求'
+        from replay_evidence import request_image_evidence
+        request=request_image_evidence(run,name)
+        source=request['source']
+        attachments=[]
+        for item in request['images']:
+            item=dict(item)
+            item['image_path']=picture(item['image_path'],item['expected_hash']) if item.get('image_path') else None
+            attachments.append(item)
+            if not item['available']:warnings.append('INVALID_MODEL_INPUT: '+name+': '+str(item.get('serial'))+': '+','.join(item['errors']))
         diagnostics=documents.get(prefix+'diagnostics.json')
         action=documents.get(prefix+'parsed_action.json')
         execution=documents.get(prefix+'execution_result.json')
         transition=documents.get(prefix+'transition.json')
-        row={'step':name,'image_evidence':source,'input_images':attachments or [],'diagnostics':diagnostics,
+        row={'step':name,'image_evidence':source,'input_images':[c for c in attachments if c['available']],
+             'invalid_input_images':[c for c in attachments if not c['available']],
+             'input_image_evidence':attachments,'diagnostics':diagnostics,
              'proposed_action':action,'execution':execution,'transition':transition}
         steps.append(row)
         figures=[]
         for i,c in enumerate(attachments or [],1):
             path=c.get('image_path');label=f"{i:02d} · {c.get('role','unknown')} · {c.get('serial','unknown')}"
-            image=f'<a href="{esc(path)}"><img src="{esc(path)}" alt="{esc(label)}"></a>' if path in copied else '<p>图片缺失，见 manifest</p>'
+            image=f'<a href="{esc(path)}"><img src="{esc(path)}" alt="{esc(label)}"></a>' if c['available'] and path in copied else '<p><strong>INVALID · 不可作为有效模型输入图</strong><br>'+esc(', '.join(c['errors']))+'</p>'+ (f'<a href="{esc(path)}">损坏 / 引用无效的调查文件</a>' if path in copied else '<p>图片缺失</p>')
             figures.append('<figure>'+image+'<figcaption>'+esc(label)+'</figcaption></figure>')
         def show(value,empty):return esc(json.dumps(value,ensure_ascii=False,indent=2)) if value is not None else empty
         raw_paths=[prefix+'raw_proposal.txt',prefix+'decision/astra_raw.txt']
@@ -164,14 +171,17 @@ def _build_archive(run,task,output,stamp):
     fixture=any(isinstance(v,dict) and v.get('backend')=='OFFLINE_FIXTURE_NOT_ASTRA' for k,v in documents.items() if k.endswith('backend_result.json'))
     details={'offline_fixture':fixture,'task':task,'source_run':str(run),'archived_at':stamp.isoformat(),'timezone':'Asia/Shanghai',
              'summary':summary,'synthetic':(run/'SYNTHETIC.json').is_file(),'steps':steps,
-             'notes':'End-of-episode snapshot. Public model output only; no fabricated internal reasoning. Human labels added later stay in original run.'}
+             'notes':'End-of-episode snapshot. Public model output only; no fabricated internal reasoning. Post-hoc labels are available only in the separate reviewed export.'}
     save('episode.json',json.dumps(details,ensure_ascii=False,indent=2).encode())
     page='''<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>整轮实验归档</title><style>body{font:15px system-ui;background:#121b20;color:#e1e9e6;max-width:1200px;margin:40px auto;padding:0 24px}h1{white-space:pre-wrap;overflow-wrap:anywhere}section{background:#1d292f;padding:24px;margin:24px 0;border-radius:16px}.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}figure{margin:0}img{width:100%;max-height:320px;object-fit:contain}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}a{color:#b6ddc8}figcaption{color:#a5b7bf;margin-top:8px}</style>'''
     page+='<h1>'+esc(task)+'</h1><p>'+esc(stamp.strftime('%Y-%m-%d %H:%M:%S')+' Asia/Shanghai')+'</p><p>'+('SYNTHETIC · 合成数据，非真实实验' if details['synthetic'] else 'OFFLINE FIXTURE · 固定测试响应，非真实模型推理' if fixture else '实验结束时自动保存')+'</p><p>回合状态：'+esc(summary.get('status','unknown'))+'；模型 done / SDK 成功不自动代表物体任务成功。</p><p><a href="task.txt">原始任务</a> · <a href="episode.json">整轮结构化记录</a> · <a href="manifest.json">文件校验清单</a></p>'+''.join(sections)
     if warnings:page+='<h2>归档缺项 / 校验提示</h2><pre>'+esc('\n'.join(warnings))+'</pre>'
     save('index.html',page.encode())
     result={'task':task,'archived_at':stamp.isoformat(),'timezone':'Asia/Shanghai','steps':len(steps),'image_count':len(set(images.values())),
-            'warnings':warnings,'source_run':str(run),'synthetic':details['synthetic'],'offline_fixture':fixture}
+            'warnings':warnings,'source_run':str(run),'synthetic':details['synthetic'],'offline_fixture':fixture,
+            'valid_input_image_count':sum(len(s['input_images']) for s in steps),
+            'invalid_input_image_count':sum(len(s['invalid_input_images']) for s in steps),
+            'evidence_status':'INVALID_INPUTS' if any(s['invalid_input_images'] for s in steps) else 'VALID_RECORDED_INPUTS' if any(s['input_images'] for s in steps) else 'NO_INPUT_IMAGES'}
     save('manifest.json',json.dumps(dict(result,files=dict(copied),path_base='archive root'),ensure_ascii=False,indent=2).encode())
     return result
 

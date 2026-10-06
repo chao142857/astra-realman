@@ -183,6 +183,28 @@ class HTTPTests(unittest.TestCase):
                 with zipfile.ZipFile(io.BytesIO(response.read())) as z:
                     self.assertIn(Path(receipt['path']).name+'/index.html',z.namelist())
                     self.assertIn(Path(receipt['path']).name+'/task.txt',z.namelist())
+    def test_reviewed_download_after_annotation_preserves_capture(self):
+        from episode_archive import archive_episode
+        from fixtures.synthetic_history import make_run
+        import uuid,zipfile,hashlib
+        run=ROOT/'logs'/('review-http-'+uuid.uuid4().hex)
+        make_run(run);self.addCleanup(shutil.rmtree,run)
+        write_json(run/'summary.json',{'episode_id':run.name,'status':'STOPPED'})
+        with tempfile.TemporaryDirectory(dir=ROOT/'logs') as folder,patch('episode_archive.ARCHIVES',Path(folder)):
+            receipt=archive_episode(run,'round trip')
+            manifest=Path(receipt['path'])/'manifest.json';before=manifest.read_bytes()
+            with self.post('/api/annotate',{'run':run.name,'result':'fail','observer':'human','evidence':'synthetic round trip','reason':'test failure'}) as response:json.load(response)
+            with self.post('/api/marker',{'run':run.name,'step':'step-02','kind':'first_clear_deviation','observer':'human','evidence':'synthetic frame'}) as response:json.load(response)
+            with urllib.request.urlopen(self.base+'/api/reviewed-episode-archive?run='+run.name) as response:
+                with zipfile.ZipFile(io.BytesIO(response.read())) as z:
+                    self.assertIs(json.loads(z.read('review/independent_observation.json'))['actual_stable_in_basket'],False)
+                    self.assertTrue(any(n.startswith('review/review-marker-') for n in z.namelist()))
+                    self.assertEqual(z.read('capture/manifest.json'),before)
+                    metadata=json.loads(z.read('review_manifest.json'))
+                    self.assertEqual(metadata['capture_manifest_sha256'],hashlib.sha256(before).hexdigest())
+                    self.assertTrue(all(v['review_valid'] for v in metadata['annotations'].values()))
+            self.assertEqual(manifest.read_bytes(),before)
+
     def test_replay_http_markers_export_and_preparation(self):
         from fixtures.synthetic_history import make_run
         import uuid,zipfile,io

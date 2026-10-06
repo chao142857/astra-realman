@@ -79,10 +79,25 @@ def step_evidence(step):
             'gripper_before':transition.get('gripper_before'),'gripper_after':transition.get('gripper_after'),
             'sdk_result':transition.get('sdk_result',execution.get('sdk_result')),
             'feasibility':feasibility,'timing':load(step/'timing.json'),'backend':backend,
-            'decision_cameras':observation.get('cameras',[]),
+            'decision_cameras':observation.get('cameras',[]),'camera_streams':observation.get('camera_capture',{}),
+            'model_output_valid':bool(action),'failure':load(step/'failure.json'),
             'observation_id':observation.get('observation_id',transition.get('decision_observation_id')),
             'stage':('实测结果' if transition.get('actual_after_pose') else 'IK / 下发' if feasibility else '模型提案' if action else '模型处理中' if backend else '已观测' if observation else '等待观测'),
             'actual_after_pose':transition.get('actual_after_pose')}
+
+
+def terminal_step(row,summary):
+    """Episode termination takes precedence over a successfully parsed model proposal."""
+    if summary.get('status') not in ('STOPPED','WALL_BUDGET_EXHAUSTED'):return row
+    row=dict(row);failure=row.get('failure',{})
+    stage=failure.get('stage') or summary.get('failure_stage') or 'unknown'
+    row.update(status=summary['status'],stage='已停止 / '+stage,failure_stage=stage,
+               failure_reason=failure.get('reason') or summary.get('reason') or row.get('failure_reason'),
+               result_text=('预算耗尽' if summary['status']=='WALL_BUDGET_EXHAUSTED' else 'STOPPED')+' · '+stage+' failure')
+    if failure.get('hardware_commands_sent') is not None:row['hardware_commands_sent']=failure['hardware_commands_sent']
+    if row.get('model_output_valid'):row['result_text']+=' · 模型输出合法'
+    if row.get('hardware_commands_sent')==0:row['result_text']+=' · 零下发'
+    return row
 
 
 class CameraHub:
@@ -125,6 +140,12 @@ class CameraHub:
                          'age_s':round(age,2) if age is not None else None,'error':reason,
                          'source':'SYNTHETIC' if self.demo else 'LIVE','role_confirmed':c.get('role_confirmed',False)})
         return rows
+    def stream_metrics(self,profile):
+        selected=self.configs if profile=='legacy4' else self.configs[:3]
+        if self.session:return self.session.stream_metrics(selected)
+        return {'model_input_serials':[c['serial'] for c in selected],
+                'active_stream_serials':[],'pipeline_start_count':{},
+                'source':'SYNTHETIC_NO_PHYSICAL_STREAMS' if self.demo else 'NO_SESSION'}
     def capture(self,path,configs):
         path=Path(path).resolve()
         if not path.is_relative_to((ROOT/'logs').resolve()) or not path.is_dir():raise ValueError('CAPTURE_PATH')
@@ -259,6 +280,7 @@ class Console:
                         sources=['astra_gui.py','camera_session.py','shared_cameras.py','experiment_launch.py','scripts/run_experiment.py']
                         write_json(metadata,{'console_log':str(self.output_path),'settings':self.settings,'gui_session':str(self.session),
                             'launch_manifest':self.launch_manifest,
+                            'camera_streams':self.camera.stream_metrics(self.settings['profile']),
                             'source_manifest':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in sources}})
             except (ValueError,KeyError,TypeError):pass
         if line.startswith('BUDGET → '):
@@ -321,10 +343,12 @@ class Console:
                 with path.open('rb') as stream:
                     stream.seek(max(0,path.stat().st_size-2*1024*1024))
                     console_lines=stream.read().decode('utf-8',errors='replace').splitlines()[-600:]
+        if steps:steps[-1]=terminal_step(steps[-1],summary)
         latest=steps[-1] if steps else {}
         stable=labels.get('actual_stable_in_basket','unknown')
         if not labels.get('evidence') or not labels.get('observer') or labels.get('episode_id')!=summary.get('episode_id',run.name if run else None):stable='unknown'
         return {'demo':self.demo,'cameras_only':self.cameras_only,'camera_status':self.camera.status(),
+                'camera_streams':self.camera.stream_metrics(self.settings['profile']),
                 'active':self.active,'stop_requested':self.stop_requested,'started_at':self.started_at,
                 'current_run':self.current_run.name if self.current_run else None,'selected_run':run.name if run else None,
                 'selected_synthetic':bool(run and (run/'SYNTHETIC.json').exists()),
@@ -360,11 +384,11 @@ class Console:
         obs=load(step/'input_observation.json') or load(step/'input/observation.json')
         cameras=obs.get('cameras',[])
         if not 0<=index<len(cameras):raise ValueError('NO_IMAGE_FOR_SLOT')
-        path=Path(cameras[index]['image_path']).resolve()
-        if not path.is_relative_to((ROOT/'logs').resolve()) or path.stat().st_size>8*1024*1024:raise ValueError('IMAGE_PATH')
-        data=path.read_bytes()
-        if hashlib.sha256(data).hexdigest()!=cameras[index].get('sha256'):raise ValueError('IMAGE_HASH')
-        return data,'image/png'
+        from replay_evidence import request_image_evidence
+        evidence=request_image_evidence(run,step_name)['images']
+        matching=[c for c in evidence if (c['serial'],c['role'])==(cameras[index].get('serial'),cameras[index].get('role'))]
+        if len(matching)!=1 or not matching[0]['available']:raise ValueError('IMAGE_MISSING_OR_INVALID')
+        return Path(matching[0]['image_path']).read_bytes(),'image/png'
     def _demo_run(self):
         from fixtures.synthetic_history import observation,action
         from history_diagnostics import build_transition,DIAGNOSTIC_FIELDS
@@ -486,6 +510,12 @@ def make_server(console,port=8877):
                     output=(ROOT/'logs'/name).resolve()
                     if output.parent!=(ROOT/'logs').resolve():raise ValueError('PREPARED_PATH')
                     return self.send((output/'prepared-evidence.zip').read_bytes(),'application/zip')
+                if u.path=='/api/reviewed-episode-archive':
+                    from reviewed_export import reviewed_zip
+                    with console.lock:
+                        run=console.resolve_run(q['run'][0])
+                        if console.active and run==console.current_run:raise ValueError('EPISODE_NOT_FINALIZED')
+                        return self.send(reviewed_zip(run),'application/zip')
                 if u.path=='/api/episode-archive':
                     import zipfile
                     from episode_archive import ARCHIVES

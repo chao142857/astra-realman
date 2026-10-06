@@ -114,7 +114,7 @@ class HistoryTests(unittest.TestCase):
 
 class LoopTests(unittest.TestCase):
     def run_loop(self, profile, *, malformed=False, arm_error=False, readback_failure=False, gripper=False,
-                 ik_fault=False, budget=False):
+                 ik_fault=False, budget=False, preflight_failure=False):
         spec=importlib.util.spec_from_file_location('measured_runner',ROOT/'scripts/run_left_history_diagnostics.py')
         runner=importlib.util.module_from_spec(spec);spec.loader.exec_module(runner)
         tmp=tempfile.TemporaryDirectory(dir=ROOT/'logs',prefix='synthetic-loop-')
@@ -139,6 +139,7 @@ class LoopTests(unittest.TestCase):
             def connect(self,*a):return {'connected':True}
             def snapshot(self,*a):
                 if readback_failure and motions:raise RuntimeError('SYNTHETIC_READBACK_FAILURE')
+                if preflight_failure and contexts:raise RuntimeError('SYNTHETIC_PREFLIGHT_STATE_FAILURE')
                 s['timestamp']=time.time();return {'canonical':copy.deepcopy(s)}
         class Cameras:
             def __init__(self,*a):pass
@@ -234,15 +235,33 @@ class LoopTests(unittest.TestCase):
                 if options.get('readback_failure'):
                     self.assertIsNone(t['actual_after_pose']);self.assertIsNone(t['translation_residual_m'])
                 else:self.assertIsNotNone(t['actual_after_pose'])
+    def test_valid_model_preflight_failure_zero_dispatch_terminal_ui(self):
+        from astra_gui import Console
+        import shutil
+        code,run,contexts,motions,_,grips=self.run_loop('H5D1',preflight_failure=True)
+        self.assertEqual(code,1);self.assertEqual(len(contexts),1);self.assertEqual(motions,[]);self.assertEqual(grips,[])
+        self.assertEqual(read_json(run/'step-01/decision/backend_result.json')['status'],'COMPLETE')
+        self.assertEqual(read_json(run/'step-01/parsed_action.json'),action())
+        self.assertFalse((run/'step-01/execution_result.json').exists())
+        console=Console(demo=True);self.addCleanup(console.close);self.addCleanup(shutil.rmtree,console.session)
+        console.current_run=run
+        ui=console.state()['latest']
+        self.assertEqual(ui['status'],'STOPPED');self.assertEqual(ui['failure_stage'],'preflight')
+        self.assertTrue(ui['model_output_valid']);self.assertEqual(ui['hardware_commands_sent'],0)
+        self.assertIn('SYNTHETIC_PREFLIGHT_STATE_FAILURE',ui['failure_reason'])
+        self.assertIn('preflight failure',ui['result_text']);self.assertIn('模型输出合法',ui['result_text']);self.assertNotIn('等待执行',ui['result_text'])
+        self.assertEqual(console.state()['independent_success'],'unknown')
+
     def test_ik_fault_and_budget_never_dispatch(self):
         for options in ({'ik_fault':True},{'budget':True}):
             code,run,contexts,motions,_,_=self.run_loop('H5D0',**options)
             self.assertEqual(motions,[])
             summary=read_json(run/'summary.json')
             if options.get('budget'):
-                self.assertEqual(summary['status'],'WALL_BUDGET_EXHAUSTED')
+                self.assertEqual(summary['status'],'WALL_BUDGET_EXHAUSTED');self.assertEqual(code,2)
             else:
                 self.assertEqual(code,1)
                 self.assertEqual(read_json(run/'step-01/transition.json')['hardware_commands_sent'],0)
+                self.assertEqual(summary['failure_stage'],'ik')
 
 if __name__=='__main__':unittest.main()

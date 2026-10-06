@@ -17,7 +17,7 @@
 <div class="workspace">
 <section class="vision-column" aria-label="相机与机器人状态"><div class="section-bar"><h2><span class="small-icon">◉</span> 视觉工作区 <span id="camera-count" class="count">0 / 4</span></h2><div class="segmented"><button id="view-live" class="selected">实时画面</button><button id="view-decision">决策时刻</button><button id="open-replay">动作证据回放</button></div></div>
 <div class="camera-grid" id="camera-grid"></div>
-<div class="camera-foot"><span id="camera-hint">正在发现相机…</span><button class="text-button" id="rescan">重新检测</button><label id="demo-camera-control" hidden>演示连接 <select id="demo-camera-count" aria-label="演示相机数量"><option>4</option><option>3</option><option>2</option><option>1</option><option>0</option></select> 路</label></div>
+<details><summary>模型输入与物理视频流记录</summary><pre id="stream-metrics">等待状态</pre></details><div class="camera-foot"><span id="camera-hint">正在发现相机…</span><button class="text-button" id="rescan">重新检测</button><label id="demo-camera-control" hidden>演示连接 <select id="demo-camera-count" aria-label="演示相机数量"><option>4</option><option>3</option><option>2</option><option>1</option><option>0</option></select> 路</label></div>
 <div class="telemetry panel"><div class="telemetry-title"><span>机器人反馈</span><small id="telemetry-label">执行后回读</small></div><div class="telemetry-values"><div><small>TCP 实测位移</small><strong id="actual-delta">—</strong><span>Δ X / Y / Z · mm</span></div><div><small>相对实发目标偏差</small><strong id="residual">—</strong><span>未下发机械臂时不适用</span></div><div><small>夹爪实测开度</small><strong id="gripper-feedback">—</strong><span>0% 闭合 / 100% 张开</span></div></div></div>
 </section>
 <aside class="decision-column panel" aria-label="Astra 决策与结果"><div class="decision-top"><div><div class="eyebrow">ASTRA ACTIVITY</div><h2>决策与执行</h2></div><span class="pill" id="run-status">尚未开始</span></div>
@@ -31,7 +31,7 @@
 </div><div id="console-panel" class="console-panel" hidden><div class="console-note">原始输出持续保留在日志中。此处显示最近 600 行。</div><pre id="console-output" tabindex="0">等待进程输出…</pre></div>
 <div class="decision-bottom"><span id="log-path" title="尚未生成日志">LOG · 尚未生成日志</span><button class="text-button" id="export-report" disabled>导出报告 ↗</button></div>
 </aside></div>
-<div class="workflow panel" id="archive-bar"><span id="archive-status">每轮结束后自动保存全部输入照片、公开诊断与动作决策。</span><button id="download-episode" class="button secondary" disabled>下载整轮归档</button></div>
+<div class="workflow panel" id="archive-bar"><span id="archive-status">每轮结束后自动保存全部输入照片、公开诊断与动作决策。</span><button id="download-episode" class="button secondary" disabled>下载采集快照（结束时）</button><button id="download-reviewed" class="button secondary" disabled>下载整轮证据（含事后标注）</button></div>
 <footer><span>REALMAN · LEFT ARM <i>·</i> WORLD / ARM_TIP <i>·</i> 速度 1%</span><span>诊断为模型公开摘要；未输出的内部推理不作补写。</span></footer>
 </main>
 <dialog id="replay-dialog" class="replay-dialog"><div class="dialog-heading"><div><div class="eyebrow">READ-ONLY EVIDENCE</div><h2>动作前 → 实际动作 → 动作后</h2></div><button class="icon-button" data-close="replay-dialog" aria-label="关闭回放">×</button></div><p id="replay-heading"></p><p id="replay-warning" class="muted"></p><div class="workflow"><label>左侧图像 <select id="replay-stage"><option value="before">执行前图</option><option value="decision">模型决策输入图（单独来源）</option></select></label><button id="export-evidence" class="button secondary">下载本步证据 ZIP</button></div><div id="replay-action" class="result-card"></div><div id="replay-pairs"></div><details><summary>提案、实发、回读与原始证据</summary><pre id="replay-facts"></pre></details>

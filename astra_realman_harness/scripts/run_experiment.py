@@ -53,6 +53,7 @@ def main():
         from shared_cameras import SharedCameraSession
         import types
         sys.modules['camera_session']=types.SimpleNamespace(CameraSession=SharedCameraSession)
+    budget_expired=threading.Event()
     with ExitStack() as stack:
         if settings['profile'].startswith('legacy'):
             (ROOT/'logs').mkdir(exist_ok=True)
@@ -61,6 +62,7 @@ def main():
                 fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
             # Cooperative stop only; never kill a blocking SDK call or retry commands.
             def expired():
+                budget_expired.set()
                 print('BUDGET → '+json.dumps({'status':'WALL_BUDGET_EXHAUSTED','wall_budget_s':settings['wall_budget_s']}),flush=True)
                 os.kill(os.getpid(),signal.SIGINT)
             timer=threading.Timer(settings['wall_budget_s'],expired);timer.daemon=True;timer.start()
@@ -72,6 +74,7 @@ def main():
         from launch_provenance import snapshot, LaunchRecorder
         manifest=snapshot(settings,launch_argv,a.lock_path)
         with redirect_stdout(LaunchRecorder(sys.stdout,manifest)):
-            return runner.main()
+            code=runner.main()
+            return 2 if budget_expired.is_set() else code
 
 if __name__=='__main__':sys.exit(main())

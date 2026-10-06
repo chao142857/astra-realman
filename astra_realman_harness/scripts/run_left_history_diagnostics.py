@@ -107,6 +107,7 @@ def main():
             raise RuntimeError('HUMAN_STOP')
     timings = None
     previous = None
+    failure_stage = "startup"
     try:
         with ExitStack() as stack:
             lock_path = args.lock_path or (Path('/home/tongji/alex/astra_realman_harness/logs/auto-pick.lock') if args.live else ROOT/'logs/auto-pick.lock')
@@ -162,6 +163,7 @@ def main():
                 summary['steps'] = index
                 timings = Timings()
                 step_started = time.monotonic()
+                failure_stage = "observation"
                 try:
                     if current is None:
                         current = capture(step/'input')
@@ -179,6 +181,7 @@ def main():
                     if errors:
                         raise RuntimeError('INPUT_REJECT:'+','.join(errors))
                     guard()
+                    failure_stage = 'model'
                     decision = new_run(step/'decision')
                     if args.fixture:
                         raw = args.fixture.read_text()
@@ -198,6 +201,7 @@ def main():
                         emit('DIAGNOSTICS',diagnostics)
                     write_json(step/'parsed_action.json',action)
                     emit('PARSED ACTION',action)
+                    failure_stage = 'preflight'
                     guard()
                     fresh = capture(step/'pre-execution') if args.execute else obs
                     errors = validate_state(obs,live=args.live) + validate_state(fresh,live=args.live,max_age_s=3 if args.execute else 180)
@@ -207,6 +211,7 @@ def main():
                     plan = command_plan(action,fresh['canonical_states']['left'])
                     write_json(step/'planned_commands.json',plan)
                     from exact_target_feasibility import check_exact_target, dispatch_checked
+                    failure_stage = 'ik'
                     with timings.measure('ik','step'):
                         check = check_exact_target(session,action,fresh) if args.live else {
                             'status':'NOT_CHECKED_OFFLINE','original_target':plan['arm']['pose'] if plan['arm'] else None,
@@ -219,6 +224,7 @@ def main():
                         guard()
                         if check['status'] == 'CHECK_ERROR':
                             raise RuntimeError('FEASIBILITY_CHECK_FAULT:'+check['reason'])
+                        failure_stage = 'execution'
                         with timings.measure('executor','step'):
                             if args.execute:
                                 from left_executor import RealLeftExecutor
@@ -233,6 +239,7 @@ def main():
                                     executed['status'] = 'REJECTED_IK'
                     except Exception as exc:
                         execution_error = exc
+                        execution_failure_stage = failure_stage
                         executed = copy.deepcopy(executor.result) if executor else {
                             'status':'STOPPED','executed_action':{'arm':None,'gripper':None},
                             'sdk_result':{'called':False,'arm':None,'gripper':None},'hardware_commands_sent':0}
@@ -243,6 +250,7 @@ def main():
                         write_json(step/'executed_action.json',executed['executed_action'])
                         write_json(step/'sdk_result.json',executed['sdk_result'])
                     emit('EXECUTED ACTION',executed)
+                    failure_stage = 'readback'
                     after = None
                     readback_error = None
                     after_errors = []
@@ -265,10 +273,12 @@ def main():
                                        completed_transition_path=str(step/'transition.json'))
                         write_json(step/'next_observation.json',current)
                     if execution_error:
+                        failure_stage = execution_failure_stage
                         raise execution_error
                     if after_errors or readback_error:
                         raise RuntimeError('AFTER_STATE_ERROR:'+str(after_errors or readback_error))
                     history.append(transition)
+                    failure_stage = 'between_steps'
                     guard()
                     if action['done']:
                         summary['status'] = 'MODEL_DONE'
@@ -277,13 +287,19 @@ def main():
                         summary['status'] = 'OFFLINE_REPLAY_COMPLETE'
                         break
                 finally:
+                    failure = sys.exc_info()[1]
+                    if failure is not None:
+                        result_path=step/'execution_result.json'
+                        dispatch_count=read_json(result_path).get('hardware_commands_sent') if result_path.is_file() else (0 if failure_stage in ('observation','model','preflight','ik') else None)
+                        write_json(step/'failure.json',{'stage':failure_stage,'reason':type(failure).__name__+':'+str(failure),
+                            'model_output_valid':(step/'parsed_action.json').is_file(),'hardware_commands_sent':dispatch_count})
                     write_json(step/'timing.json',{'step_total_s':time.monotonic()-step_started,
                         'stages':timings.rows,'semantics':'parent-child; do not sum nested stages'})
             else:
                 summary['status'] = 'MAX_STEPS'
     except Exception as exc:
         summary.update(status='WALL_BUDGET_EXHAUSTED' if time.monotonic() >= deadline else 'STOPPED',
-                       reason=type(exc).__name__+':'+str(exc))
+                       reason=type(exc).__name__+':'+str(exc),failure_stage=failure_stage)
         emit('STOP',summary['reason'])
     finally:
         timer.cancel()
@@ -294,7 +310,7 @@ def main():
         emit('SUMMARY',summary)
         from episode_archive import finalize_archive
         finalize_archive(run,task,emit)
-    return 1 if summary['status']=='STOPPED' else 0
+    return 2 if summary['status']=='WALL_BUDGET_EXHAUSTED' else 1 if summary['status']=='STOPPED' else 0
 
 if __name__ == '__main__':
     sys.exit(main())

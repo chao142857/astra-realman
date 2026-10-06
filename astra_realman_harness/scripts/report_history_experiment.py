@@ -14,10 +14,59 @@ def optional(path):
     return read_json(path) if path.exists() else {}
 
 
+def classification(run,summary,profile):
+    """Separate acquisition/model provenance and run mode; zero dispatch is never a mode."""
+    aliases={'DRY_RUN_ONLY':'shadow','REAL_EXECUTION':'execute','shadow':'shadow','execute':'execute'}
+    sources=[('summary',summary.get('mode')),('launch_manifest',optional(run/'launch_manifest.json').get('settings',{}).get('mode')),
+             ('gui_launch',optional(run/'gui_launch.json').get('settings',{}).get('mode')),('history_profile',profile.get('mode'))]
+    known=[(where,aliases[value]) for where,value in sources if isinstance(value,str) and value in aliases]
+    mode=known[0][1] if known else 'unknown'
+    warnings=['CONFLICTING_MODE_RECORDS'] if len({v for _,v in known})>1 else []
+    backends=[optional(p) for p in sorted(run.glob('step-*/decision/backend_result.json'))]
+    observations=[optional(p) for pattern in ('step-*/input_observation.json','step-*/input/observation.json') for p in run.glob(pattern)]
+    camera_kinds=set()
+    for obs in observations:
+        source=obs.get('source','')
+        camera_kinds.add('synthetic' if source.startswith('SYNTHETIC') else 'live' if source=='LIVE_READ_ONLY' else 'archival' if source.startswith('ARCHIVAL') else 'unknown')
+    camera=next(iter(camera_kinds)) if len(camera_kinds)==1 else 'mixed' if camera_kinds else 'unknown'
+    synthetic=bool(profile.get('synthetic') or (run/'SYNTHETIC.json').exists() or 'synthetic' in camera_kinds or any(
+        obs.get('camera_capture',{}).get('synthetic') or any(state.get('source',{}).get('kind')=='SYNTHETIC' for state in obs.get('canonical_states',{}).values()) for obs in observations))
+    kinds={b.get('backend') for b in backends}
+    fixture='OFFLINE_FIXTURE_NOT_ASTRA' in kinds
+    model='synthetic' if synthetic else 'fixture' if fixture else 'codex_astra' if kinds=={'CodexAstraBackend'} else 'unknown'
+    if synthetic:camera='synthetic'
+    return {'mode':mode,'mode_source':known[0][0] if known else 'unavailable','model_source':model,'camera_source':camera,
+            'synthetic':synthetic,'offline_fixture':fixture,'warnings':warnings,
+            'semantics':'codex_astra identifies the recorded transport, not successful completion; unknown provenance stays unknown.'}
+
+
+def aggregate(results):
+    counts={};duplicates=[];paths=set();episodes={}
+    for result in results:
+        path=str(Path(result['run']).resolve());episode=result['summary'].get('episode_id')
+        if path in paths or (episode and episode in episodes):
+            duplicates.append({'run':path,'episode_id':episode,'reason':'DUPLICATE_PATH' if path in paths else 'DUPLICATE_EPISODE_ID',
+                               'first_run':episodes.get(episode,path),'excluded_from_counts':True})
+            continue
+        paths.add(path)
+        if episode:episodes[episode]=path
+        c=result['classification'];phase=result['profile'].get('phase','unknown');profile=result['profile'].get('profile','unknown')
+        key='/'.join([c['model_source'],c['camera_source'],c['mode'],phase,profile])
+        count=counts.setdefault(key,{'episodes':0,'independently_observed_successes':0,'independently_observed_failures':0,'unknown_outcomes':0,'model_done':0})
+        count['episodes']+=1
+        count['independently_observed_successes']+=result['independent_success'] is True
+        count['independently_observed_failures']+=result['independent_success'] is False
+        count['unknown_outcomes']+=result['independent_success'] is not True and result['independent_success'] is not False
+        count['model_done']+=result['summary'].get('status')=='MODEL_DONE'
+    return counts,duplicates
+
+
 def report(run):
     summary = optional(run/'summary.json')
     profile = optional(run/'history_profile.json')
+    profile.update(optional(run/'launch_manifest.json').get('settings',{}))
     profile.update(optional(run/'gui_launch.json').get('settings',{}))
+    provenance=classification(run,summary,profile)
     rows = []
     for step in sorted(run.glob('step-*')):
         timing = optional(step/'timing.json')
@@ -62,6 +111,7 @@ def report(run):
     success = labels.get('actual_stable_in_basket','unknown')
     if labels.get('episode_id') != summary.get('episode_id') or not labels.get('evidence') or not labels.get('observer'):
         success = 'unknown'
+    if success is not True and success is not False:success='unknown'
     invalid_steps = labels.get('ineffective_action_steps',[])
     invalid_outputs = 0
     for step in run.glob('step-*'):
@@ -69,7 +119,7 @@ def report(run):
         if raw.exists() and profile.get('profile') in PROFILES:
             try:decode(raw.read_text(),profile['profile'])
             except (ValueError,TypeError):invalid_outputs += 1
-    return {'run':str(run),'synthetic':bool(profile.get('synthetic') or (run/'SYNTHETIC.json').exists()),'profile':profile,'summary':summary,'steps':rows,'timing_totals_and_medians':metrics,
+    return {'run':str(run),'synthetic':provenance['synthetic'],'classification':provenance,'profile':profile,'summary':summary,'steps':rows,'timing_totals_and_medians':metrics,
             'independent_labels':labels,'independent_success':success,
             'ik_rejections':sum(r['ik_status']=='REJECTED_IK' for r in rows),
             'noop_actions':sum(r['execution_status']=='NOOP' for r in rows),
@@ -92,22 +142,17 @@ def main():
     results = [report(run) for run in a.runs]
     new_run(a.output)
     write_json(a.output/'report.json',results)
-    counts = {}
-    for result in results:
-        phase = result['profile'].get('phase','unknown')
-        profile = result['profile'].get('profile','unknown')
-        key = ('synthetic/' if result['synthetic'] else 'real/')+phase+'/'+profile
-        count = counts.setdefault(key,{'episodes':0,'independently_observed_successes':0,'unknown_outcomes':0,'model_done':0})
-        count['episodes'] += 1
-        count['independently_observed_successes'] += result['independent_success'] is True
-        count['unknown_outcomes'] += result['independent_success'] not in (True,False)
-        count['model_done'] += result['summary'].get('status')=='MODEL_DONE'
+    counts,duplicates=aggregate(results)
     write_json(a.output/'counts_by_phase_profile.json',counts)
+    write_json(a.output/'duplicates.json',duplicates)
     lines = ['# Astra experiment report','',
              'Null/unavailable is missing or uninvoked. Durations are parent/child; never add nested totals.',
-             'Placement and full pick/place are separate phases. Model done is not independent success.','']
+             'Group key: model_source/camera_source/mode/phase/profile. Unknown is not Execute. Zero dispatch does not imply Shadow.',
+             'Placement and full pick/place are separate phases. Model done is not independent success.',
+             'Duplicate inputs excluded from counts: '+str(len(duplicates))+'; see duplicates.json.','']
     for r in results:
         lines += ['## '+r['run'],'',
+                  'Mode/source: '+json.dumps(r['classification'],ensure_ascii=False),
                   'Profile: '+str(r['profile'].get('profile'))+'; phase: '+str(r['profile'].get('phase')),
                   'Status: '+str(r['summary'].get('status'))+'; independent stable-in-basket: '+str(r['independent_success']),
                   'Model calls: '+str(r['summary'].get('model_calls'))+'; IK rejections: '+str(r['ik_rejections']),

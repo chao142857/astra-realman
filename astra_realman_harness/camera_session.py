@@ -20,6 +20,7 @@ class CameraSession:
         self.condition = threading.Condition()
         self.stop_event = threading.Event()
         self.latest, self.errors, self.starts, self.last_sequence = {}, {}, {}, {}
+        self.active_stream_serials = set()
         self.threads = []
         self.session_id = uuid.uuid4().hex
         self.snapshot_count = 0
@@ -105,7 +106,9 @@ class CameraSession:
                                    rs.format.rgb8, config["fps"])
             pipeline.start(settings)
             started = True
-            self.starts[serial] = self.starts.get(serial, 0) + 1
+            with self.condition:
+                self.starts[serial] = self.starts.get(serial, 0) + 1
+                self.active_stream_serials.add(serial)
             sequence = 0
             while not self.stop_event.is_set():
                 frames = pipeline.wait_for_frames(1000)
@@ -139,7 +142,15 @@ class CameraSession:
                 self.condition.notify_all()
         finally:
             if started:
-                pipeline.stop()  # Release only the stream owned by this session.
+                try:pipeline.stop()  # Release only the stream owned by this session.
+                finally:
+                    with self.condition:self.active_stream_serials.discard(serial)
+
+    def stream_metrics(self, configs=None):
+        with self.condition:
+            return {'model_input_serials':[c['serial'] for c in (self.configs if configs is None else configs)],
+                    'active_stream_serials':sorted(self.active_stream_serials),
+                    'pipeline_start_count':dict(self.starts)}
 
     def snapshot(self, run, configs=None):
         from observation import png_rgb
@@ -190,7 +201,7 @@ class CameraSession:
             "timestamp_semantics_confirmed": comparable,
             "hardware_synchronized": False, "camera_session_id": self.session_id,
             "observation_index": self.snapshot_count,
-            "pipeline_start_count": dict(self.starts),
+            **self.stream_metrics(configs),
             "expected_serials": [c["serial"] for c in configs],
             "device_enumeration": copy.deepcopy(self.enumeration),
             "frame_warmup": dict(self.frame_warmup),
