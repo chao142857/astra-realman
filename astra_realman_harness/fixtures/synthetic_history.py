@@ -39,7 +39,7 @@ def observation(folder, index=0, now=None):
         path = folder/(camera['role']+'-'+str(index)+'.png')
         if not path.exists():
             path.write_bytes(PNG)
-        cameras.append(dict(camera,image_path=str(path),sha256=hashlib.sha256(PNG).hexdigest(),captured_at=now))
+        cameras.append(dict(camera,width=1,height=1,image_path=str(path),sha256=hashlib.sha256(PNG).hexdigest(),captured_at=now))
     return {'observation_id':'synthetic-'+str(index),'task':'  SYNTHETIC: put ball in basket  ',
             'canonical_states':{'left':state(now)},'cameras':cameras,'captured_at':now,
             'decision_ready_at':now,'capture_failures':[],'capture_span_ms':0,

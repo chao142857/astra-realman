@@ -166,6 +166,28 @@ class HTTPTests(unittest.TestCase):
         self.assertEqual(images,[{'synthetic':True}]);self.assertEqual(failures,[])
         self.assertEqual(len(fake.snapshot.call_args.kwargs['configs']),3)
         self.assertEqual(fake.snapshot.call_count,1)
+    def test_replay_http_markers_export_and_preparation(self):
+        from fixtures.synthetic_history import make_run
+        import uuid,zipfile,io
+        run=ROOT/'logs'/('http-evidence-'+uuid.uuid4().hex)
+        make_run(run);self.addCleanup(shutil.rmtree,run)
+        write_json(run/'summary.json',{'episode_id':run.name,'status':'SYNTHETIC'})
+        query=urllib.parse.urlencode({'run':run.name,'step':'step-02'})
+        with urllib.request.urlopen(self.base+'/api/replay?'+query) as response:
+            data=json.load(response);self.assertEqual(data['facts']['transition']['hardware_commands_sent'],0)
+        with self.post('/api/marker',{'run':run.name,'step':'step-02','kind':'first_clear_deviation','observer':'test','evidence':'synthetic only'}) as response:
+            self.assertFalse(json.load(response)['model_input'])
+        with urllib.request.urlopen(self.base+'/api/evidence-zip?'+query) as response:
+            with zipfile.ZipFile(io.BytesIO(response.read())) as z:self.assertIn('manifest.json',z.namelist())
+        with self.post('/api/prepare-controls',{'run':run.name,'step':'step-07','visual_history_mode':'previous_fixed_before'}) as response:
+            result=json.load(response);self.assertEqual(result['model_calls'],0);self.addCleanup(shutil.rmtree,result['output'])
+        with urllib.request.urlopen(self.base+'/api/prepared-zip?id='+Path(result['output']).name) as response:
+            with zipfile.ZipFile(io.BytesIO(response.read())) as z:self.assertIn('controls_manifest.json',z.namelist())
+        self.console.active=True
+        try:
+            with self.assertRaises(urllib.error.HTTPError) as error:self.post('/api/prepare-controls',{'run':run.name,'step':'step-07'})
+            error.exception.close()
+        finally:self.console.active=False
     def test_path_traversal_rejected(self):
         with self.assertRaises(urllib.error.HTTPError) as error:urllib.request.urlopen(self.base+'/api/state?run=..')
         error.exception.close()

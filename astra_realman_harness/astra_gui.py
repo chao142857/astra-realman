@@ -378,6 +378,7 @@ class Console:
             for i in range(1,min(settings['max_steps'],4)+1):
                 if self.demo_stop.is_set():status='STOPPED';break
                 if time.monotonic()-start>=settings['wall_budget_s']:status='WALL_BUDGET_EXHAUSTED';break
+                current.update(episode_id=episode,task=settings['task'],decision_ready_at=time.time())
                 count=i;step=new_run(run/('step-%02d'%i));write_json(step/'input_observation.json',current)
                 a=action();a['translation_m']=[[.018,-.012,.008],[.16,0,0],[.012,.006,-.015],[0,0,0]][i-1]
                 a['gripper_opening']=[.26,.26,.8,.8][i-1];a['done']=i==4
@@ -408,6 +409,8 @@ class Console:
                 if commands['gripper']:
                     after['canonical_states']['left']['gripper_state']['position']=a['gripper_opening']*1000
                 after['canonical_states']['left']['raw_sdk_state']['pose']=after['canonical_states']['left']['ee_pose']['xyz_m']+after['canonical_states']['left']['ee_pose']['rpy_rad']
+                before_folder=new_run(step/'pre-execution');write_json(before_folder/'observation.json',current)
+                write_json(step/'next_observation.json',after)
                 t=build_transition(episode,i,current,current,after,a,executed,check,completed_at=time.time())
                 for name,value in [('transition.json',t),('execution_result.json',executed),('feasibility.json',check)]:write_json(step/name,value)
                 self._line('EXECUTED ACTION → '+json.dumps(executed));current=after
@@ -456,6 +459,30 @@ def make_server(console,port=8877):
                     data,kind=console.camera.image(int(u.path.rsplit('/',1)[1]));return self.send(data,kind)
                 if u.path=='/api/history-image':
                     data,kind=console.historical_image(q['run'][0],q['step'][0],int(q['index'][0]));return self.send(data,kind)
+                if u.path in ('/api/replay','/api/replay-image','/api/evidence-zip','/api/control-template'):
+                    from replay_evidence import replay,evidence_zip
+                    run=console.resolve_run(q['run'][0]);name=q['step'][0]
+                    if not run:raise ValueError('NO_RUN')
+                    evidence=replay(run,name)
+                    if u.path=='/api/replay':return self.send(evidence)
+                    if u.path=='/api/control-template':
+                        from offline_diagnostic_controls import annotation_template
+                        from scripts.prepare_history_replay import decision_observation
+                        return self.send(annotation_template(decision_observation(run/name)))
+                    if u.path=='/api/evidence-zip':
+                        if console.active and run==console.current_run:raise ValueError('请在回合结束后导出冻结证据。')
+                        return self.send(evidence_zip(run,name),'application/zip')
+                    if q['stage'][0] not in ('before','decision','after'):raise ValueError('STAGE')
+                    pair=next((p for p in evidence['pairs'] if p['serial']==q['serial'][0] and p['role']==q['role'][0]),None)
+                    item=pair.get(q['stage'][0]) if pair else None
+                    if not item or not item['available']:raise ValueError('IMAGE_MISSING_OR_INVALID')
+                    return self.send(Path(item['image_path']).read_bytes(),'image/png')
+                if u.path=='/api/prepared-zip':
+                    name=q['id'][0]
+                    if not name.startswith('offline-controls-') or Path(name).name!=name:raise ValueError('PREPARED_ID')
+                    output=(ROOT/'logs'/name).resolve()
+                    if output.parent!=(ROOT/'logs').resolve():raise ValueError('PREPARED_PATH')
+                    return self.send((output/'prepared-evidence.zip').read_bytes(),'application/zip')
                 if u.path=='/api/export':
                     run=console.resolve_run(q['run'][0]);from scripts.report_history_experiment import report
                     return self.send(report(run))
@@ -472,6 +499,20 @@ def make_server(console,port=8877):
                 body=json.loads(self.rfile.read(size));path=urlparse(self.path).path
                 if path=='/api/start':result=console.start(body)
                 elif path=='/api/preflight':result=console.preflight(body)
+                elif path in ('/api/marker','/api/prepare-controls'):
+                    with console.lock:
+                        run=console.resolve_run(body.get('run'))
+                        if not run or console.active:raise ValueError('请先结束当前实验再整理回放。')
+                        from replay_evidence import mark,step_folder
+                        step=step_folder(run,body['step'])
+                        if path=='/api/marker':result=mark(run,body)
+                        else:
+                            from offline_diagnostic_controls import prepare_controls
+                            output=ROOT/'logs'/('offline-controls-'+uuid.uuid4().hex[:12])
+                            result=prepare_controls(run,int(step.name.split('-')[1]),output,
+                                base_profile=body.get('base_profile','H5D1'),annotation=body.get('annotation'),
+                                visual_history_mode=body.get('visual_history_mode','none'),fixed_camera=body.get('fixed_camera','tabletop'))
+                            result['output']=str(output)
                 elif path=='/api/stop':result=console.stop()
                 elif path=='/api/annotate':result=console.annotate(body)
                 elif path=='/api/capture':result=console.camera.capture(body['path'],body['cameras'])
