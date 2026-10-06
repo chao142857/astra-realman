@@ -95,7 +95,7 @@ class EvidenceAndLaunch(unittest.TestCase):
         console=Console(demo=False)
         self.addCleanup(lambda:shutil.rmtree(console.session));self.addCleanup(console.close)
         statuses=[{'available':True}]*3+[{'available':False}]
-        with patch.object(console.camera,'status',return_value=statuses),patch('astra_gui.subprocess.Popen') as proc,patch('astra_gui.threading.Thread'):
+        with patch.object(console.camera,'status',return_value=statuses),patch('astra_gui.subprocess.Popen') as proc,patch('astra_gui.threading.Thread'),patch('launch_provenance.snapshot',return_value={}):
             with self.assertRaisesRegex(ValueError,'4'):console.start({'task':'task','profile':'legacy4'})
             console.url='http://127.0.0.1:1';console.start({'task':'task','profile':'H5D0'})
             self.assertTrue(console.active);self.assertEqual(proc.call_count,1)

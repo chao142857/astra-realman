@@ -41,6 +41,7 @@ def action_summary(action):
 
 
 def step_evidence(step):
+    observation=load(step/'input_observation.json') or load(step/'input/observation.json')
     action=load(step/'parsed_action.json');transition=load(step/'transition.json')
     execution=load(step/'execution_result.json');feasibility=load(step/'feasibility.json')
     if not execution:
@@ -78,7 +79,9 @@ def step_evidence(step):
             'gripper_before':transition.get('gripper_before'),'gripper_after':transition.get('gripper_after'),
             'sdk_result':transition.get('sdk_result',execution.get('sdk_result')),
             'feasibility':feasibility,'timing':load(step/'timing.json'),'backend':backend,
-            'observation_id':transition.get('decision_observation_id'),
+            'decision_cameras':observation.get('cameras',[]),
+            'observation_id':observation.get('observation_id',transition.get('decision_observation_id')),
+            'stage':('实测结果' if transition.get('actual_after_pose') else 'IK / 下发' if feasibility else '模型提案' if action else '模型处理中' if backend else '已观测' if observation else '等待观测'),
             'actual_after_pose':transition.get('actual_after_pose')}
 
 
@@ -96,7 +99,7 @@ class CameraHub:
             session=None
             try:
                 from camera_session import CameraSession
-                session=CameraSession(self.configs,startup_timeout=3)
+                session=CameraSession(self.configs,startup_timeout=3,required_serials=[c["serial"] for c in self.configs[:3]])
                 session.__enter__()
                 with self.lock:
                     if self.closing:session.__exit__(None,None,None)
@@ -199,6 +202,7 @@ class Console:
         self.closing=False;self.console_sequence=0;self.last_budget=False
     def start(self,settings):
         settings=validate(settings)
+        from launch_provenance import snapshot
         with self.lock:
             if self.closing:raise ValueError('CONSOLE_CLOSING')
             if self.cameras_only:raise ValueError('CAMERAS_ONLY')
@@ -212,6 +216,10 @@ class Console:
             self.console_sequence+=1;launch_id=uuid.uuid4().hex[:8]
             settings_path=self.session/(launch_id+'-settings.json');write_json(settings_path,settings)
             self.output_path=self.session/(launch_id+'-console.log')
+            command=[self.python,'-u','-I','-B',str(ROOT/'scripts/run_experiment.py'),
+                     '--settings',str(settings_path),'--no-preview','--lock-path',str(self.lock_path)]
+            self.launch_manifest=snapshot(settings,command,self.lock_path)
+            write_json(self.session/(launch_id+'-manifest.json'),self.launch_manifest)
             if self.demo:
                 self.demo_stop.clear()
                 threading.Thread(target=self._demo_run,daemon=True).start()
@@ -226,6 +234,18 @@ class Console:
                     self.active=False;self.error=str(exc);raise
                 threading.Thread(target=self._read_output,args=(self.process,),daemon=True).start()
         return {'started':True,'demo':self.demo}
+    def preflight(self,settings):
+        from launch_provenance import equivalent_command
+        settings=validate(settings)
+        count=4 if settings['profile']=='legacy4' else 3
+        cameras=self.camera.status()
+        return {'command':equivalent_command(settings,self.python,self.lock_path),
+                'required_camera_count':count,'required_cameras_ready':all(c['available'] for c in cameras[:count]),
+                'cameras':cameras,'active':self.active,'synthetic':self.demo,
+                'backend_config_present':(ROOT/'config/decision_backend.json').is_file(),
+                'bridge_token_present':(ROOT/'config/codex_astra_bridge.token').is_file(),
+                'bridge_and_robot':'未探测；此检查不调用模型、不连接机器人。单次 Shadow 可显式验证观测与模型通路。',
+                'next':'回合结束 → 导出证据 → 人工复位场景 → 手动载入下一组'}
     def _line(self,line):
         with self.lock:self.lines.append(line.rstrip()[:16000])
         with self.output_path.open('a',encoding='utf-8') as f:f.write(line if line.endswith('\n') else line+'\n')
@@ -238,6 +258,7 @@ class Console:
                     if not metadata.exists():
                         sources=['astra_gui.py','camera_session.py','shared_cameras.py','experiment_launch.py','scripts/run_experiment.py']
                         write_json(metadata,{'console_log':str(self.output_path),'settings':self.settings,'gui_session':str(self.session),
+                            'launch_manifest':self.launch_manifest,
                             'source_manifest':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in sources}})
             except (ValueError,KeyError,TypeError):pass
         if line.startswith('BUDGET → '):
@@ -450,6 +471,7 @@ def make_server(console,port=8877):
                 if not 0<size<=32768:raise ValueError('REQUEST_SIZE')
                 body=json.loads(self.rfile.read(size));path=urlparse(self.path).path
                 if path=='/api/start':result=console.start(body)
+                elif path=='/api/preflight':result=console.preflight(body)
                 elif path=='/api/stop':result=console.stop()
                 elif path=='/api/annotate':result=console.annotate(body)
                 elif path=='/api/capture':result=console.camera.capture(body['path'],body['cameras'])

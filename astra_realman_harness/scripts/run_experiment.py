@@ -9,7 +9,7 @@ import shlex
 import signal
 import sys
 import threading
-from contextlib import ExitStack
+from contextlib import ExitStack, redirect_stdout
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from io_utils import ROOT, read_json
@@ -17,6 +17,7 @@ from experiment_launch import DEFAULTS, ALL_PROFILES, validate, runner_args
 
 
 def main():
+    launch_argv=[sys.executable]+list(sys.orig_argv[1:] if hasattr(sys,'orig_argv') else sys.argv)
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--settings',type=Path,help='JSON settings; explicit flags override it.')
     p.add_argument('--profile',choices=ALL_PROFILES)
@@ -68,6 +69,9 @@ def main():
         runner=importlib.util.module_from_spec(spec);spec.loader.exec_module(runner)
         sys.argv=argv
         print('EXPERIMENT CONFIG → '+json.dumps(settings,ensure_ascii=False),flush=True)
-        return runner.main()
+        from launch_provenance import snapshot, LaunchRecorder
+        manifest=snapshot(settings,launch_argv,a.lock_path)
+        with redirect_stdout(LaunchRecorder(sys.stdout,manifest)):
+            return runner.main()
 
 if __name__=='__main__':sys.exit(main())

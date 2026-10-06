@@ -10,8 +10,10 @@ import time
 import uuid
 
 class CameraSession:
-    def __init__(self, configs, rs_module=None, startup_timeout=15, snapshot_timeout=5):
+    def __init__(self, configs, rs_module=None, startup_timeout=15, snapshot_timeout=5, required_serials=None):
         self.configs = list(configs)
+        self.required_serials = {c['serial'] for c in configs} if required_serials is None else set(required_serials)
+        if not self.required_serials.issubset({c['serial'] for c in configs}):raise ValueError('REQUIRED_CAMERA_UNKNOWN')
         self.rs = rs_module
         self.startup_timeout = startup_timeout
         self.snapshot_timeout = snapshot_timeout
@@ -47,8 +49,9 @@ class CameraSession:
             attempt.update(finished_at=time.time(), serials=sorted(serials),
                            missing_serials=sorted(expected - serials))
             self.enumeration["attempts"].append(attempt)
-            if expected.issubset(serials):
-                self.enumeration["complete"] = True
+            if self.required_serials.issubset(serials):
+                self.enumeration["complete"] = expected.issubset(serials)
+                self.enumeration["required_complete"] = True
                 break
             remaining = deadline - time.monotonic()
             if remaining <= 0 or self.stop_event.wait(min(.2, remaining)):
@@ -79,11 +82,11 @@ class CameraSession:
         deadline = warmup_started + self.startup_timeout
         with self.condition:
             while any(c["serial"] not in self.errors and
-                      self.latest.get(c["serial"], {}).get("sequence", 0) < 5 for c in self.configs):
+                      self.latest.get(c["serial"], {}).get("sequence", 0) < 5 for c in self.configs if c["serial"] in self.required_serials):
                 remaining = deadline - time.monotonic()
                 if remaining <= 0:
                     for c in self.configs:
-                        if c["serial"] not in self.errors and self.latest.get(c["serial"], {}).get("sequence", 0) < 5:
+                        if c["serial"] in self.required_serials and c["serial"] not in self.errors and self.latest.get(c["serial"], {}).get("sequence", 0) < 5:
                             self.errors[c["serial"]] = "CAMERA_STARTUP_TIMEOUT"
                     break
                 self.condition.wait(min(remaining, .2))

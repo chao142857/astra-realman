@@ -205,3 +205,17 @@ ln -s /home/tongji/alex/astra_realman_harness/config/codex_astra_bridge.token \
 - 原 history 验收 9 项、相机回归 3 项通过。全量 281 项中 225 项通过，55 errors 与 1 failure 和此前基线一致，没有新增失败；原始结果保存在 `docs/gui-verification/`。所有新 shell 的 bash -n、Python 语法、JS 语法检查通过。
 - 已在浏览器检查桌面左右布局、窄屏布局、模拟 IK 拒绝、少相机显示和停止请求。截图为明确 synthetic 场景。
 - 本轮未访问真实相机、机器人或模型。现场仍需核对 RealSense 帧率/接入、SSH 转发、bridge 登录与 D1 schema 接受性，再用第一步正常实验确认 GUI 摘要和 transition/原终端一致。
+
+## 补充：同一工作台的操作流程
+
+检查配置 / 查看命令只检查本地配置和相机缓存，不连接机器人、不调用模型。
+“仅运行一次 Shadow”冻结当前任务，以 shadow + max_steps=1 启动独立回合，不改表单原值。
+六组选项只载入布局和 H5D0/H5D1 条件；需要人工复位后手动开始，不自动串行跑实验。
+运行期间任务与实验参数锁定；点击历史步骤自动切换为该步骤真实决策输入图。
+相机标签区分模型输入与仅预览，历史帧显示采集时间和观测 ID。
+模型公开诊断是模型判断，实发命令与 SDK/实测反馈独立展示；work +X 不等于图像右侧。
+
+GUI 保存 gui_launch.json 与启动 session manifest；统一 CLI 保存 launch_manifest.json。
+包含原样任务、argv、相机配置、模型/effort、Git revision、已跟踪实现文件 diff 和未跟踪实现文件名。
+不记录环境变量或认证值。归档部署不带 .git 时读取包内 BUILD_REVISION；未提供时显示 UNAVAILABLE。每回合保存实现文件 SHA256，可与发货包核对。
+三视角条件的相机启动/取帧只等待前三路；第四路为同一 owner 的可选预览，legacy4 仍要求四路。
