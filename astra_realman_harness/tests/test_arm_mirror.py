@@ -25,6 +25,11 @@ def canonical(arm):
 
 class Robot:
     def __init__(self,state):self.state=state;self.ik=[];self.moves=[];self.ret=0;self.ik_ret=0
+    def rm_algo_set_redundant_parameter_traversal_mode(self,mode):pass
+    def rm_get_robot_info(self):return 0,{'arm_dof':6,'arm_model':'RM_65'}
+    def rm_algo_inverse_kinematics_all(self,params):
+        from types import SimpleNamespace
+        return SimpleNamespace(result=1,num=0,q_ref=[0]*8,q_solve=[])
     def rm_algo_inverse_kinematics(self,params):self.ik.append(params);return self.ik_ret,[1.]*6
     def rm_movej_p(self,pose,*args):
         self.moves.append((pose,args))
@@ -65,7 +70,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(self.robots['left'].moves,[([.201,.098,.403,.01,.1,.2],(1,0,0,1))]);self.assertEqual(self.grip_calls,[('left',.42)])
     def test_ik_exact_no_search_or_scaling(self):
         self.robots['right'].ik_ret=1;a=self.proposal();result=self.adapter().run(a,'one')
-        self.assertEqual(result['status'],'REJECTED_IK');self.assertEqual(len(self.robots['right'].ik),1)
+        self.assertEqual(result['status'],'REJECTED_IK');self.assertEqual(len(self.robots['right'].ik),2);self.assertEqual(self.robots['right'].ik[0],self.robots['right'].ik[1])
         self.assertEqual(self.robots['right'].ik[0]['q_pose'],[.201,.098,.403,.01,.1,.2]);self.assertFalse(self.robots['right'].moves);self.assertFalse(self.grip_calls)
     def test_ik_fault_not_unreachable(self):
         self.robots['right'].ik_ret=-2
