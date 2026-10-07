@@ -1,0 +1,364 @@
+基于当前冻结基线 39a043e，创建独立 worktree / branch，开始搭建新的
+high-level bimanual demo runtime。
+
+不要修改或覆盖当前正在实验室使用的 39a043e 目录。
+暂不自行启动任何真机动作。
+
+====================
+最终 V1 demo
+====================
+
+桌面混放若干物体：
+
+fruit:
+- apple
+- banana
+- orange
+
+clutter:
+- tennis ball
+- packet / block 等明显非水果物体
+
+空间设计：
+- source zone：物体位于左臂可达、右臂不可直接操作区域
+- handoff zone：左右臂共同可达的固定交接区域
+- destination zone：右臂侧
+    fruit -> plate
+    clutter -> box
+
+完整任务：
+
+1. Astra 观察全局并选择一个未处理 object
+2. 判断该 object 属于 fruit / clutter
+3. 左臂拾取
+4. 左臂把 object 提交到 handoff region
+5. 右臂接取
+6. 只有确认右臂已经可靠持有后，左臂才释放
+7. 左臂退出 handoff region
+8. 右臂将：
+      fruit -> plate
+      clutter -> box
+9. 验证结果并更新共享状态
+10. 处理下一个 object
+
+第一版采用：
+ONE Astra + shared task state + two arm executors
+不是两个独立 Astra。
+
+====================
+核心设计原则
+====================
+
+Astra 提升到高层，不再默认每几厘米调用一次。
+
+高层动作优先设计成：
+
+OBSERVE
+SELECT_OBJECT
+LEFT_PICK(object_id)
+LEFT_PRESENT(object_id, handoff_region)
+BIMANUAL_HANDOFF(object_id)
+RIGHT_PLACE(object_id, destination)
+VERIFY(object_id)
+RECOVER(...)
+
+保留底层 delta action 能力作为：
+- 精细修正
+- 失败恢复
+- 调试接口
+
+但正常 demo 不应要求 Astra 每 3~4 cm 重新决策。
+
+模型 effort 第一阶段固定 medium。
+
+不要做“把 Astra 输出统一乘 N 倍”的 hack。
+不要用 minimum step 强迫所有动作变大。
+
+====================
+共享 task / belief state
+====================
+
+建立明确的共享状态对象，例如：
+
+objects:
+  fruit_01:
+    semantic_class: fruit
+    subtype: apple
+    holder: none | left | right
+    stage:
+      unprocessed
+      left_grasped
+      handoff_ready
+      right_grasped
+      sorting
+      placed
+      failed
+    destination: plate
+    confidence / evidence
+
+task_state:
+  active_object
+  phase
+  left_arm_state
+  right_arm_state
+  handoff_state
+  completed_objects
+  failed_objects
+
+所有状态变化必须有 observation / execution evidence。
+不能因为 SDK return=0 就自动声明 grasp/handoff/place 成功。
+
+旧 belief 可被新视觉证据推翻。
+
+====================
+handoff 必须显式建模
+====================
+
+handoff 第一版采用顺序 handshake：
+
+LEFT_HOLDING
+-> LEFT_AT_HANDOFF
+-> RIGHT_APPROACH
+-> RIGHT_GRIP
+-> RIGHT_HOLDING_CONFIRMED
+-> LEFT_RELEASE
+-> LEFT_RETRACT
+-> RIGHT_OWNS_OBJECT
+
+核心 invariant：
+
+RIGHT_HOLDING_CONFIRMED 之前，
+LEFT_RELEASE 禁止执行。
+
+不要第一版就做双方任意同步运动。
+除了 handoff 所需的受控动作外，默认一侧运动时另一侧 hold。
+
+handoff 失败必须进入 RECOVER，
+不能让两边各自继续执行。
+
+====================
+视觉 / history
+====================
+
+不要把无限 RGB 历史全部塞给模型。
+
+准备 keyframe memory：
+
+1. current views
+2. previous action before/after
+3. last_clear_object_view
+4. last_clear_destination_view
+5. pre_handoff view
+6. post_handoff view
+
+history 中保留：
+
+- proposed high-level skill
+- actual execution result
+- measured arm motion
+- gripper feedback
+- object holder transition
+- important visual evidence
+
+目标：
+让模型知道“上一动作改变了什么”，
+而不是只知道“上一动作发了什么命令”。
+
+关键帧必须带：
+- camera id
+- timestamp
+- observation id
+- reason_selected
+- object id
+
+不要把旧图当成当前状态。
+
+====================
+执行接口
+====================
+
+设计通用接口，不把 left 写死到全系统：
+
+ArmExecutor("left")
+ArmExecutor("right")
+
+至少准备：
+
+read_state()
+move_to_pose()
+move_delta()
+set_gripper()
+hold()
+retract()
+
+但不要猜右臂参数。
+
+仓库已有线索：
+left endpoint = 192.168.1.19:8080
+right endpoint = 192.168.1.18:8080
+
+现场真实配置、tool frame、work frame、gripper driver、
+两臂坐标关系必须实际核验。
+
+当前仓库 cross_arm_transform / shared world transform
+并未确认，禁止自行填假值。
+
+优先搜索并复用实验室已有：
+- right arm config
+- right gripper driver
+- 双臂 demo
+- calibration
+- handoff / common workspace 示例
+
+不要重复造轮子。
+
+====================
+技能层
+====================
+
+第一阶段只搭接口和离线实现：
+
+left_pick(object)
+left_present(object, handoff)
+right_receive(object)
+handoff(object)
+right_place(object, plate_or_box)
+verify(object)
+
+skill 内部允许：
+- 已验证 waypoint
+- 目标位姿
+- 多段运动
+- 局部 visual servo / correction
+- 必要状态检查
+
+但必须日志区分：
+ASTRA_DECISION
+SKILL_INTERNAL_ACTION
+RAW_HARDWARE_COMMAND
+
+不能把 skill 做的控制伪装成 Astra 原始输出。
+
+====================
+实验速度
+====================
+
+先搭 profiling：
+
+per object:
+- Astra calls
+- model latency
+- arm motion time
+- camera/readback time
+- gripper time
+- handoff time
+- recovery time
+- total time
+
+记录：
+calls_per_object
+seconds_per_object
+successful_handoff
+successful_sort
+
+目标不是人为限制每步大于多少，
+而是减少为同一个明确局部目标反复调用 Astra。
+
+====================
+右臂与双臂安全准备
+====================
+
+不允许仅因为左右 endpoint IK 分别通过就认为双臂安全。
+
+先做：
+- arm identity verification
+- left/right endpoint verification
+- tool/work frame dump
+- gripper semantics
+- common reachable handoff region logging
+- cross-arm transform status
+- collision / path checking capability inventory
+
+现场信息缺失就输出 TODO，不猜。
+
+真机执行入口默认 OFF。
+
+====================
+GUI / 日志
+====================
+
+不要重写现有 GUI。
+
+准备最小扩展接口，后续显示：
+
+ACTIVE OBJECT
+CLASS: fruit / clutter
+DESTINATION: plate / box
+HOLDER: none / left / right
+PHASE
+LEFT STATUS
+RIGHT STATUS
+HANDOFF STATUS
+
+以及：
+ASTRA CALL COUNT
+OBJECT ELAPSED TIME
+
+现有 camera / evidence / archive 功能继续复用。
+
+====================
+Codex 本轮实际交付
+====================
+
+现在先完成“实验地基”，不等真机：
+
+A. high-level schema
+B. shared task state
+C. skill interfaces
+D. bimanual coordinator / handoff state machine
+E. left/right executor abstraction
+F. RGB keyframe/history abstraction
+G. profiling/logging
+H. synthetic demo / mocks
+I. tests
+J. 现场核验 checklist
+
+做一个 synthetic episode：
+
+apple:
+left pick
+-> handoff
+-> right receive
+-> right place plate
+
+tennis_ball:
+left pick
+-> handoff
+-> right receive
+-> right place box
+
+验证：
+- 分类结果
+- object identity
+- ownership transition
+- handoff invariant
+- destination selection
+- failure recovery
+- logs
+- no hardware calls
+
+不要真实调用模型。
+不要真实移动机器人。
+
+完成后返回：
+
+1. commit
+2. 文件清单
+3. 架构说明
+4. synthetic demo 结果
+5. 测试结果
+6. 所有现场必须核验的参数/依赖
+7. 明天/今天现场第一条命令
+8. 从当前单臂 39a043e 迁移需要哪些步骤
+
+不要继续扩展其它研究方向。

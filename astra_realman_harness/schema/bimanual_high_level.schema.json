@@ -1,0 +1,264 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bimanual high-level action v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "operation_id",
+    "state_version",
+    "revision",
+    "action",
+    "object_id",
+    "semantic_class",
+    "destination",
+    "arm_id",
+    "frame",
+    "translation_m",
+    "rotation_rpy_rad",
+    "intent"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "operation_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "state_version": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "camera",
+        "layout",
+        "calibration"
+      ],
+      "properties": {
+        "camera": {
+          "type": "string",
+          "minLength": 1
+        },
+        "layout": {
+          "type": "string",
+          "minLength": 1
+        },
+        "calibration": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "action": {
+      "enum": [
+        "OBSERVE",
+        "SELECT_OBJECT",
+        "LEFT_PICK",
+        "LEFT_PRESENT",
+        "BIMANUAL_HANDOFF",
+        "RIGHT_PLACE",
+        "VERIFY",
+        "RECOVER",
+        "DELTA_CORRECTION"
+      ]
+    },
+    "object_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "semantic_class": {
+      "enum": [
+        null,
+        "fruit",
+        "clutter"
+      ]
+    },
+    "destination": {
+      "enum": [
+        null,
+        "plate",
+        "box"
+      ]
+    },
+    "arm_id": {
+      "enum": [
+        null,
+        "left",
+        "right"
+      ]
+    },
+    "frame": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "translation_m": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "rotation_rpy_rad": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "intent": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 600
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "const": "OBSERVE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object_id": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "object_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "const": "SELECT_OBJECT"
+          }
+        }
+      },
+      "then": {
+        "oneOf": [
+          {
+            "properties": {
+              "semantic_class": {
+                "const": "fruit"
+              },
+              "destination": {
+                "const": "plate"
+              }
+            }
+          },
+          {
+            "properties": {
+              "semantic_class": {
+                "const": "clutter"
+              },
+              "destination": {
+                "const": "box"
+              }
+            }
+          }
+        ]
+      },
+      "else": {
+        "if": {
+          "properties": {
+            "action": {
+              "const": "RIGHT_PLACE"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "destination": {
+              "enum": [
+                "plate",
+                "box"
+              ]
+            },
+            "semantic_class": {
+              "type": "null"
+            }
+          }
+        },
+        "else": {
+          "properties": {
+            "semantic_class": {
+              "type": "null"
+            },
+            "destination": {
+              "type": "null"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "const": "DELTA_CORRECTION"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "arm_id": {
+            "enum": [
+              "left",
+              "right"
+            ]
+          },
+          "frame": {
+            "type": "string"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "arm_id": {
+            "type": "null"
+          },
+          "frame": {
+            "type": "null"
+          },
+          "translation_m": {
+            "const": [
+              0,
+              0,
+              0
+            ]
+          },
+          "rotation_rpy_rad": {
+            "const": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

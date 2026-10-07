@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "hardware_enabled": false,
+  "model_enabled": false,
+  "requested_effort": "medium",
+  "model": "gpt-6-astra",
+  "speed_percent": 1,
+  "revision": {
+    "camera": "synthetic-camera-v1",
+    "layout": "synthetic-layout-v1",
+    "calibration": "synthetic-only-no-physical-transform"
+  },
+  "arms": {
+    "left": {
+      "endpoint": "192.168.1.19:8080",
+      "identity_verified": false
+    },
+    "right": {
+      "endpoint": "192.168.1.18:8080",
+      "identity_verified": false
+    }
+  },
+  "shared_task_lock": "/home/tongji/alex/astra_realman_harness/logs/auto-pick.lock",
+  "cross_arm_transform": null,
+  "path_checker": "NOT_IMPLEMENTED_REAL_HARDWARE_OFF",
+  "synthetic_waypoints": {
+    "source_approach": {
+      "arm_id": "left",
+      "pose": [
+        -0.2,
+        0,
+        0.4,
+        0,
+        0,
+        0
+      ],
+      "frame": "synthetic:left:work",
+      "tool_frame": "synthetic:left:tool",
+      "revision": {
+        "camera": "synthetic-camera-v1",
+        "layout": "synthetic-layout-v1",
+        "calibration": "synthetic-only-no-physical-transform"
+      },
+      "source": "SYNTHETIC_NOT_FIELD_VALIDATED"
+    },
+    "source_grasp": {
+      "arm_id": "left",
+      "pose": [
+        -0.2,
+        0,
+        0.2,
+        0,
+        0,
+        0
+      ],
+      "frame": "synthetic:left:work",
+      "tool_frame": "synthetic:left:tool",
+      "revision": {
+        "camera": "synthetic-camera-v1",
+        "layout": "synthetic-layout-v1",
+        "calibration": "synthetic-only-no-physical-transform"
+      },
+      "source": "SYNTHETIC_NOT_FIELD_VALIDATED"
+    },
+    "source_lift": {
+      "arm_id": "left",
+      "pose": [
+        -0.2,
+        0,
+        0.4,
+        0,
+        0,
+        0
+      ],
+      "frame": "synthetic:left:work",
+      "tool_frame": "synthetic:left:tool",
+      "revision": {
+        "camera": "synthetic-camera-v1",
+        "layout": "synthetic-layout-v1",
+        "calibration": "synthetic-only-no-physical-transform"
+      },
+      "source": "SYNTHETIC_NOT_FIELD_VALIDATED"
+    },
+    "left_handoff": {
+      "arm_id": "left",
+      "pose": [
+        0,
+        0,
+        0.4,
+        0,
+        0,
+        0
+      ],
+      "frame": "synthetic:left:work",
+      "tool_frame": "synthetic:left:tool",
+      "revision": {
+        "camera": "synthetic-camera-v1",
+        "layout": "synthetic-layout-v1",
+        "calibration": "synthetic-only-no-physical-transform"
+      },
+      "source": "SYNTHETIC_NOT_FIELD_VALIDATED"
+    },
+    "left_retract": {
+      "arm_id": "left",
+      "pose": [
+        -0.2,
+        0,
+        0.4,
+        0,
+        0,
+        0
+      ],
+      "frame": "synthetic:left:work",
+      "tool_frame": "synthetic:left:tool",
+      "revision": {
+        "camera": "synthetic-camera-v1",
+        "layout": "synthetic-layout-v1",
+        "calibration": "synthetic-only-no-physical-transform"
+      },
+      "source": "SYNTHETIC_NOT_FIELD_VALIDATED"
+    },
+    "right_receive": {
+      "arm_id": "right",
+      "pose": [
+        0,
+        0,
+        0.4,
+        0,
+        0,
+        0
+      ],
+      "frame": "synthetic:right:work",
+      "tool_frame": "synthetic:right:tool",
+      "revision": {
+        "camera": "synthetic-camera-v1",
+        "layout": "synthetic-layout-v1",
+        "calibration": "synthetic-only-no-physical-transform"
+      },
+      "source": "SYNTHETIC_NOT_FIELD_VALIDATED"
+    },
+    "plate_approach": {
+      "arm_id": "right",
+      "pose": [
+        0.2,
+        0.1,
+        0.4,
+        0,
+        0,
+        0
+      ],
+      "frame": "synthetic:right:work",
+      "tool_frame": "synthetic:right:tool",
+      "revision": {
+        "camera": "synthetic-camera-v1",
+        "layout": "synthetic-layout-v1",
+        "calibration": "synthetic-only-no-physical-transform"
+      },
+      "source": "SYNTHETIC_NOT_FIELD_VALIDATED"
+    },
+    "plate_release": {
+      "arm_id": "right",
+      "pose": [
+        0.2,
+        0.1,
+        0.2,
+        0,
+        0,
+        0
+      ],
+      "frame": "synthetic:right:work",
+      "tool_frame": "synthetic:right:tool",
+      "revision": {
+        "camera": "synthetic-camera-v1",
+        "layout": "synthetic-layout-v1",
+        "calibration": "synthetic-only-no-physical-transform"
+      },
+      "source": "SYNTHETIC_NOT_FIELD_VALIDATED"
+    },
+    "box_approach": {
+      "arm_id": "right",
+      "pose": [
+        0.2,
+        -0.1,
+        0.4,
+        0,
+        0,
+        0
+      ],
+      "frame": "synthetic:right:work",
+      "tool_frame": "synthetic:right:tool",
+      "revision": {
+        "camera": "synthetic-camera-v1",
+        "layout": "synthetic-layout-v1",
+        "calibration": "synthetic-only-no-physical-transform"
+      },
+      "source": "SYNTHETIC_NOT_FIELD_VALIDATED"
+    },
+    "box_release": {
+      "arm_id": "right",
+      "pose": [
+        0.2,
+        -0.1,
+        0.2,
+        0,
+        0,
+        0
+      ],
+      "frame": "synthetic:right:work",
+      "tool_frame": "synthetic:right:tool",
+      "revision": {
+        "camera": "synthetic-camera-v1",
+        "layout": "synthetic-layout-v1",
+        "calibration": "synthetic-only-no-physical-transform"
+      },
+      "source": "SYNTHETIC_NOT_FIELD_VALIDATED"
+    },
+    "right_retract": {
+      "arm_id": "right",
+      "pose": [
+        0.3,
+        0,
+        0.4,
+        0,
+        0,
+        0
+      ],
+      "frame": "synthetic:right:work",
+      "tool_frame": "synthetic:right:tool",
+      "revision": {
+        "camera": "synthetic-camera-v1",
+        "layout": "synthetic-layout-v1",
+        "calibration": "synthetic-only-no-physical-transform"
+      },
+      "source": "SYNTHETIC_NOT_FIELD_VALIDATED"
+    }
+  }
+}
