@@ -16,9 +16,11 @@ def main():
     p.add_argument('--live',action='store_true',required=True,help='Connect SDK read sessions and persistent cameras.')
     p.add_argument('--execute',action='store_true',help='Send the checked action group; without this, shadow only.')
     p.add_argument('--task',help='Otherwise prompt for the task verbatim.')
-    p.add_argument('--max-steps',type=int,default=100);p.add_argument('--time-budget-s',type=int,default=7200)
+    p.add_argument('--max-steps',type=int,default=100);p.add_argument('--time-budget-s',type=float,default=7200)
     p.add_argument('--config',type=Path,default=ROOT/'config/arm_mirror.json')
     p.add_argument('--backend-config',type=Path,default=ROOT/'config/decision_backend.json')
+    p.add_argument('--no-preview',action='store_true',help='GUI compatibility; this runner owns no preview server.')
+    p.add_argument('--lock-path',type=Path,help='Optional existing GUI/legacy episode lock, in addition to shared actuation lock.')
     args=p.parse_args()
     if not 1<=args.max_steps<=100 or not 1<=args.time_budget_s<=86400:p.error('invalid episode budget')
     task=args.task if args.task is not None else input('Task (STOP cancels): ')
@@ -42,6 +44,8 @@ def main():
             # Existing exclusive episode mechanism; fixed path also shared by right-mirror CLI below.
             import fcntl
             lock=stack.enter_context(open('/tmp/astra-realman-actuation.lock','a+'));fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+            if args.lock_path and args.lock_path.resolve()!=Path('/tmp/astra-realman-actuation.lock'):
+                extra=stack.enter_context(args.lock_path.open('a+'));fcntl.flock(extra,fcntl.LOCK_EX|fcntl.LOCK_NB)
             workers={}
             for arm in ('left','right'):
                 worker=ProcessArmWorker(arm,stop,run/('worker-'+arm));stack.callback(worker.close);workers[arm]=worker
