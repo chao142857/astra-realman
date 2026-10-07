@@ -32,6 +32,8 @@ def main():
     signal.signal(signal.SIGINT,lambda *_:stop.set());signal.signal(signal.SIGTERM,lambda *_:stop.set())
     run=new_run(ROOT/'logs'/('arm-'+args.arm+'-'+time.strftime('%Y%m%dT%H%M%S')+'-'+uuid.uuid4().hex[:8]))
     with ExitStack() as stack:
+        import fcntl
+        lock=stack.enter_context(open('/tmp/astra-realman-actuation.lock','a+'));fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         from realman_api2_readonly import SDKReadOnly
         session=stack.enter_context(SDKReadOnly(new_run(run/'sdk')))
         for arm in (('left','right') if args.both else (args.arm,)):

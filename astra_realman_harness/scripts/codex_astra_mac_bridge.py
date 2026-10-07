@@ -14,7 +14,7 @@ def command(run,images):
          '--model','gpt-6-astra','--output-schema',str(run/'schema.json'),'--output-last-message',str(run/'last_message.json')]
     config={'approval_policy':'never','web_search':'disabled','project_doc_max_bytes':0,
             'shell_environment_policy.inherit':'none','history.persistence':'none','log_dir':str(run/'runtime'),
-            'sqlite_home':str(run/'runtime'),'model_reasoning_effort':'low','mcp_servers':{},
+            'sqlite_home':str(run/'runtime'),'model_reasoning_effort':'medium','mcp_servers':{},
             'features.skip_host_skill_discovery':True,'analytics.enabled':False,'feedback.enabled':False,
             'model_provider':'openai'}
     for k,v in config.items():cmd+=['-c',k+'='+('{}' if v=={} else json.dumps(v))]
