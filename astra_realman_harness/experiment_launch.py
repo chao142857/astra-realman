@@ -7,7 +7,7 @@ from pathlib import Path
 from io_utils import ROOT
 from history_diagnostics import PROFILES
 
-ALL_PROFILES = (*PROFILES, 'legacy1', 'legacy5', 'legacy4')
+ALL_PROFILES = (*PROFILES, 'legacy1', 'legacy5', 'legacy4', 'parallel')
 DEFAULTS = {'profile':'H5D0','mode':'shadow','task':'','max_steps':10,'wall_budget_s':480,
             'phase':'placement','layout_id':'L1','trial_id':'trial-01','preview_port':8765}
 
@@ -18,8 +18,8 @@ def validate(settings):
     s = dict(DEFAULTS,**settings)
     if s['profile'] not in ALL_PROFILES or s['mode'] not in ('shadow','execute'):
         raise ValueError('PROFILE_OR_MODE')
-    if type(s['max_steps']) is not int or not 1<=s['max_steps']<=50:
-        raise ValueError('max_steps 必须为 1–50 的整数')
+    if type(s['max_steps']) is not int or not 1<=s['max_steps']<=(100 if s['profile']=='parallel' else 50):
+        raise ValueError('max_steps：parallel 为 1–100，原实验为 1–50')
     if not isinstance(s['task'],str) or not s['task'].strip() or len(s['task'])>12000:
         raise ValueError('请输入任务（最多 12000 字符）')
     if (type(s['wall_budget_s']) not in (int,float) or not math.isfinite(s['wall_budget_s'])
@@ -37,6 +37,13 @@ def validate(settings):
 
 def runner_args(settings, *, no_preview=False, lock_path=None):
     s=validate(settings);profile=s['profile']
+    if profile=='parallel':
+        args=[str(ROOT/'scripts/run_parallel_arms.py'),'--live','--task',s['task'],
+              '--max-steps',str(s['max_steps']),'--time-budget-s',str(s['wall_budget_s'])]
+        if s['mode']=='execute':args+=['--execute']
+        if no_preview:args+=['--no-preview']
+        if lock_path:args+=['--lock-path',str(lock_path)]
+        return args
     entry={'legacy1':'run_left_terminal.py','legacy5':'run_left_threeview_history5.py',
            'legacy4':'run_left_fourview.py'}.get(profile,'run_left_history_diagnostics.py')
     args=[str(ROOT/'scripts'/entry),'--live','--model','gpt-6-astra','--task',s['task'],

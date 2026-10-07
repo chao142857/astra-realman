@@ -31,6 +31,9 @@ def action_summary(action):
     if action.get('done'):
         return {'text':'模型宣称任务完成；本步不下发动作','translation_mm':[0,0,0],
                 'rotation_deg':[0,0,0],'opening_percent':None}
+    if 'actions' in action:
+        parts=[a['arm']+': '+action_summary(a)['text'] for a in action['actions']]
+        return {'text':action['execution']+' · '+('；'.join(parts) or '双臂保持'), 'translation_mm':None,'rotation_deg':None,'opening_percent':None}
     xyz=[round(v*1000,3) for v in action['translation_m']]
     rpy=[round(math.degrees(v),3) for v in action['rotation_rpy_rad']]
     opening=round(action['gripper_opening']*100,2)
@@ -41,6 +44,9 @@ def action_summary(action):
 
 
 def step_evidence(step):
+    if (step/'parsed_group.json').exists() or 'actions' in load(step/'action_schema.json').get('properties',{}):
+        from parallel_gui_evidence import group_evidence
+        return group_evidence(step)
     observation=load(step/'input_observation.json') or load(step/'input/observation.json')
     action=load(step/'parsed_action.json');transition=load(step/'transition.json')
     execution=load(step/'execution_result.json');feasibility=load(step/'feasibility.json')
@@ -88,11 +94,11 @@ def step_evidence(step):
 
 def terminal_step(row,summary):
     """Episode termination takes precedence over a successfully parsed model proposal."""
-    if summary.get('status') not in ('STOPPED','WALL_BUDGET_EXHAUSTED'):return row
+    if summary.get('status') not in ('STOPPED','WALL_BUDGET_EXHAUSTED','TIME_BUDGET'):return row
     row=dict(row);failure=row.get('failure',{})
     stage=failure.get('stage') or summary.get('failure_stage') or 'unknown'
     row.update(status=summary['status'],stage='已停止 / '+stage,failure_stage=stage,
-               failure_reason=failure.get('reason') or summary.get('reason') or row.get('failure_reason'),
+               failure_reason=failure.get('reason') or summary.get('reason') or summary.get('error') or row.get('failure_reason'),
                result_text=('预算耗尽' if summary['status']=='WALL_BUDGET_EXHAUSTED' else 'STOPPED')+' · '+stage+' failure')
     if failure.get('hardware_commands_sent') is not None:row['hardware_commands_sent']=failure['hardware_commands_sent']
     if row.get('model_output_valid'):row['result_text']+=' · 模型输出合法'
@@ -141,7 +147,7 @@ class CameraHub:
                          'source':'SYNTHETIC' if self.demo else 'LIVE','role_confirmed':c.get('role_confirmed',False)})
         return rows
     def stream_metrics(self,profile):
-        selected=self.configs if profile=='legacy4' else self.configs[:3]
+        selected=self.configs if profile in ('legacy4','parallel') else self.configs[:3]
         if self.session:return self.session.stream_metrics(selected)
         return {'model_input_serials':[c['serial'] for c in selected],
                 'active_stream_serials':[],'pipeline_start_count':{},
@@ -214,7 +220,7 @@ class Console:
         self.demo=demo;self.cameras_only=cameras_only;self.python=python
         self.lock_path=lock_path or Path('/home/tongji/alex/astra_realman_harness/logs/auto-pick.lock')
         self.token=secrets.token_hex(32);self.url=None
-        self.camera=CameraHub(read_json(ROOT/'config/left_terminal_fourview.json')['cameras'],demo,demo_count)
+        self.camera=CameraHub(read_json(ROOT/'config/arm_mirror.json')['cameras'],demo,demo_count)
         (ROOT/'logs').mkdir(exist_ok=True)
         self.session=new_run(ROOT/'logs'/('gui-session-'+uuid.uuid4().hex[:10]))
         self.lock=threading.RLock();self.process=None;self.active=False;self.current_run=None
@@ -229,7 +235,7 @@ class Console:
             if self.cameras_only:raise ValueError('CAMERAS_ONLY')
             if self.active:raise ValueError('已有实验运行中')
             if not self.demo:
-                required=4 if settings['profile']=='legacy4' else 3
+                required=4 if settings['profile'] in ('legacy4','parallel') else 3
                 if not all(c['available'] for c in self.camera.status()[:required]):
                     raise ValueError(f'该实验需要前 {required} 路相机，当前未全部就绪；预览可继续使用已有相机。')
             self.active=True;self.stop_requested=False;self.error=None;self.return_code=None
@@ -258,7 +264,7 @@ class Console:
     def preflight(self,settings):
         from launch_provenance import equivalent_command
         settings=validate(settings)
-        count=4 if settings['profile']=='legacy4' else 3
+        count=4 if settings['profile'] in ('legacy4','parallel') else 3
         cameras=self.camera.status()
         return {'command':equivalent_command(settings,self.python,self.lock_path),
                 'required_camera_count':count,'required_cameras_ready':all(c['available'] for c in cameras[:count]),
@@ -292,14 +298,19 @@ class Console:
             for line in process.stdout:self._line(line)
             code=process.wait()
             with self.lock:
-                self.return_code=code;self.active=False
+                self.return_code=code
                 if code and self.current_run is None:self.error='启动失败；请查看原始终端输出。'
         except Exception as exc:
             with self.lock:self.error=str(exc)
         finally:
             if process.stdout:process.stdout.close()
             if process.stdin:process.stdin.close()
-            if process.poll() is not None:self.active=False
+            if process.poll() is not None:
+                if self.current_run and (self.current_run/'summary.json').exists():
+                    from episode_archive import finalize_archive
+                    try:finalize_archive(self.current_run,self.settings['task'],lambda label,value:self._line(label+' → '+json.dumps(value,ensure_ascii=False)))
+                    finally:self.active=False
+                else:self.active=False
     def stop(self):
         with self.lock:
             if not self.active:return {'stopped':False,'reason':'NO_ACTIVE_RUN'}
@@ -390,6 +401,9 @@ class Console:
         if len(matching)!=1 or not matching[0]['available']:raise ValueError('IMAGE_MISSING_OR_INVALID')
         return Path(matching[0]['image_path']).read_bytes(),'image/png'
     def _demo_run(self):
+        if self.settings['profile']=='parallel':
+            from parallel_gui_evidence import demo_run
+            return demo_run(self)
         from fixtures.synthetic_history import observation,action
         from history_diagnostics import build_transition,DIAGNOSTIC_FIELDS
         from left_terminal import command_plan

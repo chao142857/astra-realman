@@ -147,8 +147,8 @@ def _build_archive(run,task,output,stamp):
             attachments.append(item)
             if not item['available']:warnings.append('INVALID_MODEL_INPUT: '+name+': '+str(item.get('serial'))+': '+','.join(item['errors']))
         diagnostics=documents.get(prefix+'diagnostics.json')
-        action=documents.get(prefix+'parsed_action.json')
-        execution=documents.get(prefix+'execution_result.json')
+        action=documents.get(prefix+'parsed_group.json') or documents.get(prefix+'parsed_action.json')
+        execution=documents.get(prefix+'group_result.json') or documents.get(prefix+'execution_result.json')
         transition=documents.get(prefix+'transition.json')
         row={'step':name,'image_evidence':source,'input_images':[c for c in attachments if c['available']],
              'invalid_input_images':[c for c in attachments if not c['available']],

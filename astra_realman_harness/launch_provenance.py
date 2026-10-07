@@ -35,8 +35,8 @@ def snapshot(settings, actual_argv, lock_path=None):
             'equivalent_cli':equivalent_command(settings,lock_path=lock_path),
             'git_revision':revision,'implementation_diff':diff,
             'implementation_diff_sha256':hashlib.sha256(diff.encode()).hexdigest(),
-            'model':'gpt-6-astra','effort':'low',
-            'camera_configuration':json.loads((ROOT/'config'/('left_terminal_fourview.json' if settings['profile']=='legacy4' else 'left_terminal.json')).read_text())['cameras'],
+            'model':'gpt-6-astra','effort':'medium',
+            'camera_configuration':json.loads((ROOT/'config'/('arm_mirror.json' if settings['profile']=='parallel' else 'left_terminal_fourview.json' if settings['profile']=='legacy4' else 'left_terminal.json')).read_text())['cameras'],
             'untracked_implementation_files':git('ls-files','--others','--exclude-standard','--','*.py','*.js','*.css','*.html','*.sh').splitlines()}
 
 

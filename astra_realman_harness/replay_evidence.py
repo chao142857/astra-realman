@@ -95,9 +95,12 @@ def replay(run,name):
         for item in items:item['integrity_status']='valid' if item['available'] else 'invalid'
     identities=list(dict.fromkeys((c['serial'],c['role']) for items in groups.values() for c in items))
     pairs=[{'serial':serial,'role':role,**{stage:next((c for c in items if (c['serial'],c['role'])==(serial,role)),None) for stage,items in groups.items()}} for serial,role in identities]
-    execution=optional(step/'execution_result.json');check=optional(step/'feasibility.json')
+    execution=optional(step/'group_result.json') or optional(step/'execution_result.json');check=optional(step/'group_preflight.json') or optional(step/'feasibility.json')
     factual={'transition':transition,'execution':execution,'feasibility':check,
-             'proposal':optional(step/'parsed_action.json'),'diagnostics_hypotheses':optional(step/'diagnostics.json')}
+             'proposal':optional(step/'parsed_group.json') or optional(step/'parsed_action.json'),'diagnostics_hypotheses':optional(step/'diagnostics.json')}
+    if (step/'parsed_group.json').exists():
+        from parallel_gui_evidence import group_evidence
+        factual['arms']=group_evidence(step)['arms']
     events=[read_json(p) for p in sorted(run.glob('review-marker-*.json')) if read_json(p).get('step')==name]
     result={'run':run.name,'step':name,'pairs':pairs,'warnings':warnings,'facts':factual,'markers':events,
             'synthetic':(run/'SYNTHETIC.json').exists(),'readonly':True,
