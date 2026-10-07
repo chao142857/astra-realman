@@ -14,6 +14,10 @@ class Checks(unittest.TestCase):
   self.action=read_json(ROOT/'tests/left_opening_fixture.json');self.calls=[];self.ret=(0,[1,2,3,4,5,6])
   def ik(params):self.calls.append(params);return self.ret
   self.session=types.SimpleNamespace(connected={'left':types.SimpleNamespace(rm_algo_inverse_kinematics=ik)},sdk=types.SimpleNamespace(rm_inverse_kinematics_params_t=lambda **k:k))
+  robot=self.session.connected['left']
+  robot.rm_algo_set_redundant_parameter_traversal_mode=lambda mode:None
+  robot.rm_get_robot_info=lambda:(0,{'arm_dof':6,'arm_model':'RM_65'})
+  robot.rm_algo_inverse_kinematics_all=lambda params:types.SimpleNamespace(result=1,num=0,q_ref=[0]*8,q_solve=[])
  def test_exact_target_once(self):
   before=copy.deepcopy(self.action);c=check_exact_target(self.session,self.action,self.obs)
   self.assertEqual(c['status'],'PASS_IK');self.assertEqual(len(self.calls),1)
@@ -52,6 +56,9 @@ class LoopTests(unittest.TestCase):
     if ik_fault:return (-2,[0]*6)
     # First original target explicitly rejected; subsequent original target succeeds.
     return (1,[0]*6) if len(contexts)==1 else (0,list(state['joint_deg']))
+   def rm_algo_set_redundant_parameter_traversal_mode(self,mode):pass
+   def rm_get_robot_info(self):return 0,{'arm_dof':6,'arm_model':'RM_65'}
+   def rm_algo_inverse_kinematics_all(self,params):return types.SimpleNamespace(result=1,num=0,q_ref=[0]*8,q_solve=[])
    def rm_movej_p(self,pose,*args):
     motions.append(list(pose))
     if command_fault:return 1

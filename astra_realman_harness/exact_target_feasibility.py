@@ -1,9 +1,111 @@
 """Pure preflight IK of the exact proposal target. No motion, projection or search."""
-import copy, ctypes, hashlib, json, time
+import copy, ctypes, hashlib, json, time, math, threading
 from io_utils import vector
 from left_terminal import command_plan,parse
 
 class FeasibilityFault(RuntimeError):pass
+
+_SOLVER_LOCK = threading.RLock()  # SDK traversal mode is process-global.
+
+def solve_exact_inputs(session, arm, q_in, target, flag=1, *, all_stages=False):
+    """Solve a frozen target; never dispatch, change targets or search nearby poses.
+
+    all_stages is diagnostic-only: evaluate all three methods even if fast succeeds.
+    This checker owns traversal mode (normally False), and restores it in finally.
+    """
+    started = time.monotonic()
+    q_in, target = copy.deepcopy(q_in), copy.deepcopy(target)
+    out = dict(status='CHECK_ERROR', q_in=q_in, exact_target_pose=target, checker_flag=flag,
+               fast_return=None, traversal_return=None, all_solution_count=None,
+               all_solutions=None, selected_solution=None, solution_joint_deg=None,
+               solver_path=[], return_code=None, raw_ik_return=None, target_modified=False,
+               motion_commands_sent=0, reason=None)
+    try:
+        if not vector(q_in, 6) or not vector(target, 6) or type(flag) is not int or flag != 1:
+            raise FeasibilityFault('INVALID_EXACT_INPUT')
+        if any(not math.isfinite(ctypes.c_float(v).value) for v in target+q_in):
+            raise FeasibilityFault('SDK_FLOAT32_INPUT_OVERFLOW')
+        robot = session.connected[arm]
+        def params():
+            # Fresh buffers prevent a solver mutating the next solver's input.
+            return session.sdk.rm_inverse_kinematics_params_t(q_in=list(q_in), q_pose=list(target), flag=flag)
+        def single(stage):
+            out['solver_path'].append(stage)
+            raw = robot.rm_algo_inverse_kinematics(params())
+            out[stage+'_return'] = copy.deepcopy(raw)
+            if stage == 'fast': out['raw_ik_return'] = copy.deepcopy(raw)
+            if not isinstance(raw, (tuple,list)) or len(raw)!=2 or type(raw[0]) is not int:
+                raise FeasibilityFault('INVALID_IK_RETURN:'+stage)
+            code, solution = raw
+            out['return_code'] = code
+            if code not in (0,1) or (code==0 and not vector(solution,6)):
+                raise FeasibilityFault('IK_API_ERROR_OR_INVALID_SOLUTION:'+stage+':'+str(code))
+            return list(solution) if code==0 else None
+        chosen = None
+        with _SOLVER_LOCK:
+            chosen = single('fast')
+            if chosen is not None: out['selected_solver'] = 'fast'
+            if chosen is None or all_stages:
+                # No hardware setting is changed; this is the SDK algorithm mode.
+                try:
+                    robot.rm_algo_set_redundant_parameter_traversal_mode(True)
+                    out['traversal_mode_enabled'] = True
+                    traversed = single('traversal')
+                finally:
+                    robot.rm_algo_set_redundant_parameter_traversal_mode(False)
+                    out['traversal_mode_restored_false'] = True
+                if chosen is None and traversed is not None:
+                    chosen = traversed; out['selected_solver'] = 'traversal'
+            if chosen is None or all_stages:
+                info = robot.rm_get_robot_info()
+                out['robot_info_return'] = copy.deepcopy(info)
+                if (not isinstance(info,(list,tuple)) or len(info)!=2 or type(info[0]) is not int
+                    or info[0]!=0 or not isinstance(info[1],dict)):
+                    raise FeasibilityFault('ROBOT_INFO_FAILED')
+                if info[1].get('arm_dof')!=6 or info[1].get('arm_model')!='RM_65':
+                    raise FeasibilityFault('ALL_SOLUTIONS_REQUIRES_VERIFIED_6DOF_RM65')
+                out['solver_path'].append('all_solutions')
+                raw = robot.rm_algo_inverse_kinematics_all(params())
+                out['all_result'] = raw.result
+                out['all_solution_count'] = raw.num
+                out['all_q_ref'] = list(raw.q_ref)
+                if type(raw.result) is not int or raw.result not in (0,1):
+                    raise FeasibilityFault('ALL_SOLUTIONS_API_ERROR:'+str(raw.result))
+                if type(raw.num) is not int or not 0 <= raw.num <= 8:
+                    raise FeasibilityFault('INVALID_ALL_SOLUTION_COUNT')
+                rows = [list(raw.q_solve[i]) for i in range(raw.num)]
+                out['all_solutions'] = rows
+                out['candidate_checks'] = []
+                valid = []
+                if raw.result==1 and raw.num:
+                    raise FeasibilityFault('INCONSISTENT_ALL_SOLUTIONS_RESULT')
+                for index, row in enumerate(rows):
+                    candidate = row[:6]
+                    if not vector(candidate,6): raise FeasibilityFault('INVALID_ALL_SOLUTION')
+                    # Local SDK wrapper requires a float pointer despite its list annotation.
+                    limit = robot.rm_algo_ikine_check_joint_position_limit((ctypes.c_float*6)(*candidate))
+                    check = dict(index=index, joint_deg=candidate, joint_limit_return=limit)
+                    out['candidate_checks'].append(check)
+                    if type(limit) is not int or not 0<=limit<=6:
+                        raise FeasibilityFault('JOINT_LIMIT_CHECK_ERROR:'+str(limit))
+                    if limit==0:
+                        distance = sum((a-b)**2 for a,b in zip(candidate,q_in))
+                        check['distance_squared_deg'] = distance
+                        valid.append((distance,index,candidate))
+                if chosen is None and valid:
+                    _, index, chosen = min(valid)
+                    out.update(selected_solver='all_solutions', selected_candidate_index=index)
+            if chosen is None:
+                out.update(status='REJECTED_IK', return_code=1,
+                           reason='Fast and traversal failed; no valid all-solutions candidate for the exact target.')
+            else:
+                out.update(status='PASS_IK', return_code=0, selected_solution=chosen,
+                           solution_joint_deg=chosen,
+                           reason='Endpoint IK solution found; path/collision feasibility not certified.')
+    except Exception as exc:
+        out.update(status='CHECK_ERROR', reason=type(exc).__name__+':'+str(exc))
+    out['latency_s'] = time.monotonic()-started
+    return out
 
 def binding(action,state):
     data={'action':action,'joint_deg':state['joint_deg'],'ee_pose':state['ee_pose'],
@@ -24,20 +126,9 @@ def check_exact_target(session,action,observation, *, allow_shared_session=False
         if not plan['arm']:
             result.update(status='NOT_REQUIRED',reason='No arm motion requested');return result
         if arm not in session.connected or (not allow_shared_session and set(session.connected)!={arm}):raise FeasibilityFault('ARM_SESSION_MISMATCH')
-        # ctypes uses float32 in the same SDK motion call; reject overflow, never clamp.
-        if any(not __import__('math').isfinite(ctypes.c_float(v).value) for v in result['original_target']+state['joint_deg']):
-            raise FeasibilityFault('SDK_FLOAT32_INPUT_OVERFLOW')
-        params=session.sdk.rm_inverse_kinematics_params_t(q_in=state['joint_deg'],q_pose=result['original_target'],flag=1)
-        raw=session.connected[arm].rm_algo_inverse_kinematics(params)
-        result['raw_ik_return']=copy.deepcopy(raw)
-        if not isinstance(raw,(tuple,list)) or len(raw)!=2 or type(raw[0]) is not int:
-            raise FeasibilityFault('INVALID_IK_RETURN')
-        ret,solution=raw;result['return_code']=ret
-        if ret==1:
-            result.update(status='REJECTED_IK',reason='SDK endpoint IK failed for the unchanged original target; no actuator command sent.')
-        elif ret==0 and vector(solution,6):
-            result.update(status='PASS_IK',solution_joint_deg=list(solution),reason='Endpoint IK solution found; path/collision feasibility not certified.')
-        else:raise FeasibilityFault('IK_API_ERROR_OR_INVALID_SOLUTION:'+str(ret))
+        result.update(delta_xyz_m=copy.deepcopy(a['translation_m']),
+                      delta_rpy_rad=copy.deepcopy(a['rotation_rpy_rad']))
+        result.update(solve_exact_inputs(session,arm,state['joint_deg'],result['original_target']))
         return result
     except Exception as exc:
         result.update(status='CHECK_ERROR',reason=type(exc).__name__+':'+str(exc))
