@@ -18,11 +18,21 @@ class TaskLock:
     def __exit__(self,*args):self.file.close()
 
 class Runtime:
-    def __init__(self,site,root,objects,classes):
+    def __init__(self,site,root,objects,classes,*,arms=None,observer=None,mode='synthetic'):
         require(site['requested_effort']=='medium','MEDIUM_ONLY')
+        require(mode in ('synthetic','simulate'),'EXPLICIT_SIMULATION_MODE_REQUIRED')
+        require((arms is None)==(observer is None),'INJECT_ARMS_AND_OBSERVER_TOGETHER')
+        require(mode=='synthetic' or arms is not None,'SIMULATION_DEPENDENCIES_REQUIRED')
+        require(site['hardware_enabled'] is False,'REAL_EXECUTION_OFF')
         self.site=copy.deepcopy(site);self.root=Path(root);self.root.mkdir(parents=True,exist_ok=True)
-        self.state=TaskState(objects,site['revision']);self.arms=make_arms(site,'synthetic')
-        self.observer=SyntheticObserver(self.root,self.arms,classes,site['revision']);self.memory=Keyframes(site['revision'])
+        self.mode=mode
+        self.state=TaskState(objects,site['revision']);self.arms=arms if arms is not None else make_arms(site,'synthetic')
+        require(set(self.arms)=={'left','right'},'TWO_ARMS')
+        self.observer=observer if observer is not None else SyntheticObserver(self.root,self.arms,classes,site['revision'])
+        if mode=='simulate':
+            require(all(getattr(x,'execution_source',None)=='SAPIEN_PHYSX' for x in self.arms.values()),'PHYSICS_EXECUTORS_REQUIRED')
+            require(getattr(self.observer,'observation_source',None)=='SAPIEN_PHYSX','PHYSICS_OBSERVER_REQUIRED')
+        self.memory=Keyframes(site['revision'])
         self.recorder=Recorder(root);self.skills=Skills(self);self.stop=threading.Event();self.seen=set();self.local_sequence=0;self.latest=None
         self.decision_in_progress=False
         (self.root/'site.json').write_text(json.dumps(site,indent=2)+'\n')
@@ -35,7 +45,7 @@ class Runtime:
         if self.latest is None:self.observe()
         return {'schema':'bimanual-context-v1','task':task,'requested_effort':'medium','task_state':self.state.snapshot(),
            'current_images':self.memory.attachments(self.latest,self.state.active_object),
-           'keyframe_references':self.memory.projection(self.state.active_object),'mode':'SYNTHETIC_ONLY',
+           'keyframe_references':self.memory.projection(self.state.active_object),'mode':'SYNTHETIC_ONLY' if self.mode=='synthetic' else 'SIMULATE',
            'recent_execution_evidence':[x for x in self.recorder.rows if x['kind'] in ('SKILL_RESULT','OWNERSHIP_EVIDENCE')][-5:],
            'evidence_rule':'Historical references are not current images. Predictions do not establish grasp, ownership or placement.'}
     def invalidate_revision(self,revision):
@@ -68,23 +78,28 @@ class Runtime:
         out=None;start=time.monotonic()
         try:
             if kind=='move':
-                target=self.site['synthetic_waypoints'][value]
-                require(target['arm_id']==arm and target['source']=='SYNTHETIC_NOT_FIELD_VALIDATED','WAYPOINT_ROUTE')
+                target=self.site['synthetic_waypoints' if self.mode=='synthetic' else 'simulation_waypoints'][value]
+                expected='SYNTHETIC_NOT_FIELD_VALIDATED' if self.mode=='synthetic' else 'SIMULATION_NOT_FIELD_VALIDATED'
+                require(target['arm_id']==arm and target['source']==expected,'WAYPOINT_ROUTE')
                 require(target['revision']==self.state.revision,'STALE_TARGET')
                 out=self.arms[arm].move_to_pose(target['pose'],target['frame'],target['tool_frame'],local_id)
             elif kind=='delta':out=self.arms[arm].move_delta(value['translation'],value['rotation'],value['frame'],local_id)
-            else:out=self.arms[arm].set_gripper(value,local_id)
+            elif kind=='set_gripper':out=self.arms[arm].set_gripper(value,local_id)
+            else:raise SkillFailure('UNSUPPORTED_COMMAND')
+            require(isinstance(out,dict) and ('ok' in out or 'return_code' in out),'EXECUTION_RESULT_UNAVAILABLE')
+            require(('ok' not in out or out['ok'] is True) and
+                    ('return_code' not in out or type(out['return_code']) is int and out['return_code']==0),'EXECUTION_FAILED')
             return out
         finally:
             # Preserve a possibly dispatched unknown-ACK command without retry or recovery action.
-            matching=[c for c in self.arms[arm].calls if c['operation_id']==local_id]
+            matching=[c for c in getattr(self.arms[arm],'calls',[]) if c['operation_id']==local_id]
             raw=copy.deepcopy(out or (matching[-1] if matching else {'operation_id':local_id,'dispatched':False,'hardware_calls':0}))
-            raw.update(phase=self.state.phase,high_level_operation=a['operation_id'],synthetic=True)
-            self.recorder.emit('RAW_HARDWARE_COMMAND',raw)
+            raw.update(phase=self.state.phase,high_level_operation=a['operation_id'],synthetic=self.mode=='synthetic')
+            self.recorder.emit('RAW_HARDWARE_COMMAND' if self.mode=='synthetic' else 'RAW_BACKEND_COMMAND',raw)
             after={name:executor.read_state() for name,executor in self.arms.items()}
             self.recorder.emit('MEASURED_FEEDBACK',{'operation_id':a['operation_id'],'local_id':local_id,'before':before,'after':after,
                       'actual_delta':[y-x for x,y in zip(before[arm]['pose'],after[arm]['pose'])],
-                      'source':'MOCK','object_result':'unknown; requires independent observation'})
+                      'source':'MOCK' if self.mode=='synthetic' else 'SAPIEN_PHYSX','object_result':'unknown; requires independent observation'})
             metric='gripper_s' if kind=='set_gripper' else 'arm_motion_s'
             self.recorder.objects[a['object_id']][metric]+=time.monotonic()-start
             self.recorder.objects[a['object_id']]['internal_action_count']+=1
@@ -97,7 +112,7 @@ class Runtime:
         self.seen.add(a['operation_id']);self.decision_in_progress=True
         obj=a['object_id'];kind=a['action'];start=time.monotonic()
         if obj:self.recorder.begin_object(obj);self.recorder.objects[obj]['synthetic_decisions']+=1
-        self.recorder.emit('ASTRA_DECISION',{'raw_proposal':raw,'parsed':a,'source':'SCRIPTED_SYNTHETIC_NOT_ASTRA','real_model_calls':0})
+        self.recorder.emit('ASTRA_DECISION',{'raw_proposal':raw,'parsed':a,'source':'SCRIPTED_SYNTHETIC_NOT_ASTRA' if self.mode=='synthetic' else 'INJECTED_PROPOSAL_NOT_MODEL_VERIFIED','real_model_calls':0})
         result={'operation_id':a['operation_id'],'object_id':obj,'action':kind,'status':'STARTED','real_hardware_calls':0}
         try:
             before=self.observe(obj)

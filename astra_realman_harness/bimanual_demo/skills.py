@@ -1,5 +1,6 @@
 """Short local skills under one coordinator. No simultaneous arm motions."""
 from bimanual_demo.protocol import require
+from bimanual_demo.primitives import placement_primitives
 
 class Skills:
     def __init__(self,runtime):self.r=runtime
@@ -37,9 +38,10 @@ class Skills:
         r=self.r;obj=r.state.objects[a['object_id']]
         require(r.state.handoff=='RIGHT_OWNS_OBJECT' and obj['holder']=='right','PLACE_REQUIRES_OWNERSHIP_AND_CLEARANCE')
         require(a['destination']==obj['destination'],'WRONG_DESTINATION')
-        r.move('right',a['destination']+'_approach',a);r.move('right',a['destination']+'_release',a)
-        r.event('AT_DESTINATION',a);r.grip('right',1.,a);r.event('RIGHT_RELEASED',a)
-        r.move('right','right_retract',a)
+        for primitive in placement_primitives(a['destination']+'_approach',a['destination']+'_release','right_retract'):
+            if primitive['kind']=='move':r.move('right',primitive['target'],a)
+            else:
+                r.event('AT_DESTINATION',a);r.grip('right',primitive['opening'],a);r.event('RIGHT_RELEASED',a)
     def verify(self,a):
         self.r.event('SORT_CONFIRMED',a)
         self.r.recorder.objects[a['object_id']]['successful_sort']=True
