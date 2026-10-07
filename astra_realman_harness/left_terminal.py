@@ -10,11 +10,14 @@ ROLES = ('left_wrist', 'tabletop', 'overhead')
 WORK = 'realman:left:work:World'
 TOOL = 'realman:left:tool:Arm_Tip'
 
-def parse(raw):
+def parse(raw, arm_id="left", work=None, tool=None):
+    if arm_id not in ("left", "right"):raise ValueError("ARM_ID")
+    work = work or "realman:"+arm_id+":work:World"
+    tool = tool or "realman:"+arm_id+":tool:Arm_Tip"
     a = strict_json(raw)
     if not isinstance(a, dict) or set(a) != {'action_type','arm','frame','tool_frame','translation_m','rotation_rpy_rad','gripper_opening','done'}:
         raise ValueError('ACTION_FIELDS')
-    if (a['action_type'], a['arm'], a['frame'], a['tool_frame']) != ('cartesian_delta','left',WORK,TOOL):
+    if (a['action_type'], a['arm'], a['frame'], a['tool_frame']) != ('cartesian_delta',arm_id,work,tool):
         raise ValueError('ACTION_INTERFACE')
     if not vector(a['translation_m'],3) or not vector(a['rotation_rpy_rad'],3):
         raise ValueError('NONFINITE_OR_INVALID_DELTA')
@@ -79,9 +82,16 @@ def model_input(obs, schema):
             'work_frames':{'left':frame(s['work_frame'])},'tool_frames':{'left':frame(s['tool_frame'])},
             'previous':obs.get('previous'), 'action_schema':schema}
 
-def validate_state(obs, live=False, max_age_s=180):
+def validate_state(obs, live=False, max_age_s=180, *, arm_id="left", frame_fingerprints=None, work=None, tool=None):
+    if arm_id not in ("left", "right"):raise ValueError("ARM_ID")
+    work = work or "realman:"+arm_id+":work:World"
+    tool = tool or "realman:"+arm_id+":tool:Arm_Tip"
+    expected_ip = {"left":"192.168.1.19", "right":"192.168.1.18"}[arm_id]
+    if frame_fingerprints is None:
+        frame_fingerprints = FRAME_FINGERPRINTS if arm_id == "left" else {k: obs["canonical_states"][arm_id].get(k,{}).get("definition_fingerprint") for k in FRAME_FINGERPRINTS}
     errors=[]
-    s=obs['canonical_states']['left']; ee=s.get('ee_pose',{}); raw=s.get('raw_sdk_state',{})
+    s=obs['canonical_states'][arm_id]; ee=s.get('ee_pose',{}); raw=s.get('raw_sdk_state',{})
+    if s.get('arm')!=arm_id:errors.append('ARM_IDENTITY')
     e=s.get('system_error',{}); codes=e.get('codes')
     if not isinstance(codes,list) or not codes or any(type(c)is not int or c!=0 for c in codes) or e.get('has_error') is not False:
         errors.append('ROBOT_ERROR_OR_UNKNOWN')
@@ -93,14 +103,14 @@ def validate_state(obs, live=False, max_age_s=180):
     if (e.get('raw')!=raw_error or raw_error.get('err_len')!=len(codes or [])
         or raw_error.get('err') not in (codes,[str(c) for c in (codes or [])])):
         errors.append('ERROR_RAW_CANONICAL_MISMATCH')
-    if s.get('connection',{}).get('ip')!='192.168.1.19' or s.get('frame_snapshot_stable') is not True:
+    if s.get('connection',{}).get('ip')!=expected_ip or s.get('frame_snapshot_stable') is not True:
         errors.append('CONNECTION_OR_UNSTABLE_FRAME')
-    for key, expected in FRAME_FINGERPRINTS.items():
+    for key, expected in frame_fingerprints.items():
         f=s.get(key,{})
         fingerprint=hashlib.sha256(json.dumps(s.get('raw_'+key,{}),sort_keys=True,allow_nan=False).encode()).hexdigest()
-        if f.get('definition_fingerprint')!=expected or fingerprint!=expected:
+        if not expected or f.get('definition_fingerprint')!=expected or fingerprint!=expected:
             errors.append(key.upper()+'_CHANGED')
-    if s.get('work_frame',{}).get('id')!=WORK or s.get('tool_frame',{}).get('id')!=TOOL:
+    if s.get('work_frame',{}).get('id')!=work or s.get('tool_frame',{}).get('id')!=tool:
         errors.append('FRAME_ID')
     g=s.get('gripper_state',{}); gr=g.get('raw',{})
     if (not number(g.get('position')) or not 0<=g['position']<=1000 or gr.get('sys_state')!=0

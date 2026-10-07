@@ -17,12 +17,18 @@ class ArmExecutor(ABC):
     def retract(self,pose,frame,tool_frame,operation_id):return self.move_to_pose(pose,frame,tool_frame,operation_id)
 
 class RealArmExecutor(ArmExecutor):
-    def __init__(self,arm_id,*args,**kwargs):
-        super().__init__(arm_id);raise HardwareDisabled('REAL_EXECUTION_OFF: right identity, tools, common transform and whole-path validation pending')
-    def read_state(self):raise HardwareDisabled('REAL_OFF')
-    def move_to_pose(self,*args):raise HardwareDisabled('REAL_OFF')
-    def move_delta(self,*args):raise HardwareDisabled('REAL_OFF')
-    def set_gripper(self,*args):raise HardwareDisabled('REAL_OFF')
+    """Bridge to the mirrored single-arm stack; no SDK lifecycle or new motion logic."""
+    def __init__(self,arm_id,session=None,capture=None,stop=None,root=None,*,execute_enabled=False,gripper_factory=None):
+        super().__init__(arm_id)
+        if session is None or capture is None or stop is None or root is None:
+            raise HardwareDisabled('Explicit existing SDK session/capture/stop/log root required')
+        from arm_stack import ArmStack
+        self.stack=ArmStack(arm_id,session,capture,stop,root,execute_enabled=execute_enabled,gripper_factory=gripper_factory)
+    def read_state(self):return self.stack.read_state()
+    def move_to_pose(self,pose,frame,tool_frame,operation_id):return self.stack.move_to_pose(pose,frame,tool_frame,operation_id)
+    def move_delta(self,translation,rotation,frame,operation_id):return self.stack.move_delta(translation,rotation,frame,operation_id)
+    def set_gripper(self,opening,operation_id):return self.stack.set_gripper(opening,operation_id)
+    def hold(self):return self.stack.hold()
 
 class MockArmExecutor(ArmExecutor):
     def __init__(self,arm_id,site):
@@ -48,8 +54,12 @@ class MockArmExecutor(ArmExecutor):
         require(type(opening)in(int,float) and 0<=opening<=1,'OPENING_RANGE')
         r=self._send('set_gripper',opening,operation_id);self.opening=opening;return r
 
-def make_arms(site,mode):
+def make_arms(site,mode,*,session=None,capture=None,stop=None,root=None):
     require(set(site['arms'])=={'left','right'},'TWO_ARMS')
     require(site['arms']['left']['endpoint']!=site['arms']['right']['endpoint'],'DUPLICATE_ENDPOINT')
+    if mode=='real':
+        require(site['hardware_enabled'] is True and root is not None,'EXPLICIT_REAL_ENABLE_REQUIRED')
+        from pathlib import Path
+        return {arm:RealArmExecutor(arm,session,capture,stop,Path(root)/arm,execute_enabled=True) for arm in ('left','right')}
     require(mode=='synthetic' and site['hardware_enabled'] is False,'REAL_EXECUTION_OFF')
     return {arm:MockArmExecutor(arm,site) for arm in ('left','right')}

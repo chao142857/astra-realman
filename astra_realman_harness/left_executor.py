@@ -4,8 +4,10 @@ from contextlib import nullcontext
 from io_utils import write_json
 from left_terminal import parse, command_plan, validate_state
 
-class RealLeftExecutor:
-    def __init__(self, session, capture, stop, step, gripper_factory=None, timings=None):
+class RealArmExecutor:
+    def __init__(self, session, capture, stop, step, gripper_factory=None, timings=None, *, arm_id="left", allow_shared_session=True):
+        if arm_id not in ("left","right"):raise ValueError("ARM_ID")
+        self.arm_id=arm_id;self.allow_shared_session=allow_shared_session;self.frames=None
         self.session,self.capture,self.stop,self.step=session,capture,stop,step
         self.gripper_factory=gripper_factory
         self.timings=timings
@@ -16,17 +18,23 @@ class RealLeftExecutor:
         return self.timings.measure(stage, "executor") if self.timings else nullcontext()
     def guard(self,obs):
         if self.stop.is_set():raise RuntimeError('HUMAN_STOP')
-        if set(self.session.connected)!={'left'}:raise RuntimeError('LEFT_SESSION_ONLY')
-        errors=validate_state(obs,live=True,max_age_s=3)
+        if self.arm_id not in self.session.connected or (not self.allow_shared_session and set(self.session.connected)!={self.arm_id}):raise RuntimeError('ARM_SESSION_MISMATCH')
+        state=obs["canonical_states"][self.arm_id]
+        if self.frames is None:
+            self.frames={k:dict(state[k]) for k in ("work_frame","tool_frame")}
+        errors=validate_state(obs,live=True,max_age_s=3,arm_id=self.arm_id,
+            frame_fingerprints={k:f["definition_fingerprint"] for k,f in self.frames.items()} if self.arm_id=="right" or self.allow_shared_session else None,
+            work=self.frames["work_frame"]["id"],tool=self.frames["tool_frame"]["id"])
         if errors:raise RuntimeError('PREFLIGHT:'+','.join(errors))
     def execute(self,action,obs,*,feasibility=None):
         if self.used:raise RuntimeError('NO_RETRY_EXECUTOR_CONSUMED')
         self.used=True
-        action=parse(json.dumps(action,allow_nan=False))
+        state=obs["canonical_states"][self.arm_id]
+        action=parse(json.dumps(action,allow_nan=False),self.arm_id,state["work_frame"]["id"],state["tool_frame"]["id"])
         self.guard(obs)
         from exact_target_feasibility import require_exact_check
         require_exact_check(feasibility,action,obs)
-        plan=command_plan(action,obs['canonical_states']['left'])
+        plan=command_plan(action,obs['canonical_states'][self.arm_id])
         started=time.monotonic()
         def claim(channel,command):
             if self.stop.is_set():raise RuntimeError('HUMAN_STOP')
@@ -42,7 +50,7 @@ class RealLeftExecutor:
                 self.result['sdk_result']['called']=True
                 self.result['hardware_commands_sent']+=1
                 with self.measure('arm_command'):
-                    ret=self.session.connected['left'].rm_movej_p(command['pose'],1,0,0,1)
+                    ret=self.session.connected[self.arm_id].rm_movej_p(command['pose'],1,0,0,1)
                 self.result['sdk_result']['arm']=ret
                 write_json(self.step/'arm-command-result.json',{'request':command,'return':ret})
                 if type(ret) is not int or ret!=0:raise RuntimeError('ARM_COMMAND_RETURN:'+str(ret))
@@ -50,12 +58,12 @@ class RealLeftExecutor:
                 obs=self.capture(self.step/'between-channels')
                 self.guard(obs)
             if plan['gripper']:
-                target=plan['gripper']['wire_target'];g=obs['canonical_states']['left']['gripper_state']
+                target=plan['gripper']['wire_target'];g=obs['canonical_states'][self.arm_id]['gripper_state']
                 if not (g['position']==target and g['raw'].get('speed',[None])[0]==0):
                     factory=self.gripper_factory
                     if factory is None:
                         from lab_gripper_adapter import LabGripperAdapter
-                        factory=LabGripperAdapter
+                        factory=LabGripperAdapter if not self.allow_shared_session else lambda: LabGripperAdapter(self.arm_id)
                     adapter=factory()
                     try:
                         self.guard(obs);claim('gripper',plan['gripper'])
@@ -63,7 +71,7 @@ class RealLeftExecutor:
                         self.result['sdk_result']['called']=True
                         self.result['hardware_commands_sent']+=1
                         with self.measure('gripper_communication'):
-                            response=adapter.set_gripper('left',action['gripper_opening'])
+                            response=adapter.set_gripper(self.arm_id,action['gripper_opening'])
                         self.result['sdk_result']['gripper']=response
                         if response.get('command_return')!={'command':'hand_follow_pos','set_state':True}:
                             raise RuntimeError('GRIPPER_COMMAND_RETURN')
@@ -88,3 +96,14 @@ class RealLeftExecutor:
             write_json(self.step/'executed_action.json',self.result['executed_action'])
             write_json(self.step/'sdk_result.json',self.result['sdk_result'])
             write_json(self.step/'execution_result.json',self.result)
+
+
+class RealLeftExecutor(RealArmExecutor):
+    """Legacy entry keeps its original left-only session and frame checks."""
+    def __init__(self, session, capture, stop, step, gripper_factory=None, timings=None):
+        super().__init__(session,capture,stop,step,gripper_factory,timings,arm_id="left",allow_shared_session=False)
+
+
+class RealRightExecutor(RealArmExecutor):
+    def __init__(self, session, capture, stop, step, gripper_factory=None, timings=None):
+        super().__init__(session,capture,stop,step,gripper_factory,timings,arm_id="right")

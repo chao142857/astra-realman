@@ -1,0 +1,57 @@
+{
+  "mode": "dry_run_default_execute_requires_flag",
+  "cameras": [
+    {
+      "serial": "254522073676",
+      "role": "left_wrist",
+      "role_confirmed": true,
+      "width": 640,
+      "height": 480,
+      "fps": 30,
+      "confirmation_source": "Operator explicitly confirmed these three role/serial pairs in chat on 2026-10-05 Asia/Shanghai."
+    },
+    {
+      "serial": "346222072496",
+      "role": "tabletop",
+      "role_confirmed": true,
+      "width": 640,
+      "height": 480,
+      "fps": 30,
+      "confirmation_source": "Operator explicitly confirmed these three role/serial pairs in chat on 2026-10-05 Asia/Shanghai."
+    },
+    {
+      "serial": "344422071480",
+      "role": "overhead",
+      "role_confirmed": true,
+      "width": 640,
+      "height": 480,
+      "fps": 30,
+      "confirmation_source": "Operator explicitly confirmed these three role/serial pairs in chat on 2026-10-05 Asia/Shanghai."
+    },
+    {
+      "serial": "348522072063",
+      "role": "additional_view",
+      "role_confirmed": false,
+      "width": 640,
+      "height": 480,
+      "fps": 30,
+      "source": "config/lab.json historical cam_right; current physical mounting requires operator confirmation",
+      "candidate_role": "right_wrist"
+    }
+  ],
+  "camera_mapping_status": "First three operator-confirmed unchanged; fourth historical serial restored as additional_view, physical mounting unspecified.",
+  "gripper_semantics": "opening target 0 fully closed, 1 fully open; no force control",
+  "executor": "DryRunExecutor default; RealLeftExecutor only with --live --execute and no fixture/replay",
+  "arms": {
+    "left": {
+      "host": "192.168.1.19",
+      "port": 8080,
+      "config": "/home/tongji/aloha/RealMan_Control/config/rm_left_arm.yaml"
+    },
+    "right": {
+      "host": "192.168.1.18",
+      "port": 8080,
+      "config": "/home/tongji/aloha/RealMan_Control/config/rm_right_arm.yaml"
+    }
+  }
+}

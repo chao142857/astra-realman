@@ -10,10 +10,10 @@ def binding(action,state):
           'work_frame':state['work_frame'],'tool_frame':state['tool_frame'],'timestamp':state['timestamp']}
     return hashlib.sha256(json.dumps(data,sort_keys=True,allow_nan=False).encode()).hexdigest()
 
-def check_exact_target(session,action,observation):
+def check_exact_target(session,action,observation, *, allow_shared_session=False):
     start=time.monotonic()
-    a=parse(json.dumps(action,allow_nan=False))
-    state=observation['canonical_states']['left'];plan=command_plan(a,state)
+    arm=action['arm'];state=observation['canonical_states'][arm]
+    a=parse(json.dumps(action,allow_nan=False),arm,state['work_frame']['id'],state['tool_frame']['id']);plan=command_plan(a,state)
     result={'status':'CHECK_ERROR','check_kind':'ENDPOINT_IK_ONLY','planner_status':'NOT_CHECKED_NO_INDEPENDENT_PLANNER',
             'motion_commands_sent':0,'original_target':copy.deepcopy(plan['arm']['pose']) if plan['arm'] else None,
             'frame':a['frame'],'tool_frame':a['tool_frame'],'seed_joint_deg':copy.deepcopy(state['joint_deg']),
@@ -23,12 +23,12 @@ def check_exact_target(session,action,observation):
     try:
         if not plan['arm']:
             result.update(status='NOT_REQUIRED',reason='No arm motion requested');return result
-        if set(session.connected)!={'left'}:raise FeasibilityFault('LEFT_SESSION_ONLY')
+        if arm not in session.connected or (not allow_shared_session and set(session.connected)!={arm}):raise FeasibilityFault('ARM_SESSION_MISMATCH')
         # ctypes uses float32 in the same SDK motion call; reject overflow, never clamp.
         if any(not __import__('math').isfinite(ctypes.c_float(v).value) for v in result['original_target']+state['joint_deg']):
             raise FeasibilityFault('SDK_FLOAT32_INPUT_OVERFLOW')
         params=session.sdk.rm_inverse_kinematics_params_t(q_in=state['joint_deg'],q_pose=result['original_target'],flag=1)
-        raw=session.connected['left'].rm_algo_inverse_kinematics(params)
+        raw=session.connected[arm].rm_algo_inverse_kinematics(params)
         result['raw_ik_return']=copy.deepcopy(raw)
         if not isinstance(raw,(tuple,list)) or len(raw)!=2 or type(raw[0]) is not int:
             raise FeasibilityFault('INVALID_IK_RETURN')
@@ -45,7 +45,7 @@ def check_exact_target(session,action,observation):
     finally:result['latency_s']=time.monotonic()-start
 
 def require_exact_check(result,action,observation):
-    state=observation['canonical_states']['left'];plan=command_plan(action,state)
+    state=observation['canonical_states'][action['arm']];plan=command_plan(action,state)
     expected='PASS_IK' if plan['arm'] else 'NOT_REQUIRED'
     if (not isinstance(result,dict) or result.get('status')!=expected or result.get('binding')!=binding(action,state)
         or result.get('original_target')!=(plan['arm']['pose'] if plan['arm'] else None) or result.get('target_modified') is not False):
@@ -54,7 +54,7 @@ def require_exact_check(result,action,observation):
 def dispatch_checked(action,observation,check,executor_factory):
     """A rejected mathematical proposal never constructs a hardware executor."""
     if check['status']=='REJECTED_IK':
-        if check.get('binding')!=binding(action,observation['canonical_states']['left']):
+        if check.get('binding')!=binding(action,observation['canonical_states'][action['arm']]):
             raise FeasibilityFault('REJECTION_BINDING_MISMATCH')
         return {'status':'REJECTED_IK','executed_action':{'arm':None,'gripper':None},
                 'sdk_result':{'called':False,'arm':None,'gripper':None},'hardware_commands_sent':0,'execution_latency_s':0}

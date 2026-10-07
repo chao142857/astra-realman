@@ -38,14 +38,17 @@ class _ObservedSocket:
         self.original.close()
 
 class LabGripperAdapter:
-    def __init__(self):
+    def __init__(self, arm_id="left", config_path=None):
+        if arm_id not in ("left","right"):raise ValueError("ARM_ID")
+        self.arm_id=arm_id
+        self.config=Path(config_path) if config_path is not None else (CONFIG if arm_id=="left" else CONFIG.with_name("rm_right_arm.yaml"))
         spec=importlib.util.spec_from_file_location("lab_existing_realman_arm",SOURCE)
         module=importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
-        self.driver=module.RmArm(str(CONFIG))
-        if self.driver.arm_ip!="192.168.1.19" or self.driver.arm_port!=8080:
+        self.driver=module.RmArm(str(self.config))
+        if self.driver.arm_ip!={"left":"192.168.1.19","right":"192.168.1.18"}[arm_id] or self.driver.arm_port!=8080:
             self.driver.arm.close()
-            raise RuntimeError("LEFT_ENDPOINT_MISMATCH")
+            raise RuntimeError(arm_id.upper()+"_ENDPOINT_MISMATCH")
         self.transport=_ObservedSocket(self.driver.arm)
         self.driver.arm=self.transport
         self.consumed=False
@@ -53,15 +56,15 @@ class LabGripperAdapter:
 
     def set_gripper(self, arm, mode):
         numeric=type(mode) in (int,float) and math.isfinite(mode) and 0<=mode<=1
-        if arm!="left" or (mode not in ("open","close") and not numeric):
-            raise ValueError("ONLY_LEFT_NORMALIZED_0_TO_1_OR_OPEN_CLOSE")
+        if arm!=getattr(self,"arm_id","left") or (mode not in ("open","close") and not numeric):
+            raise ValueError("ARM_MISMATCH_OR_INVALID_OPENING")
         if self.consumed:
             raise RuntimeError("SINGLE_ATTEMPT_ADAPTER_ALREADY_CONSUMED")
         self.consumed=True
         requested=float(mode) if numeric else {"open":1.0,"close":0.0}[mode]
         target=int(requested*1000)  # Original driver wire resolution; never feed this back into the request.
         result={"arm":arm,"mode":mode,"target":target,"existing_source":str(SOURCE),
-                "existing_function":"RmArm.set_gripper_position",
+                "existing_config":str(getattr(self,"config",CONFIG)),"existing_function":"RmArm.set_gripper_position",
                 "existing_argument":requested,"function_return":None,
                 "send_attempts":0,"arm_motion_commands":0}
         self.last_result=result
