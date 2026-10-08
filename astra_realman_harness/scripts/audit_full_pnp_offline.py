@@ -20,7 +20,7 @@ def audit(root):
 
     Audit completeness and episode success are deliberately separate claims.
     """
-    from sim_skills.full_pnp.wire import strict_json,parse_actual_raw
+    from sim_skills.full_pnp.wire import strict_json,parse_actual_raw,parse_bridge_record
     root=Path(root);issues=[]
     def read(path):
         try:return strict_json(path.read_text())
@@ -65,6 +65,16 @@ def audit(root):
                     if wire['role']=='E':im=im.resize((320,240),Image.Resampling.BILINEAR)
                     if not np.array_equal(np.asarray(im),np.asarray(Image.open(directory/'input_only'/rec['file']))):raise ValueError('DERIVED_IMAGE')
                     if hashlib.sha256(base64.b64decode(blob)).hexdigest()!=rec['sha256']:raise ValueError('WIRE_PNG')
+                # Check the actual existing infer input files too, when infer started.
+                bridges=list((directory/'infer_output/bridge').glob('*'))
+                if len(bridges)>1:raise ValueError('MULTIPLE_INFER_RUNS_ONE_ATTEMPT')
+                for bridge in bridges:
+                    if strict_json((bridge/'prompt.json').read_text())!=payload['context']:raise ValueError('BRIDGE_CONTEXT_DRIFT')
+                    if strict_json((bridge/'input_only/context.json').read_text())!=payload['context']:raise ValueError('BRIDGE_INPUT_DRIFT')
+                    if strict_json((bridge/'schema.json').read_text())!=payload['schema']:raise ValueError('BRIDGE_SCHEMA_DRIFT')
+                    for i,blob in enumerate(payload['images']):
+                        if (bridge/'input_only'/('image-%d.png'%i)).read_bytes()!=base64.b64decode(blob):raise ValueError('BRIDGE_PNG_DRIFT')
+                row['bridge_wire_status']='PASS' if bridges else 'NOT_SENT'
                 row['wire_status']='PASS'
             except Exception as exc:
                 row['wire_status']='FAILED_OR_INCOMPLETE';row['record_errors'].append('WIRE:'+type(exc).__name__+':'+str(exc))
@@ -80,7 +90,13 @@ def audit(root):
                 record=strict_json(raw_path.read_bytes())
                 if isinstance(record,dict):row['usage_raw']=record.get('usage')
                 if not wire:raise ValueError('NO_WIRE_FOR_RAW_VALIDATION')
-                answer=parse_actual_raw(json.dumps(record['candidate'],allow_nan=False),wire)
+                if 'raw' in record:
+                    row.update(usage_events=record.get('usage_events',[]),command=record.get('command'),
+                               bridge_latency_s=record.get('latency_s'),raw=record['raw'],
+                               server_model=record.get('server_model','unknown'),server_effort=record.get('server_effort','unknown'),
+                               server_internal_retries=record.get('server_internal_retries','unknown'))
+                    answer=parse_bridge_record(record,wire)
+                else:answer=parse_actual_raw(json.dumps(record['candidate'],allow_nan=False),wire)
                 row['candidate']=answer;row['parse_status']='PASS'
                 if wire['role']=='E' and (not attempt or attempt['status']=='READY'):packets[sha(answer)]=answer
             except Exception as exc:
@@ -149,13 +165,13 @@ def plot(root,events,summary):
         elif k=='HOLD_END':
             lo=opened.pop('HOLD',t);ax.broken_barh([(lo,t-lo)],(.7,.6),facecolors=colors['HOLD'])
         elif k=='REQUEST_START':opened['role']=d['role']
-        elif k=='REQUEST_END' and d.get('record') and all(key in d['record'] for key in ('worker_started_monotonic','worker_finished_monotonic')):
+        elif k=='REQUEST_END' and d.get('record') and all(isinstance(d['record'].get(key),(int,float)) for key in ('worker_started_monotonic','worker_finished_monotonic')):
             typ='REQUEST_'+opened['role'];r=d['record'];lo=r['worker_started_monotonic']-started;hi=r['worker_finished_monotonic']-started
             ax.broken_barh([(lo,hi-lo)],(lanes[typ]-.3,.6),facecolors=colors[typ])
         elif k in ('CANDIDATE_GENERATED','CANDIDATE_ADOPTED','CANDIDATE_DISCARDED'):
             ax.scatter(t,4,marker={'CANDIDATE_GENERATED':'o','CANDIDATE_ADOPTED':'v','CANDIDATE_DISCARDED':'x'}[k],s=25,color='black')
-    ax.set_yticks(range(5),['Motion / gripper','Wait drives retained','B or E stub compute','A stub compute','Ready o / adopted v'])
-    ax.set_title(f"{summary['condition']} offline only | wall {summary['wall_s']:.3f}s | adopted overlap {summary['adopted_inference_execution_overlap_s']:.3f}s")
+    ax.set_yticks(range(5),['Motion / gripper','Wait drives retained','B or E worker','A worker','Ready o / adopted v'])
+    ax.set_title(f"{summary['condition']} recorded timeline | wall {summary['wall_s']:.3f}s | adopted overlap {summary['adopted_inference_execution_overlap_s']:.3f}s")
     ax.grid(axis='x',alpha=.2);ax.set_xlim(0,summary['wall_s'])
     axes[1].plot([e['wall_monotonic']-started for e in events],[e['physics_elapsed_s'] for e in events],color='#218c52')
     axes[1].set(xlabel='Episode wall time (s); initialization excluded',ylabel='Physics time (s)',xlim=(0,summary['wall_s']))

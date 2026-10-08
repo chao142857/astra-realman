@@ -12,8 +12,13 @@ from scripts.codex_astra_mac_bridge import worker_environment,worker_paths
 
 
 class FullSlot(StubSlot):
-    def __init__(self,*args,**kwargs):
+    def __init__(self,*args,infer_config=None,max_attempts=None,**kwargs):
         super().__init__(*args,**kwargs);self.attempts={};self.launches=0
+        self.infer_config=infer_config;self.max_attempts=max_attempts
+        self.source=infer_config.source if infer_config else 'RGB_DELAYED_STUB_NOT_ASTRA'
+    @property
+    def infer_calls(self):
+        return sum((self.root/('request-%03d'%i)/'infer_output/infer_started.json').exists() for i in self.attempts)
     def mark(self,index,stage,**data):
         row=self.attempts[index];row['stages'].append({'stage':stage,'monotonic':self.clock(),**data});row['status']=stage
         row.update({k:v for k,v in data.items() if k in ('usage_raw','return_code','error')})
@@ -23,6 +28,7 @@ class FullSlot(StubSlot):
         self.assert_owner()
         if self.cancelled:raise Rejected('STOPPED')
         if self.job or self.pending:raise Rejected('SINGLE_SLOT_OCCUPIED')
+        if self.max_attempts is not None and self.calls>=self.max_attempts:raise Rejected('ALL_ROLE_REQUEST_CAP')
         self.calls+=1;run=self.root/('request-%03d'%self.calls)
         run.mkdir(parents=True,exist_ok=False)
         self.attempts[self.calls]={'request':self.calls,'role':wire['role'],'usage_raw':None,'return_code':None,'stages':[]}
@@ -33,7 +39,7 @@ class FullSlot(StubSlot):
     def _prepare_launch(self,wire,obs,*,delay_s,timeout_s,episode_deadline,evidence=None,reuse=None,past=None):
         run=self.root/('request-%03d'%self.calls)
         inp=run/'input_only';inp.mkdir(parents=True,exist_ok=False);(run/'runtime').mkdir();code=run/'worker_code';code.mkdir()
-        for name in ('worker.py','rgb.py'):
+        for name in (() if self.infer_config else ('worker.py','rgb.py')):
             (code/name).write_bytes(Path(__file__).with_name(name).read_bytes());(code/name).chmod(0o444)
         w=copy.deepcopy(wire);role=w['role'];attachments=[]
         def attach(path,camera,temporal,representation,box=None):
@@ -72,20 +78,29 @@ class FullSlot(StubSlot):
         (inp/'wire.json').write_bytes(raw);(inp/'wire.json').chmod(0o444)
         from sim_skills.full_pnp.wire import schema_for_role,existing_infer_payload
         (run/'schema.json').write_text(json.dumps(schema_for_role(w),sort_keys=True))
-        (run/'input_payload.json').write_text(json.dumps(existing_infer_payload(inp),sort_keys=True,allow_nan=False))
-        env=worker_environment('/home/alex/.nvm/versions/node/v22.23.2/bin/codex',run)
-        (run/'environment.json').write_text(json.dumps(worker_paths('/home/alex/.nvm/versions/node/v22.23.2/bin/codex',run,env),indent=2))
-        # No /home workspace, scene, score, script, credentials or network are mounted.
+        payload=json.dumps(existing_infer_payload(inp),sort_keys=True,allow_nan=False).encode()
+        (run/'input_payload.json').write_bytes(payload)
+        if self.infer_config:
+            (inp/'payload.json').write_bytes(payload);(inp/'payload.json').chmod(0o444)
+        cli=self.infer_config.executable if self.infer_config else '/home/alex/.nvm/versions/node/v22.23.2/bin/codex'
+        env=worker_environment(cli,run)
+        (run/'environment.json').write_text(json.dumps(worker_paths(cli,run,env),indent=2))
+        # Stub sandbox: no workspace, scene, score, credentials or network mounts.
         venv=str(Path(sys.prefix).resolve())
         command=['/usr/bin/bwrap','--ro-bind','/usr','/usr','--symlink','usr/lib','/lib','--symlink','usr/lib64','/lib64',
                  '--ro-bind',venv,venv,'--ro-bind',str(inp),'/input','--ro-bind',str(code),'/code',
                  '--proc','/proc','--dev','/dev','--tmpfs','/tmp','--unshare-all','--die-with-parent','--new-session',
                  '--chdir','/input','--setenv','TMPDIR','/tmp',sys.executable,'-B','/code/worker.py','--sha256',digest,'--delay-s',str(delay_s)]
-        (run/'command.json').write_text(json.dumps(command,indent=2))
+        if self.infer_config:
+            from sim_skills.full_pnp.infer_process import sandbox_command
+            command,env=sandbox_command(run,self.infer_config)
         self.mark(self.calls,'PREPARED',wire_sha256=digest)
         stdout=(run/'worker.json').open('x');stderr=(run/'stderr.log').open('x')
         started=self.clock();deadline=min(started+timeout_s,episode_deadline)
         if started>=deadline:stdout.close();stderr.close();raise Rejected('NO_REQUEST_BUDGET')
+        if self.infer_config:
+            command+=['--sha256',digest,'--payload-sha256',hashlib.sha256(payload).hexdigest(),'--deadline',str(deadline)]
+        (run/'command.json').write_text(json.dumps(command,indent=2))
         self.mark(self.calls,'LAUNCHING')
         try:proc=subprocess.Popen(command,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,env=env,cwd=inp)
         except Exception:stdout.close();stderr.close();raise
@@ -94,7 +109,7 @@ class FullSlot(StubSlot):
                   'candidate_deadline':episode_deadline,'stdout':stdout,'stderr':stderr}
         self.max_in_flight=max(self.max_in_flight,1)
         self.emit('REQUEST_START',{'request':self.calls,'role':role,'pid':proc.pid,'started':started,'deadline':deadline,
-                  'snapshot_sha256':digest,'source':'RGB_DELAYED_STUB_NOT_ASTRA','attachments':attachments,
+                  'snapshot_sha256':digest,'source':self.source,'attachments':attachments,
                   'preparation_s':started-wire['binding']['preparation_started_monotonic']})
     def poll(self):
         self.assert_owner()
@@ -108,12 +123,14 @@ class FullSlot(StubSlot):
         self.mark(self.calls,'RETURNED',return_code=proc.returncode,raw_sha256=hashlib.sha256(raw).hexdigest(),raw_bytes=len(raw))
         try:
             self.mark(self.calls,'PARSING')
-            from sim_skills.full_pnp.wire import strict_json,parse_actual_raw
+            from sim_skills.full_pnp.wire import strict_json,parse_actual_raw,parse_bridge_record
             if len(raw)>2*1024*1024:raise ValueError('RAW_TOO_LARGE')
             record=strict_json(raw)
             self.attempts[self.calls]['usage_raw']=record.get('usage') if isinstance(record,dict) else None
             if proc.returncode!=0:raise ValueError('WORKER_NONZERO_EXIT')
-            candidate=parse_actual_raw(json.dumps(record['candidate'],allow_nan=False),job['snapshot'])
+            candidate=(parse_bridge_record(record,job['snapshot']) if self.infer_config else
+                       parse_actual_raw(json.dumps(record['candidate'],allow_nan=False),job['snapshot']))
+            (job['run']/'parsed.json').write_text(json.dumps(candidate,indent=2,allow_nan=False)+'\n')
             self.mark(self.calls,'PARSED',usage_raw=record.get('usage'))
         except Exception as exc:
             error=type(exc).__name__+':'+str(exc);self.mark(self.calls,'PARSE_FAILED',error=error)
@@ -128,7 +145,20 @@ class FullSlot(StubSlot):
         self.emit('CANDIDATE_READY',{'request':self.calls})
     def cancel_job(self,reason):
         job=self.job
-        super().cancel_job(reason)
+        if job and self.infer_config:
+            self.assert_owner();self.job=None
+            (job['run']/'infer_output/CANCEL').touch()
+            # Allow existing infer to terminate/reap its CLI and save raw/usage.
+            # bwrap's PID namespace also kills descendants on forced teardown.
+            try:job['process'].wait(timeout=4)
+            except subprocess.TimeoutExpired:
+                job['process'].kill();job['process'].wait()
+            job['stdout'].close();job['stderr'].close()
+            self.emit('REQUEST_CANCELLED',{'request':self.calls,'reason':reason,'latency_s':self.clock()-job['started']})
+        else:super().cancel_job(reason)
         if job:
             path=job['run']/'worker.json';raw=path.read_bytes() if path.exists() else b''
+            try:
+                record=json.loads(raw);self.attempts[self.calls]['usage_raw']=record.get('usage')
+            except (ValueError,TypeError,AttributeError):pass
             self.mark(self.calls,'CANCELLED',error=reason,raw_sha256=hashlib.sha256(raw).hexdigest(),raw_bytes=len(raw),return_code=job['process'].returncode)

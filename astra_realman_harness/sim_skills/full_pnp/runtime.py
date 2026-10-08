@@ -16,14 +16,14 @@ from sim_skills.full_pnp import dependencies
 
 
 class FullRuntime:
-    def __init__(self,backend,output,*,condition,delay_s=.8,budget_s=120,timeout_s=30,max_calls=32):
+    def __init__(self,backend,output,*,condition,delay_s=.8,budget_s=120,timeout_s=30,max_calls=32,infer_config=None):
         if condition not in ('script','B','F') or not 0<budget_s<=300 or not 0<timeout_s<=30 or not 0<=delay_s<=30:raise ValueError('CONFIG')
         if type(max_calls) is not int or not 1<=max_calls<=64:raise ValueError('CALL_CAP')
         self.b=backend;self.condition=condition;self.root=Path(output);self.root.mkdir(parents=True,exist_ok=False)
         self.owner=threading.get_ident();self.started=time.monotonic();self.first_step=backend.steps
         self.deadline=self.started+budget_s;self.budget=budget_s;self.timeout=timeout_s;self.delay=delay_s;self.max_calls=max_calls
         self.events=[];self.stream=(self.root/'timeline.jsonl').open('x',buffering=1)
-        self.memory=Memory();self.gate=CandidateGate();self.slot=FullSlot(self.root/'workers',self.emit)
+        self.memory=Memory();self.gate=CandidateGate();self.slot=FullSlot(self.root/'workers',self.emit,infer_config=infer_config,max_attempts=max_calls)
         self.episode_id=uuid.uuid4().hex;self.completed=0;self.parent='INITIAL_EMPTY';self.barrier_epoch=0
         self.active=None;self.cycle=None;self.candidate=None;self.evidence=None;self.past=None
         self.last_step=time.monotonic();self.intervals=[];self.stopped=False;self.hold_steps=0
@@ -32,14 +32,14 @@ class FullRuntime:
         self.original_phase=backend.s.phase;backend.s.phase=self.phase
         self.b.s.step_hook=self.hook
         self.b.gripper_guard=self.before_gripper
-        self.emit('EPISODE_START',{'condition':condition,'source':'OFFLINE_NOT_ASTRA','action_interface':INTERFACE,
+        self.emit('EPISODE_START',{'condition':condition,'source':self.slot.source,'action_interface':INTERFACE,
                   'input_boundary':'frozen RGB/proprioception only; script answers private; worker OS isolated'})
     def emit(self,kind,data):
         if threading.get_ident()!=self.owner:raise RuntimeError('SCENE_OWNER_ONLY')
         now=time.monotonic();e={'kind':kind,'wall_monotonic':now,'wall_elapsed_s':now-self.started,
              'physics_step':self.b.steps,'physics_elapsed_s':(self.b.steps-self.first_step)*self.b.dt,'data':copy.deepcopy(data)}
         self.events.append(e);self.stream.write(json.dumps(e,allow_nan=False)+'\n')
-        if kind=='REQUEST_END' and data.get('record') and all(k in data['record'] for k in ('worker_started_monotonic','worker_finished_monotonic')):
+        if kind=='REQUEST_END' and data.get('record') and all(isinstance(data['record'].get(k),(int,float)) for k in ('worker_started_monotonic','worker_finished_monotonic')):
             r=data['record'];self.windows[data['request']]=[r['worker_started_monotonic'],r['worker_finished_monotonic']]
     def phase(self,name,**data):
         self.original_phase(name,**data)
@@ -259,8 +259,10 @@ class FullRuntime:
                 self.emit('PHYSICAL_INTERRUPTED',{'segment':segment,'started_monotonic':start,'parent_plan_id':self.active['id'] if self.active else None})
             self.discard_pending('TERMINAL_UNUSED');self.slot.cancel();self.b.s.step_hook=None;self.b.s.phase=self.original_phase
             self.emit('TERMINAL',{'status':status,'score':score})
-            summary={'status':status,'error':error,'condition':self.condition,'source':'ENGINEERING_GT_SCRIPT' if self.condition=='script' else 'RGB_DELAYED_STUB_NOT_ASTRA',
-                'real_model_calls':0,'hardware_calls':0,'stub_attempts':self.slot.calls,'E_calls':self.e_calls,'E_reuses':self.e_reuses,
+            summary={'status':status,'error':error,'condition':self.condition,'source':'ENGINEERING_GT_SCRIPT' if self.condition=='script' else self.slot.source,
+                'real_model_calls':self.slot.infer_calls if self.slot.infer_config and not self.slot.infer_config.fixture else 0,
+                'hardware_calls':0,'all_role_attempts':self.slot.calls,'infer_function_calls':self.slot.infer_calls,
+                'stub_attempts':0 if self.slot.infer_config else self.slot.calls,'E_calls':self.e_calls,'E_reuses':self.e_reuses,
                 'worker_process_launches':self.slot.launches,'attempts':list(self.slot.attempts.values()),'action_chunk_cap':12,
                 'max_in_flight':self.slot.max_in_flight,'max_pending':self.slot.max_pending,'completed_chunks':self.completed,
                 'candidate_generated':sum(e['kind']=='CANDIDATE_GENERATED' for e in self.events),'candidate_adopted':len(self.adopted),'candidate_discarded':len(self.discarded),
