@@ -1,22 +1,22 @@
-# 审阅修复与实现覆盖（独立增量）
+# 实现覆盖表（审阅修复，一页摘要）
 
-基于`8e4f815`，保留`3182e95`和全部旧结果。本轮真实请求/硬件0，旧40次及其它额度均不继承。只修共同owner检查、夹爪边界、失败账本和12-chunk边界；不改变B/F研究条件、动作schema、控制器、物理参数、相机或速度。
+基于 `8e4f815`；保留 `3182e95`、`8e4f815` 与全部旧结果。本轮真实模型/硬件0，旧40次及其它额度均不继承。B/F方案、控制器、物理参数和相机不改。详细阈值、验收与入口见 [REVIEW_ACCEPTANCE.md](REVIEW_ACCEPTANCE.md) 和 wire 中的 `owner_dependency_contract`。
 
-| 能力 | 实际实现/边界 |
+| 能力 | 当前实现与未实现边界 |
 |---|---|
-| 共同运动最低依赖 | `dependencies.py`按当前RGB+标定+本体测量推导，模型只能追加条件。空手普通接近要求object_static；可能携物运动要求goal_static、object_near_tool及物体/工具相对向量变化≤30mm。物体可随工具运动。 |
-| 有界上撤/微小运动 | 上升1–150mm、xy≤10mm、转角≤0.05rad要求当前对象可核验，允许对象/目标变化；≤1mm/0.005rad微小移动保留scene_healthy与原控制器检查。没有统一要求所有move object_static。 |
-| 空手证据 | 当前唯一红色组件、至少2个已标定视角，视线基线≥15°、正深度、交线残差≤15mm。对象/指垫中心距离>90mm为任务对象分离证据；≤60mm只判可能携物，60–90mm或不可辨为unknown。此三角测量只出检查谓词/相对量，**不生成动作坐标**；只适用于声明的单对象工程场景，不是接触或通用空手真值。 |
-| 开合夹爪 | 目标master与实测差≤0.005rad为no-op，直接跳过物理夹爪和legacy状态变化。明确空手可预抓开爪；可能持物的开爪要求goal_static、object_near_tool、object_at_goal；unknown保持/拒绝。关闭要求object_static。合理开爪不靠prompt禁令处理。 |
-| move+gripper | 合法chunk仍允许。既有dispatch先执行prefix；夹爪前owner实际重采RGB/本体并核验10mm/0.05rad接续、最低依赖和模型附加条件，再独立dispatch最后夹爪。失败保留prefix结果，夹爪及余项不执行；无需新增模型请求。新source/commit/边界观测分列，不改旧观测号。 |
-| 失败/取消账本 | 每attempt在准备前落盘；PREPARING/PREPARED、LAUNCHING/STARTED、RETURNED、PARSING/PARSED/失败，以及候选提交/采用/丢弃分别有时刻。原stdout/stderr、非零退出、截断JSON、缺candidate、超时/取消均保留；usage未知为null，不重复相加子项。失败审计完成不等于任务成功。 |
-| 历史的真实内容 | B/F均为**最近5条已终结执行事件**（完整成功或明确失败/部分执行），F另保留**最近8条来源E假设**。本次增加失败prefix/未执行项记录；after未采集时为null，不能伪造完成观测。成功、失败/部分、attempted及no-op不混写成完整执行。 |
-| 当前错误保留 | 可投影最后一条失败为unresolved_error；**没有错误解决状态机**，不会声称已按事件重要性选择/清除问题。当前执行故障停止回合。 |
-| 尚未实现的记忆策略 | 无事件重要性排序、语义检索、对象级最后可见关键帧库、长期身份跟踪、证据压缩/摘要、遗忘优化或恢复策略。旧图只是最近动作前fixed图；E历史假设始终未确认。不能称为已完成设计中的全部事件优先/最后可见能力。 |
-| E调用与复用 | 各自计数；保留E原raw/hash。旧bbox只是历史框，owner RGB重定位信息另列，不冒充新的E输出；相机运动、unknown、gripper屏障使复用失效。当前启发式stub无真实视觉能力证明。 |
-| raw到提案 | `wire.parse_actual_raw/parse_bridge_record`严格校验并原样返回B/A动作或E选图/bbox；API/退出/解析错误均报错，**没有RGB动作stub回退**。`check_full_pnp_raw.py`仅准备文件、复用既有CLI环境/command并核验提供的actual raw，可选version/help预检；没有infer调用。 |
-| 12-chunk上限 | 允许第12个动作chunk，禁止第13个进入物理执行；第12个完成后observe/finish/stop仍可合法处理，但仍受共同时间、请求和重观测上限约束。 |
+| 普通运动最低依赖 | owner按RGB/标定/本体判定。空手接近检查对象锚点；可能携物运动检查目标和物体/工具相对变化；有界上撤单独处理。模型只能追加条件。无GT动作目标生成。 |
+| 开爪语义 | 明确空手可预抓开爪；±0.005rad no-op跳过物理调用和legacy状态变化；可能释放须目标区证据；unknown拒绝/保持。空手证据限单对象工程场景，不是通用持物真值。 |
+| move+gripper | 合法chunk仍可用。prefix执行后真实采图/测状态，检查通过才调用夹爪；失败保留prefix和未执行项。B/F同机制，不增加大模型调用。 |
+| 当前执行记忆 | **最近5条已终结执行事件**：完整成功或明确失败/部分执行。attempted、成功动作、失败/部分及no-op分列；缺after为null，预测不冒充完成。 |
+| 当前来源记忆 | F保留**最近8条来源E假设**，带来源观测/step、request、barrier；永不自动确认为对象状态。旧bbox、身份假设、当前对象/ROI有效性分别记录。 |
+| 当前错误保留 | 可投影最后一条失败为unresolved_error；**未实现错误解决状态机、问题优先级或自动恢复策略**。当前执行异常停止。 |
+| 关键帧能力 | 仅最近动作前fixed旧图；**未实现对象级最后可见关键帧库、按遮挡检索或长期身份跟踪**。旧图附件不能称为最后可见记忆策略。 |
+| 事件优先/摘要 | **未实现重要性排序、语义检索、证据压缩、LLM摘要、遗忘优化**；当前是有界近况和来源假设，不声称完整事件优先策略已落地。 |
+| E调用/复用 | 各自计数，E原raw/hash保留；相机变化/unknown/gripper屏障使复用失效。owner当前重定位框单列，不冒充新E输出。 |
+| raw与失败处理 | B/A动作、E选图/bbox严格来自raw；API/启动/解析失败无RGB动作stub回退。每attempt按准备、启动、返回、解析、提交记账；缺usage为null，部分输出可审计。 |
+| 动作上限 | 最多12个动作chunk；第13个采用前拒绝，执行入口复核。12个完成后仍可observe/finish/stop，受共同请求/时间及最多2次重观测约束。 |
+| 真实infer覆盖 | 既有环境/command及version/help预检复用；离线raw校验入口可用。**真实worker生命周期、取消/预算/隔离及API端到端验收仍待核验**，本轮未发请求。 |
 
-实际离线入口`run_full_pnp_offline.py`：默认完整回合120s，可配置(0,300]s；单请求(0,30]s且≤剩余时间；所有角色attempt默认32、可配置1–64（准备/启动失败同样占attempt），实际进程启动数另记；最多12个动作chunk、每chunk 1–3动作、单次hold≤2s、最多2次新观测重提；全局1个在途worker、1个未来候选。原legacy夹爪抓取尝试上限2和底层检查保留。以上是**离线能力上限，不是真实调用授权**。
+离线入口默认120s/回合（配置上限300s），单worker等待≤min(30s,剩余时间)，全部角色attempt默认32/最多64；准备/启动失败同样占attempt。每chunk1–3动作、单hold≤2s、1个在途worker、1个未来候选。这些是软件离线上限，不是真实授权。
 
-真实worker生命周期接线仍未启用；待核验入口`scripts/check_full_pnp_raw.py --input-only FROZEN_INPUT --bridge-record ACTUAL_RESULT --output NEW_DIR [--preflight]`。无raw时仅准备输入，不生成候选；有raw时解析原文，不执行动作。真实取消/预算/隔离和API回包仍待另授权前核验，本轮不发送请求，不自动开始新批次。
+待核验入口：`scripts/check_full_pnp_raw.py --input-only FROZEN_INPUT --bridge-record ACTUAL_RESULT --output NEW_DIR [--preflight]`。无raw时只准备输入、不生成提案；有raw时只解析、不执行。明确标注的script/stub不证明真实视觉能力，也不能用来凑尚未实现的四组件策略。
