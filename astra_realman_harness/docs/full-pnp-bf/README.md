@@ -16,6 +16,7 @@
 
 入口文档：
 
+- [qualification 时限增量与显式启动命令](QUALIFICATION.md)（保留原 standard 模式；真实批次待用户启动）
 - [实验卡：任务、B/F、职责与比较](EXPERIMENT_CARD.md)
 - [共同协议：输入、历史、候选、时间与成本](PROTOCOL.md)
 - [实施顺序与源码复用清单](IMPLEMENTATION_ORDER.md)

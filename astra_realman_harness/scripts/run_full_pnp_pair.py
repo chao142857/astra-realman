@@ -12,10 +12,21 @@ import sys
 import time
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from sim_skills.full_pnp.infer_process import CLI,InferConfig,isolated_preflight
+from sim_skills.full_pnp.timing import MODES,timing_limits
 
 LIMITS={'conditions':['B','F'],'episodes_per_condition':1,'episode_budget_s':300,
         'attempts_per_episode':20,'total_attempt_cap':40,'request_timeout_s':30,'action_chunk_cap':12,
         'seed':2,'video':False,'max_in_flight':1,'max_pending':1}
+
+
+def limits_for(mode):
+    return {**LIMITS,**timing_limits(mode),'mode':mode,'completion_checkpoint_s':300}
+
+
+def check_startup(limits,owner_started,now):
+    margin=limits['startup_margin_s']
+    if margin is not None and now>owner_started+margin:
+        raise RuntimeError('INITIALIZATION_ALLOWANCE_EXCEEDED_NO_EPISODE')
 
 
 def save(path,data):path.write_text(json.dumps(data,indent=2,allow_nan=False)+'\n')
@@ -31,8 +42,12 @@ def episode(a):
     from sim_skills.full_pnp.runtime import FullRuntime
     from scripts.audit_full_pnp_offline import audit
     root=a.output;root.mkdir(parents=True,exist_ok=False);backend=runtime=None;started=time.monotonic();cancelled=False
+    mode=getattr(a,'mode','standard');limits=limits_for(mode)
+    owner_started=getattr(a,'owner_started_monotonic',None)
+    if owner_started is None:owner_started=started
     result={'status':'INCOMPLETE','condition':a.episode,'source':'LOCAL_CODEX_ASTRA_RAW','real_model_calls':0,'hardware_calls':0,
-            'limits':LIMITS,'command':[sys.executable,*sys.argv],'pid':os.getpid(),'seed':2,'video':False,
+            'limits':limits,'mode':mode,'command':[sys.executable,*sys.argv],'pid':os.getpid(),'seed':2,'video':False,
+            'owner_started_monotonic':owner_started,'task_completed_wall_s':None,'completed_within_300s':None,
             'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True,cwd=Path(__file__).parent).strip(),
             'source_sha256':source_hashes(),'reset':'fresh process; recorded initialization, not exact state clone',
             'server_model':'unknown','server_effort':'unknown','server_internal_retries':'unknown'}
@@ -50,18 +65,26 @@ def episode(a):
         result['cli_preflight']=isolated_preflight(config,root/'cli-preflight')
         if result['cli_preflight']['status']!='PASS':raise RuntimeError('CLI_PREFLIGHT_FAILED')
         if cancelled:raise RuntimeError('CANCELLED_BEFORE_SCENE')
+        check_startup(limits,owner_started,time.monotonic())
         from sim_skills.full_pnp.backend import FullTaskBackend
         init=time.monotonic();backend=FullTaskBackend(a.assets,root/'scene',2,False)
         result.update(initialization_wall_s=time.monotonic()-init,initialization_physics_s=backend.steps*backend.dt,
                       empty_start=backend.provenance)
         if cancelled:raise RuntimeError('CANCELLED_BEFORE_EPISODE')
-        runtime=FullRuntime(backend,root/'episode',condition=a.episode,budget_s=300,timeout_s=30,max_calls=20,infer_config=config)
+        runtime=FullRuntime(backend,root/'episode',condition=a.episode,budget_s=limits['episode_budget_s'],
+                            timeout_s=limits['request_timeout_s'],max_calls=limits['attempts_per_episode'],infer_config=config,mode=mode)
+        # Parent-clock admission reserves the entire episode plus cleanup even
+        # after a slow child startup/preflight/scene initialization.
+        result['startup_wall_s']=runtime.started-owner_started
+        check_startup(limits,owner_started,runtime.started)
         result['episode']=runtime.run();result['status']=result['episode']['status']
+        for key in ('task_completed_wall_s','completed_within_300s'):result[key]=result['episode'][key]
     except Exception as exc:result.update(status='FAIL' if backend else 'BLOCKED',error=repr(exc))
     finally:
         if runtime:
             runtime.slot.cancel();result['real_model_calls']=runtime.slot.infer_calls
             result['all_role_attempts']=runtime.slot.calls
+            if not runtime.stream.closed:runtime.stream.close()
         if backend:
             try:backend.close()
             except Exception as exc:result['cleanup_error']=repr(exc)
@@ -89,7 +112,8 @@ def classify(result,return_code):
 
 def pair(a):
     root=a.output;root.mkdir(parents=True,exist_ok=False)
-    ledger={'scope':'ONE_SHOT_FULL_PNP_BF_PAIR_NOT_PERFORMANCE_CONCLUSION','limits':LIMITS,
+    mode=getattr(a,'mode','standard');limits=limits_for(mode)
+    ledger={'scope':'ONE_SHOT_FULL_PNP_BF_PAIR_NOT_PERFORMANCE_CONCLUSION','limits':limits,'mode':mode,
             'inherited_budget':0,'hardware_calls':0,'source_sha256':source_hashes(),
             'episodes':[{'condition':c,'status':'NOT_RUN','allocated_attempts':20} for c in ('B','F')]}
     def persist():save(root/'ledger.json',ledger)
@@ -107,13 +131,16 @@ def pair(a):
                 row['reason']=abort or 'BATCH_CANCELLED';persist();continue
             if source_hashes()!=ledger['source_sha256']:raise RuntimeError('SOURCE_DRIFT')
             dest=root/row['condition']
+            owner_started=time.monotonic();watchdog_deadline=owner_started+limits['owner_watchdog_s']
             cmd=[sys.executable,str(Path(__file__).resolve()),'--enable-real-bf-pair','--episode',row['condition'],
-                 '--assets',str(a.assets),'--output',str(dest),'--codex-executable',a.codex_executable]
-            row.update(command=cmd,status='LAUNCHING');persist()
+                 '--assets',str(a.assets),'--output',str(dest),'--codex-executable',a.codex_executable,
+                 '--mode',mode,'--owner-started-monotonic',str(owner_started)]
+            row.update(command=cmd,status='LAUNCHING',owner_started_monotonic=owner_started,
+                       owner_watchdog_deadline_monotonic=watchdog_deadline);persist()
             try:
                 with (root/(row['condition']+'.stdout.log')).open('x') as out,(root/(row['condition']+'.stderr.log')).open('x') as err:
                     process=subprocess.Popen(cmd,stdin=subprocess.DEVNULL,stdout=out,stderr=err)
-                    try:code=process.wait(timeout=600)
+                    try:code=process.wait(timeout=max(0,watchdog_deadline-time.monotonic()))
                     except subprocess.TimeoutExpired:
                         process.terminate()
                         try:process.wait(timeout=10)
@@ -121,6 +148,8 @@ def pair(a):
                         raise RuntimeError('OWNER_WATCHDOG_TIMEOUT_NO_RETRY')
                 result=json.loads((dest/'result.json').read_text())
                 row.update(status=result['status'],return_code=code,result=result,
+                           completed_within_300s=result.get('completed_within_300s'),
+                           task_completed_wall_s=result.get('task_completed_wall_s'),
                            actual_attempts=result.get('all_role_attempts',0),real_model_calls=result['real_model_calls'])
                 if classify(result,code):abort='INTERFACE_PROTOCOL_EXECUTION_OR_BUDGET_FAILURE'
             except Exception as exc:
@@ -142,7 +171,9 @@ def main():
     p.add_argument('--enable-real-bf-pair',action='store_true',help='Explicit new authorization, never inherited')
     p.add_argument('--assets',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     p.add_argument('--codex-executable',default=CLI)
+    p.add_argument('--mode',choices=tuple(MODES),default='standard',help='standard: 300s/30s; qualification: 900s/90s, both 20 attempts per episode')
     p.add_argument('--episode',choices=('B','F'),help=argparse.SUPPRESS)
+    p.add_argument('--owner-started-monotonic',type=float,help=argparse.SUPPRESS)
     a=p.parse_args()
     if not a.enable_real_bf_pair:p.error('NO AUTHORIZATION: requires --enable-real-bf-pair; no preflight, scene or infer started')
     a.output=a.output.resolve();a.assets=a.assets.resolve()

@@ -9,10 +9,12 @@ import time
 from PIL import Image
 from sim_skills.async_v1 import StubSlot,Rejected
 from scripts.codex_astra_mac_bridge import worker_environment,worker_paths
+from sim_skills.full_pnp.timing import timing_limits
 
 
 class FullSlot(StubSlot):
-    def __init__(self,*args,infer_config=None,max_attempts=None,**kwargs):
+    def __init__(self,*args,infer_config=None,max_attempts=None,mode='standard',**kwargs):
+        self.mode=mode;self.request_cap=timing_limits(mode)['request_timeout_s']
         super().__init__(*args,**kwargs);self.attempts={};self.launches=0
         self.infer_config=infer_config;self.max_attempts=max_attempts
         self.source=infer_config.source if infer_config else 'RGB_DELAYED_STUB_NOT_ASTRA'
@@ -96,10 +98,10 @@ class FullSlot(StubSlot):
             command,env=sandbox_command(run,self.infer_config)
         self.mark(self.calls,'PREPARED',wire_sha256=digest)
         stdout=(run/'worker.json').open('x');stderr=(run/'stderr.log').open('x')
-        started=self.clock();deadline=min(started+timeout_s,episode_deadline)
+        started=self.clock();deadline=min(started+min(timeout_s,self.request_cap),episode_deadline)
         if started>=deadline:stdout.close();stderr.close();raise Rejected('NO_REQUEST_BUDGET')
         if self.infer_config:
-            command+=['--sha256',digest,'--payload-sha256',hashlib.sha256(payload).hexdigest(),'--deadline',str(deadline)]
+            command+=['--sha256',digest,'--payload-sha256',hashlib.sha256(payload).hexdigest(),'--deadline',str(deadline),'--mode',self.mode]
         (run/'command.json').write_text(json.dumps(command,indent=2))
         self.mark(self.calls,'LAUNCHING')
         try:proc=subprocess.Popen(command,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,env=env,cwd=inp)
@@ -109,6 +111,7 @@ class FullSlot(StubSlot):
                   'candidate_deadline':episode_deadline,'stdout':stdout,'stderr':stderr}
         self.max_in_flight=max(self.max_in_flight,1)
         self.emit('REQUEST_START',{'request':self.calls,'role':role,'pid':proc.pid,'started':started,'deadline':deadline,
+                  'mode':self.mode,'episode_deadline':episode_deadline,'effective_timeout_s':deadline-started,
                   'snapshot_sha256':digest,'source':self.source,'attachments':attachments,
                   'preparation_s':started-wire['binding']['preparation_started_monotonic']})
     def poll(self):

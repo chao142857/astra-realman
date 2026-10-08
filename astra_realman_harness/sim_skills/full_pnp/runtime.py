@@ -13,17 +13,20 @@ from sim_skills.full_pnp.protocol import VERSION,INTERFACE,Memory,CandidateGate,
 from sim_skills.full_pnp.slot import FullSlot
 from sim_skills.full_pnp import rgb
 from sim_skills.full_pnp import dependencies
+from sim_skills.full_pnp.timing import timing_limits
 
 
 class FullRuntime:
-    def __init__(self,backend,output,*,condition,delay_s=.8,budget_s=120,timeout_s=30,max_calls=32,infer_config=None):
-        if condition not in ('script','B','F') or not 0<budget_s<=300 or not 0<timeout_s<=30 or not 0<=delay_s<=30:raise ValueError('CONFIG')
+    def __init__(self,backend,output,*,condition,delay_s=.8,budget_s=120,timeout_s=30,max_calls=32,infer_config=None,mode='standard'):
+        limits=timing_limits(mode)
+        if condition not in ('script','B','F') or not 0<budget_s<=limits['episode_budget_s'] or not 0<timeout_s<=limits['request_timeout_s'] or not 0<=delay_s<=30:raise ValueError('CONFIG')
         if type(max_calls) is not int or not 1<=max_calls<=64:raise ValueError('CALL_CAP')
+        self.mode=mode
         self.b=backend;self.condition=condition;self.root=Path(output);self.root.mkdir(parents=True,exist_ok=False)
         self.owner=threading.get_ident();self.started=time.monotonic();self.first_step=backend.steps
         self.deadline=self.started+budget_s;self.budget=budget_s;self.timeout=timeout_s;self.delay=delay_s;self.max_calls=max_calls
         self.events=[];self.stream=(self.root/'timeline.jsonl').open('x',buffering=1)
-        self.memory=Memory();self.gate=CandidateGate();self.slot=FullSlot(self.root/'workers',self.emit,infer_config=infer_config,max_attempts=max_calls)
+        self.memory=Memory();self.gate=CandidateGate();self.slot=FullSlot(self.root/'workers',self.emit,infer_config=infer_config,max_attempts=max_calls,mode=mode)
         self.episode_id=uuid.uuid4().hex;self.completed=0;self.parent='INITIAL_EMPTY';self.barrier_epoch=0
         self.active=None;self.cycle=None;self.candidate=None;self.evidence=None;self.past=None
         self.last_step=time.monotonic();self.intervals=[];self.stopped=False;self.hold_steps=0
@@ -33,6 +36,7 @@ class FullRuntime:
         self.b.s.step_hook=self.hook
         self.b.gripper_guard=self.before_gripper
         self.emit('EPISODE_START',{'condition':condition,'source':self.slot.source,'action_interface':INTERFACE,
+                  'mode':mode,'episode_deadline_monotonic':self.deadline,'budget_s':budget_s,'request_timeout_s':timeout_s,
                   'input_boundary':'frozen RGB/proprioception only; script answers private; worker OS isolated'})
     def emit(self,kind,data):
         if threading.get_ident()!=self.owner:raise RuntimeError('SCENE_OWNER_ONLY')
@@ -231,7 +235,7 @@ class FullRuntime:
             self.execute(actions,'PRIVATE_SCRIPT_ANSWERS',obs,'script-%d'%index)
         return self.b.finish('done')
     def run(self):
-        score=None;error=None;status='INCOMPLETE'
+        score=None;error=None;status='INCOMPLETE';completion_wall=None
         try:
             if self.condition=='script':score=self.run_script();status=score['status']
             else:
@@ -247,6 +251,9 @@ class FullRuntime:
                         self.replans+=1;self.evidence=None;self.begin_cycle(self.capture('REQUESTED_REOBSERVE'));continue
                     after=self.execute(candidate['actions'],candidate['binding']['source_observation_id'],obs,sha(candidate),candidate['requirements'])
                     if not self.cycle and not self.candidate:self.begin_cycle(after)
+            # Success is established by the unchanged independent scorer, including
+            # its settling/judgment time. STOP/failure is never task completion.
+            if status=='PASS':completion_wall=time.monotonic()-self.started
         except Exception as exc:
             error=type(exc).__name__+':'+str(exc);status='STOPPED' if self.stopped else 'FAIL'
             self.emit('FAULT',{'error':error});self.stop(error)
@@ -260,6 +267,9 @@ class FullRuntime:
             self.discard_pending('TERMINAL_UNUSED');self.slot.cancel();self.b.s.step_hook=None;self.b.s.phase=self.original_phase
             self.emit('TERMINAL',{'status':status,'score':score})
             summary={'status':status,'error':error,'condition':self.condition,'source':'ENGINEERING_GT_SCRIPT' if self.condition=='script' else self.slot.source,
+                'mode':self.mode,'episode_deadline_monotonic':self.deadline,
+                'task_completed_wall_s':completion_wall,'completed_within_300s':completion_wall is not None and completion_wall<=300,
+                'completion_clock':'episode start through independent PASS, including settling/judgment; excludes initialization/cleanup',
                 'real_model_calls':self.slot.infer_calls if self.slot.infer_config and not self.slot.infer_config.fixture else 0,
                 'hardware_calls':0,'all_role_attempts':self.slot.calls,'infer_function_calls':self.slot.infer_calls,
                 'stub_attempts':0 if self.slot.infer_config else self.slot.calls,'E_calls':self.e_calls,'E_reuses':self.e_reuses,

@@ -24,6 +24,7 @@ def sandbox_command(run,config):
     run=Path(run).resolve();inp=run/'input_only';code=run/'worker_code';out=run/'infer_output'
     code.mkdir(exist_ok=True);out.mkdir(exist_ok=True)
     for src,name in ((Path(__file__).with_name('infer_worker.py'),'infer_worker.py'),
+                     (Path(__file__).with_name('timing.py'),'timing.py'),
                      (Path(__file__).resolve().parents[2]/'scripts/codex_astra_mac_bridge.py','bridge.py')):
         (code/name).write_bytes(src.read_bytes());(code/name).chmod(0o444)
     launcher=Path(config.executable).expanduser().absolute()

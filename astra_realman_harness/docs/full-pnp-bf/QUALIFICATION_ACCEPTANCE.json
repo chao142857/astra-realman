@@ -1,0 +1,99 @@
+{
+  "status": "PASS_OFFLINE_TIMING_AND_CANCELLATION_ONLY",
+  "base_commit": "0677cba96e1ac40375c348e493d7c99003ef679f",
+  "real_model_calls": 0,
+  "physics_scene_initializations": 0,
+  "hardware_calls": 0,
+  "new_real_budget_activated": false,
+  "inherited_budget": 0,
+  "tests_passed": 81,
+  "tests_failed": 0,
+  "test_groups": [
+    {
+      "command": [
+        "env",
+        "MPLCONFIGDIR=/tmp/full-pnp-matplotlib",
+        "PYTHONPATH=astra_realman_harness/tests",
+        "/home/alex/astra/.venv/bin/python",
+        "-m",
+        "unittest",
+        "test_full_pnp_qualification",
+        "-v"
+      ],
+      "cwd": "/tmp/astra-full-pnp-qualification-20261008",
+      "log": "qualification-tests.log",
+      "tests": 12,
+      "wall_s_reported_by_unittest": 1.275,
+      "exit_code": 0,
+      "log_sha256": "93f47697ba7d57217adecef9e6b4b42073434f8339610e521e8f82132850d283"
+    },
+    {
+      "command": [
+        "env",
+        "MPLCONFIGDIR=/tmp/full-pnp-matplotlib",
+        "PYTHONPATH=astra_realman_harness/tests",
+        "/home/alex/astra/.venv/bin/python",
+        "-m",
+        "unittest",
+        "test_cli_environment",
+        "test_full_pnp",
+        "test_full_pnp_runtime",
+        "test_full_pnp_review",
+        "test_full_pnp_infer",
+        "test_frozen_pnp_diagnostic",
+        "-v"
+      ],
+      "cwd": "/tmp/astra-full-pnp-qualification-20261008",
+      "log": "regression-tests.log",
+      "tests": 69,
+      "wall_s_reported_by_unittest": 11.062,
+      "exit_code": 0,
+      "log_sha256": "d762c55bb439513b43749109dc1217ac6b65fb91f64ea400e06af1d99b617e4f"
+    }
+  ],
+  "planned_new_limits": {
+    "mode": "qualification",
+    "episodes": [
+      "B",
+      "F"
+    ],
+    "episode_budget_s": 900,
+    "request_cap_s": 90,
+    "request_deadline": "min(launch+90, original episode deadline); all B/E/A share episode deadline",
+    "attempts_per_episode": 20,
+    "total_attempts": 40,
+    "action_chunks": 12,
+    "explicit_reobservations": 2,
+    "max_in_flight": 1,
+    "max_pending": 1,
+    "owner_watchdog_s": 1260,
+    "startup_margin_s": 300,
+    "cleanup_margin_s": 60,
+    "forced_termination_grace_s": 10
+  },
+  "standard_retained": {
+    "episode_budget_s": 300,
+    "request_cap_s": 30,
+    "owner_watchdog_s": 600
+  },
+  "preservation": {
+    "status": "PASS",
+    "protected_existing_files": 285,
+    "history_archives": [
+      {
+        "root": "/home/alex/astra-realman_ws/full-pnp-real-bf-pair-20261008T184352",
+        "files": 81,
+        "unchanged": true
+      },
+      {
+        "root": "/home/alex/astra-realman_ws/astra-frozen-b-diagnostic-evidence-20261008",
+        "files": 115,
+        "unchanged": true
+      }
+    ]
+  },
+  "unchanged_policy": "Model/medium, prompt/schema, image projection, memory, controller, physics, submission gates, tools disabled; no retry or RGB action fallback",
+  "future_input": "Fresh empty-gripper scene and new RGB/requests in each owner; no frozen-diagnostic candidate input",
+  "limits_of_evidence": "Virtual time and auth-free network-disabled fake CLI; no real visual decision, physical success or speedup claim",
+  "evidence_directory": "/home/alex/astra-realman_ws/astra-full-pnp-qualification-evidence-20261008"
+}

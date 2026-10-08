@@ -8,6 +8,7 @@ import signal
 import threading
 import time
 from bridge import infer,preflight
+from timing import MODES,timing_limits
 
 
 class Stop:
@@ -20,6 +21,7 @@ class Stop:
 def main():
     p=argparse.ArgumentParser();p.add_argument('--executable',required=True)
     p.add_argument('--sha256');p.add_argument('--payload-sha256');p.add_argument('--deadline',type=float)
+    p.add_argument('--mode',choices=tuple(MODES),default='standard')
     p.add_argument('--preflight',action='store_true');a=p.parse_args()
     if a.preflight:
         record=preflight(a.executable,Path('/output/preflight'))
@@ -40,11 +42,11 @@ def main():
             data=Path('/input',item['file']).read_bytes()
             if data!=base64.b64decode(blob,validate=True) or hashlib.sha256(data).hexdigest()!=item['sha256']:
                 raise ValueError('FROZEN_IMAGE_HASH')
-        remaining=min(30.,a.deadline-time.monotonic())
-        if remaining<=0 or stop.is_set():raise RuntimeError('NO_REQUEST_BUDGET_OR_CANCELLED')
         record['worker_started_monotonic']=time.monotonic()
+        remaining=min(timing_limits(a.mode)['request_timeout_s'],a.deadline-record['worker_started_monotonic'])
+        if remaining<=0 or stop.is_set():raise RuntimeError('NO_REQUEST_BUDGET_OR_CANCELLED')
         Path('/output/infer_started.json').write_text(json.dumps({'started_monotonic':record['worker_started_monotonic'],
-            'timeout_s':remaining,'deadline_monotonic':a.deadline,'payload_sha256':a.payload_sha256}))
+            'timeout_s':remaining,'deadline_monotonic':a.deadline,'mode':a.mode,'payload_sha256':a.payload_sha256}))
         result=infer(payload,stop,executable=a.executable,run_root='/output/bridge',timeout_s=remaining)
         record.update(result)
         # Preserve every returned usage object separately; never add nested token fields.
