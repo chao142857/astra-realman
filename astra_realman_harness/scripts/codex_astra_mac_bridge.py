@@ -1,12 +1,60 @@
 #!/usr/bin/env python3
 """Run on Mac. Loopback-only model service plus SSH reverse tunnel; no robot SDK."""
-import argparse, base64, hashlib, hmac, json, os, signal, subprocess, threading, time, uuid
+import argparse, base64, hashlib, hmac, json, os, shutil, signal, subprocess, threading, time, uuid
 from pathlib import Path
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 DISABLED=('shell_tool unified_exec code_mode code_mode_host code_mode_only multi_agent multi_agent_v2 apps plugins hooks remote_plugin shell_snapshot browser_use browser_use_external computer_use in_app_browser image_generation view_image workspace_dependencies skill_search skill_mcp_dependency_install memories goals realtime_conversation daemon_auto_start').split()
 ROOT='/home/tongji/alex/astra_realman_harness'
 JOBS={};MUTEX=threading.Lock();BUSY=threading.Lock()
+ENV_ALLOWLIST=('HOME','USER','LOGNAME','LANG','LC_ALL','SSL_CERT_FILE','SSL_CERT_DIR')
+SYSTEM_PATH=('/usr/bin','/bin')
+
+def worker_environment(executable,run):
+    """Keep the configured launcher directory ahead of its symlink target directory."""
+    launcher=Path(executable).expanduser().absolute()
+    env={k:v for k,v in os.environ.items() if k in ENV_ALLOWLIST}
+    paths=dict.fromkeys((str(launcher.parent),str(launcher.resolve().parent),*SYSTEM_PATH))
+    env.update(PATH=os.pathsep.join(paths),TMPDIR=str(run/'runtime'))
+    return env
+
+def worker_paths(executable,run,env):
+    launcher=Path(executable).expanduser().absolute()
+    node=shutil.which('node',path=env['PATH'])
+    return {'launcher':str(launcher),'resolved_script':str(launcher.resolve()),
+            'node':node,'resolved_node':str(Path(node).resolve()) if node else None,
+            'cwd':str(run/'input_only'),'PATH':env['PATH'],'TMPDIR':env['TMPDIR'],
+            'environment_keys':sorted(env)}
+
+def preflight(executable,output,*,timeout_s=15):
+    """Version/help only, with the same isolated environment and cwd layout as infer."""
+    run=Path(output).resolve()
+    run.mkdir(parents=True,exist_ok=False)
+    (run/'runtime').mkdir();(run/'input_only').mkdir()
+    env=worker_environment(executable,run)
+    report={'status':'INCOMPLETE','model_calls':0,'paths':worker_paths(executable,run,env),'probes':[]}
+    try:
+        node=report['paths']['node']
+        if node is None:raise RuntimeError('NODE_NOT_FOUND_IN_WORKER_PATH')
+        launcher=report['paths']['launcher']
+        for name,cmd in (('node_version',[node,'--version']),
+                         ('codex_version',[launcher,'--version']),
+                         ('codex_exec_help',[launcher,'exec','--help'])):
+            record={'name':name,'command':cmd}
+            report['probes'].append(record)
+            start=time.monotonic()
+            try:
+                probe=subprocess.run(cmd,stdin=subprocess.DEVNULL,capture_output=True,text=True,
+                                     env=env,cwd=run/'input_only',timeout=timeout_s)
+                record.update(return_code=probe.returncode,stdout=probe.stdout,stderr=probe.stderr)
+                if probe.returncode!=0 or not probe.stdout.strip():
+                    raise RuntimeError('CLI_PREFLIGHT_PROBE_FAILED:'+name)
+            finally:record['latency_s']=time.monotonic()-start
+        report['status']='PASS'
+    except Exception as exc:
+        report.update(status='FAIL',error=type(exc).__name__+':'+str(exc))
+    (run/'preflight.json').write_text(json.dumps(report,indent=2)+'\n')
+    return report
 
 def command(run,images,executable='/opt/homebrew/bin/codex'):
     cmd=[str(executable),'exec','--ignore-user-config','--ignore-rules','--sandbox','read-only',
@@ -38,8 +86,8 @@ def infer(payload,stop,*,executable='/opt/homebrew/bin/codex',run_root='/private
         p=run/'input_only'/('image-%d.png'%i);p.write_bytes(data);images.append(p)
     (run/'attachments.json').write_text(json.dumps([{'index':i+1,'path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for i,p in enumerate(images)]))
     cmd=command(run,images,executable);(run/'command.json').write_text(json.dumps(cmd))
-    env={k:v for k,v in os.environ.items() if k in ('HOME','USER','LOGNAME','LANG','LC_ALL','SSL_CERT_FILE','SSL_CERT_DIR')}
-    env.update(PATH=str(Path(executable).resolve().parent)+':/usr/bin:/bin',TMPDIR=str(run/'runtime'))
+    env=worker_environment(executable,run)
+    (run/'environment.json').write_text(json.dumps(worker_paths(executable,run,env),indent=2)+'\n')
     start=time.monotonic();proc=None;error=None
     try:
         with (run/'prompt.json').open() as inp,(run/'events.jsonl').open('w') as out,(run/'stderr.log').open('w') as err:

@@ -65,6 +65,13 @@ def main():
     signal.signal(signal.SIGTERM, stop)
     (a.output / 'result.json').write_text(json.dumps(result, indent=2))
     try:
+        if a.model == 'local-cli':
+            from scripts.codex_astra_mac_bridge import preflight
+            result['cli_preflight'] = preflight(a.codex_executable, a.output / 'cli-preflight')
+            if result['cli_preflight']['status'] != 'PASS':
+                raise RuntimeError('CLI_PREFLIGHT_FAILED')
+            if stop_requested.is_set():
+                raise RuntimeError('STOP_DURING_PREFLIGHT')
         backend = RM65Backend(a.assets, a.output / 'scene', a.seed, a.video)
         if stop_requested.is_set():
             backend.stop()
