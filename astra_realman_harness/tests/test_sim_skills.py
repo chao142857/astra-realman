@@ -18,6 +18,7 @@ from bimanual_demo.evidence import SyntheticObserver, PNG
 from bimanual_demo.executors import MockArmExecutor
 from scripts.codex_astra_mac_bridge import command, infer
 from sim_skills.projection import pack_history, unpack_history, history_projection, image_projection
+from sim_skills.contract import action_catalog, approval_request
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -161,6 +162,9 @@ class LocalModelTests(unittest.TestCase):
                 'pose_convention':'xyz wxyz', 'observation_source':'SAPIEN_PHYSX',
                 'decision_wait_mode':'physics_paused', 'images': {n:str(p) for n in ('assembly','fixed','wrist')},
                 'object_pose_gt':[999], 'reward':1, 'future_trajectory':'SECRET'}}
+        catalog = action_catalog(json.loads((ROOT/'config/sim_rm65_targets.json').read_text()))
+        self.context['binding'].update(revision=catalog['targets']['revision'], primitive_index=0)
+        self.context.update(action_catalog=catalog, approval_request=approval_request(catalog, 'S', 0))
     def tearDown(self):self.tmp.cleanup()
     def worker(self, payload, stop, **kw):
         raw = json.dumps({'binding': payload['context']['binding'], 'action':'continue'})
@@ -175,6 +179,88 @@ class LocalModelTests(unittest.TestCase):
         for marker in ('SECRET','999','object_pose_gt','reward',str(self.root)):
             self.assertNotIn(marker, raw)
         self.assertEqual([r['camera'] for r in payload['context']['images_in_attachment_order']], ['assembly','fixed','wrist'])
+    def test_runtime_m_s_send_same_complete_catalog_to_worker(self):
+        sent = {'M': [], 'S': []}
+        runtimes = {}
+        targets = json.loads((ROOT/'config/sim_rm65_targets.json').read_text())
+        for condition in ('M', 'S'):
+            def worker(payload, stop, **kw):
+                sent[condition].append(copy.deepcopy(payload))
+                return self.worker(payload, stop, **kw)
+            backend = Backend()
+            backend.observe = lambda: copy.deepcopy(self.context['observation'])
+            policy = LocalPolicy('/bin/false', self.root/condition/'workers', authorized=True,
+                                 max_requests=4 if condition == 'M' else 1, worker=worker)
+            runtime = PlacementRuntime(backend, targets, self.root/condition/'episode',
+                                       condition=condition, policy=policy)
+            self.assertEqual(runtime.run()['status'], 'PASS')
+            runtimes[condition] = runtime
+        self.assertEqual((len(sent['M']), len(sent['S'])), (4, 1))
+        reference = sent['S'][0]['context']['action_catalog']
+        self.assertEqual(reference['targets'], targets)
+        self.assertEqual(reference['expanded_sequence'], runtimes['S'].backend.actions)
+        self.assertEqual(reference['skill']['primitive_order'],
+                         ['approach', 'release_pose', 'release', 'retract'])
+        self.assertEqual(reference['units']['position'], 'metres')
+        self.assertIn('wxyz', reference['units']['orientation'])
+        self.assertEqual(sent['S'][0]['context']['approval_request']['scope'], 'complete_skill')
+        self.assertEqual(sent['S'][0]['context']['approval_request']['primitive_indices'], [0,1,2,3])
+        for index, payload in enumerate(sent['M']):
+            context = payload['context']
+            self.assertEqual(context['action_catalog'], reference)
+            offer = context['approval_request']
+            self.assertEqual(offer['scope'], 'one_primitive')
+            self.assertEqual(offer['primitive_index'], index)
+            self.assertEqual(offer['primitive'], runtimes['M'].backend.actions[index])
+            self.assertNotIn('SECRET', json.dumps(context))
+        self.assertEqual(runtimes['M'].backend.checks, runtimes['S'].backend.checks)
+    def test_corrupt_or_stale_offer_rejected_before_worker(self):
+        variants = []
+        context = copy.deepcopy(self.context)
+        context['action_catalog']['targets']['object_pose_gt'] = 'SECRET'
+        variants.append(context)
+        context = copy.deepcopy(self.context)
+        context['action_catalog']['expanded_sequence'][0]['target'][0] += .1
+        variants.append(context)
+        context = copy.deepcopy(self.context)
+        context['binding']['revision'] = 'stale'
+        variants.append(context)
+        context = copy.deepcopy(self.context)
+        context['approval_request']['scope'] = 'one_primitive'
+        variants.append(context)
+        for index, context in enumerate(variants):
+            with self.subTest(index=index):
+                p = LocalPolicy('/bin/false', self.root, authorized=True, max_requests=1,
+                                worker=lambda *a, **k: self.fail('worker reached'))
+                with self.assertRaises(ValueError):p.decide(context, self.root/str(index))
+                self.assertEqual(p.calls, 0)
+    def test_truth_and_future_sentinels_excluded_from_final_payload(self):
+        sentinels = {key: 'FORBIDDEN_SENTINEL' for key in
+                     ('object_pose_gt','contact_truth','contact_latch','final_score','future_results')}
+        self.context.update(sentinels)
+        self.context['observation'].update(sentinels)
+        self.context['observation']['state'].update(sentinels)
+        self.context['previous_feedback'] = [dict(sentinels, ok=True, after=sentinels)]
+        self.assertNotIn('FORBIDDEN_SENTINEL', json.dumps(input_payload(self.context)))
+    def test_valid_stop_has_no_checks_actions_or_evaluation(self):
+        backend = Backend()
+        backend.observe = lambda: copy.deepcopy(self.context['observation'])
+        backend.evaluate = lambda: self.fail('evaluator reached after stop')
+        def worker(payload, stop, **kw):
+            result = self.worker(payload, stop, **kw)
+            result['raw'] = result['raw'].replace('continue', 'stop')
+            result['events'] = result['events'].replace('continue', 'stop')
+            return result
+        p = LocalPolicy('/bin/false', self.root/'workers', authorized=True, max_requests=1, worker=worker)
+        runtime = PlacementRuntime(backend, self.context['action_catalog']['targets'],
+                                   self.root/'episode', condition='S', policy=p)
+        result = runtime.run()
+        self.assertEqual(result['error'], 'RuntimeError:POLICY_STOP')
+        self.assertEqual(p.calls, 1)
+        self.assertFalse(backend.actions)
+        self.assertFalse(backend.checks)
+        metadata = json.loads((self.root/'episode/request-01/metadata.json').read_text())
+        self.assertEqual(metadata['status'], 'COMPLETE')
     def test_authorization_and_request_cap(self):
         with self.assertRaises(ValueError):LocalPolicy('/bin/false',self.root)
         p = LocalPolicy('/bin/false', self.root, authorized=True,max_requests=1,worker=self.worker)
@@ -204,6 +290,15 @@ a=sys.argv; context=json.loads(sys.stdin.read()); root=Path.cwd()
 assert root.name=='input_only'
 assert sorted(p.name for p in root.iterdir())==['context.json','image-0.png','image-1.png','image-2.png']
 assert 'model_reasoning_effort="medium"' in a
+assert context==json.loads((root/'context.json').read_text())
+assert context['approval_request']['scope']=='complete_skill'
+assert context['approval_request']['primitive_indices']==[0,1,2,3]
+catalog=context['action_catalog']
+assert catalog['skill']['primitive_order']==['approach','release_pose','release','retract']
+assert len(catalog['primitive_catalog'])==len(catalog['expanded_sequence'])==4
+assert catalog['targets']['revision']==context['binding']['revision']
+assert all(key in catalog['targets'] for key in ('frame','tool','pose_source'))
+assert 'SECRET' not in json.dumps(context)
 raw=json.dumps({'binding':context['binding'],'action':'continue'})
 Path(a[a.index('--output-last-message')+1]).write_text(raw)
 for e in [{'type':'turn.started'},{'type':'item.completed','item':{'type':'agent_message','text':raw}},{'type':'turn.completed','usage':{'input_tokens':1,'output_tokens':1}}]:print(json.dumps(e))
@@ -216,6 +311,8 @@ for e in [{'type':'turn.started'},{'type':'item.completed','item':{'type':'agent
         run=Path(response['local_log'])
         self.assertTrue((run/'attachments.json').exists())
         self.assertEqual(len(list((run/'input_only').glob('*.png'))),3)
+        transmitted = json.loads((run/'prompt.json').read_text())
+        self.assertEqual(transmitted, input_payload(self.context)['context'])
 
 
 class ProjectionTests(unittest.TestCase):

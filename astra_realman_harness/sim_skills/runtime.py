@@ -7,6 +7,7 @@ import threading
 import time
 from pathlib import Path
 from bimanual_demo.primitives import placement_primitives
+from sim_skills.contract import action_catalog, approval_request
 
 
 class PlacementRuntime:
@@ -41,6 +42,9 @@ class PlacementRuntime:
         self.consumed = False
         self.primitives = placement_primitives(targets['approach'], targets['release_pose'],
                                               targets['retract'], targets['release_opening'])
+        self.action_catalog = action_catalog(self.targets)
+        if self.action_catalog['expanded_sequence'] != self.primitives:
+            raise ValueError('OFFER_EXECUTION_EXPANSION_MISMATCH')
 
     def emit(self, kind, data):
         row = copy.deepcopy({'kind': kind, 'wall_monotonic': self.clock(),
@@ -79,11 +83,13 @@ class PlacementRuntime:
                     binding = {'observation_id': observation['observation_id'],
                                'revision': self.targets['revision'], 'request': self.attempts,
                                'primitive_index': index, 'condition': self.condition}
-                    # Opaque task IDs only; GT checks/score/setup trace never enter context.
+                    # Public prospective commands only; no GT checks/score/setup trace.
                     context = {'binding': binding, 'observation': observation,
                                'task': 'Place the held cube on the fixed green marker.',
                                'target_id': 'fixed_green_marker',
                                'allowed_actions': ['continue', 'stop'], 'diagnostics': 'D0',
+                               'action_catalog': copy.deepcopy(self.action_catalog),
+                               'approval_request': approval_request(self.action_catalog, self.condition, index),
                                'previous_feedback': [r['data'] for r in self.rows
                                                      if r['kind'] == 'EXECUTION_RESULT']}
                     self.emit('MODEL_ATTEMPT', {'context': context, 'model_source': self.policy.source})
