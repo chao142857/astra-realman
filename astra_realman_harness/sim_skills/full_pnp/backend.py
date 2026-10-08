@@ -52,7 +52,36 @@ class FullTaskBackend(RM65Backend):
                  'actions':actions,'reason':'OWNER_COMMIT:'+ticket['candidate_id']}
         path=self.s.output/('owner_commit_%03d.json'%self.commit_counter)
         path.write_text(json.dumps({'ticket':ticket,'executor_request':request},indent=2))
-        return self.adapter.dispatch(request)
+        if actions[-1]['type']!='gripper':return self.adapter.dispatch(request)
+        # Preserve the frozen dispatcher; split only the gripper boundary. Both
+        # dispatches remain one owner-approved chunk with explicit partial results.
+        results=[];segments=[]
+        if len(actions)>1:
+            prefix=dict(request,actions=actions[:-1]);out=self.adapter.dispatch(prefix)
+            segments.append({'request':prefix,'response':out});results.extend(out['results'])
+            if not out['ok']:
+                return self._partial(path,segments,results,actions,'PREFIX_EXECUTION_FAILED')
+        try:
+            guard=getattr(self,'gripper_guard',None)
+            if guard is None:raise RuntimeError('GRIPPER_GUARD_REQUIRED')
+            fresh,check=guard(actions[-1])
+            if check['status']!='valid':
+                return self._partial(path,segments,results,actions,'PRE_GRIPPER_'+check['status'].upper(),check)
+            if check['action_kinds']==['noop']:
+                results.append({'action':actions[-1],'result':{'ok':True,'noop':True,'physical_gripper_calls':0}})
+            else:
+                final=dict(request,observation_id=fresh['observation_id'],actions=[actions[-1]])
+                out=self.adapter.dispatch(final);segments.append({'request':final,'response':out});results.extend(out['results'])
+            response={'ok':all(x['result']['ok'] for x in results),'results':results,'unexecuted_count':len(actions)-len(results)}
+        except Exception as exc:
+            return self._partial(path,segments,results,actions,'PRE_GRIPPER_EXCEPTION:'+repr(exc))
+        path.with_suffix('.execution.json').write_text(json.dumps({'segments':segments,'response':response},indent=2))
+        return response
+    def _partial(self,path,segments,results,actions,error,check=None):
+        response={'ok':False,'results':results,'unexecuted_count':len(actions)-len(results),
+                  'blocked_action_index':len(results),'error':error,'gripper_check':check}
+        path.with_suffix('.execution.json').write_text(json.dumps({'segments':segments,'response':response},indent=2))
+        return response
     def finish(self,verdict):
         self.assert_owner()
         result=self.adapter.finish('POLICY_CLOSED_BEFORE_PRIVATE_SCORE:'+verdict)

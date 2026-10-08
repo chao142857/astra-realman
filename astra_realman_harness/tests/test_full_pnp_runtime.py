@@ -47,7 +47,10 @@ class RuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(Rejected,'EXECUTION_FAILED'):
             self.r.execute([{'type':'hold','seconds':.1}],'source',obs,'id')
         self.assertEqual(self.r.discarded[0]['reason'],'PARENT_EXECUTION_FAILED')
-        self.assertIsNone(self.r.candidate);self.assertEqual(self.r.memory.events,[])
+        self.assertIsNone(self.r.candidate)
+        event=self.r.memory.events[0]
+        self.assertFalse(event['feedback']['ok']);self.assertEqual(event['executed_actions'],[])
+        self.assertIsNone(event['after_id'])
     def test_no_valid_candidate_keeps_drives_and_physics_ticks(self):
         self.r.wait(.013)
         self.assertGreaterEqual(self.r.hold_steps,2);self.assertEqual(self.b.commands,[])

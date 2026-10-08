@@ -28,7 +28,6 @@ def main():
        'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
        'git_status':subprocess.check_output(['git','status','--short'],text=True),
        'reset':'fresh process; recorded initialization, not exact state clone'}
-    r['asset_manifest_sha256']=hashlib.sha256((a.assets/'asset_manifest.json').read_bytes()).hexdigest()
     base=Path(__file__).resolve().parents[1]
     sources=[Path(__file__),*sorted((base/'sim_skills/full_pnp').glob('*.py')),
              base/'sim_skills/rm65.py',base/'sim_skills/async_v1.py',base/'sim_skills/model.py',base/'scripts/codex_astra_mac_bridge.py']
@@ -38,6 +37,9 @@ def main():
         elif backend:backend.stop()
     signal.signal(signal.SIGINT,stop);signal.signal(signal.SIGTERM,stop)
     try:
+        if not 0<a.budget_s<=300 or not 0<a.request_timeout_s<=30 or not 1<=a.max_stub_calls<=64 or not 0<=a.delay_s<=30:
+            raise ValueError('OFFLINE_LIMITS: episode<=300s request<=30s attempts<=64 delay<=30s')
+        r['asset_manifest_sha256']=hashlib.sha256((a.assets/'asset_manifest.json').read_bytes()).hexdigest()
         from scripts.codex_astra_mac_bridge import preflight
         r['cli_preflight']=preflight('/home/alex/.nvm/versions/node/v22.23.2/bin/codex',a.output/'cli-preflight')
         if r['cli_preflight']['status']!='PASS':raise RuntimeError('CLI_PREFLIGHT_FAILED')

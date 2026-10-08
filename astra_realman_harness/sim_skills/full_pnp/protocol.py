@@ -5,6 +5,7 @@ import json
 import math
 from sim_skills.model import state_projection,feedback_projection
 from sim_skills.async_v1 import sha,Rejected
+from sim_skills.full_pnp.dependencies import CONTRACT as OWNER_CONTRACT,REVISION as OWNER_REVISION
 
 VERSION='full_pnp_candidate_v2'
 INTERFACE={'revision':VERSION,'operations':['chunk','observe','finish','stop'],'chunk_size':[1,3],
@@ -21,7 +22,7 @@ RGB_CONTRACT={
  'object_at_goal':'current red and green centroids within 0.6 green bbox diagonal; independent physics scoring remains separate',
  'unknown':'<18 visible pixels, boundary clipping, second component >=0.35 largest, changed camera for static check, unsupported or missing projection; no usable view => unknown',
  'aggregation':'any contradictory valid-view comparison rejects; unknown never default-passes a required predicate',
- 'required':'scene_healthy for all proposals; closing requires object_static; opening requires goal_static and object_near_tool; done requires object_at_goal',
+ 'required':'scene_healthy for all proposals; owner adds minimum motion/gripper dependencies; see owner_dependency_contract; done requires object_at_goal',
  'evidence_barrier':'after every gripper event, obtain new measured evidence; no prefetch across that event'}
 
 
@@ -31,10 +32,14 @@ class Memory:
         if identity in self.seen:raise Rejected('DUPLICATE_COMPLETION')
         self.seen.add(identity);self.revision+=1
         safe={'ok':result['ok'],'results':[{'action':v['action'],'result':feedback_projection(v['result'])} for v in result.get('results',[])],
-              'unexecuted_count':result.get('unexecuted_count',0)}
+              'unexecuted_count':result.get('unexecuted_count',0),'error':result.get('error')}
         self.events.append({'id':identity,'source':'measured_execution','completed_monotonic':finished,
-             'before_id':before['observation_id'],'after_id':after['observation_id'],'after_step':after['state']['sim_step'],
-             'executed_actions':copy.deepcopy(actions[:len(result.get('results',[]))]),'feedback':safe,
+             'before_id':before['observation_id'],'after_id':after['observation_id'] if after else None,'after_step':after['state']['sim_step'] if after else None,
+             'terminal_status':'complete' if result['ok'] else 'failed_or_partial; no fabricated after observation',
+             'attempted_actions':copy.deepcopy(actions[:len(result.get('results',[]))]),
+             'executed_actions':[copy.deepcopy(v['action']) for v in result.get('results',[]) if v['result'].get('ok') and not v['result'].get('noop')],
+             'partial_or_failed_actions':[copy.deepcopy(v['action']) for v in result.get('results',[]) if not v['result'].get('ok')],
+             'feedback':safe,
              'object_state':'unknown; controller result does not establish holding/place'})
     def hypothesis(self,packet):
         self.hypotheses.append({'source':'model_judgment','source_observation_id':packet['binding']['source_observation_id'],
@@ -62,6 +67,7 @@ def wire_base(obs,binding,execution,expected_join,memory,condition,completed,rol
         'public_priors':{'table_plane_world_z_m':0.,'nominal_object_edge_m':.05,'source':'declared shared task geometry; no target positions'},
         'action_interface':copy.deepcopy(INTERFACE),'observation':o,
         'rgb_applicability_contract':copy.deepcopy(RGB_CONTRACT),
+        'owner_dependency_contract':copy.deepcopy(OWNER_CONTRACT),
         'history':memory.project(condition,binding['history_cutoff']),
         'progress':{'completed_chunks':completed,'source':'measured controller completions, not task success'},
         'execution':copy.deepcopy(execution),'expected_join':{'pad_pose':list(expected_join),'status':'PREDICTED_NOT_MEASURED'},
@@ -107,11 +113,8 @@ class CandidateGate:
             raise Rejected('RGB_REQUIREMENTS')
         if op=='chunk':
             validate_actions(c['actions'])
-            for a in c['actions']:
-                if a['type']=='gripper':
-                    closing=-.91*(1-a['opening'])<state.get('gripper_master_rad',0)
-                    required={'object_static'} if closing else {'goal_static','object_near_tool'}
-                    if not required.issubset(set(c['requirements'])):raise Rejected('GRIPPER_RGB_REQUIREMENTS')
+            if any(a['type'] in ('move_pose','gripper') for a in c['actions']) and rgb_check.get('owner_revision')!=OWNER_REVISION:
+                raise Rejected('OWNER_DEPENDENCIES_MISSING')
         if op=='finish' and c['verdict']=='done' and 'object_at_goal' not in c['requirements']:raise Rejected('FINISH_RGB_REQUIREMENTS')
         if op!='chunk' and c['actions']:raise Rejected('NON_CHUNK_ACTIONS')
         if op=='stop':return

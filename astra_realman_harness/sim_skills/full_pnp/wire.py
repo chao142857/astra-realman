@@ -4,6 +4,39 @@ import copy
 import hashlib
 import json
 from pathlib import Path
+import jsonschema
+
+
+def strict_json(raw):
+    def pairs(items):
+        out={}
+        for key,value in items:
+            if key in out:raise ValueError('DUPLICATE_JSON_KEY:'+key)
+            out[key]=value
+        return out
+    return json.loads(raw,object_pairs_hook=pairs,parse_constant=lambda value:(_ for _ in ()).throw(ValueError('NONFINITE_JSON')))
+
+
+def parse_actual_raw(raw,wire):
+    """B/A actions and E selection/bbox are returned unchanged from actual raw.
+
+    No model invocation, action synthesis, repair, or RGB stub fallback.
+    """
+    answer=strict_json(raw)
+    jsonschema.validate(answer,schema_for_role(wire))
+    if answer['binding']!=wire['binding']:raise ValueError('RAW_BINDING')
+    allowed={a['id'] for a in wire['attachments']}
+    if not answer['evidence_refs'] or not set(answer['evidence_refs'])<=allowed:raise ValueError('RAW_UNSEEN_REFERENCE')
+    if wire['role']=='E' and answer['bbox'] is not None:
+        x1,y1,x2,y2=answer['bbox']
+        if not 0<=x1<x2<=1 or not 0<=y1<y2<=1:raise ValueError('RAW_ROI')
+    if wire['role']!='E' and answer['parent_evidence_hash']!=wire['evidence_packet_hash']:raise ValueError('RAW_E_PARENT_HASH')
+    return answer
+
+
+def parse_bridge_record(record,wire):
+    if record.get('error') or record.get('return_code')!=0:raise ValueError('BRIDGE_FAILED_NO_FALLBACK')
+    return parse_actual_raw(record['raw'],wire)
 
 
 def obj(properties):return {'type':'object','properties':properties,'required':list(properties),'additionalProperties':False}

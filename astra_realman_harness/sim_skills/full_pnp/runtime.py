@@ -2,6 +2,7 @@
 import copy
 import hashlib
 import json
+import math
 from pathlib import Path
 import threading
 import time
@@ -11,6 +12,7 @@ from sim_skills.model import state_projection
 from sim_skills.full_pnp.protocol import VERSION,INTERFACE,Memory,CandidateGate,wire_base,validate_actions
 from sim_skills.full_pnp.slot import FullSlot
 from sim_skills.full_pnp import rgb
+from sim_skills.full_pnp import dependencies
 
 
 class FullRuntime:
@@ -29,6 +31,7 @@ class FullRuntime:
         self.windows={};self.segments=[];self.segment_open={};self.observation_count=0;self.replans=0
         self.original_phase=backend.s.phase;backend.s.phase=self.phase
         self.b.s.step_hook=self.hook
+        self.b.gripper_guard=self.before_gripper
         self.emit('EPISODE_START',{'condition':condition,'source':'OFFLINE_NOT_ASTRA','action_interface':INTERFACE,
                   'input_boundary':'frozen RGB/proprioception only; script answers private; worker OS isolated'})
     def emit(self,kind,data):
@@ -36,7 +39,7 @@ class FullRuntime:
         now=time.monotonic();e={'kind':kind,'wall_monotonic':now,'wall_elapsed_s':now-self.started,
              'physics_step':self.b.steps,'physics_elapsed_s':(self.b.steps-self.first_step)*self.b.dt,'data':copy.deepcopy(data)}
         self.events.append(e);self.stream.write(json.dumps(e,allow_nan=False)+'\n')
-        if kind=='REQUEST_END' and data.get('record'):
+        if kind=='REQUEST_END' and data.get('record') and all(k in data['record'] for k in ('worker_started_monotonic','worker_finished_monotonic')):
             r=data['record'];self.windows[data['request']]=[r['worker_started_monotonic'],r['worker_finished_monotonic']]
     def phase(self,name,**data):
         self.original_phase(name,**data)
@@ -74,7 +77,7 @@ class FullRuntime:
     def capture(self,reason):
         self.admit();obs=self.b.observe();self.observation_count+=1
         self.emit('OBSERVATION',{'reason':reason,'observation_id':obs['observation_id'],'captured_monotonic':obs['captured_monotonic'],
-                  'capture_span_s':obs['capture_span_s'],'state':obs['state'],'images':obs['images']})
+                  'capture_span_s':obs['capture_span_s'],'state':obs['state'],'images':obs['images'],'calibration':obs['calibration']})
         return obs
     def binding(self,obs):
         return {'episode_id':self.episode_id,'request_id':'pending','source_observation_id':obs['observation_id'],
@@ -107,10 +110,10 @@ class FullRuntime:
         w['binding']['request_id']='request-%03d'%(self.slot.calls+1);w['binding']['preparation_started_monotonic']=time.monotonic()
         w['evidence_packet']=copy.deepcopy(cycle['packet']);w['evidence_packet_hash']=sha(cycle['packet']) if cycle['packet'] else None
         w['evidence_reuse']=copy.deepcopy(cycle['reuse'])
+        if role=='E':self.e_calls+=1
         self.slot.submit_wire(w,cycle['obs'],delay_s=self.delay,timeout_s=self.timeout,episode_deadline=self.deadline,
                               evidence=cycle['packet'],reuse=cycle['reuse'],past=self.past)
         cycle['dependencies'].append(self.slot.calls)
-        if role=='E':self.e_calls+=1
     def poll(self):
         had_job=self.slot.job is not None;self.slot.poll()
         if self.slot.pending is None:
@@ -148,9 +151,12 @@ class FullRuntime:
         self.emit('HOLD_END',{'duration_s':time.monotonic()-start})
     def adopt(self):
         item=self.candidate;candidate=item['candidate'];cycle=item['cycle'];actual=None;check=None
+        self.emit('CANDIDATE_SUBMIT_BEGIN',{'candidate_id':item['digest'],'request':item['request']})
         try:
+            if candidate.get('operation')=='chunk' and self.completed>=12:raise Rejected('COMPLETED_CHUNK_CAP_12')
             actual=self.capture('COMMIT_FRESH_OBSERVATION');current_features=rgb.features(actual)
-            check=rgb.compare(cycle['features'],current_features,cycle['obs']['calibration'],actual['calibration'],candidate['requirements'],actual['state'])
+            check=dependencies.check(candidate['actions'],cycle['obs'],actual,cycle['features'],current_features,
+                                     start_pose=item['snapshot']['expected_join']['pad_pose'],model_requirements=candidate['requirements'])
             self.gate.validate(item,self.binding(actual),actual['state'],time.monotonic(),check,{v['id'] for v in item['snapshot']['attachments']})
         except Exception as exc:
             self.candidate=None
@@ -176,18 +182,31 @@ class FullRuntime:
         self.adopted.append(record);self.emit('CANDIDATE_ADOPTED',record)
         if self.cold is None:self.cold=time.monotonic()-self.started
         return candidate,actual
-    def execute(self,actions,source,commit,candidate_id):
+    def before_gripper(self,action):
+        actual=self.capture('PRE_GRIPPER_FRESH');source=self.active['guard_source']
+        check=dependencies.check([action],source,actual,rgb.features(source),rgb.features(actual),model_requirements=self.active.get('model_requirements',()))
+        p=self.active['expected'];state=actual['state']
+        distance=sum((a-b)**2 for a,b in zip(state['actual_grasp_center_world'],p[:3]))**.5
+        rotation=dependencies.angle(state['flange_pose_world'][3:],p[3:])
+        check['join_error']={'distance_m':distance,'rotation_rad':rotation}
+        if not math.isfinite(distance) or not math.isfinite(rotation) or distance>=.01 or rotation>=.05:
+            check['status']='invalid';check['state_error']='PRE_GRIPPER_JOIN_MISMATCH'
+        self.emit('PRE_GRIPPER_CHECK',{'observation_id':actual['observation_id'],'check':check})
+        return actual,check
+    def execute(self,actions,source,commit,candidate_id,model_requirements=()):
         validate_actions(actions)
+        if self.completed>=12:raise Rejected('COMPLETED_CHUNK_CAP_12')
         plan_id=sha({'episode':self.episode_id,'index':self.completed,'candidate':candidate_id,'actions':actions})
         expected=[*commit['state']['actual_grasp_center_world'],*commit['state']['flange_pose_world'][3:]]
         for action in actions:
             if action['type']=='move_pose':expected=action['pose']
-        self.parent=plan_id;self.active={'id':plan_id,'actions':actions,'expected':expected,'start_step':self.b.steps,'lookahead_done':False}
+        self.parent=plan_id;self.active={'id':plan_id,'actions':actions,'expected':expected,'start_step':self.b.steps,'lookahead_done':False,'guard_source':commit,'model_requirements':model_requirements}
         ticket={'owner_admitted':True,'candidate_id':candidate_id,'source_observation_id':source,'commit_observation_id':commit['observation_id'],'parent_plan_id':plan_id}
         self.emit('CHUNK_BEGIN',{'plan_id':plan_id,'actions':actions,'ticket':ticket})
         result=self.b.execute_chunk(actions,ticket,commit)
         self.join_started=time.monotonic();self.emit('CHUNK_END',{'plan_id':plan_id,'result':result});self.active=None
         if not result['ok']:
+            self.memory.complete(plan_id,commit,None,actions,result,time.monotonic())
             self.emit('PARENT_FAILED_INVALIDATE',{'candidate':self.candidate['digest'] if self.candidate else None})
             self.discard_pending('PARENT_EXECUTION_FAILED');self.slot.cancel()
             raise Rejected('EXECUTION_FAILED:'+str(result))
@@ -217,7 +236,7 @@ class FullRuntime:
             if self.condition=='script':score=self.run_script();status=score['status']
             else:
                 self.begin_cycle(self.capture('INITIAL_EMPTY_TASK'))
-                while self.completed<=12:
+                while True:
                     self.wait();candidate,obs=self.adopt()
                     if candidate is None:continue
                     op=candidate['operation']
@@ -226,9 +245,8 @@ class FullRuntime:
                     if op=='observe':
                         if self.replans>=2:raise Rejected('UNKNOWN_NO_VALID_PROPOSAL')
                         self.replans+=1;self.evidence=None;self.begin_cycle(self.capture('REQUESTED_REOBSERVE'));continue
-                    after=self.execute(candidate['actions'],candidate['binding']['source_observation_id'],obs,sha(candidate))
+                    after=self.execute(candidate['actions'],candidate['binding']['source_observation_id'],obs,sha(candidate),candidate['requirements'])
                     if not self.cycle and not self.candidate:self.begin_cycle(after)
-                else:raise Rejected('COMPLETED_CHUNK_CAP')
         except Exception as exc:
             error=type(exc).__name__+':'+str(exc);status='STOPPED' if self.stopped else 'FAIL'
             self.emit('FAULT',{'error':error});self.stop(error)
@@ -243,6 +261,7 @@ class FullRuntime:
             self.emit('TERMINAL',{'status':status,'score':score})
             summary={'status':status,'error':error,'condition':self.condition,'source':'ENGINEERING_GT_SCRIPT' if self.condition=='script' else 'RGB_DELAYED_STUB_NOT_ASTRA',
                 'real_model_calls':0,'hardware_calls':0,'stub_attempts':self.slot.calls,'E_calls':self.e_calls,'E_reuses':self.e_reuses,
+                'worker_process_launches':self.slot.launches,'attempts':list(self.slot.attempts.values()),'action_chunk_cap':12,
                 'max_in_flight':self.slot.max_in_flight,'max_pending':self.slot.max_pending,'completed_chunks':self.completed,
                 'candidate_generated':sum(e['kind']=='CANDIDATE_GENERATED' for e in self.events),'candidate_adopted':len(self.adopted),'candidate_discarded':len(self.discarded),
                 'adopted_inference_execution_overlap_s':sum(x['adopted_inference_execution_overlap_s'] for x in self.adopted),
