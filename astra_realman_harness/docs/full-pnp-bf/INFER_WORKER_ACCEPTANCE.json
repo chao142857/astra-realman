@@ -1,0 +1,181 @@
+{
+  "status": "OFFLINE_WIRING_ACCEPTED_REAL_API_NOT_RUN",
+  "implementation_commit": "9b092e96655ce4b4b0551d36847eb70fe30fbfb2",
+  "frozen_commits": [
+    "4aa89a2",
+    "99ac311"
+  ],
+  "real_model_calls": 0,
+  "hardware_calls": 0,
+  "physics_scene_calls": 0,
+  "lab_connections": 0,
+  "coding_subagents": 0,
+  "inherited_budget": 0,
+  "real_batch_authorization_this_turn": 0,
+  "tests": {
+    "old_regressions": 88,
+    "new_fake_process_regressions": 18,
+    "total": 106,
+    "status": "PASS",
+    "wall_s": 18.568
+  },
+  "fake_lifecycle": [
+    {
+      "case": "B-finish",
+      "source": "FAKE_CLI_PROCESS_AND_FAKE_BACKEND_NOT_ASTRA_OR_PHYSICS",
+      "status": "PASS",
+      "attempts": 1,
+      "infer_calls_against_fake_CLI": 1,
+      "roles": [
+        "B"
+      ],
+      "attempt_statuses": [
+        "READY"
+      ],
+      "wire_statuses": [
+        "PASS"
+      ],
+      "actual_infer_wire_statuses": [
+        "PASS"
+      ],
+      "audit_complete": true,
+      "error": null,
+      "wall_s": 0.19495925299997907,
+      "real_model_calls": 0,
+      "physics_scene_calls": 0,
+      "hardware_calls": 0
+    },
+    {
+      "case": "F-E-A-finish",
+      "source": "FAKE_CLI_PROCESS_AND_FAKE_BACKEND_NOT_ASTRA_OR_PHYSICS",
+      "status": "PASS",
+      "attempts": 2,
+      "infer_calls_against_fake_CLI": 2,
+      "roles": [
+        "E",
+        "A"
+      ],
+      "attempt_statuses": [
+        "READY",
+        "READY"
+      ],
+      "wire_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "actual_infer_wire_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "audit_complete": true,
+      "error": null,
+      "wall_s": 0.34404054500191705,
+      "real_model_calls": 0,
+      "physics_scene_calls": 0,
+      "hardware_calls": 0
+    },
+    {
+      "case": "E-malformed-no-A",
+      "source": "FAKE_CLI_PROCESS_AND_FAKE_BACKEND_NOT_ASTRA_OR_PHYSICS",
+      "status": "FAIL",
+      "attempts": 1,
+      "infer_calls_against_fake_CLI": 1,
+      "roles": [
+        "E"
+      ],
+      "attempt_statuses": [
+        "PARSE_FAILED"
+      ],
+      "wire_statuses": [
+        "PASS"
+      ],
+      "actual_infer_wire_statuses": [
+        "PASS"
+      ],
+      "audit_complete": true,
+      "error": "Rejected:WORKER_RETURN_OR_PARSE_FAILED_NO_RETRY:JSONDecodeError:Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+      "wall_s": 0.18540260000008857,
+      "real_model_calls": 0,
+      "physics_scene_calls": 0,
+      "hardware_calls": 0
+    },
+    {
+      "case": "B-partial-timeout",
+      "source": "FAKE_CLI_PROCESS_AND_FAKE_BACKEND_NOT_ASTRA_OR_PHYSICS",
+      "status": "FAIL",
+      "attempts": 1,
+      "infer_calls_against_fake_CLI": 1,
+      "roles": [
+        "B"
+      ],
+      "attempt_statuses": [
+        "CANCELLED"
+      ],
+      "wire_statuses": [
+        "PASS"
+      ],
+      "actual_infer_wire_statuses": [
+        "PASS"
+      ],
+      "audit_complete": true,
+      "error": "Rejected:WORKER_TIMEOUT_OR_LATE_NO_RETRY",
+      "wall_s": 0.5856959849988925,
+      "real_model_calls": 0,
+      "physics_scene_calls": 0,
+      "hardware_calls": 0
+    },
+    {
+      "case": "B-API-failure",
+      "source": "FAKE_CLI_PROCESS_AND_FAKE_BACKEND_NOT_ASTRA_OR_PHYSICS",
+      "status": "FAIL",
+      "attempts": 1,
+      "infer_calls_against_fake_CLI": 1,
+      "roles": [
+        "B"
+      ],
+      "attempt_statuses": [
+        "PARSE_FAILED"
+      ],
+      "wire_statuses": [
+        "PASS"
+      ],
+      "actual_infer_wire_statuses": [
+        "PASS"
+      ],
+      "audit_complete": true,
+      "error": "Rejected:WORKER_RETURN_OR_PARSE_FAILED_NO_RETRY:ValueError:BRIDGE_FAILED_NO_FALLBACK",
+      "wall_s": 0.16602425900055096,
+      "real_model_calls": 0,
+      "physics_scene_calls": 0,
+      "hardware_calls": 0
+    }
+  ],
+  "protected_source_sha256": {
+    "scripts/codex_astra_mac_bridge.py": "ba66481bc6c9718d4a5d4efaf5965dfe4f8988bf1952c963c80271b6fdb603dd",
+    "sim_skills/full_pnp/backend.py": "9c648b8c6213796fa8080ccfad6c745733dcf139d6e1a82a3b19a68dfdbfe58e",
+    "sim_skills/full_pnp/dependencies.py": "32e1cf8c45a83a8eff3df43038dc844d747f43c6450199eed04a429b9fcfb163",
+    "sim_skills/full_pnp/protocol.py": "448649fcc4214b29da005519d42fd2735064020d4c5bd0f7498acdc6f8d1bdcf",
+    "sim_skills/full_pnp/rgb.py": "13b3feec80c2d175b036fa2fe186157b9fa5ed54cef57b934c723ecb7bd4beb5",
+    "sim_skills/full_pnp/wire.py": "136161825c29798b20bd6fae6965be5bc293525112c874118b9c519e677d2cab",
+    "sim_skills/full_pnp/legacy_model_bridge.py": "12ca47cfec8a1fa2a03387303bf9d0a6d343e512b608fd6eace05c8428731e59",
+    "sim_skills/rm65.py": "6ab05d08270564ae497f64260013df24f14e36b1620cf1d73cda8721d38e8513",
+    "config/sim_rm65_targets.json": "3a31984d1d6d30e4145a2da2930741b3c4439ecf14bdc50dbff6c300a0891354"
+  },
+  "future_gate": "--enable-real-bf-pair; must be explicitly authorized in a later turn",
+  "future_limits": {
+    "episodes": {
+      "B": 1,
+      "F": 1
+    },
+    "budget_s_per_episode": 300,
+    "attempts_per_episode": 20,
+    "total_attempts": 40,
+    "request_s": "min(30, remaining episode budget)",
+    "action_chunks": 12,
+    "max_in_flight": 1,
+    "max_pending": 1
+  },
+  "server_identity": "unknown",
+  "server_effort": "unknown",
+  "server_internal_retries": "unknown"
+}
