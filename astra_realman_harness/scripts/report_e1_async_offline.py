@@ -11,6 +11,8 @@ def intervals(events,start,end):
     for e in events:
         if e['kind']==start:pending.append(e)
         elif e['kind']==end and pending:out.append((pending.pop(0),e))
+        elif e['kind'] in ('FAULT','STOP','TERMINAL') and pending:
+            out.extend((begin,e) for begin in pending);pending.clear()
     return out
 
 
@@ -49,7 +51,7 @@ def main():
     for r in rows:
         lines.append('| %s | %s | %s | %s / %s | %s | %s / %s | %s |'%(r['run'],r['status'],r['stub_calls'],
           f(r['initialization_wall_s']),f(r['initialization_physics_s']),f(r['cold_start_s']),f(r['placement_wall_s']),f(r['placement_physics_s']),f(r['worker_motion_overlap_s'])))
-    lines+=['','Overlap uses the intersection of worker process timestamps with executed primitive intervals, excluding holding and evaluation.',
+    lines+=['','Overlap uses the intersection of worker process timestamps with executed primitive intervals, excluding holding and evaluation; interrupted primitives end at the first fault/STOP event.',
             'All JSONL timelines, input snapshots, hashes, worker records, cancellations, simulator logs and videos remain in their run directories.',
             'Placement wall includes initial observation, cold start, rendering, inference waits, motion, idle holding and independent evaluation. Initialization is separate.']
     (a.root/'REPORT.md').write_text('\n'.join(lines)+'\n')
