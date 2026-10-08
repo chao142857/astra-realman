@@ -1,0 +1,162 @@
+{
+  "version": "full_pnp_bf_design_v2",
+  "date": "2026-10-08",
+  "status": "DESIGN_ONLY_NOT_IMPLEMENTED",
+  "execution_enabled": false,
+  "supersedes_research_agenda": [
+    "held_four_primitive_MS",
+    "independent_module_gain_before_combination",
+    "E1_B_5_episode_9_call_proposal"
+  ],
+  "preserved_commits": [
+    "f7c8da11867aca6743def410699ca9061691cb46",
+    "3e7fcd51f386f715f266168c7f8de067be9c8b7d",
+    "1b5e1842e90887d347819daefa422cbabea29c21",
+    "69aae843cca898541059fc02d1878bd2e44f6889",
+    "7b92fa8275aeb88d75863d36f2e4c591921ece06",
+    "1bb8e6b9d40768af7f03532e4176fb3fb2f21196"
+  ],
+  "authorization_this_update": {
+    "real_model_attempts": 0,
+    "hardware_calls": 0,
+    "subagents_launched": 0,
+    "physics_episodes": 0
+  },
+  "task": {
+    "start": "empty_gripper_object_on_table",
+    "included_phases": [
+      "perception",
+      "approach",
+      "grasp",
+      "lift",
+      "transport",
+      "place",
+      "retreat",
+      "result_judgment",
+      "independent_settle_score"
+    ],
+    "setup_held_allowed": false,
+    "fixed_correct_target_catalog_allowed": false
+  },
+  "shared": {
+    "action_interface": "rm65_bounded_cartesian_chunk_v2",
+    "actions": [
+      "move_pose",
+      "gripper",
+      "hold"
+    ],
+    "operations": [
+      "chunk",
+      "observe",
+      "finish",
+      "stop"
+    ],
+    "chunk_size": [
+      1,
+      3
+    ],
+    "gripper_requires_new_observation_before_dependent_next_chunk": true,
+    "frame": "sapien:world",
+    "position_semantics": "dynamic_pad_center_metres",
+    "orientation": "Link6_unit_quaternion_wxyz",
+    "delta_replay_allowed": false,
+    "control_speed": "same_existing_frozen_controller",
+    "cameras": [
+      "assembly",
+      "fixed",
+      "wrist"
+    ],
+    "capture_resolution": [
+      640,
+      480
+    ],
+    "max_attachments_per_request": 4,
+    "max_in_flight": 1,
+    "max_pending_future_candidate": 1,
+    "commit_authority": "single_scene_owner",
+    "physics_pacing": "same_minimum_dt_no_catch_up",
+    "dt_s": 0.004,
+    "runtime_model_request": "gpt-6-astra",
+    "runtime_effort_request": "medium",
+    "server_identity_effort_internal_retries": "unknown_unless_returned",
+    "interface_stage": "DESIGNED_NATIVE_BACKEND_ACTIONS_EXIST_INTEGRATION_PENDING"
+  },
+  "conditions": {
+    "B": {
+      "roles": [
+        "central_actor"
+      ],
+      "async": false,
+      "view_policy": "three_current_full_views_plus_optional_last_before_fixed",
+      "history": "recent_5_completed_transitions_and_unresolved_error",
+      "can_reobserve_or_replan": true
+    },
+    "F": {
+      "roles": [
+        "evidence_view_agent",
+        "action_agent"
+      ],
+      "role_dependency": "evidence_packet_hash_before_action_request_when_required",
+      "actual_separate_requests_required": true,
+      "async": true,
+      "view_policy": "current_global_plus_selected_detail_optional_crop_and_past_keyframe",
+      "history": "bounded_provenance_event_memory",
+      "role_concurrency": 1,
+      "evidence_role_has_executor": false,
+      "action_role_has_executor": false
+    }
+  },
+  "truth_boundary": {
+    "allowed_private": [
+      "declared_collision_geometry",
+      "finite_contact_preload",
+      "planning_payload_geometry",
+      "independent_full_task_score"
+    ],
+    "forbidden_policy_inputs": [
+      "object_pose_gt",
+      "correct_grasp_pose",
+      "correct_release_pose",
+      "perfect_roi_or_mask",
+      "future_state_or_image",
+      "private_score",
+      "full_scene_config"
+    ],
+    "robot_calibration_allowed": true,
+    "model_claims_are_measured_facts": false
+  },
+  "scenario_strata": [
+    "normal_visibility",
+    "manipulation_induced_occlusion"
+  ],
+  "posthoc_visibility_not_for_sample_selection": true,
+  "history": {
+    "future_events_allowed": false,
+    "predictions_enter_measured_history": false,
+    "cancelled_proposals_enter_executed_history": false,
+    "f_max_complete_events": 5,
+    "f_max_evidence_or_issue_items": 8,
+    "overflow": "preserve_required_fields_or_hold_no_silent_safety_loss"
+  },
+  "future_real_batch": {
+    "authorized": false,
+    "episodes": null,
+    "total_attempt_cap": null,
+    "episode_attempt_cap": null,
+    "episode_wall_s": null,
+    "request_timeout_s": null,
+    "null_means": "UNSPECIFIED_AND_DISABLED_NOT_UNLIMITED",
+    "all_roles_share_caps": true,
+    "failure_cancellation_replanning_counted": true,
+    "old_budget_transfer_allowed": false
+  },
+  "implementation_order": [
+    "shared_full_task_thin_adapter",
+    "B_complete_loop",
+    "F_minimal_integrated_loop",
+    "separately_authorized_B_F_comparison",
+    "evidence_driven_replacements_and_selected_interactions"
+  ],
+  "require_independent_component_wins": false,
+  "immediate_16_cell_factorial": false
+}

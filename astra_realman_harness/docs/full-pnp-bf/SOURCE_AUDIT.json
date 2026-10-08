@@ -1,0 +1,621 @@
+{
+  "scope": "READ_ONLY_SOURCE_REVIEW_AND_DESIGN_DOCUMENTS",
+  "base_commit": "1bb8e6b9d40768af7f03532e4176fb3fb2f21196",
+  "existing_runtime_modified": false,
+  "new_B_F_runtime_implemented": false,
+  "model_hardware_physics_runs": 0,
+  "source_files": [
+    {
+      "path": "astra_realman_harness/sim_skills/rm65.py",
+      "sha256": "6ab05d08270564ae497f64260013df24f14e36b1620cf1d73cda8721d38e8513",
+      "bytes": 6320,
+      "definitions": {
+        "RM65Backend": {
+          "line": 19,
+          "end_line": 146
+        },
+        "__init__": {
+          "line": 24,
+          "end_line": 44
+        },
+        "steps": {
+          "line": 47,
+          "end_line": 48
+        },
+        "stopped": {
+          "line": 51,
+          "end_line": 52
+        },
+        "dt": {
+          "line": 55,
+          "end_line": 56
+        },
+        "observe": {
+          "line": 58,
+          "end_line": 64
+        },
+        "setup_held": {
+          "line": 66,
+          "end_line": 95
+        },
+        "check": {
+          "line": 97,
+          "end_line": 107
+        },
+        "execute": {
+          "line": 109,
+          "end_line": 123
+        },
+        "evaluate": {
+          "line": 125,
+          "end_line": 140
+        },
+        "stop": {
+          "line": 142,
+          "end_line": 143
+        },
+        "close": {
+          "line": 145,
+          "end_line": 146
+        }
+      }
+    },
+    {
+      "path": "astra_realman_harness/sim_skills/async_v1.py",
+      "sha256": "9aefa50979849453c48d9160d336bd8b79abe14dbc3d1dcccbdcd3bf83d094e3",
+      "bytes": 21672,
+      "definitions": {
+        "sha": {
+          "line": 17,
+          "end_line": 18
+        },
+        "Rejected": {
+          "line": 21,
+          "end_line": 21
+        },
+        "StubSlot": {
+          "line": 24,
+          "end_line": 98
+        },
+        "Gate": {
+          "line": 101,
+          "end_line": 129
+        },
+        "AsyncRuntime": {
+          "line": 132,
+          "end_line": 300
+        },
+        "__init__": {
+          "line": 133,
+          "end_line": 154
+        },
+        "assert_owner": {
+          "line": 30,
+          "end_line": 31
+        },
+        "submit": {
+          "line": 32,
+          "end_line": 66
+        },
+        "poll": {
+          "line": 67,
+          "end_line": 86
+        },
+        "cancel_job": {
+          "line": 87,
+          "end_line": 95
+        },
+        "cancel": {
+          "line": 96,
+          "end_line": 98
+        },
+        "validate": {
+          "line": 103,
+          "end_line": 129
+        },
+        "emit": {
+          "line": 155,
+          "end_line": 160
+        },
+        "stop": {
+          "line": 161,
+          "end_line": 162
+        },
+        "admit": {
+          "line": 163,
+          "end_line": 165
+        },
+        "hook": {
+          "line": 166,
+          "end_line": 202
+        },
+        "snapshot": {
+          "line": 203,
+          "end_line": 220
+        },
+        "request": {
+          "line": 221,
+          "end_line": 227
+        },
+        "hold": {
+          "line": 228,
+          "end_line": 235
+        },
+        "commit": {
+          "line": 236,
+          "end_line": 251
+        },
+        "execute": {
+          "line": 252,
+          "end_line": 258
+        },
+        "run": {
+          "line": 259,
+          "end_line": 300
+        }
+      }
+    },
+    {
+      "path": "astra_realman_harness/sim_skills/model.py",
+      "sha256": "ac935dc628e5ae02a0f4280e6d7ef9e0e456475c3bdd2b376c86819b2e0cd359",
+      "bytes": 7550,
+      "definitions": {
+        "state_projection": {
+          "line": 20,
+          "end_line": 21
+        },
+        "feedback_projection": {
+          "line": 24,
+          "end_line": 28
+        },
+        "proposal_schema": {
+          "line": 31,
+          "end_line": 36
+        },
+        "input_payload": {
+          "line": 39,
+          "end_line": 67
+        },
+        "LocalPolicy": {
+          "line": 70,
+          "end_line": 135
+        },
+        "__init__": {
+          "line": 73,
+          "end_line": 78
+        },
+        "decide": {
+          "line": 80,
+          "end_line": 135
+        }
+      }
+    },
+    {
+      "path": "astra_realman_harness/sim_skills/groups.py",
+      "sha256": "3a056ae8603ab8c3db0ccaaacdd9fd8120a18228532ce078f820f4b44eb802c7",
+      "bytes": 5250,
+      "definitions": {
+        "digest": {
+          "line": 15,
+          "end_line": 16
+        },
+        "validate": {
+          "line": 19,
+          "end_line": 54
+        },
+        "decide_group": {
+          "line": 57,
+          "end_line": 89
+        }
+      }
+    },
+    {
+      "path": "astra_realman_harness/scripts/codex_astra_mac_bridge.py",
+      "sha256": "ba66481bc6c9718d4a5d4efaf5965dfe4f8988bf1952c963c80271b6fdb603dd",
+      "bytes": 10670,
+      "definitions": {
+        "worker_environment": {
+          "line": 13,
+          "end_line": 19
+        },
+        "worker_paths": {
+          "line": 21,
+          "end_line": 27
+        },
+        "preflight": {
+          "line": 29,
+          "end_line": 57
+        },
+        "command": {
+          "line": 59,
+          "end_line": 71
+        },
+        "infer": {
+          "line": 73,
+          "end_line": 112
+        },
+        "Handler": {
+          "line": 114,
+          "end_line": 140
+        },
+        "main": {
+          "line": 142,
+          "end_line": 177
+        },
+        "read": {
+          "line": 105,
+          "end_line": 108
+        },
+        "log_message": {
+          "line": 115,
+          "end_line": 115
+        },
+        "do_POST": {
+          "line": 116,
+          "end_line": 140
+        },
+        "halt": {
+          "line": 162,
+          "end_line": 162
+        }
+      }
+    },
+    {
+      "path": "astra_realman_harness/history_diagnostics.py",
+      "sha256": "ff29729d01da1a1da5a6028b5b022de61e5f525db57cd6d8b1bdec788e71e864",
+      "bytes": 7639,
+      "definitions": {
+        "schema_path": {
+          "line": 27,
+          "end_line": 30
+        },
+        "decode": {
+          "line": 33,
+          "end_line": 46
+        },
+        "build_transition": {
+          "line": 49,
+          "end_line": 92
+        },
+        "TransitionHistory": {
+          "line": 95,
+          "end_line": 143
+        },
+        "state": {
+          "line": 51,
+          "end_line": 52
+        },
+        "__init__": {
+          "line": 97,
+          "end_line": 100
+        },
+        "reset": {
+          "line": 102,
+          "end_line": 106
+        },
+        "append": {
+          "line": 108,
+          "end_line": 121
+        },
+        "context": {
+          "line": 123,
+          "end_line": 143
+        }
+      }
+    },
+    {
+      "path": "astra_realman_harness/e3_history_screen.py",
+      "sha256": "6b9dba93cfe740d8957218d913614ecb59d9628188759d29203900b230d31168",
+      "bytes": 25939,
+      "definitions": {
+        "wire": {
+          "line": 36,
+          "end_line": 38
+        },
+        "digest": {
+          "line": 41,
+          "end_line": 42
+        },
+        "size": {
+          "line": 45,
+          "end_line": 46
+        },
+        "pack": {
+          "line": 49,
+          "end_line": 76
+        },
+        "unpack": {
+          "line": 79,
+          "end_line": 94
+        },
+        "facts": {
+          "line": 97,
+          "end_line": 104
+        },
+        "has_issue": {
+          "line": 107,
+          "end_line": 112
+        },
+        "protected_history": {
+          "line": 115,
+          "end_line": 133
+        },
+        "project": {
+          "line": 136,
+          "end_line": 192
+        },
+        "csv_write": {
+          "line": 195,
+          "end_line": 198
+        },
+        "check_command": {
+          "line": 201,
+          "end_line": 206
+        },
+        "prepare": {
+          "line": 209,
+          "end_line": 302
+        },
+        "validate_batch": {
+          "line": 305,
+          "end_line": 333
+        },
+        "report": {
+          "line": 336,
+          "end_line": 370
+        },
+        "infer": {
+          "line": 373,
+          "end_line": 430
+        },
+        "archive": {
+          "line": 433,
+          "end_line": 437
+        },
+        "scan": {
+          "line": 52,
+          "end_line": 58
+        },
+        "encode": {
+          "line": 61,
+          "end_line": 73
+        },
+        "dec": {
+          "line": 82,
+          "end_line": 93
+        },
+        "candidate": {
+          "line": 146,
+          "end_line": 147
+        }
+      }
+    },
+    {
+      "path": "astra_realman_harness/scripts/prepare_rm65_sim.py",
+      "sha256": "233c535504abb232fc0fe560dee661fb794cca1829da1b11985a83145f2dfb9c",
+      "bytes": 2868,
+      "definitions": {
+        "digest": {
+          "line": 11,
+          "end_line": 12
+        },
+        "prepare": {
+          "line": 15,
+          "end_line": 51
+        }
+      }
+    },
+    {
+      "path": "/home/alex/astra-realman_ws/astra-sim-delivery-20261008/ASTRA_SIM_INCREMENT_20261008_v1/evidence/assets/scripts/rm65_scene.py",
+      "sha256": "79ac03a0f5890965fbb188f320c295dec6f66cf63b1e86889f6d5ddfe18327b0",
+      "bytes": 25364,
+      "definitions": {
+        "camera_pose": {
+          "line": 12,
+          "end_line": 18
+        },
+        "RM65Scene": {
+          "line": 20,
+          "end_line": 334
+        },
+        "__init__": {
+          "line": 21,
+          "end_line": 105
+        },
+        "phase": {
+          "line": 107,
+          "end_line": 107
+        },
+        "log": {
+          "line": 108,
+          "end_line": 108
+        },
+        "object_pose": {
+          "line": 109,
+          "end_line": 110
+        },
+        "pads": {
+          "line": 111,
+          "end_line": 115
+        },
+        "state": {
+          "line": 116,
+          "end_line": 121
+        },
+        "hold": {
+          "line": 122,
+          "end_line": 125
+        },
+        "monitor": {
+          "line": 126,
+          "end_line": 139
+        },
+        "tick": {
+          "line": 140,
+          "end_line": 159
+        },
+        "observe": {
+          "line": 160,
+          "end_line": 172
+        },
+        "gripper": {
+          "line": 173,
+          "end_line": 195
+        },
+        "bilateral_pad_contact": {
+          "line": 196,
+          "end_line": 203
+        },
+        "latch_grasp_contact": {
+          "line": 204,
+          "end_line": 214
+        },
+        "start_video": {
+          "line": 215,
+          "end_line": 219
+        },
+        "capture_video_frame": {
+          "line": 220,
+          "end_line": 228
+        },
+        "init_planner": {
+          "line": 229,
+          "end_line": 251
+        },
+        "set_planning_payload": {
+          "line": 252,
+          "end_line": 268
+        },
+        "move_flange": {
+          "line": 269,
+          "end_line": 326
+        },
+        "move_tcp": {
+          "line": 327,
+          "end_line": 331
+        },
+        "close": {
+          "line": 332,
+          "end_line": 334
+        }
+      }
+    },
+    {
+      "path": "/home/alex/astra/scripts/rm65_model_bridge.py",
+      "sha256": "12ca47cfec8a1fa2a03387303bf9d0a6d343e512b608fd6eace05c8428731e59",
+      "bytes": 13537,
+      "definitions": {
+        "ModelAdapter": {
+          "line": 9,
+          "end_line": 134
+        },
+        "main": {
+          "line": 136,
+          "end_line": 187
+        },
+        "__init__": {
+          "line": 10,
+          "end_line": 18
+        },
+        "record_step": {
+          "line": 19,
+          "end_line": 28
+        },
+        "observe": {
+          "line": 29,
+          "end_line": 39
+        },
+        "update_payload": {
+          "line": 40,
+          "end_line": 47
+        },
+        "dispatch": {
+          "line": 48,
+          "end_line": 99
+        },
+        "counts": {
+          "line": 100,
+          "end_line": 100
+        },
+        "finish": {
+          "line": 101,
+          "end_line": 134
+        },
+        "stop_signal": {
+          "line": 140,
+          "end_line": 140
+        },
+        "handle": {
+          "line": 148,
+          "end_line": 162
+        },
+        "accept": {
+          "line": 163,
+          "end_line": 168
+        }
+      }
+    },
+    {
+      "path": "/home/alex/astra/scripts/e1_controller.py",
+      "sha256": "c5e4effb2391dadaeeb90c7457fccea0a7b885fa1b16ee183fdfea5801f0a7d3",
+      "bytes": 2370,
+      "definitions": {
+        "main": {
+          "line": 11,
+          "end_line": 39
+        }
+      }
+    },
+    {
+      "path": "/home/alex/Downloads/CODEX_SIM_SKILLS_E1234_WEEK_20261007.md",
+      "sha256": "172c4521491661ea3182fda125fe18c2be9e3779d0e9d09e38f93541d4c6a07e",
+      "bytes": 19506
+    }
+  ],
+  "frozen_assets": {
+    "count": 56,
+    "mismatches": []
+  },
+  "important_findings": [
+    "setup_held uses object geometry and is excluded from the new task",
+    "placement-only execute detaches payload after all gripper commands",
+    "legacy ModelAdapter has full task actions/calibration/private scoring but was not in the 56-file frozen asset subset",
+    "ModelAdapter owns step_hook and legacy latest observation admission; these need explicit composition with the new owner gate",
+    "infer direct calls are not guarded by Handler BUSY; one owner must serialize all role jobs",
+    "groups.py is a real multi-call skeleton but its parser is bimanual, not the new shared action interface"
+  ],
+  "document_checks": {
+    "status": "PASS",
+    "local_links_checked": 5,
+    "json_contract_invariants": "PASS",
+    "baseline_tracked_files_checked": 251,
+    "baseline_files_modified": [],
+    "tests_run": "none; documentation-only change",
+    "prior_worktrees": {
+      "astra-realman-sim-20261008": {
+        "head": "f7c8da11867aca6743def410699ca9061691cb46",
+        "status": ""
+      },
+      "astra-realman-sim-model-20261008": {
+        "head": "3e7fcd51f386f715f266168c7f8de067be9c8b7d",
+        "status": ""
+      },
+      "astra-realman-sim-cli-env-20261008": {
+        "head": "1b5e1842e90887d347819daefa422cbabea29c21",
+        "status": ""
+      },
+      "astra-realman-sim-ms-pilot-20261008": {
+        "head": "69aae843cca898541059fc02d1878bd2e44f6889",
+        "status": ""
+      },
+      "astra-realman-e1-async-20261008": {
+        "head": "1bb8e6b9d40768af7f03532e4176fb3fb2f21196",
+        "status": ""
+      }
+    },
+    "new_real_model_attempts": 0,
+    "new_hardware_calls": 0,
+    "new_physics_episodes": 0,
+    "subagents_launched": 0
+  }
+}
