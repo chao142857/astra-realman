@@ -20,13 +20,17 @@ class FullTaskBackend(RM65Backend):
         if not preparation['ok']:raise RuntimeError('GENERIC_EMPTY_PREPARATION_FAILED')
         from sim_skills.full_pnp.legacy_model_bridge import ModelAdapter
         self.adapter=ModelAdapter(self.s)
+        from sim_skills.full_pnp.grasp_control import SharedGraspController,REVISION
+        self.grasp_controller=SharedGraspController(self.s)
+        self.s.gripper=self.grasp_controller.gripper
         self.private_step_hook=self.s.step_hook
         self.commit_counter=0
         self.s.step_hook=None
         self.public_start=self.observe()
         self.provenance={'legacy_file_sha256':hashlib.sha256(Path(__file__).with_name('legacy_model_bridge.py').read_bytes()).hexdigest(),
                          'initialization':'generic empty-hand preparation; object-independent',
-                         'setup_held_calls':0,'start_state':self.public_start['state']}
+                         'setup_held_calls':0,'start_state':self.public_start['state'],
+                         'grasp_controller_revision':REVISION}
         (Path(output)/'full_task_adapter.json').write_text(json.dumps(self.provenance,indent=2))
     def assert_owner(self):
         if threading.get_ident()!=self.owner:raise RuntimeError('SCENE_OWNER_ONLY')
@@ -85,6 +89,9 @@ class FullTaskBackend(RM65Backend):
     def finish(self,verdict):
         self.assert_owner()
         result=self.adapter.finish('POLICY_CLOSED_BEFORE_PRIVATE_SCORE:'+verdict)
+        from sim_skills.full_pnp.grasp_assessment import assess_grasp
+        result['grasp_execution_assessment']=assess_grasp(self.adapter.score_trace,self.adapter.initial_z,
+            self.grasp_controller.last_close,stopped=self.stopped)
         # Independent exit geometry only; never goes to a worker or a target generator.
         p=self.s.cube.get_pose();R=Rotation.from_quat(np.roll(p.q,-1)).as_matrix()
         local=(self.s.pads()-np.asarray(p.p))@R
@@ -102,4 +109,6 @@ class FullTaskBackend(RM65Backend):
     def close(self):
         if hasattr(self,'adapter'):
             self.adapter.records.close();self.adapter.private.close()
-        super().close()
+        try:super().close()
+        finally:
+            if hasattr(self,'grasp_controller'):self.grasp_controller.close()
