@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import jsonschema
+from sim_skills.full_pnp.requirements import requirements_schema,validate_requirements
 
 
 def strict_json(raw):
@@ -24,6 +25,9 @@ def parse_actual_raw(raw,wire):
     """
     answer=strict_json(raw)
     jsonschema.validate(answer,schema_for_role(wire))
+    if wire['role']!='E':
+        validate_requirements(answer['requirements'],require_scene=True,
+                              require_goal=answer['operation']=='finish' and answer['verdict']=='done')
     if answer['binding']!=wire['binding']:raise ValueError('RAW_BINDING')
     allowed={a['id'] for a in wire['attachments']}
     if not answer['evidence_refs'] or not set(answer['evidence_refs'])<=allowed:raise ValueError('RAW_UNSEEN_REFERENCE')
@@ -57,7 +61,7 @@ def schema_for_role(w):
                        obj({'type':{'const':'hold','type':'string'},'seconds':{'type':'number','exclusiveMinimum':0,'maximum':2}})]}
     return obj({'kind':{'const':'candidate','type':'string'},'binding':binding,
                 'operation':{'enum':['chunk','observe','finish','stop'],'type':'string'},
-                'actions':dict(array(actions),maxItems=3),'requirements':array(string()),'evidence_refs':array(string()),
+                'actions':dict(array(actions),maxItems=3),'requirements':requirements_schema(),'evidence_refs':array(string()),
                 'parent_evidence_hash':{'type':['string','null']},'verdict':{'type':['string','null']},'reason':string()})
 
 

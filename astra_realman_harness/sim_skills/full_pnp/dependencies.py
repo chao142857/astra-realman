@@ -2,10 +2,12 @@
 import math
 import numpy as np
 from sim_skills.full_pnp import rgb
+from sim_skills.full_pnp.requirements import validate_requirements
 
 REVISION='owner_dependencies_v1'
 CONTRACT={
  'revision':REVISION,
+ 'namespace':'Automatic owner checks and action classifications, not names the model may declare in requirements; see model_requirements_contract.',
  'empty_evidence':'single-task-object RGB triangulation: >=2 camera rays, >=15deg baseline, positive depth, residual <=15mm; object/tool distance >90mm',
  'possible_payload':'same triangulation, object/tool distance <=60mm; proximity is not grasp truth',
  'unknown':'missing/ambiguous RGB, degenerate/inconsistent rays, or distance in (60,90]mm; no empty inference from gripper opening alone',
@@ -56,6 +58,7 @@ def gripper_kind(action,state,evidence):
 
 def check(actions,source,current,source_features,current_features,*,start_pose=None,model_requirements=()):
     """Return required tests and measured votes, never an action or corrected coordinate."""
+    validate_requirements(model_requirements)
     old=hand_evidence(source_features,source['calibration'],source['state'])
     new=hand_evidence(current_features,current['calibration'],current['state'])
     required={'scene_healthy',*model_requirements};extra=[];kinds=[]

@@ -1,0 +1,100 @@
+{
+  "status": "PASS_OFFLINE_PROTOCOL_REGRESSION_AND_ARCHIVED_DATA_DIAGNOSIS",
+  "base_commit": "9202dedaa3c794fe4f44d4aaa9fc52502186e1b0",
+  "real_model_calls": 0,
+  "hardware_calls": 0,
+  "physics_scene_initializations": 0,
+  "new_real_budget_activated": false,
+  "old_budget_inherited": false,
+  "historical_qualification_result": {
+    "B": "FAIL",
+    "F": "NOT_RUN",
+    "real_model_calls": 3,
+    "reclassified": false
+  },
+  "tests": [
+    {
+      "command": [
+        "env",
+        "MPLCONFIGDIR=/tmp/full-pnp-matplotlib",
+        "PYTHONPATH=astra_realman_harness/tests",
+        "/home/alex/astra/.venv/bin/python",
+        "-m",
+        "unittest",
+        "test_full_pnp_requirements",
+        "-v"
+      ],
+      "tests": 7,
+      "passed": 7,
+      "log": "requirements-tests.log",
+      "cwd": "/tmp/astra-full-pnp-requirements-20261008",
+      "exit_code": 0,
+      "log_sha256": "34bd99166963402268ad7ac39c88909f260b2fc9d8893882db4aee3a10fd86b2"
+    },
+    {
+      "command": [
+        "env",
+        "MPLCONFIGDIR=/tmp/full-pnp-matplotlib",
+        "PYTHONPATH=astra_realman_harness/tests",
+        "/home/alex/astra/.venv/bin/python",
+        "-m",
+        "unittest",
+        "test_cli_environment",
+        "test_full_pnp",
+        "test_full_pnp_runtime",
+        "test_full_pnp_review",
+        "test_full_pnp_infer",
+        "test_frozen_pnp_diagnostic",
+        "test_full_pnp_qualification",
+        "-v"
+      ],
+      "tests": 81,
+      "passed": 81,
+      "log": "regression-tests.log",
+      "cwd": "/tmp/astra-full-pnp-requirements-20261008",
+      "exit_code": 0,
+      "log_sha256": "ba3d3617e1141f76202443a88ebbf838adb51d7e62e89e04acae9e1621b5e04c"
+    }
+  ],
+  "test_fixture_development_failure": {
+    "log": "requirements-tests-initial-fixture-error.log",
+    "cause": "Fake infer_config lacked source attribute; fixed test fixture only",
+    "production_failure": false
+  },
+  "requirements_revision": "model_rgb_requirements_v1",
+  "allowed_requirements": [
+    "scene_healthy",
+    "object_static",
+    "goal_static",
+    "object_near_tool",
+    "object_at_goal"
+  ],
+  "preservation": {
+    "status": "PASS",
+    "protected_source_files": 289,
+    "historical_qualification": {
+      "B": "FAIL",
+      "F": "NOT_RUN",
+      "real_model_calls": 3
+    },
+    "unchanged_historical_files": 403,
+    "unchanged_GT_reference_files": 97
+  },
+  "physics_finding": {
+    "VERIFIED": "B contact became non-bilateral before closing completed; object did not rise during later lift. GT reference maintained bilateral contact and lifted the object.",
+    "INFERRED": "Different approach Z and closing sweep plus closure-dependent pad kinematics plausibly contributed; no unique causal mechanism identified.",
+    "UNKNOWN": "Per-side contacts/forces; contribution of Z versus opening, preload, friction and wait; counterfactual success."
+  },
+  "policy_boundary": "Private GT diagnostics and reference script are not policy inputs; no target correction or physics changes.",
+  "future_run": "Separate explicit authorization, fresh qualification B/F pair; 900s/episode, 90s/request bounded by remaining time, 20 attempts/episode, total40. No old budget transferred.",
+  "evidence_directory": "/home/alex/astra-realman_ws/astra-requirements-grasp-evidence-20261008",
+  "diagnostic_artifact_sha256": {
+    "B001_GRASP_DIAGNOSIS.md": "3f981b4f1fd3e9986a071734edb60d6f2aa4291225ec1e8c56d5553180adc5fe",
+    "grasp_metrics.json": "b78237dbed3ad39cbb713c9fb7f9214e6c85d896a54a6e8d625eaf58a680275f",
+    "protocol_replay.json": "ea0dcc3e6fb86d6b65b315776944e7ba6aafeca2b0b6fee9888978c5b5a1295c",
+    "analyze_saved_grasp.py": "5498280f148e9d7f0a47dbc71b248c8850b6ed92e4c174bc8e4b7286fd4a3a79",
+    "analysis_source_hashes.json": "331f505a16a777134cba1a775ced5616d9809d4b6a6abaf8c8a91081ed81173d",
+    "grasp_trace_comparison.png": "51ddf500ea4f0264abf92fefec2d4d5fdae3554c7a1f8a81ad8e457677379e61",
+    "B_original_RGB_contact_sheet.png": "40fdbdbf6b7737bfbbedf1273d34956c9594f74c002404585baccdfc89bbc1d0"
+  }
+}

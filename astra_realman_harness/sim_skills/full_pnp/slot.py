@@ -41,7 +41,7 @@ class FullSlot(StubSlot):
     def _prepare_launch(self,wire,obs,*,delay_s,timeout_s,episode_deadline,evidence=None,reuse=None,past=None):
         run=self.root/('request-%03d'%self.calls)
         inp=run/'input_only';inp.mkdir(parents=True,exist_ok=False);(run/'runtime').mkdir();code=run/'worker_code';code.mkdir()
-        for name in (() if self.infer_config else ('worker.py','rgb.py')):
+        for name in (() if self.infer_config else ('worker.py','rgb.py','requirements.py')):
             (code/name).write_bytes(Path(__file__).with_name(name).read_bytes());(code/name).chmod(0o444)
         w=copy.deepcopy(wire);role=w['role'];attachments=[]
         def attach(path,camera,temporal,representation,box=None):

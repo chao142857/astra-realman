@@ -1,10 +1,15 @@
 """Declared toy-scene RGB checks. No simulator imports, state queries or GT masks.
 
 Color connected components are an engineering detector, NOT semantic certainty.
-All coordinates are pixels from supplied RGB. Unsupported/occluded/ambiguous => unknown.
+All coordinates are pixels from supplied RGB. Unsupported projections or
+occluded/ambiguous evidence => unknown; unknown predicate names are rejected.
 """
 import math
 import numpy as np
+if __package__:
+    from .requirements import validate_requirements
+else:  # Existing isolated, offline RGB worker imports this module directly.
+    from requirements import validate_requirements
 from PIL import Image
 from scipy import ndimage
 from scipy.spatial.transform import Rotation
@@ -68,6 +73,7 @@ def same_camera(a,b):
 
 def compare(source,current,source_cal,current_cal,requirements,state):
     """Evidence-only acceptance. No image-hash equality shortcut, no default pass."""
+    validate_requirements(requirements)
     checks=[]
     for requirement in requirements:
         votes=[]

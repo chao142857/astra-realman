@@ -6,6 +6,7 @@ import math
 from sim_skills.model import state_projection,feedback_projection
 from sim_skills.async_v1 import sha,Rejected
 from sim_skills.full_pnp.dependencies import CONTRACT as OWNER_CONTRACT,REVISION as OWNER_REVISION
+from sim_skills.full_pnp.requirements import CONTRACT as REQUIREMENTS_CONTRACT,PREDICATES,validate_requirements
 
 VERSION='full_pnp_candidate_v2'
 INTERFACE={'revision':VERSION,'operations':['chunk','observe','finish','stop'],'chunk_size':[1,3],
@@ -15,11 +16,7 @@ INTERFACE={'revision':VERSION,'operations':['chunk','observe','finish','stop'],'
  'truth_rule':'controller ok is not object success; predictions are not measurements'}
 RGB_CONTRACT={
  'method':'rgb_red_green_components_v1; shared engineering color-component checks, not semantic or contact truth',
- 'scene_healthy':'current image standard deviation >8 in at least one view',
- 'object_static':'unique visible red component in same-pose source/current camera; shift <=6px, area ratio [0.25,4], color cosine >=0.95',
- 'goal_static':'same test as object_static on green marker',
- 'object_near_tool':'current red centroid within 1.5 object bbox diagonals of projected measured pad center; not proof of grasp',
- 'object_at_goal':'current red and green centroids within 0.6 green bbox diagonal; independent physics scoring remains separate',
+ **PREDICATES,
  'unknown':'<18 visible pixels, boundary clipping, second component >=0.35 largest, changed camera for static check, unsupported or missing projection; no usable view => unknown',
  'aggregation':'any contradictory valid-view comparison rejects; unknown never default-passes a required predicate',
  'required':'scene_healthy for all proposals; owner adds minimum motion/gripper dependencies; see owner_dependency_contract; done requires object_at_goal',
@@ -67,6 +64,7 @@ def wire_base(obs,binding,execution,expected_join,memory,condition,completed,rol
         'public_priors':{'table_plane_world_z_m':0.,'nominal_object_edge_m':.05,'source':'declared shared task geometry; no target positions'},
         'action_interface':copy.deepcopy(INTERFACE),'observation':o,
         'rgb_applicability_contract':copy.deepcopy(RGB_CONTRACT),
+        'model_requirements_contract':copy.deepcopy(REQUIREMENTS_CONTRACT),
         'owner_dependency_contract':copy.deepcopy(OWNER_CONTRACT),
         'history':memory.project(condition,binding['history_cutoff']),
         'progress':{'completed_chunks':completed,'source':'measured controller completions, not task success'},
@@ -108,14 +106,12 @@ class CandidateGate:
         if not c['evidence_refs'] or any(ref not in allowed_refs for ref in c['evidence_refs']):raise Rejected('UNSEEN_EVIDENCE_REFERENCE')
         op=c['operation']
         if op not in INTERFACE['operations']:raise Rejected('OPERATION')
-        if (not isinstance(c['requirements'],list) or 'scene_healthy' not in c['requirements'] or
-            any(v not in ('scene_healthy','object_static','goal_static','object_near_tool','object_at_goal') for v in c['requirements'])):
-            raise Rejected('RGB_REQUIREMENTS')
+        try:validate_requirements(c['requirements'],require_scene=True,require_goal=op=='finish' and c['verdict']=='done')
+        except ValueError as exc:raise Rejected(str(exc)) from exc
         if op=='chunk':
             validate_actions(c['actions'])
             if any(a['type'] in ('move_pose','gripper') for a in c['actions']) and rgb_check.get('owner_revision')!=OWNER_REVISION:
                 raise Rejected('OWNER_DEPENDENCIES_MISSING')
-        if op=='finish' and c['verdict']=='done' and 'object_at_goal' not in c['requirements']:raise Rejected('FINISH_RGB_REQUIREMENTS')
         if op!='chunk' and c['actions']:raise Rejected('NON_CHUNK_ACTIONS')
         if op=='stop':return
         pose=item['snapshot']['expected_join']['pad_pose'];actual=state['actual_grasp_center_world']
