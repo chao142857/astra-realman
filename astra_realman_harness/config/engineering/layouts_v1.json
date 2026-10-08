@@ -1,0 +1,20 @@
+{
+  "label": "ENGINEERING_REFERENCE",
+  "revision": "shared_pnp_layouts_v1",
+  "coordinate_source": "predeclared engineering initialization in sapien:world; private evaluator/script only",
+  "units": "m",
+  "repeats": 2,
+  "seed_each_process": 2,
+  "episode_budget_s": 300,
+  "process_watchdog_s": 360,
+  "watchdog_margin": "60 seconds for initialization, CLI version/help probes and cleanup; no inference",
+  "reference_parameters": {"grasp_z_m": 0.04, "opening": 0.45},
+  "layouts": [
+    {"id": "L1", "object_initial_xyz": [0.36, -0.06, 0.026], "target_xy": [0.36, 0.17]},
+    {"id": "L2", "object_initial_xyz": [0.33, -0.10, 0.026], "target_xy": [0.33, 0.13]},
+    {"id": "L3", "object_initial_xyz": [0.39, -0.03, 0.026], "target_xy": [0.39, 0.15]}
+  ],
+  "no_retry": true,
+  "model_calls": 0,
+  "hardware_calls": 0
+}

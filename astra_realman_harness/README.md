@@ -1,5 +1,7 @@
 # Astra → RealMan shadow harness
 
+2026-10-09 当前职责：Astra × RealMan共享工程底座。研究方法已移交独立项目；见 [完整工程抓放基线与当前缺口](docs/engineering/SHARED_PNP_BASELINE.md)。下文保留历史入口，不继承模型/硬件额度。
+
 Current entry point: `scripts/run_decision_shadow.py`.
 All new code/configuration/tests/logs stay under
 `/home/tongji/alex/astra_realman_harness`.
