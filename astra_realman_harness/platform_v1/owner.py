@@ -24,6 +24,7 @@ class Owner:
         self.last_step=self.started;self.b.s.step_hook=self.hook;self.b.gripper_guard=self.before_gripper
         self.slot=FullSlot(self.private/'workers',self.private_event,infer_config=infer_config,max_attempts=max_requests,mode='qualification')
         self.infer_config=infer_config;self.max_requests=max_requests
+        self.research=None
         self.emit('start',{'source':source,'episode_id':self.id,'budget_s':budget_s,'initialization_wall_s':self.init_wall,
            'initialization_physics_s':self.initial_step*self.b.dt,'time_protocol':'wall_paced_hold_while_waiting_and_approved_motion; dt=0.004; no speed changes',
            'reset':'fresh owner process; no setup_held; not exact clone','score_access':'PRIVATE_OWNER_ONLY'})
@@ -39,6 +40,7 @@ class Owner:
     def hook(self,when):
         if when=='after_step':self.b.private_step_hook(when);self.last_step=time.monotonic();return
         self.inbox_poll()
+        if getattr(self,'research',None):self.research.tick()
         if self.b.stopped:raise Rejected('STOPPED')
         if time.monotonic()>=self.deadline:self.b.stop();raise Rejected('EPISODE_DEADLINE')
         delay=self.last_step+self.b.dt-time.monotonic()
@@ -51,8 +53,9 @@ class Owner:
         obs=self.b.observe();folder='o-%04d'%len(self.observations)
         public=project_observation(obs,self.public/folder)
         for im in public['rgb']:im['file']=folder+'/'+im['file']
-        public.update(version=VERSION,episode_id=self.id,source=self.source)
+        public.update(version=VERSION,episode_id=self.id,source=self.source,execution_epoch=self.epoch)
         self.observations[obs['observation_id']]={'raw':obs,'public':public,'epoch':self.epoch}
+        if getattr(self,'research',None):self.research.store.observe(public,self.epoch)
         self.emit('observation',public);return public
     def source_obs(self,identity):
         self.admit()
@@ -76,6 +79,9 @@ class Owner:
     def infer(self,source_observation_id):
         obs=self.source_obs(source_observation_id)
         if self.infer_config is None or self.max_requests==0:raise Rejected('MODEL_DISABLED')
+        if getattr(self,'research',None):
+            if self.research.broker.job or self.research.broker.action_ready:raise Rejected('ONE_MODEL_IN_FLIGHT_OR_PENDING')
+            if self.slot.calls+self.research.broker.calls>=self.max_requests:raise Rejected('SHARED_MODEL_ATTEMPT_CAP')
         if self.proposal is not None:raise Rejected('ONE_PENDING_PROPOSAL')
         s=obs['state'];expected=[*s['actual_grasp_center_world'],*s['flange_pose_world'][3:]]
         # Empty compatibility history only. Research memory is supplied by the new project, not implemented here.
@@ -109,9 +115,11 @@ class Owner:
         for a in chunk:
             if a['type']=='move_pose':expected=a['pose']
         self.chunks+=1;self.active={'source':current,'expected':expected,'requirements':requirements}
-        raw_request={'chunk':chunk,'source_observation_id':source_observation_id,'proposal_id':proposal_id}
+        raw_request={'chunk':chunk,'source_observation_id':source_observation_id,'proposal_id':proposal_id,
+                     'origin':getattr(self,'execution_origin',None)}
         self.private_event('EXECUTE_REQUEST',raw_request)
-        self.emit('action_begin',{'chunk_id':self.chunks,'actions':self.public_actions(chunk),'source_observation_id':source_observation_id})
+        self.emit('action_begin',{'chunk_id':self.chunks,'actions':self.public_actions(chunk),'source_observation_id':source_observation_id,
+                                'origin':getattr(self,'execution_origin',None)})
         ticket={'owner_admitted':True,'candidate_id':proposal_id or 'research-%d'%self.chunks,'commit_observation_id':current['observation_id']}
         outcome_unknown=False
         try:result=self.b.execute_chunk(chunk,ticket,current)
@@ -150,11 +158,17 @@ class Owner:
         if self.source=='ENGINEERING_REFERENCE':return [{'type':a['type'],'parameters':'REDACTED_ENGINEERING_REFERENCE'} for a in actions]
         return copy.deepcopy(actions)
     def stop(self):
+        if getattr(self,'research',None):self.research.cancel_pending()
         self.b.stop();self.slot.cancel();self.proposal=None;self.emit('stop',{'reason':'PUBLIC_STOP'});return {'stopped':True}
+    def enable_research_adapters(self):
+        if self.research is not None:raise Rejected('RESEARCH_ALREADY_ENABLED')
+        from platform_v1.research.adapters import ResearchAdapters
+        self.research=ResearchAdapters(self)
     def dispatch(self,request):
         if request.get('version')!=VERSION:raise Rejected('PROTOCOL_VERSION')
         if set(request)!={'version','id','method','params'} or type(request['id']) is not int:raise Rejected('REQUEST_SCHEMA')
         method=request['method'];p=request['params']
+        if getattr(self,'research',None) and method in self.research.fields:return self.research.dispatch(method,p)
         fields={'reset':set(),'observe':set(),'execute':{'chunk','source_observation_id','proposal_id'},'infer':{'source_observation_id'},'commit':{'proposal_id'},'events':{'after'},'finish':{'verdict'},'stop':set()}
         if method not in fields:raise Rejected('PRIVATE_OR_UNSUPPORTED_METHOD')
         if not isinstance(p,dict) or set(p)!=fields[method]:raise Rejected('PARAMETERS')
@@ -171,9 +185,11 @@ class Owner:
     def score_private(self):
         """Owner lifecycle only: never registered as a policy RPC method."""
         self.ended=True;self.slot.cancel();self.proposal=None
+        if getattr(self,'research',None):self.research.close()
         if time.monotonic()>=self.deadline:self.b.stop()
         self.b.s.step_hook=self.hook
         score=self.b.finish(getattr(self,'verdict','unknown'))
         (self.private/'score_private.json').write_text(json.dumps(score,indent=2)+'\n');return score
     def close(self):
+        if getattr(self,'research',None):self.research.close()
         self.slot.cancel();self.b.s.step_hook=None;self.b.close();self.raw.close();self.pub.close()

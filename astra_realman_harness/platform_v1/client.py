@@ -6,13 +6,23 @@ class PlatformError(RuntimeError):pass
 class Client:
     def __init__(self,reader=None,writer=None,public='/public'):
         self.reader=reader or sys.stdin;self.writer=writer or sys.stdout;self.public=Path(public);self.counter=0
+        self.pending=set();self.replies={}
     def call(self,method,**params):
+        return self.wait(self.begin(method,**params))
+    def begin(self,method,**params):
+        """Send without waiting; one caller can query a broker while execution runs."""
         self.counter+=1
         self.writer.write(json.dumps({'version':VERSION,'id':self.counter,'method':method,'params':params})+'\n');self.writer.flush()
-        line=self.reader.readline()
-        if not line:raise PlatformError('OWNER_DISCONNECTED')
-        r=json.loads(line)
-        if r.get('version')!=VERSION or r.get('id')!=self.counter:raise PlatformError('REPLY_BINDING')
+        self.pending.add(self.counter);return self.counter
+    def wait(self,request_id):
+        if request_id not in self.pending:raise PlatformError('UNKNOWN_PENDING_REQUEST')
+        while request_id not in self.replies:
+            line=self.reader.readline()
+            if not line:raise PlatformError('OWNER_DISCONNECTED')
+            r=json.loads(line);identity=r.get('id')
+            if r.get('version')!=VERSION or type(identity) is not int or identity not in self.pending or identity in self.replies:raise PlatformError('REPLY_BINDING')
+            self.replies[identity]=r
+        r=self.replies.pop(request_id);self.pending.remove(request_id)
         if not r['ok']:raise PlatformError(r['error'])
         return r['result']
     def reset(self):return self.call('reset')
@@ -21,6 +31,18 @@ class Client:
         return self.call('execute',chunk=chunk,source_observation_id=source_observation_id,proposal_id=proposal_id)
     def infer(self,source_observation_id):return self.call('infer',source_observation_id=source_observation_id)
     def commit(self,proposal_id):return self.call('commit',proposal_id=proposal_id)
+    def research_capabilities(self):return self.call('research_capabilities')
+    def broker_submit(self,request):return self.call('broker_submit',request=request)
+    def broker_poll(self,request_id):return self.call('broker_poll',request_id=request_id)
+    def broker_cancel(self,request_id):return self.call('broker_cancel',request_id=request_id)
+    def world_submit(self,observation_ids,evidence_ids=None,backend='legacy_rgb_rays_v1',reference_world_id=None):
+        return self.call('world_submit',observation_ids=observation_ids,evidence_ids=evidence_ids or [],backend=backend,reference_world_id=reference_world_id)
+    def world_poll(self,request_id):return self.call('world_poll',request_id=request_id)
+    def world_cancel(self,request_id):return self.call('world_cancel',request_id=request_id)
+    def supervisor_from_broker(self,request_id):return self.call('supervisor_from_broker',request_id=request_id)
+    def supervisor_load(self,plan):return self.call('supervisor_load',plan=plan)
+    def supervisor_step(self,plan_id):return self.call('supervisor_step',plan_id=plan_id)
+    def supervisor_cancel(self,plan_id):return self.call('supervisor_cancel',plan_id=plan_id)
     def events(self,after=0):return self.call('events',after=after)
     def stop(self):return self.call('stop')
     def finish(self,verdict='unknown'):return self.call('finish',verdict=verdict)

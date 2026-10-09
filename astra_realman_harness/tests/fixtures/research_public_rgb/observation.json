@@ -1,0 +1,192 @@
+{
+  "schema": "astra.shared.observation.v1",
+  "observation_id": "rm65:0002",
+  "captured_monotonic": 46644.362474732,
+  "capture_span_s": 0.041314672998851165,
+  "timestamp_semantics": "owner monotonic capture-completed time; three sequential images, not hardware exposure synchronization",
+  "frame": "sapien:world",
+  "state": {
+    "sim_step": 825,
+    "stopped": false,
+    "joint_names": [
+      "joint1",
+      "joint2",
+      "joint3",
+      "joint4",
+      "joint5",
+      "joint6",
+      "ctag_Left_1_Joint",
+      "ctag_Left_2_Joint",
+      "ctag_Right_2_Joint",
+      "ctag_Right_1_Joint",
+      "ctag_Left_Support_Joint",
+      "ctag_Right_Support_Joint"
+    ],
+    "qpos": [
+      5.169646465219557e-05,
+      -0.3610914349555969,
+      -1.2786493301391602,
+      4.565632025332889e-06,
+      -1.5013682842254639,
+      -1.6097264960990287e-05,
+      -0.00012031481310259551,
+      -0.0002748242986854166,
+      5.6914468586910516e-05,
+      0.00012005648750346154,
+      0.00011402050586184487,
+      0.00012499664444476366
+    ],
+    "flange_pose_world": [
+      0.3000146746635437,
+      1.7248879885300994e-05,
+      0.351526141166687,
+      -4.254397936165333e-06,
+      1.0000001192092896,
+      3.5179778933525085e-05,
+      0.00024561549071222544
+    ],
+    "actual_pad_centers_world": [
+      [
+        0.3450317789370114,
+        0.00024886065095969473,
+        0.15008296327906964
+      ],
+      [
+        0.2551949114575326,
+        -0.0002453020558586574,
+        0.15003857248066738
+      ]
+    ],
+    "actual_grasp_center_world": [
+      0.300113345197272,
+      1.7792975505186593e-06,
+      0.1500607678798685
+    ],
+    "actual_pad_gap_m": 0.08983823754865872,
+    "gripper_master_rad": -0.00012031481310259551
+  },
+  "calibration": {
+    "assembly": {
+      "pose_world_xyz_wxyz": [
+        1.0,
+        -0.8999999761581421,
+        0.800000011920929,
+        0.40312397480010986,
+        -0.16225633025169373,
+        0.07286381721496582,
+        0.8976941704750061
+      ],
+      "intrinsic": [
+        [
+          514.681640625,
+          0.0,
+          320.0
+        ],
+        [
+          0.0,
+          514.681640625,
+          240.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "axes": "SAPIEN +x forward,+y left,+z up"
+    },
+    "fixed": {
+      "pose_world_xyz_wxyz": [
+        0.75,
+        -0.699999988079071,
+        0.3799999952316284,
+        0.4989025890827179,
+        -0.09480224549770355,
+        0.05501587688922882,
+        0.8596987724304199
+      ],
+      "intrinsic": [
+        [
+          514.681640625,
+          0.0,
+          320.0
+        ],
+        [
+          0.0,
+          514.681640625,
+          240.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "axes": "SAPIEN +x forward,+y left,+z up"
+    },
+    "wrist": {
+      "pose_world_xyz_wxyz": [
+        0.30003440380096436,
+        0.09001772850751877,
+        0.29852691292762756,
+        -0.35711997747421265,
+        0.6104889512062073,
+        -0.6102707386016846,
+        -0.3568452298641205
+      ],
+      "intrinsic": [
+        [
+          514.681640625,
+          0.0,
+          320.0
+        ],
+        [
+          0.0,
+          514.681640625,
+          240.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "axes": "SAPIEN +x forward,+y left,+z up"
+    }
+  },
+  "rgb": [
+    {
+      "camera": "assembly",
+      "file": "assembly.png",
+      "sha256": "2d6dab3425b37992bd7964bf06b53acbce53c1a37fd8a7751807979038d9940c",
+      "sensor_exposure_timestamp": null
+    },
+    {
+      "camera": "fixed",
+      "file": "fixed.png",
+      "sha256": "431478e41a19f25e05999623d9d83fcc8a31697d9d31cfb23cbafc2b18dcc90f",
+      "sensor_exposure_timestamp": null
+    },
+    {
+      "camera": "wrist",
+      "file": "wrist.png",
+      "sha256": "4e0345b2ab7e2690fa68858ee183a13f5a869944c252651dee879643a4157475",
+      "sensor_exposure_timestamp": null
+    }
+  ],
+  "version": "astra.realman.platform.v1",
+  "episode_id": "archive:reference-001",
+  "source": "ENGINEERING_REFERENCE"
+}
