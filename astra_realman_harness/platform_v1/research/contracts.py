@@ -47,17 +47,20 @@ def plan_schema():
         'semantics': {'const': 'PREDICTED_WAYPOINTS_NOT_MEASURED'}})
 
 def validate_plan(plan):
+    if plan.get('version') == 'astra.action_chunk_plan.v2':
+        from .chunk_plan import validate
+        return validate(plan)
     jsonschema.validate(plan, plan_schema())
     if type(plan['H']) is not int or len(plan['waypoints']) != plan['H']:
         raise ValueError('H_LENGTH')
     for action in plan['waypoints']: validate_actions([action])
 
 def micro_chunks(actions):
-    """Partition without changing values; a gripper always ends a segment."""
+    """One action per owner submission. Legacy gripper barriers remain intact."""
     result, part = [], []
     for a in actions:
         part.append(clone(a))
-        if len(part) == 3 or a['type'] == 'gripper':
+        if len(part) == 1 or a['type'] == 'gripper':
             validate_actions(part); result.append(part); part = []
     if part: validate_actions(part); result.append(part)
     return result

@@ -17,15 +17,25 @@ class WorldHead:
         self.root=root;self.store=store;self.epoch=epoch;self.deadline=deadline;self.emit=emit
         self.worker_path=Path(worker_path or Path(__file__).with_name('geometry_worker.py'))
         self.rows={};self.job=None;self.closed=False
+        self.learned_config=None
+
+    def configure_learned(self, config):
+        from .learned_runtime import validate_config
+        if self.job or self.rows: raise ValueError('CONFIGURE_BEFORE_WORLD_WORK')
+        validate_config(config)
+        self.learned_config=clone(config)
 
     def submit(self, observation_ids, evidence_ids, backend, reference_world_id=None):
         if self.closed or self.job: raise ValueError('ONE_WORLD_WORKER_OR_CLOSED')
         if len(self.rows)>=64: raise ValueError('WORLD_OBSERVATION_BUDGET')
-        if backend not in ('legacy_rgb_rays_v1','bbox_rays_v1'): raise ValueError('WORLD_BACKEND')
+        if backend not in ('legacy_rgb_rays_v1','bbox_rays_v1','da3_small_v1'): raise ValueError('WORLD_BACKEND')
+        if backend=='da3_small_v1' and self.learned_config is None: raise ValueError('DA3_NOT_CONFIGURED_NOT_ACCEPTED')
+        if backend=='da3_small_v1' and (len(observation_ids)!=1 or evidence_ids): raise ValueError('DA3_FROZEN_GEOMETRY_ONLY')
         if not isinstance(observation_ids,list) or not 1<=len(observation_ids)<=8: raise ValueError('WORLD_OBSERVATION_IDS')
         if len(set(observation_ids))!=len(observation_ids): raise ValueError('DUPLICATE_OBSERVATION')
         identity='world-%03d'%(len(self.rows)+1);folder=self.root/identity;folder.mkdir(parents=True,exist_ok=False)
-        row={'request_id':identity,'status':'PREPARING','error':None,'result':None,'usage_raw':None}
+        row={'request_id':identity,'status':'PREPARING','error':None,'result':None,'usage_raw':None,
+             'preparation_started_monotonic':time.monotonic()}
         self.rows[identity]=row
         try:
             inp=folder/'input_only';inp.mkdir();code=folder/'worker_code';code.mkdir()
@@ -62,22 +72,34 @@ class WorldHead:
             reference=self.store.get_world(reference_world_id) if reference_world_id else None
             binding={'version':WORLD_VERSION,'episode_id':self.store.episode_id,'execution_epoch':self.epoch(),
                 'observation_ids':observation_ids,'evidence_ids':evidence_ids,'reference_world_id':reference_world_id,
-                'world_revision':reference['world_revision'] if reference else self.store.revision,
+                'world_revision':self.store.revision,
                 'capture_times':[o['captured_monotonic'] for o in observations],
                 'calibration_hashes':[digest(o['calibration']) for o in observations]}
             wire={'binding':binding,'backend':backend,'observations':observations,'regions':regions}
+            if backend=='da3_small_v1':
+                wire['learned']={k:v for k,v in self.learned_config.items() if k not in ('venv','weights')}
             data=json.dumps(wire,sort_keys=True,allow_nan=False).encode();(inp/'world_input.json').write_bytes(data)
             for p in inp.iterdir():p.chmod(0o444)
             shutil.copy2(self.worker_path,code/'worker.py')
             base=Path(__file__).resolve().parents[2]/'sim_skills/full_pnp'
             for name in ('rgb.py','requirements.py'):shutil.copy2(base/name,code/name)
+            if backend=='da3_small_v1':shutil.copy2(Path(__file__).with_name('da3_geometry.py'),code/'da3_geometry.py')
             venv=str(Path(sys.prefix).resolve())
             command=['/usr/bin/bwrap','--ro-bind','/usr','/usr','--symlink','usr/lib','/lib','--symlink','usr/lib64','/lib64',
                 '--ro-bind',venv,venv,'--ro-bind',str(inp),'/input','--ro-bind',str(code),'/code',
                 '--tmpfs','/tmp','--proc','/proc','--dev','/dev','--unshare-all','--die-with-parent','--new-session',
-                '--chdir','/input',sys.executable,'-B','/code/worker.py','--sha256',hashlib.sha256(data).hexdigest()]
+                '--chdir','/input']
+            executable=sys.executable;timeout=10
+            if backend=='da3_small_v1':
+                from .learned_runtime import sandbox_parts
+                mounts,executable=sandbox_parts(self.learned_config);command+=mounts
+                timeout=self.learned_config['timeout_s']
+            command += [executable,'-B','/code/worker.py','--sha256',hashlib.sha256(data).hexdigest()]
             if time.monotonic()>=self.deadline:raise ValueError('NO_REMAINING_WORLD_BUDGET')
-            job=ProcessJob(folder,command,{'PATH':'/usr/bin:/bin','LANG':'C.UTF-8'},min(time.monotonic()+10,self.deadline))
+            (folder/'command.json').write_text(json.dumps(command,indent=2))
+            job=ProcessJob(folder,command,{'PATH':'/usr/bin:/bin','LANG':'C.UTF-8',
+                'HF_HUB_OFFLINE':'1','TRANSFORMERS_OFFLINE':'1','HF_HOME':'/tmp/hf','HOME':'/tmp',
+                'PYTHONDONTWRITEBYTECODE':'1'},min(time.monotonic()+timeout,self.deadline))
             row.update(status='STARTED',binding=binding,backend=backend,provenance=provenance,
                 worker_sha256=hashlib.sha256(self.worker_path.read_bytes()).hexdigest(),pid=job.proc.pid)
             self.job=(identity,job)
@@ -93,6 +115,8 @@ class WorldHead:
         identity,job=self.job;result=job.poll()
         if result is None:return
         self.job=None;row=self.rows[identity]
+        row['returned_monotonic']=time.monotonic()
+        row['full_job_wall_s']=row['returned_monotonic']-row['preparation_started_monotonic']
         try:
             if result['cancel_reason'] or result['return_code']!=0:raise ValueError(result['cancel_reason'] or 'WORLD_WORKER_FAILED')
             if len(result['bytes'])>2*1024*1024:raise ValueError('WORLD_RESULT_SIZE')
@@ -101,12 +125,22 @@ class WorldHead:
             if row['binding']['execution_epoch']!=self.epoch():raise ValueError('STALE_WORLD_EXECUTION_EPOCH')
             if row['binding']['world_revision']!=self.store.revision:raise ValueError('STALE_WORLD_REVISION')
             # A replacement worker cannot manufacture provenance or a simulator-state field.
-            fields(out['state'],('backend','observation_id','captured_monotonic','scene_healthy','entities',
-                'robot_state','history_semantics','geometry_only','task_identity_verified'))
+            state_fields=('backend','observation_id','captured_monotonic','scene_healthy','entities',
+                'robot_state','history_semantics','geometry_only','task_identity_verified')
+            fields(out['state'],state_fields+(('surface_samples','resource_metrics') if row['backend']=='da3_small_v1' else ()))
             if out['state']['task_identity_verified'] is not False or out['state']['geometry_only'] is not True:raise ValueError('GEOMETRY_NOT_IDENTITY_AUTHORITY')
             source=self.store.get(row['binding']['observation_ids'][-1])
             if out['state']['robot_state']!=source['state'] or out['state']['observation_id']!=source['observation_id']:raise ValueError('WORLD_STATE_SOURCE')
             if out['state']['captured_monotonic']!=source['captured_monotonic'] or out['state']['backend']!=row['backend'] or type(out['state']['scene_healthy']) is not bool:raise ValueError('WORLD_METADATA')
+            if row['backend']=='da3_small_v1':
+                samples=out['state']['surface_samples']
+                if not isinstance(samples,list) or len(samples)>1728: raise ValueError('SURFACE_SAMPLE_COUNT')
+                for p in samples:
+                    fields(p,('camera','pixel','point_world_m','confidence_raw','observation_id'))
+                    if p['observation_id']!=source['observation_id'] or p['camera'] not in source['calibration']: raise ValueError('SURFACE_SOURCE')
+                    width,height=source['calibration'][p['camera']]['resolution']
+                    if len(p['point_world_m'])!=3 or len(p['pixel'])!=2 or not all(type(v) in (int,float) and math.isfinite(v) for v in p['point_world_m']+p['pixel']+[p['confidence_raw']]): raise ValueError('SURFACE_NONFINITE')
+                    if not 0<=p['pixel'][0]<width or not 0<=p['pixel'][1]<height: raise ValueError('SURFACE_PIXEL')
             for entity in out['state']['entities'].values():
                 required={'status','point_world_m','uncertainty_radius_m','identity_status','sources','uncertainty_semantics'}
                 if not required<=set(entity) or set(entity)-required-{'reason','residual_m'}:raise ValueError('WORLD_ENTITY_FIELDS')

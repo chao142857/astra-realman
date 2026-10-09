@@ -108,14 +108,14 @@ class ResearchTests(unittest.TestCase):
   wire=json.loads((self.a.world.root/r['request_id']/'input_only/world_input.json').read_text())
   self.assertEqual(wire['regions'][0]['camera'],'fixed');self.assertAlmostEqual(wire['regions'][0]['bbox'][0],.275)
   self.assertEqual(out['result']['state']['entities']['fixture-object']['status'],'unknown') # one view
- def test_h8_three_legal_micro_chunks_with_fresh_epochs(self):
+ def test_h8_eight_m1_submissions_with_fresh_epochs(self):
   self.obs,w=initial_world(self.o);p=self.a.supervisor.load(plan(self.obs,w))
-  for _ in range(3):p=step(self.o,p)
+  for _ in range(8):p=step(self.o,p)
   self.assertEqual(p['status'],'COMPLETED');self.assertEqual((p['H'],p['K_adopted'],p['K_completed']),(8,8,8))
-  self.assertEqual([len(c['actions']) for c in self.o.b.commands],[3,3,2])
-  self.assertEqual([t['origin']['execution_epoch'] for t in p['trace']],[0,1,2])
-  self.assertEqual(len({t['origin']['source_observation_id'] for t in p['trace']}),3)
-  self.assertEqual(step(self.o,p)['status'],'COMPLETED');self.assertEqual(len(self.o.b.commands),3)
+  self.assertEqual([len(c['actions']) for c in self.o.b.commands],[1]*8)
+  self.assertEqual([t['origin']['execution_epoch'] for t in p['trace']],list(range(8)))
+  self.assertEqual(len({t['origin']['source_observation_id'] for t in p['trace']}),8)
+  self.assertEqual(step(self.o,p)['status'],'COMPLETED');self.assertEqual(len(self.o.b.commands),8)
  def test_model_raw_plan_not_autocommitted_and_cannot_be_modified(self):
   self.obs,w=initial_world(self.o);row=self.submit_wait(self.request('action',w));self.assertEqual(self.o.b.commands,[])
   changed=copy.deepcopy(row['parsed']['result']);changed['waypoints'][0]['seconds']=.04
@@ -123,7 +123,7 @@ class ResearchTests(unittest.TestCase):
   p=self.a.supervisor.from_broker(row['request_id']);self.assertEqual(self.a.supervisor.plans[p['plan_id']]['source'],'FAKE_MODEL_RAW')
   self.assertEqual(self.o.b.commands,[])
  def test_epoch_or_world_revision_change_discards_remaining(self):
-  self.obs,w=initial_world(self.o);p=self.a.supervisor.load(plan(self.obs,w));p=step(self.o,p);self.assertEqual(p['K_completed'],3)
+  self.obs,w=initial_world(self.o);p=self.a.supervisor.load(plan(self.obs,w));p=step(self.o,p);self.assertEqual(p['K_completed'],1)
   self.o.epoch+=1;p=step(self.o,p);self.assertEqual(p['reason'],'EXECUTION_EPOCH_CHANGED');self.assertEqual(len(self.o.b.commands),1)
  def test_revision_change_in_motion_stops_and_preserves_unknown(self):
   self.obs,w=initial_world(self.o);p=self.a.supervisor.load(plan(self.obs,w));p=self.a.supervisor.step(p['plan_id'])
@@ -137,13 +137,15 @@ class ResearchTests(unittest.TestCase):
   pplan=plan(self.obs,w,actions,H=4);pplan['task_binding']={'profile':'legacy_red_green_v1','object_id':'red_task_object','goal_id':'green_goal'}
   p=self.a.supervisor.load(pplan)
   # Only task admission is patched to isolate barrier routing. Actual gripper physics is NOT tested here.
-  with patch.object(TaskEvidenceAdapter,'check',return_value={'status':'valid'}):p=step(self.o,p)
+  with patch.object(TaskEvidenceAdapter,'check',return_value={'status':'valid'}):
+   p=step(self.o,p);p=step(self.o,p)
   self.assertEqual(p['reason'],'GRIPPER_BARRIER_REQUIRES_NEW_EVIDENCE_AND_PLAN');self.assertEqual(p['K_adopted'],2)
-  self.assertEqual([len(x) for x in micro_chunks(actions)],[2,2]);self.assertEqual(len(self.o.b.commands),1)
+  self.assertEqual([len(x) for x in micro_chunks(actions)],[1,1,1,1]);self.assertEqual(len(self.o.b.commands),2)
  def test_partial_failure_preserves_completed_prefix_and_remainder(self):
-  self.obs,w=initial_world(self.o);p=self.a.supervisor.load(plan(self.obs,w));self.o.b.failure='partial';p=step(self.o,p)
-  self.assertEqual(p['status'],'DISCARDED');self.assertEqual((p['K_submitted'],p['K_adopted'],p['K_completed']),(3,2,1))
-  self.assertEqual(p['trace'][0]['feedback']['unexecuted_count'],1);self.assertEqual(len(self.o.b.commands),1)
+  self.obs,w=initial_world(self.o);p=self.a.supervisor.load(plan(self.obs,w));p=step(self.o,p)
+  self.o.b.failure='first';p=step(self.o,p)
+  self.assertEqual(p['status'],'DISCARDED');self.assertEqual((p['K_submitted'],p['K_adopted'],p['K_completed']),(2,2,1))
+  self.assertEqual(p['trace'][1]['feedback']['unexecuted_count'],0);self.assertEqual(len(self.o.b.commands),2)
  def test_generic_identity_cannot_be_declared_verified_by_model(self):
   self.obs,w=initial_world(self.o);pplan=plan(self.obs,w);pplan['task_binding']={'profile':'generic_semantic_v1','object_id':'mug42','goal_id':'shelf2'}
   p=self.a.supervisor.load(pplan);p=step(self.o,p);self.assertEqual(p['reason'],'TASK_EVIDENCE_UNKNOWN');self.assertEqual(self.o.b.commands,[])

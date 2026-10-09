@@ -33,6 +33,10 @@ def run(a):
     if not a.enable_real_model and a.model_max_requests:raise ValueError('NO_INHERITED_MODEL_BUDGET')
     if a.enable_real_model and not 1<=a.model_max_requests<=20:raise ValueError('EXPLICIT_NEW_MODEL_CAP_REQUIRED')
     if getattr(a,'research_fake_attempts',1)!=1 and not (getattr(a,'research_adapters',False) and a.fake_cli):raise ValueError('FAKE_RESEARCH_CAP_REQUIRES_FAKE_MODE')
+    if getattr(a,'world_head_config',None):
+        if not getattr(a,'research_adapters',False):raise ValueError('LWH_REQUIRES_RESEARCH_ADAPTERS')
+        from platform_v1.research.learned_runtime import validate_config
+        validate_config(json.loads(a.world_head_config.read_text())) # before scene creation
     a.output=a.output.resolve();a.output.mkdir(parents=True,exist_ok=False)
     record={'version':VERSION,'status':'STARTING','source':a.source,'command':[sys.executable,*sys.argv],
       'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=BASE,text=True).strip(),
@@ -82,7 +86,9 @@ def run(a):
             raise RuntimeError('INFER_PREFLIGHT_FAILED_BEFORE_SCENE')
         from platform_v1.owner import Owner
         owner=Owner(a.assets,a.output,seed=a.seed,budget_s=a.budget_s,source=a.source,infer_config=config,max_requests=getattr(a,'research_fake_attempts',1) if a.fake_cli else a.model_max_requests)
-        if getattr(a,'research_adapters',False):owner.enable_research_adapters()
+        if getattr(a,'research_adapters',False):
+            owner.enable_research_adapters()
+            if getattr(a,'world_head_config',None):owner.research.world.configure_learned(json.loads(a.world_head_config.read_text()))
         command,env=sandbox(a.program,owner.public);record['research_process_command']=command
         (owner.private/'research_command.json').write_text(json.dumps(command,indent=2))
         stream=(owner.private/'research_stderr.log').open('x')
@@ -145,5 +151,6 @@ if __name__=='__main__':
     p.add_argument('--seed',type=int,default=2);p.add_argument('--budget-s',type=float,default=120)
     p.add_argument('--fake-cli',type=Path);p.add_argument('--enable-real-model',action='store_true');p.add_argument('--model-max-requests',type=int,default=0)
     p.add_argument('--research-adapters',action='store_true')
+    p.add_argument('--world-head-config',type=Path,help='Host-only pinned LWH runtime mounts; no downloads')
     p.add_argument('--research-fake-attempts',type=int,choices=range(1,21),default=1)
     raise SystemExit(run(p.parse_args()))

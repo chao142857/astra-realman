@@ -23,8 +23,8 @@ def model(role,camera,schema,evidence=None):
     assert row['status']=='READY',row
     return row
 
-e=model('semantic_e0','fixed',cap['semantic_schema'])
-a=model('action','wrist',cap['plan_schema'],[e['evidence_id']])
+e=model('semantic_e0','fixed',cap['legacy_semantic_schema'])
+a=model('action','wrist',cap['legacy_plan_schema'],[e['evidence_id']])
 feedback=p.wait(execution);assert feedback['ok']
 try:p.supervisor_from_broker(a['request_id'])
 except PlatformError as error:assert str(error)=='STALE_PLAN_EPOCH',error

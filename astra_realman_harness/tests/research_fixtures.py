@@ -34,7 +34,7 @@ class FakeBackend:
         results=[]
         for i,a in enumerate(actions):
             if self.failure=='unknown' and i==1:raise RuntimeError('TEST_EXCEPTION_AFTER_PREFIX')
-            if self.failure=='partial' and i==1:
+            if (self.failure=='partial' and i==1) or (self.failure=='first' and i==0):
                 results.append({'action':a,'result':{'ok':False,'error':'STOPPED'}});break
             self.s.tick(round(a.get('seconds',.008)/self.dt))
             if a['type']=='move_pose':self.state['actual_grasp_center_world']=a['pose'][:3]

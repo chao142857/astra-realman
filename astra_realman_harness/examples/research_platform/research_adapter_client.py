@@ -20,7 +20,7 @@ def request(role,images,schema,world=None,evidence=None):
 def images(*cameras,roi=None):
     return [{'observation_id':o['observation_id'],'camera':c,'roi':roi} for c in cameras]
 
-e=wait_model(request('semantic_e0',images('assembly','fixed'),cap['semantic_schema']))
+e=wait_model(request('semantic_e0',images('assembly','fixed'),cap['legacy_semantic_schema']))
 assert e['status']=='READY',e
 w=p.world_submit([o['observation_id']]) # existing public RGB geometry, independent of a semantic identity claim
 while True:
@@ -29,10 +29,10 @@ while True:
     time.sleep(.02)
 assert wr['status']=='READY',wr
 world=wr['result']
-a=wait_model(request('action',images('wrist'),cap['plan_schema'],world,[e['evidence_id']]))
+a=wait_model(request('action',images('wrist'),cap['legacy_plan_schema'],world,[e['evidence_id']]))
 assert a['status']=='READY',a
 plan=p.supervisor_from_broker(a['request_id']) # loading alone cannot execute
-local=request('local_reground',images('fixed',roi=[.1,.2,.8,.9]),cap['semantic_schema'],world,[e['evidence_id']])
+local=request('local_reground',images('fixed',roi=[.1,.2,.8,.9]),cap['legacy_semantic_schema'],world,[e['evidence_id']])
 # External caller explicitly advances the plan. Broker process can run during approved motion.
 while plan['status'] not in ('COMPLETED','DISCARDED'):
     plan=p.supervisor_step(plan['plan_id']);time.sleep(.01)

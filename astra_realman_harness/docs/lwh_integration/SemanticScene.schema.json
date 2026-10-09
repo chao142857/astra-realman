@@ -1,0 +1,159 @@
+{
+  "type": "object",
+  "properties": {
+    "version": {
+      "const": "astra.semantic_scene.v2"
+    },
+    "task_target_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "entity_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "object",
+              "region",
+              "unknown"
+            ]
+          },
+          "identity_status": {
+            "enum": [
+              "hypothesis",
+              "unknown"
+            ]
+          },
+          "views": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "attachment_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "bbox": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "minItems": 4,
+                  "maxItems": 4
+                },
+                "visibility": {
+                  "enum": [
+                    "visible",
+                    "partial",
+                    "unknown"
+                  ]
+                }
+              },
+              "required": [
+                "attachment_id",
+                "bbox",
+                "visibility"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 3
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "entity_id",
+          "label",
+          "kind",
+          "identity_status",
+          "views",
+          "description"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 24
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string",
+            "minLength": 1
+          },
+          "predicate": {
+            "enum": [
+              "left_of",
+              "right_of",
+              "above",
+              "on",
+              "near",
+              "target_of",
+              "unknown"
+            ]
+          },
+          "object": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "hypothesis",
+              "unknown"
+            ]
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "subject",
+          "predicate",
+          "object",
+          "status",
+          "evidence_refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 48
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "maxItems": 32
+    }
+  },
+  "required": [
+    "version",
+    "task_target_id",
+    "entities",
+    "relations",
+    "unknowns"
+  ],
+  "additionalProperties": false
+}

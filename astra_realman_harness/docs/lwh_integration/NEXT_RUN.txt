@@ -1,0 +1,68 @@
+Next run protocol — proposals only; no additional model or physical authorization granted
+
+1. 当前可直接运行：纯离线合同与静态环境检查
+
+CODE=/home/alex/astra-realman_ws/astra-realman-research-adapters-v1-20261009/astra_realman_harness
+PY=/home/alex/astra/.venv/bin/python
+
+PYTHONDONTWRITEBYTECODE=1 "$PY" "$CODE/scripts/check_lwh_integration.py" offline --output /tmp/lwh-integration-offline-next-01
+PYTHONDONTWRITEBYTECODE=1 "$PY" "$CODE/scripts/offline_lwh_demo.py" --output /tmp/lwh-integration-demo-next-01
+PYTHONDONTWRITEBYTECODE=1 "$PY" "$CODE/scripts/check_lwh_integration.py" preflight --output /tmp/lwh-preflight-next-01
+
+目录必须新建。offline/demo 需要宿主允许 bwrap user/network namespaces；工具外层沙箱禁止时会失败，不能移除bwrap掩盖。
+preflight 的 BLOCKED_PREREQUISITES 退出码2是已知缺依赖/未配置权重，不是自动下载请求。
+demo 两个假 Broker 结果、虚构深度schema fixture、假执行器；默认真实 TaskEvidence unknown，owner执行数0。
+其中静态图来自已有公共RGB，不能把虚构depth或fake executor记为独立物理episode。
+
+2. 建议授权顺序及预算（本轮均未执行）
+
+阶段                     模型attempt上限        本地学习forward上限    新物理场景 / 运动
+依赖/权重准备             Astra 0               0                     0 / 0
+冻结RGB DA3冒烟            Astra 0               3                     0 / 0
+单场景 E0 + A H4 shadow    E0 1 + A 1 = 2        W0 1                  SAPIEN 1 / 0
+T1 owner路径验收           不继承额外额度         初始+最多每步后1次     另行授权；当前任务证据门仍BLOCKED
+原生 E/A并发               不从上述2次挪用        独立                  另设预算；本轮NOT_VERIFIED
+
+两次真实请求都是已有 Broker 的 existing_codex_infer 角色接口；不是 native subagent 并发声明。
+共享总请求上限2，每次timeout<=90s，episode wall budget300s；不重试、不补造schema输出，不调用local_reground。
+若E0或几何未知/失败，不启动A。保留失败raw及真实usage。不能将200/READY等同语义正确。
+usage保存provider原记录；unknown server-internal retries保持unknown；此上限约束客户端提交次数。
+价格/硬token额度本地尚无完整强制机制，所以本轮不编造美元预算或服务器token上限。
+审批前需要按实际provider约定确定财务/usage额度；不能只用调用次数声称费用严格受控。
+
+3. 依赖和DA3检查通过、并明确授权“1个SAPIEN shadow场景+最多2次Astra”之后，运行：
+
+CFG=/home/alex/astra-realman_ws/lwh-runtime/da3_runtime.json
+ASSETS=/home/alex/astra-realman_ws/astra-sim-delivery-20261008/ASTRA_SIM_INCREMENT_20261008_v1/evidence/assets
+
+PYTHONDONTWRITEBYTECODE=1 "$PY" "$CODE/scripts/run_research_platform.py" \
+  --assets "$ASSETS" \
+  --output /tmp/lwh-real-h4-shadow-authorized-01 \
+  --program "$CODE/examples/research_platform/lwh_h4_shadow.py" \
+  --research-adapters --world-head-config "$CFG" \
+  --enable-real-model --model-max-requests 2 --budget-s 300
+
+CFG 尚不存在；需要从模板生成已审查真实路径/hash/commit的配置。命令现在会提前失败，不能作为本轮已运行结果。
+该程序不发送物理动作，但运行runner会创建SAPIEN场景并让等待过程按原时间协议推进；仍须单独授权场景。
+固定任务为 approach red block to pregrasp without contact；E0仍必须报告完整多实体语义场景。
+shadow记录：输入hash/标定/捕获时间、E raw与证据、DA3模型/权重、W0、A raw/source_stamp、H/H_planned/K=0、真实usage和墙钟。
+失败一次即停止，不用反事实E回答补齐，也不修改stage_terminal以达成H4计数。
+
+4. shadow验收后才讨论T1
+
+先审查多对象当前实例关联以及 TaskEvidenceAdapter 与原owner最小门之间的证据适配。
+当前generic profile返回unknown，不能通过新profile名字、跳过检查、放宽红绿/碰撞/IK阈值或用GT达到通过。
+若工程底座尚无等价通用任务证据接口，就继续shadow；没有可声称有效的物理启动命令。
+待独立验收后，仍通过同一 Supervisor 每次显式 step 提交一个waypoint，最多4次，绝不精细闭爪。
+每步实际completion后新观测，计算LWH/投影残差；K截断、无谓unknown、失效后缀、安全拒绝、loss漏检逐项记录。
+原12提交/64观测上限不扩；末步后检查计入预算；A规划一次不等于无观测开环执行四步。
+
+5. 再后续研究（保留冻结目标，不同时开启）
+
+先H1 vs H4同观测同几何同步；再H6/H8；固定K vs adaptive K；强2D+chunking vs learned LWH；
+再固定三图 vs任务条件选图/ROI/分辨率；最后同步 vs经单独验收的异步E/A。
+分别冻结任务、场景/变化条件和模型预算，不按R3或LWH输赢后调难度。
+L_chunk 与 L_world 单独统计、单独消融；真实 expensive E 只在以后明确预算下运行。
+有效重叠需满足依赖可用、结果被采用、执行权唯一；不能以重叠线程或fake工作时间认定收益。
+完整任务成功、准备位姿质量、真实usage、墙钟/等待/K/失效后缀/拒绝/漏检/有效重叠都需保留；
+本阶段没有精细抓取，因此不能将闭爪成功当Mini World Head能力或把未闭爪当研究失败。

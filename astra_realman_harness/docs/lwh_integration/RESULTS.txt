@@ -1,0 +1,57 @@
+Integration delivery — 2026-10-09
+
+在 codex/research-adapters-v1-20261009 的指定 commit 25162516a0022e25b95e80b767e649a4b9780286 工作树增量交付。
+未另建 Supervisor，未提交git commit或推送。源码、测试与文档变更可用git diff及证据目录的SOURCE_MANIFEST核对。
+
+交付入口
+INTEGRATION_REVIEW.txt           统一接口差异表、W0融合、H/K与两个loss、剩余适配缺口
+ActionChunkPlan.schema.json     canonical v2 模型proposal schema
+SemanticScene.schema.json       三视角多实体语义输出
+WORLD_HEAD_AUDIT.txt            DA3/其他候选、官方来源、本机能力、挂载与资源验收要求
+NEXT_RUN.txt                    可运行离线命令、拟议2次真实请求预算、授权后的shadow命令
+da3_runtime.example.json        待填写并审查的本地模型配置；当前不可直接启动学习模型
+
+实际离线结果
+测试：67/67 PASS，22.644秒测试运行时间（完整测试子进程墙钟22.837秒）。
+覆盖：H=1/4/6/8、m=1、提前终止/拒绝padding和夹爪、raw和read_versions绑定、
+几何版本与语义读集分离、独立L_chunk/L_world、fixed/adaptive K、实际完成后观测、
+H4多次单waypoint owner提交、失效后缀中止、最终waypoint检查、pending token/owner拒绝、
+相机轴变换/深度反投影、模型未配置拒绝、GPU挂载路径、旧Broker/WorldHead/Owner回归。
+
+67项测试使用Fake CLI、FakeBackend或明确的人工depth fixtures。
+其中继续执行分支以测试patch隔离任务证据/关联模块；这只验证路由与计数，不证明语义能力、DA3质量或物理安全。
+独立demo没有放开TaskEvidence：两次fake Broker请求 -> 多实体W0 -> H4来源绑定 -> TASK_EVIDENCE_UNKNOWN，K=0。
+这是正确拒绝验收，不是T1任务成功。
+过去的工程结果和本轮fixture结果均不作为论文性能。
+
+边界检查
+52个受保护文件hash一致；旧Owner、sim_skills执行依赖、engineering代码git diff为空。
+已冻结的semantic-lwh-action-chunk-design-20261009文件未变化；既有R/V/C研究结果未修改。
+真实Astra调用0；机器人硬件调用0；新增SAPIEN episode 0；DA3/其他学习模型forward 0；训练0。
+
+未完成验收项（不得标PASS）
+DA3：宿主RTX 5060 Laptop 8151MiB可见；依赖和已审查权重配置缺失，BLOCKED_PREREQUISITES。
+DA3实际峰值显存/冷暖时延/桌面几何质量：NOT_MEASURED。
+真实E0、多实体身份/跨视角理解、真实A H4 raw输出：NOT_RUN。
+当前实例关联/运动更新：尚未验收；历史表面可以投影但不能冒充当前实例测量。
+T1物理执行：BLOCKED_TASK_EVIDENCE_ADAPTER；多对象generic profile保持shadow，安全门未绕过。
+Task-conditioned views和真实loss-triggered E：方向保留；本批固定三全图、不启动E重感知。
+原生subagent并发/有效异步收益：NOT_VERIFIED。当前单模型slot是接口事实，不是模型能力结论。
+
+下一步结论
+值得继续做“固定权重的本地几何验收”，不值得直接扩大真实模型或物理样本。
+其后再申请最多E0一次+A一次的shadow预算；无自动重试、无反事实E回答、无新物理执行额度。
+创新与性能收益仍未成立。
+
+完整证据目录
+/home/alex/astra-realman_ws/semantic-lwh-integration-evidence-20261009
+  offline-final/REPORT.json, tests.log    最终67项回归及受保护文件核验
+  demo-02/DEMO_REPORT.json               持久化fake E0/W0/A/H4/拒绝记录
+  demo-02/owner/private/research_broker  实际fake进程raw、schema、附件hash、fixture usage
+  demo-02/owner/private/plans            source_stamp、H、K、终止原因
+  preflight-01/REPORT.json               宿主GPU与依赖只读审计
+  demo-01/                              初次PRIVATE_MOUNT失败原证据，未覆盖
+  ENVIRONMENT_FAILURES.txt              隔离环境失败、修复范围与复测说明
+  SOURCE_MANIFEST.json                   交付变更文件hash
+
+offline-01/02/03为较早源码检查阶段的PASS，保留但以offline-final为当前验收。

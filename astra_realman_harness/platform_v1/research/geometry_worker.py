@@ -3,6 +3,8 @@ import argparse
 import hashlib
 import json
 import math
+import contextlib
+import sys
 from pathlib import Path
 import numpy as np
 from scipy.spatial.transform import Rotation
@@ -34,6 +36,10 @@ def estimate(views, calibration):
 
 
 def compute(wire):
+    if wire['backend'] == 'da3_small_v1':
+        from da3_geometry import compute as learned_compute
+        # Model library logging must not corrupt the single JSON stdout result.
+        with contextlib.redirect_stdout(sys.stderr): return learned_compute(wire)
     current = wire['observations'][-1]; oid = current['observation_id']; detected = {}
     for camera, file in current['images'].items(): detected[camera] = detect('/input/'+file)
     groups = {}

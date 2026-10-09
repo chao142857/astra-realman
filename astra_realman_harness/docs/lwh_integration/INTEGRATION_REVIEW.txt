@@ -1,0 +1,108 @@
+Semantic + LWH + Action Chunk integration — 2026-10-09
+Base commit: 25162516a0022e25b95e80b767e649a4b9780286
+Status: OFFLINE_CONTRACT_INTEGRATED; LEARNED_HEAD_NOT_ACCEPTED; REAL_SHADOW_NOT_RUN.
+
+本轮在指定 research_adapters 工作树增量整合；沿用 Supervisor、Broker、WorldHead、ProcessJob、Owner。
+没有第二个 Supervisor，没有改变旧控制器、碰撞、IK、STOP、owner 最小证据门、夹爪屏障或 12 次物理提交 / 64 次公共观测上限。
+已有 R0–R3、V3、C1/C2/C3 和 semantic-lwh-action-chunk-design-20261009 结果不改、不重新解释。
+本轮真实 Astra=0，硬件=0，新增 SAPIEN 物理 episode=0，预训练模型 forward=0，训练=0。
+
+接口差异与统一决定
+
+事项                       adapters v1                 冻结设计 v1                   集成 v2
+m                          每段至多3                   每段1                         Supervisor 所有新提交 m=1；旧 owner 仍接受1–3
+H                          len(waypoints)==H           允许阶段提前结束              H=1/4/6/8；H_planned<=H；缩短必须 stage_terminal+理由+终端边界
+动作                       move_pose/hold/gripper      move_coarse                   v2 只用 move_pose pad center xyz+wxyz；无接触/夹爪
+步长                       无统一 coarse profile       20–50mm, <=0.15rad            相同 profile；旋转-only>=0.05rad；短终端步允许；拒绝 noop/细分填充
+来源                       Broker 精确 result 校验     plan 内 source/raw hash       proposal 保持原 raw JSON；Supervisor 追加可信 source_stamp
+world/read_versions        全局 revision 变化即弃      字段读集+原来源不可改          v2 固定原 world_id/revision；语义/任务范围/内参合同版本变化弃后缀
+时间                       epoch/返回时间              nominal 2s 与完成事件分离     每步 nominal_end_offset=2*i；记录提交、owner completion、返回、新观测时刻
+几何 vs 预测               当前 RGB 重测               LWHForecast sidecar           当前 DA3 几何与 Forecast 分开；forecast 仅显式粗持久性假设
+H/K                        K_adopted/K_completed        H 与执行前缀分离              H/H_planned/m、K_attempted/submitted/adopted/completed 独立
+更新                       每段前 check                每 waypoint 廉价 check        v2 首步前 check；每步后包括末步 check；合格后检查供下一步使用
+
+canonical JSON Schema: ActionChunkPlan.schema.json（由 chunk_plan.plan_schema 生成，测试保证一致）。
+stage_terminal 的边界/理由在合同层可验证；是否确已到达合适准备位姿必须独立评分，非空理由本身不构成物理证明。
+能力接口 plan_schema/semantic_schema 指向 v2；legacy_*_schema 保留旧实验客户端明确选择。
+旧 astra.action_chunk_plan.v1 兼容入口用于既有工程回归；旧 Full-PnP token 协议没有删除或改写。
+不自动把冻结设计 JSON 或 v1 raw 动作改造成“真实 v2 模型输出”；真实 A 必须对绑定后的 v2 schema 产生新 raw。
+
+来源与合并
+
+模型不可能预先知道自身 raw_sha256，因此 source_stamp 由 Broker READY 的私有 raw 计算：
+producer、request_id、raw_sha256、wire_sha256、evidence_id、原 binding、plan_sha256。
+它位于 Supervisor 计划记录，不能由模型 self-sign。v2 不接受手写 supervisor_load；必须 from_broker。
+A 的 H、原 W、epoch、起点、task、task_binding、read_versions、证据 ID 在 request schema 中是 const。
+运行时校验这些字段确实来自请求常量，waypoints 与 raw 精确相等；不以当前观测重写原始来源。
+每个 owner submission 记录原 W/原 observation 和本次 current_source/epoch。世界检查只给新证据，不能成为模型来源。
+
+W0 read_versions 包括 semantic/<E0 evidence ID>、task_scope/coarse_precontact_v1、calibration/<静态标定合同hash>。
+腕相机 pose 是当前测量，正常 ego-motion 不改静态标定版本；内参、分辨率/其他标定字段变化会拒绝。
+geometry-only publication 可递增 store revision 而不伪造 semantic revision；v2 用读集失效，而非每次全局版本变化即弃。
+当前没有任意字段级语义 patch 合并器；再次 E0 融合会换 semantic evidence ID，使旧计划失效。
+没有已验收的跨 epoch 新 A 预测接续采用规则；新增 A 仍必须符合原 owner 当前 epoch。
+
+真实 Mini World Head 路径
+
+WorldHead.submit(..., backend='da3_small_v1') -> 原 ProcessJob/bwrap -> 原 geometry_worker -> da3_geometry.compute。
+学习模型做三视角条件深度；相机标定提供米制基线；输出稀疏 depth surface samples、confidence raw、资源测量。
+这是“预训练几何感知 + 显式状态存储”，不是训练出的接触动力学，也不是 bbox 多射线三角化。
+legacy_rgb_rays_v1 / bbox_rays_v1 原名保留，不能作为 learned backend 回退。
+DA3 不提供语义身份：E0 的 bbox 只选择学习深度的表面支撑。各视角 bbox 质心不作为对应点。
+多视角区域支撑给出粗表面位置及范围，不声称是物体中心或抓取位姿；深度混合/遮挡/支撑不足保留 unknown。
+当前采样为每视角最多24×24点；可能漏掉小物体。密度与 mask front-end 需独立评估，不通过调难度突出方法。
+不确定性是未校准的表面范围/跨视角分歧，confidence 排名过滤不是概率保证。
+
+E0 + geometry -> W0
+
+lwh_prepare(observation_id) 显式启动两个作业：同一个冻结 observation 的三路全 RGB、标定和公共机器人状态。
+E0 经既有 Broker semantic_e0 角色理解多个 object/region；输出实例假设、各视角证据、relations、unknowns 和任务目标候选。
+geometry 不依赖 E0 完成，可先准备；融合要求两个输入 observation 完全一致、三路图片 hash 匹配、epoch 仍当前。
+lwh_fuse 不接受 bbox_rays 假冒 learned geometry；原始假模型/假几何 provenance 不能被融合洗成真实。
+W0 中 held_relation/motion 初版为 unknown。被遮挡或尚未建立跨视角身份的实例不能凭历史框取得当前位置。
+当前时间戳是三图顺序捕获完成时刻，capture_span_s 被保留；这不是硬件同步曝光的证明。
+W0 仅提供研究场景信念，不授予 owner 的任务身份验证权。
+
+A H4 shadow / T1 准备
+
+lwh_action 使用 W0、合法全图与 E0 evidence，首个真实实验固定 H=4，不改变视图/异步变量。
+允许合理 stage_terminal；目标 unknown 或无可辩护计划时失败并保存 raw，不重试补编计划。
+lwh_h4_shadow.py 只 prepare/fuse/query/load/cancel/finish，源码无 execute、commit 或 supervisor_step 调用。
+最小模型预算上限2：E0一次、A一次；E0/geometry 未通过就停止，剩余额度不转为重试。
+
+Supervisor 的 v2 T1 提交流程已接入：计划 -> 首步世界检查 -> 原 TaskEvidenceAdapter -> 原 Owner.execute([单个move_pose])
+-> owner completion -> 新 RGB/geometry check -> completion-aligned 残差 -> L_chunk/L_world -> 继续或丢弃后缀。
+原 owner 是最后的物理执行权；pending legacy token 仍阻止替代提交。无跳过任何 owner 检查的生产开关。
+当前 TaskEvidenceAdapter 仅支持旧红/绿声明范围及 scene-only hold；generic_semantic_v1 + learned geometry 返回 unknown。
+因此此集成目前不能宣称真实 T1 已可执行：多对象当前实例关联及等价任务证据适配是明确缺口。
+即使旧红绿场景存在，新 DA3 几何也不会冒用旧 red/green 验证结果。
+
+两个 loss 的边界
+
+L_chunk：只决定下一 waypoint 的研究可复用性；fixed K 也必须满足共同前提、预测起点join、边界和原 owner；adaptive 再要求可见性与有效误差。
+当前观测 residual：将历史公开几何投影到当前标定视图，匹配近像素 depth samples；不足8个支撑为 unknown。
+该 residual 是静态场景表面一致性，不是物体身份验证；遮挡、纹理/深度噪声也可能造成残差。
+预测误差：以实际 completion 后的观测对齐 Forecast 中“完成第i步后”的假设，分别记录机器人位姿误差和对象误差。
+nominal time 不用来伪造实际控制时长。没有未来观测输入，没有 GT object/target pose 输入。
+当前实例跟踪尚未验收，所以 current_regions 将旧实例几何留作 historical、当前设 unknown；不能产生假零误差。
+
+L_world：语义冲突/当前关联无法建立时提出 semantic_review_needed；有查询预算才 recommend_query。
+它不自动提交 Broker 请求；query value/延迟收益 NOT_ESTIMATED；本轮预算恒为0。
+达到 K cap 可以停 chunk 而不叫 E；身份冲突可请求 E 而不把所有几何残差等同语义失效。
+代码有独立数据字段、独立函数和独立测试；没有一个合并触发器。
+
+原生异步与后续变量
+
+现有 direct-infer Broker 是显式单模型在途槽；这是当前接口的限制，不是 Astra/Codex 原生模型能力上限。
+本轮不改 bridge 的禁用 multi_agent 配置，也不据此断言原生不能并发。
+E0 与 geometry 提交两个 OS 作业只是接口能力；fake overlap 不证明真实模型并发或有效重叠。
+native_codex_subagent backend 仍 UNVERIFIED_DISABLED。真实父子调用、图片路由、取消、usage、依赖冲突需另行验收。
+后续仍保留 Task-conditioned View Selection、H=1/4/6/8、fixed/adaptive K、Loss-triggered E 和 Asynchronous E/A。
+首个 shadow 固定三图全图+H4，避免同时混入视角、异步和 horizon 改动。强2D+chunking、普通3D baseline 不删。
+H3 可在可靠普通3D基线独立研究；不要求 R3 先击败 R2，也不生成反事实 E 答案。
+
+可实现性结论
+
+可以进入“依赖/权重准备及学习几何验收”的下一阶段；不能直接扩大真实模型或物理样本。
+模型选择、语义融合几何质量、实例关联、owner 适配、真实有效并发仍有独立 gate。
+方法创新及墙钟收益未成立；本轮只有可复核的接口集成和离线合同结果。

@@ -9,6 +9,7 @@ class PublicStore:
         self.root = Path(root).resolve(); self.episode_id = episode_id
         self.observations = {}; self.evidence = {}; self.worlds = {}; self.revision = 0
         self.current_world_id = None
+        self.read_versions = {}
 
     def observe(self, observation, epoch):
         o = clone(observation)
@@ -51,11 +52,12 @@ class PublicStore:
         if identity not in self.worlds: raise ValueError('UNKNOWN_WORLD_ID')
         return clone(self.worlds[identity])
 
-    def publish_world(self, report, binding, provenance):
+    def publish_world(self, report, binding, provenance, read_versions=None):
+        if read_versions is not None: self.read_versions = clone(read_versions)
         self.revision += 1
         state = {'version': WORLD_VERSION, 'world_revision': self.revision,
             'binding': clone(binding), 'created_monotonic': time.monotonic(),
-            'state': clone(report), 'provenance': provenance,
+            'state': clone(report), 'provenance': provenance, 'read_versions': clone(self.read_versions),
             'semantics': 'COARSE_ESTIMATE_NOT_SIMULATOR_TRUTH'}
         identity = 'w-' + digest(state); state['world_id'] = identity
         self.worlds[identity] = state; self.current_world_id = identity

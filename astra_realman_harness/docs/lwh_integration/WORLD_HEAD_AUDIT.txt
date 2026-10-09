@@ -1,0 +1,64 @@
+World Head candidate audit — inspected 2026-10-09, no weights downloaded
+
+候选                     可复用机制                          主要缺口                                      决定
+DA3-Small                多视角深度、pose conditioning       relative-depth模型；已知基线缩放仍须近场验证     首选待验收；已接 backend，未运行
+DA3-Base                 同一any-view API、更大编码器         不应假设8GB/时延满足                           仅后备，不安装
+DA2 Metric Hypersim Small 单图米制深度，可每相机反投影         缺乏多视图一致性；Hypersim到机器人近场域差       资源/单图退化对照候选，未接实现
+MASt3R                   学习型跨图匹配、3D几何支撑           额外匹配与优化复杂度，未作本机资源验收           关联研究参考，不作首版默认
+legacy/bbox rays         已有廉价几何工程回归                不是学习型模型；区域质心非严格对应点             保留原名称和证据地位
+
+核实的官方材料
+
+[1] https://github.com/ByteDance-Seed/Depth-Anything-3
+[2] https://github.com/ByteDance-Seed/Depth-Anything-3/blob/main/docs/API.md
+[3] https://raw.githubusercontent.com/ByteDance-Seed/Depth-Anything-3/main/src/depth_anything_3/api.py
+[4] https://huggingface.co/depth-anything/DA3-SMALL
+[5] https://raw.githubusercontent.com/ByteDance-Seed/Depth-Anything-3/main/pyproject.toml
+[6] https://raw.githubusercontent.com/DepthAnything/Depth-Anything-V2/main/metric_depth/README.md
+[7] https://github.com/naver/mast3r
+
+DA3-Small 官方卡列出 Relative Depth / Pose Estimation / Pose Conditioning，名义0.08B、Apache-2.0。
+卡上自动 safetensors 参数统计与正文名义参数数不一致；不将任一数字换算成已测显存。
+API 源码接受 image list、extrinsics(N,4,4 world-to-camera)、intrinsics(N,3,3)。
+align_to_input_ext_scale=True 时源码通过相机 pose alignment 得到尺度，替换输出相机外参并调整 depth；
+这利用公开标定米制相机基线，不是读取物体GT。零/极小基线无法给出可靠尺度，首版拒绝<1cm基线。
+输出 depth/conf、外参和与处理后图像对应的内参；必须使用输出内参反投影并映射原图像素，不能只按长宽盲缩放。
+Small 不需要/不提供本项目所需的3DGS；GS分支文档限制在 Giant/Nested 模型，本实现 infer_gs=False。
+官方依赖包含 torch/torchvision、xformers、numpy<2、omegaconf、evo、e3nn 等；
+API 导入 export 相关模块，不能假定“只用 depth”就完全不需要官方安装依赖。gsplat 是独立可选项。
+DA2 Metric 官方 Small 为24.8M、提供室内Hypersim权重和直接米制输出；它是单图对照而非DA3等价替换。
+
+本机事实
+
+外层工具沙箱 nvidia-smi 失败；沙箱外只读查询成功：RTX 5060 Laptop，8151 MiB，driver 595.84。
+证据 preflight-01 查询时占用555 MiB，只是当时宿主读数，不能作为模型峰值显存。
+当前 /home/alex/astra/.venv 有 torch/jsonschema；无 depth_anything_3、safetensors、huggingface_hub。
+没有核实到可用已固定的 DA3 权重配置；未安装、未下载、未做任何 forward。
+显存、latency、质量全部 NOT_MEASURED；模型选型状态 BLOCKED_PREREQUISITES / NOT_ACCEPTED。
+
+运行挂载与待验收合同
+
+宿主显式 --world-head-config 指定专用 venv、DA3-SMALL 权重目录、两个文件 SHA256、上游源码 commit、分辨率、deadline。
+配置不可从研究 policy RPC 注入。配置在场景创建前检查；缺依赖/设备/权重失败，不启动替代几何或 CPU fallback。
+配置模板 da3_runtime.example.json 故意不能直接作为有效配置；禁止把占位符算作已固定源码/权重。
+目前 source_revision 是宿主配置声明，实际安装内容与该上游 commit 一致性必须在依赖准备验收中核对并归档；
+不能仅靠40字符形式检查声称安装来源已验证。应使用固定commit构建 wheel，记录 wheel/lock、package文件hash。
+
+bwrap: /usr与现有基础venv只读；学习venv重映射 /lwh-venv；权重 /weights只读；公共冻结输入 /input只读；
+worker代码 /code只读；/tmp tmpfs；仅绑定 nvidia0/nvidiactl/nvidia-uvm；无网络、无 workspace/private/score/SDK 挂载。
+HF_HUB_OFFLINE=1；local_files_only=True；模型日志到stderr，JSON结果独占stdout。
+不要用 editable 安装引用被隔离的源码绝对路径；新venv必须可重定位、Python基于可挂载的/usr运行时。
+CUDA driver库、Blackwell架构支持和 bwrap GPU设备实际可用性仍需真实 worker 冒烟验收，宿主 nvidia-smi 不能替代。
+每个作业首版冷启动加载权重；记录 load_s / inference_s / worker_compute_s / peak_allocated / peak_reserved。
+ProcessJob记录请求、启动、返回、隔离命令与超时；完整墙钟必须包含模型加载/图片拷贝/CPU融合/等待。
+这版不声称已达到“廉价”；若冷启动开销主导，再在相同 Worker 边界内研究常驻模型，不能先删成本。
+
+建议独立资源验收（尚未授权执行）
+
+先完成专用依赖/权重/源码hash审查，再对已存合法RGB做最多3个冻结输入的本地forward，Astra=0，SAPIEN=0。
+从3视角336输入开始，一次在途；不同时改分辨率和模型。OOM/NaN/不保留标定尺度立即失败，无自动降分辨率重试。
+拟定资源gate：在目标机器上 learned worker峰值reserved<=5GiB，为SAPIEN/渲染留空间；总GPU占用另记。
+本地粗检查目标墙钟<=2s是待检验工程目标，不是已测性能；超过目标先报告，不把额外等待藏在异步里。
+初次3样本只作冒烟，不能计算可靠p95或泛化；有独立布局后再报告质量/coverage与时延分布。
+质量gate由独立评分方在不进入在线路径的GT/人工标注上评分：几何误差、coverage、unknown、跨视角一致性、小目标漏检。
+表面支撑本来不是object center，不以偷换GT中心坐标评价“修正后成功”；准备位姿质量需单独定义。

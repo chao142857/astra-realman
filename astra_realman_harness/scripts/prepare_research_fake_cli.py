@@ -26,7 +26,20 @@ else setTimeout(()=>{
  let result;
  if(w.role==='action')result={version:'astra.action_chunk_plan.v1',H:8,waypoints:Array.from({length:8},()=>({type:'hold',seconds:0.02})),world_id:w.binding.world_id,world_revision:w.binding.world_revision,source_observation_id:w.binding.observation_ids.at(-1),execution_epoch:w.binding.execution_epoch,task_binding:{profile:'scene_only_v1',object_id:'',goal_id:''},semantics:'PREDICTED_WAYPOINTS_NOT_MEASURED'};
  else result={regions:w.attachments.map(x=>({entity_id:'fixture-object',label:'FAKE_LABEL',attachment_id:x.id,bbox:cfg.mode==='clipped'?[0,0.25,0.75,0.75]:[0.25,0.25,0.75,0.75],identity_status:'hypothesis'})),association:null};
- const out={binding:w.binding,evidence_refs:[w.attachments[0].id],result};
+ const shape=JSON.parse(schema).properties.result;
+ if(shape.properties?.version?.const==='astra.semantic_scene.v2'){
+   result={version:'astra.semantic_scene.v2',task_target_id:'fixture-object',entities:[
+     {entity_id:'fixture-object',label:'FAKE_RED_BLOCK',kind:'object',identity_status:'hypothesis',description:'SYNTHETIC_SCHEMA_FIXTURE_NOT_MODEL_PERCEPTION',views:w.attachments.map(x=>({attachment_id:x.id,bbox:[.2,.2,.8,.8],visibility:'visible'}))},
+     {entity_id:'fixture-region',label:'FAKE_REGION',kind:'region',identity_status:'unknown',description:'UNKNOWN_FIXTURE',views:[]}
+   ],relations:[],unknowns:['SYNTHETIC_NOT_PHYSICAL_EPISODE']};
+ }
+ if(shape.properties?.version?.const==='astra.action_chunk_plan.v2'){
+   result={};for(const [key,value] of Object.entries(shape.properties))if('const' in value)result[key]=value.const;
+   const n=cfg.mode==='terminal'?2:result.H;
+   result.waypoints=Array.from({length:n},(_,i)=>({index:i+1,type:'move_pose',pose:result.origin_pose_world.map((v,j)=>j===0?v+.03*(i+1):v),nominal_end_offset_s:2*(i+1),preconditions:shape.properties.waypoints.items.properties.preconditions.const,prediction_dependencies:Array.from({length:i},(_,j)=>j+1),boundary_after:cfg.mode==='terminal'&&i===n-1?'precontact_handoff':'none'}));
+   result.termination={kind:cfg.mode==='terminal'?'stage_terminal':'horizon_filled',reason:'SYNTHETIC_CONTRACT_FIXTURE'};
+ }
+ const out={binding:w.binding,evidence_refs:[w.attachments[0].id,...w.binding.evidence_ids],result};
  fs.writeFileSync(output,cfg.mode==='malformed'?'{broken':JSON.stringify(out));
  console.log(JSON.stringify({type:'turn.completed',usage:{input_tokens:11,cached_input_tokens:3,output_tokens:7,output_tokens_details:{reasoning_tokens:2},fixture_only:true}}));
 },cfg.delay_ms||0);
