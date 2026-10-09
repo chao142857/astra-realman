@@ -1,0 +1,49 @@
+S1 / E0 / A H4 独立验收协议 — 2026-10-09
+
+冻结判断
+G1 = PARTIAL_PASS_STATE_CONSISTENCY_ONLY。旧61mm级长尾、DA3 FAIL_STOP、SAM/Visual Hull失败均不改。G1已提供单场景相机运动下当前空间状态稳定的初步证据；其边缘重投影失败继续归档，不再作为所有perception或planning shadow的统一先决条件。
+本协议只预注册一场景的语义与规划审查；不构成性能比较，不把多对象/多视角/多帧当独立episode。不增加H/K组合、训练或native subagent并发。
+
+三个独立授权与预算
+S1_CAPTURE_ONLY：1新SAPIEN episode，保留seed2原场景与原初始化；添加原协议预定两实体；固定120 settle steps；1个新的公开三路RGB-D bundle；0研究Owner动作提交；总墙钟<=120秒，首次失败停，无换位/重拍/重试。初始化可能移动机械臂，沿用原generic empty-hand过程，墙钟计入预算。初始backend内部public_start采集留在private，不作为S1额外公开输入。模型/硬件/训练均0。
+E0_ONLY：仅在实际像素覆盖审查后，另申请真实Astra semantic_e0一次，timeout<=90秒，无自动重试；A=0，新物理episode=0。真实usage与raw缺失项记UNKNOWN，不能补造。该角色请求不是native subagent并发验收。
+A_H4_SHADOW_ONLY：仅在真实E0及W0证据审查后，另申请真实A一次，timeout<=90秒；H=4，m=1，K_attempted/submitted/completed=0；E=0，物理episode=0，hardware=0。不调用Supervisor.load/from_broker/step或Owner execute/commit。
+一次授权不涵盖另外两项；目前三项均未授权。准备/单元测试不花这些预算。
+
+S1采集与输入准备
+CAPTURE_PROTOCOL.json沿用原布局：原红物体/绿色区域不变，在[.48,-.06,.025]添加同材质红方块，在[.48,.10,.025]添加蓝方块，边长均50mm。坐标/内部setup名仅在private generator，严禁当目标坐标、E0标签、RGB mask或线上关联。新增物体只在初始化后一次性加入，固定settle后采集，没有中途移动、forces或修改原接触参数。
+仍用原Owner与RGBDObservationBackend；采集结束立即close，不让物理场景在E0等待期间继续演化。原IK/路径碰撞/STOP保留。新增actors未加入原mplib规划世界，不能声明该场景已获运动资格；采集后不执行路径。
+公开bundle逐项保存RGB/depth/validity文件hash，m与optical-z单位，K/实测T/FK，观测ID/episode/epoch/原时间，same-render对齐与同步。private scoring actor poses不在public bundle，不传模型。先封存public输入，E0输出/W0再封存后才独立评分。
+
+实际RGB覆盖检查（授权采集后才能填写）
+目前每对象每相机像素数、遮挡和固定图相对左右关系均UNKNOWN，不从私有布局推算或用旧单红方块图代替S1。
+采集后先目检assembly/fixed/wrist原图，在查看E0回答前建立RGB-only参考实例和像素mask。annotation.source=INDEPENDENT_CURRENT_RGB_ANNOTATION_NOT_MODEL_INPUT，保留image hash、可见性和跨视角参考身份UNKNOWN；无GT segmentation/坐标生成参考mask。
+每个预期红/红/蓝实例报告三视角RGB支持数、有效前景深度数、bbox、遮挡/出画；每实例至少2视角>=12有效前景像素；fixed中两红实例可区分。审计工具以fixed红mask的x范围分离作为保守自动充分条件，交叠情况返回DATA_INSUFFICIENT，不事后改阈值、重排场景或自动申请重拍。
+参考歧义保留UNKNOWN，不能把不确定身份链接计为语义正确。RGB参考annotation仅供独立评分，绝不用于E0 prompt或W0 Build。线上mask必须来自真实E0 bbox + RGB-D bridge。
+若覆盖不够，停止在DATA_INSUFFICIENT并报告采集缺口，不消耗E0。应报告所有三路和所有实体，包括0支持视角。
+
+Perception eligibility 与 E0 acceptance
+Perception eligibility：bundle来源/哈希/像素/同步合同通过，实际覆盖达到原门槛，任务描述固定且不含GT；这是“可以花一次E0观察”的条件，不要求既有W0、task_usable或G1尾部修复。
+E0只读取三路原始全RGB + 公开K/T/轴/时间 + 任务。WorldSnapshot=null，evidence_ids=[]，不读depth及其路径/可视化、FK/机器人反馈、私有布局、参考mask、评分、对象GT。WorldHead独立读取相同冻结观测的RGB-D。
+任务：区分fixed图两红方块，并在跨视角证据支持时选择fixed图中左侧红方块作为T1粗接近目标；泛称红方块有歧义，必须记录。不能以红颜色或类别相同当跨视角身份证据。
+E0必须来自原Broker真实MODEL_RAW，保存exact request/attachments/schema/wire/raw/hash/evidence_refs/usage。schema成功只是解析成功。逐实体独立记录可见实例遗漏、幻觉、拆分、合并、跨视角矛盾、bbox坐标与实际支持、目标消歧、合理unknown与不必要unknown。不能用工程答案补回E0。
+bbox检验：只引用该冻结附件，归一化坐标合法，bbox在当前RGB支持相应参考实例；记录像素覆盖/背景混入/IoU作为描述值，不在看到回答后增设最有利阈值。在线bridge只用真实E0 bbox，唯一深度连通分量可接受；多个分量、未知身份、partial、出界/截断、跨实例竞争都保留unknown。bbox不等于平面region mask，region可合理unknown。
+跨视角验收：所有模型宣称支持的实例链接逐条对照独立RGB参考；明确矛盾判FAIL，参考自身无法确认则UNKNOWN。不得因为融合位置接近就证明语义链接正确。目标不唯一/跨视角身份无充分证据时task_target_id=null或unknown，允许E0合理拒绝，但不进入H4。
+
+W0与planning-shadow eligibility（不是physical admission）
+使用真实E0 evidence ID调用原WorldHead.build_rgbd_from_semantic。所有实例保留原身份假设/来源/图引用/当前深度支持/时间/不确定性/unknown。普通基线可共享同一RGB-D和mask转换。G1旧world或diagnostic provenance不能代替此W0。
+目标特定的planning eligibility需独立记录：真实MODEL_RAW语义与当前输入匹配；经RGB-only语义审查的目标唯一；目标>=2当前有效视角，每视角>=12点、depth fraction>=0.4；无mask竞争、无跨视角身份矛盾；当前有限coarse bounds，沿用spread<=0.3m/view-center disagreement<=0.06m及当前measured_kind；实际FK可用、world/epoch/read_versions/源哈希一致。配置采用RGBD_CONFIG.json，不从GT拟合或根据得分调参。
+以上只是允许生成有明确不确定性的粗计划进行审查，不承诺规划可靠。public source/语义链接/目标当前几何存在冲突，或任务所需目标仍unknown，则BLOCKED。非目标region unknown不必阻断T1 shadow，但保留在W0；其缺失不能被当作空闲空间。
+几何独立评分继续报告20mm中心/10mm表面p95诊断及所有raw重投影尾部。GT只评分，不决定在线target/pose/校正或写task_usable。既有G1失败不是新W0正确性的保证，也不是新semantic shadow的一刀切否决。
+物理admission仍走原require_task_usable、TaskEvidenceAdapter、Owner来源/epoch、IK、路径碰撞、STOP与identity verifier。本轮不修改task_usable，当前多对象物理身份验证缺口保留。允许shadow不意味着允许任何动作提交。
+
+H4独立shadow协议与代码资格
+输入：compact W0、原真实E0来源、同一冻结episode/epoch的实测机器人FK/状态与合法RGB；原捕获时间不能更新成“现在”。只有推理deadline是新的，不声称存档状态仍可执行。JSON上下文<=128KiB，超限拒绝而非静默截断；三路RGB默认全部，不同时引入view-selection自变量。
+输出：原ActionChunkPlan v2，H=4、m=1，四步或合理stage_terminal。每步move_pose，20–50mm粗平移/<=0.15rad，2s仅nominal时间；短终止步按原合同；原origin/task.id/revision/stage/read_versions/前提/预测prefix/evidence_refs const绑定。无精细抓取/夹爪/noop padding。
+验收包括raw与parsed一致、schema+chunk_plan.validate、计划源和版本、H_requested/H_planned、终止理由、动作前提与未知几何处理；完整调用墙钟、usage_raw、输出丢失/超时。K固定0，安全/IK/碰撞可执行性记NOT_TESTED，不能把未执行计划算成功率。
+当前冻结Broker action和integration.action_request仍是execution-intent入口，会要求task_usable；本轮不借用semantic_e0/local_reground角色伪装A，也不临时修改world flags绕过门。
+后续真正H4调用前仍需一项窄接口验收：在原Broker增加独立action_shadow意图/角色，原MODEL_RAW/图片/证据检查原样保留，增加上述planning eligibility；返回值永久grants_execution=false且不进入action_ready/FullSlot/Owner/执行队列。Supervisor必须显式拒绝shadow来源，即使有人改task_usable；需要拒绝测试与预算核验后才能申请A。该接口当前NOT_IMPLEMENTED，不宣称已经能运行H4。无需第二套Supervisor。
+
+阶段判定
+CAPTURED仅说明拿到观测；PERCEPTION_INPUT_ELIGIBLE仅说明可提交E0；SEMANTIC_ACCEPTED、W0_TARGET_PLANNING_ELIGIBLE、H4_SHADOW_SCHEMA/REASONING_REVIEW分别报告。UNKNOWN/FAIL按原样保留，不将某层成功上升为完整任务或执行成功。
+本轮仅完成源码冻结、采集准备、输入审计工具和协议，不启动新的capture/model，也不自动扩样。

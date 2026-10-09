@@ -1,0 +1,20 @@
+Preparation only (default; no model/SAPIEN import or episode):
+cd /home/alex/astra-realman_ws/astra-realman-research-adapters-v1-20261009
+python3 -B astra_realman_harness/scripts/prepare_s1_capture.py
+
+Offline preparation tests (Fake/archived input only, no capture):
+cd astra_realman_harness/tests
+PYTHONPATH=.. /home/alex/astra/.venv/bin/python -B -m unittest test_s1_preparation -v
+
+FUTURE S1_CAPTURE_ONLY command — NOT AUTHORIZED THIS TURN:
+After explicit user approval, save a copy of CAPTURE_AUTHORIZATION_TEMPLATE.json with only granted=true. Preserve scope/budget/protocol hash. This record documents that approval; editing a flag does not itself authorize execution.
+/home/alex/astra/.venv/bin/python -B /home/alex/astra-realman_ws/astra-realman-research-adapters-v1-20261009/astra_realman_harness/scripts/prepare_s1_capture.py --run-authorized --approval /home/alex/astra-realman_ws/semantic-s1-shadow-prep-20261009/S1_CAPTURE_AUTHORIZATION.json --assets /home/alex/astra-realman_ws/astra-sim-delivery-20261008/ASTRA_SIM_INCREMENT_20261008_v1/evidence/assets --output /home/alex/astra-realman_ws/semantic-s1-capture-20261009
+The output directory must not exist. One-shot claim is never removed or reused. Stop on first failure; no automatic rerun. This capture closes the Owner and never calls a model.
+
+After a future authorized capture, inspect the three saved PNGs. Prepare an RGB-only reference annotation before reading any E0 answer. Use platform_v1.research.s1_input_audit.coverage on PublicStore and that annotation; it reads real RGB-D, not simulator state. Empty/missing support stays unknown, failed coverage means DATA_INSUFFICIENT. The annotation never enters model input or online WorldHead Build.
+
+E0 preparation API (does not submit):
+platform_v1.research.s1_input_audit.perception_bundle(store, observation_id, E0_PROTOCOL.request_instruction)
+Inspect its actual image hashes, frozen public calibration and task, then request separate E0_ONLY authorization. There is no authorized E0 command in this delivery.
+
+H4: protocol prepared, dedicated non-executable Broker shadow intent not yet implemented. Existing action/lwh_action still checks task_usable. Do not manually change that flag, relabel source, use local_reground as A, or call Supervisor/Owner to make shadow work. After real E0/W0 review, implement and offline-verify that narrow intent before requesting A_H4_SHADOW_ONLY. No model calls are enabled by these documents.

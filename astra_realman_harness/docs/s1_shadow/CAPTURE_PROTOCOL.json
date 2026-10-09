@@ -1,0 +1,65 @@
+{
+  "version": "astra.s1_capture.v1",
+  "source_protocol_sha256": "98480f20f4d3ee4189285834a699c5bea457851fe71ae33eda9ca2a8ab421b9f",
+  "status": "PREPARED_NOT_AUTHORIZED_NOT_CAPTURED",
+  "seed": 2,
+  "budget": {
+    "max_new_SAPIEN_episodes": 1,
+    "max_public_RGBD_bundles": 1,
+    "max_research_owner_action_submissions": 0,
+    "initialization": "original generic empty-hand preparation may move the arm; separately logged, not counted as a research action",
+    "max_settle_steps": 120,
+    "max_wall_s": 120,
+    "automatic_retries": 0
+  },
+  "scene": {
+    "existing_seed": 2,
+    "retain_original_object_and_region": true,
+    "additional_instances": [
+      {
+        "setup_name": "red_distractor",
+        "kind": "rigid_cuboid",
+        "side_m": 0.05,
+        "initial_center_world_m": [
+          0.48,
+          -0.06,
+          0.025
+        ],
+        "appearance": "same red material as original task cube",
+        "render_rgb": [
+          0.8,
+          0.03,
+          0.02
+        ]
+      },
+      {
+        "setup_name": "blue_distractor",
+        "kind": "rigid_cuboid",
+        "side_m": 0.05,
+        "initial_center_world_m": [
+          0.48,
+          0.1,
+          0.025
+        ],
+        "appearance": "blue",
+        "render_rgb": [
+          0.05,
+          0.15,
+          0.8
+        ]
+      }
+    ],
+    "boundary": "setup names/poses are private generator data, never E0 or WorldHead inputs; add only for separate capture scene; no mid-episode repositioning or changes to original material/contact/control parameters",
+    "lifecycle": "capture-only setup after original initialization, before a fixed 120-step settling interval and one RGB-D capture; no subsequent path execution; this scene is NOT motion-qualified until original planner rebuild/registration is separately checked"
+  },
+  "public_output": "one frozen public RGB-D/K/T/FK bundle after settling; no private scene names/poses/masks in E0 or WorldHead inputs",
+  "coverage_gate": "two similar red rigid instances plus one distinct object, each with >=12 observable valid foreground-depth pixels in >=2 views; two red bboxes distinguishable in fixed image. Audit actual RGB/pixels after the single capture, no GT-derived boxes. If missing coverage, DATA_INSUFFICIENT, no rearrange/retry or call.",
+  "model_calls": 0,
+  "hardware": 0,
+  "training": 0,
+  "owner_submit_calls": 0,
+  "after_capture": "close Owner; audit saved RGB only; no live scene while awaiting E0",
+  "motion_qualification": "NOT_ESTABLISHED; added actors not registered for future planned motion; no motion allowed after setup",
+  "private_scoring": "separate private final actor poses and hashes, never in model bundle",
+  "assets_manifest_sha256": "a29893c77963942516137eac9f9e5e3690026e374807dc9852220fddca861a43"
+}

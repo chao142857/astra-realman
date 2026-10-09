@@ -1,0 +1,32 @@
+{
+  "id": "A1_real_H4_shadow_v2",
+  "status": "PROTOCOL_ONLY_NOT_AUTHORIZED_ENTRY_NOT_IMPLEMENTED",
+  "G1_reprojection_gate": false,
+  "requires": [
+    "separate authorized S1 capture and actual RGB coverage",
+    "real E0 MODEL_RAW semantic acceptance",
+    "target-specific public-evidence W0 planning eligibility",
+    "dedicated non-executable Broker shadow intent implemented and tested without weakening source checks",
+    "separate A_H4_SHADOW_ONLY authorization"
+  ],
+  "request_budget": {
+    "Astra_A": 1,
+    "timeout_s": 90,
+    "automatic_retries": 0,
+    "E0": 0,
+    "SAPIEN": 0,
+    "hardware": 0
+  },
+  "plan": {
+    "version": "astra.action_chunk_plan.v2",
+    "H": 4,
+    "m": 1,
+    "K_attempted": 0,
+    "K_submitted": 0,
+    "K_completed": 0,
+    "stage_terminal": "allowed with evidence-supported terminal boundary, no noop padding"
+  },
+  "physical_admissibility": "NOT_GRANTED; unchanged task_usable/TaskEvidenceAdapter/Owner/IK/collision/STOP",
+  "source_and_versions": "original raw evidence, world revision, task revision, visibility vocabulary, measured calibration and archived robot state bindings unchanged",
+  "implementation_gap": "Existing action role still requires task_usable. Do not manually stamp PASS or use a different semantic role. Dedicated action_shadow entry is a later narrow adapter prerequisite."
+}

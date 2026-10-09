@@ -1,0 +1,33 @@
+{
+  "geometry": {
+    "voxel_m": 0.004,
+    "min_points_per_view": 12,
+    "min_depth_fraction": 0.4,
+    "min_views": 2,
+    "max_spread_m": 0.3,
+    "max_view_center_disagreement_m": 0.06,
+    "table_band_m": 0.005,
+    "max_background_points": 20000,
+    "max_entity_points": 2048,
+    "domain_min_m": [
+      -0.3,
+      -0.6,
+      -0.01
+    ],
+    "domain_max_m": [
+      0.9,
+      0.6,
+      0.6
+    ],
+    "movement_threshold_m": 0.02,
+    "max_point_age_s": 3.0
+  },
+  "tracker": {
+    "min_features": 3,
+    "max_fb_px": 1.5,
+    "max_lk_error": 25,
+    "appearance_score_min": 0.15,
+    "projection_support_min": 0.5,
+    "min_template_score": 0.65
+  }
+}

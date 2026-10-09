@@ -1,0 +1,69 @@
+{
+  "id": "S1_semantic_shadow_v2",
+  "status": "PREPARED_INPUT_CAPTURE_NOT_AUTHORIZED",
+  "independent_of_ego_episode": true,
+  "coverage_gate_before_spending_E0": "two similar red rigid instances plus one distinct object, each with >=12 observable valid foreground-depth pixels in >=2 views; two red bboxes distinguishable in fixed image. Audit actual RGB/pixels after the single capture, no GT-derived boxes. If missing coverage, DATA_INSUFFICIENT, no rearrange/retry or call.",
+  "E0_input": {
+    "RGB": "assembly/fixed/wrist full frozen 640x480 PNG, exact hashes, no artificial ROI",
+    "geometry": "public K, camera-to-world pose with axes/resolution, timestamps and observation ID only",
+    "excluded": [
+      "depth arrays",
+      "depth visualizations",
+      "depth metadata/file paths",
+      "point clouds",
+      "world positions of objects",
+      "GT segmentation",
+      "private scene config",
+      "scorer output",
+      "robot execution feedback",
+      "diagnostic labels"
+    ],
+    "WorldSnapshot": null,
+    "evidence_ids": []
+  },
+  "request_instruction": "Build a multi-entity semantic scene from exactly the three frozen RGB images and their public camera calibration. Describe every visible instance separately. Similar color/category does not establish cross-view identity. The future diagnostic task, conditional on supporting evidence, is to approach the red cuboid appearing on the left of the two red cuboids in the fixed-camera image, to a precontact ready pose. The phrase red cuboid alone is ambiguous; record this ambiguity in unknowns. Select task_target_id for the left one only when its pixel evidence and cross-view identity are supported; otherwise null. Use attachment-normalized bboxes, stable IDs only for supported cross-view matches, relation evidence references, and unknown for occluded/unresolved identity. Do not infer depth, object pose, held state or hidden completion. No action is requested. Return astra.semantic_scene.v2 with real image evidence refs.",
+  "response_schema": "existing astra.semantic_scene.v2, saved as E0_OUTPUT_SCHEMA.json",
+  "mask_bridge": {
+    "status": "IMPLEMENTED_OFFLINE_TESTED_NOT_REAL_E0_ACCEPTED",
+    "method": "per actual E0 bbox, valid RGB-D foreground components above public table band; 4-neighbor depth connectivity. Only a unique component is accepted; competition/occlusion/clipping yields unknown. No diagnostic color-ID mapping, GT masks or human perfect ROI.",
+    "parameters": {
+      "min_points": 12,
+      "public_table_band_m": 0.005,
+      "adjacent_3D_distance_max_m": 0.01,
+      "voxel_m": 0.004
+    },
+    "planar_region": "unknown unless current RGB pixel support is independently available; bbox alone is not a planar region mask",
+    "baselines": "identical sensor and mask construction access for B0-B3"
+  },
+  "fusion": "existing WorldHead.build_rgbd with actual Broker MODEL_RAW evidence ID, exact attachment/hash/prompt/observation bindings and measured instance masks; no old DA3 fuse RPC",
+  "scoring": {
+    "unit": "one scene, not independent images/objects as trials",
+    "entity_coverage": "report every visible annotated entity, missed entities, hallucinations, splits/merges; no accuracy claim from JSON success",
+    "pixel_evidence": "all valid referenced attachments, box bounds and current foreground support; independent RGB-only annotation prepared before reading E0 answer",
+    "cross_view": "all supported identity links correct relative to independent image annotation; contradictory links fail, ambiguous annotation stays UNKNOWN",
+    "geometry": "20mm center / 10mm surface-p95 remain independent score metrics after prediction seal; never GT fit or online eligibility flags; raw reprojection tails retain all failures",
+    "ambiguity": "generic red-object instruction acknowledged ambiguous; relational left-in-fixed target only selected if unique and evidence bound",
+    "acceptance": "semantic output / geometry fusion / task usability reported separately; semantic-only success grants no motion and no full-task claim",
+    "eligibility": "perception input eligibility, semantic acceptance, target-specific W0 planning-shadow eligibility and physical admissibility are distinct records; unknown is allowed and reported"
+  },
+  "calls": {
+    "E0_max": 1,
+    "A": 0,
+    "SAM": 0,
+    "DA3": 0,
+    "training": 0,
+    "hardware": 0,
+    "timeout_s": 90,
+    "automatic_retries": 0,
+    "current_calls": 0
+  },
+  "prerequisites": [
+    "separate one-shot S1_CAPTURE_ONLY authorization",
+    "actual RGB per-instance coverage reviewed and sealed before E0 output",
+    "separate E0_ONLY authorization with concrete input/request hashes",
+    "real semantic request keeps original Broker MODEL_RAW provenance and all image bindings"
+  ],
+  "supersedes_only": "readiness coupling to G1 reprojection, mask-bridge implementation status; original scene/budgets preserved",
+  "G1_prerequisite": "G1 acknowledged PARTIAL_PASS_STATE_CONSISTENCY_ONLY; 61mm-class tail remains archived, not a blanket semantic shadow prerequisite",
+  "capture_protocol_reference": "CAPTURE_PROTOCOL.json; private scene config excluded from prompt"
+}
