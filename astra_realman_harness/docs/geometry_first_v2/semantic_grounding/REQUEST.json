@@ -1,0 +1,217 @@
+{
+  "backend": "existing_codex_infer",
+  "role": "semantic_grounding",
+  "world_id": "w-3df8e1e92b3da9c0a1f214d4e223ed615a021ad04e7d6f6d414277c91b57a4c6",
+  "evidence_ids": [],
+  "images": [
+    {
+      "observation_id": "rm65:0002",
+      "camera": "assembly",
+      "roi": null
+    },
+    {
+      "observation_id": "rm65:0002",
+      "camera": "fixed",
+      "roi": null
+    },
+    {
+      "observation_id": "rm65:0002",
+      "camera": "wrist",
+      "roi": null
+    }
+  ],
+  "instruction": "Ground the supplied unclassified geometry candidates using these RGB images and the task. Return one record per geometry ID, including robot/unknown dispositions. IDs are spatial hypotheses, not known objects. Do not repeat XYZ or runtime metadata. Bind semantics/attributes and task reference to existing geometry IDs; request segmentation/reassociation or a new planar region if needed. Preserve unknown and do not invent hidden identities. Task: Approach the red cuboid appearing on the left of the two red cuboids in the fixed-camera image to a precontact ready pose, without grasp/contact. Red cuboid alone is ambiguous.",
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "version": {
+        "type": "string",
+        "const": "astra.semantic_grounding.v1"
+      },
+      "objects": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "geometry_instance_id": {
+              "type": "string",
+              "enum": [
+                "object_001",
+                "object_002",
+                "object_003",
+                "object_004",
+                "object_005",
+                "object_006"
+              ]
+            },
+            "category": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "attributes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "maxItems": 16
+            },
+            "disposition": {
+              "type": "string",
+              "enum": [
+                "object",
+                "robot",
+                "region",
+                "unknown"
+              ]
+            },
+            "semantic_status": {
+              "type": "string",
+              "enum": [
+                "hypothesis",
+                "unknown"
+              ]
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "geometry_instance_id",
+            "category",
+            "attributes",
+            "disposition",
+            "semantic_status",
+            "evidence_refs"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 6,
+        "maxItems": 6
+      },
+      "task_target_geometry_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "object_001",
+          "object_002",
+          "object_003",
+          "object_004",
+          "object_005",
+          "object_006",
+          null
+        ]
+      },
+      "target_status": {
+        "type": "string",
+        "enum": [
+          "hypothesis",
+          "ambiguous",
+          "unknown"
+        ]
+      },
+      "requests": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "segmentation",
+                "reassociation",
+                "new_planar_region"
+              ]
+            },
+            "geometry_instance_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "object_001",
+                  "object_002",
+                  "object_003",
+                  "object_004",
+                  "object_005",
+                  "object_006"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "camera": {
+              "type": "string",
+              "enum": [
+                "assembly",
+                "fixed",
+                "wrist"
+              ]
+            },
+            "bbox": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "kind",
+            "geometry_instance_ids",
+            "camera",
+            "bbox",
+            "reason",
+            "evidence_refs"
+          ],
+          "additionalProperties": false
+        },
+        "maxItems": 16
+      },
+      "unknowns": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "required": [
+      "version",
+      "objects",
+      "task_target_geometry_id",
+      "target_status",
+      "requests",
+      "unknowns"
+    ],
+    "additionalProperties": false
+  },
+  "timeout_s": 90
+}

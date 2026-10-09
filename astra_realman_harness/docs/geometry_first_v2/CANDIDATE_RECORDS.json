@@ -1,0 +1,914 @@
+{
+  "world_id": "w-3df8e1e92b3da9c0a1f214d4e223ed615a021ad04e7d6f6d414277c91b57a4c6",
+  "world_revision": 1,
+  "binding": {
+    "observation_ids": [
+      "rm65:0002"
+    ],
+    "evidence_ids": [],
+    "execution_epoch": 0,
+    "world_revision": 0,
+    "image_sha256": {
+      "assembly": "16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+      "fixed": "15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+      "wrist": "26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385"
+    }
+  },
+  "read_versions": {
+    "calibration/4ac90858edb1c73a5e43c61a1cf6d2be38275f64f9a1fd3f39063825c60f9f80": 1,
+    "geometry_first/f690044978b734b850e36caeeda9aaa0bc5eaaa1cb8da58f8c941ec28486f9bb": 1,
+    "visibility/observed_support_v1": 1
+  },
+  "calibration": {
+    "assembly": {
+      "pose_world_xyz_wxyz": [
+        1.0,
+        -0.8999999761581421,
+        0.800000011920929,
+        0.40312397480010986,
+        -0.16225633025169373,
+        0.07286381721496582,
+        0.8976941704750061
+      ],
+      "intrinsic": [
+        [
+          514.681640625,
+          0.0,
+          320.0
+        ],
+        [
+          0.0,
+          514.681640625,
+          240.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "axes": "SAPIEN +x forward,+y left,+z up"
+    },
+    "fixed": {
+      "pose_world_xyz_wxyz": [
+        0.75,
+        -0.699999988079071,
+        0.3799999952316284,
+        0.4989025890827179,
+        -0.09480224549770355,
+        0.05501587688922882,
+        0.8596987724304199
+      ],
+      "intrinsic": [
+        [
+          514.681640625,
+          0.0,
+          320.0
+        ],
+        [
+          0.0,
+          514.681640625,
+          240.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "axes": "SAPIEN +x forward,+y left,+z up"
+    },
+    "wrist": {
+      "pose_world_xyz_wxyz": [
+        0.30003079771995544,
+        0.09001719951629639,
+        0.2984749376773834,
+        -0.3570610284805298,
+        0.6104530692100525,
+        -0.6103066205978394,
+        -0.35690391063690186
+      ],
+      "intrinsic": [
+        [
+          514.681640625,
+          0.0,
+          320.0
+        ],
+        [
+          0.0,
+          514.681640625,
+          240.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "axes": "SAPIEN +x forward,+y left,+z up"
+    }
+  },
+  "captured_monotonic": 117802.332470946,
+  "geometry_quality": {
+    "numeric_valid": "pass",
+    "self_consistent": "unknown",
+    "task_usable": "unknown",
+    "reason": [
+      "TASK_SEMANTICS_AND_PRECONTACT_CLEARANCE_NOT_YET_ACCEPTED"
+    ],
+    "observation_id": "rm65:0002",
+    "grants_execution": false,
+    "table_current_support_points": 15629,
+    "plane_check_is_filter_not_independent_score": true
+  },
+  "entities": {
+    "object_001": {
+      "geometry_instance_id": "object_001",
+      "status": "unknown",
+      "candidate_type": "robot_linked_surface",
+      "robot_exclusion": "FK_SEED_OVERLAP",
+      "point_world_m": null,
+      "bounds_world_m": null,
+      "coarse_observed_bounds_world_m": [
+        [
+          0.22688619407495694,
+          -0.009852308908099293,
+          0.1433400973211227
+        ],
+        [
+          0.27155216908871893,
+          0.011656433513750517,
+          0.2342208138566438
+        ]
+      ],
+      "visibility": {
+        "assembly": "visible_RGB_support",
+        "fixed": "visible_RGB_support",
+        "wrist": "visible_RGB_support"
+      },
+      "measurement_kind": "unknown",
+      "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+      "current_evidence": [
+        {
+          "camera": "assembly",
+          "current_points": 176,
+          "pixels": 248,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "6cc39ad730e3ad2bcca161b1c27476f939e3fdd0a9564fc6018a7d7307b4fb0d",
+          "RGB_source_sha256": "16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+          "validity_sha256": "6ea025a4277cb780fe54503aaff7ea04d764e5f9a801a6652d7ae757c9f02a7e",
+          "calibration_sha256": "d639ec6830b19b23acd9cf7e3a20f0042a71b047f23d56686c915789e28fe5d9",
+          "sensor_frame_id": "rm65:0002/assembly"
+        },
+        {
+          "camera": "fixed",
+          "current_points": 255,
+          "pixels": 711,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "19bef91a9d698589ce77bb15d829994c84612fe77cdf437f6a2325895ed88890",
+          "RGB_source_sha256": "15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+          "validity_sha256": "f5fb25a4c707f49b711ee98f9a74e4f6eb39919cb2884c771038859d57fc58d5",
+          "calibration_sha256": "1ea68b7d9241e6932f9f7056f37b309191936395d1097add9ddae2259761fb15",
+          "sensor_frame_id": "rm65:0002/fixed"
+        },
+        {
+          "camera": "wrist",
+          "current_points": 310,
+          "pixels": 23454,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "278d522c16c4ea225b4811e5da717059e91b4f9daa5bd62aeee7eb8e723b0e1d",
+          "RGB_source_sha256": "26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385",
+          "validity_sha256": "96accbb2c9def382b2ac007b997f32a1b481f666bb68c3e6b51aa44dce0edd02",
+          "calibration_sha256": "9486956ca9bbb2264d443f87ea52d1e6e5d3c0624d488e52377e63c08927025c",
+          "sensor_frame_id": "rm65:0002/wrist"
+        }
+      ],
+      "association_evidence": [
+        {
+          "cameras": [
+            "assembly",
+            "fixed"
+          ],
+          "symmetric_support_fraction": [
+            1.0,
+            0.984313725490196
+          ],
+          "nearest_p90_m": [
+            0.0024442153811968185,
+            0.004375359148263974
+          ],
+          "supported": true
+        },
+        {
+          "cameras": [
+            "assembly",
+            "wrist"
+          ],
+          "symmetric_support_fraction": [
+            0.9886363636363636,
+            0.9161290322580645
+          ],
+          "nearest_p90_m": [
+            0.007757535438425389,
+            0.011099851467497599
+          ],
+          "supported": true
+        },
+        {
+          "cameras": [
+            "fixed",
+            "wrist"
+          ],
+          "symmetric_support_fraction": [
+            0.9568627450980393,
+            0.9806451612903225
+          ],
+          "nearest_p90_m": [
+            0.0087428412575783,
+            0.00864540135736873
+          ],
+          "supported": true
+        }
+      ],
+      "association_uncertainty": {
+        "status": "multiview_surface_support",
+        "identity_guaranteed": false,
+        "touching_objects_may_merge": true,
+        "disconnected_parts_may_split": true,
+        "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+      },
+      "uncertainty_components": {
+        "surface_extent_m": [
+          0.0563218726198641,
+          0.023663129143696462,
+          0.09919988654369444
+        ],
+        "view_disagreement_m": 0.01163124905195022,
+        "sensor_calibration_error_m": null,
+        "localization_confidence_radius_m": null,
+        "voxel_m": 0.004,
+        "interpretation": "extent is not localization covariance; calibrated position uncertainty unknown"
+      },
+      "FK_seed_min_distance_m": 0.0003397174016593355
+    },
+    "object_002": {
+      "geometry_instance_id": "object_002",
+      "status": "unknown",
+      "candidate_type": "robot_linked_surface",
+      "robot_exclusion": "FK_SEED_OVERLAP",
+      "point_world_m": null,
+      "bounds_world_m": null,
+      "coarse_observed_bounds_world_m": [
+        [
+          -0.012871666855298183,
+          -0.053334002210489166,
+          0.02301775001136864
+        ],
+        [
+          0.3694857058399426,
+          0.034519233341862104,
+          0.5255602911369737
+        ]
+      ],
+      "visibility": {
+        "assembly": "visible_RGB_support",
+        "fixed": "visible_RGB_support",
+        "wrist": "visible_RGB_support"
+      },
+      "measurement_kind": "unknown",
+      "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+      "current_evidence": [
+        {
+          "camera": "assembly",
+          "current_points": 2048,
+          "pixels": 11177,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "6cc39ad730e3ad2bcca161b1c27476f939e3fdd0a9564fc6018a7d7307b4fb0d",
+          "RGB_source_sha256": "16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+          "validity_sha256": "6ea025a4277cb780fe54503aaff7ea04d764e5f9a801a6652d7ae757c9f02a7e",
+          "calibration_sha256": "d639ec6830b19b23acd9cf7e3a20f0042a71b047f23d56686c915789e28fe5d9",
+          "sensor_frame_id": "rm65:0002/assembly"
+        },
+        {
+          "camera": "fixed",
+          "current_points": 2048,
+          "pixels": 25990,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "19bef91a9d698589ce77bb15d829994c84612fe77cdf437f6a2325895ed88890",
+          "RGB_source_sha256": "15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+          "validity_sha256": "f5fb25a4c707f49b711ee98f9a74e4f6eb39919cb2884c771038859d57fc58d5",
+          "calibration_sha256": "1ea68b7d9241e6932f9f7056f37b309191936395d1097add9ddae2259761fb15",
+          "sensor_frame_id": "rm65:0002/fixed"
+        },
+        {
+          "camera": "wrist",
+          "current_points": 458,
+          "pixels": 71049,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "278d522c16c4ea225b4811e5da717059e91b4f9daa5bd62aeee7eb8e723b0e1d",
+          "RGB_source_sha256": "26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385",
+          "validity_sha256": "96accbb2c9def382b2ac007b997f32a1b481f666bb68c3e6b51aa44dce0edd02",
+          "calibration_sha256": "9486956ca9bbb2264d443f87ea52d1e6e5d3c0624d488e52377e63c08927025c",
+          "sensor_frame_id": "rm65:0002/wrist"
+        }
+      ],
+      "association_evidence": [
+        {
+          "cameras": [
+            "assembly",
+            "fixed"
+          ],
+          "symmetric_support_fraction": [
+            0.9658203125,
+            0.97607421875
+          ],
+          "nearest_p90_m": [
+            0.006547450347787214,
+            0.006394740850810892
+          ],
+          "supported": true
+        },
+        {
+          "cameras": [
+            "assembly",
+            "wrist"
+          ],
+          "symmetric_support_fraction": [
+            0.037109375,
+            0.6550218340611353
+          ],
+          "nearest_p90_m": [
+            0.31752394515688404,
+            0.0400497571064789
+          ],
+          "supported": false
+        },
+        {
+          "cameras": [
+            "fixed",
+            "wrist"
+          ],
+          "symmetric_support_fraction": [
+            0.0380859375,
+            0.6572052401746725
+          ],
+          "nearest_p90_m": [
+            0.31189287241143765,
+            0.03772316689352733
+          ],
+          "supported": false
+        }
+      ],
+      "association_uncertainty": {
+        "status": "multiview_surface_support",
+        "identity_guaranteed": false,
+        "touching_objects_may_merge": true,
+        "disconnected_parts_may_split": true,
+        "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+      },
+      "uncertainty_components": {
+        "surface_extent_m": [
+          0.43603589481263155,
+          0.12172128893130518,
+          0.5401329430684143
+        ],
+        "view_disagreement_m": null,
+        "sensor_calibration_error_m": null,
+        "localization_confidence_radius_m": null,
+        "voxel_m": 0.004,
+        "interpretation": "extent is not localization covariance; calibrated position uncertainty unknown"
+      },
+      "FK_seed_min_distance_m": 0.00012641121718847924
+    },
+    "object_003": {
+      "geometry_instance_id": "object_003",
+      "status": "coarse",
+      "candidate_type": "unclassified_above_table",
+      "robot_exclusion": "NOT_EXCLUDED_NO_FULL_LINK_GEOMETRY",
+      "point_world_m": [
+        0.31511854271730644,
+        0.087146897411646,
+        0.30131078259776134
+      ],
+      "bounds_world_m": [
+        [
+          0.2860341123647342,
+          0.0770063113285174,
+          0.290457765605779
+        ],
+        [
+          0.34420297306987874,
+          0.09728748349477458,
+          0.3121637995897436
+        ]
+      ],
+      "coarse_observed_bounds_world_m": [
+        [
+          0.284133392860028,
+          0.07700570396812136,
+          0.28714193042018143
+        ],
+        [
+          0.3442027071466571,
+          0.10131397595883249,
+          0.31216764409957365
+        ]
+      ],
+      "visibility": {
+        "assembly": "visible_RGB_support",
+        "fixed": "visible_RGB_support",
+        "wrist": {
+          "status": "unknown_association",
+          "nearer_depth_fraction": 0.0,
+          "source": "current metric depth vs historical projected surface"
+        }
+      },
+      "measurement_kind": "current_depth_region",
+      "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+      "current_evidence": [
+        {
+          "camera": "assembly",
+          "current_points": 201,
+          "pixels": 319,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "6cc39ad730e3ad2bcca161b1c27476f939e3fdd0a9564fc6018a7d7307b4fb0d",
+          "RGB_source_sha256": "16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+          "validity_sha256": "6ea025a4277cb780fe54503aaff7ea04d764e5f9a801a6652d7ae757c9f02a7e",
+          "calibration_sha256": "d639ec6830b19b23acd9cf7e3a20f0042a71b047f23d56686c915789e28fe5d9",
+          "sensor_frame_id": "rm65:0002/assembly"
+        },
+        {
+          "camera": "fixed",
+          "current_points": 142,
+          "pixels": 486,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "19bef91a9d698589ce77bb15d829994c84612fe77cdf437f6a2325895ed88890",
+          "RGB_source_sha256": "15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+          "validity_sha256": "f5fb25a4c707f49b711ee98f9a74e4f6eb39919cb2884c771038859d57fc58d5",
+          "calibration_sha256": "1ea68b7d9241e6932f9f7056f37b309191936395d1097add9ddae2259761fb15",
+          "sensor_frame_id": "rm65:0002/fixed"
+        }
+      ],
+      "association_evidence": [
+        {
+          "cameras": [
+            "assembly",
+            "fixed"
+          ],
+          "symmetric_support_fraction": [
+            0.9402985074626866,
+            1.0
+          ],
+          "nearest_p90_m": [
+            0.008649147951563033,
+            0.0025265526374723835
+          ],
+          "supported": true
+        }
+      ],
+      "association_uncertainty": {
+        "status": "multiview_surface_support",
+        "identity_guaranteed": false,
+        "touching_objects_may_merge": true,
+        "disconnected_parts_may_split": true,
+        "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+      },
+      "uncertainty_components": {
+        "surface_extent_m": [
+          0.074115201132537,
+          0.024970644175114742,
+          0.025339185413079335
+        ],
+        "view_disagreement_m": 0.019814196825192313,
+        "sensor_calibration_error_m": null,
+        "localization_confidence_radius_m": null,
+        "voxel_m": 0.004,
+        "interpretation": "extent is not localization covariance; calibrated position uncertainty unknown"
+      },
+      "FK_seed_min_distance_m": 0.0865468220585969
+    },
+    "object_004": {
+      "geometry_instance_id": "object_004",
+      "status": "coarse",
+      "candidate_type": "table_supported_candidate",
+      "robot_exclusion": "NOT_EXCLUDED_NO_FULL_LINK_GEOMETRY",
+      "point_world_m": [
+        0.35947472931529223,
+        -0.06011360282030444,
+        0.028916125091119824
+      ],
+      "bounds_world_m": [
+        [
+          0.33468566349777595,
+          -0.08549343022759015,
+          0.006682179482214759
+        ],
+        [
+          0.38426379513280856,
+          -0.03473377541301873,
+          0.05115007070002489
+        ]
+      ],
+      "coarse_observed_bounds_world_m": [
+        [
+          0.3346856278184006,
+          -0.08548888265125207,
+          0.0055964375897755905
+        ],
+        [
+          0.3842573991626053,
+          -0.03473364682440167,
+          0.05113635517811387
+        ]
+      ],
+      "visibility": {
+        "assembly": "visible_RGB_support",
+        "fixed": "visible_RGB_support",
+        "wrist": "visible_RGB_support"
+      },
+      "measurement_kind": "current_depth_region",
+      "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+      "current_evidence": [
+        {
+          "camera": "assembly",
+          "current_points": 439,
+          "pixels": 716,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "6cc39ad730e3ad2bcca161b1c27476f939e3fdd0a9564fc6018a7d7307b4fb0d",
+          "RGB_source_sha256": "16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+          "validity_sha256": "6ea025a4277cb780fe54503aaff7ea04d764e5f9a801a6652d7ae757c9f02a7e",
+          "calibration_sha256": "d639ec6830b19b23acd9cf7e3a20f0042a71b047f23d56686c915789e28fe5d9",
+          "sensor_frame_id": "rm65:0002/assembly"
+        },
+        {
+          "camera": "fixed",
+          "current_points": 470,
+          "pixels": 1623,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "19bef91a9d698589ce77bb15d829994c84612fe77cdf437f6a2325895ed88890",
+          "RGB_source_sha256": "15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+          "validity_sha256": "f5fb25a4c707f49b711ee98f9a74e4f6eb39919cb2884c771038859d57fc58d5",
+          "calibration_sha256": "1ea68b7d9241e6932f9f7056f37b309191936395d1097add9ddae2259761fb15",
+          "sensor_frame_id": "rm65:0002/fixed"
+        },
+        {
+          "camera": "wrist",
+          "current_points": 433,
+          "pixels": 8499,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "278d522c16c4ea225b4811e5da717059e91b4f9daa5bd62aeee7eb8e723b0e1d",
+          "RGB_source_sha256": "26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385",
+          "validity_sha256": "96accbb2c9def382b2ac007b997f32a1b481f666bb68c3e6b51aa44dce0edd02",
+          "calibration_sha256": "9486956ca9bbb2264d443f87ea52d1e6e5d3c0624d488e52377e63c08927025c",
+          "sensor_frame_id": "rm65:0002/wrist"
+        }
+      ],
+      "association_evidence": [
+        {
+          "cameras": [
+            "assembly",
+            "fixed"
+          ],
+          "symmetric_support_fraction": [
+            1.0,
+            1.0
+          ],
+          "nearest_p90_m": [
+            0.002304369949153458,
+            0.0025581399314951584
+          ],
+          "supported": true
+        },
+        {
+          "cameras": [
+            "assembly",
+            "wrist"
+          ],
+          "symmetric_support_fraction": [
+            0.6013667425968109,
+            0.6004618937644342
+          ],
+          "nearest_p90_m": [
+            0.02867965051453781,
+            0.031204266041552537
+          ],
+          "supported": true
+        },
+        {
+          "cameras": [
+            "fixed",
+            "wrist"
+          ],
+          "symmetric_support_fraction": [
+            0.5936170212765958,
+            0.5889145496535797
+          ],
+          "nearest_p90_m": [
+            0.028536601069924224,
+            0.030817810250582677
+          ],
+          "supported": true
+        }
+      ],
+      "association_uncertainty": {
+        "status": "multiview_surface_support",
+        "identity_guaranteed": false,
+        "touching_objects_may_merge": true,
+        "disconnected_parts_may_split": true,
+        "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+      },
+      "uncertainty_components": {
+        "surface_extent_m": [
+          0.050888402459884075,
+          0.050764614772255384,
+          0.04614433557218833
+        ],
+        "view_disagreement_m": 0.025367436124193357,
+        "sensor_calibration_error_m": null,
+        "localization_confidence_radius_m": null,
+        "voxel_m": 0.004,
+        "interpretation": "extent is not localization covariance; calibrated position uncertainty unknown"
+      },
+      "FK_seed_min_distance_m": 0.10545691082427275
+    },
+    "object_005": {
+      "geometry_instance_id": "object_005",
+      "status": "coarse",
+      "candidate_type": "table_supported_candidate",
+      "robot_exclusion": "NOT_EXCLUDED_NO_FULL_LINK_GEOMETRY",
+      "point_world_m": [
+        0.479496878684598,
+        -0.06009714747202047,
+        0.028891786083047703
+      ],
+      "bounds_world_m": [
+        [
+          0.4546770972052407,
+          -0.08546132315613997,
+          0.006699630609223985
+        ],
+        [
+          0.5043166601639554,
+          -0.034732971787900975,
+          0.05108394155687142
+        ]
+      ],
+      "coarse_observed_bounds_world_m": [
+        [
+          0.45467574525031057,
+          -0.08545770900140885,
+          0.005418931987987047
+        ],
+        [
+          0.5043080240583401,
+          -0.03473288768068833,
+          0.051073373000079
+        ]
+      ],
+      "visibility": {
+        "assembly": "visible_RGB_support",
+        "fixed": "visible_RGB_support",
+        "wrist": "visible_RGB_support"
+      },
+      "measurement_kind": "current_depth_region",
+      "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+      "current_evidence": [
+        {
+          "camera": "assembly",
+          "current_points": 440,
+          "pixels": 810,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "6cc39ad730e3ad2bcca161b1c27476f939e3fdd0a9564fc6018a7d7307b4fb0d",
+          "RGB_source_sha256": "16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+          "validity_sha256": "6ea025a4277cb780fe54503aaff7ea04d764e5f9a801a6652d7ae757c9f02a7e",
+          "calibration_sha256": "d639ec6830b19b23acd9cf7e3a20f0042a71b047f23d56686c915789e28fe5d9",
+          "sensor_frame_id": "rm65:0002/assembly"
+        },
+        {
+          "camera": "fixed",
+          "current_points": 473,
+          "pixels": 1862,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "19bef91a9d698589ce77bb15d829994c84612fe77cdf437f6a2325895ed88890",
+          "RGB_source_sha256": "15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+          "validity_sha256": "f5fb25a4c707f49b711ee98f9a74e4f6eb39919cb2884c771038859d57fc58d5",
+          "calibration_sha256": "1ea68b7d9241e6932f9f7056f37b309191936395d1097add9ddae2259761fb15",
+          "sensor_frame_id": "rm65:0002/fixed"
+        },
+        {
+          "camera": "wrist",
+          "current_points": 348,
+          "pixels": 8220,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "278d522c16c4ea225b4811e5da717059e91b4f9daa5bd62aeee7eb8e723b0e1d",
+          "RGB_source_sha256": "26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385",
+          "validity_sha256": "96accbb2c9def382b2ac007b997f32a1b481f666bb68c3e6b51aa44dce0edd02",
+          "calibration_sha256": "9486956ca9bbb2264d443f87ea52d1e6e5d3c0624d488e52377e63c08927025c",
+          "sensor_frame_id": "rm65:0002/wrist"
+        }
+      ],
+      "association_evidence": [
+        {
+          "cameras": [
+            "assembly",
+            "fixed"
+          ],
+          "symmetric_support_fraction": [
+            1.0,
+            1.0
+          ],
+          "nearest_p90_m": [
+            0.0022948172014981196,
+            0.0023848784425524413
+          ],
+          "supported": true
+        },
+        {
+          "cameras": [
+            "assembly",
+            "wrist"
+          ],
+          "symmetric_support_fraction": [
+            0.44772727272727275,
+            0.5028735632183908
+          ],
+          "nearest_p90_m": [
+            0.031224953120775754,
+            0.03395171269833843
+          ],
+          "supported": true
+        },
+        {
+          "cameras": [
+            "fixed",
+            "wrist"
+          ],
+          "symmetric_support_fraction": [
+            0.4312896405919662,
+            0.49712643678160917
+          ],
+          "nearest_p90_m": [
+            0.030659083465608295,
+            0.03356228658028863
+          ],
+          "supported": true
+        }
+      ],
+      "association_uncertainty": {
+        "status": "multiview_surface_support",
+        "identity_guaranteed": false,
+        "touching_objects_may_merge": true,
+        "disconnected_parts_may_split": true,
+        "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+      },
+      "uncertainty_components": {
+        "surface_extent_m": [
+          0.05043584985092253,
+          0.050733070890327595,
+          0.04609454781968797
+        ],
+        "view_disagreement_m": 0.026409661520820592,
+        "sensor_calibration_error_m": null,
+        "localization_confidence_radius_m": null,
+        "voxel_m": 0.004,
+        "interpretation": "extent is not localization covariance; calibrated position uncertainty unknown"
+      },
+      "FK_seed_min_distance_m": 0.15269320341498627
+    },
+    "object_006": {
+      "geometry_instance_id": "object_006",
+      "status": "coarse",
+      "candidate_type": "table_supported_candidate",
+      "robot_exclusion": "NOT_EXCLUDED_NO_FULL_LINK_GEOMETRY",
+      "point_world_m": [
+        0.4808200732476583,
+        0.09626691996074135,
+        0.02934524462249373
+      ],
+      "bounds_world_m": [
+        [
+          0.4574494719757765,
+          0.07449609030066134,
+          0.00750321387479605
+        ],
+        [
+          0.5041906745195401,
+          0.11803774962082136,
+          0.05118727537019141
+        ]
+      ],
+      "coarse_observed_bounds_world_m": [
+        [
+          0.45463915354237994,
+          0.07449621545447115,
+          0.005673210618089748
+        ],
+        [
+          0.5041884655253087,
+          0.12362108766355351,
+          0.051188101930077515
+        ]
+      ],
+      "visibility": {
+        "assembly": "visible_RGB_support",
+        "fixed": "visible_RGB_support",
+        "wrist": {
+          "status": "out_of_view",
+          "source": "world reprojection"
+        }
+      },
+      "measurement_kind": "current_depth_region",
+      "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+      "current_evidence": [
+        {
+          "camera": "assembly",
+          "current_points": 420,
+          "pixels": 668,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "6cc39ad730e3ad2bcca161b1c27476f939e3fdd0a9564fc6018a7d7307b4fb0d",
+          "RGB_source_sha256": "16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+          "validity_sha256": "6ea025a4277cb780fe54503aaff7ea04d764e5f9a801a6652d7ae757c9f02a7e",
+          "calibration_sha256": "d639ec6830b19b23acd9cf7e3a20f0042a71b047f23d56686c915789e28fe5d9",
+          "sensor_frame_id": "rm65:0002/assembly"
+        },
+        {
+          "camera": "fixed",
+          "current_points": 432,
+          "pixels": 1275,
+          "observation_id": "rm65:0002",
+          "captured_monotonic": 117802.332470946,
+          "depth_sha256": "19bef91a9d698589ce77bb15d829994c84612fe77cdf437f6a2325895ed88890",
+          "RGB_source_sha256": "15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+          "validity_sha256": "f5fb25a4c707f49b711ee98f9a74e4f6eb39919cb2884c771038859d57fc58d5",
+          "calibration_sha256": "1ea68b7d9241e6932f9f7056f37b309191936395d1097add9ddae2259761fb15",
+          "sensor_frame_id": "rm65:0002/fixed"
+        }
+      ],
+      "association_evidence": [
+        {
+          "cameras": [
+            "assembly",
+            "fixed"
+          ],
+          "symmetric_support_fraction": [
+            1.0,
+            1.0
+          ],
+          "nearest_p90_m": [
+            0.0023246640922008626,
+            0.0023987526826790974
+          ],
+          "supported": true
+        }
+      ],
+      "association_uncertainty": {
+        "status": "multiview_surface_support",
+        "identity_guaranteed": false,
+        "touching_objects_may_merge": true,
+        "disconnected_parts_may_split": true,
+        "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+      },
+      "uncertainty_components": {
+        "surface_extent_m": [
+          0.050421989323155225,
+          0.05012321127831343,
+          0.04618721124798453
+        ],
+        "view_disagreement_m": 0.020224278871025764,
+        "sensor_calibration_error_m": null,
+        "localization_confidence_radius_m": null,
+        "voxel_m": 0.004,
+        "interpretation": "extent is not localization covariance; calibrated position uncertainty unknown"
+      },
+      "FK_seed_min_distance_m": 0.1649829711549984
+    }
+  },
+  "dense_surfaces": "kept in results/geometry/WORLDSTORE.json; measured surfaces capped at 2048 samples per entity, not complete volume"
+}

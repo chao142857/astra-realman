@@ -1,0 +1,28 @@
+test_roles_have_actual_distinct_images_schema_and_raw_provenance (test_research_adapters.ResearchTests) ... FAIL
+test_world_process_source_timestamps_version_and_no_private_inputs (test_research_adapters.ResearchTests) ... FAIL
+
+======================================================================
+FAIL: test_roles_have_actual_distinct_images_schema_and_raw_provenance (test_research_adapters.ResearchTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra-realman_ws/astra-realman-geometry-first-v2-20261010/astra_realman_harness/tests/test_research_adapters.py", line 37, in test_roles_have_actual_distinct_images_schema_and_raw_provenance
+    e=self.submit_wait(self.request(roi=[.1,.2,.8,.9]));self.assertEqual(e['status'],'READY',e)
+AssertionError: 'FAILED' != 'READY'
+- FAILED
++ READY
+ : {'request_id': 'broker-001', 'role': 'semantic_e0', 'status': 'FAILED', 'provenance': 'FAKE_MODEL_RAW', 'parsed': None, 'evidence_id': None, 'usage_raw': None, 'server_model': 'unknown', 'server_effort': 'unknown', 'server_internal_retries': 'unknown'}
+
+======================================================================
+FAIL: test_world_process_source_timestamps_version_and_no_private_inputs (test_research_adapters.ResearchTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra-realman_ws/astra-realman-geometry-first-v2-20261010/astra_realman_harness/tests/test_research_adapters.py", line 100, in test_world_process_source_timestamps_version_and_no_private_inputs
+    self.obs,w=initial_world(self.o);row=self.a.world.rows['world-001']
+  File "/home/alex/astra-realman_ws/astra-realman-geometry-first-v2-20261010/astra_realman_harness/tests/research_fixtures.py", line 63, in initial_world
+    row=wait_job(a.world,request['request_id']);assert row['status']=='READY',row
+AssertionError: {'request_id': 'world-001', 'status': 'FAILED', 'error': "ValueError('WORLD_WORKER_FAILED')", 'result': None, 'usage_raw': None, 'preparation_started_monotonic': 132292.832130425, 'binding': {'version': 'astra.world.public.v1', 'episode_id': '79afe970fb574899a94f3887253f75e5', 'execution_epoch': 0, 'observation_ids': ['test:0002'], 'evidence_ids': [], 'reference_world_id': None, 'world_revision': 0, 'capture_times': [132292.83170696], 'calibration_hashes': ['ca35ad56c1dcce806aeb47a14f29b1307f0a354313a9f856d993ab2679137d20']}, 'backend': 'legacy_rgb_rays_v1', 'provenance': 'PUBLIC_GEOMETRY', 'worker_sha256': '06b0c53d9828dae8d43edcfb88864ce5b24cfe9e513c2988cca4db4f68002000', 'pid': 179771, 'returned_monotonic': 132293.048698567, 'full_job_wall_s': 0.21656814200105146}
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.584s
+
+FAILED (failures=2)

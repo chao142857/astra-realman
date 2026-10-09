@@ -1,0 +1,62 @@
+Geometry-First v2 接口与离线入口
+
+现有组件复用
+- WorldHead.build_geometry_first(observation_id, config) -> PublicStore WorldSnapshot。
+- PublicStore.query_world(world_id) -> 有限尺寸紧凑视图；点云留 Store。
+- review_contracts.grounding_request(world, observation, task_instruction) -> semantic_grounding 请求。
+- review_contracts.shadow_request(world, observation, task, task_binding) -> action_shadow 请求。
+- Broker.prepare(request) -> 生产 wire/schema/附件准备，0 calls、0 worker；不接触认证环境。
+- Broker.submit 保留既有真实授权接入；本轮不运行它向真实模型提交。
+- ScheduleContract -> 模拟顺序、意图和误差分量日志，无 Owner/Broker/线程调用。
+
+几何 ID 是当前 world 中的几何候选标签，重建后不保证与旧编号一致；跨重建 ID 延续需独立关联。只读消息保存 world_id/world_revision/execution_epoch/read_versions 与附件证据。先冻结预测再评分。semantic_grounding 当前是初次建图合同，不是已经实现的连续语义更新接口。
+
+Semantic Grounding response envelope:
+  evidence_refs: 合法已发送 RGB 附件 ID 的非空集合
+  result:
+    version: astra.semantic_grounding.v1
+    objects: 每 geometry ID 恰一项
+      geometry_instance_id: 已绑定 enum
+      category: string|null
+      attributes: string[]
+      disposition: object|robot|region|unknown
+      semantic_status: hypothesis|unknown
+      evidence_refs: 非空合法 RGB ID
+    task_target_geometry_id: geometry ID|null
+    target_status: hypothesis|ambiguous|unknown
+    requests: segmentation|reassociation|new_planar_region
+      geometry_instance_ids, camera, bbox(nullable normalized xyxy), reason, evidence_refs
+    unknowns: string[]
+  模型不回显可信 runtime binding；Broker 保存冻结来源并在解析时查 stale。
+
+Action Shadow response envelope:
+  evidence_refs: 已发送 RGB/绑定语义 evidence ID
+  result:
+    version: astra.action_shadow.v1
+    intent: action_shadow
+    decision: planned|refused|need_more_evidence
+    plan: 完整 ActionChunkPlan v2|null
+    reason, unknowns
+    K: 0
+    grants_execution: false
+  H=4,m=1 固定在 plan 中；真实执行 K 不由模型控制。
+  stage_terminal 必须具有协议规定的有效边界和非空理由；不允许 noop padding。
+  原 provenance、世界与执行 epoch 检查保留。role/intent/source 不能变成 action。
+
+下面命令全部是离线命令；输出目录必须不存在，避免覆盖冻结结果。
+从 astra_realman_harness 工作目录运行；不得运行旧封存目录中的 once-run 脚本覆写结果。
+
+1) 定向合同测试（含真实冻结 INPUT、FAKE OUTPUT）：
+GEOMETRY_FIRST_ARCHIVE_ROOT=/home/alex/astra-realman_ws PYTHONPATH=.:tests /home/alex/astra/.venv/bin/python -B -m unittest test_geometry_first_v2 test_strict_schema test_semantic_interfaces -v
+
+2) 无 dispatch 的 Semantic 请求准备（新输出目录）：
+/home/alex/astra/.venv/bin/python -B scripts/prepare_geometry_first_review.py --role semantic_grounding --world /home/alex/astra-realman_ws/geometry-first-v2-20261010/results/geometry/WORLD.json --observation /home/alex/astra-realman_ws/semantic-s1-capture-20261009/OBSERVATION.json --public /home/alex/astra-realman_ws/semantic-s1-capture-20261009/public --output /tmp/geometry-first-semantic-preparation-review
+
+3) 无 dispatch 的旧部分 W0 Shadow 请求准备（新输出目录）：
+/home/alex/astra/.venv/bin/python -B scripts/prepare_geometry_first_review.py --role action_shadow --world /home/alex/astra-realman_ws/s1-real-e0-rgbd-grounding-20261009/results/association/WORLD.json --observation /home/alex/astra-realman_ws/semantic-s1-capture-20261009/OBSERVATION.json --public /home/alex/astra-realman_ws/semantic-s1-capture-20261009/public --evidence /home/alex/astra-realman_ws/semantic-s1-e0-authorized-03-20261009/e-28594800cb489d6cbccf59820373cdb010e6d3aa5f72b164ed0122238537ea93.json --output /tmp/geometry-first-action-shadow-preparation-review
+
+Build 的最小程序入口是 scripts/run_geometry_first_offline.py --input INPUT --public PUBLIC --output NEW_OUTPUT；必须在只读公开输入、无网络/凭据/私有场景的 bwrap 中运行。完整实际隔离命令已封存于外部 results/geometry/COMMAND.json；预测快照在 prediction_source/。本批 S1 参数已固定，禁止为了分数反复生成替代结果。
+
+评分入口 scripts/score_geometry_first_offline.py --run SEALED_RUN --truth PRIVATE_TRUTH 仅在 PREDICTION_SEAL 验证之后读取 GT，评分输出以 exclusive create 写入，不允许覆盖旧 score。评分不是模型输入。
+
+本交付没有真实模型自动启动命令。将授权模板 granted 改为 true 本身不会发送请求；需要用户独立授权后，用新一次性 claim 和已验证正式启动器建立封存 launch record。不得复用准备请求 ID、旧模型 attempt 或同时消费 E/A 两项授权。

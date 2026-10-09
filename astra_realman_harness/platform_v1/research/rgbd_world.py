@@ -274,3 +274,128 @@ def update(reference,previous,current,images,depths,read_images,completed_at,fee
         'fk_camera_check':fk,'execution_feedback':clone(feedback),'history_semantics':'current RGB-D surfaces; stale geometry explicitly historical',
         'rebuild_needed':any(e['status']=='unknown' for e in entities.values()),'rebuild_dispatches_model':False,
         'resource_metrics':{'update_compute_s':time.monotonic()-start,'Astra_calls':0,'DA3_calls':0,'SAM_calls':0}}
+
+
+def build_geometry_first(observation, depths, config, plane):
+    """Geometry-first initialization inside the existing RGB-D surfel estimator.
+
+    No RGB appearance, semantic input, actor data, size/category prior or model.
+    Connected measured surfaces are candidates, never certified object identities.
+    """
+    from scipy.spatial import cKDTree
+    from scipy.sparse import coo_matrix
+    from scipy.sparse.csgraph import connected_components
+    from .contracts import digest
+    start = time.monotonic(); cfg = config['geometry']; discovery = config['discovery']
+    ext, k = calibrated_cameras(observation)
+    normal = np.asarray(plane['normal'], float)
+    if normal.shape != (3,) or not np.isfinite(normal).all() or not np.isclose(np.linalg.norm(normal), 1):
+        raise ValueError('PUBLIC_UNIT_PLANE_REQUIRED')
+    if not np.isfinite(plane['offset']): raise ValueError('PUBLIC_UNIT_PLANE_REQUIRED')
+    pixel_rows = {}; clouds = []; slices = {}; cursor = 0
+    for ci, camera in enumerate(CAMERAS):
+        depth, valid, meta = depths[camera]
+        if observation['calibration'][camera]['axes'] != 'SAPIEN +x forward,+y left,+z up': raise ValueError('CAMERA_AXES')
+        v, u = np.where(valid & np.isfinite(depth) & (depth > 0))
+        rays = np.column_stack([u, v, np.ones(len(u))]) @ np.linalg.inv(k[ci]).T
+        pose = np.linalg.inv(ext[ci]); points = (rays * depth[v, u, None]) @ pose[:3, :3].T + pose[:3, 3]
+        good = (np.isfinite(points).all(axis=1) & np.all((points >= cfg['domain_min_m']) & (points <= cfg['domain_max_m']), axis=1)
+                & (points @ normal + plane['offset'] > cfg['table_band_m']))
+        points = points[good]; pixel_rows[camera] = (v[good], u[good])
+        clouds.append(points); slices[camera] = slice(cursor, cursor + len(points)); cursor += len(points)
+    points = np.concatenate(clouds); backprojected = time.monotonic()
+    entities = {}; association = []; rejected_small = 0
+    if len(points):
+        cells, first, inverse = np.unique(np.floor(points / cfg['voxel_m']).astype(np.int32), axis=0, return_index=True, return_inverse=True)
+        if len(cells) > discovery['max_scene_voxels']: raise ValueError('GEOMETRY_FIRST_SCENE_RESOURCE_CAP')
+        representatives = points[first]
+        pairs = cKDTree(representatives).query_pairs(discovery['connectivity_m'], output_type='ndarray')
+        graph = coo_matrix((np.ones(len(pairs), np.uint8), (pairs[:, 0], pairs[:, 1])), shape=(len(cells), len(cells))).tocsr()
+        total, labels = connected_components(graph, directed=False)
+        sizes = np.bincount(labels, minlength=total)
+        accepted = np.flatnonzero(sizes >= discovery['min_component_voxels'])
+        rejected_small = int(np.sum(sizes < discovery['min_component_voxels']))
+        point_labels = labels[inverse]
+        # Deterministic IDs are geometric labels scoped to this world, not semantics.
+        accepted = sorted(accepted, key=lambda label: tuple(np.median(points[point_labels == label], axis=0)))
+    else:
+        accepted = []; representatives = np.empty((0, 3)); point_labels = np.empty(0, int)
+    clustered = time.monotonic()
+    seeds = [observation['state']['flange_pose_world'][:3], *observation['state']['actual_pad_centers_world']]
+    for number, label in enumerate(accepted, 1):
+        identity = 'object_%03d' % number
+        views = []; per_camera = {}; ev = []
+        all_points = points[point_labels == label]
+        for ci, camera in enumerate(CAMERAS):
+            selection = point_labels[slices[camera]] == label
+            if int(selection.sum()) < cfg['min_points_per_view']: continue
+            vv, uu = pixel_rows[camera]; mask = np.zeros(depths[camera][0].shape, np.uint8)
+            mask[vv[selection], uu[selection]] = 1
+            p = voxelize(clouds[ci][selection], cfg['voxel_m'], cfg['max_entity_points'])
+            per_camera[camera] = p; meta = depths[camera][2]
+            view = {'camera': camera, 'bbox': bbox(mask), 'mask': encode_mask(mask),
+                    'observation_id': observation['observation_id'], 'producer': 'CURRENT_DEPTH_CONNECTED_SURFACE_V2',
+                    'visibility': 'visible_support', 'image_sha256': meta['aligned_rgb_sha256'],
+                    'depth_sha256': meta['depth']['sha256'], 'validity_sha256': meta['validity']['sha256']}
+            views.append(view)
+            ev.append({'camera': camera, 'current_points': len(p), 'pixels': int(selection.sum()),
+                       'observation_id': observation['observation_id'], 'captured_monotonic': observation['captured_monotonic'],
+                       'depth_sha256': meta['depth']['sha256'], 'RGB_source_sha256': meta['aligned_rgb_sha256'],
+                       'validity_sha256': meta['validity']['sha256'], 'calibration_sha256': digest(observation['calibration'][camera]),
+                       'sensor_frame_id': meta['frame_id']})
+        support_pairs = []
+        for ai, ca in enumerate(per_camera):
+            for cb in list(per_camera)[ai + 1:]:
+                da = cKDTree(per_camera[cb]).query(per_camera[ca])[0]
+                db = cKDTree(per_camera[ca]).query(per_camera[cb])[0]
+                fractions = [float(np.mean(d <= discovery['surface_agreement_m'])) for d in (da, db)]
+                support_pairs.append({'cameras': [ca, cb], 'symmetric_support_fraction': fractions,
+                    'nearest_p90_m': [float(np.quantile(d, .9)) for d in (da, db)],
+                    'supported': min(fractions) >= discovery['min_symmetric_surface_fraction']})
+        support = any(p['supported'] for p in support_pairs)
+        fk_distance = float(cKDTree(all_points).query(np.asarray(seeds))[0].min())
+        robot_related = fk_distance <= discovery['robot_FK_seed_radius_m']
+        near_plane = float(np.quantile(all_points @ normal + plane['offset'], .01)) <= discovery['table_support_band_m']
+        entity = {'entity_id': identity, 'geometry_instance_id': identity, 'label': 'unclassified measured surface', 'kind': 'object',
+                  'identity_status': 'hypothesis', 'semantic_status': 'unknown',
+                  'candidate_type': 'robot_linked_surface' if robot_related else ('table_supported_candidate' if near_plane else 'unclassified_above_table'),
+                  'objectness': 'unknown_not_semantically_verified', 'robot_exclusion': 'FK_SEED_OVERLAP' if robot_related else 'NOT_EXCLUDED_NO_FULL_LINK_GEOMETRY'}
+        measured = measure_entity(entity, views, observation, depths, cfg, ext, k)
+        if robot_related or not support:
+            measured.update(status='unknown', point_world_m=None, bounds_world_m=None, surface_cloud=[], measurement_kind='unknown',
+                reason='ROBOT_LINKED_NOT_OBJECT_IDENTITY' if robot_related else 'INSUFFICIENT_CROSS_VIEW_SURFACE_AGREEMENT')
+        # Retain every observed candidate surface, including rejected object hypotheses.
+        measured['candidate_surface_cloud'] = voxelize(all_points, cfg['voxel_m'], cfg['max_entity_points']).tolist()
+        measured['coarse_observed_bounds_world_m'] = np.quantile(all_points, [.01, .99], axis=0).tolist()
+        measured['tracking_seeds'] = clone(views)
+        measured['current_evidence'] = ev
+        measured['association_evidence'] = support_pairs
+        measured['association_uncertainty'] = {'status': 'multiview_surface_support' if support else 'unknown',
+             'identity_guaranteed': False, 'touching_objects_may_merge': True, 'disconnected_parts_may_split': True,
+             'competition_exclusion': 'disjoint global metric components, no nearest-center tie break'}
+        measured['uncertainty_components'] = {'surface_extent_m': np.ptp(all_points, axis=0).tolist(),
+             'view_disagreement_m': measured.get('view_disagreement_m'), 'sensor_calibration_error_m': None,
+             'localization_confidence_radius_m': None, 'voxel_m': cfg['voxel_m'],
+             'interpretation': 'extent is not localization covariance; calibrated position uncertainty unknown'}
+        measured['FK_seed_min_distance_m'] = fk_distance
+        for ci, camera in enumerate(CAMERAS):
+            if camera not in per_camera:
+                measured['visibility'][camera] = expected_visibility({'surface_cloud': measured['candidate_surface_cloud']}, camera, ext[ci], k[ci], depths)
+        entities[identity] = measured
+        association.append({'geometry_instance_id': identity, 'support_pairs': support_pairs, 'robot_exclusion': entity['robot_exclusion']})
+    measured_at = time.monotonic()
+    layers = scene_layers(observation, depths, entities, plane, cfg, ext, k)
+    return {'backend': 'geometry_first_rgbd_v2', 'geometry_backend': BACKEND, 'initialization': 'geometry_first_v2',
+        'observation_id': observation['observation_id'], 'captured_monotonic': observation['captured_monotonic'],
+        'robot_state': clone(observation['state']), 'entities': entities, 'object_config': clone(config),
+        'public_plane': clone(plane), 'scene_layers': layers, 'scene_healthy': bool(len(points)),
+        'geometry_only': True, 'task_identity_verified': False, 'task_target_id': None,
+        'geometry_quality': quality(observation, entities, layers, plane, cfg), 'relations': [],
+        'unknowns': ['semantic labels/target unresolved', 'robot exclusion incomplete without full link geometry',
+                     'flush planar semantic regions not discoverable by height alone', 'touching merge/disconnected split remain possible'],
+        'history_semantics': 'current sensor measurement only; candidate identity is geometric hypothesis',
+        'rebuild_needed': not bool(entities), 'rebuild_dispatches_model': False,
+        'resource_metrics': {'backproject_s': backprojected-start, 'voxel_components_s': clustered-backprojected,
+            'candidate_measure_associate_s': measured_at-clustered, 'scene_layers_s': time.monotonic()-measured_at,
+            'build_compute_s': time.monotonic()-start, 'Astra_calls': 0, 'DA3_calls': 0, 'SAM_calls': 0,
+            'foreground_pixels': len(points), 'scene_voxels': len(representatives), 'discarded_small_components': rejected_small}}

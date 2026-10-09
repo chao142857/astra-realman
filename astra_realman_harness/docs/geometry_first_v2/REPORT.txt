@@ -1,0 +1,105 @@
+Geometry-First World Head v2 — S1 开发诊断与离线接口交付
+2026-10-10
+
+结论：PARTIAL_PASS_GEOMETRY_BUILD_AND_OFFLINE_REVIEW_CONTRACTS。
+本轮在 b7a5eb2bf678cda4c911a1f82786b8cac35563e3 上的新 worktree/branch 实现并运行了 Geometry-First Build；生成新 Semantic Grounding 请求和永久不可执行的 H4 Shadow 请求；完成合同与安全回归。没有运行新模型或物理实验。
+Astra E=0，Astra A=0，新 SAPIEN episode=0，硬件动作=0，训练=0，DA3=0，SAM=0，native concurrency=0。
+
+1. 实际预测与隔离
+
+唯一物理数据是已封存 S1 rm65:0002。发现阶段只使用三路合法渲染深度、validity、RGB 对齐哈希、公开 K/T、实测 FK、公开桌面平面与合法观测元数据。RGB 的颜色和语义内容没有参与实例发现；没有 E0 bbox/身份、RGB_REFERENCE、私有布局、actor GT、GT mask 或已知物体尺寸输入。
+
+复用现有 rgbd_world.py、WorldHead、PublicStore 与 WorldQuery，没有增加状态估计器。新增 WorldHead.build_geometry_first(observation_id, config)，不接受语义 evidence 参数。全局连通组件使用 4 mm 体素、10 mm 邻接；桌面前景高于公开平面 5 mm；最小 12 体素。跨视角支持使用表面近邻距离 12 mm、对称支持比例至少 0.35。上述参数及来源快照先冻结，S1 只运行一次，没有按 GT 评分调参或重跑。工作域沿用既有 RGB-D 配置，不是 S1 对象布局。
+
+bwrap 使用只读公开输入挂载，隔离网络，不挂载 E0/private/认证目录。脚本另阻止模型、物理模块导入和子进程/网络调用。先封存 PREDICTION_SEAL，再由独立评分进程读取 GT；没有用 GT 修正预测。预测时来源副本和最终提交源码的差异限于后续接口、白名单与 Update 拒绝保护；发现算法、运行入口、配置哈希保持相同。
+
+2. 6 个实际空间候选
+
+ID          输出状态  观测粗中心 XYZ (m)               视角支持          独立评分/后验 RGB 审查
+object_001  unknown   null                             A/F/W             机器人夹爪表面，FK seed 重叠
+object_002  unknown   null                             A/F/W             主机器人表面，FK seed 重叠
+object_003  coarse    0.315119, 0.087147, 0.301311     A/F               相机支架/外壳，机器人未排除
+object_004  coarse    0.359475,-0.060114, 0.028916     A/F/W             目标立方体
+object_005  coarse    0.479497,-0.060097, 0.028892     A/F/W             红色干扰立方体
+object_006  coarse    0.480820, 0.096267, 0.029345     A/F               蓝色干扰立方体
+A=assembly，F=fixed，W=wrist。所有候选至少有一个视角对达到表面支持标准；不意味着所有视角对都通过，也不意味着语义身份成立。
+
+完整逐候选 bounds、各视角支持比例/距离、可见性、unknown 原因、观测时间、K/T 与深度/RGB/validity/calibration 哈希见 CANDIDATE_RECORDS.json。点云在外部 results/geometry/WORLDSTORE.json 中；保留的是当前测得表面、每候选最多 2048 个体素样本，不是完整体积、占据真值或无遮挡空间。FROZEN_WORLD_QUERY.json 只保存紧凑视图与密集数据引用。
+
+unknown 与错误：
+- object_001/002 的物体级中心、bounds、测量状态被置 unknown，但原候选表面与观测 bounds 保留；不能删除这些表面后声称机器人已完全分离。
+- object_003 输出 coarse 表面，objectness/semantic_status 保持 unknown。后验 RGB 审查确认它是机器人相机支架区域。这是一个未排除的机器人候选，不是新的物理对象。机器人表面被拆成 3 个候选，FK seed 只标出了 2 个；没有完整 link 几何排除能力。
+- object_003 腕部为 unknown_association；object_006 腕部为 out_of_view。没有把这些状态升级为已关联可见。
+- 所有候选的语义类别、任务身份和定量定位置信半径仍 unknown。表面范围、视角中位数分歧与定位误差不能等同。当前 bounds 不保证完整对象/抓取中心。
+- 接触物体可能合并，断开表面可能拆分。连通组件竞争排除只分离不相连的度量表面，不能解决所有遮挡/身份问题。
+- 绿色齐平区域不在高度前景发现范围，交由未来语义提出 new_planar_region，不作为本轮凸起对象漏检统计。
+
+3. 独立评分（只有一个开发场景）
+
+候选        粗中心误差      表面到独立 GT 表面距离 p95
+object_004  3.9520 mm       1.1896 mm
+object_005  3.9245 mm       1.1206 mm
+object_006  5.7865 mm       1.2295 mm
+
+3/3 可测立方体有唯一表面支持，没有发现立方体漏检、拆分或互相合并。评分的 10 mm 表面匹配是独立评分规则，不是在线身份判断/定位修正；中心是观测范围中点而非精确完整物体中心。GT 不包含所有机器人部件，因此机器人结论还依赖封存后的 RGB overlay 审查，不冒称 GT 已为机器人提供完整标注。
+这是 S1 开发结果，不能作为跨布局、不同遮挡条件、真实传感器或完整任务成功的证据。旧真实 E0 结论仍是 PARTIAL_PASS_SEMANTIC_EVIDENCE_ONLY；未把当前几何分数倒填成语义成功。
+
+4. 资源与墙钟（单次样本，不是速度基准）
+
+sensor load                        0.01556 s
+backproject                        0.04356 s
+voxel/components                   0.06683 s
+candidate measure/associate        0.22097 s
+scene layers                       0.04213 s
+geometry compute（包含以上计算）    0.37349 s
+WorldHead build                    0.58530 s
+WorldQuery                         0.13227 s
+serialization                      0.27491 s
+pipeline                           0.99248 s
+子进程全墙钟（含解释器/导入/隔离） 1.21760 s
+pipeline CPU                       0.97250 s
+进程峰值 RSS                       153.27 MiB
+GPU                                未使用，0 分配
+
+157134 前景像素，12597 scene voxels，3 个小组件被既定规则舍弃。stage 时间是包含关系，不能相加重复计算。pipeline CPU 从脚本 main 开始，未包含解释器导入 CPU。旧模型延迟与此值不作等价性能对比。
+
+5. 新 Semantic Grounding 合同
+
+版本 astra.semantic_grounding.v1，角色 semantic_grounding，与原 semantic_e0 并存。输入为当前几何 W0 的紧凑 query、三路原 RGB、公开 K/T、任务；没有深度数组/validity 数组、旧 E0、GT、评分、私有布局或任意扩展字段。几何深度哈希作为合法来源引用保留，不传深度图。给出各候选图像 bbox/可见性/表面支持和观察到的相对位置；bbox 是深度组件的像素支持范围，不是语义预测或 GT 标注。
+
+输出一条记录对应一个 geometry ID：category、attributes、disposition(object/robot/region/unknown)、semantic_status、证据引用；task_target_geometry_id 可空；可提出 segmentation、reassociation、new_planar_region 请求。Semantic 不重复输出 XYZ，也不回显大块可信运行时 binding。新角色的 binding 由 Broker 保存，仍检查冻结 world revision/epoch/read set/附件来源。原 E0 的 runtime binding 协议未删除。
+
+实际生产 preparation 已生成，schema 在同一 Structured Outputs compiler 和 authoritative local validation 中检查。几何 ID 重复/缺失/捏造、非发送图片、错相机 bbox 引用、额外 XYZ、无证据目标等拒绝。对象标签仍是模型假设；本轮没有真实新合同回答，也没有把旧 E0 转成新合同成功样本。
+Semantic provider schema SHA256:
+e93a2676a931ab2b78fbd20286f4fcf515e08db1b8f870b14c04ee73f1860ab0
+
+6. action_shadow 与执行隔离
+
+版本 astra.action_shadow.v1；包装原 ActionChunkPlan v2，H=4、m=1、K=0；接受 planned、refused、need_more_evidence。拒绝/补证据时 plan 必须 null。允许合理 stage_terminal，继续保留固定 origin、task、world revision、epoch、read_versions、名义时距、动作边界和来源。模型不能自造 MODEL_RAW provenance；raw 哈希/来源仍由既有 Broker 在真实返回后建立。
+
+本轮使用已有真实 E0+部分 W0 生成生产 shadow schema/request，同时使用 SYNTHETIC 与真实冻结 INPUT + FAKE OUTPUT 测试解析。当前 Geometry-First W0 尚无语义/目标绑定，不能直接冒充可规划目标；shadow schema 要求真实语义 evidence，后续需另行完成语义落地。
+
+独立 planning-review eligibility 只允许审查/拒绝建议，不证明位置精度、可达、碰撞安全或任务可执行。它展示表面范围、legacy view/surface disagreement、定位置信半径 unknown 和关联不确定性。旧 20 mm 门槛失败（20.166111 mm）与 task_usable=unknown 均不改；没有把阈值改成 21 mm。
+
+永久非执行约束：Broker 不设置 action_ready；结果/evidence 标记 REVIEW_ONLY、grants_execution=false；Supervisor 在 Owner.admit 前拒绝 review role/intent；剥离 wrapper 的 v2 plan 无 action Broker raw 也拒绝。测试将 task_usable 人工设 pass 后仍不能进入 Supervisor，也不触达 Owner；该篡改仅存在测试临时副本，归档不变。单纯 Python 内部任意篡改可信 Broker 对象不在接口攻击模型内；不声称可抵抗进程内任意代码执行。
+Shadow provider schema SHA256:
+6556f7ef761ac8bf65c828542a52e15a675b246c4cacedf17e6afe787d3f8569
+
+7. Update 与调度边界
+
+ScheduleContract 只是无 dispatch 的顺序检查器/意图记录，不是新 Supervisor。Owner 完成后必须依次观察、World Update、一致性检查；观察时间早于 completion、epoch/观测绑定错误、旧 revision、跳过更新均拒绝。chunk 结束才提出下一次 A 意图；几何偏差且身份明确优先廉价更新/提前结束后缀，不自动请求 Semantic。任务相关的新语义需求、身份歧义、新实例无法关联、可靠观测语义冲突才产生 Semantic 请求意图。几何 loss、association uncertainty、visibility、task relevance 分开记录，不从单场景 GT 拟合统一触发阈值。L_chunk 与语义请求意图不合并；未验收 native concurrency。
+
+重要限制：Geometry-First v2 的实际逐帧 Cheap Update 尚未验收。本轮只要求实现合同/模拟调度；WorldHead.update 对 v2 返回 GEOMETRY_FIRST_UPDATE_CONTRACT_ONLY_NOT_ACCEPTED，避免错误复用旧 tracker 输入或把 prediction 标为实测。原 RGB-D Update 未改。这意味着当前交付适合静态语义/规划 review，不可用于真实动态执行。
+
+8. 测试、完整性与下一步
+
+广泛回归 214/214 PASS；最终针对输出校验和新接口的回归 67/67 PASS（含 35 个本轮定向测试）；去重总数 220。覆盖旧 infer/commit、Schema、Broker、Supervisor、RGB-D/LWH，及真实冻结 W0 的 fake-output 拒绝测试。初次环境回归 41 failures + 7 errors 的日志完整保留：工作区内 LWH venv 挂载触发旧隔离路径断言；改用既有 /home/alex/astra/.venv，没有降低断言或改环境。
+
+当前新角色只有 Broker prepare/离线解析与合同证据，没有新的真实 CLI/provider/server 接受证据，不能冒称线上已通过。准备状态 PREPARED_NOT_DISPATCHED_NOT_SERVER_ACCEPTED。所有旧 G1、DA3/SAM/VisualHull、E0/W0 与失败归档哈希核验通过，旧源码 b7a5eb2 工作树干净。详见 INTEGRITY_BEFORE_COMMIT.json。
+
+建议下一步仅申请一次 semantic_grounding：使用已冻结 W0+rm65:0002 原三路 RGB，timeout 90 s，客户端两类 retry=0，无自动回退，复用已验证模型/effort/provider/认证路由，失败即封存。申请的是新输入合同，不是重跑旧 E0。授权模板 granted=false。action_shadow 是另一个独立单次授权，不能捆绑；K 永远 0。启动前须复核新提交、附件/请求/schema/启动器 SHA，并用新的 request/claim；prepared wire 的 prepare-001 不是可复用真实 attempt。
+本轮停止于离线交付，不自动发起上述任何请求。
+
+外部完整归档：/home/alex/astra-realman_ws/geometry-first-v2-20261010
+新分支：codex/geometry-first-world-v2-20261010
+完整提交及远端核验：外部 GIT_DELIVERY.json（提交后生成）。

@@ -1,0 +1,312 @@
+{
+  "status": "GEOMETRY_FIRST_DEVELOPMENT_PREDICTION",
+  "candidates": 6,
+  "entities": {
+    "object_001": {
+      "geometry_instance_id": "object_001",
+      "status": "unknown",
+      "candidate_type": "robot_linked_surface",
+      "robot_exclusion": "FK_SEED_OVERLAP",
+      "point_world_m": null,
+      "coarse_observed_bounds_world_m": [
+        [
+          0.22688619407495694,
+          -0.009852308908099293,
+          0.1433400973211227
+        ],
+        [
+          0.27155216908871893,
+          0.011656433513750517,
+          0.2342208138566438
+        ]
+      ],
+      "contributing_views": [
+        "assembly",
+        "fixed",
+        "wrist"
+      ],
+      "association_uncertainty": {
+        "status": "multiview_surface_support",
+        "identity_guaranteed": false,
+        "touching_objects_may_merge": true,
+        "disconnected_parts_may_split": true,
+        "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+      },
+      "uncertainty_components": {
+        "surface_extent_m": [
+          0.0563218726198641,
+          0.023663129143696462,
+          0.09919988654369444
+        ],
+        "view_disagreement_m": 0.01163124905195022,
+        "sensor_calibration_error_m": null,
+        "localization_confidence_radius_m": null,
+        "voxel_m": 0.004,
+        "interpretation": "extent is not localization covariance; calibrated position uncertainty unknown"
+      },
+      "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY"
+    },
+    "object_002": {
+      "geometry_instance_id": "object_002",
+      "status": "unknown",
+      "candidate_type": "robot_linked_surface",
+      "robot_exclusion": "FK_SEED_OVERLAP",
+      "point_world_m": null,
+      "coarse_observed_bounds_world_m": [
+        [
+          -0.012871666855298183,
+          -0.053334002210489166,
+          0.02301775001136864
+        ],
+        [
+          0.3694857058399426,
+          0.034519233341862104,
+          0.5255602911369737
+        ]
+      ],
+      "contributing_views": null,
+      "association_uncertainty": {
+        "status": "multiview_surface_support",
+        "identity_guaranteed": false,
+        "touching_objects_may_merge": true,
+        "disconnected_parts_may_split": true,
+        "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+      },
+      "uncertainty_components": {
+        "surface_extent_m": [
+          0.43603589481263155,
+          0.12172128893130518,
+          0.5401329430684143
+        ],
+        "view_disagreement_m": null,
+        "sensor_calibration_error_m": null,
+        "localization_confidence_radius_m": null,
+        "voxel_m": 0.004,
+        "interpretation": "extent is not localization covariance; calibrated position uncertainty unknown"
+      },
+      "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY"
+    },
+    "object_003": {
+      "geometry_instance_id": "object_003",
+      "status": "coarse",
+      "candidate_type": "unclassified_above_table",
+      "robot_exclusion": "NOT_EXCLUDED_NO_FULL_LINK_GEOMETRY",
+      "point_world_m": [
+        0.31511854271730644,
+        0.087146897411646,
+        0.30131078259776134
+      ],
+      "coarse_observed_bounds_world_m": [
+        [
+          0.284133392860028,
+          0.07700570396812136,
+          0.28714193042018143
+        ],
+        [
+          0.3442027071466571,
+          0.10131397595883249,
+          0.31216764409957365
+        ]
+      ],
+      "contributing_views": [
+        "assembly",
+        "fixed"
+      ],
+      "association_uncertainty": {
+        "status": "multiview_surface_support",
+        "identity_guaranteed": false,
+        "touching_objects_may_merge": true,
+        "disconnected_parts_may_split": true,
+        "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+      },
+      "uncertainty_components": {
+        "surface_extent_m": [
+          0.074115201132537,
+          0.024970644175114742,
+          0.025339185413079335
+        ],
+        "view_disagreement_m": 0.019814196825192313,
+        "sensor_calibration_error_m": null,
+        "localization_confidence_radius_m": null,
+        "voxel_m": 0.004,
+        "interpretation": "extent is not localization covariance; calibrated position uncertainty unknown"
+      },
+      "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME"
+    },
+    "object_004": {
+      "geometry_instance_id": "object_004",
+      "status": "coarse",
+      "candidate_type": "table_supported_candidate",
+      "robot_exclusion": "NOT_EXCLUDED_NO_FULL_LINK_GEOMETRY",
+      "point_world_m": [
+        0.35947472931529223,
+        -0.06011360282030444,
+        0.028916125091119824
+      ],
+      "coarse_observed_bounds_world_m": [
+        [
+          0.3346856278184006,
+          -0.08548888265125207,
+          0.0055964375897755905
+        ],
+        [
+          0.3842573991626053,
+          -0.03473364682440167,
+          0.05113635517811387
+        ]
+      ],
+      "contributing_views": [
+        "assembly",
+        "fixed",
+        "wrist"
+      ],
+      "association_uncertainty": {
+        "status": "multiview_surface_support",
+        "identity_guaranteed": false,
+        "touching_objects_may_merge": true,
+        "disconnected_parts_may_split": true,
+        "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+      },
+      "uncertainty_components": {
+        "surface_extent_m": [
+          0.050888402459884075,
+          0.050764614772255384,
+          0.04614433557218833
+        ],
+        "view_disagreement_m": 0.025367436124193357,
+        "sensor_calibration_error_m": null,
+        "localization_confidence_radius_m": null,
+        "voxel_m": 0.004,
+        "interpretation": "extent is not localization covariance; calibrated position uncertainty unknown"
+      },
+      "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME"
+    },
+    "object_005": {
+      "geometry_instance_id": "object_005",
+      "status": "coarse",
+      "candidate_type": "table_supported_candidate",
+      "robot_exclusion": "NOT_EXCLUDED_NO_FULL_LINK_GEOMETRY",
+      "point_world_m": [
+        0.479496878684598,
+        -0.06009714747202047,
+        0.028891786083047703
+      ],
+      "coarse_observed_bounds_world_m": [
+        [
+          0.45467574525031057,
+          -0.08545770900140885,
+          0.005418931987987047
+        ],
+        [
+          0.5043080240583401,
+          -0.03473288768068833,
+          0.051073373000079
+        ]
+      ],
+      "contributing_views": [
+        "assembly",
+        "fixed",
+        "wrist"
+      ],
+      "association_uncertainty": {
+        "status": "multiview_surface_support",
+        "identity_guaranteed": false,
+        "touching_objects_may_merge": true,
+        "disconnected_parts_may_split": true,
+        "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+      },
+      "uncertainty_components": {
+        "surface_extent_m": [
+          0.05043584985092253,
+          0.050733070890327595,
+          0.04609454781968797
+        ],
+        "view_disagreement_m": 0.026409661520820592,
+        "sensor_calibration_error_m": null,
+        "localization_confidence_radius_m": null,
+        "voxel_m": 0.004,
+        "interpretation": "extent is not localization covariance; calibrated position uncertainty unknown"
+      },
+      "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME"
+    },
+    "object_006": {
+      "geometry_instance_id": "object_006",
+      "status": "coarse",
+      "candidate_type": "table_supported_candidate",
+      "robot_exclusion": "NOT_EXCLUDED_NO_FULL_LINK_GEOMETRY",
+      "point_world_m": [
+        0.4808200732476583,
+        0.09626691996074135,
+        0.02934524462249373
+      ],
+      "coarse_observed_bounds_world_m": [
+        [
+          0.45463915354237994,
+          0.07449621545447115,
+          0.005673210618089748
+        ],
+        [
+          0.5041884655253087,
+          0.12362108766355351,
+          0.051188101930077515
+        ]
+      ],
+      "contributing_views": [
+        "assembly",
+        "fixed"
+      ],
+      "association_uncertainty": {
+        "status": "multiview_surface_support",
+        "identity_guaranteed": false,
+        "touching_objects_may_merge": true,
+        "disconnected_parts_may_split": true,
+        "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+      },
+      "uncertainty_components": {
+        "surface_extent_m": [
+          0.050421989323155225,
+          0.05012321127831343,
+          0.04618721124798453
+        ],
+        "view_disagreement_m": 0.020224278871025764,
+        "sensor_calibration_error_m": null,
+        "localization_confidence_radius_m": null,
+        "voxel_m": 0.004,
+        "interpretation": "extent is not localization covariance; calibrated position uncertainty unknown"
+      },
+      "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME"
+    }
+  },
+  "profiling": {
+    "backproject_s": 0.04355752901756205,
+    "voxel_components_s": 0.0668319640099071,
+    "candidate_measure_associate_s": 0.22097069397568703,
+    "scene_layers_s": 0.04213329902268015,
+    "build_compute_s": 0.37349372301832773,
+    "Astra_calls": 0,
+    "DA3_calls": 0,
+    "SAM_calls": 0,
+    "foreground_pixels": 157134,
+    "scene_voxels": 12597,
+    "discarded_small_components": 3,
+    "sensor_load_s": 0.015555483987554908,
+    "head_build_wall_s": 0.585296056990046,
+    "query_s": 0.13227374100824818,
+    "serialization_s": 0.27490679098991677,
+    "pipeline_wall_s": 0.9924768559867516,
+    "CPU_s": 0.9724951410000001,
+    "peak_RSS_MiB": 153.2734375,
+    "GPU_allocations": 0
+  },
+  "calls": {
+    "Astra_E": 0,
+    "Astra_A": 0,
+    "new_SAPIEN_episodes": 0,
+    "hardware": 0,
+    "training": 0,
+    "DA3": 0,
+    "SAM": 0
+  },
+  "semantics_or_GT_read": false,
+  "grants_execution": false
+}

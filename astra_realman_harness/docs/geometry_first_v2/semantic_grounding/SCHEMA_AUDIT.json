@@ -1,0 +1,221 @@
+{
+  "profile": "astra.structured_outputs.v1",
+  "status": "PASS",
+  "counts": {
+    "properties": 20,
+    "enum_values": 38,
+    "strings": 793,
+    "depth": 6
+  },
+  "bytes": 2335,
+  "nodes": [
+    {
+      "path": "$/properties/evidence_refs/items",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/evidence_refs",
+      "status": "PASS",
+      "type": "array"
+    },
+    {
+      "path": "$/properties/result/properties/version",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/objects/items/properties/geometry_instance_id",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/objects/items/properties/category",
+      "status": "PASS",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "path": "$/properties/result/properties/objects/items/properties/attributes/items",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/objects/items/properties/attributes",
+      "status": "PASS",
+      "type": "array"
+    },
+    {
+      "path": "$/properties/result/properties/objects/items/properties/disposition",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/objects/items/properties/semantic_status",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/objects/items/properties/evidence_refs/items",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/objects/items/properties/evidence_refs",
+      "status": "PASS",
+      "type": "array"
+    },
+    {
+      "path": "$/properties/result/properties/objects/items",
+      "status": "PASS",
+      "type": "object"
+    },
+    {
+      "path": "$/properties/result/properties/objects",
+      "status": "PASS",
+      "type": "array"
+    },
+    {
+      "path": "$/properties/result/properties/task_target_geometry_id",
+      "status": "PASS",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "path": "$/properties/result/properties/target_status",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/kind",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/geometry_instance_ids/items",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/geometry_instance_ids",
+      "status": "PASS",
+      "type": "array"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/camera",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/bbox/items",
+      "status": "PASS",
+      "type": "number"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/bbox",
+      "status": "PASS",
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/reason",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/evidence_refs/items",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/evidence_refs",
+      "status": "PASS",
+      "type": "array"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items",
+      "status": "PASS",
+      "type": "object"
+    },
+    {
+      "path": "$/properties/result/properties/requests",
+      "status": "PASS",
+      "type": "array"
+    },
+    {
+      "path": "$/properties/result/properties/unknowns/items",
+      "status": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "$/properties/result/properties/unknowns",
+      "status": "PASS",
+      "type": "array"
+    },
+    {
+      "path": "$/properties/result",
+      "status": "PASS",
+      "type": "object"
+    },
+    {
+      "path": "$",
+      "status": "PASS",
+      "type": "object"
+    }
+  ],
+  "authoritative_sha256": "dfdcbbc6cea92bc3d0b6245fd272c86392e650a32830d18d492ca7261444a282",
+  "provider_sha256": "e93a2676a931ab2b78fbd20286f4fcf515e08db1b8f870b14c04ee73f1860ab0",
+  "changes": [
+    {
+      "path": "$/properties/result/properties/version",
+      "reason": "scalar const compiled as typed singleton enum",
+      "enforced": "authoritative_local"
+    },
+    {
+      "path": "$/properties/result/properties/objects/items/properties/attributes/items",
+      "reason": "minLength retained only in authoritative local contract",
+      "enforced": "authoritative_local"
+    },
+    {
+      "path": "$/properties/result/properties/objects/items/properties/evidence_refs",
+      "reason": "uniqueItems retained only in authoritative local contract",
+      "enforced": "authoritative_local"
+    },
+    {
+      "path": "$/properties/result/properties/objects/items/properties/evidence_refs/items",
+      "reason": "minLength retained only in authoritative local contract",
+      "enforced": "authoritative_local"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/geometry_instance_ids",
+      "reason": "uniqueItems retained only in authoritative local contract",
+      "enforced": "authoritative_local"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/reason",
+      "reason": "minLength retained only in authoritative local contract",
+      "enforced": "authoritative_local"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/evidence_refs",
+      "reason": "uniqueItems retained only in authoritative local contract",
+      "enforced": "authoritative_local"
+    },
+    {
+      "path": "$/properties/result/properties/requests/items/properties/evidence_refs/items",
+      "reason": "minLength retained only in authoritative local contract",
+      "enforced": "authoritative_local"
+    },
+    {
+      "path": "$/properties/result/properties/unknowns/items",
+      "reason": "minLength retained only in authoritative local contract",
+      "enforced": "authoritative_local"
+    }
+  ]
+}

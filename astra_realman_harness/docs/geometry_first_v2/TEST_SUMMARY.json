@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "distinct_tests": 220,
+  "runs": [
+    {
+      "log": "REGRESSION_02.log",
+      "tests": 214,
+      "sha256": "b5b562b5bfb1dfb475e5a6f3b763abad931cdf9c959ac6835ff6fb9095b0caae",
+      "result": "PASS",
+      "real_model_calls": 0
+    },
+    {
+      "log": "TESTS_FINAL.log",
+      "tests": 34,
+      "sha256": "f6eb82440177b760ddfe99d6802c0e72d1d607d6966b236652daec645aa1bf60",
+      "result": "PASS",
+      "real_model_calls": 0
+    },
+    {
+      "log": "VALIDATION_FINAL.log",
+      "tests": 67,
+      "sha256": "7fcb766d63499dcd3ace8bdbaf01a55c53b80e87df89afc3cea714f4625ff0af",
+      "result": "PASS",
+      "real_model_calls": 0
+    }
+  ],
+  "preserved_failure": {
+    "log": "REGRESSION_01.log",
+    "sha256": "b3129d31d37e0a58ef85b492d32eea0946ec9eac5916bed0c51090b4b4d1d249",
+    "tests": 214,
+    "failures": 41,
+    "errors": 7,
+    "cause": "in-workspace lwh venv bind causes ancestor path visibility, violating legacy namespace assertions; no assertions weakened"
+  },
+  "passing_environment": "existing /home/alex/astra/.venv/bin/python outside worktree; no environment installation or edits",
+  "scope": "fake/offline contracts and old infer/commit/Supervisor regression; not new role real-server acceptance or physics"
+}

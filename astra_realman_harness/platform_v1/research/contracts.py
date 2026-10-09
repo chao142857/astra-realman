@@ -9,7 +9,7 @@ from sim_skills.full_pnp.protocol import validate_actions
 VERSION = 'astra.research.adapters.v1'
 WORLD_VERSION = 'astra.world.public.v1'
 PLAN_VERSION = 'astra.action_chunk_plan.v1'
-ROLES = ('semantic_e0', 'action', 'local_reground')
+ROLES = ('semantic_e0', 'action', 'local_reground', 'semantic_grounding', 'action_shadow')
 
 def digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, allow_nan=False).encode()).hexdigest()

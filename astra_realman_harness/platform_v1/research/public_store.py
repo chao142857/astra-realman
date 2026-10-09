@@ -40,6 +40,8 @@ class PublicStore:
             'provenance': provenance, 'observation_ids': list(observations),
             'attachments': clone(attachments), 'recorded_monotonic': time.monotonic(),
             'identity_validity': 'MODEL_HYPOTHESIS_NOT_GROUND_TRUTH'}
+        if role in ('action_shadow','semantic_grounding'):
+            record.update(grants_execution=False, execution_class='REVIEW_ONLY')
         identity = 'e-' + digest(record); record['evidence_id'] = identity
         self.evidence[identity] = record
         return clone(record)

@@ -1,0 +1,166 @@
+{
+  "evidence_class": "SYNTHETIC_SCHEDULING_ONLY",
+  "real_models": 0,
+  "new_episodes": 0,
+  "Owner_calls": 0,
+  "traces": {
+    "geometry_change": [
+      {
+        "event": "OWNER_ACTION_COMPLETED",
+        "phase": "NEED_OBSERVATION",
+        "next": "observe",
+        "dispatch": false,
+        "grants_execution": false
+      },
+      {
+        "event": "CURRENT_OBSERVATION",
+        "phase": "NEED_UPDATE",
+        "observation_id": "SYNTHETIC:o2",
+        "next": "WorldHead.update",
+        "dispatch": false,
+        "grants_execution": false
+      },
+      {
+        "event": "WORLD_UPDATED",
+        "phase": "NEED_CONSISTENCY_CHECK",
+        "world_id": "SYNTHETIC:w2",
+        "world_revision": 2,
+        "next": "consistency_check",
+        "dispatch": false,
+        "grants_execution": false
+      },
+      {
+        "event": "CONSISTENCY_CHECKED",
+        "phase": "IDLE",
+        "world_id": "SYNTHETIC:w2",
+        "world_revision": 2,
+        "execution_epoch": 1,
+        "geometry_loss": {
+          "position_residual_m": null,
+          "source": "SYNTHETIC_UNCALIBRATED"
+        },
+        "association_uncertainty": "clear_SYNTHETIC",
+        "visibility": "partial",
+        "task_relevance": true,
+        "L_chunk": {
+          "terminate_suffix": true,
+          "chunk_finished": false
+        },
+        "A_intent": "terminate_suffix_and_replan",
+        "semantic_intent": "none",
+        "semantic_reasons": [],
+        "cheap_update_preferred_for_geometry_only_change": true,
+        "not_a_unified_loss_threshold": true,
+        "native_concurrency": "UNVERIFIED_DISABLED",
+        "dispatch": false,
+        "grants_execution": false
+      }
+    ],
+    "chunk_complete": [
+      {
+        "event": "OWNER_ACTION_COMPLETED",
+        "phase": "NEED_OBSERVATION",
+        "next": "observe",
+        "dispatch": false,
+        "grants_execution": false
+      },
+      {
+        "event": "CURRENT_OBSERVATION",
+        "phase": "NEED_UPDATE",
+        "observation_id": "SYNTHETIC:o2",
+        "next": "WorldHead.update",
+        "dispatch": false,
+        "grants_execution": false
+      },
+      {
+        "event": "WORLD_UPDATED",
+        "phase": "NEED_CONSISTENCY_CHECK",
+        "world_id": "SYNTHETIC:w2",
+        "world_revision": 2,
+        "next": "consistency_check",
+        "dispatch": false,
+        "grants_execution": false
+      },
+      {
+        "event": "CONSISTENCY_CHECKED",
+        "phase": "IDLE",
+        "world_id": "SYNTHETIC:w2",
+        "world_revision": 2,
+        "execution_epoch": 1,
+        "geometry_loss": {
+          "position_residual_m": null,
+          "source": "SYNTHETIC_UNCALIBRATED"
+        },
+        "association_uncertainty": "clear_SYNTHETIC",
+        "visibility": "partial",
+        "task_relevance": true,
+        "L_chunk": {
+          "terminate_suffix": false,
+          "chunk_finished": true
+        },
+        "A_intent": "request_next_chunk",
+        "semantic_intent": "none",
+        "semantic_reasons": [],
+        "cheap_update_preferred_for_geometry_only_change": false,
+        "not_a_unified_loss_threshold": true,
+        "native_concurrency": "UNVERIFIED_DISABLED",
+        "dispatch": false,
+        "grants_execution": false
+      }
+    ],
+    "identity_conflict": [
+      {
+        "event": "OWNER_ACTION_COMPLETED",
+        "phase": "NEED_OBSERVATION",
+        "next": "observe",
+        "dispatch": false,
+        "grants_execution": false
+      },
+      {
+        "event": "CURRENT_OBSERVATION",
+        "phase": "NEED_UPDATE",
+        "observation_id": "SYNTHETIC:o2",
+        "next": "WorldHead.update",
+        "dispatch": false,
+        "grants_execution": false
+      },
+      {
+        "event": "WORLD_UPDATED",
+        "phase": "NEED_CONSISTENCY_CHECK",
+        "world_id": "SYNTHETIC:w2",
+        "world_revision": 2,
+        "next": "consistency_check",
+        "dispatch": false,
+        "grants_execution": false
+      },
+      {
+        "event": "CONSISTENCY_CHECKED",
+        "phase": "IDLE",
+        "world_id": "SYNTHETIC:w2",
+        "world_revision": 2,
+        "execution_epoch": 1,
+        "geometry_loss": {
+          "position_residual_m": null,
+          "source": "SYNTHETIC_UNCALIBRATED"
+        },
+        "association_uncertainty": "unknown",
+        "visibility": "partial",
+        "task_relevance": true,
+        "L_chunk": {
+          "terminate_suffix": true,
+          "chunk_finished": false
+        },
+        "A_intent": "wait_for_semantic_then_replan",
+        "semantic_intent": "request_semantic",
+        "semantic_reasons": [
+          "critical_identity_ambiguous"
+        ],
+        "cheap_update_preferred_for_geometry_only_change": false,
+        "not_a_unified_loss_threshold": true,
+        "native_concurrency": "UNVERIFIED_DISABLED",
+        "dispatch": false,
+        "grants_execution": false
+      }
+    ]
+  }
+}

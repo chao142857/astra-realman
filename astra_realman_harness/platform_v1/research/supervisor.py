@@ -22,9 +22,17 @@ class Supervisor:
             'expected_epoch','reason','trace','source_stamp','last_losses','H_planned')}) | {'H':p['plan']['H'],'m':1}
 
     def load(self,plan,*,broker_request_id=None):
-        self.owner.admit();validate_plan(plan)
+        # Reject review results before even consulting Owner, regardless of task_usable.
+        row = self.broker.rows.get(broker_request_id, {}) if broker_request_id else {}
+        if row.get('role') in ('action_shadow','semantic_grounding') or row.get('execution_class') == 'REVIEW_ONLY' or plan.get('intent') == 'action_shadow':
+            raise ValueError('REVIEW_RESULT_NEVER_EXECUTABLE')
+        validate_plan(plan)
         v2=plan['version']==chunk_plan.VERSION
         if v2 and not broker_request_id: raise ValueError('V2_REQUIRES_BROKER_RAW')
+        if broker_request_id:
+            check = self.broker.rows.get(broker_request_id)
+            if not check or check['status'] != 'READY' or check['role'] != 'action': raise ValueError('ACTION_BROKER_RESULT_REQUIRED')
+        self.owner.admit()
         provenance='ENGINEERING_REFERENCE' if self.owner.source=='ENGINEERING_REFERENCE' else 'RESEARCH_PROGRAM'
         if broker_request_id:
             row=self.broker.rows.get(broker_request_id)

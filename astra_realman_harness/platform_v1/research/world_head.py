@@ -32,6 +32,8 @@ class WorldHead:
         if self.closed or self.job:raise ValueError('WORLD_BUSY_OR_CLOSED')
         reference=self.store.get_world(reference_world_id)
         if reference['world_revision']!=self.store.revision:raise ValueError('STALE_UPDATE_BASE')
+        if reference['state'].get('initialization') == 'geometry_first_v2':
+            raise ValueError('GEOMETRY_FIRST_UPDATE_CONTRACT_ONLY_NOT_ACCEPTED')
         source=self.store.get(observation_id)
         if source['execution_epoch']!=self.epoch():raise ValueError('STALE_UPDATE_EPOCH')
         previous=self.store.get(reference['state']['observation_id'])
@@ -59,6 +61,27 @@ class WorldHead:
             'reference_world_id':reference_world_id,'world_revision':reference['world_revision'],
             'completed_monotonic':completed_monotonic}
         return self.store.publish_world(state,binding,reference['provenance'])
+
+    def build_geometry_first(self, observation_id, config):
+        """Geometry-only RGB-D Build; deliberately no semantic/evidence argument."""
+        from .rgbd_world import build_geometry_first
+        from .model_context import calibration_key, VISIBILITY_VERSION
+        if self.closed or self.job: raise ValueError('WORLD_BUSY_OR_CLOSED')
+        o = self.store.get(observation_id); revision = self.store.revision
+        if o['execution_epoch'] != self.epoch(): raise ValueError('STALE_BUILD_EPOCH')
+        if self.public_plane is None: raise ValueError('PUBLIC_PLANE_REQUIRED')
+        start = time.monotonic()
+        depths = {c: self.store.depth(observation_id, c) for c in ('assembly', 'fixed', 'wrist')}
+        loaded = time.monotonic()
+        state = build_geometry_first(o, depths, config, self.public_plane)
+        state['resource_metrics']['sensor_load_s'] = loaded - start
+        if revision != self.store.revision or o['execution_epoch'] != self.epoch(): raise ValueError('STALE_BUILD_AFTER_COMPUTE')
+        if self.closed or time.monotonic() >= self.deadline: raise ValueError('BUILD_DEADLINE_OR_CLOSED')
+        return self.store.publish_world(state, {'observation_ids': [observation_id], 'evidence_ids': [],
+            'execution_epoch': self.epoch(), 'world_revision': revision,
+            'image_sha256': {c: self.store.image(observation_id, c)[1]['sha256'] for c in ('assembly','fixed','wrist')}},
+            'PUBLIC_RGBD_MEASUREMENT', read_versions={calibration_key(o['calibration']): 1,
+                'geometry_first/' + digest(config): 1, 'visibility/' + VISIBILITY_VERSION: 1})
 
     def build_objects(self, observation_id, semantic_evidence_id, masks, config):
         """Host-supplied pretrained/diagnostic masks bound to existing Broker evidence.
