@@ -65,7 +65,9 @@ print(json.dumps({'type':'fixture_only','text':raw}))
             self.assertEqual([r['command'][1:] for r in report['probes']],
                              [['--version'],['--version'],['exec','--help']])
             self.assertEqual(report['model_calls'],0)
-            payload={'context':{'fixture':True},'schema':{},
+            payload={'context':{'fixture':True},'schema':{'type':'object','properties':{
+                'context':{'type':'object','properties':{'fixture':{'type':'boolean'}},'required':['fixture'],'additionalProperties':False},
+                'cwd':{'type':'string'},'PATH':{'type':'string'}},'required':['context','cwd','PATH'],'additionalProperties':False},
                      'images':[base64.b64encode(PNG).decode()]}
             result=bridge.infer(payload,threading.Event(),executable=self.launcher,
                                 run_root=self.root/'worker',timeout_s=5)

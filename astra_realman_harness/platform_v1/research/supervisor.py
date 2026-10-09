@@ -52,7 +52,10 @@ class Supervisor:
             # These fields must have been request constants, not invented by A.
             for name in ('H','world_id','world_revision','execution_epoch','source_observation_id',
                          'origin_pose_world','task','task_binding','read_versions','evidence_refs'):
-                if row['schema']['properties']['result']['properties'].get(name)!={'const':plan[name]}:
+                bound=row['schema']['properties']['result']['properties'].get(name,{})
+                # Typed schemas add constraints alongside const; exact trusted
+                # value binding remains mandatory (including empty/null values).
+                if 'const' not in bound or bound['const']!=plan[name]:
                     raise ValueError('PLAN_REQUEST_NOT_BOUND')
             source=self.store.get(plan['source_observation_id'])['state']
             if plan['origin_pose_world']!=[*source['actual_grasp_center_world'],*source['flange_pose_world'][3:]]: raise ValueError('ORIGIN_POSE_MISMATCH')

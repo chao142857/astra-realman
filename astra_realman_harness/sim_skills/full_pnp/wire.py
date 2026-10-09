@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import jsonschema
 from sim_skills.full_pnp.requirements import requirements_schema,validate_requirements
+from scripts.structured_outputs import compile_schema, validate_local
 
 
 def strict_json(raw):
@@ -24,7 +25,9 @@ def parse_actual_raw(raw,wire):
     No model invocation, action synthesis, repair, or RGB stub fallback.
     """
     answer=strict_json(raw)
-    jsonschema.validate(answer,schema_for_role(wire))
+    authoritative=schema_for_role(wire)
+    provider,_=compile_schema(authoritative)
+    validate_local(answer,authoritative,provider)
     if wire['role']!='E':
         validate_requirements(answer['requirements'],require_scene=True,
                               require_goal=answer['operation']=='finish' and answer['verdict']=='done')
@@ -75,4 +78,5 @@ def existing_infer_payload(input_only):
         if not data.startswith(b'\x89PNG\r\n\x1a\n') or hashlib.sha256(data).hexdigest()!=image['sha256']:raise ValueError('ATTACHMENT_HASH')
         blobs.append(base64.b64encode(data).decode())
     if not 1<=len(blobs)<=4:raise ValueError('IMAGE_COUNT')
-    return {'context':copy.deepcopy(wire),'images':blobs,'schema':schema_for_role(wire)}
+    authoritative=schema_for_role(wire);provider,_=compile_schema(authoritative)
+    return {'context':copy.deepcopy(wire),'images':blobs,'schema':provider,'authoritative_schema':authoritative}

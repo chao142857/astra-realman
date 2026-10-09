@@ -68,6 +68,13 @@ class LWHIntegrationTests(unittest.TestCase):
         self.a.store.read_versions={'semantic/changed':2}
         out=self.a.supervisor.step(loaded['plan_id']);self.assertEqual(out['reason'],'READ_DEPENDENCY_CHANGED')
         self.assertEqual(self.a.supervisor.plans[loaded['plan_id']]['plan'],original)
+    def test_typed_request_still_requires_exact_const_before_supervisor_load(self):
+        self.prepare_plan()
+        schema=self.a.broker.rows[self.row['request_id']]['schema']
+        schema['properties']['result']['properties']['H'].pop('const')
+        with self.assertRaisesRegex(ValueError,'PLAN_REQUEST_NOT_BOUND'):
+            self.a.supervisor.from_broker(self.row['request_id'])
+        self.assertEqual(self.o.b.commands,[])
     def test_manual_plan_cannot_claim_model_raw(self):
         p=self.prepare_plan()
         with self.assertRaisesRegex(ValueError,'V2_REQUIRES_BROKER_RAW'):self.a.supervisor.load(p)
@@ -132,9 +139,9 @@ class LWHIntegrationTests(unittest.TestCase):
         self.assertEqual(p['K_completed'],1);self.assertIn('PREFIX_CAP',p['last_losses']['L_chunk']['reasons'])
         self.assertEqual(self.a.broker.calls,2)
     def test_schema_artifacts_match_code(self):
-        base=Path(__file__).resolve().parents[1]/'docs/lwh_integration'
-        self.assertEqual(json.loads((base/'ActionChunkPlan.schema.json').read_text()),chunk_plan.plan_schema())
-        self.assertEqual(json.loads((base/'SemanticScene.schema.json').read_text()),fusion.semantic_schema())
+        base=Path(__file__).resolve().parents[1]/'docs/structured_outputs_v1'
+        self.assertEqual(json.loads((base/'ActionChunkPlan.authoritative.template.schema.json').read_text()),chunk_plan.plan_schema())
+        self.assertEqual(json.loads((base/'SemanticScene.authoritative.schema.json').read_text()),fusion.semantic_schema())
     def test_learned_runtime_mounts_do_not_expose_workspace_ancestor(self):
         from platform_v1.research.learned_runtime import sandbox_parts
         venv=Path('/home/alex/astra-realman_ws/lwh-runtime/venv')

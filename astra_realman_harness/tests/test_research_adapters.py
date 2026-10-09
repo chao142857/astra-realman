@@ -69,7 +69,8 @@ class ResearchTests(unittest.TestCase):
   self.mode('normal',600);r=self.a.broker.submit(self.request());proc=self.a.broker.job[1].proc
   self.assertIsNone(proc.poll());self.assertNotEqual(proc.pid,os.getpid())
   self.o.execute([{'type':'hold','seconds':.2}],self.obs['observation_id'])
-  out=wait_job(self.a.broker,r['request_id']);self.assertEqual(out['status'],'READY')
+  out=wait_job(self.a.broker,r['request_id']);self.assertEqual(out['status'],'FAILED')
+  self.assertIn('STALE_EXECUTION_EPOCH',self.a.broker.rows[r['request_id']]['error'])
   trace=self.o.b.commands[0];stages=self.a.broker.rows[r['request_id']]['stages']
   start=next(s['monotonic'] for s in stages if s['stage']=='STARTED');end=next(s['monotonic'] for s in stages if s['stage']=='RETURNED')
   overlap=max(0,min(end,trace['end'])-max(start,trace['start']));self.assertGreater(overlap,.05)

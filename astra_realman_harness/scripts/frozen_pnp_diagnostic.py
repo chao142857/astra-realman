@@ -17,6 +17,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from scripts.codex_astra_mac_bridge import command
 from sim_skills.full_pnp.infer_process import CLI,InferConfig,sandbox_command
 from sim_skills.full_pnp.wire import existing_infer_payload,strict_json,parse_bridge_record
+from scripts.structured_outputs import encoded,compile_schema
 
 CAP_S=90.
 
@@ -45,12 +46,15 @@ def inspect_request(source):
     images=[old_run/'input_only'/('image-%d.png'%i) for i in range(len(payload['images']))]
     if cmd!=command(old_run,images,cmd[0]) or record['command']!=cmd:raise ValueError('ORIGINAL_CLI_CONFIG_MISMATCH')
     context=json.dumps(payload['context'],ensure_ascii=False,allow_nan=False).encode()
-    schema=json.dumps(payload['schema'],allow_nan=False).encode()
+    schema=encoded(payload['schema'])
     if any((bridge/name).read_bytes()!=context for name in ('prompt.json','input_only/context.json')):raise ValueError('ACTUAL_PROMPT_MISMATCH')
     if (bridge/'schema.json').read_bytes()!=schema:raise ValueError('ACTUAL_SCHEMA_MISMATCH')
     jsonschema.Draft202012Validator.check_schema(payload['schema'])
     owner_schema=strict_json((source/'schema.json').read_bytes())
-    if required_order_only(owner_schema)!=required_order_only(payload['schema']):raise ValueError('OWNER_SCHEMA_MISMATCH')
+    local=payload['authoritative_schema']
+    if required_order_only(owner_schema)!=required_order_only(local):raise ValueError('OWNER_SCHEMA_MISMATCH')
+    provider,audit=compile_schema(local)
+    if provider!=payload['schema']:raise ValueError('PROVIDER_SCHEMA_MISMATCH')
     attachments=strict_json((bridge/'attachments.json').read_bytes())
     if len(attachments)!=len(payload['images']):raise ValueError('ACTUAL_ATTACHMENT_COUNT')
     image_hashes=[]
@@ -66,7 +70,7 @@ def inspect_request(source):
         'payload_sha256':digest(source/'input_payload.json'),'wire_sha256':digest(source/'input_only/wire.json'),
         'prompt_sha256':digest(bridge/'prompt.json'),'schema_sha256':digest(bridge/'schema.json'),'image_sha256':image_hashes,
         'original_command':cmd,'original_environment':strict_json((bridge/'environment.json').read_bytes()),
-        'owner_schema_order_only_difference':owner_schema!=payload['schema'],
+        'owner_schema_order_only_difference':owner_schema!=local,'schema_compilation':audit,
         'original_latency_s':record.get('latency_s'),'original_error':record.get('error'),
         'original_return_code':record.get('return_code'),'original_raw_bytes':len(record.get('raw','').encode()),
         'events':evidence,'new_real_model_calls':0,'hardware_calls':0,'physics_scene_calls':0}
@@ -105,6 +109,7 @@ def prepare(source,output):
     manifest={'source_request':str(source),'frozen_files':inventory(frozen),'timeout_s':CAP_S,'attempt_cap':1,
         'model':'gpt-6-astra','effort':'medium','executable':report['original_command'][0],
         'source_bridge_sha256':digest(source/'worker_code/bridge.py'),
+        'source_schema_compiler_sha256':digest(Path(__file__).with_name('structured_outputs.py')),
         'source_attempt_retained':True,'execution_allowed':False,'old_binding_preserved':True}
     save(root/'prepared.json',manifest)
     return report
@@ -116,6 +121,8 @@ def verify_prepared(root):
     if meta['timeout_s']!=CAP_S or meta['attempt_cap']!=1 or meta['execution_allowed'] is not False:raise ValueError('DIAGNOSTIC_LIMITS')
     bridge=Path(__file__).with_name('codex_astra_mac_bridge.py')
     if digest(bridge)!=meta['source_bridge_sha256']:raise ValueError('VERIFIED_INFER_CHANGED')
+    if digest(Path(__file__).with_name('structured_outputs.py'))!=meta.get('source_schema_compiler_sha256'):
+        raise ValueError('VERIFIED_SCHEMA_COMPILER_CHANGED')
     payload=strict_json((root/'frozen/input_payload.json').read_bytes())
     if payload!=existing_infer_payload(root/'frozen/input_only'):raise ValueError('PREPARED_PAYLOAD_MISMATCH')
     return meta,payload

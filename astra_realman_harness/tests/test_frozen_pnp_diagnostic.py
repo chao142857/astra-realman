@@ -15,6 +15,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from scripts import frozen_pnp_diagnostic as diag
 from scripts import codex_astra_mac_bridge as bridge
 from sim_skills.full_pnp.wire import existing_infer_payload,schema_for_role
+from scripts.structured_outputs import encoded
 from sim_skills.full_pnp.protocol import wire_base,Memory
 from test_full_pnp_infer import fake_cli
 import test_full_pnp as contracts
@@ -42,7 +43,7 @@ class FrozenTests(unittest.TestCase):
         diag.save(old/'attachments.json',[{'index':1,'path':'/output/bridge/old/input_only/image-0.png','sha256':hashlib.sha256(data).hexdigest()}])
         (old/'input_only/image-0.png').write_bytes(data)
         for name in ('prompt.json','input_only/context.json'):(old/name).write_text(json.dumps(payload['context'],ensure_ascii=False,allow_nan=False))
-        (old/'schema.json').write_text(json.dumps(payload['schema'],allow_nan=False))
+        (old/'schema.json').write_bytes(encoded(payload['schema']))
         cmd=bridge.command(Path('/output/bridge/old'),[Path('/output/bridge/old/input_only/image-0.png')],diag.CLI)
         events='{"type":"turn.started"}\n';(old/'events.jsonl').write_text(events);(old/'stderr.log').write_text('fixture\n')
         diag.save(old/'environment.json',{'source':'FAKE'})

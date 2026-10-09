@@ -36,15 +36,15 @@ def schema_check(schema):
 
 def plan_schema():
     action = {'oneOf': [
-        obj({'type': {'const': 'move_pose'}, 'pose': {'type': 'array', 'items': {'type': 'number'}, 'minItems': 7, 'maxItems': 7}}),
-        obj({'type': {'const': 'gripper'}, 'opening': {'type': 'number', 'minimum': 0, 'maximum': 1}}),
-        obj({'type': {'const': 'hold'}, 'seconds': {'type': 'number', 'exclusiveMinimum': 0, 'maximum': 2}})]}
-    return obj({'version': {'const': PLAN_VERSION}, 'H': {'enum': [1, 4, 6, 8]},
+        obj({'type': {'type': 'string', 'const': 'move_pose'}, 'pose': {'type': 'array', 'items': {'type': 'number'}, 'minItems': 7, 'maxItems': 7}}),
+        obj({'type': {'type': 'string', 'const': 'gripper'}, 'opening': {'type': 'number', 'minimum': 0, 'maximum': 1}}),
+        obj({'type': {'type': 'string', 'const': 'hold'}, 'seconds': {'type': 'number', 'exclusiveMinimum': 0, 'maximum': 2}})]}
+    return obj({'version': {'type': 'string', 'const': PLAN_VERSION}, 'H': {'type': 'integer', 'enum': [1, 4, 6, 8]},
         'waypoints': {'type': 'array', 'items': action, 'minItems': 1, 'maxItems': 8},
         'world_id': {'type': 'string'}, 'world_revision': {'type': 'integer', 'minimum': 1},
         'source_observation_id': {'type': 'string'}, 'execution_epoch': {'type': 'integer', 'minimum': 0},
         'task_binding': obj({'profile': {'type': 'string'}, 'object_id': {'type': 'string'}, 'goal_id': {'type': 'string'}}),
-        'semantics': {'const': 'PREDICTED_WAYPOINTS_NOT_MEASURED'}})
+        'semantics': {'type': 'string', 'const': 'PREDICTED_WAYPOINTS_NOT_MEASURED'}})
 
 def validate_plan(plan):
     if plan.get('version') == 'astra.action_chunk_plan.v2':
@@ -69,6 +69,6 @@ def semantic_schema():
     region = obj({'entity_id': {'type': 'string'}, 'label': {'type': 'string'},
         'attachment_id': {'type': 'string'},
         'bbox': {'type': 'array', 'items': {'type': 'number', 'minimum': 0, 'maximum': 1}, 'minItems': 4, 'maxItems': 4},
-        'identity_status': {'enum': ['hypothesis', 'unknown']}})
+        'identity_status': {'type': 'string', 'enum': ['hypothesis', 'unknown']}})
     return obj({'regions': {'type': 'array', 'items': region, 'maxItems': 32},
         'association': {'type': ['string', 'null']}})

@@ -32,7 +32,13 @@ class S1PreparationTests(unittest.TestCase):
         subprocess.run([sys.executable,'-B','-c',code],check=True)
     def test_runtime_source_pins_checked_without_importing_runtime(self):
         assets=Path(__file__).resolve().parents[3]/'astra-sim-delivery-20261008/ASTRA_SIM_INCREMENT_20261008_v1/evidence/assets'
-        capture.verify_sources(assets)
+        # The frozen capture protocol stays pinned to 81da808f. A schema repair
+        # MUST NOT silently authorize that old capture entry on changed sources.
+        pins=capture.read(capture.DOC/'CAPTURE_SOURCE_PINS.json')
+        changed={name for name,h in pins.items() if capture.sha(capture.ROOT/name)!=h}
+        self.assertEqual(changed,{'sim_skills/full_pnp/infer_process.py',
+            'sim_skills/full_pnp/infer_worker.py','sim_skills/full_pnp/wire.py'})
+        with self.assertRaisesRegex(ValueError,'CAPTURE_SOURCE_CHANGED'):capture.verify_sources(assets)
         original=capture.sha
         with patch.object(capture,'sha',side_effect=lambda p:'0'*64 if str(p).endswith('owner.py') else original(p)):
             with self.assertRaisesRegex(ValueError,'CAPTURE_SOURCE_CHANGED'):capture.verify_sources(assets)

@@ -26,7 +26,8 @@ else setTimeout(()=>{
  let result;
  if(w.role==='action')result={version:'astra.action_chunk_plan.v1',H:8,waypoints:Array.from({length:8},()=>({type:'hold',seconds:0.02})),world_id:w.binding.world_id,world_revision:w.binding.world_revision,source_observation_id:w.binding.observation_ids.at(-1),execution_epoch:w.binding.execution_epoch,task_binding:{profile:'scene_only_v1',object_id:'',goal_id:''},semantics:'PREDICTED_WAYPOINTS_NOT_MEASURED'};
  else result={regions:w.attachments.map(x=>({entity_id:'fixture-object',label:'FAKE_LABEL',attachment_id:x.id,bbox:cfg.mode==='clipped'?[0,0.25,0.75,0.75]:[0.25,0.25,0.75,0.75],identity_status:'hypothesis'})),association:null};
- const shape=JSON.parse(schema).properties.result;
+ // Test response construction uses the local contract, not the lossy provider projection.
+ const shape=JSON.parse(fs.readFileSync(require('path').join(require('path').dirname(a[a.indexOf('--output-schema')+1]),'authoritative_schema.json'))).properties.result;
  if(shape.properties?.version?.const==='astra.semantic_scene.v2'){
    result={version:'astra.semantic_scene.v2',task_target_id:'fixture-object',entities:[
      {entity_id:'fixture-object',label:'FAKE_RED_BLOCK',kind:'object',identity_status:'hypothesis',description:'SYNTHETIC_SCHEMA_FIXTURE_NOT_MODEL_PERCEPTION',views:w.attachments.map(x=>({attachment_id:x.id,bbox:[.2,.2,.8,.8],visibility:'visible'}))},

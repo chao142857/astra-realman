@@ -3,6 +3,10 @@
 import argparse, base64, hashlib, hmac, json, os, shutil, signal, subprocess, threading, time, uuid
 from pathlib import Path
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+try:
+    from scripts.structured_outputs import compile_schema, encoded, validate_local
+except ModuleNotFoundError:
+    from structured_outputs import compile_schema, encoded, validate_local
 
 DISABLED=('shell_tool unified_exec code_mode code_mode_host code_mode_only multi_agent multi_agent_v2 apps plugins hooks remote_plugin shell_snapshot browser_use browser_use_external computer_use in_app_browser image_generation view_image workspace_dependencies skill_search skill_mcp_dependency_install memories goals realtime_conversation daemon_auto_start').split()
 ROOT='/home/tongji/alex/astra_realman_harness'
@@ -76,7 +80,13 @@ def infer(payload,stop,*,executable='/opt/homebrew/bin/codex',run_root='/private
     run.mkdir(parents=True);(run/'runtime').mkdir();(run/'input_only').mkdir()
     (run/'input_only'/'context.json').write_text(json.dumps(payload['context'],ensure_ascii=False,allow_nan=False))
     (run/'prompt.json').write_text(json.dumps(payload['context'],ensure_ascii=False,allow_nan=False))
-    (run/'schema.json').write_text(json.dumps(payload['schema'],allow_nan=False))
+    authoritative = payload.get('authoritative_schema', payload['schema'])
+    schema, audit = compile_schema(authoritative)
+    if 'authoritative_schema' in payload and schema != payload['schema']:
+        raise ValueError('PROVIDER_SCHEMA_MISMATCH_NO_DISPATCH')
+    (run/'schema.json').write_bytes(encoded(schema))
+    (run/'authoritative_schema.json').write_bytes(encoded(authoritative))
+    (run/'schema_audit.json').write_text(json.dumps(audit,indent=2))
     blobs=payload['images']
     if not 1<=len(blobs)<=4:raise ValueError('IMAGE_COUNT')
     images=[]
@@ -109,6 +119,18 @@ def infer(payload,stop,*,executable='/opt/homebrew/bin/codex',run_root='/private
     result={'raw':read('last_message.json'),'events':read('events.jsonl'),'stderr':read('stderr.log'),
             'return_code':proc.returncode if proc else None,'error':error,'command':cmd,
             'latency_s':time.monotonic()-start,'local_log':str(run),'mac_home':str(Path.home())}
+    if result['return_code'] == 0 and result['error'] is None:
+        try:
+            def pairs(items):
+                out={}
+                for key,value in items:
+                    if key in out: raise ValueError('DUPLICATE_JSON_KEY:'+key)
+                    out[key]=value
+                return out
+            answer=json.loads(result['raw'],object_pairs_hook=pairs,
+                parse_constant=lambda x: (_ for _ in ()).throw(ValueError('NONFINITE_JSON')))
+            validate_local(answer,authoritative,schema)
+        except Exception as exc: result['error']='LOCAL_OUTPUT_VALIDATION:'+type(exc).__name__+':'+str(exc)
     (run/'result.json').write_text(json.dumps(result));return result
 
 class Handler(BaseHTTPRequestHandler):

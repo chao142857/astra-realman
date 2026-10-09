@@ -1,0 +1,1609 @@
+{
+  "issue_nodes": 75,
+  "before_source_commit": "81da808f9014e8dec9cb78e658defc092b757252",
+  "issues": [
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/version",
+      "before_node": {
+        "const": "astra.semantic_scene.v2"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/version",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "astra.semantic_scene.v2"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/entities/items/properties/entity_id",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/entities/items/properties/entity_id",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/entities/items/properties/label",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/entities/items/properties/label",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/entities/items/properties/kind",
+      "before_node": {
+        "enum": [
+          "object",
+          "region",
+          "unknown"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/entities/items/properties/kind",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "object",
+          "region",
+          "unknown"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/entities/items/properties/identity_status",
+      "before_node": {
+        "enum": [
+          "hypothesis",
+          "unknown"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/entities/items/properties/identity_status",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "hypothesis",
+          "unknown"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/entities/items/properties/views/items/properties/attachment_id",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/entities/items/properties/views/items/properties/attachment_id",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/entities/items/properties/views/items/properties/visibility",
+      "before_node": {
+        "enum": [
+          "visible",
+          "partial",
+          "unknown"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/entities/items/properties/views/items/properties/visibility",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "visible",
+          "partial",
+          "unknown"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/relations/items/properties/subject",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/relations/items/properties/subject",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/relations/items/properties/predicate",
+      "before_node": {
+        "enum": [
+          "left_of",
+          "right_of",
+          "above",
+          "on",
+          "near",
+          "target_of",
+          "unknown"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/relations/items/properties/predicate",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "left_of",
+          "right_of",
+          "above",
+          "on",
+          "near",
+          "target_of",
+          "unknown"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/relations/items/properties/object",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/relations/items/properties/object",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/relations/items/properties/status",
+      "before_node": {
+        "enum": [
+          "hypothesis",
+          "unknown"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/relations/items/properties/status",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "hypothesis",
+          "unknown"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/relations/items/properties/evidence_refs/items",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/relations/items/properties/evidence_refs/items",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "semantic_template",
+      "before_path": "$/properties/unknowns/items",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/unknowns/items",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/version",
+      "before_node": {
+        "const": "astra.action_chunk_plan.v2"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/version",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "astra.action_chunk_plan.v2"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/profile_id",
+      "before_node": {
+        "const": "coarse_pad_waypoint_v1"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/profile_id",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "coarse_pad_waypoint_v1"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/m",
+      "before_node": {
+        "const": 1
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/m",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          1
+        ],
+        "type": "integer"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/H",
+      "before_node": {
+        "enum": [
+          1,
+          4,
+          6,
+          8
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/H",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          4
+        ],
+        "type": "integer"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/world_id",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/world_id",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "w-0ada924a67a0ab78fea61b304baf59e2068c279efcabd513bb40892beffc3e2e"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/source_observation_id",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/source_observation_id",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "rm65:0002"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/task_binding/properties/profile",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/task_binding/properties/profile",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "generic_semantic_v1"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/task_binding/properties/object_id",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/task_binding/properties/object_id",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "SYNTHETIC-object"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/task/properties/id",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/task/properties/id",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "SYNTHETIC-T1"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/task/properties/revision",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/task/properties/revision",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "SYNTHETIC-1"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/task/properties/stage",
+      "before_node": {
+        "enum": [
+          "T1_PREGRASP_APPROACH",
+          "T2_TRANSPORT_PREPLACE",
+          "T3_UNEXPECTED_CHANGE",
+          "T4_SEMANTIC_SELECTION"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/task/properties/stage",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "T1_PREGRASP_APPROACH"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/read_versions",
+      "before_node": {
+        "type": "object",
+        "minProperties": 1,
+        "additionalProperties": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "reason": [
+        "dynamic/open object; frozen keys required before dispatch",
+        "minProperties requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/read_versions",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "additionalProperties": false,
+        "required": [
+          "task/SYNTHETIC",
+          "visibility/SYNTHETIC-object",
+          "world/SYNTHETIC-object"
+        ],
+        "type": "object",
+        "property_names": [
+          "task/SYNTHETIC",
+          "visibility/SYNTHETIC-object",
+          "world/SYNTHETIC-object"
+        ]
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/evidence_refs",
+      "before_node": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 1,
+        "uniqueItems": true
+      },
+      "reason": [
+        "uniqueItems requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/evidence_refs",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "maxItems": 1,
+        "minItems": 1,
+        "type": "array"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/evidence_refs/items",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/evidence_refs/items",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "e-44983c51533ccdd9f7db70425e24f54da862558b5e028b3c0a96bc77019e0804"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/waypoints/items/properties/type",
+      "before_node": {
+        "const": "move_pose"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/waypoints/items/properties/type",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "move_pose"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/waypoints/items/properties/preconditions",
+      "before_node": {
+        "const": [
+          "current_geometry",
+          "target_identity_hypothesis",
+          "measured_join",
+          "visibility",
+          "owner_admission"
+        ]
+      },
+      "reason": [
+        "missing explicit type",
+        "compound const needs typed expansion; exact equality retained locally"
+      ],
+      "after_path": "$/properties/result/properties/waypoints/items/properties/preconditions",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "maxItems": 5,
+        "minItems": 5,
+        "type": "array"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/waypoints/items/properties/boundary_after",
+      "before_node": {
+        "enum": [
+          "none",
+          "precontact_handoff",
+          "phase_end"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/waypoints/items/properties/boundary_after",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "none",
+          "precontact_handoff",
+          "phase_end"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/termination/properties/kind",
+      "before_node": {
+        "enum": [
+          "horizon_filled",
+          "stage_terminal"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/termination/properties/kind",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "horizon_filled",
+          "stage_terminal"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/termination/properties/reason",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/termination/properties/reason",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_template",
+      "before_path": "$/properties/semantics",
+      "before_node": {
+        "const": "PREDICTED_WAYPOINTS_NOT_MEASURED"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/semantics",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "PREDICTED_WAYPOINTS_NOT_MEASURED"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "research_action_v1",
+      "before_path": "$/properties/version",
+      "before_node": {
+        "const": "astra.action_chunk_plan.v1"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/version",
+      "after_schema": "research_action_v1.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "astra.action_chunk_plan.v1"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "research_action_v1",
+      "before_path": "$/properties/H",
+      "before_node": {
+        "enum": [
+          1,
+          4,
+          6,
+          8
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/H",
+      "after_schema": "research_action_v1.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          1,
+          4,
+          6,
+          8
+        ],
+        "type": "integer"
+      }
+    },
+    {
+      "generator": "research_action_v1",
+      "before_path": "$/properties/waypoints/items",
+      "before_node": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "move_pose"
+              },
+              "pose": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 7,
+                "maxItems": 7
+              }
+            },
+            "required": [
+              "type",
+              "pose"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "gripper"
+              },
+              "opening": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": [
+              "type",
+              "opening"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "hold"
+              },
+              "seconds": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 2
+              }
+            },
+            "required": [
+              "type",
+              "seconds"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "reason": [
+        "oneOf unsupported for generation; anyOf projection + local exclusive validation"
+      ],
+      "after_path": "$/properties/result/properties/waypoints/items",
+      "after_schema": "research_action_v1.provider.schema.json",
+      "after_summary": {}
+    },
+    {
+      "generator": "research_action_v1",
+      "before_path": "$/properties/waypoints/items/oneOf/0/properties/type",
+      "before_node": {
+        "const": "move_pose"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/waypoints/items/anyOf/0/properties/type",
+      "after_schema": "research_action_v1.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "move_pose"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "research_action_v1",
+      "before_path": "$/properties/waypoints/items/oneOf/1/properties/type",
+      "before_node": {
+        "const": "gripper"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/waypoints/items/anyOf/1/properties/type",
+      "after_schema": "research_action_v1.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "gripper"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "research_action_v1",
+      "before_path": "$/properties/waypoints/items/oneOf/2/properties/type",
+      "before_node": {
+        "const": "hold"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/waypoints/items/anyOf/2/properties/type",
+      "after_schema": "research_action_v1.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "hold"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "research_action_v1",
+      "before_path": "$/properties/semantics",
+      "before_node": {
+        "const": "PREDICTED_WAYPOINTS_NOT_MEASURED"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/semantics",
+      "after_schema": "research_action_v1.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "PREDICTED_WAYPOINTS_NOT_MEASURED"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "local_reground_regions",
+      "before_path": "$/properties/regions/items/properties/identity_status",
+      "before_node": {
+        "enum": [
+          "hypothesis",
+          "unknown"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/regions/items/properties/identity_status",
+      "after_schema": "local_reground_regions.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "hypothesis",
+          "unknown"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/version",
+      "before_node": {
+        "const": "astra.action_chunk_plan.v2"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/version",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "astra.action_chunk_plan.v2"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/profile_id",
+      "before_node": {
+        "const": "coarse_pad_waypoint_v1"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/profile_id",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "coarse_pad_waypoint_v1"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/m",
+      "before_node": {
+        "const": 1
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/m",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          1
+        ],
+        "type": "integer"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/H",
+      "before_node": {
+        "const": 4
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/H",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          4
+        ],
+        "type": "integer"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/world_id",
+      "before_node": {
+        "const": "w-7ac00298382cffe75191f75e7d23efcd1dc84c497b453807c2655be51fc2f204"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/world_id",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "w-0ada924a67a0ab78fea61b304baf59e2068c279efcabd513bb40892beffc3e2e"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/world_revision",
+      "before_node": {
+        "const": 1
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/world_revision",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          1
+        ],
+        "minimum": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/execution_epoch",
+      "before_node": {
+        "const": 0
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/execution_epoch",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          0
+        ],
+        "minimum": 0,
+        "type": "integer"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/source_observation_id",
+      "before_node": {
+        "const": "rm65:0002"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/source_observation_id",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "rm65:0002"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/origin_pose_world",
+      "before_node": {
+        "const": [
+          0.300113345197272,
+          1.7792975505186593e-06,
+          0.1500607678798685,
+          -4.254397936165333e-06,
+          1.0000001192092896,
+          3.5179778933525085e-05,
+          0.00024561549071222544
+        ]
+      },
+      "reason": [
+        "missing explicit type",
+        "compound const needs typed expansion; exact equality retained locally"
+      ],
+      "after_path": "$/properties/result/properties/origin_pose_world",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "maxItems": 7,
+        "minItems": 7,
+        "type": "array"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/task_binding",
+      "before_node": {
+        "const": {
+          "goal_id": "",
+          "object_id": "SYNTHETIC-object",
+          "profile": "generic_semantic_v1"
+        }
+      },
+      "reason": [
+        "missing explicit type",
+        "compound const needs typed expansion; exact equality retained locally"
+      ],
+      "after_path": "$/properties/result/properties/task_binding",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "additionalProperties": false,
+        "required": [
+          "goal_id",
+          "object_id",
+          "profile"
+        ],
+        "type": "object",
+        "property_names": [
+          "goal_id",
+          "object_id",
+          "profile"
+        ]
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/task",
+      "before_node": {
+        "const": {
+          "id": "SYNTHETIC-T1",
+          "revision": "SYNTHETIC-1",
+          "stage": "T1_PREGRASP_APPROACH"
+        }
+      },
+      "reason": [
+        "missing explicit type",
+        "compound const needs typed expansion; exact equality retained locally"
+      ],
+      "after_path": "$/properties/result/properties/task",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "revision",
+          "stage"
+        ],
+        "type": "object",
+        "property_names": [
+          "id",
+          "revision",
+          "stage"
+        ]
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/read_versions",
+      "before_node": {
+        "const": {
+          "task/SYNTHETIC": 1,
+          "visibility/SYNTHETIC-object": 1,
+          "world/SYNTHETIC-object": 1
+        }
+      },
+      "reason": [
+        "missing explicit type",
+        "compound const needs typed expansion; exact equality retained locally"
+      ],
+      "after_path": "$/properties/result/properties/read_versions",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "additionalProperties": false,
+        "required": [
+          "task/SYNTHETIC",
+          "visibility/SYNTHETIC-object",
+          "world/SYNTHETIC-object"
+        ],
+        "type": "object",
+        "property_names": [
+          "task/SYNTHETIC",
+          "visibility/SYNTHETIC-object",
+          "world/SYNTHETIC-object"
+        ]
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/evidence_refs",
+      "before_node": {
+        "const": [
+          "e-59e421d4f40df1f30cc9b885994161c6abd3fc4fc258c298f8a4c63570bd18a2"
+        ]
+      },
+      "reason": [
+        "missing explicit type",
+        "compound const needs typed expansion; exact equality retained locally"
+      ],
+      "after_path": "$/properties/result/properties/evidence_refs",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "maxItems": 1,
+        "minItems": 1,
+        "type": "array"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/waypoints/items/properties/type",
+      "before_node": {
+        "const": "move_pose"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/waypoints/items/properties/type",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "move_pose"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/waypoints/items/properties/preconditions",
+      "before_node": {
+        "const": [
+          "current_geometry",
+          "target_identity_hypothesis",
+          "measured_join",
+          "visibility",
+          "owner_admission"
+        ]
+      },
+      "reason": [
+        "missing explicit type",
+        "compound const needs typed expansion; exact equality retained locally"
+      ],
+      "after_path": "$/properties/result/properties/waypoints/items/properties/preconditions",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "maxItems": 5,
+        "minItems": 5,
+        "type": "array"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/waypoints/items/properties/boundary_after",
+      "before_node": {
+        "enum": [
+          "none",
+          "precontact_handoff",
+          "phase_end"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/waypoints/items/properties/boundary_after",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "none",
+          "precontact_handoff",
+          "phase_end"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/termination/properties/kind",
+      "before_node": {
+        "enum": [
+          "horizon_filled",
+          "stage_terminal"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/termination/properties/kind",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "horizon_filled",
+          "stage_terminal"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/termination/properties/reason",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/termination/properties/reason",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "action_h4_bound",
+      "before_path": "$/properties/semantics",
+      "before_node": {
+        "const": "PREDICTED_WAYPOINTS_NOT_MEASURED"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/semantics",
+      "after_schema": "action_h4.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "PREDICTED_WAYPOINTS_NOT_MEASURED"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/binding",
+      "before_node": {
+        "const": {
+          "episode_id": "7d992c96ae2045d090af4984cc423989",
+          "request_id": "broker-001",
+          "execution_epoch": 0,
+          "world_id": null,
+          "world_revision": null,
+          "observation_ids": [
+            "rm65:0002"
+          ],
+          "evidence_ids": []
+        }
+      },
+      "reason": [
+        "missing explicit type",
+        "compound const needs typed expansion; exact equality retained locally"
+      ],
+      "after_path": "$/properties/binding",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "additionalProperties": false,
+        "required": [
+          "episode_id",
+          "evidence_ids",
+          "execution_epoch",
+          "observation_ids",
+          "request_id",
+          "world_id",
+          "world_revision"
+        ],
+        "type": "object",
+        "property_names": [
+          "episode_id",
+          "evidence_ids",
+          "execution_epoch",
+          "observation_ids",
+          "request_id",
+          "world_id",
+          "world_revision"
+        ]
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/evidence_refs/items",
+      "before_node": {
+        "enum": [
+          "rm65:0002:assembly:16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+          "rm65:0002:fixed:15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+          "rm65:0002:wrist:26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/evidence_refs/items",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "rm65:0002:assembly:16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+          "rm65:0002:fixed:15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+          "rm65:0002:wrist:26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/version",
+      "before_node": {
+        "const": "astra.semantic_scene.v2"
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/version",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "astra.semantic_scene.v2"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/entities/items/properties/entity_id",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/entities/items/properties/entity_id",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/entities/items/properties/label",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/entities/items/properties/label",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/entities/items/properties/kind",
+      "before_node": {
+        "enum": [
+          "object",
+          "region",
+          "unknown"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/entities/items/properties/kind",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "object",
+          "region",
+          "unknown"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/entities/items/properties/identity_status",
+      "before_node": {
+        "enum": [
+          "hypothesis",
+          "unknown"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/entities/items/properties/identity_status",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "hypothesis",
+          "unknown"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/entities/items/properties/views/items/properties/attachment_id",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/entities/items/properties/views/items/properties/attachment_id",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/entities/items/properties/views/items/properties/visibility",
+      "before_node": {
+        "enum": [
+          "visible",
+          "partial",
+          "unknown"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/entities/items/properties/views/items/properties/visibility",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "visible",
+          "partial",
+          "unknown"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/relations/items/properties/subject",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/relations/items/properties/subject",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/relations/items/properties/predicate",
+      "before_node": {
+        "enum": [
+          "left_of",
+          "right_of",
+          "above",
+          "on",
+          "near",
+          "target_of",
+          "unknown"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/relations/items/properties/predicate",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "left_of",
+          "right_of",
+          "above",
+          "on",
+          "near",
+          "target_of",
+          "unknown"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/relations/items/properties/object",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/relations/items/properties/object",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/relations/items/properties/status",
+      "before_node": {
+        "enum": [
+          "hypothesis",
+          "unknown"
+        ]
+      },
+      "reason": [
+        "missing explicit type"
+      ],
+      "after_path": "$/properties/result/properties/relations/items/properties/status",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "enum": [
+          "hypothesis",
+          "unknown"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/relations/items/properties/evidence_refs/items",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/relations/items/properties/evidence_refs/items",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    },
+    {
+      "generator": "failed_e0",
+      "before_path": "$/properties/result/properties/unknowns/items",
+      "before_node": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reason": [
+        "minLength requires authoritative local validation in conservative profile"
+      ],
+      "after_path": "$/properties/result/properties/unknowns/items",
+      "after_schema": "e0.provider.schema.json",
+      "after_summary": {
+        "type": "string"
+      }
+    }
+  ]
+}

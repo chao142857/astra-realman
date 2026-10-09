@@ -33,7 +33,11 @@ class Tests(unittest.TestCase):
             def read(self,*a):return data
         return Response()
     def call(self):
-        with patch('codex_astra_backend.urllib.request.urlopen',self.transport):
+        original=Path.read_text
+        def fixture_token(path,*args,**kwargs):
+            if path==ROOT/'config/codex_astra_bridge.token':return 'OFFLINE_FIXTURE_NOT_A_CREDENTIAL'
+            return original(path,*args,**kwargs)
+        with patch.object(Path,'read_text',fixture_token),patch('codex_astra_backend.urllib.request.urlopen',self.transport):
             return self.backend.decide(self.context,self.context['images_in_attachment_order'])
     def test_exact_context_action_and_raw(self):
         before=copy.deepcopy(self.context);self.assertEqual(self.call(),self.action)

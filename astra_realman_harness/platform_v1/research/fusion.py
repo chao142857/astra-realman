@@ -12,14 +12,14 @@ from .contracts import clone, digest
 def semantic_schema():
     s={'type':'string','minLength':1}
     region=obj({'attachment_id':s, 'bbox':{'type':'array','items':{'type':'number','minimum':0,'maximum':1},'minItems':4,'maxItems':4},
-        'visibility':{'enum':['visible','partial','unknown']}})
-    entity=obj({'entity_id':s,'label':s,'kind':{'enum':['object','region','unknown']},
-        'identity_status':{'enum':['hypothesis','unknown']},
+        'visibility':{'type': 'string', 'enum':['visible','partial','unknown']}})
+    entity=obj({'entity_id':s,'label':s,'kind':{'type': 'string', 'enum':['object','region','unknown']},
+        'identity_status':{'type': 'string', 'enum':['hypothesis','unknown']},
         'views':{'type':'array','items':region,'maxItems':3}, 'description':{'type':'string'}})
-    relation=obj({'subject':s,'predicate':{'enum':['left_of','right_of','above','on','near','target_of','unknown']},
-        'object':s,'status':{'enum':['hypothesis','unknown']},
+    relation=obj({'subject':s,'predicate':{'type': 'string', 'enum':['left_of','right_of','above','on','near','target_of','unknown']},
+        'object':s,'status':{'type': 'string', 'enum':['hypothesis','unknown']},
         'evidence_refs':{'type':'array','items':s,'minItems':1}})
-    return obj({'version':{'const':'astra.semantic_scene.v2'},
+    return obj({'version':{'type':'string','const':'astra.semantic_scene.v2'},
         'task_target_id':{'type':['string','null']},
         'entities':{'type':'array','items':entity,'minItems':1,'maxItems':24},
         'relations':{'type':'array','items':relation,'maxItems':48},

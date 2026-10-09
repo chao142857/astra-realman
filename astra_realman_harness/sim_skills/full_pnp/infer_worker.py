@@ -54,7 +54,14 @@ def main():
             try:event=json.loads(line)
             except (ValueError,TypeError):continue  # raw event stream remains untouched
             if isinstance(event,dict) and 'usage' in event:record['usage_events'].append(event)
-        if len(record['usage_events'])==1:record['usage']=record['usage_events'][0]['usage']
+        if len(record['usage_events'])==1:
+            usage=record['usage_events'][0]['usage']
+            # Codex 0.161.0 emits default zeros when response.completed omits
+            # usage. Preserve events verbatim; zero is not measured service use.
+            tokens=[usage.get(k) for k in ('input_tokens','output_tokens')] if isinstance(usage,dict) else []
+            if any(type(v) is int and v>0 for v in tokens):
+                record['usage']=usage;record['usage_status']='CLI_REPORTED'
+            else:record['usage_status']='UNKNOWN_MISSING_OR_DEFAULT_ZERO'
     except Exception as exc:record['error']=type(exc).__name__+':'+str(exc)
     finally:
         record['worker_finished_monotonic']=time.monotonic()

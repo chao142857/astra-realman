@@ -96,7 +96,7 @@ class WireAndRGBTests(ContractTests):
         w['attachments']=[{'id':'i','file':'image.png','sha256':hashlib.sha256(data).hexdigest()}]
         (self.root/'wire.json').write_text(json.dumps(w));(self.root/'image.png').write_bytes(data)
         payload=existing_infer_payload(self.root)
-        self.assertEqual(set(payload),{'context','images','schema'});self.assertEqual(base64.b64decode(payload['images'][0]),data)
+        self.assertEqual(set(payload),{'context','images','schema','authoritative_schema'});self.assertEqual(base64.b64decode(payload['images'][0]),data)
         self.assertIn('rgb_applicability_contract',payload['context']);self.assertNotIn('SECRET',json.dumps(payload))
         c={'kind':'candidate','binding':binding,'operation':'observe','actions':[],'requirements':['scene_healthy'],
            'evidence_refs':['i'],'parent_evidence_hash':None,'verdict':None,'reason':'unknown'}

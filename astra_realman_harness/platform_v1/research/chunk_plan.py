@@ -17,25 +17,25 @@ def plan_schema():
     string = {'type': 'string', 'minLength': 1}
     pose = {'type': 'array', 'items': {'type': 'number'}, 'minItems': 7, 'maxItems': 7}
     waypoint = obj({'index': {'type': 'integer', 'minimum': 1, 'maximum': 8},
-        'type': {'const': 'move_pose'}, 'pose': pose,
+        'type': {'type': 'string', 'const': 'move_pose'}, 'pose': pose,
         'nominal_end_offset_s': {'type': 'number', 'exclusiveMinimum': 0},
-        'preconditions': {'const': PRECONDITIONS},
+        'preconditions': {'type': 'array', 'items': {'type': 'string'}, 'const': PRECONDITIONS},
         'prediction_dependencies': {'type': 'array', 'items': {'type': 'integer', 'minimum': 1}},
-        'boundary_after': {'enum': ['none', 'precontact_handoff', 'phase_end']}})
-    return obj({'version': {'const': VERSION}, 'profile_id': {'const': PROFILE},
-        'm': {'const': 1}, 'H': {'enum': [1, 4, 6, 8]},
+        'boundary_after': {'type': 'string', 'enum': ['none', 'precontact_handoff', 'phase_end']}})
+    return obj({'version': {'type': 'string', 'const': VERSION}, 'profile_id': {'type': 'string', 'const': PROFILE},
+        'm': {'type': 'integer', 'const': 1}, 'H': {'type': 'integer', 'enum': [1, 4, 6, 8]},
         'world_id': string, 'world_revision': {'type': 'integer', 'minimum': 1},
         'execution_epoch': {'type': 'integer', 'minimum': 0}, 'source_observation_id': string,
         'origin_pose_world': pose,
         'task_binding': obj({'profile': string, 'object_id': string, 'goal_id': {'type': 'string'}}),
-        'task': obj({'id': string, 'revision': string, 'stage': {'enum': [
+        'task': obj({'id': string, 'revision': string, 'stage': {'type': 'string', 'enum': [
             'T1_PREGRASP_APPROACH', 'T2_TRANSPORT_PREPLACE', 'T3_UNEXPECTED_CHANGE', 'T4_SEMANTIC_SELECTION']}}),
         'read_versions': {'type': 'object', 'minProperties': 1,
             'additionalProperties': {'type': 'integer', 'minimum': 1}},
         'evidence_refs': {'type': 'array', 'items': string, 'minItems': 1, 'uniqueItems': True},
         'waypoints': {'type': 'array', 'items': waypoint, 'minItems': 1, 'maxItems': 8},
-        'termination': obj({'kind': {'enum': ['horizon_filled', 'stage_terminal']}, 'reason': string}),
-        'semantics': {'const': 'PREDICTED_WAYPOINTS_NOT_MEASURED'}})
+        'termination': obj({'kind': {'type': 'string', 'enum': ['horizon_filled', 'stage_terminal']}, 'reason': string}),
+        'semantics': {'type': 'string', 'const': 'PREDICTED_WAYPOINTS_NOT_MEASURED'}})
 
 def pose_error(a, b):
     for p in (a, b):
@@ -80,7 +80,9 @@ def request_schema(world, observation, task, task_binding, H, evidence_ids):
         'origin_pose_world':[*state['actual_grasp_center_world'],*state['flange_pose_world'][3:]],
         'task':task, 'task_binding':task_binding, 'read_versions':world['read_versions'],
         'evidence_refs':evidence_ids}
-    for key,value in constants.items(): schema['properties'][key]={'const':clone(value)}
+    # Retain the base field constraints AND exact frozen values locally.
+    for key,value in constants.items():
+        schema['properties'][key]={**clone(schema['properties'][key]), 'const':clone(value)}
     return schema
 
 def source_stamp(row):
