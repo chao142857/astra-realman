@@ -44,6 +44,8 @@ class Supervisor:
         if world['binding']['observation_ids'][-1]!=plan['source_observation_id'] or world['binding']['execution_epoch']!=plan['execution_epoch']:
             raise ValueError('WORLD_PLAN_SOURCE_MISMATCH')
         if v2:
+            from .geometry_quality import require_task_usable
+            require_task_usable(world,plan['task_binding'])
             if world['state']['backend']!='semantic_lwh_v1': raise ValueError('FUSED_LWH_WORLD_REQUIRED')
             if plan['read_versions']!=world['read_versions'] or plan['read_versions']!=self.store.read_versions: raise ValueError('READ_VERSIONS_MISMATCH')
             if not set(plan['evidence_refs'])<=set(row['parsed']['evidence_refs']): raise ValueError('UNBOUND_PLAN_EVIDENCE')
@@ -62,6 +64,7 @@ class Supervisor:
             'world_job':None,'trace':[],'loaded_monotonic':time.monotonic(),
             'v2':v2,'post_pending':False,'ready_result':None,'last_losses':None,
             'check_backend':world['state'].get('geometry_backend','legacy_rgb_rays_v1'),
+            'current_world_id':world['world_id'],
             'source_stamp':chunk_plan.source_stamp(row) if v2 else None,
             'forecast':losses.forecast(plan,world['state']) if v2 else None,
             'K_policy':{'mode':'adaptive','K_cap':len(plan['waypoints'])}}
@@ -114,7 +117,12 @@ class Supervisor:
             obs=self.owner.observe();p['current_source']=obs['observation_id']
             # Remeasure the configured public geometry; no stale bbox substitution.
             try:
-                p['world_job']=self.world.submit([obs['observation_id']],[],p['check_backend'],p['plan']['world_id'])['request_id']
+                if p['v2']:
+                    completed=p['trace'][-1]['feedback']['completed_monotonic'] if p['trace'] else 0.
+                    p['ready_result']=self.world.update(p['current_world_id'],obs['observation_id'],completed)
+                    p['current_world_id']=p['ready_result']['world_id']
+                else:
+                    p['world_job']=self.world.submit([obs['observation_id']],[],p['check_backend'],p['plan']['world_id'])['request_id']
             except Exception as exc:
                 self.owner.private_event('WORLD_CHECK_REJECTED',{'error':repr(exc)})
                 return self.discard(p,'WORLD_CHECK_UNAVAILABLE')
@@ -128,18 +136,18 @@ class Supervisor:
         source=self.store.get(p['current_source'])
         if time.monotonic()-source['captured_monotonic']>=180:return self.discard(p,'WORLD_CHECK_EXPIRED')
         if p['v2']:
-            intrinsics=digest({c:{k:v for k,v in x.items() if k!='pose_world_xyz_wxyz'} for c,x in source['calibration'].items()})
-            if 'calibration/'+intrinsics not in p['plan']['read_versions']:return self.discard(p,'CALIBRATION_CONTRACT_CHANGED')
+            from .model_context import calibration_key
+            if calibration_key(source['calibration']) not in p['plan']['read_versions']:return self.discard(p,'CALIBRATION_CONTRACT_CHANGED')
         if p['v2'] and p['post_pending']:
             reference=self.store.get_world(p['plan']['world_id'])['state']
-            measured=current_regions(reference,result['state'])
-            measured.update(losses.projective_residual(reference,result['state'],source))
+            measured=result['state']
             residual=losses.compare(p['forecast']['after_waypoint'][p['segment']-1],measured,p['trace'][-1]['feedback']['completed_monotonic'])
             boundary=p['plan']['waypoints'][p['segment']-1]['boundary_after']!='none'
             next_segment=p['segments'][p['segment']] if p['segment']<len(p['segments']) else []
             evidence=TaskEvidenceAdapter.check(p['plan']['task_binding'],reference,measured,next_segment,p['expected_state'])
             target=measured['entities'].get(p['plan']['task_binding']['object_id'],{})
-            visible='visible' if 'visible' in target.get('visibility',{}).values() else 'unknown'
+            from .model_context import canonical_visibility
+            visible='visible' if any(canonical_visibility(v)=='visible' for v in target.get('visibility',{}).values()) else 'unknown'
             chunk=losses.decide_chunk(completed=p['K_completed'],planned=p['H_planned'],
                 K_cap=p['K_policy']['K_cap'],mode=p['K_policy']['mode'],preconditions=evidence['status']=='valid',
                 residual=residual,visibility=visible,boundary=boundary)
@@ -156,6 +164,9 @@ class Supervisor:
             self.save(p);return self.public(p)
         segment=p['segments'][p['segment']]
         if p['v2']:
+            from .geometry_quality import require_task_usable
+            try:require_task_usable(result,p['plan']['task_binding'])
+            except ValueError:return self.discard(p,'GEOMETRY_NOT_TASK_USABLE')
             expected=p['plan']['origin_pose_world'] if p['segment']==0 else p['plan']['waypoints'][p['segment']-1]['pose']
             s=result['state']['robot_state']
             distance,rotation=chunk_plan.pose_error(expected,[*s['actual_grasp_center_world'],*s['flange_pose_world'][3:]])

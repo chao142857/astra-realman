@@ -80,14 +80,22 @@ def fuse(store, geometry_request, semantic_evidence_id):
             raise ValueError('UNBOUND_SEMANTIC_RELATION')
     target=e['result']['task_target_id']
     if target is not None and target not in entities: raise ValueError('TASK_TARGET_NOT_AN_ENTITY')
+    quality=state.get('geometry_quality',{'numeric_valid':'unknown','self_consistent':'unknown',
+        'task_usable':'unknown','observation_id':oid,'reason':['UNASSESSED_GEOMETRY']})
+    if quality.get('self_consistent')!='pass':
+        for entity in entities.values():
+            entity['rejected_geometry']={'point_world_m':entity['point_world_m'],'reason':'GEOMETRY_NOT_SELF_CONSISTENT'}
+            entity.update(status='unknown',point_world_m=None,uncertainty_radius_m=None,measurement_kind='unknown')
     report={**clone(state),'backend':'semantic_lwh_v1','geometry_backend':'da3_small_v1',
         'geometry_only':False,'task_identity_verified':False,'entities':entities,
         'relations':clone(e['result']['relations']),'unknowns':clone(e['result']['unknowns']),
         'semantic_evidence_id':semantic_evidence_id, 'geometry_world_id':geom['world_id']}
+    report['geometry_quality']=clone(quality)
     report['task_target_id']=target
     # Intrinsics/rig contract stays fixed; wrist extrinsics are measured each observation.
+    from .model_context import calibration_key
     deps={'semantic/'+semantic_evidence_id:1,'task_scope/coarse_precontact_v1':1,
-          'calibration/'+digest({c:{k:v for k,v in x.items() if k!='pose_world_xyz_wxyz'} for c,x in obs['calibration'].items()}):1}
+          calibration_key(obs['calibration']):1}
     binding={**clone(b),'evidence_ids':[semantic_evidence_id], 'geometry_world_id':geom['world_id']}
     provenance='FAKE_MODEL_RAW' if 'FAKE_MODEL_RAW' in (geom['provenance'],e['provenance']) else e['provenance']
     return store.publish_world(report,binding,provenance,read_versions=deps)

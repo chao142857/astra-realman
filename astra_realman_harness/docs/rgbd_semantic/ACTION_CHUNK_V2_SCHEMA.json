@@ -1,0 +1,217 @@
+{
+  "type": "object",
+  "properties": {
+    "version": {
+      "const": "astra.action_chunk_plan.v2"
+    },
+    "profile_id": {
+      "const": "coarse_pad_waypoint_v1"
+    },
+    "m": {
+      "const": 1
+    },
+    "H": {
+      "enum": [
+        1,
+        4,
+        6,
+        8
+      ]
+    },
+    "world_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "world_revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "execution_epoch": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "source_observation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "origin_pose_world": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 7,
+      "maxItems": 7
+    },
+    "task_binding": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "object_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "goal_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "profile",
+        "object_id",
+        "goal_id"
+      ],
+      "additionalProperties": false
+    },
+    "task": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stage": {
+          "enum": [
+            "T1_PREGRASP_APPROACH",
+            "T2_TRANSPORT_PREPLACE",
+            "T3_UNEXPECTED_CHANGE",
+            "T4_SEMANTIC_SELECTION"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "stage"
+      ],
+      "additionalProperties": false
+    },
+    "read_versions": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "waypoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8
+          },
+          "type": {
+            "const": "move_pose"
+          },
+          "pose": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 7,
+            "maxItems": 7
+          },
+          "nominal_end_offset_s": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "preconditions": {
+            "const": [
+              "current_geometry",
+              "target_identity_hypothesis",
+              "measured_join",
+              "visibility",
+              "owner_admission"
+            ]
+          },
+          "prediction_dependencies": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "boundary_after": {
+            "enum": [
+              "none",
+              "precontact_handoff",
+              "phase_end"
+            ]
+          }
+        },
+        "required": [
+          "index",
+          "type",
+          "pose",
+          "nominal_end_offset_s",
+          "preconditions",
+          "prediction_dependencies",
+          "boundary_after"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "termination": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "horizon_filled",
+            "stage_terminal"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "semantics": {
+      "const": "PREDICTED_WAYPOINTS_NOT_MEASURED"
+    }
+  },
+  "required": [
+    "version",
+    "profile_id",
+    "m",
+    "H",
+    "world_id",
+    "world_revision",
+    "execution_epoch",
+    "source_observation_id",
+    "origin_pose_world",
+    "task_binding",
+    "task",
+    "read_versions",
+    "evidence_refs",
+    "waypoints",
+    "termination",
+    "semantics"
+  ],
+  "additionalProperties": false
+}

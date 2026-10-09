@@ -44,6 +44,10 @@ class PublicStore:
         self.evidence[identity] = record
         return clone(record)
 
+    def depth(self, identity, camera):
+        from .rgbd_sensor import load_depth
+        return load_depth(self,identity,camera)
+
     def get_evidence(self, identity):
         if identity not in self.evidence: raise ValueError('UNKNOWN_EVIDENCE_ID')
         return clone(self.evidence[identity])
@@ -51,6 +55,19 @@ class PublicStore:
     def get_world(self, identity):
         if identity not in self.worlds: raise ValueError('UNKNOWN_WORLD_ID')
         return clone(self.worlds[identity])
+
+    def get_object(self, world_id, instance_id):
+        """Revision-bound object query; historical/predicted/current stay distinct."""
+        world=self.get_world(world_id)
+        if instance_id not in world['state'].get('entities',{}):raise ValueError('UNKNOWN_INSTANCE_ID')
+        return {'world_id':world_id,'world_revision':world['world_revision'],
+            'read_versions':world['read_versions'],'provenance':world['provenance'],
+            'object':clone(world['state']['entities'][instance_id]),'grants_execution':False}
+
+    def query_world(self, world_id, entity_ids=None, max_bytes=128*1024):
+        """Compact revision-bound projection; full geometry remains in this Store."""
+        from .model_context import compact_world
+        return compact_world(self.get_world(world_id),entity_ids,max_bytes)
 
     def publish_world(self, report, binding, provenance, read_versions=None):
         if read_versions is not None: self.read_versions = clone(read_versions)

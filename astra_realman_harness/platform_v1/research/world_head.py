@@ -18,6 +18,153 @@ class WorldHead:
         self.worker_path=Path(worker_path or Path(__file__).with_name('geometry_worker.py'))
         self.rows={};self.job=None;self.closed=False
         self.learned_config=None
+        self.public_plane=None
+        self.feedback_provider=None
+        self.rebuild_requests=[]
+
+    def build(self, observation_id):
+        """Explicit initial learned geometry; semantic E0 still uses the existing Broker."""
+        return self.submit([observation_id], [], 'da3_small_v1')
+
+    def update(self, reference_world_id, observation_id, completed_monotonic):
+        """Current RGB/FK update, synchronously on CPU; zero learned jobs."""
+        from .cheap_update import measure
+        if self.closed or self.job:raise ValueError('WORLD_BUSY_OR_CLOSED')
+        reference=self.store.get_world(reference_world_id)
+        if reference['world_revision']!=self.store.revision:raise ValueError('STALE_UPDATE_BASE')
+        source=self.store.get(observation_id)
+        if source['execution_epoch']!=self.epoch():raise ValueError('STALE_UPDATE_EPOCH')
+        previous=self.store.get(reference['state']['observation_id'])
+        start=time.monotonic()
+        if reference['state'].get('geometry_backend')=='rgbd_object_state_v1':
+            from .rgbd_world import update as rgbd_update
+            feedback=source.get('execution_feedback')
+            if feedback is None and self.feedback_provider is not None:
+                feedback=self.feedback_provider(completed_monotonic)
+            state=rgbd_update(reference['state'],previous,source,self._images(observation_id),
+                {c:self.store.depth(observation_id,c) for c in ('assembly','fixed','wrist')},
+                self._images,completed_monotonic,feedback)
+        elif reference['state']['backend']=='object_silhouette_world_v1':
+            from .object_tracking import measure as object_measure
+            state=object_measure(reference['state'],previous,source,self._images(previous['observation_id']),
+                self._images(observation_id),completed_monotonic,reference['state']['object_config']['tracker'])
+        else:
+            state=measure(reference['state'],previous,source,self._images(previous['observation_id']),
+                self._images(observation_id),completed_monotonic)
+        if reference['world_revision']!=self.store.revision or source['execution_epoch']!=self.epoch():
+            raise ValueError('STALE_UPDATE_AFTER_COMPUTE')
+        if self.closed or time.monotonic()>=self.deadline:raise ValueError('UPDATE_DEADLINE_OR_CLOSED')
+        state['resource_metrics']['update_wall_s']=time.monotonic()-start
+        binding={'observation_ids':[observation_id],'execution_epoch':self.epoch(),
+            'reference_world_id':reference_world_id,'world_revision':reference['world_revision'],
+            'completed_monotonic':completed_monotonic}
+        return self.store.publish_world(state,binding,reference['provenance'])
+
+    def build_objects(self, observation_id, semantic_evidence_id, masks, config):
+        """Host-supplied pretrained/diagnostic masks bound to existing Broker evidence.
+
+        No paths/model dispatch in this method. Caller records segmentation outside
+        the owner process. Existing Broker E0 schema and immutable RGB remain authority.
+        Offline annotations keep their own provenance; they never become model raw.
+        """
+        return self._build_instances(observation_id,semantic_evidence_id,masks,config,'silhouette')
+
+    def build_rgbd(self, observation_id, semantic_evidence_id, masks, config):
+        """Same semantic/mask binding, explicit sensor geometry; no model job."""
+        return self._build_instances(observation_id,semantic_evidence_id,masks,config,'rgbd')
+
+    def build_rgbd_from_semantic(self, observation_id, semantic_evidence_id, config):
+        """Real E0 bbox -> current measured masks -> existing RGB-D Build. No calls."""
+        if self.store.get_evidence(semantic_evidence_id)['provenance']!='MODEL_RAW':
+            raise ValueError('REAL_E0_REQUIRED_FOR_SEMANTIC_BUILD')
+        from .semantic_rgbd import prepare_masks
+        masks,report=prepare_masks(self.store,observation_id,semantic_evidence_id,self.public_plane)
+        return {'world':self.build_rgbd(observation_id,semantic_evidence_id,masks,config),'mask_report':report}
+
+    def _build_instances(self, observation_id, semantic_evidence_id, masks, config, backend):
+        from .fusion import semantic_schema as scene_schema
+        if self.closed or self.job:raise ValueError('WORLD_BUSY_OR_CLOSED')
+        if self.public_plane is None:raise ValueError('PUBLIC_PLANE_REQUIRED')
+        observation=self.store.get(observation_id);revision=self.store.revision
+        if observation['execution_epoch']!=self.epoch():raise ValueError('STALE_BUILD_EPOCH')
+        e=self.store.get_evidence(semantic_evidence_id)
+        if e['role']!='semantic_e0' or e['observation_ids']!=[observation_id]:raise ValueError('FROZEN_SEMANTIC_INPUT_REQUIRED')
+        jsonschema.validate(e['result'],scene_schema())
+        attachments={a['id']:a for a in e['attachments']}
+        if len(attachments)!=3 or {a['camera'] for a in attachments.values()}!={'assembly','fixed','wrist'}:
+            raise ValueError('THREE_FROZEN_RGB_REQUIRED')
+        image_hashes={}
+        for a in attachments.values():
+            _,record=self.store.image(observation_id,a['camera'])
+            if a['observation_id']!=observation_id or a['source_sha256']!=record['sha256'] or a['transform']['crop_xyxy_pixels'] is not None:
+                raise ValueError('FROZEN_IMAGE_BINDING')
+            if a['transform']['source_resolution']!=observation['calibration'][a['camera']]['resolution']:
+                raise ValueError('IMAGE_RESOLUTION_BINDING')
+            image_hashes[a['camera']]=record['sha256']
+        entities=[]
+        for entity in e['result']['entities']:
+            ent=clone(entity);views=[]
+            for v in ent['views']:
+                if v['attachment_id'] not in attachments:raise ValueError('UNSEEN_SEMANTIC_VIEW')
+                a=attachments[v['attachment_id']]
+                if a['camera'] in [x['camera'] for x in views]:raise ValueError('DUPLICATE_ENTITY_VIEW')
+                box=v['bbox']
+                if not 0<=box[0]<box[2]<=1 or not 0<=box[1]<box[3]<=1:raise ValueError('REGION_BBOX')
+                rec=masks.get((ent['entity_id'],a['camera']))
+                if rec and (rec['image_sha256']!=image_hashes[a['camera']] or rec.get('semantic_evidence_id')!=semantic_evidence_id):
+                    raise ValueError('MASK_EVIDENCE_BINDING')
+                if rec and rec.get('bbox_prompt_normalized')!=box:raise ValueError('MASK_PROMPT_BINDING')
+                views.append({**v,'camera':a['camera']})
+            ent['views']=views;entities.append(ent)
+        ids={ent['entity_id'] for ent in entities}
+        if e['result']['task_target_id'] is not None and e['result']['task_target_id'] not in ids:
+            raise ValueError('TASK_TARGET_NOT_AN_ENTITY')
+        for relation in e['result']['relations']:
+            if relation['subject'] not in ids or relation['object'] not in ids or not set(relation['evidence_refs'])<=set(attachments):
+                raise ValueError('UNBOUND_SEMANTIC_RELATION')
+        if backend=='rgbd':
+            from .rgbd_world import build
+            state=build(observation,entities,masks,
+                {c:self.store.depth(observation_id,c) for c in ('assembly','fixed','wrist')},
+                config,self.public_plane,{'evidence_id':semantic_evidence_id,'provenance':e['provenance']})
+        else:
+            from .object_world import build
+            state=build(observation,entities,masks,config['geometry'],self.public_plane,
+                {'evidence_id':semantic_evidence_id,'provenance':e['provenance']})
+        state['object_config']=clone(config)
+        state['relations']=clone(e['result']['relations']);state['unknowns']=clone(e['result']['unknowns'])
+        state['task_target_id']=e['result']['task_target_id']
+        if self.store.revision!=revision or observation['execution_epoch']!=self.epoch():raise ValueError('STALE_BUILD_AFTER_COMPUTE')
+        if self.closed or time.monotonic()>=self.deadline:raise ValueError('BUILD_DEADLINE_OR_CLOSED')
+        binding={'observation_ids':[observation_id],'evidence_ids':[semantic_evidence_id],
+            'world_revision':revision,'execution_epoch':self.epoch(),'image_sha256':image_hashes}
+        from .model_context import calibration_key,VISIBILITY_VERSION
+        return self.store.publish_world(state,binding,e['provenance'],read_versions={
+            'semantic/'+semantic_evidence_id:1,calibration_key(observation['calibration']):1,
+            'object_config/'+digest(config):1,'task_scope/coarse_precontact_v1':1,
+            'task_selection/'+digest({'semantic_evidence_id':semantic_evidence_id,'target_id':state['task_target_id']}):1,
+            'visibility/'+VISIBILITY_VERSION:1})
+
+    def request_rebuild(self, reference_world_id, observation_id, reason, components):
+        """Record an explicit request only. No hidden geometry or semantic dispatch."""
+        reference=self.store.get_world(reference_world_id);source=self.store.get(observation_id)
+        if self.closed or reference['world_revision']!=self.store.revision:raise ValueError('STALE_REBUILD_BASE')
+        if source['execution_epoch']!=self.epoch():raise ValueError('STALE_REBUILD_EPOCH')
+        if source['captured_monotonic']<reference['state']['captured_monotonic']:raise ValueError('OLD_REBUILD_OBSERVATION')
+        if not reason or not components or not set(components)<={'geometry','semantic'}:raise ValueError('REBUILD_REQUEST')
+        request={'request_id':'rebuild-%03d'%(len(self.rebuild_requests)+1),
+            'reference_world_id':reference_world_id,'world_revision':reference['world_revision'],
+            'observation_id':observation_id,'execution_epoch':self.epoch(),'reason':reason,
+            'components':list(components),'status':'REQUESTED_NOT_DISPATCHED','DA3_calls':0,'Astra_calls':0}
+        self.rebuild_requests.append(request);self.emit('REBUILD_REQUEST',request)
+        return clone(request)
+
+    def _images(self, observation_id):
+        import io
+        import numpy as np
+        from PIL import Image
+        return {c:np.array(Image.open(io.BytesIO(self.store.image(observation_id,c)[0])).convert('RGB'))
+            for c in ('assembly','fixed','wrist')}
 
     def configure_learned(self, config):
         from .learned_runtime import validate_config
@@ -156,6 +303,10 @@ class WorldHead:
                     pixel=view['pixel'];width,height=source['calibration'][view['camera']]['resolution']
                     if len(pixel)!=2 or not 0<=pixel[0]<width or not 0<=pixel[1]<height:raise ValueError('WORLD_SOURCE_PIXEL')
             reference=row['binding']['reference_world_id']
+            if row['backend']=='da3_small_v1':
+                from .geometry_quality import assess
+                out['state']['geometry_quality']=assess(out['state'],source,
+                    self._images(source['observation_id']),self.public_plane)
             if reference:
                 if row['binding']['world_revision']!=self.store.revision:raise ValueError('STALE_WORLD_REVISION')
                 row['result']={'version':WORLD_VERSION,'kind':'WorldCheck','binding':row['binding'],'state':out['state'],

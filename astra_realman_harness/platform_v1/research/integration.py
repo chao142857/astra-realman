@@ -14,6 +14,8 @@ def semantic_request(observation_id):
         'evidence_ids':[],'world_id':None,'output_schema':fusion.semantic_schema(),'timeout_s':90}
 
 def action_request(world,observation,task,task_binding,H=4):
+    from .geometry_quality import require_task_usable
+    require_task_usable(world,task_binding)
     if world['state']['backend']!='semantic_lwh_v1':raise ValueError('FUSED_LWH_WORLD_REQUIRED')
     if H not in (1,4,6,8):raise ValueError('HORIZON')
     eid=world['state']['semantic_evidence_id']

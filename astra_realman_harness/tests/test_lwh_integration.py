@@ -16,7 +16,7 @@ from platform_v1.research.task_evidence import TaskEvidenceAdapter
 from scripts.prepare_research_fake_cli import prepare
 from sim_skills.full_pnp.infer_process import InferConfig
 from research_fixtures import owner, wait_job
-from lwh_integration_fixtures import fused_fixture, action_fixture, fake_world_check, geometry_state
+from lwh_integration_fixtures import fused_fixture, action_fixture, fake_world_check, fake_world_update, geometry_state
 
 class LWHIntegrationTests(unittest.TestCase):
     def setUp(self):
@@ -80,18 +80,18 @@ class LWHIntegrationTests(unittest.TestCase):
         self.assertNotEqual(row['plan']['world_revision'],self.a.store.revision)
     def test_generic_owner_evidence_gap_stays_shadow(self):
         p=self.load()
-        with patch.object(self.a.world,'submit',side_effect=fake_world_check(self.a)):
+        with patch.object(self.a.world,'update',side_effect=fake_world_update(self.a)):
             self.a.supervisor.step(p['plan_id']);out=self.a.supervisor.step(p['plan_id'])
         self.assertEqual(out['reason'],'TASK_EVIDENCE_UNKNOWN');self.assertEqual(self.o.b.commands,[])
     def test_owner_rejection_and_pending_token_not_bypassed(self):
         p=self.load();self.o.proposal={'digest':'legacy-token'}
-        with patch.object(self.a.world,'submit',side_effect=fake_world_check(self.a)),patch.object(TaskEvidenceAdapter,'check',return_value={'status':'valid'}):
+        with patch.object(self.a.world,'update',side_effect=fake_world_update(self.a)),patch.object(TaskEvidenceAdapter,'check',return_value={'status':'valid'}):
             self.a.supervisor.step(p['plan_id']);out=self.a.supervisor.step(p['plan_id'])
         self.assertEqual(out['reason'],'OWNER_REJECTED_NO_REPLAY');self.assertEqual(self.o.b.commands,[])
     def test_one_waypoint_then_fresh_postcheck_unknown_aborts_suffix(self):
         p=self.load()
         # ONLY bypass task evidence in this isolated routing test. Actual owner remains active.
-        with patch.object(self.a.world,'submit',side_effect=fake_world_check(self.a)),patch.object(TaskEvidenceAdapter,'check',return_value={'status':'valid'}):
+        with patch.object(self.a.world,'update',side_effect=fake_world_update(self.a)),patch.object(TaskEvidenceAdapter,'check',return_value={'status':'valid'}):
             self.a.supervisor.step(p['plan_id']);out=self.a.supervisor.step(p['plan_id'])
             self.assertEqual(out['status'],'WAITING_WORLD')
             out=self.a.supervisor.step(p['plan_id'])
@@ -102,7 +102,7 @@ class LWHIntegrationTests(unittest.TestCase):
         self.assertFalse(out['last_losses']['L_world']['dispatches_model']);self.assertEqual(self.a.broker.calls,2)
     def test_last_waypoint_also_checked_nominal_is_not_actual_completion(self):
         p=self.load(H=1)
-        with patch.object(self.a.world,'submit',side_effect=fake_world_check(self.a)),patch.object(TaskEvidenceAdapter,'check',return_value={'status':'valid'}):
+        with patch.object(self.a.world,'update',side_effect=fake_world_update(self.a)),patch.object(TaskEvidenceAdapter,'check',return_value={'status':'valid'}):
             for _ in range(3):out=self.a.supervisor.step(p['plan_id'])
         self.assertEqual(out['status'],'COMPLETED');t=out['trace'][0]
         self.assertEqual(t['nominal_end_offset_s'],2.)
@@ -113,7 +113,7 @@ class LWHIntegrationTests(unittest.TestCase):
         def associated(reference,current):
             out=copy.deepcopy(current);out['entities']=copy.deepcopy(reference['entities']);return out
         # Synthetic associated measurements isolate scheduling only, not perception.
-        with patch.object(self.a.world,'submit',side_effect=fake_world_check(self.a)), \
+        with patch.object(self.a.world,'update',side_effect=fake_world_update(self.a,associated=True)), \
              patch.object(TaskEvidenceAdapter,'check',return_value={'status':'valid'}), \
              patch('platform_v1.research.supervisor.current_regions',side_effect=associated), \
              patch('platform_v1.research.losses.projective_residual',return_value={'observation_residual_m':0.,'observation_residual_status':'SYNTHETIC_FIXTURE'}):
@@ -127,7 +127,7 @@ class LWHIntegrationTests(unittest.TestCase):
         self.assertEqual(original,self.a.supervisor.plans[p['plan_id']]['plan']);self.assertEqual(self.a.broker.calls,2)
     def test_fixed_prefix_stops_at_K_without_requesting_E(self):
         p=self.load();self.a.supervisor.policy(p['plan_id'],'fixed',1)
-        with patch.object(self.a.world,'submit',side_effect=fake_world_check(self.a)),patch.object(TaskEvidenceAdapter,'check',return_value={'status':'valid'}):
+        with patch.object(self.a.world,'update',side_effect=fake_world_update(self.a)),patch.object(TaskEvidenceAdapter,'check',return_value={'status':'valid'}):
             for _ in range(3):p=self.a.supervisor.step(p['plan_id'])
         self.assertEqual(p['K_completed'],1);self.assertIn('PREFIX_CAP',p['last_losses']['L_chunk']['reasons'])
         self.assertEqual(self.a.broker.calls,2)

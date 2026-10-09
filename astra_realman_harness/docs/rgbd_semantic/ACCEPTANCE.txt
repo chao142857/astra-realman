@@ -1,0 +1,7 @@
+Freeze of the previously reviewed RGB-D / semantic interface increment.
+
+Includes existing cheap-update and geometry-quality dependencies, RGB-D public sensor protocol, object state estimation, real semantic bbox mask binding, bounded World Query and regression tests. These source files exactly match the prior 127-test delivery snapshot.
+
+G1 remains PARTIAL_PASS_STATE_CONSISTENCY_ONLY. Original 61 mm-class wrist reprojection failure and all raw scores are unchanged. No task-success, E0, action-planning or native-concurrency acceptance is claimed. No owner, IK, collision, STOP or grasp-control source changes.
+
+Tests requiring archived RGB-D inputs use local archives; this commit does not upload private scoring truth or full sensor bundles. FREEZE_MANIFEST.json identifies source and result hashes. INTERFACE_REVIEW.txt is a historical review snapshot from the completed round, not authorization for later execution.

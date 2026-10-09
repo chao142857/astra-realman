@@ -17,6 +17,9 @@ class ResearchAdapters:
         'supervisor_step': {'plan_id'}, 'supervisor_cancel': {'plan_id'},
         'supervisor_policy': {'plan_id','mode','K_cap'},
         'lwh_prepare': {'observation_id'}, 'lwh_fuse': {'geometry_request_id','semantic_evidence_id'},
+        'lwh_build': {'observation_id'},
+        'lwh_update': {'reference_world_id','observation_id','completed_monotonic'},
+        'lwh_rebuild_request': {'reference_world_id','observation_id','reason','components'},
         'lwh_action': {'world_id','task','task_binding','H'}}
 
     def __init__(self, owner):
@@ -29,6 +32,8 @@ class ResearchAdapters:
             baseline_busy=lambda:bool(owner.slot.job or owner.proposal),emit=owner.private_event)
         self.world=WorldHead(owner.private/'world_head',self.store,epoch=lambda:owner.epoch,
             deadline=owner.deadline,emit=owner.private_event)
+        self.world.feedback_provider=lambda completed: next((event['data'] for event in reversed(owner.events_log)
+            if event['kind']=='execution' and event['data'].get('completed_monotonic')==completed),None)
         self.supervisor=Supervisor(owner,self.store,self.world,self.broker,owner.private/'plans')
 
     def capabilities(self):
@@ -40,6 +45,12 @@ class ResearchAdapters:
             'generic_identity_verifier':'UNKNOWN_NO_EQUIVALENT_VERIFIER',
             'geometry_workers':['legacy_rgb_rays_v1','bbox_rays_v1','da3_small_v1'],
             'learned_geometry_status':'CONFIGURED_NOT_ACCEPTED' if self.world.learned_config else 'NOT_CONFIGURED_NOT_ACCEPTED',
+            'rgbd_geometry':{'host_build':'WorldHead.build_rgbd','sensor_schema':'astra.shared.observation.rgbd.v2',
+                'learned_calls_per_update':0,'fair_baseline_access':'B0_B1_B2_B3_IDENTICAL_RGBD'},
+            'world_lifecycle':{'build':'EXPLICIT_HOST_BACKEND_SELECTION; legacy RPC remains opt-in DA3',
+                'update':'BACKEND_DISPATCH; RGBD_CURRENT_SURFACES_WITH_FK_AND_ACTUAL_FEEDBACK',
+                'rebuild':'EXPLICIT_REQUEST_NO_AUTO_DISPATCH'},
+            'geometry_admission':['numeric_valid','self_consistent','task_usable'],
             'coarse_plan_m':1,'model_concurrency_status':'NATIVE_NOT_ACCEPTED',
             'automatic_physical_submission':False}
 
@@ -48,12 +59,14 @@ class ResearchAdapters:
         if method=='research_capabilities':return self.capabilities()
         # Poll/cancel remain readable during STOP; no new work or execution admitted.
         if not method.endswith(('_poll','_cancel')):self.owner.admit()
-        if method=='lwh_prepare':
+        if method=='lwh_update':return self.world.update(**params)
+        if method=='lwh_rebuild_request':return self.world.request_rebuild(**params)
+        if method in ('lwh_prepare','lwh_build'):
             # Explicit RPC is necessary; default startup never consumes requests.
             oid=params['observation_id'];self.owner.source_obs(oid)
             if self.broker.config is None:raise ValueError('MODEL_DISABLED')
             if not self.world.learned_config:raise ValueError('DA3_NOT_CONFIGURED_NOT_ACCEPTED')
-            geometry=self.world.submit([oid],[],'da3_small_v1')
+            geometry=self.world.build(oid)
             try:semantic=self.broker.submit(integration.semantic_request(oid))
             except Exception:
                 self.world.cancel(geometry['request_id']);raise

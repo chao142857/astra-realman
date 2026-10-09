@@ -1,0 +1,44 @@
+Semantic E0 无模型接口准备 — 2026-10-09
+
+范围：沿用 ResearchAdapters、WorldHead、PublicStore、Broker、Supervisor；没有第二套状态估计器或执行器。G1 使用冻结 rgbd-world/source_snapshot；此处源码增量没有参与 G1，不能用于改写其结果。
+
+1. 紧凑 World Query
+PublicStore.query_world(world_id, entity_ids=None, max_bytes=131072)
+仍返回 astra.world.public.v1 外层，附 query.version=astra.world_query.v1。保留 world_id/revision、binding、read_versions、provenance、task_target、当前实体粗点/范围/不确定性/可见性/运动、当前证据与历史几何摘要。
+完整点云、mask、tracking seeds 仍在 Store，不放入模型上下文；记录源 state hash、各对象 surface hash/count、选取 entity_ids 和 omissions。显式选择对象不代表不存在未选对象；缺失点云不是无碰撞空间。字节超限拒绝，不静默截断。Broker wire 另有同样 128 KiB JSON 上限，图片不计入该 JSON 限额但按真实 usage 另计。
+当前 hash/query 构造仍遍历原世界，不宣称零成本缓存。离线一次测量 query 约 0.114 s。
+
+2. E0 输入边界与 bbox → RGB-D
+Broker 对 semantic_scene.v2 初始请求要求 assembly/fixed/wrist 三路同一 observation 的全图，world_id=null、evidence_ids=[]。role-specific observation_view 仅给语义角色公开 K、实测外参、坐标轴、resolution、observation/episode/epoch/时间字段；剔除 depth、深度路径、state、执行反馈与任意扩展字段。RGB附件保持实际 hash、分辨率和坐标变换绑定。action 角色保留白名单机器人 proprioception。
+legacy v1 cropped semantic 合同保持兼容，它不是本次真实 E0 入口。
+
+WorldHead.build_rgbd_from_semantic(observation_id, semantic_evidence_id, config)
+  先检查 Store evidence.provenance == MODEL_RAW；内部 prepare_masks 后调用原 build_rgbd。返回 world 与 mask_report。不会调用 Broker、SAM 或 DA3。
+  当前是 host Python 接口。既有 lwh_build/lwh_prepare RPC 仍是显式旧 DA3 路径，本轮没有将其偷偷重定向；RGB-D E0 后续 host runner 应调用此方法，不应调用旧 lwh_build。
+
+prepare_masks(store, oid, eid, public_plane)
+  检查 semantic_e0 角色、v2 schema、同一冻结 observation、三附件/唯一相机、图 hash/实际像素尺寸/K、无 crop、bbox 合法性、实例/视角唯一性。
+  在 actual bbox 中以合法当前传感器 depth 与 K/T 反投影。公开平面上方 >5mm 的有效点，四邻域相邻三维距离 <=10mm，连通分量最少12点；唯一候选才接受，不选最大候选强行归属。
+  部分/unknown 视图、未知身份、碰图像边界、连通分量被 bbox 截断、多个分量、实体竞争、缺失深度均 unknown 或合同拒绝。planar region bbox 不等同像素区域，首版 unknown。
+  输出记录实例/相机/observation/time、真实 RGB hash、depth/validity hash、bbox、semantic evidence ID、原 provenance 和 mask hash。producer=bbox_current_rgbd_components_v1，属于经典测量转换，不是学习模型。
+  相贴对象可能成为一个连通分量，唯一连通并不证明语义关联正确；这种真实多实例情境仍待 S1 验证。本轮没有真实 E0 答案。
+
+3. task / world / visibility 版本契约
+world_id + world_revision：不可变快照；每次 Update 发布新 revision，当前测量绑定当前 observation/epoch/time。持续粗状态不替代新观测。G1 的六版世界来自旧冻结实现。
+read_versions：保存 semantic/<evidence_id>、object_config/<hash>、calibration/<hash>、task_scope/coarse_precontact_v1、task_selection/<hash>、visibility/observed_support_v1。
+task_scope 是支持的能力范围，不冒充任务内容版本；task_selection hash 绑定 semantic evidence ID 和 task_target_id。ActionChunkPlan v2 的 task.id/revision/stage 与 task_binding 仍由请求 schema const 封存，Supervisor 校验 raw 对应关系。未新增运行中换任务 API；更换任务必须废弃旧计划并构建新的绑定，不能就地修改当前 plan 的 task。
+calibration hash 绑定 K、轴约定、rig/resolution，排除正常逐帧变化的 pose_world_xyz_wxyz；实际外参仍随每条 observation 提交，并受原 FK-camera 检查。移动相机不应被误判为标定模型改变，K 改变必须拒绝旧依赖。
+visibility/observed_support_v1 是“可见性词汇和语义”的版本，不是永不变化的可见性值。实际每相机 visibility 由各 world revision/current_evidence 指定。仅 visible_RGB_support/visible_support 归一为 visible，unknown、unknown_association、out_of_view、occluded 均不提升。当前状态缺观测时保留 historical_not_current。
+semantic/配置/任务选择/词汇版本改变与当前测量 revision 增长分开；沿用 Supervisor 的 read_versions 相等检查，未删除原 Owner 来源/IK/路径碰撞/STOP 门。
+
+4. Build / Update / Rebuild 及 admission
+Build：未来真实 E0 bbox 语义 + 当前 RGB-D measured masks，经原 build_rgbd 建 W0。
+Update：原 WorldHead.update，当前 RGB-D/FK/跟踪/实际反馈；0 次学习模型；动态实体不进入静态背景融合。
+Rebuild：原 request_rebuild 只生成 REQUESTED_NOT_DISPATCHED；不自动触发昂贵调用。
+numeric_valid / self_consistent / task_usable 保持独立；本轮 bbox 离线 Build 的 task_usable=unknown，不允进入 A/执行。不把 G1 的小中心误差变成通用几何 admission PASS。
+L_chunk 与 L_world、m=1、H/K 分开、原 Owner、多对象 identity verifier 缺口、native subagent 待验收状态全部保留。
+
+5. 离线验证与边界
+127/127 受影响 unittest 通过；其中18项为新接口/失败分支测试。所有模型过程测试使用 FAKE CLI，执行用 FakeBackend，不是 Astra / SAPIEN / native concurrency 实验。首次外层 sandbox 下127项测试失败(34 failures,3 errors)，原日志保留；独立 bwrap 探针报告 NETLINK_ROUTE permission denied。允许创建 bwrap 的宿主环境复核通过，未放松子沙箱。
+独立 bbox 机制测试挂载归档 D0 合法 RGB-D + 原 RGB诊断 bbox；network/GPU/private GT 均不挂载。得到 assembly 716像素、fixed 1623像素 mask；腕 partial 拒绝；平面区域 unknown。保持 OFFLINE_RGB_ANNOTATION_NOT_MODEL_RAW，真实入口拒绝该证据；无伪造 MODEL_RAW。
+单场景真实 E0、多对象实例歧义、语义跨视角正确率、A H4、任务成功率、native async 均 NOT_RUN/NOT_ACCEPTED。S1 采集也未启动。

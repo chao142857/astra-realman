@@ -44,6 +44,10 @@ def observation(raw,destination):
         if not data.startswith(b'\x89PNG\r\n\x1a\n') or len(data)>8*1024*1024:raise ValueError('PNG')
         file=name+'.png';(dest/file).write_bytes(data)
         out['rgb'].append({'camera':name,'file':file,'sha256':hashlib.sha256(data).hexdigest(),'sensor_exposure_timestamp':None})
+    if 'depth' in raw:
+        from platform_v1.research.rgbd_sensor import export_depth, VERSION
+        out['depth']=export_depth(raw,dest,out['rgb']);out['schema']=VERSION
+        out['timestamp_semantics']='RGB and depth share cached render; exact frozen simulation step; no hardware exposure-time claim'
     (dest/'observation.json').write_text(json.dumps(out,indent=2,allow_nan=False)+'\n');return out
 
 def execution(raw):
