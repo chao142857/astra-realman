@@ -1,0 +1,17 @@
+{
+  "version": "astra.provenance_validation_optimization.offline.v1",
+  "base_commit": "c37dd1844efbec868b0e38207d5aba3aa5d5afbc",
+  "A_frozen_directory_untouched": true,
+  "inputs": "same six archived G1 public RGB-D/FK observations and five completion feedback records",
+  "scope": "engineering replay and synthetic software pressure; no independent physical evidence",
+  "modes": ["original frozen c37 source", "candidate with cache disabled/full recursion", "candidate with cache enabled"],
+  "threads": {"OpenBLAS": 1, "OMP": 1, "MKL": 1, "OpenCV": 1},
+  "no_concurrent_test_load_during_timing": true,
+  "equivalence": "exact structural comparison of all World state, associations, unknown, visibility, semantic inheritance and query; normalize only measured timing fields and run-specific content-derived World IDs",
+  "faults": "retain all existing rejection tests; add nested ancestor mutations, receipt/evidence mutations, file mutation with restored mtime, path replacement, current source race, immutable snapshot and full-audit tests",
+  "stress": "synthetic 8x8 RGB-D, source-chain lengths 1/4/8/16/32/64; no geometric-estimation or physical claim",
+  "cache_boundary": "trusted single-owner host; immutable canonical bytes and file byte snapshots; all ordinary mutable JSON edits invalidate dependency tokens; historical backing-file identity/ctime/mtime guards force full revalidation on change; full recursive disk audit retained",
+  "not_claimed": ["filesystem stat alone proves immutability", "world_id alone authorizes reuse", "malicious host/kernel resistance", "constant-time history checks", "new physical validation", "real-time performance"],
+  "profiling": ["estimation", "current evidence validation and decode", "prior history validation", "new proof validation", "publication and serialization", "query", "complete API", "extra explicit audit", "pipeline", "CPU", "peak RSS", "bytes read", "hash counts"],
+  "B_budget": {"real_E": 0, "real_A": 0, "SAPIEN_episode": 0, "hardware": 0, "training": 0}
+}

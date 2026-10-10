@@ -116,10 +116,11 @@ def load_depth(store, observation_id, camera):
         entry=rec[key]
         if entry.get('relative_to')!='matching_rgb_directory' or Path(entry['file']).name!=entry['file']:
             raise ValueError('DEPTH_PATH_ESCAPE')
-        path=(store.root/Path(rgb['file']).parent/entry['file']).resolve()
-        if not path.is_relative_to(store.root):raise ValueError('DEPTH_PATH_ESCAPE')
-        data=path.read_bytes()
-        if len(data)>8*1024*1024 or sha(data)!=entry['sha256']:raise ValueError('DEPTH_HASH')
+        path=store.root/Path(rgb['file']).parent/entry['file']
+        if not path.resolve().is_relative_to(store.root):raise ValueError('DEPTH_PATH_ESCAPE')
+        cache=store.verification_cache
+        historical=cache.scope is not None and observation_id!=cache.scope['current_id']
+        data=cache.read(path,entry['sha256'],'DEPTH_HASH',max_bytes=8*1024*1024,historical=historical)
         return data
     depth=np.load(io.BytesIO(read('depth')),allow_pickle=False)
     raw_mask=np.asarray(Image.open(io.BytesIO(read('validity'))))

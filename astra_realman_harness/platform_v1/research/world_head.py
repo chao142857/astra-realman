@@ -37,6 +37,15 @@ class WorldHead:
         return bind_grounding(self.store, world_id, evidence_id, task)
 
     def update(self, reference_world_id, observation_id, completed_monotonic, *, execution_feedback=None):
+        started=time.monotonic();cache=self.store.verification_cache;cache.reset_metrics()
+        self.store.last_update_profile={}
+        try:
+            with cache.transaction(observation_id):
+                return self._update_impl(reference_world_id,observation_id,completed_monotonic,execution_feedback=execution_feedback)
+        finally:
+            self.store.last_update_profile.update(cache.metrics,complete_API_s=time.monotonic()-started)
+
+    def _update_impl(self, reference_world_id, observation_id, completed_monotonic, *, execution_feedback=None):
         """Current RGB/FK update, synchronously on CPU; zero learned jobs."""
         from .cheap_update import measure
         if self.closed or self.job:raise ValueError('WORLD_BUSY_OR_CLOSED')
@@ -80,15 +89,18 @@ class WorldHead:
         if source['captured_monotonic']<=previous['captured_monotonic']:raise ValueError('NONCAUSAL_UPDATE')
         if not math.isfinite(completed) or source['captured_monotonic']<completed:raise ValueError('OBSERVATION_BEFORE_COMPLETION')
         if self.store.current_world_id!=reference['world_id']:raise ValueError('STALE_UPDATE_BASE')
+        historical_start=time.monotonic()
         verify_world_hash(reference)
         if reference['state'].get('geometry_update_version'):validate_geometry_update(self.store,reference)
         elif requires_binding_check(self.store,reference):validate_persistent_world(self.store,reference)
         if source['execution_epoch']<reference['binding']['execution_epoch']:raise ValueError('STALE_UPDATE_EPOCH')
+        historical_s=time.monotonic()-historical_start
         cfg=self.geometry_update_config
         if cfg is None:
             cfg=json.loads((Path(__file__).resolve().parents[2]/'config/research/geometry_first_update_v1.json').read_text())
         if feedback is None:feedback=source.get('execution_feedback')
         if feedback is None and self.feedback_provider is not None:feedback=self.feedback_provider(completed)
+        evidence_start=time.monotonic()
         images=self._images(source['observation_id'])
         depths={c:self.store.depth(source['observation_id'],c) for c in ('assembly','fixed','wrist')}
         loaded=time.monotonic()
@@ -112,8 +124,18 @@ class WorldHead:
         state['update_input_provenance']=source.get('research_input_provenance','PUBLIC_ARCHIVED_OR_LIVE_RGBD')
         provenance=('SYNTHETIC_SENSOR_REPLAY' if source.get('research_input_provenance')=='SYNTHETIC_FAULT_INJECTION'
                     or reference['provenance']=='SYNTHETIC_SENSOR_REPLAY' else reference['provenance'])
+        if source!=self.store.get(source['observation_id']):raise ValueError('UPDATE_OBSERVATION_CHANGED_BEFORE_PUBLICATION')
+        self.store.verification_cache.check_transaction()
+        publish_start=time.monotonic()
         published=self.store.publish_world(state,binding,provenance,read_versions=deps)
         register_geometry_update(self.store,published,reference,source)
+        publish_s=time.monotonic()-publish_start
+        proof_start=time.monotonic()
+        if self.store.validation_cache_enabled:validate_geometry_update(self.store,published)
+        self.store.last_update_profile={'prior_world_validation_s':historical_s,
+            'current_sensor_load_validate_decode_s':loaded-evidence_start,
+            'estimation_compute_s':state['resource_metrics']['update_compute_s'],
+            'publication_serialization_s':publish_s,'new_proof_validation_s':time.monotonic()-proof_start}
         return published
 
     def build_geometry_first(self, observation_id, config):

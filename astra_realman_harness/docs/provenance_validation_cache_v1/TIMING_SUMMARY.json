@@ -1,0 +1,158 @@
+{
+  "units": "seconds, MiB",
+  "single_sequential_trial_not_statistical_speedup_claim": true,
+  "API_sums_exclude_initial_build": {
+    "original": 8.37217371200677,
+    "full": 10.049951145017985,
+    "cached": 9.139812982990406
+  },
+  "pipeline": {
+    "original": {
+      "pipeline_wall_s": 15.105080958019244,
+      "CPU_s": 15.090626565,
+      "peak_RSS_MiB": 328.53125
+    },
+    "full": {
+      "pipeline_wall_s": 18.62803344000713,
+      "CPU_s": 18.611459732,
+      "peak_RSS_MiB": 384.7890625
+    },
+    "cached": {
+      "pipeline_wall_s": 11.917554963991279,
+      "CPU_s": 11.893027929999999,
+      "peak_RSS_MiB": 386.94140625
+    }
+  },
+  "last_update": {
+    "original": {
+      "index": 5,
+      "stage": "post_move_4",
+      "API_s": 2.3547421990078874,
+      "API_CPU_s": 2.3528021920000004,
+      "extra_validation_s": 1.5837540719949175,
+      "query_s": 0.14060825799242593,
+      "file_serialization_s": 0.17130964700481854,
+      "world_metrics": {
+        "backproject_s": 0.03519501400296576,
+        "voxel_components_s": 0.05549642600817606,
+        "candidate_measure_associate_s": 0.18341258898726664,
+        "foreground_pixels": 142412,
+        "scene_voxels": 11164,
+        "discarded_small_components": 3,
+        "current_measurement_s": 0.274503516004188,
+        "temporal_association_s": 0.21335677601746283,
+        "scene_incremental_s": 0.1757371589774266,
+        "update_compute_s": 0.694019771006424,
+        "CPU_s": 0.693373351,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "geometry_build_calls": 0,
+        "sensor_load_and_source_check_s": 1.2594770330179017,
+        "update_wall_s": 1.9538274230144452
+      },
+      "update_profile": {},
+      "peak_RSS_MiB": 328.53125
+    },
+    "full": {
+      "index": 5,
+      "stage": "post_move_4",
+      "API_s": 2.970632440003101,
+      "API_CPU_s": 2.967767727,
+      "extra_validation_s": 2.1483678839867935,
+      "query_s": 0.1524511120223906,
+      "file_serialization_s": 0.17518310601008125,
+      "world_metrics": {
+        "backproject_s": 0.034017886995570734,
+        "voxel_components_s": 0.055816081003285944,
+        "candidate_measure_associate_s": 0.18974639900261536,
+        "foreground_pixels": 142412,
+        "scene_voxels": 11164,
+        "discarded_small_components": 3,
+        "current_measurement_s": 0.28005830000620335,
+        "temporal_association_s": 0.2906780090124812,
+        "scene_incremental_s": 0.1232533979928121,
+        "update_compute_s": 0.7262198959942907,
+        "CPU_s": 0.7252500489999996,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "geometry_build_calls": 0,
+        "sensor_load_and_source_check_s": 1.6840231950045563,
+        "update_wall_s": 2.4109039180038963
+      },
+      "update_profile": {
+        "prior_world_validation_s": 1.6692218229873106,
+        "current_sensor_load_validate_decode_s": 0.014783018006710336,
+        "estimation_compute_s": 0.7262198959942907,
+        "publication_serialization_s": 0.46781891901628114,
+        "new_proof_validation_s": 2.115993993356824e-06,
+        "proof_hits": 0,
+        "proof_misses": 0,
+        "file_reads": 57,
+        "file_bytes": 19254302,
+        "file_hashes": 57,
+        "file_reuses": 0,
+        "depth_decodes": 0,
+        "depth_reuses": 0,
+        "history_file_guards": 0,
+        "current_evidence_validation_s": 0.007774781959597021,
+        "historical_evidence_io_hash_s": 0.0,
+        "history_validation_s": 0.0,
+        "complete_API_s": 2.970625023008324
+      },
+      "peak_RSS_MiB": 384.7890625
+    },
+    "cached": {
+      "index": 5,
+      "stage": "post_move_4",
+      "API_s": 1.9342661669943482,
+      "API_CPU_s": 1.932523217,
+      "extra_validation_s": 0.053898305020993575,
+      "query_s": 0.14869314600946382,
+      "file_serialization_s": 0.17467159798252396,
+      "world_metrics": {
+        "backproject_s": 0.03630844599683769,
+        "voxel_components_s": 0.05424150198814459,
+        "candidate_measure_associate_s": 0.18513408201397397,
+        "foreground_pixels": 142412,
+        "scene_voxels": 11164,
+        "discarded_small_components": 3,
+        "current_measurement_s": 0.27610427801846527,
+        "temporal_association_s": 0.21777096897130832,
+        "scene_incremental_s": 0.21289381801034324,
+        "update_compute_s": 0.7385631590150297,
+        "CPU_s": 0.7378065280000001,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "geometry_build_calls": 0,
+        "sensor_load_and_source_check_s": 0.1265176370216068,
+        "update_wall_s": 0.8661475340195466
+      },
+      "update_profile": {
+        "prior_world_validation_s": 0.11039387001073919,
+        "current_sensor_load_validate_decode_s": 0.016104967013234273,
+        "estimation_compute_s": 0.7385631590150297,
+        "publication_serialization_s": 0.4744580690166913,
+        "new_proof_validation_s": 0.5040278880042024,
+        "proof_hits": 2,
+        "proof_misses": 1,
+        "file_reads": 9,
+        "file_bytes": 3779231,
+        "file_hashes": 9,
+        "file_reuses": 15,
+        "depth_decodes": 3,
+        "depth_reuses": 3,
+        "history_file_guards": 90,
+        "current_evidence_validation_s": 0.0015876571414992213,
+        "historical_evidence_io_hash_s": 8.217102731578052e-05,
+        "history_validation_s": 0.10972270803176798,
+        "complete_API_s": 1.9342549199936911
+      },
+      "peak_RSS_MiB": 386.94140625
+    }
+  },
+  "important": "cached API performs new proof validation before returning; original performs ancestry validation later. Compare API and complete replay separately; no blanket per-waypoint speedup.",
+  "scope": "same archived development G1 frames; no new physics or GT accuracy evaluation"
+}

@@ -1,0 +1,224 @@
+{
+  "scope": "SYNTHETIC_ENGINEERING_MECHANISM_ONLY",
+  "cases": [
+    {
+      "case": "unchanged",
+      "equivalent": true,
+      "error": null,
+      "revision": 3,
+      "target": {
+        "status": "coarse",
+        "semantic_status": "hypothesis",
+        "semantic_evidence_id": "e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd",
+        "point_world_m": [
+          0.35947472931529223,
+          -0.06011360282030444,
+          0.028916125091119824
+        ],
+        "historical_semantics": null,
+        "temporal_association": {
+          "status": "unique_current_match",
+          "previous_id": "object_004",
+          "previous_observation_id": "rm65:0002",
+          "current_observation_id": "SYNTHETIC_FAULT:0001",
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.0,
+            "surface_median_delta_world_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "symmetric_nearest_p90_m": [
+              0.0,
+              0.0
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.0,
+              0.0
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "visual_support": [
+            {
+              "camera": "assembly",
+              "source_observation_id": "rm65:0002",
+              "current_observation_id": "SYNTHETIC_FAULT:0001",
+              "current_mask_overlap": 1.0,
+              "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+              "tracker_association": "temporal_instance_hypothesis"
+            },
+            {
+              "camera": "fixed",
+              "source_observation_id": "rm65:0002",
+              "current_observation_id": "SYNTHETIC_FAULT:0001",
+              "current_mask_overlap": 1.0,
+              "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+              "tracker_association": "temporal_instance_hypothesis"
+            },
+            {
+              "camera": "wrist",
+              "source_observation_id": "rm65:0002",
+              "current_observation_id": "SYNTHETIC_FAULT:0001",
+              "current_mask_overlap": 1.0,
+              "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+              "tracker_association": "temporal_instance_hypothesis"
+            }
+          ],
+          "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+        }
+      }
+    },
+    {
+      "case": "holes",
+      "equivalent": true,
+      "error": null,
+      "revision": 3,
+      "target": {
+        "status": "unknown",
+        "semantic_status": "unknown",
+        "semantic_evidence_id": null,
+        "point_world_m": null,
+        "historical_semantics": {
+          "semantic_category": "cuboid",
+          "semantic_attributes": [
+            "red",
+            "cuboid",
+            "left of the two red cuboids in the fixed-camera image",
+            "task target for precontact approach without contact"
+          ],
+          "semantic_disposition": "object",
+          "semantic_status": "hypothesis",
+          "semantic_evidence_id": "e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd",
+          "semantic_source": {
+            "source_id": "source-4f917abb75cca93478c51a4b03a1358a984aa5cb663cf2f0137b3dd9a990ea61",
+            "provenance": "MODEL_RAW",
+            "raw_sha256": "112d73b9577ddca55af371b6e136cdd13129bfcdef5ddb0e9690056d3cbcaad9",
+            "evidence_refs": [
+              "rm65:0002:fixed:15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+              "rm65:0002:assembly:16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+              "rm65:0002:wrist:26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385"
+            ]
+          }
+        },
+        "temporal_association": {
+          "status": "unknown",
+          "candidates": []
+        }
+      }
+    },
+    {
+      "case": "wrist_holes",
+      "equivalent": true,
+      "error": null,
+      "revision": 3,
+      "target": {
+        "status": "coarse",
+        "semantic_status": "hypothesis",
+        "semantic_evidence_id": "e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd",
+        "point_world_m": [
+          0.36100985736884245,
+          -0.06312945003551049,
+          0.029327263549328308
+        ],
+        "historical_semantics": null,
+        "temporal_association": {
+          "status": "unique_current_match",
+          "previous_id": "object_004",
+          "previous_observation_id": "rm65:0002",
+          "current_observation_id": "SYNTHETIC_FAULT:0001",
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.017824361444955555,
+            "surface_median_delta_world_m": [
+              0.01464219630118746,
+              -0.009573815136703523,
+              0.0034140902340355495
+            ],
+            "symmetric_nearest_p90_m": [
+              0.0,
+              0.022700796483603385
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.014703416979316744,
+              0.016853734633629668
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "visual_support": [
+            {
+              "camera": "assembly",
+              "source_observation_id": "rm65:0002",
+              "current_observation_id": "SYNTHETIC_FAULT:0001",
+              "current_mask_overlap": 1.0,
+              "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+              "tracker_association": "temporal_instance_hypothesis"
+            },
+            {
+              "camera": "fixed",
+              "source_observation_id": "rm65:0002",
+              "current_observation_id": "SYNTHETIC_FAULT:0001",
+              "current_mask_overlap": 1.0,
+              "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+              "tracker_association": "temporal_instance_hypothesis"
+            }
+          ],
+          "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+        }
+      }
+    },
+    {
+      "case": "occlusion",
+      "equivalent": true,
+      "error": null,
+      "revision": 3,
+      "target": {
+        "status": "unknown",
+        "semantic_status": "unknown",
+        "semantic_evidence_id": null,
+        "point_world_m": null,
+        "historical_semantics": {
+          "semantic_category": "cuboid",
+          "semantic_attributes": [
+            "red",
+            "cuboid",
+            "left of the two red cuboids in the fixed-camera image",
+            "task target for precontact approach without contact"
+          ],
+          "semantic_disposition": "object",
+          "semantic_status": "hypothesis",
+          "semantic_evidence_id": "e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd",
+          "semantic_source": {
+            "source_id": "source-4f917abb75cca93478c51a4b03a1358a984aa5cb663cf2f0137b3dd9a990ea61",
+            "provenance": "MODEL_RAW",
+            "raw_sha256": "112d73b9577ddca55af371b6e136cdd13129bfcdef5ddb0e9690056d3cbcaad9",
+            "evidence_refs": [
+              "rm65:0002:fixed:15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+              "rm65:0002:assembly:16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+              "rm65:0002:wrist:26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385"
+            ]
+          }
+        },
+        "temporal_association": {
+          "status": "unknown",
+          "candidates": []
+        }
+      }
+    },
+    {
+      "case": "bad_fk",
+      "equivalent": true,
+      "error": "UPDATE_FK_INCONSISTENT",
+      "revision": 2,
+      "target": null
+    },
+    {
+      "case": "nan",
+      "equivalent": true,
+      "error": "DEPTH_VALIDITY_VALUES",
+      "revision": 2,
+      "target": null
+    }
+  ],
+  "all_exact_equivalent_except_declared_timers_ids": true,
+  "real_model_calls": 0,
+  "new_episodes": 0
+}

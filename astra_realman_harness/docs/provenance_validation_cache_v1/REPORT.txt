@@ -1,0 +1,85 @@
+来源校验缓存优化 — 独立工程增量
+
+结论：OFFLINE_PROVENANCE_CACHE_EQUIVALENCE_PASS，性能有明确适用范围。
+独立 worktree：astra-realman-provenance-validation-cache-20261010。
+基础提交 c37dd1844efbec868b0e38207d5aba3aa5d5afbc。
+分支 codex/provenance-validation-cache-20261010。
+本项真实 E/A、SAPIEN新episode、硬件、训练均0；没有改动 A 的冻结目录。
+
+实现与可信边界
+继续使用 PublicStore、WorldHead 与原来源合同。估计器算法/几何参数不变。
+新增 verification_cache，仅管理来源证明和已经哈希验证的不可变 bytes 快照。
+World/Observation/Evidence/receipt/pin 的正常嵌套 JSON 修改及整个 registry 替换会使依赖 token 失效。
+缓存还比较调用方给出的完整 World 字节；不只凭 world_id 命中。
+当前新增 RGB-D 每次 API 都从文件读取并完整验 hash/协议/数组/FK/时间/反馈。
+同一 API 内复用只读、由 bytes 支撑的深度数组；不跨 API 复用当前观测验收。
+祖先证明共享链式结构，不在每次 revision 复制整条祖先依赖；祖先原始传感器字节留在不可变快照中。
+历史源文件没有被宣称为不可变。路径 inode/size/mtime/ctime 变化会触发原始哈希复核；路径逃逸继续拒绝。
+即使修改同尺寸数据后恢复 mtime，也会因 ctime/内容变化拒绝。文件读取前后变化会拒绝。
+不可变的是保存的 bytes 和证明记录，不是原磁盘路径，也不是可变 registry 本身。
+完整递归审计保留为 validate_geometry_update(store, world, full_audit=True)，跳过缓存，重新读取/校验原始文件及所有祖先。
+当前 epoch/read_versions/FK/反馈绑定及原篡改拒绝均保留；新增发布前当前观测变化检查。
+Owner、Supervisor、IK、碰撞、STOP、ActionChunk与所有模型合同/启动路由未变。
+这是单 Owner 同步可信主机优化，不是抵抗任意进程内 monkeypatch 或恶意内核/文件系统的安全边界。
+直接绕过 Python 覆写器的底层 mutation 或篡改缓存私有 token 不在可信宿主模型内；不向模型暴露这些接口。
+
+等价性
+同一冻结 G1 六帧：original c37、候选关闭缓存、候选开启缓存三路径。
+所有三维测量/点云、关联、unknown、visibility、机器人状态、反馈、read_versions、非计时计数及 Query 完全一致，0 个差异。
+只规范化 created_monotonic、resource_metrics 的计时字段、随这些值变化的 World ID 和已独立复算的 state digest。
+S1 W2 的六种合成扰动：unchanged/holes/wrist_holes/occlusion/bad_fk/nan。
+full/cached 几何与语义继承、历史分离、unknown、拒绝原因与 revision 完全一致；原始样本不是新物理episode。
+G1 没有真实语义运动标注，不能宣称验证了真实语义身份随物理运动保持。
+原 G1 61mm 失败及所有旧实验结论保持不变。
+
+测试
+开发初期34项通过、缓存11项通过。
+中间版本广泛回归273/273通过，224.723s（包括原schema/Broker/Supervisor/legacy与FakeCLI隔离回归）。
+最终受影响代码定向回归47/47通过，145.923s；最后的失败计时记录修复定向1/1通过，4.758s。
+这些测试重叠，不把数量相加。源码改动顺序与各日志保留，未声称所有273项在最后一个文字/计时增量后重新运行。
+新增13项缓存测试覆盖嵌套修改、祖先来源篡改、同尺寸文件+mtime恢复、符号链接替换、不可写数组、完整审计、发布前篡改与版本拒绝。
+实际 FakeCLI 测试只使用隔离本地端点/假凭据；不是真实模型或原生并发。
+
+计时（固定单线程，无并行测试负载；一次顺序对比）
+                              原始c37       候选full      候选cached
+流水线墙钟                     15.1051        18.6280         11.9176
+CPU                            15.0906        18.6115         11.8930
+峰值RSS MiB                   328.531         384.789        386.941
+五次Update API累计               8.3722        10.0500          9.1398
+最后一次Update API               2.3547         2.9706          1.9343
+GPU未使用。流水线包含初始Build、五次Update、额外来源核验、Query和文件保存，不含Python imports/最终summary写入。
+相对于原始c37，本次流水线下降约21.1%，但五次API累计增加约9.2%；不能宣称整体每waypoint加速。
+原因之一是缓存路径在API内先验收新proof（约0.455–0.599s），把原先延后的部分工作前移。
+早期Update更慢，后期不再重复全量祖先读取；RSS增加约58.4MiB。
+
+最后一次Update分项（候选full / cached，秒）
+估计计算                         0.7262 / 0.7386
+当前传感器读取/验证/解码          0.0148 / 0.0161
+前一World及祖先校验               1.6692 / 0.1104
+发布/哈希/序列化/receipt           0.4678 / 0.4745
+新proof完整验收                   0.0000 / 0.5040
+Query（API之外）                  0.1525 / 0.1487
+完整API                           2.9706 / 1.9343
+这些分项不含所有Python glue/快照克隆开销，不应假装相加即精确API总时。
+每次缓存API实际读取/哈希9个新传感器文件，解码3路深度；full路径读取数15→24→33→42→57。
+历史文件仍检查元数据，记录mutation token；不是零校验，也不是O(1)历史复杂度。
+当前root World序列化成本依赖其大小；新proof验收与发布/序列化仍是主要开销。
+
+来源链压力（合成软件测试，8x8 RGB-D；非机器人性能）
+每帧独立文件，1/4/8/16/32/64层，每种审计路径3次。
+64层：完整递归审计中位数0.122621s，读取并哈希576个文件。
+缓存复核中位数0.002093s，无重新读取/哈希，但仍做576次历史文件元数据guard以及依赖检查。
+这是已经验收的不可变快照的重复复核，不代表新帧可以省掉9项当前传感器读取。
+早期共享9个文件的microbenchmark另行保留，不用其最佳情况假装每帧独立文件压力。
+完整递归审计保留；不存在用删掉验证获得的加速。详细所有链长度见SOFTWARE_STRESS_UNIQUE.json。
+
+限制
+旧磁盘文件仍可变；元数据检测依赖正常本地文件系统语义，不用于对抗可伪造ctime的恶意内核。
+历史guard和token遍历仍线性，缓存内存随保存的世界/传感器证据增长；没有宣称长时无限容量或实时性能。
+没有新的receipt跨进程恢复API；恢复后需重新完整验收，不能盲信持久化cache hit。
+本轮只给出单场景开发回放与软件机制证据，没有新增独立物理成功率或语义性能结论。
+
+源码、复现及交付
+RUN_COMMANDS.txt给出纯离线入口；SOURCE_FINAL_SHA256.json固定本次源码。
+所有大体积world/query、合成源数组及完整原始计时保留在外部交付目录。
+B增量位于独立分支的未提交工作树；本轮未执行B的commit/push或新模型请求。

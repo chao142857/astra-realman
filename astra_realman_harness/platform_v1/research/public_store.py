@@ -5,6 +5,11 @@ from pathlib import Path
 from .contracts import clone, digest, WORLD_VERSION
 
 class PublicStore:
+    def __setattr__(self, name, value):
+        from .verification_cache import REGISTRIES, Registry
+        if name in REGISTRIES and not isinstance(value, Registry): value=Registry(value)
+        object.__setattr__(self,name,value)
+
     def __init__(self, root, episode_id):
         self.root = Path(root).resolve(); self.episode_id = episode_id
         self.observations = {}; self.evidence = {}; self.worlds = {}; self.revision = 0
@@ -14,6 +19,10 @@ class PublicStore:
         self.grounding_sources = {}
         self.semantic_world_pins = {}
         self.geometry_update_receipts = {}
+        from .verification_cache import VerificationCache
+        self.validation_cache_enabled=True
+        self.verification_cache=VerificationCache(self)
+        self.last_update_profile={}
 
     def observe(self, observation, epoch):
         o = clone(observation)
@@ -22,7 +31,7 @@ class PublicStore:
         identity = o['observation_id']
         if identity in self.observations and self.observations[identity] != o:
             raise ValueError('IMMUTABLE_OBSERVATION')
-        self.observations[identity] = o
+        if identity not in self.observations: self.observations[identity] = o
 
     def get(self, identity):
         if identity not in self.observations: raise ValueError('UNKNOWN_PUBLIC_OBSERVATION')
@@ -32,10 +41,12 @@ class PublicStore:
         o = self.get(identity)
         item = next((r for r in o['rgb'] if r['camera'] == camera), None)
         if item is None: raise ValueError('UNKNOWN_CAMERA')
-        path = (self.root / item['file']).resolve()
-        if not path.is_relative_to(self.root): raise ValueError('PUBLIC_PATH_ESCAPE')
-        data = path.read_bytes()
-        if hashlib.sha256(data).hexdigest() != item['sha256'] or not data.startswith(b'\x89PNG\r\n\x1a\n'):
+        path = self.root / item['file']
+        if not path.resolve().is_relative_to(self.root): raise ValueError('PUBLIC_PATH_ESCAPE')
+        cache=self.verification_cache
+        historical=cache.scope is not None and identity!=cache.scope['current_id']
+        data = cache.read(path,item['sha256'],'PUBLIC_RGB_HASH',historical=historical)
+        if not data.startswith(b'\x89PNG\r\n\x1a\n'):
             raise ValueError('PUBLIC_RGB_HASH')
         return data, item
 
@@ -52,7 +63,22 @@ class PublicStore:
 
     def depth(self, identity, camera):
         from .rgbd_sensor import load_depth
-        return load_depth(self,identity,camera)
+        cache=self.verification_cache
+        if not cache.enabled or cache.scope is None:return load_depth(self,identity,camera)
+        key=(identity,camera,self.observations.tokens[identity]);item=cache.scope['depth'].get(key)
+        if item is not None:
+            for path,signature in item[3]:
+                from .verification_cache import fingerprint
+                if fingerprint(path)!=signature:raise ValueError('DEPTH_HASH')
+            cache.metrics['depth_reuses']+=1
+            return item[0],item[1],clone(item[2])
+        import numpy as np
+        d,v,meta=load_depth(self,identity,camera);cache.metrics['depth_decodes']+=1
+        d=np.frombuffer(d.tobytes(),dtype=d.dtype).reshape(d.shape)
+        v=np.frombuffer(v.tobytes(),dtype=v.dtype).reshape(v.shape)
+        paths=[(str(p),cache.files[str(p)].signature) for p in cache.sensor_paths(identity) if str(p) in cache.files]
+        cache.scope['depth'][key]=(d,v,clone(meta),paths)
+        return d,v,meta
 
     def get_evidence(self, identity):
         if identity not in self.evidence: raise ValueError('UNKNOWN_EVIDENCE_ID')

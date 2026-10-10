@@ -213,15 +213,16 @@ def register_geometry_update(store,world,parent,observation):
     if parent['world_id'] in store.semantic_world_pins:
         store.semantic_world_pins[world['world_id']]=clone(store.semantic_world_pins[parent['world_id']])
 
-def validate_geometry_update(store,world,require_current=True):
+def _validate_geometry_update(store,world,require_current=True,full_audit=False):
     verify_world_hash(world)
+    _require(store.get_world(world['world_id'])==world,'PUBLISHED_WORLD_MISMATCH')
     receipt=store.geometry_update_receipts.get(world['world_id'])
     _require(receipt is not None and receipt['world_sha256']==digest(world),'VERIFIED_UPDATE_RECEIPT_REQUIRED')
     parent=store.get_world(receipt['parent_world_id']);verify_world_hash(parent)
     _require(digest(parent)==receipt['parent_sha256'],'UPDATE_PARENT_CHANGED')
     _require(world['binding']['reference_world_id']==parent['world_id']
              and world['world_revision']==parent['world_revision']+1,'UPDATE_PARENT_REVISION')
-    if parent['state'].get('geometry_update_version'):validate_geometry_update(store,parent,False)
+    if parent['state'].get('geometry_update_version'):validate_geometry_update(store,parent,False,full_audit=full_audit)
     elif requires_binding_check(store,parent):validate_persistent_world(store,parent,False)
     obs=store.get(receipt['observation_id'])
     _require(digest(obs)==receipt['observation_sha256'],'UPDATE_OBSERVATION_CHANGED')
@@ -235,3 +236,18 @@ def validate_geometry_update(store,world,require_current=True):
         _require(store.current_world_id==world['world_id'] and store.revision==world['world_revision']
                  and store.read_versions==world['read_versions'],'STALE_GEOMETRY_UPDATE')
     return True
+
+
+def validate_geometry_update(store,world,require_current=True,*,full_audit=False):
+    """Fast immutable proof path; full_audit rechecks original files/ancestor content."""
+    cache=store.verification_cache
+    if require_current:
+        _require(store.current_world_id==world['world_id'] and store.revision==world['world_revision']
+                 and store.read_versions==world['read_versions'], 'STALE_GEOMETRY_UPDATE')
+    if full_audit:
+        with cache.audit():return _validate_geometry_update(store,world,require_current,True)
+    if cache.hit(world):return True
+    with cache.transaction(world['state']['observation_id']):
+        result=_validate_geometry_update(store,world,require_current)
+        cache.remember(world)
+        return result

@@ -1,0 +1,21 @@
+All commands are offline; workdir is astra_realman_harness of the independent B worktree.
+Set GEOMETRY_FIRST_ARCHIVE_ROOT=/home/alex/astra-realman_ws and PYTHONPATH=.:tests for tests.
+Set OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1; Python is /home/alex/astra/.venv/bin/python -B.
+
+Full cached-path validation (normal runtime): validate_geometry_update(store, world)
+Independent recursive audit: validate_geometry_update(store, world, full_audit=True)
+Opt out of reuse for a Store: store.validation_cache_enabled=False
+Geometry and safety parameters are unchanged.
+
+Replay: scripts/profile_geometry_update_validation.py --source-root <original-c37-or-candidate-harness> --mode original|full|cached --output <NEW-directory>
+Frozen records are shadow-candidate-cheap-update-20261010/G1_PUBLIC_INPUTS.json.
+Run modes sequentially with no parallel tests. Never overwrite archived output folders.
+
+Stress: scripts/stress_geometry_provenance.py --unique-files --output <NEW-directory>
+This creates synthetic 8x8 sensor files and metadata, not a simulator or physical episode.
+
+Final affected tests:
+python -B -m unittest test_verification_cache test_geometry_first_update test_persistent_semantic_binding -v
+The external tools/fault_equivalence.py compares six explicit synthetic S1 cases.
+The external tools/compare_replays.py compares saved full worlds and queries with declared normalization only.
+No model request or physical execution command is supplied.
