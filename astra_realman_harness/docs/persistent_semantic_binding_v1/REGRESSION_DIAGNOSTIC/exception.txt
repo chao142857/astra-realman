@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+  File "/home/alex/astra-realman_ws/astra-realman-persistent-semantic-binding-20261010/astra_realman_harness/tests/test_research_adapters.py", line 37, in test_roles_have_actual_distinct_images_schema_and_raw_provenance
+    e=self.submit_wait(self.request(roi=[.1,.2,.8,.9]));self.assertEqual(e['status'],'READY',e)
+  File "/usr/lib/python3.10/unittest/case.py", line 845, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "/usr/lib/python3.10/unittest/case.py", line 1226, in assertMultiLineEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "/usr/lib/python3.10/unittest/case.py", line 675, in fail
+    raise self.failureException(msg)
+AssertionError: 'FAILED' != 'READY'
+- FAILED
++ READY
+ : {'request_id': 'broker-001', 'role': 'semantic_e0', 'status': 'FAILED', 'provenance': 'FAKE_MODEL_RAW', 'parsed': None, 'evidence_id': None, 'usage_raw': None, 'server_model': 'unknown', 'server_effort': 'unknown', 'server_internal_retries': 'unknown'}

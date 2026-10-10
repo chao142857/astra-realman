@@ -57,6 +57,8 @@ class Broker:
         if self.job or self.baseline_busy(): raise ValueError('ONE_MODEL_IN_FLIGHT')
         if request['role'] not in ROLES: raise ValueError('BROKER_ROLE')
         review = request['role'] in ('semantic_grounding', 'action_shadow')
+        if request['world_id'] is not None:
+            self.validate_world_source(self.store.get_world(request['world_id']))
         if review:
             from .review_contracts import validate_review_request
             w = self.store.get_world(request['world_id'])
@@ -130,7 +132,7 @@ class Broker:
                 'execution_epoch': self.epoch(), 'world_id': request['world_id'],
                 'world_revision': world['world_revision'] if world else None,
                 'observation_ids': list(observations), 'evidence_ids': request['evidence_ids']}
-            if review and not self.config.fixture and world['state'].get('initialization')=='geometry_first_v2' and world['provenance']!='PUBLIC_RGBD_MEASUREMENT':
+            if review and not self.config.fixture and world['state'].get('initialization')=='geometry_first_v2' and world['provenance'] not in ('PUBLIC_RGBD_MEASUREMENT','COMPOSITE_PUBLIC_RGBD_AND_MODEL_RAW'):
                 raise ValueError('UNTRUSTED_GEOMETRY_SOURCE')
             from .model_context import role_world_view
             wire = {'version': VERSION, 'role': request['role'], 'binding': binding,
@@ -190,6 +192,7 @@ class Broker:
             wid = row['binding']['world_id']
             if wid is not None and (self.store.current_world_id != wid or
                     self.store.revision != row['binding']['world_revision']): raise ValueError('STALE_WORLD_REVISION')
+            if wid is not None: self.validate_world_source(self.store.get_world(wid))
             validate_role(row['role'], answer['result'], row['attachments'], row['binding'],
                 self.store.get_world(wid) if wid is not None else None)
             if row['role']=='action_shadow' and answer['result']['plan'] is not None and not set(answer['result']['plan']['evidence_refs']) <= set(answer['evidence_refs']):
@@ -203,6 +206,10 @@ class Broker:
             if row['role'] == 'action': self.action_ready = identity
         except Exception as exc:
             self.save(row, 'CANCELLED' if result['cancel_reason'] else 'FAILED', error=repr(exc))
+
+    def validate_world_source(self, world):
+        from .semantic_binding import requires_binding_check, validate_persistent_world
+        if requires_binding_check(self.store, world): validate_persistent_world(self.store, world)
 
     def poll(self, request_id):
         self.tick()

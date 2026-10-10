@@ -10,6 +10,9 @@ class PublicStore:
         self.observations = {}; self.evidence = {}; self.worlds = {}; self.revision = 0
         self.current_world_id = None
         self.read_versions = {}
+        # Trusted host receipts; never taken from model output or WorldQuery.
+        self.grounding_sources = {}
+        self.semantic_world_pins = {}
 
     def observe(self, observation, epoch):
         o = clone(observation)

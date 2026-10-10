@@ -1,0 +1,35 @@
+{
+  "version": "astra.persistent_semantic_binding.v1",
+  "evidence_id": "e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd",
+  "evidence_content_sha256": "d858aeaf32c7b8e806b544e83603b87a44ebda2eb4571bbd9d3a03d5c4a409f1",
+  "raw_sha256": "112d73b9577ddca55af371b6e136cdd13129bfcdef5ddb0e9690056d3cbcaad9",
+  "provider_schema_sha256": "e93a2676a931ab2b78fbd20286f4fcf515e08db1b8f870b14c04ee73f1860ab0",
+  "authoritative_schema_sha256": "dfdcbbc6cea92bc3d0b6245fd272c86392e650a32830d18d492ca7261444a282",
+  "wire_sha256": "cbc59b1103256b0f0b1b52c559d8739a45fd8d9c35e946daaea6f0b16c92bf93",
+  "archive_manifest_sha256": "cd8099c4a36f56dedd45bf596ea928971bf4f2d1552aff7b8f60ee2a4421293f",
+  "model_result_seal_sha256": "b0266b99ab6b6946fe4d7197ddf3854d3e43e0250ce030337c327c4252c7198e",
+  "qualified_request_id": "GFV2-SEMANTIC-01-846727b6cb5e46fea19795bf58d2eaa4/broker-001",
+  "binding": {
+    "episode_id": "7d992c96ae2045d090af4984cc423989",
+    "request_id": "broker-001",
+    "execution_epoch": 0,
+    "world_id": "w-3df8e1e92b3da9c0a1f214d4e223ed615a021ad04e7d6f6d414277c91b57a4c6",
+    "world_revision": 1,
+    "observation_ids": [
+      "rm65:0002"
+    ],
+    "evidence_ids": []
+  },
+  "geometry_state_sha256": "5e38ce20ad81dce25ec203303bb3ee65e642266abf20aa24af0e7a51f255e406",
+  "read_versions": {
+    "calibration/4ac90858edb1c73a5e43c61a1cf6d2be38275f64f9a1fd3f39063825c60f9f80": 1,
+    "geometry_first/f690044978b734b850e36caeeda9aaa0bc5eaaa1cb8da58f8c941ec28486f9bb": 1,
+    "visibility/observed_support_v1": 1
+  },
+  "observation_sha256": "cb4a8eec9120fb352303156e469b8f9d32bed9dfe54af1b173f8790f4c6460c7",
+  "task_instruction": "Ground the supplied unclassified geometry candidates using these RGB images and the task. Return one record per geometry ID, including robot/unknown dispositions. IDs are spatial hypotheses, not known objects. Do not repeat XYZ or runtime metadata. Bind semantics/attributes and task reference to existing geometry IDs; request segmentation/reassociation or a new planar region if needed. Preserve unknown and do not invent hidden identities. Task: Approach the red cuboid appearing on the left of the two red cuboids in the fixed-camera image to a precontact ready pose, without grasp/contact. Red cuboid alone is ambiguous.",
+  "provenance": "MODEL_RAW",
+  "verification": "PINNED_ARCHIVE_RAW_SCHEMA_AND_BINDINGS",
+  "grants_execution": false,
+  "source_id": "source-4f917abb75cca93478c51a4b03a1358a984aa5cb663cf2f0137b3dd9a990ea61"
+}

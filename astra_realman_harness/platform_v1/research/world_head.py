@@ -26,6 +26,15 @@ class WorldHead:
         """Explicit initial learned geometry; semantic E0 still uses the existing Broker."""
         return self.submit([observation_id], [], 'da3_small_v1')
 
+    def bind_semantic_grounding(self, world_id, evidence_id, task):
+        """Publish semantics on unchanged measured geometry; zero sensing/model calls."""
+        from .semantic_binding import bind_grounding
+        if self.closed or self.job or time.monotonic() >= self.deadline:
+            raise ValueError('WORLD_BUSY_CLOSED_OR_DEADLINE')
+        world = self.store.get_world(world_id)
+        if world['binding']['execution_epoch'] != self.epoch(): raise ValueError('STALE_BINDING_EPOCH')
+        return bind_grounding(self.store, world_id, evidence_id, task)
+
     def update(self, reference_world_id, observation_id, completed_monotonic):
         """Current RGB/FK update, synchronously on CPU; zero learned jobs."""
         from .cheap_update import measure

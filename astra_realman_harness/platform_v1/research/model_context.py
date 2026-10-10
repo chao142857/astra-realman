@@ -44,7 +44,9 @@ def compact_world(world,entity_ids=None,max_bytes=MAX_CONTEXT_BYTES):
     out=_select(world,('version','world_id','world_revision','created_monotonic','binding','provenance','read_versions','semantics'))
     small=_select(state,('backend','geometry_backend','observation_id','captured_monotonic','robot_state','scene_healthy',
         'geometry_only','task_identity_verified','task_target_id','public_plane','geometry_quality',
-        'semantic_evidence_id','semantic_source','relations','unknowns','history_semantics','rebuild_needed','initialization'))
+        'semantic_evidence_id','semantic_source','relations','unknowns','history_semantics','rebuild_needed','initialization',
+        'semantic_binding_version','task_target_geometry_id','task_selection','semantic_unknowns','semantic_requests',
+        'geometry_provenance','semantic_provenance'))
     selected={}
     for identity in ids:
         e=entities[identity]
@@ -53,7 +55,8 @@ def compact_world(world,entity_ids=None,max_bytes=MAX_CONTEXT_BYTES):
             'held_relation','reason','observation_id','captured_monotonic','semantic_source','semantic_evidence_id',
             'current_evidence','contributing_views','view_disagreement_m','displacement_from_previous_measurement_m',
             'geometry_instance_id','candidate_type','objectness','semantic_status','robot_exclusion',
-            'coarse_observed_bounds_world_m','association_evidence','association_uncertainty','uncertainty_components'))
+            'coarse_observed_bounds_world_m','association_evidence','association_uncertainty','uncertainty_components',
+            'semantic_category','semantic_attributes','semantic_disposition'))
         v['views']=[_select(x,('camera','bbox','observation_id','attachment_id','producer','visibility','association')) for x in e.get('views',[])]
         historical=e.get('historical_geometry')
         if historical:v['historical_geometry']={**_select(historical,('point_world_m','observation_id','captured_monotonic')),'measurement_kind':'historical_not_current'}
@@ -63,6 +66,12 @@ def compact_world(world,entity_ids=None,max_bytes=MAX_CONTEXT_BYTES):
             'sha256':digest(e.get('candidate_surface_cloud',[])),'retained_in':'WorldStore','complete_volume':False}
         selected[identity]=v
     small['entities']=selected
+    if state.get('semantic_binding_version'):
+        # Initial geometry correctly had no semantic labels. Keep that historical
+        # layer explicit instead of presenting it as the current semantic answer.
+        small['geometry_initialization_unknowns']=small.pop('unknowns',[])
+        small['unknowns']=clone(state['semantic_unknowns'])
+        small['unknowns_scope']='current semantic hypotheses; geometry initialization notes retained separately'
     static=state.get('scene_layers',{}).get('static',{})
     small['scene_summary']={'static_kind':static.get('kind','unknown'),'static_point_count':len(static.get('points',[])),
         'current_support_count':static.get('current_support_count',0),'unclassified_geometry':'not guaranteed static',

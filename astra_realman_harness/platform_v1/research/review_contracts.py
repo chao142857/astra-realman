@@ -72,6 +72,11 @@ def shadow_schema(world, observation, task, task_binding):
     # Geometry-only candidates do not yet supply a semantic task binding.
     # A world ID is a read dependency, NOT a fabricated MODEL_RAW evidence ID.
     if not eids: raise ValueError('SHADOW_REAL_SEMANTIC_EVIDENCE_REQUIRED')
+    if world['state'].get('semantic_binding_version'):
+        selection = world['state']['task_selection']
+        if (task != selection['task'] or task_binding['object_id'] != selection['task_target_geometry_id']
+                or task_binding['goal_id'] or task_binding['profile'] != 'generic_semantic_v1'):
+            raise ValueError('SHADOW_SEMANTIC_TASK_BINDING')
     for key in ('object_id','goal_id'):
         if task_binding[key] and task_binding[key] not in world['state']['entities']: raise ValueError('SHADOW_TASK_INSTANCE')
     plan = chunk_plan.request_schema(world, observation, task, task_binding, 4, eids)

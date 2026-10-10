@@ -1,0 +1,82 @@
+Persistent Semantic World Binding — 2026-10-10
+
+状态：READY_FOR_A_H4_SHADOW_AUTHORIZATION。240/240 离线回归通过，5065 个旧归档与新世界封存清单条目哈希检查通过。
+本轮真实 E/A、新 SAPIEN episode、硬件动作、训练、native concurrency 均为 0。
+基础提交 c88eabcba454fd01fe9a0590fd8b7cb95d524a26；新分支 codex/persistent-semantic-binding-20261010。
+
+1. 已发布 revision 2
+
+新 World ID：w-07036aa69d2b3c172d4fc627726f9fd620f1ee5d3d07fd33005c3880c0703aa4
+源 Geometry ID：w-3df8e1e92b3da9c0a1f214d4e223ed615a021ad04e7d6f6d414277c91b57a4c6
+真实 Semantic evidence：e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd
+当前 world_revision=2，execution_epoch=0，observation=rm65:0002。
+
+通过现有 PublicStore.publish_world 发布。原 revision 1 仍保留且不变。binding.world_revision 按现有发布约定记录父 revision=1，geometry_world_id 指向源世界；ActionChunkPlan 的 world_revision/read_versions 绑定当前 revision=2，二者没有混用。
+
+WorldSnapshot 文件 SHA256：74a873b269981bfc749ea9ae9bde52ed490594fe447cea5e4afcfbc20d02beaf
+最终紧凑 WorldQuery SHA256：63ee1644fc7e37943a88427608cdc5729ec0f9ca4a70f0fb9813e0ab685691db
+完整世界和点云：外部 result/WORLD.json、result/WORLDSTORE.json。
+最终用于 A 的视图：FINAL_WORLD_QUERY.json、final_preparation/prepare-001/input_only/wire.json。
+初次 result/ 下的 query/preparation 保留；最终 query 只显式区分几何初始化 unknown 与当前语义 unknown，没有改变 W2、任务、Schema 或图片。
+
+2. 严格来源与不变性
+
+新增 semantic_binding 模块是现有 WorldHead/PublicStore 的验证与绑定辅助，不是状态估计器、模型框架或 Supervisor。
+import_grounding_archive 接受可信 host 提供的 archive manifest SHA256 pin。验证封存清单、MODEL_RESULT_SEAL、实际 Broker READY/semantic_grounding/MODEL_RAW、原 CLI raw、raw SHA256、parsed/evidence 内容、原请求、provider/local schema、世界 ID/revision/epoch/read_versions、观测及三路图片和相机内参。重新执行当前严格 local/schema/role 验证，确保六个 geometry ID 恰好一一对应。
+
+仅依赖 provenance 字符串不足以注册来源。可信 receipt 保存在 PublicStore.grounding_sources，不接受模型提供的 receipt。新证据注册需通过外部冻结 manifest pin；普通自签 hash 不认证任意内容。源 raw/请求/封存 hash 随新世界保存，Broker 在准备及返回解析时复核。
+
+安全边界是模型/请求/持久文件相对于可信 host 的篡改；不声称可以防御有权同时修改验证器、可信 pins 和进程内状态的任意主机代码。
+
+几何没有重新推理、分割或融合。六个实体所有非语义字段逐项一致：XYZ、bounds、surface_cloud、candidate_surface_cloud、tracking seeds、visibility、uncertainty、measurement timestamps 和支持证据不变。scene_layers 与 geometry_quality 完全相同。逐对象 digest 见 GEOMETRY_IMMUTABILITY.json。
+
+新增字段：semantic_category、semantic_attributes、semantic_disposition、semantic_status、semantic_evidence_id、semantic_source。语义与几何分开记录 provenance；全世界为 COMPOSITE_PUBLIC_RGBD_AND_MODEL_RAW，不宣称由 Astra 预测了米制几何。
+
+3. 当前语义与任务绑定
+
+object_001: robot gripper component / robot / hypothesis
+object_002: robot assembly / robot / hypothesis
+object_003: robot component / robot / hypothesis，精确相机支架功能仍 unknown
+object_004: red cuboid / object / hypothesis，Fixed 左侧红块任务目标
+object_005: red cuboid / object / hypothesis
+object_006: blue cuboid / object / hypothesis
+
+task_target_geometry_id=object_004；task_selection.status=hypothesis；task_identity_verified=false；task_usable=unknown；grants_execution=false。
+机器人相关语义没有删除任何实际表面。object_001/002 的几何中心继续 unknown；object_003 的现有粗几何保留。模型视图仍显示三个候选的测量表面引用、粗范围和不确定性。point-cloud 缺失仍不能解释为无碰撞空间。
+
+green_region 不存在新测量/实体；原回答 requests=[] 完整保留。绿色材料/用途、object_003 功能、object_002 腕部关联、隐藏几何与 clearance 的 unknown 均保留。
+
+read_versions 保留原 calibration、geometry_first 和 visibility 项，增加 semantic/<evidence_id>、semantic_binding/<version>、task_selection/<selection_hash>。可信 task ID/revision/stage 在发布和恢复时固定；H4 schema 拒绝改选另一目标或另一任务。
+
+4. 正式 H4 Shadow 准备
+
+复用 action_shadow、ActionChunkPlan v2 和单一 Structured Outputs compiler。当前角色 H=4、m=1、K=0，grants_execution=false。
+
+Provider Schema SHA256：eccd6deb56b99df3a9eda37ac1d8e3ac10c3e43be0c8244ea3ff3e36f2d871f4
+Authoritative Schema SHA256：38d34226e476dcd967e38a32d2f9abbceec09366a015609465cb8137638c323c
+Request SHA256：e14e2270a894d59d7072b1be9a1ef360b99dc87b2de851841220afade7bfb290
+
+Broker.prepare 使用 fixture=False 检查真实输入来源，但 allowance=0，且测试与准备 harness 阻止 sandbox_command/ProcessJob：实际 model call、worker、认证环境访问均为 0。准备输入包括紧凑新世界、原三路合法 RGB、公开 K/T、真实 FK 状态和真实 semantic evidence。
+
+planned / refused / need_more_evidence 用明确 FAKE action outputs 经实际 Broker 解析路径验证；成功 fake plan 不是 Astra 规划。refused/need_more_evidence 必须 plan=null；planned 仍验证全部 H4/m1/waypoint/时距/前提/依赖和 stage_terminal 规则。
+
+无论返回何种内容，action_shadow 不设置 action_ready，Supervisor 在访问 Owner 前拒绝。修改测试副本 task_usable=pass、剥离 shadow wrapper、篡改 source/read set/epoch/world revision/附件或添加 MODEL_RAW 声明，都不能获得执行权限。原 Owner、IK、碰撞、STOP、控制器和物理阈值完全不改；旧 20 mm 失败记录不改。
+
+5. 持久恢复与性能
+
+restore_persistent_world 使用外部已封存 world ID 和 task pin 恢复原 revision 2，重新验证 receipt 与整份确定性语义 overlay。禁止从模型输出接受 pins，不需要再次 publish_world，更不需要计算几何。真实封存世界恢复后，provider/local schema 与图片与初次准备逐字节一致；最终只增加了 unknown 分层的只读 query 投影。
+
+初次单次 pipeline（秒）：archive verify/import 0.3286；bind/publish 0.5943；query 0.1214；Broker.prepare 1.2451；总 pipeline 3.3689；累计进程 CPU 4.3138；RSS peak 134.95 MiB；无 GPU。
+最终 restore+验证+prepare：pipeline 3.6250 s，CPU 3.5890 s，RSS peak 134.78 MiB。以上含重复来源校验与序列化，计时从脚本 main 后开始，不含解释器启动，不是几何推理速度或多个 episode 的性能基准。
+最终 canonical compact query 42159 bytes；实际 wire 58191 bytes。PNG/base64 payload 另保存，不把图片数据计入上述 wire 尺寸。不估算真实 A usage。
+
+Geometry-First 实际动态 Update 仍未验收；原显式 fail-closed 入口保留。本轮 Persistent 指不可变快照、语义/任务依赖与可验证恢复，不等同于动态跟踪或持物状态验收。
+
+6. 测试与下一步授权
+
+240/240 离线回归通过，包含 20 项新增持久绑定测试。完整测试数量/结果见 TEST_SUMMARY.json、REGRESSION_02.log。保留首轮广泛回归的 42 failure / 7 error：外层沙箱禁止 NETLINK_ROUTE 创建，旧 bwrap FakeCLI 未启动；随后在允许创建 namespace 的环境运行相同离线 fixture 测试，测试内部仍断网、无真实凭据。未降低隔离检查或安全断言。
+
+INTEGRITY_BEFORE_COMMIT_02.json：5065 个清单条目核验通过，原 Geometry-First 工作树干净。第一次完整性检查脚本把 DA3 归档的 {files: {...}} 包装误读为平铺映射，报告缺少名为 files 的文件；原检查结果与脚本保留，修正清单格式读取后该 42 项归档全部一致。未修改任何归档内容。
+
+下一次需独立授权一项 action_shadow：源提交与本批 WORLD/REQUEST/Schema/图片哈希冻结，gpt-6-astra/medium、原已验证 provider/认证路线、最多一次 Broker submission、timeout<=90s、application/request/stream retry=0、unbounded retry=false、fallback=0、K=0。先保存 raw/parsed/events/usage/墙钟，再独立 review。无 E、SAPIEN、硬件或 native concurrency。
+AUTHORIZATION_TEMPLATE.json 为 granted=false，不是调用许可。新请求必须使用独立 claim/attempt，不复用 prepare-001。新 W2 的真实 A 返回和服务端 schema 接受尚未验证；本轮不自动启动。

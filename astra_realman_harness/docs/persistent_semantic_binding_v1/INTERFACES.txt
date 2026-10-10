@@ -1,0 +1,26 @@
+可信 host 接口（不暴露为模型可调用工具）
+
+1. 将公开观测与封存 Geometry World 按现有 PublicStore 注册。
+2. import_grounding_archive(store, archive, manifest_sha256, world_id, evidence_id)
+   验证原始 raw/Schema/请求/三路 RGB/epoch/revision/read set 并注册来源 receipt。
+3. WorldHead.bind_semantic_grounding(world_id, evidence_id, task)
+   调用现有 publish_world；新的 revision，几何不变。
+4. store.query_world(new_world_id) 获取模型紧凑视图。
+5. shadow_request(world, observation, task, task_binding)
+   task_binding.object_id 必须是 semantic task selection；H4/m1/K0；永不执行。
+6. Broker.prepare(request) 只生成正式 wire/schema，零 worker / 零调用。
+
+恢复已有 revision 而不重新发布：
+ import_grounding_archive(...) 后调用
+ restore_persistent_world(store, frozen_world, trusted_world_id_pin, trusted_task_pin)
+ 再 validate_persistent_world(store, frozen_world)。不能盲目把未验证 JSON 或自称 MODEL_RAW 注册为可信 world。
+
+离线入口（从 astra_realman_harness 运行；输出目录必须不存在）：
+ /home/alex/astra/.venv/bin/python -B scripts/prepare_persistent_semantic_shadow.py --world /home/alex/astra-realman_ws/geometry-first-v2-20261010/results/geometry/WORLD.json --observation /home/alex/astra-realman_ws/semantic-grounding-authorized-01-20261010/OBSERVATION.json --public /home/alex/astra-realman_ws/semantic-grounding-authorized-01-20261010/public_rgb_only --semantic-archive /home/alex/astra-realman_ws/semantic-grounding-authorized-01-20261010 --config config/research/persistent_semantic_s1_v1.json --output /tmp/persistent-semantic-offline-review
+
+该命令是新的离线 publication，created_monotonic 会产生新 World ID，不会覆盖本批冻结 revision 2。若准备本批后续授权，必须恢复冻结 W2，不能重新发布后冒用旧 schema/hash。
+
+测试：
+ GEOMETRY_FIRST_ARCHIVE_ROOT=/home/alex/astra-realman_ws PYTHONPATH=.:tests /home/alex/astra/.venv/bin/python -B -m unittest test_persistent_semantic_binding -v
+
+该测试使用封存真实输入、明确 FAKE action outputs。旧 FakeCLI namespace 回归需要执行环境允许 bwrap 创建隔离 namespace，但 fixture 内无网络和真实凭据。不得以真实模型或 SAPIEN 补足离线测试。

@@ -1,0 +1,118 @@
+{
+  "version": "astra.persistent_semantic_shadow_authorization.v1",
+  "granted": false,
+  "scope": "PERSISTENT_SEMANTIC_A_H4_SHADOW_ONLY",
+  "role": "action_shadow",
+  "source_branch": "codex/persistent-semantic-binding-20261010",
+  "source_commit_must_match": "GIT_DELIVERY.json in sealed external delivery; verify before new authorization",
+  "source_manifest_sha256": "f85f5a77b930331a2dab4968cb45a1d5db00f36275e847a1de5019b235d57bba",
+  "model": "gpt-6-astra",
+  "effort": "medium",
+  "production_provider_and_auth": "unchanged from sealed successful semantic_grounding; no fallback; no credentials here",
+  "launcher": "/home/alex/astra-realman_ws/semantic-s1-provider-fix-20261009/runtime_cli/bin/codex",
+  "launcher_sha256": "29235c85a8d99f3423cde184aa4653341a70a815bc0abb6a5ae78cea7539945b",
+  "native_binary_sha256": "9a820c17865fa825d04db416818679a9d63bd72e50835c396f496e5684626c9c",
+  "max_Broker_submissions": 1,
+  "timeout_s": 90,
+  "application_retries": 0,
+  "request_max_retries": 0,
+  "stream_max_retries": 0,
+  "unbounded_connection_retries": false,
+  "fallbacks": 0,
+  "H": 4,
+  "m": 1,
+  "K": 0,
+  "grants_execution": false,
+  "target": "object_004",
+  "target_status": "hypothesis",
+  "world_id": "w-07036aa69d2b3c172d4fc627726f9fd620f1ee5d3d07fd33005c3880c0703aa4",
+  "world_revision": 2,
+  "execution_epoch": 0,
+  "world_file_sha256": "74a873b269981bfc749ea9ae9bde52ed490594fe447cea5e4afcfbc20d02beaf",
+  "read_versions": {
+    "calibration/4ac90858edb1c73a5e43c61a1cf6d2be38275f64f9a1fd3f39063825c60f9f80": 1,
+    "geometry_first/f690044978b734b850e36caeeda9aaa0bc5eaaa1cb8da58f8c941ec28486f9bb": 1,
+    "visibility/observed_support_v1": 1,
+    "semantic/e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd": 1,
+    "semantic_binding/astra.persistent_semantic_binding.v1": 1,
+    "task_selection/03952c62e793395a509935848d81c025e41591951bec503187e69cbf26e510b4": 1
+  },
+  "semantic_evidence_id": "e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd",
+  "semantic_source": {
+    "version": "astra.persistent_semantic_binding.v1",
+    "evidence_id": "e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd",
+    "evidence_content_sha256": "d858aeaf32c7b8e806b544e83603b87a44ebda2eb4571bbd9d3a03d5c4a409f1",
+    "raw_sha256": "112d73b9577ddca55af371b6e136cdd13129bfcdef5ddb0e9690056d3cbcaad9",
+    "provider_schema_sha256": "e93a2676a931ab2b78fbd20286f4fcf515e08db1b8f870b14c04ee73f1860ab0",
+    "authoritative_schema_sha256": "dfdcbbc6cea92bc3d0b6245fd272c86392e650a32830d18d492ca7261444a282",
+    "wire_sha256": "cbc59b1103256b0f0b1b52c559d8739a45fd8d9c35e946daaea6f0b16c92bf93",
+    "archive_manifest_sha256": "cd8099c4a36f56dedd45bf596ea928971bf4f2d1552aff7b8f60ee2a4421293f",
+    "model_result_seal_sha256": "b0266b99ab6b6946fe4d7197ddf3854d3e43e0250ce030337c327c4252c7198e",
+    "qualified_request_id": "GFV2-SEMANTIC-01-846727b6cb5e46fea19795bf58d2eaa4/broker-001",
+    "binding": {
+      "episode_id": "7d992c96ae2045d090af4984cc423989",
+      "request_id": "broker-001",
+      "execution_epoch": 0,
+      "world_id": "w-3df8e1e92b3da9c0a1f214d4e223ed615a021ad04e7d6f6d414277c91b57a4c6",
+      "world_revision": 1,
+      "observation_ids": [
+        "rm65:0002"
+      ],
+      "evidence_ids": []
+    },
+    "geometry_state_sha256": "5e38ce20ad81dce25ec203303bb3ee65e642266abf20aa24af0e7a51f255e406",
+    "read_versions": {
+      "calibration/4ac90858edb1c73a5e43c61a1cf6d2be38275f64f9a1fd3f39063825c60f9f80": 1,
+      "geometry_first/f690044978b734b850e36caeeda9aaa0bc5eaaa1cb8da58f8c941ec28486f9bb": 1,
+      "visibility/observed_support_v1": 1
+    },
+    "observation_sha256": "cb4a8eec9120fb352303156e469b8f9d32bed9dfe54af1b173f8790f4c6460c7",
+    "task_instruction": "Ground the supplied unclassified geometry candidates using these RGB images and the task. Return one record per geometry ID, including robot/unknown dispositions. IDs are spatial hypotheses, not known objects. Do not repeat XYZ or runtime metadata. Bind semantics/attributes and task reference to existing geometry IDs; request segmentation/reassociation or a new planar region if needed. Preserve unknown and do not invent hidden identities. Task: Approach the red cuboid appearing on the left of the two red cuboids in the fixed-camera image to a precontact ready pose, without grasp/contact. Red cuboid alone is ambiguous.",
+    "provenance": "MODEL_RAW",
+    "verification": "PINNED_ARCHIVE_RAW_SCHEMA_AND_BINDINGS",
+    "grants_execution": false,
+    "source_id": "source-4f917abb75cca93478c51a4b03a1358a984aa5cb663cf2f0137b3dd9a990ea61"
+  },
+  "task": {
+    "id": "S1_FIXED_LEFT_PRECONTACT",
+    "revision": "1",
+    "stage": "T1_PREGRASP_APPROACH"
+  },
+  "observation_id": "rm65:0002",
+  "request_sha256": "e14e2270a894d59d7072b1be9a1ef360b99dc87b2de851841220afade7bfb290",
+  "provider_schema_sha256": "eccd6deb56b99df3a9eda37ac1d8e3ac10c3e43be0c8244ea3ff3e36f2d871f4",
+  "authoritative_schema_sha256": "38d34226e476dcd967e38a32d2f9abbceec09366a015609465cb8137638c323c",
+  "world_query_sha256": "63ee1644fc7e37943a88427608cdc5729ec0f9ca4a70f0fb9813e0ab685691db",
+  "prepared_wire_sha256": "b91765de8d7d17630efeb1459e7ec43273fdd3034e537b3fbbb0ed8c6efbb11b",
+  "three_RGB": [
+    {
+      "camera": "assembly",
+      "sha256": "16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+      "source_sha256": "16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8"
+    },
+    {
+      "camera": "fixed",
+      "sha256": "15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+      "source_sha256": "15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad"
+    },
+    {
+      "camera": "wrist",
+      "sha256": "26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385",
+      "source_sha256": "26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385"
+    }
+  ],
+  "new_single_use_authorization_and_request_claim_required": true,
+  "reuse_prepare_or_historical_attempt": false,
+  "new_attempt_binding_must_be_archived": true,
+  "on_first_failure": "STOP_AND_SEAL_NO_RETRY",
+  "raw_then_independent_review": true,
+  "other_role_submissions": 0,
+  "SAPIEN_episodes": 0,
+  "hardware": 0,
+  "actions": 0,
+  "training": 0,
+  "native_concurrency": 0,
+  "real_action_role_server_acceptance": "NOT_VERIFIED",
+  "task_usable_must_remain": "unknown",
+  "physical_execution_admissibility": "NOT_GRANTED"
+}
