@@ -185,7 +185,9 @@ def requires_binding_check(store,world):
     return bool(world['state'].get('semantic_binding_version') or world['provenance']==PROVENANCE
         or any(store.get_evidence(i)['role']=='semantic_grounding' for i in world['binding'].get('evidence_ids',[])))
 
-def validate_persistent_world(store,world):
+def validate_persistent_world(store,world,require_current=True):
+    if world['state'].get('geometry_update_version'):
+        return validate_geometry_update(store,world,require_current)
     verify_world_hash(world)
     _require(world['world_id'] in store.semantic_world_pins
              and store.semantic_world_pins[world['world_id']]==world['state']['task_selection']['task'], 'PUBLISHED_WORLD_TASK_PIN')
@@ -195,6 +197,41 @@ def validate_persistent_world(store,world):
     state,binding,deps=_bound_parts(store,base,eids[0],world['state']['task_selection']['task'])
     _require(world['state']==state and world['binding']==binding and world['read_versions']==deps
              and world['world_revision']==base['world_revision']+1, 'PERSISTENT_WORLD_MISMATCH')
-    _require(store.current_world_id==world['world_id'] and store.revision==world['world_revision']
-             and store.read_versions==deps, 'STALE_PERSISTENT_WORLD')
+    if require_current:
+        _require(store.current_world_id==world['world_id'] and store.revision==world['world_revision']
+                 and store.read_versions==deps, 'STALE_PERSISTENT_WORLD')
+    return True
+
+def register_geometry_update(store,world,parent,observation):
+    """Trusted WorldHead publication receipt, not a model-asserted provenance."""
+    receipt={'world_sha256':digest(world),'parent_world_id':parent['world_id'],
+        'parent_sha256':digest(parent),'observation_id':observation['observation_id'],
+        'observation_sha256':digest(observation),'read_versions':clone(world['read_versions']),
+        'measurement_source':'CURRENT_HASH_VERIFIED_RGBD_WITH_MEASURED_FK',
+        'semantic_source':'PRIOR_BOUND_EVIDENCE_ONLY_VIA_TEMPORAL_ASSOCIATION','grants_execution':False}
+    store.geometry_update_receipts[world['world_id']]=receipt
+    if parent['world_id'] in store.semantic_world_pins:
+        store.semantic_world_pins[world['world_id']]=clone(store.semantic_world_pins[parent['world_id']])
+
+def validate_geometry_update(store,world,require_current=True):
+    verify_world_hash(world)
+    receipt=store.geometry_update_receipts.get(world['world_id'])
+    _require(receipt is not None and receipt['world_sha256']==digest(world),'VERIFIED_UPDATE_RECEIPT_REQUIRED')
+    parent=store.get_world(receipt['parent_world_id']);verify_world_hash(parent)
+    _require(digest(parent)==receipt['parent_sha256'],'UPDATE_PARENT_CHANGED')
+    _require(world['binding']['reference_world_id']==parent['world_id']
+             and world['world_revision']==parent['world_revision']+1,'UPDATE_PARENT_REVISION')
+    if parent['state'].get('geometry_update_version'):validate_geometry_update(store,parent,False)
+    elif requires_binding_check(store,parent):validate_persistent_world(store,parent,False)
+    obs=store.get(receipt['observation_id'])
+    _require(digest(obs)==receipt['observation_sha256'],'UPDATE_OBSERVATION_CHANGED')
+    _require(world['state']['robot_state']==obs['state']
+             and world['binding']['execution_epoch']==obs['execution_epoch']
+             and world['state']['observation_id']==obs['observation_id'],'UPDATE_CURRENT_BINDING')
+    for camera in ('assembly','fixed','wrist'):
+        store.image(obs['observation_id'],camera);store.depth(obs['observation_id'],camera)
+    _require(world['read_versions']==receipt['read_versions'],'UPDATE_READ_VERSIONS')
+    if require_current:
+        _require(store.current_world_id==world['world_id'] and store.revision==world['world_revision']
+                 and store.read_versions==world['read_versions'],'STALE_GEOMETRY_UPDATE')
     return True

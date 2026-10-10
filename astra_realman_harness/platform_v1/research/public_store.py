@@ -13,6 +13,7 @@ class PublicStore:
         # Trusted host receipts; never taken from model output or WorldQuery.
         self.grounding_sources = {}
         self.semantic_world_pins = {}
+        self.geometry_update_receipts = {}
 
     def observe(self, observation, epoch):
         o = clone(observation)

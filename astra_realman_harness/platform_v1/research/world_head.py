@@ -21,6 +21,7 @@ class WorldHead:
         self.public_plane=None
         self.feedback_provider=None
         self.rebuild_requests=[]
+        self.geometry_update_config=None
 
     def build(self, observation_id):
         """Explicit initial learned geometry; semantic E0 still uses the existing Broker."""
@@ -35,18 +36,18 @@ class WorldHead:
         if world['binding']['execution_epoch'] != self.epoch(): raise ValueError('STALE_BINDING_EPOCH')
         return bind_grounding(self.store, world_id, evidence_id, task)
 
-    def update(self, reference_world_id, observation_id, completed_monotonic):
+    def update(self, reference_world_id, observation_id, completed_monotonic, *, execution_feedback=None):
         """Current RGB/FK update, synchronously on CPU; zero learned jobs."""
         from .cheap_update import measure
         if self.closed or self.job:raise ValueError('WORLD_BUSY_OR_CLOSED')
         reference=self.store.get_world(reference_world_id)
         if reference['world_revision']!=self.store.revision:raise ValueError('STALE_UPDATE_BASE')
-        if reference['state'].get('initialization') == 'geometry_first_v2':
-            raise ValueError('GEOMETRY_FIRST_UPDATE_CONTRACT_ONLY_NOT_ACCEPTED')
         source=self.store.get(observation_id)
         if source['execution_epoch']!=self.epoch():raise ValueError('STALE_UPDATE_EPOCH')
         previous=self.store.get(reference['state']['observation_id'])
         start=time.monotonic()
+        if reference['state'].get('initialization')=='geometry_first_v2':
+            return self._update_geometry_first(reference,previous,source,completed_monotonic,execution_feedback,start)
         if reference['state'].get('geometry_backend')=='rgbd_object_state_v1':
             from .rgbd_world import update as rgbd_update
             feedback=source.get('execution_feedback')
@@ -70,6 +71,50 @@ class WorldHead:
             'reference_world_id':reference_world_id,'world_revision':reference['world_revision'],
             'completed_monotonic':completed_monotonic}
         return self.store.publish_world(state,binding,reference['provenance'])
+
+    def _update_geometry_first(self,reference,previous,source,completed,feedback,start):
+        from .rgbd_world import update_geometry_first
+        from .semantic_binding import (verify_world_hash,requires_binding_check,validate_persistent_world,
+                                       validate_geometry_update,register_geometry_update)
+        from .model_context import calibration_key,VISIBILITY_VERSION
+        if source['captured_monotonic']<=previous['captured_monotonic']:raise ValueError('NONCAUSAL_UPDATE')
+        if not math.isfinite(completed) or source['captured_monotonic']<completed:raise ValueError('OBSERVATION_BEFORE_COMPLETION')
+        if self.store.current_world_id!=reference['world_id']:raise ValueError('STALE_UPDATE_BASE')
+        verify_world_hash(reference)
+        if reference['state'].get('geometry_update_version'):validate_geometry_update(self.store,reference)
+        elif requires_binding_check(self.store,reference):validate_persistent_world(self.store,reference)
+        if source['execution_epoch']<reference['binding']['execution_epoch']:raise ValueError('STALE_UPDATE_EPOCH')
+        cfg=self.geometry_update_config
+        if cfg is None:
+            cfg=json.loads((Path(__file__).resolve().parents[2]/'config/research/geometry_first_update_v1.json').read_text())
+        if feedback is None:feedback=source.get('execution_feedback')
+        if feedback is None and self.feedback_provider is not None:feedback=self.feedback_provider(completed)
+        images=self._images(source['observation_id'])
+        depths={c:self.store.depth(source['observation_id'],c) for c in ('assembly','fixed','wrist')}
+        loaded=time.monotonic()
+        state=update_geometry_first(reference['state'],previous,source,images,depths,self._images,completed,feedback,cfg)
+        if reference['world_revision']!=self.store.revision or source['execution_epoch']!=self.epoch():raise ValueError('STALE_UPDATE_AFTER_COMPUTE')
+        if self.closed or time.monotonic()>=self.deadline:raise ValueError('UPDATE_DEADLINE_OR_CLOSED')
+        state['resource_metrics'].update(sensor_load_and_source_check_s=loaded-start,update_wall_s=time.monotonic()-start)
+        state['geometry_provenance']={'provenance':'PUBLIC_RGBD_MEASUREMENT','previous_world_id':reference['world_id'],
+            'observation_id':source['observation_id'],'observation_sha256':digest(source),
+            'semantic_labels_are_inherited_hypotheses':True,'current_sensor_geometry_not_model_prediction':True}
+        deps=clone(reference['read_versions']);deps[calibration_key(source['calibration'])]=1
+        deps['geometry_update/'+digest(cfg)]=1
+        for key in ('geometry/current_measurement','visibility/'+VISIBILITY_VERSION):deps[key]=deps.get(key,0)+1
+        deps['observation/'+source['observation_id']]=1
+        binding={**clone(reference['binding']),'observation_ids':[source['observation_id']],
+            'execution_epoch':self.epoch(),'reference_world_id':reference['world_id'],
+            'world_revision':reference['world_revision'],'completed_monotonic':completed,
+            'execution_feedback_sha256':digest(feedback),'current_observation_sha256':digest(source),
+            'image_sha256':{c:self.store.image(source['observation_id'],c)[1]['sha256'] for c in images},
+            'depth_sha256':{c:depths[c][2]['depth']['sha256'] for c in depths}}
+        state['update_input_provenance']=source.get('research_input_provenance','PUBLIC_ARCHIVED_OR_LIVE_RGBD')
+        provenance=('SYNTHETIC_SENSOR_REPLAY' if source.get('research_input_provenance')=='SYNTHETIC_FAULT_INJECTION'
+                    or reference['provenance']=='SYNTHETIC_SENSOR_REPLAY' else reference['provenance'])
+        published=self.store.publish_world(state,binding,provenance,read_versions=deps)
+        register_geometry_update(self.store,published,reference,source)
+        return published
 
     def build_geometry_first(self, observation_id, config):
         """Geometry-only RGB-D Build; deliberately no semantic/evidence argument."""

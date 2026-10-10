@@ -10,6 +10,8 @@ def validate_role(role, result, attachments, binding, world):
             if result['plan']['version'] != 'astra.action_chunk_plan.v2' or result['plan']['H'] != 4 or result['plan']['m'] != 1: raise ValueError('SHADOW_H4_M1')
             validate_role('action', result['plan'], attachments, binding, world)
         elif result['plan'] is not None: raise ValueError('SHADOW_REFUSAL_HAS_PLAN')
+        from .review_contracts import CANDIDATE_VERSION, validate_candidate_result
+        if result['version']==CANDIDATE_VERSION: validate_candidate_result(result,attachments,binding,world)
         return
     if role == 'semantic_grounding':
         ids = [x['geometry_instance_id'] for x in result['objects']]

@@ -10,6 +10,20 @@ from . import chunk_plan
 
 GROUNDING_VERSION = 'astra.semantic_grounding.v1'
 SHADOW_VERSION = 'astra.action_shadow.v1'
+CANDIDATE_VERSION = 'astra.action_shadow_candidate.v2'
+CANDIDATE_INSTRUCTION = (
+    'NONEXECUTABLE HYPOTHESIS GENERATION, followed by independent planning review; physical admission is separate. '
+    'Using the compact world, task and actual robot state, propose a meaningful coarse precontact ActionChunkPlan v2 '
+    'candidate if supported as a hypothesis. H=4, m=1, K=0; four waypoints or justified stage_terminal; '
+    '20-50mm translation, rotation <=0.15rad, nominal 2s offsets, complete prefix dependencies; no noop padding, contact or gripper. '
+    'You need not prove IK, collision or clearance before proposing a candidate. These checks remain NOT_TESTED, '
+    'owner admission NOT_GRANTED, and every waypoint a hypothesis. State explicit assumptions and assess all five '
+    'waypoint preconditions as supported_by_input, unverified or conflict; never claim an unchecked prerequisite passed. '
+    'A precondition names a requirement, not its satisfaction. Never infer hidden free space or claim physical safety. '
+    'Observed bounds are surfaces, not exact object/grasp centers. Distinguish task identity hypothesis from absence of semantics. '
+    'Use planned only for a meaningful reviewable candidate; choose refused for explicit conflicts, or need_more_evidence '
+    'when a meaningful candidate cannot be formed. For either null-plan response, leave precondition assessments empty. '
+    'All decisions permanently grant no execution. Do not manufacture MODEL_RAW provenance or change world/read versions.')
 REVIEW_ROLES = ('semantic_grounding', 'action_shadow')
 
 def grounding_schema(world):
@@ -112,6 +126,59 @@ def shadow_request(world, observation, task, task_binding):
             'No result can enter physical execution; grants_execution must remain false.',
         'output_schema': shadow_schema(world, observation, task, task_binding), 'timeout_s': 90}
 
+def candidate_shadow_schema(world, observation, task, task_binding):
+    """New research wrapper; the inner ActionChunkPlan v2 remains unchanged."""
+    schema = shadow_schema(world, observation, task, task_binding)
+    schema['properties']['version']['const'] = CANDIDATE_VERSION
+    checks = obj({k:{'type':'string','const':v} for k,v in {
+        'IK':'NOT_TESTED','collision':'NOT_TESTED','clearance':'NOT_TESTED',
+        'owner_admission':'NOT_GRANTED','hidden_space':'UNKNOWN_NOT_FREE'}.items()})
+    assessment = obj({'waypoint_index':{'type':'integer','minimum':1,'maximum':4},
+        'precondition':{'type':'string','enum':chunk_plan.PRECONDITIONS},
+        'status':{'type':'string','enum':['supported_by_input','unverified','conflict']},
+        'basis':{'type':'string','minLength':1},
+        'evidence_refs':{'type':'array','items':{'type':'string','minLength':1},'uniqueItems':True}})
+    fields = {'planning_level':{'type':'string','const':'HYPOTHESIS_GENERATION'},
+        'review_status':{'type':'string','const':'INDEPENDENT_REVIEW_PENDING'},
+        'all_waypoints_are_hypotheses':{'type':'boolean','const':True},
+        'physical_checks':checks,
+        'assumptions':{'type':'array','items':{'type':'string','minLength':1},'maxItems':16},
+        'precondition_assessments':{'type':'array','items':assessment,'maxItems':20}}
+    schema['properties'].update(fields);schema['required'].extend(fields)
+    return schema
+
+def candidate_shadow_request(world, observation, task, task_binding):
+    request = shadow_request(world, observation, task, task_binding)
+    request.update(instruction=CANDIDATE_INSTRUCTION,
+        output_schema=candidate_shadow_schema(world,observation,task,task_binding))
+    return request
+
+def validate_candidate_result(result, attachments, binding, world):
+    """Check machine-readable claims; free text still needs independent review."""
+    ledger=result['precondition_assessments'];plan=result['plan']
+    if plan is None:
+        if ledger:raise ValueError('NULL_CANDIDATE_PRECONDITIONS')
+        return
+    target=world['state']['entities'][plan['task_binding']['object_id']]
+    if target.get('status')!='coarse' or target.get('point_world_m') is None:
+        raise ValueError('CANDIDATE_CURRENT_TARGET_REQUIRED')
+    if not result['assumptions']:raise ValueError('CANDIDATE_ASSUMPTIONS_REQUIRED')
+    keys=[(x['waypoint_index'],x['precondition']) for x in ledger]
+    expected={(i,p) for i in range(1,len(plan['waypoints'])+1) for p in chunk_plan.PRECONDITIONS}
+    if len(keys)!=len(set(keys)) or set(keys)!=expected:raise ValueError('CANDIDATE_PRECONDITION_COVERAGE')
+    allowed={x['id'] for x in attachments}|set(binding['evidence_ids'])
+    for x in ledger:
+        if not set(x['evidence_refs'])<=allowed:raise ValueError('CANDIDATE_UNSENT_EVIDENCE')
+        if x['status']=='conflict':raise ValueError('PLANNED_WITH_EXPLICIT_CONFLICT')
+        if x['precondition']=='owner_admission' and x['status']!='unverified':
+            raise ValueError('CANDIDATE_OWNER_NOT_ADMITTED')
+        if x['status']=='supported_by_input':
+            if not x['evidence_refs']:raise ValueError('CANDIDATE_SUPPORT_WITHOUT_EVIDENCE')
+            if x['precondition']=='target_identity_hypothesis' and target.get('semantic_status')!='hypothesis':
+                raise ValueError('CANDIDATE_TARGET_IDENTITY_UNSUPPORTED')
+            if x['precondition']=='visibility' and not target.get('views'):
+                raise ValueError('CANDIDATE_VISIBILITY_UNSUPPORTED')
+
 def validate_review_request(request, world, observation):
     if world is None: raise ValueError('REVIEW_WORLD_REQUIRED')
     if len(request['images']) != 3 or {x['camera'] for x in request['images']} != {'fixed','assembly','wrist'} or any(x['roi'] is not None or x['observation_id'] != world['state']['observation_id'] for x in request['images']):
@@ -124,7 +191,10 @@ def validate_review_request(request, world, observation):
         supplied = request['output_schema']
         try:
             p = supplied['properties']['plan']['anyOf'][0]['properties']
-            expected = shadow_schema(world, observation, p['task']['const'], p['task_binding']['const'])
+            candidate = supplied['properties']['version']['const']==CANDIDATE_VERSION
+            factory = candidate_shadow_schema if candidate else shadow_schema
+            expected = factory(world, observation, p['task']['const'], p['task_binding']['const'])
+            if candidate and request['instruction']!=CANDIDATE_INSTRUCTION:raise ValueError('CANDIDATE_VERSIONED_PROMPT')
         except (KeyError, TypeError, IndexError) as exc: raise ValueError('SHADOW_BOUND_SCHEMA_REQUIRED') from exc
         if request['evidence_ids'] != list(world['binding'].get('evidence_ids', [])): raise ValueError('SHADOW_EVIDENCE_BINDING')
     if request['output_schema'] != expected: raise ValueError('REVIEW_SCHEMA_MISMATCH')

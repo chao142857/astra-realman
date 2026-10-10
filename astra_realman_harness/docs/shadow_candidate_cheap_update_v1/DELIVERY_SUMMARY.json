@@ -1,0 +1,68 @@
+{
+  "status": "OFFLINE_ENGINEERING_INCREMENTS_COMPLETE",
+  "base_commit": "51ddbd5b5caf02bc5fa12909260f4b5438956275",
+  "branch": "codex/shadow-candidate-cheap-update-20261010",
+  "regression": {
+    "passed": 262,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "wall_s": 196.466
+  },
+  "candidate": {
+    "status": "OFFLINE_CANDIDATE_V2_CONTRACT_READY",
+    "world_id": "w-07036aa69d2b3c172d4fc627726f9fd620f1ee5d3d07fd33005c3880c0703aa4",
+    "World_revision": 2,
+    "request_sha256": "d9ab848705e6b0fa3403bfb324b6734540d69c48696a827d1e8da813750c4605",
+    "provider_schema_sha256": "d69d4edc38c927203c96b867082e22c2a5ab530c7c43ed0df8a03cd8abe16a48",
+    "local_schema_sha256": "7bb2d83c2d6e5bceb4eb44adea2b4898b628b5ecd6941d6a5335f4c5154ea871",
+    "prompt_sha256": "f20fa79d71d6ffd89921ebc97bad50674fbe18a4051d34f752d6a94030cc71c9",
+    "cases": [
+      {
+        "decision": "planned",
+        "status": "PASS_FAKE_CONTRACT_ONLY",
+        "source": "FAKE_MODEL_RAW"
+      },
+      {
+        "decision": "refused",
+        "status": "PASS_FAKE_CONTRACT_ONLY",
+        "source": "FAKE_MODEL_RAW"
+      },
+      {
+        "decision": "need_more_evidence",
+        "status": "PASS_FAKE_CONTRACT_ONLY",
+        "source": "FAKE_MODEL_RAW"
+      }
+    ],
+    "production_prepare_wall_s": 0.8534464699914679,
+    "real_E": 0,
+    "real_A": 0,
+    "H": 4,
+    "m": 1,
+    "K": 0,
+    "grants_execution": false
+  },
+  "G1": {
+    "frames": 6,
+    "update_calls": 5,
+    "Build_calls": 1,
+    "profile": {
+      "pipeline_wall_s": 24.95932938097394,
+      "CPU_s": 24.877281389,
+      "peak_RSS_MiB": 288.6796875
+    },
+    "real_semantic_persistence_under_motion": "NOT_TESTED_G1_HAS_NO_REAL_SEMANTIC_GROUNDING"
+  },
+  "budgets": {
+    "real_Astra_E": 0,
+    "real_Astra_A": 0,
+    "new_SAPIEN_episode": 0,
+    "hardware_actions": 0,
+    "training": 0,
+    "new_model_authorizations_created": 0
+  },
+  "frozen_A_result": "PASS_SHADOW_CONTRACT_NEED_MORE_EVIDENCE; plan=null; H4 generation not tested",
+  "physical_admission": "NOT_GRANTED",
+  "IK_collision_execution": "NOT_TESTED",
+  "artifact_root": "/home/alex/astra-realman_ws/shadow-candidate-cheap-update-20261010"
+}

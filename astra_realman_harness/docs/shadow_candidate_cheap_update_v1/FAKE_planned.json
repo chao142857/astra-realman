@@ -1,0 +1,329 @@
+{
+  "source": "FAKE_OUTPUT_CONTRACT_ONLY_NOT_ASTRA",
+  "answer": {
+    "evidence_refs": [
+      "rm65:0002:assembly:16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+      "rm65:0002:fixed:15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+      "rm65:0002:wrist:26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385",
+      "e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd"
+    ],
+    "result": {
+      "version": "astra.action_shadow_candidate.v2",
+      "intent": "action_shadow",
+      "decision": "planned",
+      "plan": {
+        "version": "astra.action_chunk_plan.v2",
+        "profile_id": "coarse_pad_waypoint_v1",
+        "m": 1,
+        "H": 4,
+        "world_id": "w-07036aa69d2b3c172d4fc627726f9fd620f1ee5d3d07fd33005c3880c0703aa4",
+        "world_revision": 2,
+        "execution_epoch": 0,
+        "source_observation_id": "rm65:0002",
+        "origin_pose_world": [
+          0.30008048281229016,
+          1.216949936296409e-06,
+          0.1500088265463092,
+          -4.095491021871567e-06,
+          1.0,
+          3.328512320877053e-05,
+          0.0001482087536714971
+        ],
+        "task_binding": {
+          "profile": "generic_semantic_v1",
+          "object_id": "object_004",
+          "goal_id": ""
+        },
+        "task": {
+          "id": "S1_FIXED_LEFT_PRECONTACT",
+          "revision": "1",
+          "stage": "T1_PREGRASP_APPROACH"
+        },
+        "read_versions": {
+          "calibration/4ac90858edb1c73a5e43c61a1cf6d2be38275f64f9a1fd3f39063825c60f9f80": 1,
+          "geometry_first/f690044978b734b850e36caeeda9aaa0bc5eaaa1cb8da58f8c941ec28486f9bb": 1,
+          "visibility/observed_support_v1": 1,
+          "semantic/e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd": 1,
+          "semantic_binding/astra.persistent_semantic_binding.v1": 1,
+          "task_selection/03952c62e793395a509935848d81c025e41591951bec503187e69cbf26e510b4": 1
+        },
+        "evidence_refs": [
+          "e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd"
+        ],
+        "semantics": "PREDICTED_WAYPOINTS_NOT_MEASURED",
+        "waypoints": [
+          {
+            "index": 1,
+            "type": "move_pose",
+            "pose": [
+              0.3300804828122902,
+              1.216949936296409e-06,
+              0.1500088265463092,
+              -4.095491021871567e-06,
+              1.0,
+              3.328512320877053e-05,
+              0.0001482087536714971
+            ],
+            "nominal_end_offset_s": 2.0,
+            "preconditions": [
+              "current_geometry",
+              "target_identity_hypothesis",
+              "measured_join",
+              "visibility",
+              "owner_admission"
+            ],
+            "prediction_dependencies": [],
+            "boundary_after": "none"
+          },
+          {
+            "index": 2,
+            "type": "move_pose",
+            "pose": [
+              0.36008048281229016,
+              1.216949936296409e-06,
+              0.1500088265463092,
+              -4.095491021871567e-06,
+              1.0,
+              3.328512320877053e-05,
+              0.0001482087536714971
+            ],
+            "nominal_end_offset_s": 4.0,
+            "preconditions": [
+              "current_geometry",
+              "target_identity_hypothesis",
+              "measured_join",
+              "visibility",
+              "owner_admission"
+            ],
+            "prediction_dependencies": [
+              1
+            ],
+            "boundary_after": "none"
+          },
+          {
+            "index": 3,
+            "type": "move_pose",
+            "pose": [
+              0.39008048281229013,
+              1.216949936296409e-06,
+              0.1500088265463092,
+              -4.095491021871567e-06,
+              1.0,
+              3.328512320877053e-05,
+              0.0001482087536714971
+            ],
+            "nominal_end_offset_s": 6.0,
+            "preconditions": [
+              "current_geometry",
+              "target_identity_hypothesis",
+              "measured_join",
+              "visibility",
+              "owner_admission"
+            ],
+            "prediction_dependencies": [
+              1,
+              2
+            ],
+            "boundary_after": "none"
+          },
+          {
+            "index": 4,
+            "type": "move_pose",
+            "pose": [
+              0.42008048281229016,
+              1.216949936296409e-06,
+              0.1500088265463092,
+              -4.095491021871567e-06,
+              1.0,
+              3.328512320877053e-05,
+              0.0001482087536714971
+            ],
+            "nominal_end_offset_s": 8.0,
+            "preconditions": [
+              "current_geometry",
+              "target_identity_hypothesis",
+              "measured_join",
+              "visibility",
+              "owner_admission"
+            ],
+            "prediction_dependencies": [
+              1,
+              2,
+              3
+            ],
+            "boundary_after": "none"
+          }
+        ],
+        "termination": {
+          "kind": "horizon_filled",
+          "reason": "SYNTHETIC"
+        }
+      },
+      "reason": "SYNTHETIC CONTRACT TEST",
+      "unknowns": [
+        "clearance unknown"
+      ],
+      "K": 0,
+      "grants_execution": false,
+      "planning_level": "HYPOTHESIS_GENERATION",
+      "review_status": "INDEPENDENT_REVIEW_PENDING",
+      "all_waypoints_are_hypotheses": true,
+      "physical_checks": {
+        "IK": "NOT_TESTED",
+        "collision": "NOT_TESTED",
+        "clearance": "NOT_TESTED",
+        "owner_admission": "NOT_GRANTED",
+        "hidden_space": "UNKNOWN_NOT_FREE"
+      },
+      "assumptions": [
+        "FAKE candidate pose assumption for contract test, not Astra or physical validation"
+      ],
+      "precondition_assessments": [
+        {
+          "waypoint_index": 1,
+          "precondition": "current_geometry",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 1,
+          "precondition": "target_identity_hypothesis",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 1,
+          "precondition": "measured_join",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 1,
+          "precondition": "visibility",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 1,
+          "precondition": "owner_admission",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 2,
+          "precondition": "current_geometry",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 2,
+          "precondition": "target_identity_hypothesis",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 2,
+          "precondition": "measured_join",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 2,
+          "precondition": "visibility",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 2,
+          "precondition": "owner_admission",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 3,
+          "precondition": "current_geometry",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 3,
+          "precondition": "target_identity_hypothesis",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 3,
+          "precondition": "measured_join",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 3,
+          "precondition": "visibility",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 3,
+          "precondition": "owner_admission",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 4,
+          "precondition": "current_geometry",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 4,
+          "precondition": "target_identity_hypothesis",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 4,
+          "precondition": "measured_join",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 4,
+          "precondition": "visibility",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        },
+        {
+          "waypoint_index": 4,
+          "precondition": "owner_admission",
+          "status": "unverified",
+          "basis": "FAKE hypothesis requirement only",
+          "evidence_refs": []
+        }
+      ]
+    }
+  },
+  "status": "READY",
+  "action_ready": null,
+  "usage": "unknown_not_real_model",
+  "K": 0
+}

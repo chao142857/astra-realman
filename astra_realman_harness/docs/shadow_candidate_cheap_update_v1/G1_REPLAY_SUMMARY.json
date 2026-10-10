@@ -1,0 +1,2635 @@
+{
+  "status": "ARCHIVED_ENGINEERING_REPLAY_ONLY",
+  "source_records_sha256": "249e18159371c068585d4d784f349850196f5e8e12e04cfd78e02fc95b5a94ee",
+  "input_scope": "ARCHIVED_PHYSICAL_SENSOR_REPLAY_NOT_NEW_EPISODE",
+  "frames": 6,
+  "update_calls": 5,
+  "Build_calls": 1,
+  "rows": [
+    {
+      "stage": "initial",
+      "observation_id": "rm65:0002",
+      "execution_epoch": 0,
+      "world_id": "w-67489a06f4c69d984bd3e064f50bd3ab058b141f852b64714a20428fd33bde47",
+      "world_revision": 1,
+      "read_versions": {
+        "calibration/4ac90858edb1c73a5e43c61a1cf6d2be38275f64f9a1fd3f39063825c60f9f80": 1,
+        "geometry_first/f690044978b734b850e36caeeda9aaa0bc5eaaa1cb8da58f8c941ec28486f9bb": 1,
+        "visibility/observed_support_v1": 1
+      },
+      "entities": {
+        "object_001": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0002",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": null,
+          "temporal_association": null,
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+          }
+        },
+        "object_002": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0002",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": null,
+          "temporal_association": null,
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+          }
+        },
+        "object_003": {
+          "status": "coarse",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0002",
+          "point_world_m": [
+            0.3151546139022109,
+            0.08714553124383059,
+            0.3013355975785857
+          ],
+          "motion": "unknown",
+          "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.0,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": null,
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+          }
+        },
+        "object_004": {
+          "status": "coarse",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0002",
+          "point_world_m": [
+            0.35947458986118963,
+            -0.060113510254453856,
+            0.028947996101793213
+          ],
+          "motion": "unknown",
+          "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": null,
+          "temporal_association": null,
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break"
+          }
+        }
+      },
+      "FK_camera_check": null,
+      "actual_wrist_pose": [
+        0.30003440380096436,
+        0.09001772850751877,
+        0.29852691292762756,
+        -0.35711997747421265,
+        0.6104889512062073,
+        -0.6102707386016846,
+        -0.3568452298641205
+      ],
+      "profile": {
+        "backproject_s": 0.05931950401281938,
+        "voxel_components_s": 0.07925801197416149,
+        "candidate_measure_associate_s": 0.27699950101668946,
+        "foreground_pixels": 144306,
+        "scene_voxels": 11205,
+        "discarded_small_components": 2,
+        "scene_layers_s": 0.060328114981530234,
+        "build_compute_s": 0.47626226700958796,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "measurement_backend": "SHARED_CURRENT_RGBD_CANDIDATES",
+        "sensor_load_s": 0.017877220001537353,
+        "WorldHead_API_wall_s": 0.7668231679999735,
+        "WorldHead_API_CPU_s": 0.75600083,
+        "lineage_verification_s": 5.21977199241519e-07,
+        "query_s": 0.17327469898737036,
+        "serialization_s": 0.2042925669811666,
+        "peak_RSS_MiB": 148.84765625
+      },
+      "current_geometry_count": 2,
+      "current_candidate_count": 4,
+      "historical_only_count": 0,
+      "unique_associations": 0,
+      "task_usable": "unknown",
+      "current_static_points": 16228,
+      "query_canonical_bytes": 22932,
+      "grants_execution": false
+    },
+    {
+      "stage": "post_hold",
+      "observation_id": "rm65:0004",
+      "execution_epoch": 1,
+      "world_id": "w-e9bbd3d4e085a277fc95f80a7d596e92ed9e28b62518d74ef89a222ca16e0333",
+      "world_revision": 2,
+      "read_versions": {
+        "calibration/4ac90858edb1c73a5e43c61a1cf6d2be38275f64f9a1fd3f39063825c60f9f80": 1,
+        "geometry_first/f690044978b734b850e36caeeda9aaa0bc5eaaa1cb8da58f8c941ec28486f9bb": 1,
+        "visibility/observed_support_v1": 2,
+        "geometry_update/6edfb537382e1902707d76c8140aa3226afc2ab715c924879592d0c9df239f06": 1,
+        "geometry/current_measurement": 1,
+        "observation/rm65:0004": 1
+      },
+      "entities": {
+        "object_001": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0004",
+          "point_world_m": null,
+          "motion": "small_change_or_static",
+          "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.00017437899488560526,
+            "surface_median_delta_world_m": [
+              2.778134619518813e-06,
+              1.6580669632892953e-05,
+              -0.00017356669386686674
+            ],
+            "symmetric_nearest_p90_m": [
+              0.00022568817266341865,
+              0.0002218341587319906
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.0003076088194820904,
+              0.00030839073825396113
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_001",
+            "previous_observation_id": "rm65:0002",
+            "current_observation_id": "rm65:0004",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.00017437899488560526,
+              "surface_median_delta_world_m": [
+                2.778134619518813e-06,
+                1.6580669632892953e-05,
+                -0.00017356669386686674
+              ],
+              "symmetric_nearest_p90_m": [
+                0.00022568817266341865,
+                0.0002218341587319906
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.0003076088194820904,
+                0.00030839073825396113
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0002",
+                "current_observation_id": "rm65:0004",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0002",
+                "current_observation_id": "rm65:0004",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "wrist",
+                "source_observation_id": "rm65:0002",
+                "current_observation_id": "rm65:0004",
+                "current_mask_overlap": 0.9999573633495352,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_001"
+            ]
+          }
+        },
+        "object_002": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0004",
+          "point_world_m": null,
+          "motion": "small_change_or_static",
+          "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.0053600473500196,
+            "surface_median_delta_world_m": [
+              0.0010708520877578676,
+              9.298181667150018e-05,
+              0.00525116537373993
+            ],
+            "symmetric_nearest_p90_m": [
+              0.006038238891054585,
+              0.005975441545157872
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.006841831960493611,
+              0.0068036061273768645
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_002",
+            "previous_observation_id": "rm65:0002",
+            "current_observation_id": "rm65:0004",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.0053600473500196,
+              "surface_median_delta_world_m": [
+                0.0010708520877578676,
+                9.298181667150018e-05,
+                0.00525116537373993
+              ],
+              "symmetric_nearest_p90_m": [
+                0.006038238891054585,
+                0.005975441545157872
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.006841831960493611,
+                0.0068036061273768645
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0002",
+                "current_observation_id": "rm65:0004",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0002",
+                "current_observation_id": "rm65:0004",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "wrist",
+                "source_observation_id": "rm65:0002",
+                "current_observation_id": "rm65:0004",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_002"
+            ]
+          }
+        },
+        "object_003": {
+          "status": "coarse",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0004",
+          "point_world_m": [
+            0.31511894274413255,
+            0.0871471862764529,
+            0.3013109485248461
+          ],
+          "motion": "small_change_or_static",
+          "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.0,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.0002464037873810426,
+            "surface_median_delta_world_m": [
+              -0.00013620965930805085,
+              -0.00020533314573867312,
+              -2.332551555794815e-07
+            ],
+            "symmetric_nearest_p90_m": [
+              0.00015202116218681347,
+              0.00015202116218681347
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.0003323989760402043,
+              0.0003323989760402043
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_003",
+            "previous_observation_id": "rm65:0002",
+            "current_observation_id": "rm65:0004",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.0002464037873810426,
+              "surface_median_delta_world_m": [
+                -0.00013620965930805085,
+                -0.00020533314573867312,
+                -2.332551555794815e-07
+              ],
+              "symmetric_nearest_p90_m": [
+                0.00015202116218681347,
+                0.00015202116218681347
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.0003323989760402043,
+                0.0003323989760402043
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0002",
+                "current_observation_id": "rm65:0004",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0002",
+                "current_observation_id": "rm65:0004",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_003"
+            ]
+          }
+        },
+        "object_004": {
+          "status": "coarse",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0004",
+          "point_world_m": [
+            0.3594745008832049,
+            -0.06011310012486609,
+            0.028918889299579267
+          ],
+          "motion": "small_change_or_static",
+          "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.000878864924649021,
+            "surface_median_delta_world_m": [
+              0.0008519416880209407,
+              -0.00020975913673253188,
+              -5.0990396621153344e-05
+            ],
+            "symmetric_nearest_p90_m": [
+              0.0005508719993196127,
+              0.0005533523422718028
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.0009623956685054604,
+              0.0009639822959027425
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_004",
+            "previous_observation_id": "rm65:0002",
+            "current_observation_id": "rm65:0004",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.000878864924649021,
+              "surface_median_delta_world_m": [
+                0.0008519416880209407,
+                -0.00020975913673253188,
+                -5.0990396621153344e-05
+              ],
+              "symmetric_nearest_p90_m": [
+                0.0005508719993196127,
+                0.0005533523422718028
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.0009623956685054604,
+                0.0009639822959027425
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0002",
+                "current_observation_id": "rm65:0004",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0002",
+                "current_observation_id": "rm65:0004",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "wrist",
+                "source_observation_id": "rm65:0002",
+                "current_observation_id": "rm65:0004",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_004"
+            ]
+          }
+        }
+      },
+      "FK_camera_check": {
+        "status": "pass",
+        "translation_residual_m": 8.416267195480763e-09,
+        "rotation_residual_deg": 9.818442687226764e-06,
+        "source": "measured flange FK + previous public wrist extrinsics; no pose correction"
+      },
+      "actual_wrist_pose": [
+        0.30003052949905396,
+        0.09001730382442474,
+        0.29847782850265503,
+        -0.3570639193058014,
+        0.6104550361633301,
+        -0.6103048324584961,
+        -0.35690101981163025
+      ],
+      "profile": {
+        "backproject_s": 0.05072012200253084,
+        "voxel_components_s": 0.08721402400988154,
+        "candidate_measure_associate_s": 0.2863044209952932,
+        "foreground_pixels": 144297,
+        "scene_voxels": 11216,
+        "discarded_small_components": 3,
+        "current_measurement_s": 0.424574548000237,
+        "temporal_association_s": 0.18689488800009713,
+        "scene_incremental_s": 0.20619213601457886,
+        "update_compute_s": 0.8457565589924343,
+        "CPU_s": 0.843949152,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "geometry_build_calls": 0,
+        "sensor_load_and_source_check_s": 0.08168806400499307,
+        "update_wall_s": 0.9279300500056706,
+        "WorldHead_API_wall_s": 1.4552816889772657,
+        "WorldHead_API_CPU_s": 1.4522009920000003,
+        "lineage_verification_s": 0.3638690860243514,
+        "query_s": 0.19172406801953912,
+        "serialization_s": 0.23148561498965137,
+        "peak_RSS_MiB": 198.58203125
+      },
+      "current_geometry_count": 2,
+      "current_candidate_count": 4,
+      "historical_only_count": 0,
+      "unique_associations": 4,
+      "task_usable": "unknown",
+      "current_static_points": 16225,
+      "query_canonical_bytes": 33975,
+      "grants_execution": false
+    },
+    {
+      "stage": "post_move_1",
+      "observation_id": "rm65:0006",
+      "execution_epoch": 2,
+      "world_id": "w-731baf3aef69318173be39bc9c5ec80dec9845e987e3d821599d067aff33d98d",
+      "world_revision": 3,
+      "read_versions": {
+        "calibration/4ac90858edb1c73a5e43c61a1cf6d2be38275f64f9a1fd3f39063825c60f9f80": 1,
+        "geometry_first/f690044978b734b850e36caeeda9aaa0bc5eaaa1cb8da58f8c941ec28486f9bb": 1,
+        "visibility/observed_support_v1": 3,
+        "geometry_update/6edfb537382e1902707d76c8140aa3226afc2ab715c924879592d0c9df239f06": 1,
+        "geometry/current_measurement": 2,
+        "observation/rm65:0004": 1,
+        "observation/rm65:0006": 1
+      },
+      "entities": {
+        "object_001": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0006",
+          "point_world_m": null,
+          "motion": "measured_surface_change",
+          "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.04064446879245045,
+            "surface_median_delta_world_m": [
+              0.00029384950606956006,
+              0.00036587823622885596,
+              0.040641759669144684
+            ],
+            "symmetric_nearest_p90_m": [
+              0.029340825984916382,
+              0.024770377250219765
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.0021965903429842226,
+              0.0020497741257518146
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_001",
+            "previous_observation_id": "rm65:0004",
+            "current_observation_id": "rm65:0006",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.04064446879245045,
+              "surface_median_delta_world_m": [
+                0.00029384950606956006,
+                0.00036587823622885596,
+                0.040641759669144684
+              ],
+              "symmetric_nearest_p90_m": [
+                0.029340825984916382,
+                0.024770377250219765
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.0021965903429842226,
+                0.0020497741257518146
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0004",
+                "current_observation_id": "rm65:0006",
+                "current_mask_overlap": 0.0,
+                "tracker_reason": "NO_RELIABLE_CURRENT_ASSOCIATION",
+                "tracker_association": "unknown"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0004",
+                "current_observation_id": "rm65:0006",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "wrist",
+                "source_observation_id": "rm65:0004",
+                "current_observation_id": "rm65:0006",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_002"
+            ]
+          }
+        },
+        "object_002": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0006",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "NO_CURRENT_UNIQUE_ASSOCIATION",
+          "visibility": {
+            "assembly": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.1206896551724138,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "fixed": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.11430149088901159,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "wrist": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.44651162790697674,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "unknown",
+            "candidates": []
+          },
+          "association_uncertainty": {
+            "temporal_status": "unknown",
+            "identity_guaranteed": false,
+            "competing_current_candidates": []
+          }
+        },
+        "object_003": {
+          "status": "coarse",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0006",
+          "point_world_m": [
+            0.3159759412764461,
+            0.08680386636541362,
+            0.3413516841385769
+          ],
+          "motion": "measured_surface_change",
+          "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.0,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.039395321376662414,
+            "surface_median_delta_world_m": [
+              0.0003873768603280259,
+              -0.0021476347623624603,
+              0.03933483126271281
+            ],
+            "symmetric_nearest_p90_m": [
+              0.040010512920448216,
+              0.03698480526390771
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.0032253484254618726,
+              0.003367685862840185
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_003",
+            "previous_observation_id": "rm65:0004",
+            "current_observation_id": "rm65:0006",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.039395321376662414,
+              "surface_median_delta_world_m": [
+                0.0003873768603280259,
+                -0.0021476347623624603,
+                0.03933483126271281
+              ],
+              "symmetric_nearest_p90_m": [
+                0.040010512920448216,
+                0.03698480526390771
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.0032253484254618726,
+                0.003367685862840185
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0004",
+                "current_observation_id": "rm65:0006",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0004",
+                "current_observation_id": "rm65:0006",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_004"
+            ]
+          }
+        },
+        "object_004": {
+          "status": "coarse",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0006",
+          "point_world_m": [
+            0.35945915678403284,
+            -0.060098620668413934,
+            0.029177868763691953
+          ],
+          "motion": "small_change_or_static",
+          "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.0012071409803095276,
+            "surface_median_delta_world_m": [
+              0.0011533215511938533,
+              0.0,
+              -0.0003564249512792994
+            ],
+            "symmetric_nearest_p90_m": [
+              0.0010447091883691675,
+              0.001270352000654743
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.0017314143994286175,
+              0.0018522929597135761
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_004",
+            "previous_observation_id": "rm65:0004",
+            "current_observation_id": "rm65:0006",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.0012071409803095276,
+              "surface_median_delta_world_m": [
+                0.0011533215511938533,
+                0.0,
+                -0.0003564249512792994
+              ],
+              "symmetric_nearest_p90_m": [
+                0.0010447091883691675,
+                0.001270352000654743
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.0017314143994286175,
+                0.0018522929597135761
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0004",
+                "current_observation_id": "rm65:0006",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0004",
+                "current_observation_id": "rm65:0006",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "wrist",
+                "source_observation_id": "rm65:0004",
+                "current_observation_id": "rm65:0006",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_005"
+            ]
+          }
+        },
+        "object_005": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0006",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "CURRENT_DEPTH_SPREAD_OR_ASSOCIATION_CONFLICT",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": {
+              "status": "out_of_view",
+              "source": "world reprojection"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "new_or_unresolved_candidate",
+            "competing_previous_ids": []
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unknown_new_or_conflict"
+          }
+        },
+        "object_006": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0006",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "new_or_unresolved_candidate",
+            "competing_previous_ids": []
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unknown_new_or_conflict"
+          }
+        }
+      },
+      "FK_camera_check": {
+        "status": "pass",
+        "translation_residual_m": 2.629042113938327e-08,
+        "rotation_residual_deg": 7.240177018587523e-06,
+        "source": "measured flange FK + previous public wrist extrinsics; no pose correction"
+      },
+      "actual_wrist_pose": [
+        0.3000238239765167,
+        0.09001711755990982,
+        0.3384675085544586,
+        -0.35706135630607605,
+        0.6104649305343628,
+        -0.6102968454360962,
+        -0.35690024495124817
+      ],
+      "profile": {
+        "backproject_s": 0.043943267985014245,
+        "voxel_components_s": 0.08002471801592037,
+        "candidate_measure_associate_s": 0.2885225499921944,
+        "foreground_pixels": 144215,
+        "scene_voxels": 11208,
+        "discarded_small_components": 2,
+        "current_measurement_s": 0.4128539420198649,
+        "temporal_association_s": 0.14902877298300155,
+        "scene_incremental_s": 0.23007245402550325,
+        "update_compute_s": 0.8558746339986101,
+        "CPU_s": 0.8511070589999994,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "geometry_build_calls": 0,
+        "sensor_load_and_source_check_s": 0.44577322399709374,
+        "update_wall_s": 1.302083874004893,
+        "WorldHead_API_wall_s": 1.9158311169885565,
+        "WorldHead_API_CPU_s": 1.909536348,
+        "lineage_verification_s": 0.7976389579998795,
+        "query_s": 0.2386967350030318,
+        "serialization_s": 0.2722535240172874,
+        "peak_RSS_MiB": 217.5546875
+      },
+      "current_geometry_count": 2,
+      "current_candidate_count": 5,
+      "historical_only_count": 1,
+      "unique_associations": 3,
+      "task_usable": "unknown",
+      "current_static_points": 17829,
+      "query_canonical_bytes": 38292,
+      "grants_execution": false
+    },
+    {
+      "stage": "post_move_2",
+      "observation_id": "rm65:0008",
+      "execution_epoch": 3,
+      "world_id": "w-4762cabbf5886d457cba436607ab558940cc13dc3ac404e395c8dffa794fcbfc",
+      "world_revision": 4,
+      "read_versions": {
+        "calibration/4ac90858edb1c73a5e43c61a1cf6d2be38275f64f9a1fd3f39063825c60f9f80": 1,
+        "geometry_first/f690044978b734b850e36caeeda9aaa0bc5eaaa1cb8da58f8c941ec28486f9bb": 1,
+        "visibility/observed_support_v1": 4,
+        "geometry_update/6edfb537382e1902707d76c8140aa3226afc2ab715c924879592d0c9df239f06": 1,
+        "geometry/current_measurement": 3,
+        "observation/rm65:0004": 1,
+        "observation/rm65:0006": 1,
+        "observation/rm65:0008": 1
+      },
+      "entities": {
+        "object_001": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0008",
+          "point_world_m": null,
+          "motion": "measured_surface_change",
+          "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.04018387017674501,
+            "surface_median_delta_world_m": [
+              -0.04017712999961509,
+              0.00033325392924177244,
+              -0.0006561929549845635
+            ],
+            "symmetric_nearest_p90_m": [
+              0.03586530878847584,
+              0.03918971619849172
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.002123284102817677,
+              0.002132507280114788
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_001",
+            "previous_observation_id": "rm65:0006",
+            "current_observation_id": "rm65:0008",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.04018387017674501,
+              "surface_median_delta_world_m": [
+                -0.04017712999961509,
+                0.00033325392924177244,
+                -0.0006561929549845635
+              ],
+              "symmetric_nearest_p90_m": [
+                0.03586530878847584,
+                0.03918971619849172
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.002123284102817677,
+                0.002132507280114788
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "wrist",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_002"
+            ]
+          }
+        },
+        "object_002": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0008",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "NO_CURRENT_UNIQUE_ASSOCIATION",
+          "visibility": {
+            "assembly": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.09903381642512077,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "fixed": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.09167750325097529,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "wrist": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.2376237623762376,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "unknown",
+            "candidates": []
+          },
+          "association_uncertainty": {
+            "temporal_status": "unknown",
+            "identity_guaranteed": false,
+            "competing_current_candidates": []
+          }
+        },
+        "object_003": {
+          "status": "coarse",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0008",
+          "point_world_m": [
+            0.2751693717085596,
+            0.08739520380562336,
+            0.34138257585856235
+          ],
+          "motion": "measured_surface_change",
+          "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.0,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.04273288208403681,
+            "surface_median_delta_world_m": [
+              -0.04267793000172587,
+              -0.00046990687707215706,
+              -0.0021148734011428028
+            ],
+            "symmetric_nearest_p90_m": [
+              0.032004766280790665,
+              0.04002475223604936
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.0034404880812512312,
+              0.0034761638134475988
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_003",
+            "previous_observation_id": "rm65:0006",
+            "current_observation_id": "rm65:0008",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.04273288208403681,
+              "surface_median_delta_world_m": [
+                -0.04267793000172587,
+                -0.00046990687707215706,
+                -0.0021148734011428028
+              ],
+              "symmetric_nearest_p90_m": [
+                0.032004766280790665,
+                0.04002475223604936
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.0034404880812512312,
+                0.0034761638134475988
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 0.0,
+                "tracker_reason": "NO_RELIABLE_CURRENT_ASSOCIATION",
+                "tracker_association": "unknown"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_005"
+            ]
+          }
+        },
+        "object_004": {
+          "status": "coarse",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0008",
+          "point_world_m": [
+            0.3594560965080002,
+            -0.06009888803668082,
+            0.029154368511718366
+          ],
+          "motion": "small_change_or_static",
+          "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.002394702816734754,
+            "surface_median_delta_world_m": [
+              -0.002355695031323768,
+              -0.0004275384921565567,
+              -5.0133198565172066e-05
+            ],
+            "symmetric_nearest_p90_m": [
+              0.001131820436810944,
+              0.0006681951862489163
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.002608916451669345,
+              0.002463377991146318
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_004",
+            "previous_observation_id": "rm65:0006",
+            "current_observation_id": "rm65:0008",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.002394702816734754,
+              "surface_median_delta_world_m": [
+                -0.002355695031323768,
+                -0.0004275384921565567,
+                -5.0133198565172066e-05
+              ],
+              "symmetric_nearest_p90_m": [
+                0.001131820436810944,
+                0.0006681951862489163
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.002608916451669345,
+                0.002463377991146318
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "wrist",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_006"
+            ]
+          }
+        },
+        "object_005": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0008",
+          "point_world_m": null,
+          "motion": "small_change_or_static",
+          "reason": "CURRENT_DEPTH_SPREAD_OR_ASSOCIATION_CONFLICT",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.002869000997639932,
+            "surface_median_delta_world_m": [
+              -0.002808272184044669,
+              -3.437922223359369e-05,
+              -0.0005861673258196198
+            ],
+            "symmetric_nearest_p90_m": [
+              0.02033760377692432,
+              0.025060326380210378
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.01877218743109766,
+              0.023428677903732778
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_005",
+            "previous_observation_id": "rm65:0006",
+            "current_observation_id": "rm65:0008",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.002869000997639932,
+              "surface_median_delta_world_m": [
+                -0.002808272184044669,
+                -3.437922223359369e-05,
+                -0.0005861673258196198
+              ],
+              "symmetric_nearest_p90_m": [
+                0.02033760377692432,
+                0.025060326380210378
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.01877218743109766,
+                0.023428677903732778
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_001"
+            ]
+          }
+        },
+        "object_006": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0008",
+          "point_world_m": null,
+          "motion": "measured_surface_change",
+          "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.03932079935601859,
+            "surface_median_delta_world_m": [
+              -0.03931974811416128,
+              0.00027866415625232843,
+              -7.082741844177676e-05
+            ],
+            "symmetric_nearest_p90_m": [
+              0.03423211354871857,
+              0.03955717694987069
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.003578602463924485,
+              0.0035587585696361785
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_006",
+            "previous_observation_id": "rm65:0006",
+            "current_observation_id": "rm65:0008",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.03932079935601859,
+              "surface_median_delta_world_m": [
+                -0.03931974811416128,
+                0.00027866415625232843,
+                -7.082741844177676e-05
+              ],
+              "symmetric_nearest_p90_m": [
+                0.03423211354871857,
+                0.03955717694987069
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.003578602463924485,
+                0.0035587585696361785
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "wrist",
+                "source_observation_id": "rm65:0006",
+                "current_observation_id": "rm65:0008",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_003"
+            ]
+          }
+        },
+        "object_007": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0008",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "INSUFFICIENT_CURRENT_MULTIVIEW_DEPTH",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": {
+              "status": "out_of_view",
+              "source": "world reprojection"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "new_or_unresolved_candidate",
+            "competing_previous_ids": []
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unknown_new_or_conflict"
+          }
+        }
+      },
+      "FK_camera_check": {
+        "status": "pass",
+        "translation_residual_m": 2.7443497258872773e-08,
+        "rotation_residual_deg": 7.277017201097478e-06,
+        "source": "measured flange FK + previous public wrist extrinsics; no pose correction"
+      },
+      "actual_wrist_pose": [
+        0.26005932688713074,
+        0.09001685678958893,
+        0.33843398094177246,
+        -0.35701122879981995,
+        0.610434353351593,
+        -0.6103269457817078,
+        -0.3569508492946625
+      ],
+      "profile": {
+        "backproject_s": 0.050816728005884215,
+        "voxel_components_s": 0.08324475199333392,
+        "candidate_measure_associate_s": 0.3058333160006441,
+        "foreground_pixels": 145353,
+        "scene_voxels": 11227,
+        "discarded_small_components": 2,
+        "current_measurement_s": 0.4404711829847656,
+        "temporal_association_s": 0.25644748902413994,
+        "scene_incremental_s": 0.26757665898185223,
+        "update_compute_s": 1.0388241120090242,
+        "CPU_s": 1.0369689529999997,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "geometry_build_calls": 0,
+        "sensor_load_and_source_check_s": 0.9082793470006436,
+        "update_wall_s": 1.9478408900031354,
+        "WorldHead_API_wall_s": 2.6264871349849273,
+        "WorldHead_API_CPU_s": 2.621424878000001,
+        "lineage_verification_s": 1.3091009019990452,
+        "query_s": 0.26341558300191537,
+        "serialization_s": 0.30391589700593613,
+        "peak_RSS_MiB": 233.59765625
+      },
+      "current_geometry_count": 2,
+      "current_candidate_count": 6,
+      "historical_only_count": 1,
+      "unique_associations": 5,
+      "task_usable": "unknown",
+      "current_static_points": 17762,
+      "query_canonical_bytes": 47470,
+      "grants_execution": false
+    },
+    {
+      "stage": "post_move_3",
+      "observation_id": "rm65:0010",
+      "execution_epoch": 4,
+      "world_id": "w-a092b8248da7b9e6f73e32726e626411b90955ec6d15bc3007ecbd7821d0b6fc",
+      "world_revision": 5,
+      "read_versions": {
+        "calibration/4ac90858edb1c73a5e43c61a1cf6d2be38275f64f9a1fd3f39063825c60f9f80": 1,
+        "geometry_first/f690044978b734b850e36caeeda9aaa0bc5eaaa1cb8da58f8c941ec28486f9bb": 1,
+        "visibility/observed_support_v1": 5,
+        "geometry_update/6edfb537382e1902707d76c8140aa3226afc2ab715c924879592d0c9df239f06": 1,
+        "geometry/current_measurement": 4,
+        "observation/rm65:0004": 1,
+        "observation/rm65:0006": 1,
+        "observation/rm65:0008": 1,
+        "observation/rm65:0010": 1
+      },
+      "entities": {
+        "object_001": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0010",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "NO_CURRENT_UNIQUE_ASSOCIATION",
+          "visibility": {
+            "assembly": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.0,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "fixed": {
+              "status": "depth_unknown",
+              "valid_fraction": 0.14545454545454545
+            },
+            "wrist": {
+              "status": "occluded",
+              "nearer_depth_fraction": 0.903125,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "unknown",
+            "candidates": []
+          },
+          "association_uncertainty": {
+            "temporal_status": "unknown",
+            "identity_guaranteed": false,
+            "competing_current_candidates": []
+          }
+        },
+        "object_002": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0010",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "NO_CURRENT_UNIQUE_ASSOCIATION",
+          "visibility": {
+            "assembly": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.03428571428571429,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "fixed": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.02727272727272727,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "wrist": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.5545023696682464,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "unknown",
+            "candidates": []
+          },
+          "association_uncertainty": {
+            "temporal_status": "unknown",
+            "identity_guaranteed": false,
+            "competing_current_candidates": []
+          }
+        },
+        "object_003": {
+          "status": "coarse",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0010",
+          "point_world_m": [
+            0.27490183481213293,
+            0.12598354514100288,
+            0.34139192092544235
+          ],
+          "motion": "measured_surface_change",
+          "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.0,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.040112477402284276,
+            "surface_median_delta_world_m": [
+              0.002177072772666988,
+              0.04000736645989644,
+              0.0019188085977585034
+            ],
+            "symmetric_nearest_p90_m": [
+              0.03603943866156767,
+              0.039982661801489544
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.0032173378970151234,
+              0.003252708614116404
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_003",
+            "previous_observation_id": "rm65:0008",
+            "current_observation_id": "rm65:0010",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.040112477402284276,
+              "surface_median_delta_world_m": [
+                0.002177072772666988,
+                0.04000736645989644,
+                0.0019188085977585034
+              ],
+              "symmetric_nearest_p90_m": [
+                0.03603943866156767,
+                0.039982661801489544
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.0032173378970151234,
+                0.003252708614116404
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0008",
+                "current_observation_id": "rm65:0010",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0008",
+                "current_observation_id": "rm65:0010",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_002"
+            ]
+          }
+        },
+        "object_004": {
+          "status": "coarse",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0010",
+          "point_world_m": [
+            0.35944549996816555,
+            -0.06009105195393027,
+            0.02943723674528286
+          ],
+          "motion": "small_change_or_static",
+          "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.0037595272837647937,
+            "surface_median_delta_world_m": [
+              0.0031042175756765267,
+              -0.002113100111420449,
+              -0.00018079424589217963
+            ],
+            "symmetric_nearest_p90_m": [
+              0.0009819655499188045,
+              0.0017042902515890833
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.0037595272837647937,
+              0.0037737713925531016
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_004",
+            "previous_observation_id": "rm65:0008",
+            "current_observation_id": "rm65:0010",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.0037595272837647937,
+              "surface_median_delta_world_m": [
+                0.0031042175756765267,
+                -0.002113100111420449,
+                -0.00018079424589217963
+              ],
+              "symmetric_nearest_p90_m": [
+                0.0009819655499188045,
+                0.0017042902515890833
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.0037595272837647937,
+                0.0037737713925531016
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0008",
+                "current_observation_id": "rm65:0010",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0008",
+                "current_observation_id": "rm65:0010",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "wrist",
+                "source_observation_id": "rm65:0008",
+                "current_observation_id": "rm65:0010",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_003"
+            ]
+          }
+        },
+        "object_005": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0010",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "NO_CURRENT_UNIQUE_ASSOCIATION",
+          "visibility": {
+            "assembly": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.051606108478146395,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "fixed": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.03087757313109426,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "wrist": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.1,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "unknown",
+            "candidates": []
+          },
+          "association_uncertainty": {
+            "temporal_status": "unknown",
+            "identity_guaranteed": false,
+            "competing_current_candidates": []
+          }
+        },
+        "object_006": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0010",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "NO_CURRENT_UNIQUE_ASSOCIATION",
+          "visibility": {
+            "assembly": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.0345489443378119,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "fixed": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.04638783269961977,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "wrist": {
+              "status": "occluded",
+              "nearer_depth_fraction": 0.8686440677966102,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "unknown",
+            "candidates": []
+          },
+          "association_uncertainty": {
+            "temporal_status": "unknown",
+            "identity_guaranteed": false,
+            "competing_current_candidates": []
+          }
+        },
+        "object_007": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0010",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "NO_CURRENT_UNIQUE_ASSOCIATION",
+          "visibility": {
+            "assembly": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.08333333333333333,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "fixed": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.08333333333333333,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "wrist": {
+              "status": "out_of_view",
+              "source": "world reprojection"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "unknown",
+            "candidates": []
+          },
+          "association_uncertainty": {
+            "temporal_status": "unknown",
+            "identity_guaranteed": false,
+            "competing_current_candidates": []
+          }
+        },
+        "object_008": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0010",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "new_or_unresolved_candidate",
+            "competing_previous_ids": []
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unknown_new_or_conflict"
+          }
+        }
+      },
+      "FK_camera_check": {
+        "status": "pass",
+        "translation_residual_m": 4.189458834907392e-08,
+        "rotation_residual_deg": 4.678154271798353e-06,
+        "source": "measured flange FK + previous public wrist extrinsics; no pose correction"
+      },
+      "actual_wrist_pose": [
+        0.260030597448349,
+        0.1299685686826706,
+        0.3385111689567566,
+        -0.35713106393814087,
+        0.6104514002799988,
+        -0.6103072166442871,
+        -0.35683590173721313
+      ],
+      "profile": {
+        "backproject_s": 0.049105371988844126,
+        "voxel_components_s": 0.08751629400649108,
+        "candidate_measure_associate_s": 0.2884427680110093,
+        "foreground_pixels": 143237,
+        "scene_voxels": 11235,
+        "discarded_small_components": 2,
+        "current_measurement_s": 0.42564832299831323,
+        "temporal_association_s": 0.1213239400240127,
+        "scene_incremental_s": 0.3308545940089971,
+        "update_compute_s": 0.9182371240167413,
+        "CPU_s": 0.9167256410000011,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "geometry_build_calls": 0,
+        "sensor_load_and_source_check_s": 1.443874112010235,
+        "update_wall_s": 2.3624861979915295,
+        "WorldHead_API_wall_s": 3.032009062997531,
+        "WorldHead_API_CPU_s": 3.026962191000001,
+        "lineage_verification_s": 1.8727453360043,
+        "query_s": 0.20509128097910434,
+        "serialization_s": 0.2854037469951436,
+        "peak_RSS_MiB": 258.42578125
+      },
+      "current_geometry_count": 2,
+      "current_candidate_count": 3,
+      "historical_only_count": 5,
+      "unique_associations": 2,
+      "task_usable": "unknown",
+      "current_static_points": 17786,
+      "query_canonical_bytes": 35573,
+      "grants_execution": false
+    },
+    {
+      "stage": "post_move_4",
+      "observation_id": "rm65:0012",
+      "execution_epoch": 5,
+      "world_id": "w-68afc9b4dad57ec98c52a29a400819e8404e4633416fb22d4239031f4ee62521",
+      "world_revision": 6,
+      "read_versions": {
+        "calibration/4ac90858edb1c73a5e43c61a1cf6d2be38275f64f9a1fd3f39063825c60f9f80": 1,
+        "geometry_first/f690044978b734b850e36caeeda9aaa0bc5eaaa1cb8da58f8c941ec28486f9bb": 1,
+        "visibility/observed_support_v1": 6,
+        "geometry_update/6edfb537382e1902707d76c8140aa3226afc2ab715c924879592d0c9df239f06": 1,
+        "geometry/current_measurement": 5,
+        "observation/rm65:0004": 1,
+        "observation/rm65:0006": 1,
+        "observation/rm65:0008": 1,
+        "observation/rm65:0010": 1,
+        "observation/rm65:0012": 1
+      },
+      "entities": {
+        "object_001": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0012",
+          "point_world_m": null,
+          "motion": "measured_surface_change",
+          "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.05663104632580547,
+            "surface_median_delta_world_m": [
+              0.04039916003831767,
+              0.03966148941214054,
+              0.0013962570553397724
+            ],
+            "symmetric_nearest_p90_m": [
+              0.05248223771413365,
+              0.05167574736054284
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.002667812533240435,
+              0.0026462759036597542
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_001",
+            "previous_observation_id": "rm65:0008",
+            "current_observation_id": "rm65:0012",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.05663104632580547,
+              "surface_median_delta_world_m": [
+                0.04039916003831767,
+                0.03966148941214054,
+                0.0013962570553397724
+              ],
+              "symmetric_nearest_p90_m": [
+                0.05248223771413365,
+                0.05167574736054284
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.002667812533240435,
+                0.0026462759036597542
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0008",
+                "current_observation_id": "rm65:0012",
+                "current_mask_overlap": 0.0,
+                "tracker_reason": "NO_RELIABLE_CURRENT_ASSOCIATION",
+                "tracker_association": "unknown"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0008",
+                "current_observation_id": "rm65:0012",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "wrist",
+                "source_observation_id": "rm65:0008",
+                "current_observation_id": "rm65:0012",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_001"
+            ]
+          }
+        },
+        "object_002": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0012",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "AMBIGUOUS_TEMPORAL_ASSOCIATION",
+          "visibility": {
+            "assembly": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.05405405405405406,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "fixed": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.047764849969381504,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "wrist": {
+              "status": "occluded",
+              "nearer_depth_fraction": 0.7361963190184049,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "unknown",
+            "candidates": [
+              "object_002"
+            ]
+          },
+          "association_uncertainty": {
+            "temporal_status": "unknown",
+            "identity_guaranteed": false,
+            "competing_current_candidates": [
+              "object_002"
+            ]
+          }
+        },
+        "object_003": {
+          "status": "coarse",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0012",
+          "point_world_m": [
+            0.3175290251782305,
+            0.12658806920995994,
+            0.34137466855323384
+          ],
+          "motion": "measured_surface_change",
+          "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.0,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.038932066551904086,
+            "surface_median_delta_world_m": [
+              0.038871787641988176,
+              0.0021655793081039043,
+              1.4063370019135046e-05
+            ],
+            "symmetric_nearest_p90_m": [
+              0.03997973656926563,
+              0.033100093243514137
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.003009285505214762,
+              0.003234880812243507
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_003",
+            "previous_observation_id": "rm65:0010",
+            "current_observation_id": "rm65:0012",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.038932066551904086,
+              "surface_median_delta_world_m": [
+                0.038871787641988176,
+                0.0021655793081039043,
+                1.4063370019135046e-05
+              ],
+              "symmetric_nearest_p90_m": [
+                0.03997973656926563,
+                0.033100093243514137
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.003009285505214762,
+                0.003234880812243507
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0010",
+                "current_observation_id": "rm65:0012",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0010",
+                "current_observation_id": "rm65:0012",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "FIXED_VIEW_TEMPLATE_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_003"
+            ]
+          }
+        },
+        "object_004": {
+          "status": "coarse",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0012",
+          "point_world_m": [
+            0.3594481435156762,
+            -0.06009067654813854,
+            0.029366415133692512
+          ],
+          "motion": "small_change_or_static",
+          "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.0025358152310093066,
+            "surface_median_delta_world_m": [
+              -0.000654449231406895,
+              0.0021000100382538855,
+              0.0012617499469239624
+            ],
+            "symmetric_nearest_p90_m": [
+              0.0017044323242896896,
+              0.0016963448918978362
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.0026765095584400916,
+              0.0026723820683993817
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "temporal_association": {
+            "status": "unique_current_match",
+            "previous_id": "object_004",
+            "previous_observation_id": "rm65:0010",
+            "current_observation_id": "rm65:0012",
+            "geometry_residual": {
+              "surface_median_displacement_m": 0.0025358152310093066,
+              "surface_median_delta_world_m": [
+                -0.000654449231406895,
+                0.0021000100382538855,
+                0.0012617499469239624
+              ],
+              "symmetric_nearest_p90_m": [
+                0.0017044323242896896,
+                0.0016963448918978362
+              ],
+              "translation_aligned_nearest_p90_m": [
+                0.0026765095584400916,
+                0.0026723820683993817
+              ],
+              "semantics": "residual between measured surface supports, not calibrated object-center error"
+            },
+            "visual_support": [
+              {
+                "camera": "assembly",
+                "source_observation_id": "rm65:0010",
+                "current_observation_id": "rm65:0012",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "fixed",
+                "source_observation_id": "rm65:0010",
+                "current_observation_id": "rm65:0012",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              },
+              {
+                "camera": "wrist",
+                "source_observation_id": "rm65:0010",
+                "current_observation_id": "rm65:0012",
+                "current_mask_overlap": 1.0,
+                "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+                "tracker_association": "temporal_instance_hypothesis"
+              }
+            ],
+            "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unique_current_match",
+            "competing_current_candidates": [
+              "object_004"
+            ]
+          }
+        },
+        "object_005": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0012",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "NO_CURRENT_UNIQUE_ASSOCIATION",
+          "visibility": {
+            "assembly": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.15771230502599654,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "fixed": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.1406539173349784,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "wrist": {
+              "status": "out_of_view",
+              "source": "world reprojection"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "unknown",
+            "candidates": []
+          },
+          "association_uncertainty": {
+            "temporal_status": "unknown",
+            "identity_guaranteed": false,
+            "competing_current_candidates": []
+          }
+        },
+        "object_006": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0012",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "NO_CURRENT_UNIQUE_ASSOCIATION",
+          "visibility": {
+            "assembly": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.10064635272391505,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "fixed": {
+              "status": "depth_unknown",
+              "valid_fraction": 0.36555446516192347
+            },
+            "wrist": {
+              "status": "occluded",
+              "nearer_depth_fraction": 0.8898305084745762,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "unknown",
+            "candidates": []
+          },
+          "association_uncertainty": {
+            "temporal_status": "unknown",
+            "identity_guaranteed": false,
+            "competing_current_candidates": []
+          }
+        },
+        "object_007": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0012",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "NO_CURRENT_UNIQUE_ASSOCIATION",
+          "visibility": {
+            "assembly": {
+              "status": "occluded",
+              "nearer_depth_fraction": 1.0,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "fixed": {
+              "status": "occluded",
+              "nearer_depth_fraction": 1.0,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "wrist": {
+              "status": "out_of_view",
+              "source": "world reprojection"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "unknown",
+            "candidates": []
+          },
+          "association_uncertainty": {
+            "temporal_status": "unknown",
+            "identity_guaranteed": false,
+            "competing_current_candidates": []
+          }
+        },
+        "object_008": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0012",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "AMBIGUOUS_TEMPORAL_ASSOCIATION",
+          "visibility": {
+            "assembly": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.33475870494807575,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "fixed": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.35361730899256255,
+              "source": "current metric depth vs historical projected surface"
+            },
+            "wrist": {
+              "status": "unknown_association",
+              "nearer_depth_fraction": 0.375,
+              "source": "current metric depth vs historical projected surface"
+            }
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "unknown",
+            "candidates": [
+              "object_002"
+            ]
+          },
+          "association_uncertainty": {
+            "temporal_status": "unknown",
+            "identity_guaranteed": false,
+            "competing_current_candidates": [
+              "object_002"
+            ]
+          }
+        },
+        "object_009": {
+          "status": "unknown",
+          "semantic_status": "unknown",
+          "observation_id": "rm65:0012",
+          "point_world_m": null,
+          "motion": "unknown",
+          "reason": "ROBOT_LINKED_NOT_OBJECT_IDENTITY",
+          "visibility": {
+            "assembly": "visible_RGB_support",
+            "fixed": "visible_RGB_support",
+            "wrist": "visible_RGB_support"
+          },
+          "geometry_residual": null,
+          "temporal_association": {
+            "status": "new_or_unresolved_candidate",
+            "competing_previous_ids": [
+              "object_002",
+              "object_008"
+            ]
+          },
+          "association_uncertainty": {
+            "status": "multiview_surface_support",
+            "identity_guaranteed": false,
+            "touching_objects_may_merge": true,
+            "disconnected_parts_may_split": true,
+            "competition_exclusion": "disjoint global metric components, no nearest-center tie break",
+            "temporal_status": "unknown_new_or_conflict"
+          }
+        }
+      },
+      "FK_camera_check": {
+        "status": "pass",
+        "translation_residual_m": 1.7079439546983584e-08,
+        "rotation_residual_deg": 9.3330513730228e-06,
+        "source": "measured flange FK + previous public wrist extrinsics; no pose correction"
+      },
+      "actual_wrist_pose": [
+        0.29998457431793213,
+        0.13005974888801575,
+        0.3385230302810669,
+        -0.3570830523967743,
+        0.6105363965034485,
+        -0.6102215647697449,
+        -0.35688504576683044
+      ],
+      "profile": {
+        "backproject_s": 0.05030931899091229,
+        "voxel_components_s": 0.08660015801433474,
+        "candidate_measure_associate_s": 0.2866097619989887,
+        "foreground_pixels": 142412,
+        "scene_voxels": 11164,
+        "discarded_small_components": 3,
+        "current_measurement_s": 0.42423500400036573,
+        "temporal_association_s": 0.3035066179872956,
+        "scene_incremental_s": 0.24080610999953933,
+        "update_compute_s": 1.019832916004816,
+        "CPU_s": 1.016485394,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "geometry_build_calls": 0,
+        "sensor_load_and_source_check_s": 1.9925620729918592,
+        "update_wall_s": 3.013039121986367,
+        "WorldHead_API_wall_s": 3.676322323997738,
+        "WorldHead_API_CPU_s": 3.6658501769999994,
+        "lineage_verification_s": 2.395898804999888,
+        "query_s": 0.28331210400210693,
+        "serialization_s": 0.3032719460024964,
+        "peak_RSS_MiB": 288.6796875
+      },
+      "current_geometry_count": 2,
+      "current_candidate_count": 4,
+      "historical_only_count": 5,
+      "unique_associations": 3,
+      "task_usable": "unknown",
+      "current_static_points": 17811,
+      "query_canonical_bytes": 43094,
+      "grants_execution": false
+    }
+  ],
+  "real_semantic_persistence_under_motion": "NOT_TESTED_G1_HAS_NO_REAL_SEMANTIC_GROUNDING",
+  "G1_original_result": "PARTIAL_PASS_STATE_CONSISTENCY_ONLY; original 61mm reprojection failure unchanged",
+  "GT_read": false,
+  "new_independent_episode": false,
+  "real_Astra_E": 0,
+  "real_Astra_A": 0,
+  "new_SAPIEN_episodes": 0,
+  "hardware": 0,
+  "training": 0,
+  "GPU_used": false,
+  "grants_execution": false,
+  "profile": {
+    "pipeline_wall_s": 24.95932938097394,
+    "CPU_s": 24.877281389,
+    "peak_RSS_MiB": 288.6796875
+  }
+}

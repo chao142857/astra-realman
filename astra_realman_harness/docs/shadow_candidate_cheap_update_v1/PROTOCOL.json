@@ -1,0 +1,26 @@
+{
+  "version": "shadow_candidate_and_geometry_update.development.v1",
+  "base_commit": "51ddbd5b5caf02bc5fa12909260f4b5438956275",
+  "frozen_before_replay": true,
+  "old_real_A_conclusion": "PASS_SHADOW_CONTRACT_NEED_MORE_EVIDENCE; plan=null; H4 generation not demonstrated",
+  "scope": "Archived physical sensor replay and explicitly labelled FAKE/fault-injected engineering mechanism tests; not new independent episodes or performance experiments",
+  "candidate_contract": {"version": "astra.action_shadow_candidate.v2", "role": "action_shadow", "H": 4, "m": 1, "K": 0, "grants_execution": false, "legacy_v1_unchanged": true},
+  "update": {
+    "current_measurement": "Reuse existing RGB-D geometry-first foreground candidate measurement; no previous XYZ copied as current",
+    "temporal_association": "Bounded metric shape/surface support plus current RGB tracking; mutual uniqueness; no nearest-center tie break",
+    "static_layer": "Incremental public-plane surfels only; current dynamic surfaces are replaced, never fused as static",
+    "semantic_carry": "Only a unique current association carries semantic labels; lost/ambiguous labels become historical, current identity remains unknown",
+    "versions": "Fresh world revision and measurement/visibility/update dependencies; original semantic evidence remains historical source, new geometry has separate current sensor provenance",
+    "inputs": "Current RGB-D/K/T, measured FK, completed action feedback, prior estimate; no GT/reference/private scene",
+    "failure": "Reject stale/nonfinite/unaligned inputs; missing/ambiguous observations yield explicit unknown, never infer free space"
+  },
+  "replays": [
+    "S1 W2 exact observation with FAKE output for candidate planning contracts",
+    "G1 public_records six frozen observations and five archived completion feedback records; Geometry-First initial Build then five Update calls",
+    "S1 W2 fault injections explicitly synthetic: temporal identity/FK changes, missing depth, occlusion, duplicates/merge competition, new candidate, movement"
+  ],
+  "reporting": ["current versus historical geometry", "retained and lost identity", "unknown reasons", "geometry residual", "association uncertainty", "visibility", "versions/provenance", "CPU wall RSS stage timing"],
+  "allowed_calls": {"real_Astra_E": 0, "real_Astra_A": 0, "new_SAPIEN_episode": 0, "hardware": 0, "training": 0},
+  "no_threshold_tuning_from_S1_or_G1_scores": true,
+  "physical_safety_code_unchanged": true
+}

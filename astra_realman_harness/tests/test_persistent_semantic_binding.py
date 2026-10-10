@@ -154,11 +154,11 @@ class PersistentBindingTests(unittest.TestCase):
         for edit in (lambda a:a['result'].update(K=1),lambda a:a['result'].update(grants_execution=True),lambda a:a['result']['plan']['read_versions'].update(forged=1),lambda a:a['result']['plan'].update(world_revision=1),lambda a:a['evidence_refs'].append('unsent'),lambda a:a['result']['plan']['waypoints'].pop(),lambda a:a['result']['plan'].update(source={'producer':'MODEL_RAW'}),lambda a:a['result'].update(decision='refused')):
             self.fake_start();answer=self.answer();edit(answer);self.fake_finish(answer)
             self.assertEqual(self.row['status'],'FAILED');self.assertIsNone(self.b.action_ready)
-    def test_old_20mm_gate_and_geometry_update_limit_unchanged(self):
+    def test_old_20mm_gate_and_no_stale_observation_reuse(self):
         self.bind();before=copy.deepcopy(self.w);r=rc.planning_review_eligibility(self.w,self.o)
         self.assertTrue(r['eligible_to_review']);self.assertFalse(r['grants_execution']);self.assertEqual(before,self.w)
         self.assertEqual(self.w['state']['geometry_quality']['task_usable'],'unknown')
-        with self.assertRaisesRegex(ValueError,'UPDATE_CONTRACT_ONLY'):self.head.update(self.w['world_id'],self.o['observation_id'],0)
+        with self.assertRaisesRegex(ValueError,'NONCAUSAL_UPDATE'):self.head.update(self.w['world_id'],self.o['observation_id'],0)
     def test_retained_archive_file_tamper_rejected_before_registration(self):
         # Copy ONLY the first pinned model seal: integrity fails before any raw read.
         fake=self.root/'tampered';fake.mkdir();(fake/'DELIVERY_MANIFEST.json').write_bytes((self.archive/'DELIVERY_MANIFEST.json').read_bytes())

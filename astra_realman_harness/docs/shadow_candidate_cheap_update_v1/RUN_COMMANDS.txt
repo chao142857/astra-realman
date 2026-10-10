@@ -1,0 +1,21 @@
+Offline commands only. No real model or physics command is supplied.
+Working directory: astra_realman_harness in the delivered branch.
+Environment: /home/alex/astra/.venv/bin/python; archived data under /home/alex/astra-realman_ws.
+
+Regression (262 tests, includes local isolated FakeCLI):
+GEOMETRY_FIRST_ARCHIVE_ROOT=/home/alex/astra-realman_ws OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=.:tests /home/alex/astra/.venv/bin/python -B -m unittest test_shadow_candidate_v2 test_geometry_first_update test_persistent_semantic_binding test_geometry_first_v2 test_strict_schema test_semantic_interfaces test_rgbd_world test_lwh_update test_lwh_integration test_research_adapters test_platform_v1 test_full_pnp test_full_pnp_infer test_full_pnp_runtime test_full_pnp_review -v
+
+Replay reproduction uses scripts/replay_geometry_first_update.py, with required arguments:
+--records /home/alex/astra-realman_ws/shadow-candidate-cheap-update-20261010/G1_PUBLIC_INPUTS.json
+--public /home/alex/astra-realman_ws/rgbd-g1-execution-20261009/run/public
+--config config/research/geometry_first_v2.json
+--update-config config/research/geometry_first_update_v1.json
+--plane /home/alex/astra-realman_ws/geometry-first-v2-20261010/inputs/PLANE.json
+--output [a NEW directory; entrypoint refuses an existing output directory]
+Set OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1. Script sets cv2 threads=1.
+See REPLAY_INPUTS.json for audited reproduction paths and hashes; do not substitute private layout or old semantic predictions.
+
+External artifact collector: tools/collect_acceptance.py under the external delivery root.
+It uses production prepare with allowance=0 and dispatch blockers; fake output cases patch ProcessJob.
+It is a one-shot archival script and refuses to overwrite existing output folders.
+All fault observations are explicitly synthetic; source archived observations are read-only.

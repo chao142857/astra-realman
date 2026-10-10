@@ -1,0 +1,354 @@
+{
+  "status": "SYNTHETIC_MECHANISM_ONLY",
+  "cases": [
+    {
+      "case": "unchanged",
+      "source": "SYNTHETIC_FAULT_INJECTION_NOT_PHYSICAL_EPISODE",
+      "error": null,
+      "world_revision": 3,
+      "API_wall_s": 1.4769257809966803,
+      "API_CPU_s": 1.7905068909999997,
+      "peak_RSS_MiB": 239.7421875,
+      "profile": {
+        "backproject_s": 0.042358544014859945,
+        "voxel_components_s": 0.0657054879993666,
+        "candidate_measure_associate_s": 0.21661447500810027,
+        "foreground_pixels": 157134,
+        "scene_voxels": 12597,
+        "discarded_small_components": 3,
+        "current_measurement_s": 0.32502104400191456,
+        "temporal_association_s": 0.16819198898156174,
+        "scene_incremental_s": 0.19357047698576935,
+        "update_compute_s": 0.7133792960084975,
+        "CPU_s": 0.711814951,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "geometry_build_calls": 0,
+        "sensor_load_and_source_check_s": 0.4004638880142011,
+        "update_wall_s": 1.1142369790177327
+      },
+      "target": {
+        "status": "coarse",
+        "semantic_status": "hypothesis",
+        "point_world_m": [
+          0.35947472931529223,
+          -0.06011360282030444,
+          0.028916125091119824
+        ],
+        "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+        "visibility": {
+          "assembly": "visible_RGB_support",
+          "fixed": "visible_RGB_support",
+          "wrist": "visible_RGB_support"
+        },
+        "temporal_association": {
+          "status": "unique_current_match",
+          "previous_id": "object_004",
+          "previous_observation_id": "rm65:0002",
+          "current_observation_id": "SYNTHETIC_FAULT:0001",
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.0,
+            "surface_median_delta_world_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "symmetric_nearest_p90_m": [
+              0.0,
+              0.0
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.0,
+              0.0
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "visual_support": [
+            {
+              "camera": "assembly",
+              "source_observation_id": "rm65:0002",
+              "current_observation_id": "SYNTHETIC_FAULT:0001",
+              "current_mask_overlap": 1.0,
+              "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+              "tracker_association": "temporal_instance_hypothesis"
+            },
+            {
+              "camera": "fixed",
+              "source_observation_id": "rm65:0002",
+              "current_observation_id": "SYNTHETIC_FAULT:0001",
+              "current_mask_overlap": 1.0,
+              "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+              "tracker_association": "temporal_instance_hypothesis"
+            },
+            {
+              "camera": "wrist",
+              "source_observation_id": "rm65:0002",
+              "current_observation_id": "SYNTHETIC_FAULT:0001",
+              "current_mask_overlap": 1.0,
+              "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+              "tracker_association": "temporal_instance_hypothesis"
+            }
+          ],
+          "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+        }
+      },
+      "new_current_candidate_ids": [],
+      "real_E": 0,
+      "real_A": 0,
+      "new_episode": 0,
+      "grants_execution": false
+    },
+    {
+      "case": "holes",
+      "source": "SYNTHETIC_FAULT_INJECTION_NOT_PHYSICAL_EPISODE",
+      "error": null,
+      "world_revision": 3,
+      "API_wall_s": 0.770934951986419,
+      "API_CPU_s": 0.9050523459999997,
+      "peak_RSS_MiB": 272.1328125,
+      "profile": {
+        "backproject_s": 0.0020831970032304525,
+        "voxel_components_s": 1.5030091162770987e-06,
+        "candidate_measure_associate_s": 1.3200042303651571e-06,
+        "foreground_pixels": 0,
+        "scene_voxels": 0,
+        "discarded_small_components": 0,
+        "current_measurement_s": 0.0023403119994327426,
+        "temporal_association_s": 0.010738350014435127,
+        "scene_incremental_s": 0.11909052601549774,
+        "update_compute_s": 0.14519198299967684,
+        "CPU_s": 0.1450918130000005,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "geometry_build_calls": 0,
+        "sensor_load_and_source_check_s": 0.398297284002183,
+        "update_wall_s": 0.5435065350029618
+      },
+      "target": {
+        "status": "unknown",
+        "semantic_status": "unknown",
+        "point_world_m": null,
+        "reason": "NO_CURRENT_UNIQUE_ASSOCIATION",
+        "visibility": {
+          "assembly": {
+            "status": "depth_unknown",
+            "valid_fraction": 0.0
+          },
+          "fixed": {
+            "status": "depth_unknown",
+            "valid_fraction": 0.0
+          },
+          "wrist": {
+            "status": "depth_unknown",
+            "valid_fraction": 0.0
+          }
+        },
+        "temporal_association": {
+          "status": "unknown",
+          "candidates": []
+        }
+      },
+      "new_current_candidate_ids": [],
+      "real_E": 0,
+      "real_A": 0,
+      "new_episode": 0,
+      "grants_execution": false
+    },
+    {
+      "case": "wrist_holes",
+      "source": "SYNTHETIC_FAULT_INJECTION_NOT_PHYSICAL_EPISODE",
+      "error": null,
+      "world_revision": 3,
+      "API_wall_s": 1.191105674020946,
+      "API_CPU_s": 1.4354170129999986,
+      "peak_RSS_MiB": 272.1328125,
+      "profile": {
+        "backproject_s": 0.014417230995604768,
+        "voxel_components_s": 0.025747985986527056,
+        "candidate_measure_associate_s": 0.08419256401248276,
+        "foreground_pixels": 45912,
+        "scene_voxels": 11538,
+        "discarded_small_components": 3,
+        "current_measurement_s": 0.12461150300805457,
+        "temporal_association_s": 0.1358611280156765,
+        "scene_incremental_s": 0.14499396900646389,
+        "update_compute_s": 0.42942840201430954,
+        "CPU_s": 0.4286701060000002,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "geometry_build_calls": 0,
+        "sensor_load_and_source_check_s": 0.3982774689793587,
+        "update_wall_s": 0.828189919993747
+      },
+      "target": {
+        "status": "coarse",
+        "semantic_status": "hypothesis",
+        "point_world_m": [
+          0.36100985736884245,
+          -0.06312945003551049,
+          0.029327263549328308
+        ],
+        "reason": "CURRENT_RGBD_SURFACE_BOUNDS_NOT_COMPLETE_OBJECT_VOLUME",
+        "visibility": {
+          "assembly": "visible_RGB_support",
+          "fixed": "visible_RGB_support",
+          "wrist": {
+            "status": "depth_unknown",
+            "valid_fraction": 0.0
+          }
+        },
+        "temporal_association": {
+          "status": "unique_current_match",
+          "previous_id": "object_004",
+          "previous_observation_id": "rm65:0002",
+          "current_observation_id": "SYNTHETIC_FAULT:0001",
+          "geometry_residual": {
+            "surface_median_displacement_m": 0.017824361444955555,
+            "surface_median_delta_world_m": [
+              0.01464219630118746,
+              -0.009573815136703523,
+              0.0034140902340355495
+            ],
+            "symmetric_nearest_p90_m": [
+              0.0,
+              0.022700796483603385
+            ],
+            "translation_aligned_nearest_p90_m": [
+              0.014703416979316744,
+              0.016853734633629668
+            ],
+            "semantics": "residual between measured surface supports, not calibrated object-center error"
+          },
+          "visual_support": [
+            {
+              "camera": "assembly",
+              "source_observation_id": "rm65:0002",
+              "current_observation_id": "SYNTHETIC_FAULT:0001",
+              "current_mask_overlap": 1.0,
+              "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+              "tracker_association": "temporal_instance_hypothesis"
+            },
+            {
+              "camera": "fixed",
+              "source_observation_id": "rm65:0002",
+              "current_observation_id": "SYNTHETIC_FAULT:0001",
+              "current_mask_overlap": 1.0,
+              "tracker_reason": "BIDIRECTIONAL_LK_AND_CURRENT_APPEARANCE",
+              "tracker_association": "temporal_instance_hypothesis"
+            }
+          ],
+          "semantic_carry": "prior hypothesis via current unique association; not new Semantic inference"
+        }
+      },
+      "new_current_candidate_ids": [],
+      "real_E": 0,
+      "real_A": 0,
+      "new_episode": 0,
+      "grants_execution": false
+    },
+    {
+      "case": "occlusion",
+      "source": "SYNTHETIC_FAULT_INJECTION_NOT_PHYSICAL_EPISODE",
+      "error": null,
+      "world_revision": 3,
+      "API_wall_s": 1.7106603020220064,
+      "API_CPU_s": 1.9487316740000011,
+      "peak_RSS_MiB": 303.17578125,
+      "profile": {
+        "backproject_s": 0.038414997019572183,
+        "voxel_components_s": 0.200346402998548,
+        "candidate_measure_associate_s": 0.5962169959966559,
+        "foreground_pixels": 519720,
+        "scene_voxels": 29684,
+        "discarded_small_components": 4,
+        "current_measurement_s": 0.835838358005276,
+        "temporal_association_s": 0.03774252597941086,
+        "scene_incremental_s": 0.1272203229891602,
+        "update_compute_s": 1.0272064229939133,
+        "CPU_s": 1.0259216569999996,
+        "Astra_calls": 0,
+        "DA3_calls": 0,
+        "SAM_calls": 0,
+        "geometry_build_calls": 0,
+        "sensor_load_and_source_check_s": 0.40501404702081345,
+        "update_wall_s": 1.4325714599981438
+      },
+      "target": {
+        "status": "unknown",
+        "semantic_status": "unknown",
+        "point_world_m": null,
+        "reason": "NO_CURRENT_UNIQUE_ASSOCIATION",
+        "visibility": {
+          "assembly": {
+            "status": "occluded",
+            "nearer_depth_fraction": 1.0,
+            "source": "current metric depth vs historical projected surface"
+          },
+          "fixed": {
+            "status": "occluded",
+            "nearer_depth_fraction": 1.0,
+            "source": "current metric depth vs historical projected surface"
+          },
+          "wrist": {
+            "status": "occluded",
+            "nearer_depth_fraction": 1.0,
+            "source": "current metric depth vs historical projected surface"
+          }
+        },
+        "temporal_association": {
+          "status": "unknown",
+          "candidates": []
+        }
+      },
+      "new_current_candidate_ids": [
+        "object_007",
+        "object_008",
+        "object_009",
+        "object_010",
+        "object_011",
+        "object_012",
+        "object_013",
+        "object_014"
+      ],
+      "real_E": 0,
+      "real_A": 0,
+      "new_episode": 0,
+      "grants_execution": false
+    },
+    {
+      "case": "bad_fk",
+      "source": "SYNTHETIC_FAULT_INJECTION_NOT_PHYSICAL_EPISODE",
+      "error": "UPDATE_FK_INCONSISTENT",
+      "world_revision": 2,
+      "API_wall_s": 0.4715465359913651,
+      "API_CPU_s": 0.47070831999999996,
+      "peak_RSS_MiB": 303.17578125,
+      "profile": null,
+      "target": null,
+      "new_current_candidate_ids": [],
+      "real_E": 0,
+      "real_A": 0,
+      "new_episode": 0,
+      "grants_execution": false
+    },
+    {
+      "case": "nan",
+      "source": "SYNTHETIC_FAULT_INJECTION_NOT_PHYSICAL_EPISODE",
+      "error": "DEPTH_VALIDITY_VALUES",
+      "world_revision": 2,
+      "API_wall_s": 0.5032288219954353,
+      "API_CPU_s": 0.4966708709999992,
+      "peak_RSS_MiB": 303.17578125,
+      "profile": null,
+      "target": null,
+      "new_current_candidate_ids": [],
+      "real_E": 0,
+      "real_A": 0,
+      "new_episode": 0,
+      "grants_execution": false
+    }
+  ]
+}

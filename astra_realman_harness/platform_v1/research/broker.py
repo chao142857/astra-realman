@@ -208,8 +208,9 @@ class Broker:
             self.save(row, 'CANCELLED' if result['cancel_reason'] else 'FAILED', error=repr(exc))
 
     def validate_world_source(self, world):
-        from .semantic_binding import requires_binding_check, validate_persistent_world
-        if requires_binding_check(self.store, world): validate_persistent_world(self.store, world)
+        from .semantic_binding import requires_binding_check, validate_persistent_world, validate_geometry_update
+        if world['state'].get('geometry_update_version'): validate_geometry_update(self.store,world)
+        elif requires_binding_check(self.store, world): validate_persistent_world(self.store, world)
 
     def poll(self, request_id):
         self.tick()

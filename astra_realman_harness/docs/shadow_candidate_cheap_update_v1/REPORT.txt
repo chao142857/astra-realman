@@ -1,0 +1,94 @@
+Action Shadow Candidate v2 + Geometry-First Cheap Update — 工程交付
+
+结论：OFFLINE_ENGINEERING_INCREMENTS_COMPLETE。
+本轮真实 Astra E/A、新 SAPIEN episode、硬件动作、训练均为 0。
+没有创建下一次模型授权，没有发起请求，没有运行真实并发。
+
+1. 冻结边界
+原真实 A 结果仍为 PASS_SHADOW_CONTRACT_NEED_MORE_EVIDENCE，plan=null。
+本轮 FAKE planned 仅证明解析与隔离合同，不证明 Astra 能生成 H4。
+G1 原 PARTIAL_PASS_STATE_CONSISTENCY_ONLY 及 61mm 重投影失败不变。
+旧 DA3/SAM/VisualHull、真实 E0、Geometry-First、W2 和 A 归档均保留。
+哈希审计检查 4,846 个去重文件，0 个不一致。原 worktree 干净。
+Owner、Supervisor、ActionChunkPlan v2 本体及所有其他旧物理安全源码未改。
+
+2. Candidate Planning v2
+保留 action_shadow 角色，新增 astra.action_shadow_candidate.v2 包装合同和固定 prompt；旧 v1 并存。
+区分 HYPOTHESIS_GENERATION / INDEPENDENT_REVIEW_PENDING / NOT_GRANTED。
+仍为 H=4、m=1、K=0、grants_execution=false，支持合理 stage_terminal。
+候选不必先自证 IK、碰撞和净空；这些检查始终 NOT_TESTED。
+每个 waypoint 必须完整列出五项原动作前提的证据状态和依据。
+未验证前提显式 unverified，隐藏空间 UNKNOWN_NOT_FREE，owner admission 不可宣称已通过。
+planned 明确冲突、虚构证据、篡改版本、K>0 或执行授权均拒绝；无法提出候选可以拒绝或补证据。
+原 inner ActionChunkPlan v2 的严格本地验证保持不变。
+固定真实 W2、真实语义来源、三图的 production prepare 成功，Broker 实际模型提交数为 0。
+三种 FAKE 结果均通过真实 Broker 解析；action_ready 始终为空；Supervisor 永久拒绝 shadow。
+即使测试将 task_usable 改为 pass，也不能转成执行授权。该改动仅存在内存测试副本。
+机器可验证字段通过不代表自然语言断言已被证实，仍需独立规划审查。
+
+3. Cheap Update 实现
+复用 WorldHead.update、RGB-D 当前候选测量前端及 PublicStore.publish_world。
+当前 RGB-D 重新测量表面；几何量为当前传感器估计，不是历史坐标复制或模型预测。
+用有界空间残差、双向表面支持和当前 RGB 关联建立候选边；只接受双向唯一匹配。
+所有可行竞争边保留，不能按最近中心强行赢家；固定视角模板兜底保持有效。
+关联可信时保留语义 ID 和原真实 evidence，语义仍是历史模型假设；空间属性不冒充新实测。
+失踪/遮挡/竞争时当前位置、范围和当前证据清空；历史几何和语义独立保留。
+新候选获得新 geometry ID，语义身份 unknown。抓持关系仍 unknown。
+只增量融合公开桌面平面 surfels；动态表面按当前观测替换，不作为静态背景积累。
+独立记录 geometry residual、association uncertainty、visibility；任务安全门仍 unknown。
+每次发布新 World revision 和 read_versions，绑定当前观测/FK/完成反馈；来源链由可信主机 receipt 校验。
+合成故障输入输出明确为 SYNTHETIC_SENSOR_REPLAY，不能作为真实 Broker 世界来源。
+
+4. G1 归档重放（开发机制证据，不是新物理试验）
+一次初始 Build + 五次 Update，同一估计器状态贯穿六个已归档观测。
+S1 和 G1 是不同 episode，未向 G1 移植 S1 的真实语义 ID。
+阶段            当前候选  仅历史条目  唯一关联  coarse状态  WorldHead API秒
+initial             4          0          0          2         0.7668
+post_hold           4          0          4          2         1.4553
+post_move_1         5          1          3          2         1.9158
+post_move_2         6          1          5          2         2.6265
+post_move_3         3          5          2          2         3.0320
+post_move_4         4          5          3          2         3.6763
+最终 9 个登记条目 = 4 个当前候选 + 5 个历史条目，不是 9 个真实物体。
+object_004 的估计表面代表点从 [0.359475,-0.060114,0.028948] 到 [0.359448,-0.060091,0.029366] m。
+object_003 的表面估计随机器人相关区域变化，不能当成独立物体运动成功。
+机器人表面仍有拆分、竞争和丢失；保留 unknown，不删除失败来制造稳定性。
+这些是传感器表面估计残差，不是 GT 位置误差；本轮未重新评分或修正 G1 原 61mm 失败。
+真实语义身份随物理运动保持能力 NOT_TESTED（G1 没有真实 Semantic Grounding）。
+
+5. 故障与回归
+262/262 回归通过，0 fail/error/skip，196.466 s。新增 Candidate 8 项、Update 14 项。
+保留初次 20 项测试和初次回放日志，未覆盖它们。
+S1 W2 的合成重观测：唯一匹配可携带原语义假设。
+全深度空洞：当前 unknown，保留历史；短时恢复重新读取当前深度。
+腕图空洞：fixed + assembly 当前实测仍支持粗几何，无旧 bbox 冒充当前测量。
+合成遮挡：历史目标不再作为当前测量；新/冲突候选保持身份 unknown。
+坏 FK：UPDATE_FK_INCONSISTENT；有效深度含 NaN：DEPTH_VALIDITY_VALUES；均不发布新 revision。
+一对多、多对一竞争、过期/未来/错误反馈、过期 epoch、篡改来源及版本均有拒绝测试。
+运动单测仅为平移云 + 明确 FAKE tracker 的关联函数测试，不是物理运动回放或完整动态深度验证。
+FakeCLI 安全回归仍使用隔离本地端点与假凭据，不是生产模型请求。
+新 v2 schema 通过共同严格 Provider 子集检查与本地严格合同；真实服务端接受性 NOT_TESTED。
+
+6. 时间、资源和已知限制
+最终回放：流水线墙钟 24.9593 s，CPU 24.8773 s，峰值 RSS 288.680 MiB；GPU 未使用。
+初始 API 0.7668 s；Update API 1.4553–3.6763 s。
+每帧当前几何重测 0.4128–0.4405 s；关联 0.1213–0.3035 s；平面增量层 0.2062–0.3308 s。
+API 包含输入及祖先来源校验、当前计算、序列化哈希和发布；API 内部时段不是可直接相加的独立计时。
+API 之外另测来源链复核、compact query、保存文件；完整分项见 PROFILING.json。
+计时起点在 Python imports 后、读取记录与初始化 Store 前；不包含解释器启动和最终 summary/seal 写入。
+独立验收脚本（prepare + 3 个 FAKE 分支 + 6 个故障）：18.3396 s，CPU 18.2859 s，峰值 RSS 303.176 MiB。
+production prepare 为 0.8534 s。BLAS/OMP/MKL 和 OpenCV 均固定 1 线程。
+保留早期不同线程设置的 replay_01，不把两次时差称作加速。
+紧凑 G1 Query 为 22,932–47,470 JSON bytes；表面点云仍在 Store。
+来源链递归哈希随 revision 增长，造成 API 延迟增长；未证明实时性或性能优势。
+没有新增持久化 receipt 的重启恢复 API；WORLDSTORE 仅封存当前运行状态，不宣称重启验收。
+语义属性可为历史描述；未知目标不能成为 physical admission；完整机器人几何分离仍不足。
+通用连通区域仍可能合并接触物体或拆分不连通表面；关联门限是开发规则，非经校准概率。
+本批没有跨布局泛化、真实 H4 生成、完整任务成功或动作执行能力结论。
+
+7. 交付
+源码分支 codex/shadow-candidate-cheap-update-20261010，最终 commit/remote 核对写入外部 GIT_DELIVERY.json。
+生产 Provider/Authoritative Schema、固定 W2 请求/Query、FAKE 回答、逐节点检查和完整回归日志随源码提交。
+大体积原始 RGB-D、故障数组、完整 World 和 receipts 留在外部交付目录并哈希封存。
+复现入口、API、来源边界见 INTERFACES.txt 和 RUN_COMMANDS.txt。
+本轮到此结束，不申请或发起下一阶段模型请求。

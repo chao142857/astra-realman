@@ -46,7 +46,7 @@ def compact_world(world,entity_ids=None,max_bytes=MAX_CONTEXT_BYTES):
         'geometry_only','task_identity_verified','task_target_id','public_plane','geometry_quality',
         'semantic_evidence_id','semantic_source','relations','unknowns','history_semantics','rebuild_needed','initialization',
         'semantic_binding_version','task_target_geometry_id','task_selection','semantic_unknowns','semantic_requests',
-        'geometry_provenance','semantic_provenance'))
+        'geometry_provenance','semantic_provenance','geometry_update_version','task_target_current_support','current_unknowns','fk_camera_check','update_input_provenance'))
     selected={}
     for identity in ids:
         e=entities[identity]
@@ -56,7 +56,7 @@ def compact_world(world,entity_ids=None,max_bytes=MAX_CONTEXT_BYTES):
             'current_evidence','contributing_views','view_disagreement_m','displacement_from_previous_measurement_m',
             'geometry_instance_id','candidate_type','objectness','semantic_status','robot_exclusion',
             'coarse_observed_bounds_world_m','association_evidence','association_uncertainty','uncertainty_components',
-            'semantic_category','semantic_attributes','semantic_disposition'))
+            'semantic_category','semantic_attributes','semantic_disposition','historical_semantics','geometry_residual','temporal_association','semantic_attribute_time_scope'))
         v['views']=[_select(x,('camera','bbox','observation_id','attachment_id','producer','visibility','association')) for x in e.get('views',[])]
         historical=e.get('historical_geometry')
         if historical:v['historical_geometry']={**_select(historical,('point_world_m','observation_id','captured_monotonic')),'measurement_kind':'historical_not_current'}
@@ -71,7 +71,12 @@ def compact_world(world,entity_ids=None,max_bytes=MAX_CONTEXT_BYTES):
         # layer explicit instead of presenting it as the current semantic answer.
         small['geometry_initialization_unknowns']=small.pop('unknowns',[])
         small['unknowns']=clone(state['semantic_unknowns'])
+        if state.get('current_unknowns'):small['current_geometry_unknowns']=clone(state['current_unknowns'])
         small['unknowns_scope']='current semantic hypotheses; geometry initialization notes retained separately'
+        if state.get('geometry_update_version'):
+            small['historical_semantic_unknowns']=small['unknowns']
+            small['unknowns']=[x['entity_id']+': '+x['reason'] for x in state.get('current_unknowns',[])]
+            small['unknowns_scope']='current sensor/identity gaps; original model unknown statements are historical, not re-evaluated'
     static=state.get('scene_layers',{}).get('static',{})
     small['scene_summary']={'static_kind':static.get('kind','unknown'),'static_point_count':len(static.get('points',[])),
         'current_support_count':static.get('current_support_count',0),'unclassified_geometry':'not guaranteed static',

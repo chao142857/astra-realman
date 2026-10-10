@@ -276,8 +276,8 @@ def update(reference,previous,current,images,depths,read_images,completed_at,fee
         'resource_metrics':{'update_compute_s':time.monotonic()-start,'Astra_calls':0,'DA3_calls':0,'SAM_calls':0}}
 
 
-def build_geometry_first(observation, depths, config, plane):
-    """Geometry-first initialization inside the existing RGB-D surfel estimator.
+def measure_geometry_first(observation, depths, config, plane):
+    """Shared current-frame measurement, without publishing/resetting a World.
 
     No RGB appearance, semantic input, actor data, size/category prior or model.
     Connected measured surfaces are candidates, never certified object identities.
@@ -384,18 +384,187 @@ def build_geometry_first(observation, depths, config, plane):
         entities[identity] = measured
         association.append({'geometry_instance_id': identity, 'support_pairs': support_pairs, 'robot_exclusion': entity['robot_exclusion']})
     measured_at = time.monotonic()
-    layers = scene_layers(observation, depths, entities, plane, cfg, ext, k)
+    return entities, {'backproject_s': backprojected-start, 'voxel_components_s': clustered-backprojected,
+        'candidate_measure_associate_s': measured_at-clustered, 'foreground_pixels':len(points),
+        'scene_voxels':len(representatives),'discarded_small_components':rejected_small}
+
+
+def build_geometry_first(observation, depths, config, plane):
+    start=time.monotonic();entities,metrics=measure_geometry_first(observation,depths,config,plane)
+    ext,k=calibrated_cameras(observation);cfg=config['geometry'];layer_start=time.monotonic()
+    layers=scene_layers(observation,depths,entities,plane,cfg,ext,k)
     return {'backend': 'geometry_first_rgbd_v2', 'geometry_backend': BACKEND, 'initialization': 'geometry_first_v2',
         'observation_id': observation['observation_id'], 'captured_monotonic': observation['captured_monotonic'],
         'robot_state': clone(observation['state']), 'entities': entities, 'object_config': clone(config),
-        'public_plane': clone(plane), 'scene_layers': layers, 'scene_healthy': bool(len(points)),
+        'public_plane': clone(plane), 'scene_layers': layers, 'scene_healthy': bool(metrics['foreground_pixels']),
         'geometry_only': True, 'task_identity_verified': False, 'task_target_id': None,
         'geometry_quality': quality(observation, entities, layers, plane, cfg), 'relations': [],
         'unknowns': ['semantic labels/target unresolved', 'robot exclusion incomplete without full link geometry',
                      'flush planar semantic regions not discoverable by height alone', 'touching merge/disconnected split remain possible'],
         'history_semantics': 'current sensor measurement only; candidate identity is geometric hypothesis',
         'rebuild_needed': not bool(entities), 'rebuild_dispatches_model': False,
-        'resource_metrics': {'backproject_s': backprojected-start, 'voxel_components_s': clustered-backprojected,
-            'candidate_measure_associate_s': measured_at-clustered, 'scene_layers_s': time.monotonic()-measured_at,
+        'resource_metrics': {**metrics, 'scene_layers_s': time.monotonic()-layer_start,
             'build_compute_s': time.monotonic()-start, 'Astra_calls': 0, 'DA3_calls': 0, 'SAM_calls': 0,
-            'foreground_pixels': len(points), 'scene_voxels': len(representatives), 'discarded_small_components': rejected_small}}
+            'measurement_backend':'SHARED_CURRENT_RGBD_CANDIDATES'}}
+
+
+UPDATE_VERSION='astra.geometry_first_cheap_update.v1'
+
+def _historical_entity(entity):
+    """Last sensor support stays explicitly historical when not measured now."""
+    if entity.get('candidate_surface_cloud'):
+        keys=('candidate_surface_cloud','surface_cloud','coarse_observed_bounds_world_m','bounds_world_m',
+              'point_world_m','observation_id','captured_monotonic','tracking_seeds','current_evidence')
+        return {**{k:clone(entity[k]) for k in keys if k in entity},'measurement_kind':'historical_not_current'}
+    return clone(entity.get('historical_geometry',{}))
+
+def associate_geometry_frames(previous_entities, candidates, previous, current, images, read_images, config, tracker):
+    """Current metric measurements + optional observed RGB tracks; no GT/labels.
+
+    Every admissible competing edge is retained. Only mutually unique edges
+    transfer identity, never a nearest-center winner or historical bbox copy.
+    """
+    from scipy.spatial import cKDTree
+    pairs=[];tracks={};image_cache={};row_edges={i:[] for i in previous_entities};col_edges={i:[] for i in candidates}
+    for old_id,old in previous_entities.items():
+        hist=_historical_entity(old);cloud=np.asarray(hist.get('candidate_surface_cloud',[]),float).reshape(-1,3)
+        age=current['captured_monotonic']-hist.get('captured_monotonic',float('-inf'))
+        if not len(cloud) or age>config['max_history_age_s']:continue
+        origin=np.median(cloud,axis=0)
+        for cid,new in candidates.items():
+            points=np.asarray(new['candidate_surface_cloud'],float).reshape(-1,3)
+            center=np.median(points,axis=0);delta=center-origin;distance=float(np.linalg.norm(delta))
+            if distance>config['max_association_displacement_m']:continue
+            raw_dist=[cKDTree(cloud).query(points)[0],cKDTree(points).query(cloud)[0]]
+            aligned=[cKDTree(cloud-origin).query(points-center)[0],cKDTree(points-center).query(cloud-origin)[0]]
+            raw_fraction=[float(np.mean(x<=config['surface_match_m'])) for x in raw_dist]
+            shape_fraction=[float(np.mean(x<=config['surface_match_m'])) for x in aligned]
+            visual=[]
+            if min(shape_fraction)>=config['min_surface_fraction']:
+                for seed in hist.get('tracking_seeds',[]):
+                    camera=seed['camera'];view=next((v for v in new['views'] if v['camera']==camera),None)
+                    if view is None:continue
+                    key=(old_id,camera)
+                    if key not in tracks:
+                        oid=seed['observation_id']
+                        if oid not in image_cache:image_cache[oid]=read_images(oid)
+                        tracks[key]=track_view(image_cache[oid][camera],images[camera],decode_mask(seed['mask']),camera,tracker)
+                    track=tracks[key];overlap=0.
+                    if track['mask'] is not None:
+                        a=decode_mask(track['mask']);b=decode_mask(view['mask'])
+                        overlap=float((a&b).sum()/max(1,min(a.sum(),b.sum())))
+                    visual.append({'camera':camera,'source_observation_id':seed['observation_id'],
+                        'current_observation_id':current['observation_id'],'current_mask_overlap':overlap,
+                        'tracker_reason':track['reason'],'tracker_association':track['association']})
+            admissible=(min(shape_fraction)>=config['min_surface_fraction'] and
+                (min(raw_fraction)>=config['min_surface_fraction'] or
+                 any(v['current_mask_overlap']>=config['min_tracked_mask_overlap'] for v in visual)))
+            pair={'previous_id':old_id,'current_candidate_id':cid,'admissible':bool(admissible),
+                'geometry_residual':{'surface_median_displacement_m':distance,'surface_median_delta_world_m':delta.tolist(),
+                    'symmetric_nearest_p90_m':[float(np.quantile(x,.9)) for x in raw_dist],
+                    'translation_aligned_nearest_p90_m':[float(np.quantile(x,.9)) for x in aligned],
+                    'semantics':'residual between measured surface supports, not calibrated object-center error'},
+                'surface_fraction':raw_fraction,'translation_aligned_surface_fraction':shape_fraction,'visual_support':visual}
+            pairs.append(pair)
+            if admissible:row_edges[old_id].append(cid);col_edges[cid].append(old_id)
+    matches={i:cs[0] for i,cs in row_edges.items() if len(cs)==1 and len(col_edges[cs[0]])==1}
+    return matches,{'pairs':pairs,'previous_candidates':row_edges,'current_competitors':col_edges,
+                   'rule':'MUTUAL_UNIQUE_ADMISSIBLE_EDGE','identity_guaranteed':False}
+
+
+def update_geometry_first(reference,previous,current,images,depths,read_images,completed_at,feedback,config):
+    """Incremental object/semantic state; only current sensor geometry is measured.
+
+    Resegment current foreground with the Build measurement frontend, associate
+    to prior estimated instances, replace dynamic surfaces, update plane surfels.
+    Never invokes Build, a model, or a simulator and never certifies execution.
+    """
+    from .semantic_binding import SEMANTIC_FIELDS
+    start=time.monotonic();cpu=time.process_time()
+    if not np.isfinite(completed_at):raise ValueError('NONFINITE_COMPLETION')
+    if current['captured_monotonic']<completed_at:raise ValueError('OBSERVATION_BEFORE_COMPLETION')
+    if current['captured_monotonic']<=previous['captured_monotonic']:raise ValueError('NONCAUSAL_UPDATE')
+    if current['episode_id']!=previous['episode_id']:raise ValueError('UPDATE_EPISODE')
+    if completed_at<previous['captured_monotonic']:raise ValueError('STALE_COMPLETION_FEEDBACK')
+    if reference['observation_id']!=previous['observation_id']:raise ValueError('REFERENCE_OBSERVATION_MISMATCH')
+    if not isinstance(feedback,dict) or type(feedback.get('ok')) is not bool:raise ValueError('UPDATE_FEEDBACK_REQUIRED')
+    if feedback.get('completed_monotonic')!=completed_at:raise ValueError('FEEDBACK_COMPLETION_BINDING')
+    if feedback.get('source_observation_id',previous['observation_id'])!=previous['observation_id']:raise ValueError('FEEDBACK_SOURCE_OBSERVATION')
+    if feedback.get('execution_epoch',current['execution_epoch'])!=current['execution_epoch']:raise ValueError('FEEDBACK_EPOCH')
+    if config.get('version')!='astra.geometry_first_update.config.v1':raise ValueError('UPDATE_CONFIG_VERSION')
+    for key in ('max_association_displacement_m','surface_match_m','min_surface_fraction','min_tracked_mask_overlap','max_history_age_s'):
+        if type(config[key]) not in (int,float) or not np.isfinite(config[key]) or config[key]<=0:raise ValueError('UPDATE_CONFIG_VALUE')
+    fk=fk_camera_consistency(previous,current)
+    if fk['status']!='pass':raise ValueError('UPDATE_FK_INCONSISTENT')
+    cfg=reference['object_config'];ext,k=calibrated_cameras(current)
+    measured,metrics=measure_geometry_first(current,depths,cfg,reference['public_plane']);measured_at=time.monotonic()
+    if len(measured)>config['max_entities'] or len(reference['entities'])>config['max_entities']:raise ValueError('UPDATE_ENTITY_RESOURCE_CAP')
+    matches,association=associate_geometry_frames(reference['entities'],measured,previous,current,images,read_images,config,cfg['tracker'])
+    if fk['status']!='pass' or not feedback['ok']:
+        matches={};association['blocked_reason']='FK_OR_EXECUTION_FEEDBACK_UNRELIABLE'
+    associated_at=time.monotonic();entities={};current_ids={};now=current['captured_monotonic']
+    for old_id,old in reference['entities'].items():
+        historical=_historical_entity(old)
+        old_semantics={key:clone(old[key]) for key in SEMANTIC_FIELDS if key in old}
+        if old.get('semantic_status')=='unknown':old_semantics=clone(old.get('historical_semantics',old_semantics))
+        if old_id in matches:
+            cid=matches[old_id];e=clone(measured[cid]);current_ids[cid]=old_id
+            e.update(entity_id=old_id,instance_id=old_id,geometry_instance_id=old_id,historical_geometry=historical)
+            e.update(old_semantics)
+            e['semantic_attribute_time_scope']='historical model description carried by current association; not remeasured spatial relations'
+            pair=next(x for x in association['pairs'] if x['previous_id']==old_id and x['current_candidate_id']==cid)
+            e['geometry_residual']=clone(pair['geometry_residual'])
+            e['temporal_association']={'status':'unique_current_match','previous_id':old_id,
+                'previous_observation_id':historical.get('observation_id'),'current_observation_id':current['observation_id'],
+                'geometry_residual':clone(pair['geometry_residual']),'visual_support':clone(pair['visual_support']),
+                'semantic_carry':'prior hypothesis via current unique association; not new Semantic inference'}
+            e['motion']='measured_surface_change' if pair['geometry_residual']['surface_median_displacement_m']>cfg['geometry']['movement_threshold_m'] else 'small_change_or_static'
+        else:
+            e={key:clone(old[key]) for key in ('entity_id','instance_id','geometry_instance_id','label','kind','candidate_type') if key in old}
+            reason='AMBIGUOUS_TEMPORAL_ASSOCIATION' if association['previous_candidates'].get(old_id) else 'NO_CURRENT_UNIQUE_ASSOCIATION'
+            e.update(status='unknown',identity_status='unknown',semantic_status='unknown',semantic_category=None,
+                semantic_attributes=[],semantic_disposition='unknown',semantic_source=None,semantic_evidence_id=None,
+                historical_semantics=old_semantics,historical_geometry=historical,point_world_m=None,bounds_world_m=None,
+                coarse_observed_bounds_world_m=None,surface_cloud=[],candidate_surface_cloud=[],partial_current_surface_cloud=[],
+                views=[],tracking_seeds=[],current_evidence=[],uncertainty_radius_m=None,measurement_kind='unknown',motion='unknown',
+                observation_id=current['observation_id'],captured_monotonic=now,reason=association.get('blocked_reason',reason),
+                geometry_residual=None,temporal_association={'status':'unknown','candidates':association['previous_candidates'].get(old_id,[])})
+            e['visibility']={c:expected_visibility({'surface_cloud':historical.get('candidate_surface_cloud',[])},c,ext[i],k[i],depths) for i,c in enumerate(CAMERAS)}
+        e['held_relation']='unknown'
+        e['association_uncertainty']={**e.get('association_uncertainty',{}),'temporal_status':e['temporal_association']['status'],
+            'identity_guaranteed':False,'competing_current_candidates':association['previous_candidates'].get(old_id,[])}
+        entities[old_id]=e
+    next_id=1
+    for cid,new in measured.items():
+        if cid in current_ids:continue
+        while 'object_%03d'%next_id in entities:next_id+=1
+        identity='object_%03d'%next_id;next_id+=1;current_ids[cid]=identity;e=clone(new)
+        e.update(entity_id=identity,instance_id=identity,geometry_instance_id=identity,identity_status='unknown',semantic_status='unknown',
+            semantic_category=None,semantic_attributes=[],semantic_disposition='unknown',semantic_evidence_id=None,semantic_source=None,
+            geometry_residual=None,temporal_association={'status':'new_or_unresolved_candidate','competing_previous_ids':association['current_competitors'][cid]},
+            held_relation='unknown',motion='unknown')
+        e['association_uncertainty'].update(temporal_status='unknown_new_or_conflict',identity_guaranteed=False)
+        if fk['status']!='pass':
+            e.update(status='unknown',point_world_m=None,bounds_world_m=None,measurement_kind='unknown',
+                surface_cloud=[],reason='FK_UNRELIABLE_WORLD_FRAME')
+        entities[identity]=e
+    if len(entities)>config['max_entities']:raise ValueError('UPDATE_ENTITY_RESOURCE_CAP')
+    layer_start=time.monotonic()
+    # Only public table support accumulates. Dynamic candidates are current-only.
+    layers=scene_layers(current,depths,measured,reference['public_plane'],cfg['geometry'],ext,k,reference['scene_layers']['static'])
+    state={**clone(reference),'entities':entities,'scene_layers':layers,'observation_id':current['observation_id'],
+        'captured_monotonic':now,'robot_state':clone(current['state']),'geometry_update_version':UPDATE_VERSION,
+        'geometry_update_config':clone(config),'fk_camera_check':fk,'execution_feedback':clone(feedback),
+        'temporal_association':association,'current_candidate_ids':current_ids,
+        'geometry_quality':quality(current,entities,layers,reference['public_plane'],cfg['geometry']),
+        'history_semantics':'current RGB-D measurements replace dynamic surfaces; unmatched geometry and semantics are historical only',
+        'current_unknowns':[{'entity_id':i,'reason':e['reason']} for i,e in entities.items() if e['status']=='unknown' or e.get('semantic_status')=='unknown'],
+        'rebuild_needed':any(e['status']=='unknown' for e in entities.values()),'rebuild_dispatches_model':False}
+    target=reference.get('task_target_geometry_id',reference.get('task_target_id'))
+    state['task_target_current_support']={'geometry_instance_id':target,'status':
+        'associated_current_hypothesis' if target in matches and entities[target]['status']=='coarse' else 'unknown',
+        'grants_execution':False}
+    state['resource_metrics']={**metrics,'current_measurement_s':measured_at-start,'temporal_association_s':associated_at-measured_at,
+        'scene_incremental_s':time.monotonic()-layer_start,'update_compute_s':time.monotonic()-start,
+        'CPU_s':time.process_time()-cpu,'Astra_calls':0,'DA3_calls':0,'SAM_calls':0,'geometry_build_calls':0}
+    return state

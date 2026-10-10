@@ -1,0 +1,38 @@
+Versioned contracts and source boundaries
+
+Candidate wrapper: astra.action_shadow_candidate.v2 (role remains action_shadow).
+Legacy astra.action_shadow.v1 stays unchanged. ActionChunkPlan v2 stays unchanged.
+Factory: review_contracts.candidate_shadow_request(world, observation, task, task_binding).
+Use Broker.prepare(request) for zero-dispatch preparation. This delivery contains no model run command.
+Wrapper requires all_waypoints_are_hypotheses=true, H=4/m=1 in inner plan, K=0/grants_execution=false.
+physical_checks = IK/collision/clearance NOT_TESTED, owner_admission NOT_GRANTED, hidden_space UNKNOWN_NOT_FREE.
+For planned: current target must be coarse; nonempty assumptions; one assessment for each of five preconditions per waypoint.
+Assessment statuses supported_by_input/unverified/conflict. Supported claims need bound evidence refs.
+Owner prerequisite must remain unverified. Any explicit conflict rejects planned.
+refused and need_more_evidence require plan=null and no waypoint ledger.
+Broker validates provider-compatible output AND authoritative schema AND local v2 invariants.
+Only action role can set action_ready. Supervisor refuses role=action_shadow regardless of task_usable.
+No new execution authority, control precision, safety threshold, retries or dispatch loop.
+
+WorldHead.update(reference_world_id, observation_id, completed_monotonic, *, execution_feedback=None)
+Geometry-First branch requires current RGB-D, public calibration, measured FK, current epoch and causally bound completion feedback.
+Feedback must have bool ok and exact completed_monotonic; source_observation_id/epoch are checked if present.
+Missing feedback, bad FK/depth, stale base/epoch, future/stale completion reject before publishing.
+Failed execution feedback may publish current measurements, but cannot carry old identity or infer holding.
+Reuses rgbd_world.measure_geometry_first for current foreground; does not invoke Build reset, DA3, SAM or Astra.
+Config: astra.geometry_first_update.config.v1, frozen development association parameters; no GT tuning.
+Unique match transfers identity hypotheses, not calibrated certainty. Current motion residual != object-center accuracy.
+Old temporal semantic attributes remain explicitly historical. New/no unique association means unknown identity.
+Separate fields: geometry_residual, association_uncertainty, visibility, temporal_association, historical_geometry, historical_semantics.
+Static public-plane surfels incrementally maintained; current dynamic surfaces replaced.
+WorldQuery includes provenance, temporal fields, unknowns and current robot state; dense clouds stay in PublicStore.
+
+Publication uses existing PublicStore.publish_world; new immutable world revision.
+read_versions carries previous semantic dependencies plus current observation, geometry/current_measurement, visibility and config digest.
+Real original MODEL_RAW semantic provenance never becomes provenance of current geometry.
+register_geometry_update records trusted-host receipt and parent lineage.
+validate_geometry_update rejects changed world/parent/observation/FK/RGB/depth/read_versions and stale current Store state.
+This is a trusted in-process registry, not a model-provided receipt and not protection against arbitrary trusted-host code execution.
+SYNTHETIC_FAULT_INJECTION input results in SYNTHETIC_SENSOR_REPLAY world, blocked from real Broker input.
+Updated receipts are archived for audit; no new durable rehydration API or restart acceptance claimed.
+Semantic re-grounding is not called from Update. Rebuild-needed is metadata, not a dispatch permission.

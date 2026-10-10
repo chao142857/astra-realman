@@ -145,9 +145,9 @@ class ReviewTests(unittest.TestCase):
     def test_duplicate_or_nonjson_raw_rejected_no_retries(self):
         for raw in ('{"result":{},"result":{}}','not json'):
             row=self.start(self.shadow());self.finish(row,None,raw);self.assertEqual(row['status'],'FAILED');self.assertIsNone(row['usage_raw']);self.assertIsNone(self.b.action_ready)
-    def test_geometry_update_not_misrepresented_as_accepted(self):
+    def test_geometry_update_rejects_same_observation_as_fresh_measurement(self):
         head=WorldHead(self.root,self.store,epoch=lambda:0,deadline=time.monotonic()+10,emit=lambda *x:None)
-        with self.assertRaisesRegex(ValueError,'UPDATE_CONTRACT_ONLY'):head.update(self.w['world_id'],self.o['observation_id'],0)
+        with self.assertRaisesRegex(ValueError,'NONCAUSAL_UPDATE'):head.update(self.w['world_id'],self.o['observation_id'],0)
 
 class ScheduleTests(unittest.TestCase):
     def ready(self):
