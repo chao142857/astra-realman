@@ -1,0 +1,21 @@
+{
+  "frozen_result": "OFFLINE_PROVENANCE_CACHE_EQUIVALENCE_PASS",
+  "branch": "codex/provenance-validation-cache-20261010",
+  "commit": "1af3958f3f162e3646b62843c0a2fd02acdf4097",
+  "remote_head": "1af3958f3f162e3646b62843c0a2fd02acdf4097",
+  "working_tree_clean": true,
+  "sealed_source_and_document_hashes_verified": true,
+  "new_optimizations": 0,
+  "merged_into_A": false,
+  "optional_cache_disable": "store.validation_cache_enabled=False",
+  "full_recursive_audit": "validate_geometry_update(store, w, full_audit=True)",
+  "limitations": [
+    "O(history) metadata/token guards remain; not constant time",
+    "Trusted single-owner process boundary, not protection from hostile in-process/kernel writes",
+    "No restart receipt rehydration API",
+    "Single sequential frozen replay: cached five-update API total 9.1398s versus original 8.3722s (9.2% slower); no general speedup claim",
+    "Pipeline wall 11.9176s cached versus 15.1051s original is a separate single-run measurement",
+    "Old G1 61mm and all archived failures remain unchanged"
+  ],
+  "this_closure_is_separate_from_frozen_B_report": true
+}

@@ -1,0 +1,267 @@
+{
+  "evidence_refs": [
+    "rm65:0002:fixed:15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+    "rm65:0002:assembly:16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+    "rm65:0002:wrist:26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385",
+    "e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd"
+  ],
+  "result": {
+    "K": 0,
+    "all_waypoints_are_hypotheses": true,
+    "assumptions": [
+      "Poses use the pad/grasp-center world position and supplied orientation in quaternion wxyz order.",
+      "The observed-surface XY midpoint of object_004 is a coarse alignment reference, not an exact object or grasp center.",
+      "Preserve the supplied orientation and gripper configuration throughout.",
+      "Use three lateral increments followed by a 30 mm descent to a nominal review handoff above the target. This endpoint is a proposed precontact pose, not a certified clearance.",
+      "Nominal offsets describe hypotheses and are not validated motion durations."
+    ],
+    "decision": "planned",
+    "grants_execution": false,
+    "intent": "action_shadow",
+    "physical_checks": {
+      "IK": "NOT_TESTED",
+      "clearance": "NOT_TESTED",
+      "collision": "NOT_TESTED",
+      "hidden_space": "UNKNOWN_NOT_FREE",
+      "owner_admission": "NOT_GRANTED"
+    },
+    "plan": {
+      "H": 4,
+      "evidence_refs": [
+        "e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd"
+      ],
+      "execution_epoch": 0,
+      "m": 1,
+      "origin_pose_world": [
+        0.30008048281229016,
+        1,
+        0.1500088265463092,
+        -0.000004095491021871567,
+        1,
+        0.00003328512320877053,
+        0.0001482087536714971
+      ],
+      "profile_id": "coarse_pad_waypoint_v1",
+      "read_versions": {
+        "calibration/4ac90858edb1c73a5e43c61a1cf6d2be38275f64f9a1fd3f39063825c60f9f80": 1,
+        "geometry_first/f690044978b734b850e36caeeda9aaa0bc5eaaa1cb8da58f8c941ec28486f9bb": 1,
+        "semantic/e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd": 1,
+        "semantic_binding/astra.persistent_semantic_binding.v1": 1,
+        "task_selection/03952c62e793395a509935848d81c025e41591951bec503187e69cbf26e510b4": 1,
+        "visibility/observed_support_v1": 1
+      },
+      "semantics": "PREDICTED_WAYPOINTS_NOT_MEASURED",
+      "source_observation_id": "rm65:0002",
+      "task": {
+        "id": "S1_FIXED_LEFT_PRECONTACT",
+        "revision": "1",
+        "stage": "T1_PREGRASP_APPROACH"
+      },
+      "task_binding": {
+        "goal_id": "",
+        "object_id": "object_004",
+        "profile": "generic_semantic_v1"
+      },
+      "termination": {
+        "kind": "horizon_filled",
+        "reason": "Four meaningful increments reach a nominal above-target review handoff; no contact or grasp is proposed."
+      },
+      "version": "astra.action_chunk_plan.v2",
+      "waypoints": [
+        {
+          "boundary_after": "none",
+          "index": 1,
+          "nominal_end_offset_s": 2,
+          "pose": [0.319878565, -0.020037056, 0.1500088265463092, -0.000004095491021871567, 1, 0.00003328512320877053, 0.0001482087536714971],
+          "preconditions": ["current_geometry", "target_identity_hypothesis", "measured_join", "visibility", "owner_admission"],
+          "prediction_dependencies": [],
+          "type": "move_pose"
+        },
+        {
+          "boundary_after": "none",
+          "index": 2,
+          "nominal_end_offset_s": 4,
+          "pose": [0.339676647, -0.040075329, 0.1500088265463092, -0.000004095491021871567, 1, 0.00003328512320877053, 0.0001482087536714971],
+          "preconditions": ["current_geometry", "target_identity_hypothesis", "measured_join", "visibility", "owner_admission"],
+          "prediction_dependencies": [1],
+          "type": "move_pose"
+        },
+        {
+          "boundary_after": "none",
+          "index": 3,
+          "nominal_end_offset_s": 6,
+          "pose": [0.35947472931529223, -0.06011360282030444, 0.1500088265463092, -0.000004095491021871567, 1, 0.00003328512320877053, 0.0001482087536714971],
+          "preconditions": ["current_geometry", "target_identity_hypothesis", "measured_join", "visibility", "owner_admission"],
+          "prediction_dependencies": [1, 2],
+          "type": "move_pose"
+        },
+        {
+          "boundary_after": "precontact_handoff",
+          "index": 4,
+          "nominal_end_offset_s": 8,
+          "pose": [0.35947472931529223, -0.06011360282030444, 0.1200088265463092, -0.000004095491021871567, 1, 0.00003328512320877053, 0.0001482087536714971],
+          "preconditions": ["current_geometry", "target_identity_hypothesis", "measured_join", "visibility", "owner_admission"],
+          "prediction_dependencies": [1, 2, 3],
+          "type": "move_pose"
+        }
+      ],
+      "world_id": "w-07036aa69d2b3c172d4fc627726f9fd620f1ee5d3d07fd33005c3880c0703aa4",
+      "world_revision": 2
+    },
+    "planning_level": "HYPOTHESIS_GENERATION",
+    "precondition_assessments": [
+      {
+        "basis": "Input provides coarse RGBD surface geometry at rm65:0002; present-time freshness is unverified.",
+        "evidence_refs": [],
+        "precondition": "current_geometry",
+        "status": "supported_by_input",
+        "waypoint_index": 1
+      },
+      {
+        "basis": "Bound semantic evidence selects object_004 as the fixed-camera left red cuboid; identity remains a hypothesis.",
+        "evidence_refs": ["e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd"],
+        "precondition": "target_identity_hypothesis",
+        "status": "supported_by_input",
+        "waypoint_index": 1
+      },
+      {
+        "basis": "The observation supplies an actual grasp-center pose for the initial join; stopped=false and live continuity are unverified.",
+        "evidence_refs": [],
+        "precondition": "measured_join",
+        "status": "supported_by_input",
+        "waypoint_index": 1
+      },
+      {
+        "basis": "Target has visible RGB support in all three supplied views; this does not establish path visibility.",
+        "evidence_refs": ["rm65:0002:fixed:15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad"],
+        "precondition": "visibility",
+        "status": "supported_by_input",
+        "waypoint_index": 1
+      },
+      {
+        "basis": "Owner admission is not granted.",
+        "evidence_refs": [],
+        "precondition": "owner_admission",
+        "status": "unverified",
+        "waypoint_index": 1
+      },
+      {
+        "basis": "No geometry observation exists after the predicted prefix.",
+        "evidence_refs": [],
+        "precondition": "current_geometry",
+        "status": "unverified",
+        "waypoint_index": 2
+      },
+      {
+        "basis": "The same bound object_004 identity hypothesis supports the target selection.",
+        "evidence_refs": ["e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd"],
+        "precondition": "target_identity_hypothesis",
+        "status": "supported_by_input",
+        "waypoint_index": 2
+      },
+      {
+        "basis": "Waypoint 1 is predicted, not a measured join.",
+        "evidence_refs": [],
+        "precondition": "measured_join",
+        "status": "unverified",
+        "waypoint_index": 2
+      },
+      {
+        "basis": "Visibility after the predicted prefix has not been observed.",
+        "evidence_refs": [],
+        "precondition": "visibility",
+        "status": "unverified",
+        "waypoint_index": 2
+      },
+      {
+        "basis": "Owner admission is not granted.",
+        "evidence_refs": [],
+        "precondition": "owner_admission",
+        "status": "unverified",
+        "waypoint_index": 2
+      },
+      {
+        "basis": "No geometry observation exists after the predicted prefix.",
+        "evidence_refs": [],
+        "precondition": "current_geometry",
+        "status": "unverified",
+        "waypoint_index": 3
+      },
+      {
+        "basis": "The same bound object_004 identity hypothesis supports the target selection.",
+        "evidence_refs": ["e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd"],
+        "precondition": "target_identity_hypothesis",
+        "status": "supported_by_input",
+        "waypoint_index": 3
+      },
+      {
+        "basis": "Waypoint 2 is predicted, not a measured join.",
+        "evidence_refs": [],
+        "precondition": "measured_join",
+        "status": "unverified",
+        "waypoint_index": 3
+      },
+      {
+        "basis": "Visibility after the predicted prefix has not been observed.",
+        "evidence_refs": [],
+        "precondition": "visibility",
+        "status": "unverified",
+        "waypoint_index": 3
+      },
+      {
+        "basis": "Owner admission is not granted.",
+        "evidence_refs": [],
+        "precondition": "owner_admission",
+        "status": "unverified",
+        "waypoint_index": 3
+      },
+      {
+        "basis": "No geometry observation exists after the predicted prefix.",
+        "evidence_refs": [],
+        "precondition": "current_geometry",
+        "status": "unverified",
+        "waypoint_index": 4
+      },
+      {
+        "basis": "The same bound object_004 identity hypothesis supports the target selection.",
+        "evidence_refs": ["e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd"],
+        "precondition": "target_identity_hypothesis",
+        "status": "supported_by_input",
+        "waypoint_index": 4
+      },
+      {
+        "basis": "Waypoint 3 is predicted, not a measured join.",
+        "evidence_refs": [],
+        "precondition": "measured_join",
+        "status": "unverified",
+        "waypoint_index": 4
+      },
+      {
+        "basis": "Visibility during descent and at handoff has not been observed.",
+        "evidence_refs": [],
+        "precondition": "visibility",
+        "status": "unverified",
+        "waypoint_index": 4
+      },
+      {
+        "basis": "Owner admission is not granted.",
+        "evidence_refs": [],
+        "precondition": "owner_admission",
+        "status": "unverified",
+        "waypoint_index": 4
+      }
+    ],
+    "reason": "Coarse target geometry and a bound identity hypothesis support a reviewable lateral alignment and partial descent. Intended increments are approximately 28.17, 28.17, 28.17 and 30 mm with unchanged orientation. No physical prerequisite is certified.",
+    "review_status": "INDEPENDENT_REVIEW_PENDING",
+    "unknowns": [
+      "Calibrated localization uncertainty and exact target/grasp center are unknown; the 25.37 mm view-disagreement value is not a confidence radius.",
+      "Complete robot and object volumes, swept-space collision, IK and precontact clearance are untested.",
+      "Hidden space remains unknown, not free.",
+      "Live state continuity and geometry freshness are unverified; the supplied robot state is not stopped.",
+      "Future visibility and measured joins require new observations.",
+      "Object_002 wrist association is unresolved, and the green planar patch has no supplied geometry ID.",
+      "The legacy 20 mm gate remains unchanged and is not overridden."
+    ],
+    "version": "astra.action_shadow_candidate.v2"
+  }
+}

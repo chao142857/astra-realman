@@ -1,0 +1,63 @@
+{
+  "status": "OFFLINE_ACTION_PROPOSAL_READY",
+  "old_A": "FAIL_STOP_LOCAL_OUTPUT_CONTRACT",
+  "old_B": "OFFLINE_PROVENANCE_CACHE_EQUIVALENCE_PASS",
+  "broad_regression": {
+    "passed": 278,
+    "failed": 0,
+    "unittest_wall_s": 345.354,
+    "process_wall_s": 345.75,
+    "CPU_user_s": 316.43,
+    "CPU_system_s": 6.61,
+    "max_RSS_KiB": 326728
+  },
+  "final_targeted": {
+    "passed": 4,
+    "wall_s": 11.106,
+    "overlap_with_broad": 3,
+    "note": "Final explicit mutation guard and added read-only diagnostic regression checked separately after broad run began"
+  },
+  "isolated_CLI": {
+    "tests": 1,
+    "cases": 4,
+    "wall_s": 7.872,
+    "source": "FAKE_CLI_NOT_ASTRA",
+    "strict_schema_read_and_checked": true,
+    "earlier_failures_retained": [
+      "CLI_01: outer sandbox NETLINK_ROUTE permission blocked bwrap",
+      "CLI_02: test sentinel mistook an empty bind-mount ancestor for private content",
+      "CLI_03: test asserted const instead of provider-compiled enum",
+      "CLI_04: planned/refused/need_more_evidence accepted; unauthorized host field rejected"
+    ]
+  },
+  "preparation": {
+    "Broker_submissions": 0,
+    "infer_starts": 0,
+    "prepare_wall_s": 2.367636812996352,
+    "production_input": true,
+    "provider_schema_bytes": 2557,
+    "real_new_contract_acceptance": "NOT_TESTED",
+    "status": "PREPARED_NOT_DISPATCHED",
+    "task_usable_unchanged": "unknown",
+    "usage": null,
+    "wire_bytes": 61465
+  },
+  "hashes": {
+    "REQUEST.json": "cc835e775f10383edfe35d472bd5a2ac965074b2123debef5d5c27565aecdb06",
+    "PROVIDER_SCHEMA.json": "aa55df6804ad6439244070a5d3eaf872cedf17de644e8d2befb54c65455422fb",
+    "AUTHORITATIVE_SCHEMA.json": "3ae6eee9e6751b55428111cccfa13d2795726f161f87b78401f88c593162e339",
+    "SOURCE_SHA256.json": "aaf4ad5573b0c10c4c2848e17e4824bfcc62054a4df89ebc2baf701987c270fa"
+  },
+  "real_E": 0,
+  "real_A": 0,
+  "new_SAPIEN": 0,
+  "hardware": 0,
+  "training": 0,
+  "native_concurrency": 0,
+  "new_contract_real_provider_acceptance": "NOT_TESTED",
+  "IK": "NOT_TESTED",
+  "collision": "NOT_TESTED",
+  "clearance": "NOT_TESTED",
+  "next_authorization": "NOT_GRANTED; no request claim created",
+  "no_production_route_or_auth_change": true
+}

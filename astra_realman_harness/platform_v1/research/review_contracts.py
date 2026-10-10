@@ -187,6 +187,11 @@ def validate_review_request(request, world, observation):
         if request['evidence_ids'] or world['state'].get('initialization') != 'geometry_first_v2': raise ValueError('GROUNDING_GEOMETRY_ONLY')
         expected = grounding_schema(world)
     else:
+        from .action_proposal import is_proposal, proposal_request
+        if is_proposal(request['output_schema']):
+            expected_request = proposal_request(world, observation)
+            if request != expected_request: raise ValueError('PROPOSAL_VERSIONED_REQUEST_MISMATCH')
+            return
         planning_review_eligibility(world, observation)
         supplied = request['output_schema']
         try:

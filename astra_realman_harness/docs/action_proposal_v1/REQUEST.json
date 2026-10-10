@@ -1,0 +1,226 @@
+{
+  "backend": "existing_codex_infer",
+  "evidence_ids": [
+    "e-0cd63c2838a9e5010cd900a2b4a1d2d311a85844a8fd87ca1ece598cbaf3c9dd"
+  ],
+  "images": [
+    {
+      "camera": "assembly",
+      "observation_id": "rm65:0002",
+      "roi": null
+    },
+    {
+      "camera": "fixed",
+      "observation_id": "rm65:0002",
+      "roi": null
+    },
+    {
+      "camera": "wrist",
+      "observation_id": "rm65:0002",
+      "roi": null
+    }
+  ],
+  "instruction": "NONEXECUTABLE HYPOTHESIS GENERATION. Read the frozen task, compact world, RGB and measured robot state. Return only an astra.action_proposal.v1: decision, proposal, reason, assumptions, unknowns and optional additional claims. Host owns origin, task/world/epoch/read versions, H=4 maximum, m=1, K=0, provenance and permissions; do not echo or override them. Pose is [x,y,z,qw,qx,qy,qz], world frame, metres, unit quaternion wxyz, pad/grasp-center position with flange orientation; nominal_end_offset_s is seconds, not measured completion. No gripper/contact. First step is checked against the supplied MEASURED origin; subsequent steps against the previous proposed pose. Use meaningful coarse increments: 20-50mm translation or meaningful rotation, <=0.15rad rotation per step, nominal offsets 2*i seconds and prediction_dependencies=[1,...,i-1]. No noop or microstep padding. Four waypoints with horizon_filled require boundary_after=none throughout. A justified stage_terminal may have 1-4 waypoints with precontact_handoff or phase_end only at the final waypoint. Do not change coordinates to fill the horizon. Every waypoint is a hypothesis. You need not prove IK, collision or clearance before proposing; these remain NOT_TESTED. Never infer hidden free space. Bounds are observed surfaces, not exact grasp centers. State necessary assumptions explicitly. Fixed prerequisites are created by the host, not fulfilled by listing them. Additional claims are optional. supported_by_input claims require genuine sent evidence refs, scope=current, and describe only captured coarse geometry, identity hypothesis, captured visibility or recorded robot state. Their free-text basis remains subject to independent review. Future joins/visibility and owner admission cannot be supported_by_input. Do not invent citations. Use refused for conflicts or need_more_evidence when no meaningful candidate exists; proposal=null for both. No output can grant execution.",
+  "output_schema": {
+    "additionalProperties": false,
+    "properties": {
+      "additional_claims": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "basis": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "evidence_refs": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "precondition": {
+              "enum": [
+                "current_geometry",
+                "target_identity_hypothesis",
+                "measured_join",
+                "visibility",
+                "owner_admission"
+              ],
+              "type": "string"
+            },
+            "scope": {
+              "enum": [
+                "current",
+                "future"
+              ],
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "supported_by_input",
+                "unverified",
+                "conflict"
+              ],
+              "type": "string"
+            },
+            "waypoint_index": {
+              "maximum": 4,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "waypoint_index",
+            "precondition",
+            "scope",
+            "status",
+            "basis",
+            "evidence_refs"
+          ],
+          "type": "object"
+        },
+        "maxItems": 20,
+        "type": "array"
+      },
+      "assumptions": {
+        "items": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 16,
+        "type": "array"
+      },
+      "decision": {
+        "enum": [
+          "planned",
+          "refused",
+          "need_more_evidence"
+        ],
+        "type": "string"
+      },
+      "proposal": {
+        "anyOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "termination": {
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "horizon_filled",
+                      "stage_terminal"
+                    ],
+                    "type": "string"
+                  },
+                  "reason": {
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "reason"
+                ],
+                "type": "object"
+              },
+              "waypoints": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "boundary_after": {
+                      "enum": [
+                        "none",
+                        "precontact_handoff",
+                        "phase_end"
+                      ],
+                      "type": "string"
+                    },
+                    "index": {
+                      "maximum": 4,
+                      "minimum": 1,
+                      "type": "integer"
+                    },
+                    "nominal_end_offset_s": {
+                      "exclusiveMinimum": 0,
+                      "type": "number"
+                    },
+                    "pose": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 7,
+                      "minItems": 7,
+                      "type": "array"
+                    },
+                    "prediction_dependencies": {
+                      "items": {
+                        "minimum": 1,
+                        "type": "integer"
+                      },
+                      "type": "array"
+                    },
+                    "type": {
+                      "const": "move_pose",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "index",
+                    "type",
+                    "pose",
+                    "nominal_end_offset_s",
+                    "prediction_dependencies",
+                    "boundary_after"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 4,
+                "minItems": 1,
+                "type": "array"
+              }
+            },
+            "required": [
+              "waypoints",
+              "termination"
+            ],
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "reason": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "unknowns": {
+        "items": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "version": {
+        "const": "astra.action_proposal.v1",
+        "type": "string"
+      }
+    },
+    "required": [
+      "version",
+      "decision",
+      "proposal",
+      "reason",
+      "assumptions",
+      "unknowns",
+      "additional_claims"
+    ],
+    "type": "object"
+  },
+  "role": "action_shadow",
+  "timeout_s": 90,
+  "world_id": "w-07036aa69d2b3c172d4fc627726f9fd620f1ee5d3d07fd33005c3880c0703aa4"
+}

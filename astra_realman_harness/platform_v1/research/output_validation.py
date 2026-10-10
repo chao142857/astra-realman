@@ -4,6 +4,9 @@ from .contracts import validate_plan
 def validate_role(role, result, attachments, binding, world):
     allowed = {a['id']: a for a in attachments}
     if role == 'action_shadow':
+        from .action_proposal import VERSION, validate_result
+        if result.get('version') == VERSION:
+            return validate_result(result, attachments, binding, world)
         if result['grants_execution'] is not False or result['K'] != 0: raise ValueError('SHADOW_AUTHORITY')
         if result['decision'] == 'planned':
             if result['plan'] is None: raise ValueError('SHADOW_PLAN_REQUIRED')

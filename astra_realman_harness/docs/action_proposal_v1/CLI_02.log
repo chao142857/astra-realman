@@ -1,0 +1,17 @@
+test_real_worker_bridge_production_schema_fake_cli (test_action_proposal_cli.ProposalCLITests) ... FAIL
+
+======================================================================
+FAIL: test_real_worker_bridge_production_schema_fake_cli (test_action_proposal_cli.ProposalCLITests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra-realman_ws/astra-realman-action-proposal-host-binding-20261010/astra_realman_harness/tests/test_action_proposal_cli.py", line 45, in test_real_worker_bridge_production_schema_fake_cli
+    self.assertEqual(row['status'],'FAILED' if mode=='malformed' else 'READY',row['error'])
+AssertionError: 'FAILED' != 'READY'
+- FAILED
++ READY
+ : ValueError('INFER_FAILED_NO_RETRY')
+
+----------------------------------------------------------------------
+Ran 1 test in 3.047s
+
+FAILED (failures=1)
