@@ -3,6 +3,12 @@ from .contracts import validate_plan
 
 def validate_role(role, result, attachments, binding, world):
     allowed = {a['id']: a for a in attachments}
+    if role=='pnp_action_proposal':
+        from .pnp_proposal import validate_result
+        return validate_result(result,attachments,binding,world)
+    if role=='t1_action_proposal':
+        from .t1_proposal import validate_result
+        return validate_result(result,attachments,binding,world)
     if role == 'action_shadow':
         from .action_proposal import VERSION, validate_result
         if result.get('version') == VERSION:

@@ -5,6 +5,11 @@ from pathlib import Path
 from .contracts import clone, digest, WORLD_VERSION
 
 class PublicStore:
+    def __setattr__(self, name, value):
+        from .verification_cache import REGISTRIES, Registry
+        if name in REGISTRIES and not isinstance(value, Registry): value=Registry(value)
+        object.__setattr__(self,name,value)
+
     def __init__(self, root, episode_id):
         self.root = Path(root).resolve(); self.episode_id = episode_id
         self.observations = {}; self.evidence = {}; self.worlds = {}; self.revision = 0
@@ -14,6 +19,9 @@ class PublicStore:
         self.grounding_sources = {}
         self.semantic_world_pins = {}
         self.geometry_update_receipts = {}
+        from .verification_cache import VerificationCache
+        self.validation_cache_enabled=True
+        self.verification_cache=VerificationCache(self)
 
     def observe(self, observation, epoch):
         o = clone(observation)
@@ -22,7 +30,7 @@ class PublicStore:
         identity = o['observation_id']
         if identity in self.observations and self.observations[identity] != o:
             raise ValueError('IMMUTABLE_OBSERVATION')
-        self.observations[identity] = o
+        if identity not in self.observations: self.observations[identity] = o
 
     def get(self, identity):
         if identity not in self.observations: raise ValueError('UNKNOWN_PUBLIC_OBSERVATION')
@@ -32,10 +40,12 @@ class PublicStore:
         o = self.get(identity)
         item = next((r for r in o['rgb'] if r['camera'] == camera), None)
         if item is None: raise ValueError('UNKNOWN_CAMERA')
-        path = (self.root / item['file']).resolve()
-        if not path.is_relative_to(self.root): raise ValueError('PUBLIC_PATH_ESCAPE')
-        data = path.read_bytes()
-        if hashlib.sha256(data).hexdigest() != item['sha256'] or not data.startswith(b'\x89PNG\r\n\x1a\n'):
+        path = self.root / item['file']
+        if not path.resolve().is_relative_to(self.root): raise ValueError('PUBLIC_PATH_ESCAPE')
+        cache=self.verification_cache
+        historical=cache.scope is not None and identity!=cache.scope['current_id']
+        data = cache.read(path,item['sha256'],'PUBLIC_RGB_HASH',historical=historical)
+        if not data.startswith(b'\x89PNG\r\n\x1a\n'):
             raise ValueError('PUBLIC_RGB_HASH')
         return data, item
 
@@ -46,6 +56,9 @@ class PublicStore:
             'identity_validity': 'MODEL_HYPOTHESIS_NOT_GROUND_TRUTH'}
         if role in ('action_shadow','semantic_grounding'):
             record.update(grants_execution=False, execution_class='REVIEW_ONLY')
+        if role in ('t1_action_proposal','pnp_action_proposal'):record.update(grants_execution=False,execution_class='OWNER_ADMISSION_REQUIRED')
+        if role=='pnp_action_proposal' and result.get('decision') in ('refused','need_more_evidence') and result.get('proposal') is None and result.get('fine_actions')==[]:
+            record.update(grants_execution=False,execution_class='RECOVERY_ONLY')
         identity = 'e-' + digest(record); record['evidence_id'] = identity
         self.evidence[identity] = record
         return clone(record)

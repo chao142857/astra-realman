@@ -183,6 +183,12 @@ def validate_review_request(request, world, observation):
     if world is None: raise ValueError('REVIEW_WORLD_REQUIRED')
     if len(request['images']) != 3 or {x['camera'] for x in request['images']} != {'fixed','assembly','wrist'} or any(x['roi'] is not None or x['observation_id'] != world['state']['observation_id'] for x in request['images']):
         raise ValueError('REVIEW_THREE_FROZEN_IMAGES')
+    if request['role']=='pnp_action_proposal':
+        from .pnp_proposal import validate_request
+        return validate_request(request,world,observation)
+    if request['role']=='t1_action_proposal':
+        from .t1_proposal import validate_request
+        return validate_request(request,world,observation)
     if request['role'] == 'semantic_grounding':
         if request['evidence_ids'] or world['state'].get('initialization') != 'geometry_first_v2': raise ValueError('GROUNDING_GEOMETRY_ONLY')
         expected = grounding_schema(world)

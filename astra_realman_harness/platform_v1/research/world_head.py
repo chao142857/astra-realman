@@ -101,6 +101,8 @@ class WorldHead:
             'semantic_labels_are_inherited_hypotheses':True,'current_sensor_geometry_not_model_prediction':True}
         deps=clone(reference['read_versions']);deps[calibration_key(source['calibration'])]=1
         deps['geometry_update/'+digest(cfg)]=1
+        local=state.get('pnp_interaction',{}).get('tracking_measurement')
+        if local and local.get('source_version'):deps['target_local_reassociation/'+local['source_version']]=1
         for key in ('geometry/current_measurement','visibility/'+VISIBILITY_VERSION):deps[key]=deps.get(key,0)+1
         deps['observation/'+source['observation_id']]=1
         binding={**clone(reference['binding']),'observation_ids':[source['observation_id']],

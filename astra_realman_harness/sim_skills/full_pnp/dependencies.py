@@ -56,7 +56,7 @@ def gripper_kind(action,state,evidence):
     return {'empty':'empty_open','possible_payload':'release','unknown':'unknown_open'}[evidence['status']]
 
 
-def check(actions,source,current,source_features,current_features,*,start_pose=None,model_requirements=()):
+def check(actions,source,current,source_features,current_features,*,start_pose=None,model_requirements=(),approach_evidence=None):
     """Return required tests and measured votes, never an action or corrected coordinate."""
     validate_requirements(model_requirements)
     old=hand_evidence(source_features,source['calibration'],source['state'])
@@ -71,6 +71,14 @@ def check(actions,source,current,source_features,current_features,*,start_pose=N
             elif .001<d[2]<=.15 and np.linalg.norm(d[:2])<=.01 and rotation<=.05:
                 kind='bounded_upward_withdrawal'
                 extra.append({'requirement':'current_object_observable','status':'valid' if new['status']!='unknown' else 'unknown'})
+            elif (approach_evidence and approach_evidence.get('status')=='supported'
+                  and approach_evidence.get('source_observation_id')==source['observation_id']
+                  and approach_evidence.get('current_observation_id')==current['observation_id']
+                  and old['status']==new['status']=='unknown'
+                  and all(v.get('reason')=='RGB_GEOMETRIC_EVIDENCE_NOT_HOLDING_FACT'
+                          and .06<v.get('distance_m',float('inf'))<=.09 for v in (old,new))):
+                kind='empty_approach_history_rgbd';required.add('object_static')
+                extra.append({'requirement':'empty_approach_current_evidence','status':'valid','evidence':approach_evidence})
             elif old['status']=='empty':kind='empty_approach';required.add('object_static')
             elif old['status']=='possible_payload':
                 kind='possible_payload_motion';required.update(('goal_static','object_near_tool'))
@@ -93,5 +101,69 @@ def check(actions,source,current,source_features,current_features,*,start_pose=N
     votes=[x['status'] for x in result['checks']]
     result.update(status='invalid' if 'invalid' in votes else 'unknown' if 'unknown' in votes else 'valid',
                   owner_revision=REVISION,action_kinds=kinds,source_hand_evidence=old,current_hand_evidence=new,
-                  owner_required=sorted(required))
+                  owner_required=sorted(required),empty_approach_evidence=approach_evidence)
     return result
+
+
+def empty_approach_evidence(store, world, source, current, initialization, history):
+    """Narrow Owner proof, not a WH-wide validity override or a holding detector.
+
+    Empty initialization + complete no-close execution history + current static
+    tabletop target and freshly reprojected depth. Existing numerical geometry
+    scales are reused; payload distance thresholds above are unchanged.
+    """
+    from platform_v1.research.object_tracking import fk_camera_consistency
+    from platform_v1.research.da3_geometry import calibrated_cameras, CAMERAS
+    from platform_v1.research.object_world import project
+    from platform_v1.research.contracts import digest
+    out={'status':'unknown','method':'EMPTY_INITIALIZATION_HISTORY_CURRENT_RGBD',
+         'source_observation_id':source['observation_id'],'current_observation_id':current['observation_id'],
+         'history_sha256':digest(history),'grants_execution':False}
+    def reject(reason):return dict(out,reason=reason)
+    initial=initialization.get('start_state',{})
+    if initialization.get('setup_held_calls')!=0 or initialization.get('initialization')!='generic empty-hand preparation; object-independent':
+        return reject('EMPTY_INITIALIZATION_NOT_WITNESSED')
+    if initial.get('actual_pad_gap_m',0)<=.07 or abs(initial.get('gripper_master_rad',float('inf')))>.005:
+        return reject('INITIAL_OPEN_KINEMATICS_UNSUPPORTED')
+    if len(history)!=source['execution_epoch']:return reject('INCOMPLETE_OWNER_HISTORY')
+    if any(h.get('gripper_close_requested') or h.get('completed') is not True for h in history):
+        return reject('CLOSE_OR_INCOMPLETE_EXECUTION_HISTORY')
+    if current['state'].get('stopped') or source['state'].get('stopped'):return reject('STOPPED')
+    if any(o['state']['actual_pad_gap_m']<=.07 or abs(o['state']['gripper_master_rad']-initial['gripper_master_rad'])>.005 for o in (source,current)):
+        return reject('CURRENT_GRIPPER_CONTRADICTS_EMPTY_HISTORY')
+    if source['execution_epoch']!=current['execution_epoch'] or world['binding']['execution_epoch']!=current['execution_epoch']:
+        return reject('EPOCH_MISMATCH')
+    if world['state']['observation_id']!=source['observation_id'] or current['captured_monotonic']<source['captured_monotonic']:
+        return reject('CURRENT_SOURCE_BINDING')
+    if fk_camera_consistency(source,current)['status']!='pass':return reject('FK_CAMERA_CONFLICT')
+    s=world['state'];target=s.get('task_target_geometry_id');e=s.get('entities',{}).get(target,{})
+    inter=s.get('pnp_interaction',{})
+    if (e.get('status')!='coarse' or e.get('semantic_status')!='hypothesis'
+        or e.get('temporal_association',{}).get('status')!='unique_current_match'
+        or inter.get('gripper_event')!='none' or inter.get('carrying_seen') or inter.get('status')!='tabletop_target'):
+        return reject('TARGET_OR_INTERACTION_NOT_STATIC_APPROACH')
+    if not e.get('bounds_world_m') or e['bounds_world_m'][0][2]>s['object_config']['discovery']['table_support_band_m']:
+        return reject('NO_CURRENT_TABLE_SUPPORT')
+    if not inter.get('initial_object_xyz_m') or math.dist(e['point_world_m'],inter['initial_object_xyz_m'])>.03:
+        return reject('TARGET_DISPLACEMENT_CONTRADICTION')
+    cloud=np.asarray(e.get('surface_cloud',[]),float).reshape(-1,3)
+    if not len(cloud):return reject('NO_CURRENT_TARGET_SURFACE')
+    ext,ks=calibrated_cameras(current);views=[]
+    threshold=s['object_config']['discovery']['surface_agreement_m']
+    minimum=s['object_config']['discovery']['min_symmetric_surface_fraction']
+    for i,c in enumerate(CAMERAS):
+        # PublicStore validates RGB, depth, validity, alignment and hashes.
+        store.image(current['observation_id'],c);depth,valid,meta=store.depth(current['observation_id'],c)
+        uv,z=project(cloud,ext[i],ks[i]);pix=np.rint(uv).astype(int);h,w=depth.shape
+        inside=(z>0)&np.isfinite(uv).all(axis=1)&(pix[:,0]>=0)&(pix[:,0]<w)&(pix[:,1]>=0)&(pix[:,1]<h)
+        pp=pix[inside];zz=z[inside]
+        if not len(pp):continue
+        available=valid[pp[:,1],pp[:,0]];difference=np.abs(depth[pp[:,1],pp[:,0]]-zz)
+        fraction=float(np.mean(available&(difference<=threshold)))
+        views.append({'camera':c,'projected_points':len(pp),'current_surface_support_fraction':fraction,
+          'supported':len(pp)>=s['object_config']['geometry']['min_points_per_view'] and fraction>=minimum,
+          'depth_sha256':meta['depth']['sha256'],'rgb_sha256':meta['aligned_rgb_sha256']})
+    out.update(world_id=world['world_id'],world_revision=world['world_revision'],target_id=target,views=views,
+        initialization_sha256=digest(initialization),current_observation_sha256=digest(current))
+    if sum(v['supported'] for v in views)<2:return reject('CURRENT_MULTIVIEW_DEPTH_UNSUPPORTED')
+    return dict(out,status='supported',reason='EMPTY_HISTORY_WITH_CURRENT_STATIC_TABLE_TARGET')

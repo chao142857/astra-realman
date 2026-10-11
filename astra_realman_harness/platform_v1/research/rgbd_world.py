@@ -429,12 +429,17 @@ def associate_geometry_frames(previous_entities, candidates, previous, current, 
     for old_id,old in previous_entities.items():
         hist=_historical_entity(old);cloud=np.asarray(hist.get('candidate_surface_cloud',[]),float).reshape(-1,3)
         age=current['captured_monotonic']-hist.get('captured_monotonic',float('-inf'))
-        if not len(cloud) or age>config['max_history_age_s']:continue
+        if not len(cloud) or not np.isfinite(age) or age<0:continue
+        expired=age>config['max_history_age_s']
         origin=np.median(cloud,axis=0)
         for cid,new in candidates.items():
             points=np.asarray(new['candidate_surface_cloud'],float).reshape(-1,3)
             center=np.median(points,axis=0);delta=center-origin;distance=float(np.linalg.norm(delta))
-            if distance>config['max_association_displacement_m']:continue
+            if distance>config['max_association_displacement_m']:
+                pairs.append({'previous_id':old_id,'current_candidate_id':cid,'admissible':False,
+                    'history_age_s':age,'mode':'expired_reassociation' if expired else 'current_continuation',
+                    'rejection_reasons':['DISPLACEMENT_GATE'],'surface_median_displacement_m':distance})
+                continue
             raw_dist=[cKDTree(cloud).query(points)[0],cKDTree(points).query(cloud)[0]]
             aligned=[cKDTree(cloud-origin).query(points-center)[0],cKDTree(points-center).query(cloud-origin)[0]]
             raw_fraction=[float(np.mean(x<=config['surface_match_m'])) for x in raw_dist]
@@ -456,10 +461,23 @@ def associate_geometry_frames(previous_entities, candidates, previous, current, 
                     visual.append({'camera':camera,'source_observation_id':seed['observation_id'],
                         'current_observation_id':current['observation_id'],'current_mask_overlap':overlap,
                         'tracker_reason':track['reason'],'tracker_association':track['association']})
-            admissible=(min(shape_fraction)>=config['min_surface_fraction'] and
-                (min(raw_fraction)>=config['min_surface_fraction'] or
-                 any(v['current_mask_overlap']>=config['min_tracked_mask_overlap'] for v in visual)))
+            shape_ok=min(shape_fraction)>=config['min_surface_fraction']
+            raw_ok=min(raw_fraction)>=config['min_surface_fraction']
+            visual_ok=any(v['current_mask_overlap']>=config['min_tracked_mask_overlap'] for v in visual)
+            multiview_ok=(new.get('status')=='coarse' and
+                len({v['camera'] for v in new.get('current_evidence',[])})>=2 and
+                any(v['supported'] for v in new.get('association_evidence',[])))
+            reasons=[]
+            if not shape_ok:reasons.append('SHAPE_SUPPORT')
+            if expired:
+                if not raw_ok:reasons.append('EXPIRED_RAW_GEOMETRY_SUPPORT')
+                if not visual_ok:reasons.append('EXPIRED_CURRENT_RGB_TRACK_SUPPORT')
+                if not multiview_ok:reasons.append('EXPIRED_CURRENT_MULTIVIEW_MEASUREMENT')
+            elif not (raw_ok or visual_ok):reasons.append('GEOMETRY_OR_VISUAL_SUPPORT')
+            admissible=not reasons
             pair={'previous_id':old_id,'current_candidate_id':cid,'admissible':bool(admissible),
+                'history_age_s':age,'mode':'expired_reassociation' if expired else 'current_continuation',
+                'rejection_reasons':reasons,'current_multiview_supported':multiview_ok,
                 'geometry_residual':{'surface_median_displacement_m':distance,'surface_median_delta_world_m':delta.tolist(),
                     'symmetric_nearest_p90_m':[float(np.quantile(x,.9)) for x in raw_dist],
                     'translation_aligned_nearest_p90_m':[float(np.quantile(x,.9)) for x in aligned],
@@ -491,6 +509,12 @@ def update_geometry_first(reference,previous,current,images,depths,read_images,c
     if feedback.get('completed_monotonic')!=completed_at:raise ValueError('FEEDBACK_COMPLETION_BINDING')
     if feedback.get('source_observation_id',previous['observation_id'])!=previous['observation_id']:raise ValueError('FEEDBACK_SOURCE_OBSERVATION')
     if feedback.get('execution_epoch',current['execution_epoch'])!=current['execution_epoch']:raise ValueError('FEEDBACK_EPOCH')
+    # A sensing boundary is explicitly not a successful robot action.
+    if feedback.get('kind')=='OBSERVATION_ONLY_NO_ACTION':
+        if feedback.get('actions')!=[] or feedback.get('owner_submissions')!=0:
+            raise ValueError('OBSERVATION_ONLY_CANNOT_CLAIM_ACTION')
+        if current['execution_epoch']!=previous['execution_epoch']:
+            raise ValueError('OBSERVATION_ONLY_EPOCH_CHANGED')
     if config.get('version')!='astra.geometry_first_update.config.v1':raise ValueError('UPDATE_CONFIG_VERSION')
     for key in ('max_association_displacement_m','surface_match_m','min_surface_fraction','min_tracked_mask_overlap','max_history_age_s'):
         if type(config[key]) not in (int,float) or not np.isfinite(config[key]) or config[key]<=0:raise ValueError('UPDATE_CONFIG_VALUE')
@@ -517,6 +541,7 @@ def update_geometry_first(reference,previous,current,images,depths,read_images,c
             e['temporal_association']={'status':'unique_current_match','previous_id':old_id,
                 'previous_observation_id':historical.get('observation_id'),'current_observation_id':current['observation_id'],
                 'geometry_residual':clone(pair['geometry_residual']),'visual_support':clone(pair['visual_support']),
+                'history_age_s':pair['history_age_s'],'mode':pair['mode'],
                 'semantic_carry':'prior hypothesis via current unique association; not new Semantic inference'}
             e['motion']='measured_surface_change' if pair['geometry_residual']['surface_median_displacement_m']>cfg['geometry']['movement_threshold_m'] else 'small_change_or_static'
         else:
@@ -564,6 +589,9 @@ def update_geometry_first(reference,previous,current,images,depths,read_images,c
     state['task_target_current_support']={'geometry_instance_id':target,'status':
         'associated_current_hypothesis' if target in matches and entities[target]['status']=='coarse' else 'unknown',
         'grants_execution':False}
+    if feedback.get('run_full_pnp') is True:
+        from .pnp_support import augment
+        augment(state,reference,previous,current,images,depths,read_images,feedback)
     state['resource_metrics']={**metrics,'current_measurement_s':measured_at-start,'temporal_association_s':associated_at-measured_at,
         'scene_incremental_s':time.monotonic()-layer_start,'update_compute_s':time.monotonic()-start,
         'CPU_s':time.process_time()-cpu,'Astra_calls':0,'DA3_calls':0,'SAM_calls':0,'geometry_build_calls':0}

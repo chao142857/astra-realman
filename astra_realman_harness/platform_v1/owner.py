@@ -12,7 +12,11 @@ from sim_skills.async_v1 import sha,Rejected
 from platform_v1.client import VERSION
 
 class Owner:
-    def __init__(self,assets,root,*,seed=2,budget_s=120,source='RESEARCH_PROGRAM',infer_config=None,max_requests=0,backend_factory=FullTaskBackend):
+    def __init__(self,assets,root,*,seed=2,budget_s=120,source='RESEARCH_PROGRAM',infer_config=None,max_requests=0,backend_factory=FullTaskBackend,execution_chunk_budget=12, observation_budget=64):
+        if type(execution_chunk_budget) is not int or not 1<=execution_chunk_budget<=80:raise ValueError('OWNER_EXECUTION_BUDGET')
+        self.execution_chunk_budget=execution_chunk_budget
+        if type(observation_budget) is not int or not 64<=observation_budget<=512:raise ValueError("OWNER_OBSERVATION_BUDGET")
+        self.observation_budget=observation_budget
         self.root=Path(root);self.private=self.root/'private';self.public=self.root/'public'
         self.private.mkdir();self.public.mkdir();self.id=uuid.uuid4().hex;self.source=source
         self.ended=False;self.reset_done=False;self.chunks=0;self.epoch=0;self.parent='INITIAL_EMPTY';self.active=None
@@ -25,6 +29,8 @@ class Owner:
         self.slot=FullSlot(self.private/'workers',self.private_event,infer_config=infer_config,max_attempts=max_requests,mode='qualification')
         self.infer_config=infer_config;self.max_requests=max_requests
         self.research=None
+        self.empty_approach_initialization=copy.deepcopy(getattr(self.b,'provenance',{}))
+        self.approach_command_history=[]
         self.emit('start',{'source':source,'episode_id':self.id,'budget_s':budget_s,'initialization_wall_s':self.init_wall,
            'initialization_physics_s':self.initial_step*self.b.dt,'time_protocol':'wall_paced_hold_while_waiting_and_approved_motion; dt=0.004; no speed changes',
            'reset':'fresh owner process; no setup_held; not exact clone','score_access':'PRIVATE_OWNER_ONLY'})
@@ -49,7 +55,7 @@ class Owner:
         self.admit();self.b.s.tick(1)
     def observe(self):
         self.admit()
-        if len(self.observations)>=64:raise Rejected('OBSERVATION_CAP_64')
+        if len(self.observations)>=self.observation_budget:raise Rejected('OBSERVATION_CAP_'+str(self.observation_budget))
         obs=self.b.observe();folder='o-%04d'%len(self.observations)
         public=project_observation(obs,self.public/folder)
         for im in public['rgb']:im['file']=folder+'/'+im['file']
@@ -97,7 +103,7 @@ class Owner:
         return {'proposal_id':token,'candidate':candidate,'source':self.infer_config.source}
     def execute(self,chunk,source_observation_id,proposal_id=None):
         self.admit();validate_actions(chunk)
-        if self.chunks>=12:raise Rejected('ACTION_CHUNK_CAP_12')
+        if self.chunks>=getattr(self,'execution_chunk_budget',12):raise Rejected('ACTION_CHUNK_CAP_'+str(getattr(self,'execution_chunk_budget',12)))
         source=self.source_obs(source_observation_id);requirements=[];item=None
         if proposal_id is not None:
             item=self.proposal;self.proposal=None
@@ -107,7 +113,15 @@ class Owner:
             requirements=c['requirements']
         elif self.proposal is not None:raise Rejected('PENDING_PROPOSAL_REQUIRES_TOKEN')
         public=self.observe();current=self.observations[public['observation_id']]['raw']
-        check=dependencies.check(chunk,source,current,rgb.features(source),rgb.features(current),model_requirements=requirements)
+        approach_evidence=None
+        if self.source=='RUN_FULL_PNP' and getattr(self,'research',None) and self.research.store.current_world_id:
+            store=self.research.store;world=store.get_world(store.current_world_id)
+            self.research.broker.validate_world_source(world)
+            approach_evidence=dependencies.empty_approach_evidence(store,world,
+                self.observations[source_observation_id]['public'],public,
+                self.empty_approach_initialization,self.approach_command_history)
+        check=dependencies.check(chunk,source,current,rgb.features(source),rgb.features(current),
+            model_requirements=requirements,approach_evidence=approach_evidence)
         self.private_event('ADMISSION_CHECK',check)
         if item:self.gate.validate(item,self.binding(source),current['state'],time.monotonic(),check,{a['id'] for a in item['snapshot']['attachments']})
         elif check['status']!='valid':raise Rejected('OWNER_RGB_'+check['status'].upper())
@@ -121,12 +135,19 @@ class Owner:
         self.emit('action_begin',{'chunk_id':self.chunks,'actions':self.public_actions(chunk),'source_observation_id':source_observation_id,
                                 'origin':getattr(self,'execution_origin',None)})
         ticket={'owner_admitted':True,'candidate_id':proposal_id or 'research-%d'%self.chunks,'commit_observation_id':current['observation_id']}
+        history_entry=None
+        if self.source=='RUN_FULL_PNP':
+            history_entry={'actions':copy.deepcopy(chunk),'source_observation_id':source_observation_id,
+                'admission_observation_id':public['observation_id'],'completed':False,
+                'gripper_close_requested':any(a['type']=='gripper' and -.91*(1-a['opening'])<current['state']['gripper_master_rad']-.005 for a in chunk)}
+            self.approach_command_history.append(history_entry)
         outcome_unknown=False
         try:result=self.b.execute_chunk(chunk,ticket,current)
         except Exception as exc:
             outcome_unknown=True
             self.b.stop();result={'ok':False,'results':[],'unexecuted_count':None,'error':str(exc),'execution_outcome':'UNKNOWN_AFTER_BACKEND_EXCEPTION'}
         finally:self.active=None
+        if history_entry is not None:history_entry['completed']=bool(result.get('ok')) and not outcome_unknown
         self.private_event('EXECUTE_RESULT',result);safe=project_execution(dict(result,unexecuted_count=0) if outcome_unknown else result)
         safe.update(actual_state=robot_state(self.b.s.state()),completed_monotonic=time.monotonic(),physics_step=self.b.steps)
         safe['actions']=[{'action':self.public_actions([v['action']])[0],'completed':v['result'].get('ok') is True} for v in result.get('results',[])]

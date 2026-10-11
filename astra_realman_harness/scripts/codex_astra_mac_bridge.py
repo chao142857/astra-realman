@@ -74,25 +74,37 @@ def command(run,images,executable='/opt/homebrew/bin/codex'):
     for p in images:cmd+=['--image',str(p)]
     return cmd+['-']
 
+def validate_payload(payload):
+    """Same local acceptance checks before dispatch and inside the bridge."""
+    authoritative=payload.get('authoritative_schema',payload['schema'])
+    schema,audit=compile_schema(authoritative)
+    if 'authoritative_schema' in payload and schema!=payload['schema']:
+        raise ValueError('PROVIDER_SCHEMA_MISMATCH_NO_DISPATCH')
+    blobs=payload['images'];attachments=payload['context'].get('attachments')
+    if not 1<=len(blobs)<=8:raise ValueError('IMAGE_COUNT')
+    if attachments is not None and len(attachments)!=len(blobs):raise ValueError('IMAGE_COUNT')
+    decoded=[]
+    for i,b in enumerate(blobs):
+        data=base64.b64decode(b,validate=True)
+        if len(data)>8*1024*1024 or not data.startswith(b'\x89PNG\r\n\x1a\n'):raise ValueError('IMAGE_INVALID')
+        if attachments is not None and hashlib.sha256(data).hexdigest()!=attachments[i]['sha256']:
+            raise ValueError('FROZEN_IMAGE_HASH')
+        decoded.append(data)
+    return schema,audit,decoded
+
 def infer(payload,stop,*,executable='/opt/homebrew/bin/codex',run_root='/private/tmp/codex-astra-bridge',timeout_s=120):
     if stop.is_set():raise RuntimeError('CANCELLED_BEFORE_REQUEST')
+    schema,audit,decoded=validate_payload(payload)
     run=Path(run_root).resolve()/uuid.uuid4().hex
     run.mkdir(parents=True);(run/'runtime').mkdir();(run/'input_only').mkdir()
     (run/'input_only'/'context.json').write_text(json.dumps(payload['context'],ensure_ascii=False,allow_nan=False))
     (run/'prompt.json').write_text(json.dumps(payload['context'],ensure_ascii=False,allow_nan=False))
     authoritative = payload.get('authoritative_schema', payload['schema'])
-    schema, audit = compile_schema(authoritative)
-    if 'authoritative_schema' in payload and schema != payload['schema']:
-        raise ValueError('PROVIDER_SCHEMA_MISMATCH_NO_DISPATCH')
     (run/'schema.json').write_bytes(encoded(schema))
     (run/'authoritative_schema.json').write_bytes(encoded(authoritative))
     (run/'schema_audit.json').write_text(json.dumps(audit,indent=2))
-    blobs=payload['images']
-    if not 1<=len(blobs)<=4:raise ValueError('IMAGE_COUNT')
     images=[]
-    for i,b in enumerate(blobs):
-        data=base64.b64decode(b,validate=True)
-        if len(data)>8*1024*1024 or not data.startswith(b'\x89PNG\r\n\x1a\n'):raise ValueError('IMAGE_INVALID')
+    for i,data in enumerate(decoded):
         p=run/'input_only'/('image-%d.png'%i);p.write_bytes(data);images.append(p)
     (run/'attachments.json').write_text(json.dumps([{'index':i+1,'path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for i,p in enumerate(images)]))
     cmd=command(run,images,executable);(run/'command.json').write_text(json.dumps(cmd))

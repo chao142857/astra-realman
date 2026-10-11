@@ -31,7 +31,7 @@ INSTRUCTION = (
     'Use refused for conflicts or need_more_evidence when no meaningful candidate exists; proposal=null for both. '
     'No output can grant execution.')
 
-def proposal_schema():
+def proposal_schema(*, version=VERSION):
     base=chunk_plan.plan_schema()['properties']
     wp=clone(base['waypoints']['items'])
     del wp['properties']['preconditions'];wp['required'].remove('preconditions')
@@ -43,7 +43,7 @@ def proposal_schema():
         'status':{'type':'string','enum':['supported_by_input','unverified','conflict']},
         'basis':text,'evidence_refs':{'type':'array','items':text,'uniqueItems':True}})
     proposal=obj({'waypoints':{'type':'array','items':wp,'minItems':1,'maxItems':4},'termination':clone(base['termination'])})
-    return obj({'version':{'type':'string','const':VERSION},
+    return obj({'version':{'type':'string','const':version},
         'decision':{'type':'string','enum':['planned','refused','need_more_evidence']},
         'proposal':{'anyOf':[proposal,{'type':'null'}]},'reason':text,
         'assumptions':{'type':'array','items':text,'maxItems':16},
@@ -76,9 +76,9 @@ def proposal_request(world, observation):
 def is_proposal(schema):
     return schema.get('properties',{}).get('version',{}).get('const')==VERSION
 
-def validate_result(result, attachments, binding, world):
+def validate_result(result, attachments, binding, world, *, version=VERSION):
     """References and current-fact claims; adaptation additionally validates actual origin."""
-    jsonschema.validate(result,proposal_schema());clone(result)
+    jsonschema.validate(result,proposal_schema(version=version));clone(result)
     p=result['proposal'];planned=result['decision']=='planned'
     if planned != (p is not None):raise ValueError('PROPOSAL_DECISION')
     if planned and not result['assumptions']:raise ValueError('PROPOSAL_ASSUMPTIONS_REQUIRED')
@@ -111,14 +111,14 @@ def validate_result(result, attachments, binding, world):
             # measured_join scope=current means recorded start only, not a future join.
             if name=='measured_join' and c['waypoint_index']!=1:raise ValueError('FUTURE_JOIN_NOT_VERIFIED')
 
-def adapt(result, host, world, observation, attachments, binding, envelope_refs):
+def adapt(result, host, world, observation, attachments, binding, envelope_refs, *, version=VERSION):
     """Pure deterministic wrapping; no numerical modification or synthetic references."""
     if host!=host_context(world,observation):raise ValueError('STALE_OR_MODIFIED_PROPOSAL_HOST')
     for key in ('world_id','world_revision','execution_epoch'):
         if binding[key]!=host['plan_fields'][key]:raise ValueError('PROPOSAL_HOST_BINDING:'+key)
     if binding['observation_ids']!=[observation['observation_id']] or binding['evidence_ids']!=host['plan_fields']['evidence_refs']:
         raise ValueError('PROPOSAL_HOST_EVIDENCE_BINDING')
-    validate_result(result,attachments,binding,world)
+    validate_result(result,attachments,binding,world,version=version)
     if any(not set(c['evidence_refs'])<=set(envelope_refs) for c in result['additional_claims']):
         raise ValueError('UNBOUND_PROPOSAL_CLAIM')
     if not set(host['plan_fields']['evidence_refs'])<=set(envelope_refs):raise ValueError('UNBOUND_HOST_PLAN_EVIDENCE')

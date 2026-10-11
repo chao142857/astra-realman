@@ -56,7 +56,13 @@ class Broker:
         if self.closed or self.config is None: raise ValueError('BROKER_DISABLED_OR_CLOSED')
         if self.job or self.baseline_busy(): raise ValueError('ONE_MODEL_IN_FLIGHT')
         if request['role'] not in ROLES: raise ValueError('BROKER_ROLE')
-        review = request['role'] in ('semantic_grounding', 'action_shadow')
+        review = request['role'] in ('semantic_grounding', 'action_shadow', 't1_action_proposal','pnp_action_proposal')
+        if request['role']=='pnp_action_proposal':
+            if getattr(self,'pnp_episode_authorization',None)!=self.store.episode_id:raise ValueError('PNP_EXPLICIT_EPISODE_AUTH_REQUIRED')
+            if sum(r['role']=='pnp_action_proposal' for r in self.rows.values())>=getattr(self,'pnp_request_cap',8):raise ValueError('PNP_ACTION_BUDGET')
+        if request['role']=='t1_action_proposal':
+            if getattr(self,'t1_episode_authorization',None)!=self.store.episode_id:raise ValueError('T1_EXPLICIT_EPISODE_AUTH_REQUIRED')
+            if sum(r['role']=='t1_action_proposal' for r in self.rows.values())>=2:raise ValueError('T1_ACTION_BUDGET')
         if request['world_id'] is not None:
             self.validate_world_source(self.store.get_world(request['world_id']))
         if review:
@@ -83,7 +89,7 @@ class Broker:
                'parsed': None, 'raw': None, 'error': None, 'server_model': 'unknown',
                'server_effort': 'unknown', 'server_internal_retries': 'unknown'}
         if _prepare_only: row.update(provenance='UNGENERATED_MODEL_RESULT', preparation_only=True)
-        if review: row.update(grants_execution=False, execution_class='REVIEW_ONLY', K=0)
+        if review: row.update(grants_execution=False, execution_class='OWNER_ADMISSION_REQUIRED' if request['role'] in ('t1_action_proposal','pnp_action_proposal') else 'REVIEW_ONLY', K=0)
         self.rows[identity] = row; self.save(row, 'PREPARING')
         try:
             timeout = request['timeout_s']
@@ -144,11 +150,36 @@ class Broker:
                 host = host_context(world, self.store.get(world['state']['observation_id']))
                 row['proposal_host'] = clone(host)
                 wire['action_proposal_host'] = clone(host)
+            if request['role']=='t1_action_proposal':
+                host=host_context(world,self.store.get(world['state']['observation_id']))
+                row['t1_proposal_host']=clone(host);wire['action_proposal_host']=clone(host)
+            if request['role']=='pnp_action_proposal':
+                host=host_context(world,self.store.get(world['state']['observation_id']))
+                row['pnp_proposal_host']=clone(host);wire['action_proposal_host']=clone(host)
+            if request['role']=='pnp_action_proposal' and getattr(self,'ab_sensor_input',False):
+                from scripts.ab_sensor_model import add_rgbd_inputs,add_history_images,own_history_view
+                wire['sensor_depth']=add_rgbd_inputs(self.store,world['state']['observation_id'],inp,attachments,blobs)
+                history=getattr(self,'ab_recent_history',[])
+                wire['own_subtask_history']=own_history_view(history)
+                add_history_images(self.store,history,inp,attachments,blobs)
             local_schema, schema, audit = output_contract(request['output_schema'], binding,
                 [a['id'] for a in attachments], request['evidence_ids'], echo_binding=not review)
             payload = {'context': wire, 'images': blobs, 'schema': schema, 'authoritative_schema': local_schema}
-            wire_bytes = json.dumps(wire, sort_keys=True, allow_nan=False).encode()
+            if request['role']=='pnp_action_proposal':
+                # Full host binding remains in row and is checked before/after
+                # inference. The model need not read ancestry or echo it.
+                wire['evidence']=[{'evidence_id':e['evidence_id'],'role':e['role'],
+                    'provenance':e['provenance'],'content_sha256':digest(e),
+                    'scope':'HOST_VERIFIED_DEPENDENCY_FULL_RECORD_RETAINED_HOST_SIDE'} for e in evidence]
+                wire['action_proposal_host']={k:clone(host[k]) for k in
+                    ('pose_convention','time_convention','physical_checks','K','grants_execution')}
+                wire['action_proposal_host']['plan_fields']={k:clone(v) for k,v in host['plan_fields'].items()
+                    if k in ('task','H','m','origin_pose_world')}
+                wire['action_proposal_host']['host_binding_sha256']=digest(host)
+            wire_bytes = json.dumps(wire, sort_keys=True, separators=(',',':'), allow_nan=False).encode()
             if len(wire_bytes)>MAX_CONTEXT_BYTES:raise ValueError('MODEL_CONTEXT_TOO_LARGE_NO_DISPATCH')
+            from scripts.codex_astra_mac_bridge import validate_payload
+            validate_payload(payload)
             payload_bytes = json.dumps(payload, sort_keys=True, allow_nan=False).encode()
             (inp / 'wire.json').write_bytes(wire_bytes); (inp / 'payload.json').write_bytes(payload_bytes)
             (folder / 'input_payload.json').write_bytes(payload_bytes)
@@ -190,7 +221,7 @@ class Broker:
             self.save(row, 'PARSING')
             answer = strict_json(record['raw'])
             validate_local(answer, row['authoritative_schema'], row['provider_schema'])
-            if row['role'] not in ('semantic_grounding','action_shadow') and answer['binding'] != row['binding']: raise ValueError('RAW_BINDING')
+            if row['role'] not in ('semantic_grounding','action_shadow','t1_action_proposal','pnp_action_proposal') and answer['binding'] != row['binding']: raise ValueError('RAW_BINDING')
             if row['role']=='action' and not set(answer['result'].get('evidence_refs',[])) <= set(answer['evidence_refs']):
                 raise ValueError('UNBOUND_PLAN_EVIDENCE')
             if self.epoch() != row['binding']['execution_epoch']: raise ValueError('STALE_EXECUTION_EPOCH')
@@ -213,6 +244,21 @@ class Broker:
                 (self.root / identity / 'model_proposal.json').write_text(json.dumps(answer['result'], sort_keys=True, allow_nan=False))
                 (self.root / identity / 'internal_plan.json').write_text(json.dumps(derived['plan'], sort_keys=True, allow_nan=False))
                 (self.root / identity / 'derived_shadow.json').write_bytes(encoded(derived))
+            if row.get('t1_proposal_host') is not None:
+                from .t1_proposal import adapt
+                world=self.store.get_world(wid)
+                derived=adapt(answer['result'],row['t1_proposal_host'],world,self.store.get(world['state']['observation_id']),row['attachments'],row['binding'],answer['evidence_refs'])
+                derived['source']={'producer':row['provenance'],'role':row['role'],'request_id':identity,'raw_sha256':hashlib.sha256(row['raw'].encode()).hexdigest(),'binding':clone(row['binding']),'wire_sha256':row['wire_sha256']}
+                row['t1_candidate']=derived
+                (self.root/identity/'t1_candidate.json').write_bytes(encoded(derived))
+            if row.get('pnp_proposal_host') is not None:
+                from .pnp_proposal import adapt
+                world=self.store.get_world(wid)
+                derived=adapt(answer['result'],row['pnp_proposal_host'],world,self.store.get(world['state']['observation_id']),row['attachments'],row['binding'],answer['evidence_refs'])
+                derived['source']={'producer':row['provenance'],'role':row['role'],'request_id':identity,'raw_sha256':hashlib.sha256(row['raw'].encode()).hexdigest(),'binding':clone(row['binding']),'wire_sha256':row['wire_sha256']}
+                row['pnp_candidate']=derived
+                if derived.get('recovery_only'):row.update(execution_class='RECOVERY_ONLY',grants_execution=False)
+                (self.root/identity/'pnp_candidate.json').write_bytes(encoded(derived))
             row['parsed'] = answer
             evidence = self.store.evidence_record(identity, row['role'], answer['result'], row['provenance'],
                 row['binding']['observation_ids'], row['attachments'])
