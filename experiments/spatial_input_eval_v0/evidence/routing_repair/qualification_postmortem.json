@@ -1,0 +1,92 @@
+{
+  "status": "WORKSPACE_ROUTE_METADATA_VERIFIED_GENERATION_COMPLETION_UNOBSERVED",
+  "this_authorized_stage_real_A_attempts": 1,
+  "this_authorized_stage_real_C_attempts": 0,
+  "application_retries": 0,
+  "accepted_real_JSON_answers": 0,
+  "AC_pairs": 0,
+  "acceptance": {
+    "status": "FAIL",
+    "criteria": {
+      "normal_model_completion": false,
+      "nonempty_real_output": false,
+      "strict_json_prediction": "NO_MODEL_RESPONSE",
+      "independent_evaluator_executed": true,
+      "independent_score_status": "NOT_SCORED",
+      "request_response_latency_usage_preserved": true
+    },
+    "recorded_attempts": 1,
+    "raw_error": "TimeoutError:MODEL_TIMEOUT",
+    "latency_s": 90.18701563501963,
+    "usage": null,
+    "score": null,
+    "observable_generation_progress_events": [],
+    "routing_errors": [],
+    "event_types": [
+      "thread.started",
+      "item.completed",
+      "item.completed",
+      "turn.started"
+    ],
+    "reassessment_matches_saved": true,
+    "new_model_requests_from_assessment": 0,
+    "interpretation": "Local startup events do not prove server acceptance. Missing progress is not proof of slow reasoning."
+  },
+  "outer_network_namespace": "net:[4026531840]",
+  "worker_timing": {
+    "started_monotonic": 356674.071927185,
+    "timeout_s": 90,
+    "deadline_monotonic": 356769.033911389,
+    "mode": "qualification",
+    "payload_sha256": "d06af366b15d2eacdda8cafb69d479ab4fcef3e11a7e42c6672b6128033b607a"
+  },
+  "exact_original_request_equal": true,
+  "workspace_route": {
+    "chatgptAccountId": {
+      "sha256": "89e8eaf995b7e5323a3129fd2119dabaeb0e0da46cd7baed0a39c25a9f9a05d8"
+    },
+    "backendOrigin": "https://chatgpt.com",
+    "accountRoutingOverride": "NO_CONSTRAINT"
+  },
+  "account_metadata_latency_s": 1.702321643999312,
+  "quota_summary": {
+    "ordinaryUsageAllowed": true,
+    "primary": {
+      "usedPercent": 48,
+      "windowDurationMins": 10080,
+      "resetsAt": 1792296040
+    },
+    "spendControlReached": false,
+    "rateLimitReachedType": null,
+    "note": "Account-level metadata does not establish per-model entitlement or turn acceptance."
+  },
+  "input_checks": {
+    "payload_validation": "PASS",
+    "provider_schema_valid": "PASS",
+    "image_decode": "PASS",
+    "native_frozen_prompt_present": true,
+    "native_image_count": 3,
+    "native_image_read_errors": 0,
+    "native_input_render_status": "PASS"
+  },
+  "image_payload_bytes": 94287,
+  "runtime_log_rows": 0,
+  "CLI_model_tool_mode_observation": {
+    "catalog_tool_mode": "code_mode_only",
+    "production_disables_code_mode_host": true,
+    "startup_warning": true,
+    "causal_status": "UNPROVEN_COMPATIBILITY_HYPOTHESIS_ONLY_NO_TOOL_SETTING_CHANGE",
+    "catalog_default_reasoning_summary": "none"
+  },
+  "conclusions": {
+    "local_timeout": "CONFIRMED_90S_BUDGET_ENFORCED",
+    "account_workspace_routing": "PASS_NON_GENERATION_ACCOUNT_READ_IN_ORIGINAL_BWRAP",
+    "frozen_input_client_validation": "PASS_NOT_SERVER_VALIDATION",
+    "visible_generation": "NONE",
+    "slow_model_reasoning": "NOT_ESTABLISHED_NO_PROGRESS",
+    "actual_exec_server_request_acceptance": "NOT_OBSERVABLE_FROM_CURRENT_LOGS",
+    "server_schema_or_image_compatibility": "NOT_ESTABLISHED_NO_SERVER_ERROR_OR_COMPLETION"
+  },
+  "remaining_blocker": "Native exec generation/streaming boundary lacks server acceptance or progress telemetry; cannot distinguish client runtime stall, generation transport wait, or server inference latency using these logs.",
+  "next_scope": "No further inference authorized. If a future instrumented request is separately approved, capture request dispatch, HTTP/WebSocket status and SSE event timestamps with credentials redacted; retain 90s cap and original request."
+}

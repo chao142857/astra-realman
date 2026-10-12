@@ -1,0 +1,29 @@
+{
+  "authorization": "Exactly one qualification S1 understanding A attempt; no retry or model change",
+  "command": [
+    "/home/alex/astra/.venv/bin/python",
+    "-m",
+    "spatial_eval.cli",
+    "run",
+    "--snapshot",
+    "experiments/spatial_input_eval_v0/evidence/s1_archive/snapshot_understanding.json",
+    "--conditions",
+    "RGB_MULTI_VIEW",
+    "--real",
+    "--max-real-calls",
+    "1",
+    "--timing-mode",
+    "qualification",
+    "--output",
+    "experiments/spatial_input_eval_v0/evidence/routing_repair/real_A_qualification"
+  ],
+  "launcher_network_namespace": "net:[4026531840]",
+  "verified_host_network_namespace": "net:[4026531840]",
+  "execution_surface": "exec_command require_escalated",
+  "inner_bwrap": "unchanged production sandbox_command",
+  "started_utc": "2026-10-12T06:56:11Z",
+  "application_attempt_budget": 1,
+  "exit_code": 1,
+  "wall_latency_s": 90.28975398896728,
+  "finished_utc": "2026-10-12T06:57:41Z"
+}

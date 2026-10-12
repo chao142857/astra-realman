@@ -1,6 +1,6 @@
 # Astra Spatial Input Evaluation V0
 
-2026-10-12 独立修复分支的最新状态见 [ROUTING_REPAIR.md](docs/ROUTING_REPAIR.md)：已定位外层网络限制及本地 worker 30 秒超时，接入已有 qualification 计时模式；真实有效 JSON 验收仍待验证。以下 V0 结果作为原始交付记录保留。
+2026-10-12 独立修复分支最新验收见 [QUALIFICATION_ACCEPTANCE.md](docs/QUALIFICATION_ACCEPTANCE.md)：原 bwrap 在宿主机网络完成无生成 workspace 路由发现，但唯一一次 qualification A 在90秒超时，无有效 JSON，C未启动。测试31/31 PASS。此前网络与30秒计时修复见 [ROUTING_REPAIR.md](docs/ROUTING_REPAIR.md)。以下 V0 结果作为原始交付记录保留。
 
 可执行的离线空间输入评测模块，复用原 Astra `infer_process → infer_worker → bridge.infer()`。默认 mock；不训练、不连接运动接口。当前交付完成了数据读取、A/C 输入构建、严格 JSON、独立几何评分、成对比较和失败索引；真实模型对照被网络路由故障阻塞。
 

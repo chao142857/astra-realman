@@ -1,5 +1,7 @@
 # 真实 Astra 链路诊断与修复（2026-10-12）
 
+本文保留此前30秒阶段的诊断与交付记录。最新的一次已授权90秒 qualification A 验收及后续无生成路由检查见 [QUALIFICATION_ACCEPTANCE.md](QUALIFICATION_ACCEPTANCE.md)：真实输出仍为空，无生成 workspace 路由已验证成功，C 未启动。
+
 修复分支 `codex/spatial-input-eval-routing-fix-20261012` 从 V0 后续归档提交 `9a7d608` 创建，包含原始 `b8bf9e6`，不覆盖原分支。只修改独立实验模块。
 
 当前确认了两层阻塞：外层 managed execution 的网络限制，以及真实 A 尝试中的本地 worker 30 秒超时。网络已找到可重复通过的启动方式，**有效真实 JSON 尚未取得，修复验收仍未通过**。本次已授权并启动 1 次真实 A 调用，未重试、未发 C；usage UNKNOWN、score=null，不能归为模型空间判断失败。
