@@ -1,0 +1,93 @@
+"""Reuse the existing production sandbox/worker/infer; mock never gets truth."""
+import base64
+import hashlib
+import json
+import subprocess
+import sys
+import time
+from pathlib import Path
+from .schema import read, write, strict_json
+
+HARNESS=Path(__file__).resolve().parents[3]/'astra_realman_harness'
+MODEL='gpt-6-astra'
+PARAMETERS={'model':MODEL,'model_reasoning_effort':'medium','provider':'openai','ephemeral':True}
+
+
+def production_imports():
+    if str(HARNESS) not in sys.path:sys.path.insert(0,str(HARNESS))
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+    from scripts.structured_outputs import compile_schema
+    return InferConfig,sandbox_command,isolated_preflight,compile_schema
+
+
+def preflight(output):
+    InferConfig,_,probe,_=production_imports()
+    return probe(InferConfig(),Path(output))
+
+
+def prepare(context, images, folder, *, real=False):
+    folder=Path(folder);folder.mkdir(parents=True,exist_ok=False)
+    inp=folder/'input_only';inp.mkdir();(folder/'runtime').mkdir()
+    blobs=[]
+    for item,path in zip(context['attachments'],images):
+        data=path.read_bytes()
+        if hashlib.sha256(data).hexdigest()!=item['sha256']:raise ValueError('FROZEN_IMAGE_HASH')
+        (inp/item['file']).write_bytes(data);blobs.append(base64.b64encode(data).decode())
+    authoritative=context['output_schema']
+    schema=authoritative
+    if real:
+        *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+    payload={'context':context,'images':blobs,'schema':schema,'authoritative_schema':authoritative}
+    write(inp/'wire.json',context);write(inp/'payload.json',payload)
+    write(folder/'request.json',payload)
+    write(folder/'model_parameters.json',PARAMETERS)
+    return payload
+
+
+def mock_raw(context):
+    """Deliberately simplistic smoke predictor; no accuracy or A/C improvement claim."""
+    task=context['task']
+    if task['kind']=='understanding':
+        answers=[]
+        for q in task['questions']:
+            a={'question_id':q['question_id'],'relation':None,'scalar_m':None,'vector_m':None,'fits':None}
+            slot={'relation':'relation','height':'scalar_m','gap':'scalar_m','size':'vector_m','position':'vector_m','fit':'fits'}[q['type']]
+            a[slot]={'relation':'equal','scalar_m':0.,'vector_m':[0.,0.,0.],'fits':False}[slot]
+            answers.append(a)
+        return json.dumps({'answers':answers})
+    c=task['constraints']
+    return json.dumps({'object_id':c['object_id'],'position_m':[0.,0.,0.],
+                       'quaternion_wxyz':c['required_quaternion_wxyz'] or [1,0,0,0],
+                       'waypoints_m':[[0.,0.,0.]] if task['kind']=='path' else []})
+
+
+def infer(context, images, folder, *, real=False, fixture_response=None):
+    folder=Path(folder).resolve();prepare(context,images,folder,real=real)
+    started=time.monotonic()
+    if not real:
+        raw=Path(fixture_response).read_text() if fixture_response else mock_raw(context)
+        result={'raw':raw,'events':'','error':None,'return_code':0,'usage':None,
+                'usage_status':'NOT_APPLICABLE_MOCK','source':'MOCK_NOT_ASTRA','model_calls':0}
+    else:
+        if fixture_response:raise ValueError('FIXTURE_CANNOT_ENTER_REAL_MODEL')
+        InferConfig,sandbox_command,_,_=production_imports()
+        command,env=sandbox_command(folder,InferConfig())
+        inp=folder/'input_only'
+        command+=['--sha256',hashlib.sha256((inp/'wire.json').read_bytes()).hexdigest(),
+                  '--payload-sha256',hashlib.sha256((inp/'payload.json').read_bytes()).hexdigest(),
+                  '--deadline',str(time.monotonic()+90)]
+        write(folder/'worker_command.json',command)
+        try:
+            proc=subprocess.run(command,capture_output=True,text=True,env=env,timeout=105,cwd=inp)
+            (folder/'worker_stdout.txt').write_text(proc.stdout);(folder/'worker_stderr.txt').write_text(proc.stderr)
+            record=folder/'infer_output/worker_record.json'
+            result=read(record) if record.exists() else {'raw':'','error':'WORKER_START_FAILED','return_code':proc.returncode,'usage':None}
+            result.update(source='REAL_ASTRA_ATTEMPT',model_calls=int((folder/'infer_output/infer_started.json').exists()))
+            if proc.returncode and not result.get('error'):result['error']='WORKER_EXIT_NONZERO'
+        except subprocess.TimeoutExpired as exc:
+            result={'raw':'','error':'WORKER_TIMEOUT','return_code':None,'usage':None,'source':'REAL_ASTRA_ATTEMPT',
+                    'model_calls':int((folder/'infer_output/infer_started.json').exists())}
+            (folder/'worker_stdout.txt').write_bytes(exc.stdout or b'');(folder/'worker_stderr.txt').write_bytes(exc.stderr or b'')
+    result['wall_latency_s']=time.monotonic()-started
+    (folder/'raw.txt').write_text(result.get('raw',''));write(folder/'response.json',result)
+    return result

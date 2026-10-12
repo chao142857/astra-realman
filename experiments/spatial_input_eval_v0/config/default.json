@@ -1,0 +1,13 @@
+{
+  "version": "astra.spatial_input_eval.config.v0",
+  "conditions": ["RGB_MULTI_VIEW", "RGB_ORACLE_3D"],
+  "mode": "mock",
+  "real_enabled": false,
+  "max_real_calls": 0,
+  "model": "gpt-6-astra",
+  "model_reasoning_effort": "medium",
+  "transport": "existing sim_skills.full_pnp.infer_process -> infer_worker -> bridge.infer",
+  "geometry_representation": "structured_text",
+  "frame": "robot_base",
+  "units": "m"
+}

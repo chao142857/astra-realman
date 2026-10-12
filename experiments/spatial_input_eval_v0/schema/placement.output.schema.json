@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "object_id": {
+      "type": "string"
+    },
+    "position_m": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "quaternion_wxyz": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "waypoints_m": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3
+      }
+    }
+  },
+  "required": [
+    "object_id",
+    "position_m",
+    "quaternion_wxyz",
+    "waypoints_m"
+  ],
+  "additionalProperties": false
+}
