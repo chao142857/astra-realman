@@ -1,0 +1,248 @@
+{
+  "instruction": "Return exactly one JSON object matching output_schema. This is offline geometry evaluation. Use only observations, optional geometry and task. No tools or execution. All positions are object centers in robot_base, meters; orientations are unit quaternions wxyz. For understanding return each question_id once, populating only the relevant answer field: relation=less/equal/greater along the specified positive axis, scalar_m=height/gap, vector_m=position/size, fits=fit; all other fields null. For placement waypoints_m must be empty. For path, waypoints_m excludes start, includes the final position_m, and orientation is fixed throughout translation. Choose any constraint-valid solution.",
+  "coordinate_system": {
+    "id": "robot_base",
+    "units": "m",
+    "axes": "+x forward, +y left, +z up; right-handed",
+    "pose": "object center xyz in meters; unit quaternion wxyz, object local axes in robot_base"
+  },
+  "task": {
+    "task_id": "plan",
+    "kind": "path",
+    "frame": "robot_base",
+    "tolerance_m": 0.005,
+    "instruction": "Answer the specified geometric questions in robot_base, meters.",
+    "questions": [],
+    "constraints": {
+      "object_id": "target_cube",
+      "allowed_region_id": "task_volume",
+      "clearance_m": 0.002,
+      "required_quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "orientation_tolerance_rad": 0.05,
+      "start_position_m": [
+        0.275,
+        -0.1,
+        0.1
+      ],
+      "workspace_region_id": "workspace"
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "object_id": {
+        "type": "string"
+      },
+      "position_m": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "quaternion_wxyz": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 4,
+        "maxItems": 4
+      },
+      "waypoints_m": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    },
+    "required": [
+      "object_id",
+      "position_m",
+      "quaternion_wxyz",
+      "waypoints_m"
+    ],
+    "additionalProperties": false
+  },
+  "attachments": [
+    {
+      "camera_id": "view-0",
+      "file": "image-0.png",
+      "sha256": "f78ccbd861da141659ed16245c45585f91049aca98b3617b7e4afae6c4363b57"
+    },
+    {
+      "camera_id": "view-1",
+      "file": "image-1.png",
+      "sha256": "5656eab299c688c4590ba4fec461851ac223d780f30576aa62a2fe1a0334b38d"
+    }
+  ],
+  "observations": {
+    "calibration": {
+      "view-0": {
+        "intrinsic": null,
+        "resolution": [
+          96,
+          72
+        ],
+        "pose_base_xyz_wxyz": null,
+        "axes": "SCHEMATIC_NO_PHYSICAL_CALIBRATION"
+      },
+      "view-1": {
+        "intrinsic": null,
+        "resolution": [
+          96,
+          72
+        ],
+        "pose_base_xyz_wxyz": null,
+        "axes": "SCHEMATIC_NO_PHYSICAL_CALIBRATION"
+      }
+    },
+    "robot_state": {
+      "joint_names": [],
+      "qpos_rad": [],
+      "flange_pose_base_xyz_wxyz": null
+    },
+    "synchronization": {
+      "simulation_step": null,
+      "capture_span_s": 0.0,
+      "timestamp_semantics": "synthetic immutable fixture",
+      "same_step": true
+    }
+  },
+  "geometry": {
+    "source": "SIMULATOR_TRUTH",
+    "frame": "robot_base",
+    "units": "m",
+    "objects": [
+      {
+        "id": "target_cube",
+        "center_m": [
+          0.275,
+          -0.1,
+          0.1
+        ],
+        "size_m": [
+          0.05,
+          0.04,
+          0.06
+        ],
+        "quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "other",
+        "center_m": [
+          0.45,
+          0.0,
+          0.12
+        ],
+        "size_m": [
+          0.06,
+          0.06,
+          0.06
+        ],
+        "quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "regions": [
+      {
+        "id": "task_volume",
+        "center_m": [
+          0.6,
+          0.2,
+          0.12
+        ],
+        "size_m": [
+          0.16,
+          0.14,
+          0.2
+        ],
+        "quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "fit_volume",
+        "center_m": [
+          0.1,
+          0.2,
+          0.1
+        ],
+        "size_m": [
+          0.1,
+          0.09,
+          0.08
+        ],
+        "quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "workspace",
+        "center_m": [
+          0.4,
+          0,
+          0.25
+        ],
+        "size_m": [
+          1.0,
+          1.0,
+          0.6
+        ],
+        "quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "obstacles": [
+      {
+        "id": "obstacle",
+        "center_m": [
+          0.35,
+          0.05,
+          0.12
+        ],
+        "size_m": [
+          0.07,
+          0.13,
+          0.19
+        ],
+        "quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "renderings": []
+  }
+}

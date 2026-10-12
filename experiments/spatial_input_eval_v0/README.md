@@ -102,3 +102,5 @@ A 为同一组同步 RGB + 标定/坐标/状态；B 加载 `geometry.reconstruct
 暂未完成：真实 A/C 有效回答与比较、6 个不同的真实仿真场景导出、真实照片可靠 GT、完整 B 重建、几何图像渲染、RoboSpatial-Home / TraceSpatial-Bench 实际数据转换、重复测量和统计显著性。公开数据扩展类明确未实现，不伪造接入记录。
 
 Git 独立分支与原源码保护检查见 [INSPECTION.md](docs/INSPECTION.md)；最终交付计数及 Git 状态见 [DELIVERY.md](docs/DELIVERY.md)。
+
+所有实验产出默认提交并推送，包含早期、失败及临时复现归档；详见 [ARTIFACT_POLICY.md](docs/ARTIFACT_POLICY.md)。

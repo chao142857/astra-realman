@@ -1,0 +1,2812 @@
+[
+  {
+    "scene_id": "fixture_clear",
+    "task_id": "understand",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": null,
+    "raw_output": "{\"answers\": [{\"question_id\": \"relative_x\", \"relation\": \"equal\", \"scalar_m\": null, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"position\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"top_height\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"size\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"gap_x\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"fits\", \"relation\": null, \"scalar_m\": null, \"vector_m\": null, \"fits\": false}]}",
+    "prediction": {
+      "answers": [
+        {
+          "question_id": "relative_x",
+          "relation": "equal",
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "fits",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": false
+        }
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 1.9008992239832878e-05,
+    "token_usage": null,
+    "error_types": [
+      "UNDERSTANDING:relative_x",
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size",
+      "UNDERSTANDING:gap_x",
+      "UNDERSTANDING:fits"
+    ],
+    "artifact": "sample-0000",
+    "task_prompt_sha256": "691c469464a624a41e06323cf8f902bbedf1e0ecc4a84faddf763725fdc64268",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "relative_x": false,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": false,
+        "fits": false
+      },
+      "relation_accuracy": 0.0,
+      "mean_geometric_error_m": 0.16442465453805977,
+      "within_tolerance_ratio": 0.0,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "equal",
+          "within_tolerance": false,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.2,
+            -0.1,
+            0.1
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.24494897427831783
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.13,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.13
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.05,
+            0.04,
+            0.06
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.08774964387392122
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.19500000000000003,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.19500000000000003
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "expected": true,
+          "actual": false,
+          "within_tolerance": false,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:relative_x",
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size",
+        "UNDERSTANDING:gap_x",
+        "UNDERSTANDING:fits"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_clear",
+    "task_id": "understand",
+    "condition": "RGB_ORACLE_3D",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "raw_output": "{\"answers\": [{\"question_id\": \"relative_x\", \"relation\": \"equal\", \"scalar_m\": null, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"position\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"top_height\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"size\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"gap_x\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"fits\", \"relation\": null, \"scalar_m\": null, \"vector_m\": null, \"fits\": false}]}",
+    "prediction": {
+      "answers": [
+        {
+          "question_id": "relative_x",
+          "relation": "equal",
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "fits",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": false
+        }
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 1.633097417652607e-05,
+    "token_usage": null,
+    "error_types": [
+      "UNDERSTANDING:relative_x",
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size",
+      "UNDERSTANDING:gap_x",
+      "UNDERSTANDING:fits"
+    ],
+    "artifact": "sample-0001",
+    "task_prompt_sha256": "691c469464a624a41e06323cf8f902bbedf1e0ecc4a84faddf763725fdc64268",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "relative_x": false,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": false,
+        "fits": false
+      },
+      "relation_accuracy": 0.0,
+      "mean_geometric_error_m": 0.16442465453805977,
+      "within_tolerance_ratio": 0.0,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "equal",
+          "within_tolerance": false,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.2,
+            -0.1,
+            0.1
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.24494897427831783
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.13,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.13
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.05,
+            0.04,
+            0.06
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.08774964387392122
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.19500000000000003,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.19500000000000003
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "expected": true,
+          "actual": false,
+          "within_tolerance": false,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:relative_x",
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size",
+        "UNDERSTANDING:gap_x",
+        "UNDERSTANDING:fits"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_clear",
+    "task_id": "plan",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": null,
+    "raw_output": "{\"object_id\": \"target_cube\", \"position_m\": [0.0, 0.0, 0.0], \"quaternion_wxyz\": [1, 0, 0, 0], \"waypoints_m\": []}",
+    "prediction": {
+      "object_id": "target_cube",
+      "position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": []
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 7.562979590147734e-06,
+    "token_usage": null,
+    "error_types": [
+      "entire_volume_in_allowed_region"
+    ],
+    "artifact": "sample-0002",
+    "task_prompt_sha256": "bb5872aca386a11643d624a5ea7ca248a395129e8b9162ab830877a6015d636d",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": false,
+        "placement_collision_free": true,
+        "required_orientation": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": [
+        "entire_volume_in_allowed_region"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_clear",
+    "task_id": "plan",
+    "condition": "RGB_ORACLE_3D",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "raw_output": "{\"object_id\": \"target_cube\", \"position_m\": [0.0, 0.0, 0.0], \"quaternion_wxyz\": [1, 0, 0, 0], \"waypoints_m\": []}",
+    "prediction": {
+      "object_id": "target_cube",
+      "position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": []
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 7.3239789344370365e-06,
+    "token_usage": null,
+    "error_types": [
+      "entire_volume_in_allowed_region"
+    ],
+    "artifact": "sample-0003",
+    "task_prompt_sha256": "bb5872aca386a11643d624a5ea7ca248a395129e8b9162ab830877a6015d636d",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": false,
+        "placement_collision_free": true,
+        "required_orientation": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": [
+        "entire_volume_in_allowed_region"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_detour",
+    "task_id": "understand",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": null,
+    "raw_output": "{\"answers\": [{\"question_id\": \"relative_x\", \"relation\": \"equal\", \"scalar_m\": null, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"position\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"top_height\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"size\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"gap_x\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"fits\", \"relation\": null, \"scalar_m\": null, \"vector_m\": null, \"fits\": false}]}",
+    "prediction": {
+      "answers": [
+        {
+          "question_id": "relative_x",
+          "relation": "equal",
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "fits",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": false
+        }
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 1.514999894425273e-05,
+    "token_usage": null,
+    "error_types": [
+      "UNDERSTANDING:relative_x",
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size",
+      "UNDERSTANDING:gap_x",
+      "UNDERSTANDING:fits"
+    ],
+    "artifact": "sample-0004",
+    "task_prompt_sha256": "691c469464a624a41e06323cf8f902bbedf1e0ecc4a84faddf763725fdc64268",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "relative_x": false,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": false,
+        "fits": false
+      },
+      "relation_accuracy": 0.0,
+      "mean_geometric_error_m": 0.16174564144881146,
+      "within_tolerance_ratio": 0.0,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "equal",
+          "within_tolerance": false,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.275,
+            -0.1,
+            0.1
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.30923292192132457
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.13,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.13
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.05,
+            0.04,
+            0.06
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.08774964387392122
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.12,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.12
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "expected": true,
+          "actual": false,
+          "within_tolerance": false,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:relative_x",
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size",
+        "UNDERSTANDING:gap_x",
+        "UNDERSTANDING:fits"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_detour",
+    "task_id": "understand",
+    "condition": "RGB_ORACLE_3D",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "raw_output": "{\"answers\": [{\"question_id\": \"relative_x\", \"relation\": \"equal\", \"scalar_m\": null, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"position\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"top_height\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"size\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"gap_x\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"fits\", \"relation\": null, \"scalar_m\": null, \"vector_m\": null, \"fits\": false}]}",
+    "prediction": {
+      "answers": [
+        {
+          "question_id": "relative_x",
+          "relation": "equal",
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "fits",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": false
+        }
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 1.3888988178223372e-05,
+    "token_usage": null,
+    "error_types": [
+      "UNDERSTANDING:relative_x",
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size",
+      "UNDERSTANDING:gap_x",
+      "UNDERSTANDING:fits"
+    ],
+    "artifact": "sample-0005",
+    "task_prompt_sha256": "691c469464a624a41e06323cf8f902bbedf1e0ecc4a84faddf763725fdc64268",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "relative_x": false,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": false,
+        "fits": false
+      },
+      "relation_accuracy": 0.0,
+      "mean_geometric_error_m": 0.16174564144881146,
+      "within_tolerance_ratio": 0.0,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "equal",
+          "within_tolerance": false,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.275,
+            -0.1,
+            0.1
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.30923292192132457
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.13,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.13
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.05,
+            0.04,
+            0.06
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.08774964387392122
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.12,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.12
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "expected": true,
+          "actual": false,
+          "within_tolerance": false,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:relative_x",
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size",
+        "UNDERSTANDING:gap_x",
+        "UNDERSTANDING:fits"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_detour",
+    "task_id": "plan",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": null,
+    "raw_output": "{\"object_id\": \"target_cube\", \"position_m\": [0.0, 0.0, 0.0], \"quaternion_wxyz\": [1, 0, 0, 0], \"waypoints_m\": [[0.0, 0.0, 0.0]]}",
+    "prediction": {
+      "object_id": "target_cube",
+      "position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 7.054011803120375e-06,
+    "token_usage": null,
+    "error_types": [
+      "entire_volume_in_allowed_region"
+    ],
+    "artifact": "sample-0006",
+    "task_prompt_sha256": "bd3c8bf5fe8f1b240a5a6425ee640e67bc33df79798b83a8a11794e1f38f0abb",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": false,
+        "placement_collision_free": true,
+        "required_orientation": true,
+        "path_ends_at_placement": true,
+        "path_in_workspace": true,
+        "continuous_path_collision_free": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": [
+        "entire_volume_in_allowed_region"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_detour",
+    "task_id": "plan",
+    "condition": "RGB_ORACLE_3D",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "raw_output": "{\"object_id\": \"target_cube\", \"position_m\": [0.0, 0.0, 0.0], \"quaternion_wxyz\": [1, 0, 0, 0], \"waypoints_m\": [[0.0, 0.0, 0.0]]}",
+    "prediction": {
+      "object_id": "target_cube",
+      "position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 6.99399970471859e-06,
+    "token_usage": null,
+    "error_types": [
+      "entire_volume_in_allowed_region"
+    ],
+    "artifact": "sample-0007",
+    "task_prompt_sha256": "bd3c8bf5fe8f1b240a5a6425ee640e67bc33df79798b83a8a11794e1f38f0abb",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": false,
+        "placement_collision_free": true,
+        "required_orientation": true,
+        "path_ends_at_placement": true,
+        "path_in_workspace": true,
+        "continuous_path_collision_free": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": [
+        "entire_volume_in_allowed_region"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_narrow_container",
+    "task_id": "understand",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": null,
+    "raw_output": "{\"answers\": [{\"question_id\": \"relative_x\", \"relation\": \"equal\", \"scalar_m\": null, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"position\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"top_height\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"size\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"gap_x\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"fits\", \"relation\": null, \"scalar_m\": null, \"vector_m\": null, \"fits\": false}]}",
+    "prediction": {
+      "answers": [
+        {
+          "question_id": "relative_x",
+          "relation": "equal",
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "fits",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": false
+        }
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.16666666666666666,
+    "latency_s": 1.3094977475702763e-05,
+    "token_usage": null,
+    "error_types": [
+      "UNDERSTANDING:relative_x",
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size",
+      "UNDERSTANDING:gap_x"
+    ],
+    "artifact": "sample-0008",
+    "task_prompt_sha256": "691c469464a624a41e06323cf8f902bbedf1e0ecc4a84faddf763725fdc64268",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.16666666666666666,
+      "success": false,
+      "constraints": {
+        "relative_x": false,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": false,
+        "fits": true
+      },
+      "relation_accuracy": 0.0,
+      "mean_geometric_error_m": 0.16318741096848033,
+      "within_tolerance_ratio": 0.16666666666666666,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "equal",
+          "within_tolerance": false,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.23,
+            -0.1,
+            0.1
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.27
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.13,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.13
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.05,
+            0.04,
+            0.06
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.08774964387392122
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.16500000000000004,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.16500000000000004
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "expected": false,
+          "actual": false,
+          "within_tolerance": true,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:relative_x",
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size",
+        "UNDERSTANDING:gap_x"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_narrow_container",
+    "task_id": "understand",
+    "condition": "RGB_ORACLE_3D",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "raw_output": "{\"answers\": [{\"question_id\": \"relative_x\", \"relation\": \"equal\", \"scalar_m\": null, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"position\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"top_height\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"size\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"gap_x\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"fits\", \"relation\": null, \"scalar_m\": null, \"vector_m\": null, \"fits\": false}]}",
+    "prediction": {
+      "answers": [
+        {
+          "question_id": "relative_x",
+          "relation": "equal",
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "fits",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": false
+        }
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.16666666666666666,
+    "latency_s": 1.3047945685684681e-05,
+    "token_usage": null,
+    "error_types": [
+      "UNDERSTANDING:relative_x",
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size",
+      "UNDERSTANDING:gap_x"
+    ],
+    "artifact": "sample-0009",
+    "task_prompt_sha256": "691c469464a624a41e06323cf8f902bbedf1e0ecc4a84faddf763725fdc64268",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.16666666666666666,
+      "success": false,
+      "constraints": {
+        "relative_x": false,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": false,
+        "fits": true
+      },
+      "relation_accuracy": 0.0,
+      "mean_geometric_error_m": 0.16318741096848033,
+      "within_tolerance_ratio": 0.16666666666666666,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "equal",
+          "within_tolerance": false,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.23,
+            -0.1,
+            0.1
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.27
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.13,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.13
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.05,
+            0.04,
+            0.06
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.08774964387392122
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.16500000000000004,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.16500000000000004
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "expected": false,
+          "actual": false,
+          "within_tolerance": true,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:relative_x",
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size",
+        "UNDERSTANDING:gap_x"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_narrow_container",
+    "task_id": "plan",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": null,
+    "raw_output": "{\"object_id\": \"target_cube\", \"position_m\": [0.0, 0.0, 0.0], \"quaternion_wxyz\": [1, 0, 0, 0], \"waypoints_m\": []}",
+    "prediction": {
+      "object_id": "target_cube",
+      "position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": []
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 6.566988304257393e-06,
+    "token_usage": null,
+    "error_types": [
+      "entire_volume_in_allowed_region"
+    ],
+    "artifact": "sample-0010",
+    "task_prompt_sha256": "bb5872aca386a11643d624a5ea7ca248a395129e8b9162ab830877a6015d636d",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": false,
+        "placement_collision_free": true,
+        "required_orientation": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": [
+        "entire_volume_in_allowed_region"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_narrow_container",
+    "task_id": "plan",
+    "condition": "RGB_ORACLE_3D",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "raw_output": "{\"object_id\": \"target_cube\", \"position_m\": [0.0, 0.0, 0.0], \"quaternion_wxyz\": [1, 0, 0, 0], \"waypoints_m\": []}",
+    "prediction": {
+      "object_id": "target_cube",
+      "position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": []
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 6.984977517277002e-06,
+    "token_usage": null,
+    "error_types": [
+      "entire_volume_in_allowed_region"
+    ],
+    "artifact": "sample-0011",
+    "task_prompt_sha256": "bb5872aca386a11643d624a5ea7ca248a395129e8b9162ab830877a6015d636d",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": false,
+        "placement_collision_free": true,
+        "required_orientation": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": [
+        "entire_volume_in_allowed_region"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_occlusion_schematic",
+    "task_id": "understand",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": null,
+    "raw_output": "{\"answers\": [{\"question_id\": \"relative_x\", \"relation\": \"equal\", \"scalar_m\": null, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"position\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"top_height\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"size\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"gap_x\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"fits\", \"relation\": null, \"scalar_m\": null, \"vector_m\": null, \"fits\": false}]}",
+    "prediction": {
+      "answers": [
+        {
+          "question_id": "relative_x",
+          "relation": "equal",
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "fits",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": false
+        }
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 1.6741047147661448e-05,
+    "token_usage": null,
+    "error_types": [
+      "UNDERSTANDING:relative_x",
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size",
+      "UNDERSTANDING:gap_x",
+      "UNDERSTANDING:fits"
+    ],
+    "artifact": "sample-0012",
+    "task_prompt_sha256": "691c469464a624a41e06323cf8f902bbedf1e0ecc4a84faddf763725fdc64268",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "relative_x": false,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": false,
+        "fits": false
+      },
+      "relation_accuracy": 0.0,
+      "mean_geometric_error_m": 0.16377295713076917,
+      "within_tolerance_ratio": 0.0,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "equal",
+          "within_tolerance": false,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.21500000000000002,
+            -0.1,
+            0.1
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.2573421846491554
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.13,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.13
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.05,
+            0.04,
+            0.06
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.08774964387392122
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.18000000000000002,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.18000000000000002
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "expected": true,
+          "actual": false,
+          "within_tolerance": false,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:relative_x",
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size",
+        "UNDERSTANDING:gap_x",
+        "UNDERSTANDING:fits"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_occlusion_schematic",
+    "task_id": "understand",
+    "condition": "RGB_ORACLE_3D",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "raw_output": "{\"answers\": [{\"question_id\": \"relative_x\", \"relation\": \"equal\", \"scalar_m\": null, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"position\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"top_height\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"size\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"gap_x\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"fits\", \"relation\": null, \"scalar_m\": null, \"vector_m\": null, \"fits\": false}]}",
+    "prediction": {
+      "answers": [
+        {
+          "question_id": "relative_x",
+          "relation": "equal",
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "fits",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": false
+        }
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 1.67780090123415e-05,
+    "token_usage": null,
+    "error_types": [
+      "UNDERSTANDING:relative_x",
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size",
+      "UNDERSTANDING:gap_x",
+      "UNDERSTANDING:fits"
+    ],
+    "artifact": "sample-0013",
+    "task_prompt_sha256": "691c469464a624a41e06323cf8f902bbedf1e0ecc4a84faddf763725fdc64268",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "relative_x": false,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": false,
+        "fits": false
+      },
+      "relation_accuracy": 0.0,
+      "mean_geometric_error_m": 0.16377295713076917,
+      "within_tolerance_ratio": 0.0,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "equal",
+          "within_tolerance": false,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.21500000000000002,
+            -0.1,
+            0.1
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.2573421846491554
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.13,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.13
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.05,
+            0.04,
+            0.06
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.08774964387392122
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.18000000000000002,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.18000000000000002
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "expected": true,
+          "actual": false,
+          "within_tolerance": false,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:relative_x",
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size",
+        "UNDERSTANDING:gap_x",
+        "UNDERSTANDING:fits"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_occlusion_schematic",
+    "task_id": "plan",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": null,
+    "raw_output": "{\"object_id\": \"target_cube\", \"position_m\": [0.0, 0.0, 0.0], \"quaternion_wxyz\": [1, 0, 0, 0], \"waypoints_m\": [[0.0, 0.0, 0.0]]}",
+    "prediction": {
+      "object_id": "target_cube",
+      "position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 8.917006198316813e-06,
+    "token_usage": null,
+    "error_types": [
+      "entire_volume_in_allowed_region"
+    ],
+    "artifact": "sample-0014",
+    "task_prompt_sha256": "637a5c51e3100e98857b6da08ee396b292971023a7f5501f7408d38be50cebb9",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": false,
+        "placement_collision_free": true,
+        "required_orientation": true,
+        "path_ends_at_placement": true,
+        "path_in_workspace": true,
+        "continuous_path_collision_free": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": [
+        "entire_volume_in_allowed_region"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_occlusion_schematic",
+    "task_id": "plan",
+    "condition": "RGB_ORACLE_3D",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "raw_output": "{\"object_id\": \"target_cube\", \"position_m\": [0.0, 0.0, 0.0], \"quaternion_wxyz\": [1, 0, 0, 0], \"waypoints_m\": [[0.0, 0.0, 0.0]]}",
+    "prediction": {
+      "object_id": "target_cube",
+      "position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 8.909031748771667e-06,
+    "token_usage": null,
+    "error_types": [
+      "entire_volume_in_allowed_region"
+    ],
+    "artifact": "sample-0015",
+    "task_prompt_sha256": "637a5c51e3100e98857b6da08ee396b292971023a7f5501f7408d38be50cebb9",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": false,
+        "placement_collision_free": true,
+        "required_orientation": true,
+        "path_ends_at_placement": true,
+        "path_in_workspace": true,
+        "continuous_path_collision_free": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": [
+        "entire_volume_in_allowed_region"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_rotated_object",
+    "task_id": "understand",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": null,
+    "raw_output": "{\"answers\": [{\"question_id\": \"relative_x\", \"relation\": \"equal\", \"scalar_m\": null, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"position\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"top_height\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"size\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"gap_x\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"fits\", \"relation\": null, \"scalar_m\": null, \"vector_m\": null, \"fits\": false}]}",
+    "prediction": {
+      "answers": [
+        {
+          "question_id": "relative_x",
+          "relation": "equal",
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "fits",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": false
+        }
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 2.2829044610261917e-05,
+    "token_usage": null,
+    "error_types": [
+      "UNDERSTANDING:relative_x",
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size",
+      "UNDERSTANDING:gap_x",
+      "UNDERSTANDING:fits"
+    ],
+    "artifact": "sample-0016",
+    "task_prompt_sha256": "691c469464a624a41e06323cf8f902bbedf1e0ecc4a84faddf763725fdc64268",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "relative_x": false,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": false,
+        "fits": false
+      },
+      "relation_accuracy": 0.0,
+      "mean_geometric_error_m": 0.160907784660842,
+      "within_tolerance_ratio": 0.0,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "equal",
+          "within_tolerance": false,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.245,
+            -0.1,
+            0.1
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.2828869031963127
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.13,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.13
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.05,
+            0.04,
+            0.06
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.08774964387392122
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.142994591573134,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.142994591573134
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "expected": true,
+          "actual": false,
+          "within_tolerance": false,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:relative_x",
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size",
+        "UNDERSTANDING:gap_x",
+        "UNDERSTANDING:fits"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_rotated_object",
+    "task_id": "understand",
+    "condition": "RGB_ORACLE_3D",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "raw_output": "{\"answers\": [{\"question_id\": \"relative_x\", \"relation\": \"equal\", \"scalar_m\": null, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"position\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"top_height\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"size\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"gap_x\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"fits\", \"relation\": null, \"scalar_m\": null, \"vector_m\": null, \"fits\": false}]}",
+    "prediction": {
+      "answers": [
+        {
+          "question_id": "relative_x",
+          "relation": "equal",
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "fits",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": false
+        }
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 1.7279002349823713e-05,
+    "token_usage": null,
+    "error_types": [
+      "UNDERSTANDING:relative_x",
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size",
+      "UNDERSTANDING:gap_x",
+      "UNDERSTANDING:fits"
+    ],
+    "artifact": "sample-0017",
+    "task_prompt_sha256": "691c469464a624a41e06323cf8f902bbedf1e0ecc4a84faddf763725fdc64268",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "relative_x": false,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": false,
+        "fits": false
+      },
+      "relation_accuracy": 0.0,
+      "mean_geometric_error_m": 0.160907784660842,
+      "within_tolerance_ratio": 0.0,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "equal",
+          "within_tolerance": false,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.245,
+            -0.1,
+            0.1
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.2828869031963127
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.13,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.13
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.05,
+            0.04,
+            0.06
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.08774964387392122
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.142994591573134,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.142994591573134
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "expected": true,
+          "actual": false,
+          "within_tolerance": false,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:relative_x",
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size",
+        "UNDERSTANDING:gap_x",
+        "UNDERSTANDING:fits"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_rotated_object",
+    "task_id": "plan",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": null,
+    "raw_output": "{\"object_id\": \"target_cube\", \"position_m\": [0.0, 0.0, 0.0], \"quaternion_wxyz\": [1, 0, 0, 0], \"waypoints_m\": [[0.0, 0.0, 0.0]]}",
+    "prediction": {
+      "object_id": "target_cube",
+      "position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 8.823000825941563e-06,
+    "token_usage": null,
+    "error_types": [
+      "entire_volume_in_allowed_region"
+    ],
+    "artifact": "sample-0018",
+    "task_prompt_sha256": "a04201fa314cfcc4be9984cfe4fcc944f2f7c2bf8f04c27571f624656d6bcf99",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": false,
+        "placement_collision_free": true,
+        "required_orientation": true,
+        "path_ends_at_placement": true,
+        "path_in_workspace": true,
+        "continuous_path_collision_free": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": [
+        "entire_volume_in_allowed_region"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_rotated_object",
+    "task_id": "plan",
+    "condition": "RGB_ORACLE_3D",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "raw_output": "{\"object_id\": \"target_cube\", \"position_m\": [0.0, 0.0, 0.0], \"quaternion_wxyz\": [1, 0, 0, 0], \"waypoints_m\": [[0.0, 0.0, 0.0]]}",
+    "prediction": {
+      "object_id": "target_cube",
+      "position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 7.725029718130827e-06,
+    "token_usage": null,
+    "error_types": [
+      "entire_volume_in_allowed_region"
+    ],
+    "artifact": "sample-0019",
+    "task_prompt_sha256": "a04201fa314cfcc4be9984cfe4fcc944f2f7c2bf8f04c27571f624656d6bcf99",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": false,
+        "placement_collision_free": true,
+        "required_orientation": true,
+        "path_ends_at_placement": true,
+        "path_in_workspace": true,
+        "continuous_path_collision_free": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": [
+        "entire_volume_in_allowed_region"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_thin_obstacle",
+    "task_id": "understand",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": null,
+    "raw_output": "{\"answers\": [{\"question_id\": \"relative_x\", \"relation\": \"equal\", \"scalar_m\": null, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"position\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"top_height\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"size\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"gap_x\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"fits\", \"relation\": null, \"scalar_m\": null, \"vector_m\": null, \"fits\": false}]}",
+    "prediction": {
+      "answers": [
+        {
+          "question_id": "relative_x",
+          "relation": "equal",
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "fits",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": false
+        }
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 1.542095560580492e-05,
+    "token_usage": null,
+    "error_types": [
+      "UNDERSTANDING:relative_x",
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size",
+      "UNDERSTANDING:gap_x",
+      "UNDERSTANDING:fits"
+    ],
+    "artifact": "sample-0020",
+    "task_prompt_sha256": "691c469464a624a41e06323cf8f902bbedf1e0ecc4a84faddf763725fdc64268",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "relative_x": false,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": false,
+        "fits": false
+      },
+      "relation_accuracy": 0.0,
+      "mean_geometric_error_m": 0.16218065390322403,
+      "within_tolerance_ratio": 0.0,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "equal",
+          "within_tolerance": false,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.26,
+            -0.1,
+            0.1
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.29597297173897485
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.13,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.13
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.05,
+            0.04,
+            0.06
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.08774964387392122
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.135,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.135
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "expected": true,
+          "actual": false,
+          "within_tolerance": false,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:relative_x",
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size",
+        "UNDERSTANDING:gap_x",
+        "UNDERSTANDING:fits"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_thin_obstacle",
+    "task_id": "understand",
+    "condition": "RGB_ORACLE_3D",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "raw_output": "{\"answers\": [{\"question_id\": \"relative_x\", \"relation\": \"equal\", \"scalar_m\": null, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"position\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"top_height\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"size\", \"relation\": null, \"scalar_m\": null, \"vector_m\": [0.0, 0.0, 0.0], \"fits\": null}, {\"question_id\": \"gap_x\", \"relation\": null, \"scalar_m\": 0.0, \"vector_m\": null, \"fits\": null}, {\"question_id\": \"fits\", \"relation\": null, \"scalar_m\": null, \"vector_m\": null, \"fits\": false}]}",
+    "prediction": {
+      "answers": [
+        {
+          "question_id": "relative_x",
+          "relation": "equal",
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fits": null
+        },
+        {
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.0,
+          "vector_m": null,
+          "fits": null
+        },
+        {
+          "question_id": "fits",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null,
+          "fits": false
+        }
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 1.4290970284491777e-05,
+    "token_usage": null,
+    "error_types": [
+      "UNDERSTANDING:relative_x",
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size",
+      "UNDERSTANDING:gap_x",
+      "UNDERSTANDING:fits"
+    ],
+    "artifact": "sample-0021",
+    "task_prompt_sha256": "691c469464a624a41e06323cf8f902bbedf1e0ecc4a84faddf763725fdc64268",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "relative_x": false,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": false,
+        "fits": false
+      },
+      "relation_accuracy": 0.0,
+      "mean_geometric_error_m": 0.16218065390322403,
+      "within_tolerance_ratio": 0.0,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "equal",
+          "within_tolerance": false,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.26,
+            -0.1,
+            0.1
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.29597297173897485
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.13,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.13
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.05,
+            0.04,
+            0.06
+          ],
+          "actual": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.08774964387392122
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.135,
+          "actual": 0.0,
+          "within_tolerance": false,
+          "geometric_error_m": 0.135
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "expected": true,
+          "actual": false,
+          "within_tolerance": false,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:relative_x",
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size",
+        "UNDERSTANDING:gap_x",
+        "UNDERSTANDING:fits"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_thin_obstacle",
+    "task_id": "plan",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": null,
+    "raw_output": "{\"object_id\": \"target_cube\", \"position_m\": [0.0, 0.0, 0.0], \"quaternion_wxyz\": [1, 0, 0, 0], \"waypoints_m\": []}",
+    "prediction": {
+      "object_id": "target_cube",
+      "position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": []
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 6.854010280221701e-06,
+    "token_usage": null,
+    "error_types": [
+      "entire_volume_in_allowed_region"
+    ],
+    "artifact": "sample-0022",
+    "task_prompt_sha256": "bb5872aca386a11643d624a5ea7ca248a395129e8b9162ab830877a6015d636d",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": false,
+        "placement_collision_free": true,
+        "required_orientation": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": [
+        "entire_volume_in_allowed_region"
+      ]
+    }
+  },
+  {
+    "scene_id": "fixture_thin_obstacle",
+    "task_id": "plan",
+    "condition": "RGB_ORACLE_3D",
+    "source": "MOCK_NOT_ASTRA",
+    "model_calls": 0,
+    "image_count": 2,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "raw_output": "{\"object_id\": \"target_cube\", \"position_m\": [0.0, 0.0, 0.0], \"quaternion_wxyz\": [1, 0, 0, 0], \"waypoints_m\": []}",
+    "prediction": {
+      "object_id": "target_cube",
+      "position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": []
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 0.0,
+    "latency_s": 6.627989932894707e-06,
+    "token_usage": null,
+    "error_types": [
+      "entire_volume_in_allowed_region"
+    ],
+    "artifact": "sample-0023",
+    "task_prompt_sha256": "bb5872aca386a11643d624a5ea7ca248a395129e8b9162ab830877a6015d636d",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.0,
+      "success": false,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": false,
+        "placement_collision_free": true,
+        "required_orientation": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": [
+        "entire_volume_in_allowed_region"
+      ]
+    }
+  }
+]
