@@ -5,7 +5,7 @@ from pathlib import Path
 from .schema import CONDITIONS, write, read, parse_prediction
 from .inputs import load_snapshot, build_input
 from .scoring import evaluate
-from .adapter import infer, preflight
+from .adapter import infer, preflight, TIMING_MODES, execution_timing
 from .report import reports
 
 
@@ -55,7 +55,8 @@ def rescore(paths, source, output):
     return rows
 
 
-def run(paths, output, conditions, *, real=False, max_real_calls=0, fixture_response=None):
+def run(paths, output, conditions, *, real=False, max_real_calls=0, fixture_response=None, timing_mode='standard'):
+    execution_timing(timing_mode) # Validate before preparing inputs or launching anything.
     if len(set(conditions))!=len(conditions):raise ValueError('DUPLICATE_CONDITIONS')
     if real and fixture_response:raise ValueError('FIXTURE_CANNOT_ENTER_REAL_MODEL')
     snapshots=[load_snapshot(p) for p in paths]
@@ -76,7 +77,7 @@ def run(paths, output, conditions, *, real=False, max_real_calls=0, fixture_resp
              'token_usage':None,'error_types':[],'artifact':name,'task_prompt_sha256':None}
         try:
             context,manifest,images=build_input(s,t,c);row.update(manifest)
-            response=infer(context,images,folder,real=real,fixture_response=fixture_response)
+            response=infer(context,images,folder,real=real,fixture_response=fixture_response,timing_mode=timing_mode)
             row.update(source=response['source'],model_calls=response['model_calls'],raw_output=response.get('raw',''),
                        latency_s=response['wall_latency_s'],token_usage=response.get('usage'))
             row.update(assess_response(response,s,t))
@@ -87,6 +88,7 @@ def run(paths, output, conditions, *, real=False, max_real_calls=0, fixture_resp
         # No automatic retry after a real failure; retain completed rows and stop remaining requests.
         if real and (row['parse_status']!='VALID' or any(x.startswith(('MODEL_TRANSPORT_ERROR','AUTHORITATIVE_VALIDATION','INPUT_OR_DEPENDENCY')) for x in row['error_types'])):break
     write(output/'run_manifest.json',{'real_enabled':real,'max_real_calls':max_real_calls,'planned_samples':len(jobs),
+         'timing_mode':timing_mode,
          'recorded_samples':len(rows),'model_calls':sum(r['model_calls'] for r in rows),
          'completed':len(rows)==len(jobs),'snapshot_sha256':[hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in paths]})
     return rows
@@ -98,13 +100,15 @@ def main():
     r.add_argument('--conditions',nargs='+',choices=CONDITIONS,default=[CONDITIONS[0],CONDITIONS[2]])
     r.add_argument('--real',action='store_true');r.add_argument('--max-real-calls',type=int,default=0)
     r.add_argument('--fixture-response',type=Path)
+    r.add_argument('--timing-mode',choices=TIMING_MODES,default='standard',
+                   help='Production worker timing profile only; model parameters and input stay unchanged.')
     q=sub.add_parser('rescore');q.add_argument('--snapshot',type=Path,nargs='+',required=True);q.add_argument('--source-run',type=Path,required=True);q.add_argument('--output',type=Path,required=True)
     q=sub.add_parser('preflight');q.add_argument('--output',type=Path,required=True)
     q=sub.add_parser('import-archive');q.add_argument('--archive',type=Path,required=True);q.add_argument('--output',type=Path,required=True)
     q=sub.add_parser('fixtures');q.add_argument('--output',type=Path,required=True)
     a=p.parse_args()
     if a.command=='run':
-        rows=run(a.snapshot,a.output,a.conditions,real=a.real,max_real_calls=a.max_real_calls,fixture_response=a.fixture_response)
+        rows=run(a.snapshot,a.output,a.conditions,real=a.real,max_real_calls=a.max_real_calls,fixture_response=a.fixture_response,timing_mode=a.timing_mode)
         print(f'recorded={len(rows)} real_model_attempts={sum(r["model_calls"] for r in rows)} output={a.output}')
         return int(any(r['parse_status']!='VALID' or any(e.startswith(('MODEL_TRANSPORT_ERROR','AUTHORITATIVE_VALIDATION','INPUT_OR_DEPENDENCY')) for e in r['error_types']) for r in rows))
     if a.command=='rescore':

@@ -1,0 +1,233 @@
+{
+  "reviewed_artifact_count": 39,
+  "checks": {
+    "request_equals_payload": true,
+    "wire_equals_context": true,
+    "stdin_prompt_equals_context": true,
+    "prompt_has_no_geometry_for_A": true,
+    "no_ground_truth_key_in_context": true,
+    "response_matches_worker_raw": true,
+    "image_0_matches_payload_and_seal": true,
+    "image_1_matches_payload_and_seal": true,
+    "image_2_matches_payload_and_seal": true,
+    "schema.json_matches_request": true,
+    "authoritative_schema.json_matches_request": true,
+    "share_net_enabled": true,
+    "unshare_all_retained": true,
+    "model_unchanged": true,
+    "effort_medium": true,
+    "ephemeral_enabled": true,
+    "frozen_worker_source_bridge.py": true,
+    "frozen_worker_source_infer_worker.py": true,
+    "frozen_worker_source_timing.py": true,
+    "frozen_worker_source_structured_outputs.py": true
+  },
+  "original_artifact_sha256": {
+    "results.json": "6495f8cf38492da93d7639782227c9c1569988c4aab579cd55afecfd12d7796a",
+    "run_manifest.json": "64bf17a453e4c41c360a135f29796f2172354172f114b328b3cab2d19a3f485b",
+    "summary.md": "8248d031948833f964baa4dceff56521333d607465ac9db3418d565a307a321e",
+    "failure_index.json": "0c157cfa176d93945d454e81d5e193bf4763bd660929b11a3b8964a0544521c8",
+    "results.csv": "7f880c835c866ae1e33019258f23c28a78e2be6cbba2d8d063fa35bb35e0d929",
+    "paired_comparison.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "sample-0000/response.json": "92cb6674f8f07e4582bc75db76605e88610a01cf8e1dd5fce9b4b07cc60f681a",
+    "sample-0000/request.json": "d06af366b15d2eacdda8cafb69d479ab4fcef3e11a7e42c6672b6128033b607a",
+    "sample-0000/evaluation.json": "6556cfc570d0df51be6c66a0100362cdbe28397d1e6d8071eb93a336b8b0e85b",
+    "sample-0000/worker_stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sample-0000/worker_stdout.txt": "8ac7bb04141d36ed11e4968e3a6b969f8c9546878c1c9d8a1ae780a8d871330a",
+    "sample-0000/model_parameters.json": "afa795b938469113217bb09eabaf7830f0c54642f7aedfeda1017dc8b4fede9a",
+    "sample-0000/worker_command.json": "e2504d88293dfc899dce00b10ba8c2d7ddc986a1b02e63a1f38e4064cd847a94",
+    "sample-0000/raw.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sample-0000/infer_output/infer_started.json": "0498706695a89b24c07c71441befb15ebad52326c2b51b5f46e6cfef90fb45b8",
+    "sample-0000/infer_output/worker_record.json": "8ac7bb04141d36ed11e4968e3a6b969f8c9546878c1c9d8a1ae780a8d871330a",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/events.jsonl": "05709a27a80543a9d2edafe54f1cf449cd249caac17023d85f4ef80b907b9bea",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/command.json": "7be530e0a14c65933fbd1862d986fa52e6d6b56cc3e6942c7f48b729c7431e00",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/prompt.json": "39197feb77028268cbb564eb4b1ed01e41161d878fb5639898c1ed842ab053ae",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/stderr.log": "6556440425d8db1557c826d320e285d921a7c57a9354f8a93d44569625ab87d2",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/result.json": "5a8be845af9410f371c5a6be6b94bf5d74f27773ce546b5cfd3bffa9d14a385a",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/authoritative_schema.json": "d241c1cfcfd95eae2934015aa0529d6f56be011e4da032748c894cf747a0ebe2",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/schema.json": "d241c1cfcfd95eae2934015aa0529d6f56be011e4da032748c894cf747a0ebe2",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/schema_audit.json": "942ef442b349c3641ac668576a9883c4770c25df8336392f7dbb520d17b8743c",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/attachments.json": "c3c1cba1c95f927c302f7c67201e3bf1bc64effb0789cc9d96b5e6e5f967e2b9",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/environment.json": "6f17eaf871af60d7347aebdaf032778cbab5f2cb5833b839b30df6031276dc02",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/input_only/context.json": "39197feb77028268cbb564eb4b1ed01e41161d878fb5639898c1ed842ab053ae",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/input_only/image-0.png": "16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/input_only/image-2.png": "26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385",
+    "sample-0000/infer_output/bridge/cb39563f4294408c9c62a2c313d0247d/input_only/image-1.png": "15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+    "sample-0000/worker_code/bridge.py": "922c63556a838a1a9280d76b280e22babba5d517e10073c18c05a033dfce7bae",
+    "sample-0000/worker_code/timing.py": "10fe116bf5d34e7a9751b81b8245821a171cf1cb9ca36bd9964ecfa89ce4bc49",
+    "sample-0000/worker_code/structured_outputs.py": "5f15f1047df73f83cbfee1529b68ec2b157b0eeefcc6824e64dbe69edd6de207",
+    "sample-0000/worker_code/infer_worker.py": "4cd94b416c82ca50f780899995fc9831b6a44cc5315b5e691cbbea61918d440b",
+    "sample-0000/input_only/wire.json": "3eaf92df5cc489153370b8b8e975b5b9bf2dc8d5627c8d7f7b0a3b617fefa4c4",
+    "sample-0000/input_only/image-0.png": "16e3e4b268eae252a1e676a5ba73ef89e36f7307197bbaf2029d5744163495e8",
+    "sample-0000/input_only/image-2.png": "26ed083bc6bb44a80b87c989d2441c08fc1dd2a0bb4632463b397aeccdd0e385",
+    "sample-0000/input_only/image-1.png": "15222a8648330ab43f5f43e1e0b578120476cdc275d335e32c69b1cef59aa0ad",
+    "sample-0000/input_only/payload.json": "d06af366b15d2eacdda8cafb69d479ab4fcef3e11a7e42c6672b6128033b607a"
+  },
+  "events": [
+    {
+      "type": "thread.started",
+      "thread_id": "01a12e92-ac4c-73c1-bd0f-5189dbd3dc52"
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_0",
+        "type": "error",
+        "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /home/alex/.codex/config.toml."
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_1",
+        "type": "error",
+        "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+      }
+    },
+    {
+      "type": "turn.started"
+    },
+    {
+      "type": "error",
+      "message": "Reconnecting... 2/5 (workspace routing discovery failed)"
+    },
+    {
+      "type": "error",
+      "message": "Reconnecting... 3/5 (workspace routing discovery failed)"
+    },
+    {
+      "type": "error",
+      "message": "Reconnecting... 4/5 (workspace routing discovery failed)"
+    },
+    {
+      "type": "error",
+      "message": "Reconnecting... 5/5 (workspace routing discovery failed)"
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_2",
+        "type": "error",
+        "message": "Falling back from WebSockets to HTTPS transport. workspace routing discovery failed"
+      }
+    },
+    {
+      "type": "error",
+      "message": "Reconnecting... 1/5 (workspace routing discovery failed)"
+    },
+    {
+      "type": "error",
+      "message": "Reconnecting... 2/5 (workspace routing discovery failed)"
+    },
+    {
+      "type": "error",
+      "message": "Reconnecting... 3/5 (workspace routing discovery failed)"
+    },
+    {
+      "type": "error",
+      "message": "Reconnecting... 4/5 (workspace routing discovery failed)"
+    },
+    {
+      "type": "error",
+      "message": "Reconnecting... 5/5 (workspace routing discovery failed)"
+    },
+    {
+      "type": "error",
+      "message": "workspace routing discovery failed"
+    },
+    {
+      "type": "turn.failed",
+      "error": {
+        "message": "workspace routing discovery failed"
+      }
+    }
+  ],
+  "original_environment": {
+    "launcher": "/home/alex/.nvm/versions/node/v22.23.2/bin/codex",
+    "resolved_script": "/home/alex/.nvm/versions/node/v22.23.2/lib/node_modules/@openai/codex/bin/codex.js",
+    "node": "/home/alex/.nvm/versions/node/v22.23.2/bin/node",
+    "resolved_node": "/home/alex/.nvm/versions/node/v22.23.2/bin/node",
+    "cwd": "/output/bridge/cb39563f4294408c9c62a2c313d0247d/input_only",
+    "PATH": "/home/alex/.nvm/versions/node/v22.23.2/bin:/home/alex/.nvm/versions/node/v22.23.2/lib/node_modules/@openai/codex/bin:/usr/bin:/bin",
+    "TMPDIR": "/output/bridge/cb39563f4294408c9c62a2c313d0247d/runtime",
+    "environment_keys": [
+      "HOME",
+      "LANG",
+      "LC_ALL",
+      "LOGNAME",
+      "PATH",
+      "TMPDIR",
+      "USER"
+    ]
+  },
+  "original_worker_mounts": [
+    "/usr/bin/bwrap",
+    "--tmpfs",
+    "/tmp",
+    "--ro-bind",
+    "/usr",
+    "/usr",
+    "--symlink",
+    "usr/lib",
+    "/lib",
+    "--symlink",
+    "usr/lib64",
+    "/lib64",
+    "--ro-bind",
+    "/home/alex/astra/.venv",
+    "/home/alex/astra/.venv",
+    "--ro-bind",
+    "/home/alex/.nvm/versions/node/v22.23.2",
+    "/home/alex/.nvm/versions/node/v22.23.2",
+    "--ro-bind",
+    "/home/alex/astra_spatial_capability/eval-v0/experiments/spatial_input_eval_v0/evidence/real_ac_s1/sample-0000/input_only",
+    "/input",
+    "--ro-bind",
+    "/home/alex/astra_spatial_capability/eval-v0/experiments/spatial_input_eval_v0/evidence/real_ac_s1/sample-0000/worker_code",
+    "/code",
+    "--bind",
+    "/home/alex/astra_spatial_capability/eval-v0/experiments/spatial_input_eval_v0/evidence/real_ac_s1/sample-0000/infer_output",
+    "/output",
+    "--proc",
+    "/proc",
+    "--dev",
+    "/dev",
+    "--unshare-all",
+    "--die-with-parent",
+    "--new-session",
+    "--ro-bind",
+    "/home/alex/.codex/auth.json",
+    "/home/alex/.codex/auth.json",
+    "--share-net",
+    "--ro-bind",
+    "/run/systemd/resolve/stub-resolv.conf",
+    "/etc/resolv.conf",
+    "--ro-bind",
+    "/etc/hosts",
+    "/etc/hosts",
+    "--ro-bind",
+    "/etc/nsswitch.conf",
+    "/etc/nsswitch.conf",
+    "--ro-bind",
+    "/etc/ssl/certs",
+    "/etc/ssl/certs",
+    "--chdir",
+    "/input",
+    "--setenv",
+    "TMPDIR",
+    "/tmp",
+    "/home/alex/astra/.venv/bin/python",
+    "-B",
+    "/code/infer_worker.py",
+    "--executable",
+    "/home/alex/.nvm/versions/node/v22.23.2/bin/codex",
+    "--sha256",
+    "3eaf92df5cc489153370b8b8e975b5b9bf2dc8d5627c8d7f7b0a3b617fefa4c4",
+    "--payload-sha256",
+    "d06af366b15d2eacdda8cafb69d479ab4fcef3e11a7e42c6672b6128033b607a",
+    "--deadline",
+    "351319.055759231"
+  ],
+  "inference_requests_in_review": 0,
+  "finding": "Historical CLI failed at routing discovery before any final answer or reported usage; no proxy env keys reached either worker or CLI."
+}

@@ -1,0 +1,204 @@
+{
+  "status": "OUTER_EXECUTION_NETWORK_BOUNDARY_CONFIRMED",
+  "action": "Use approved host network access for the launcher; preserve original inner bwrap and env allowlist.",
+  "inference_requests": 0,
+  "production_proxy_allowlist_change_required": false,
+  "matrix": {
+    "managed": {
+      "host_current": {
+        "network_namespace": "net:[4026533518]",
+        "https_ready": false,
+        "tls_results": [
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://chatgpt.com/backend-api/codex/models?client_version=0.162.1",
+            "tls_verification_enabled": true,
+            "status": "FAIL",
+            "error_type": "PermissionError",
+            "errno": 1,
+            "latency_s": 0.0015457799891009927
+          },
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://api.openai.com/v1/models",
+            "tls_verification_enabled": true,
+            "status": "FAIL",
+            "error_type": "PermissionError",
+            "errno": 1,
+            "latency_s": 0.0005901239928789437
+          }
+        ]
+      },
+      "host_filtered": {
+        "network_namespace": "net:[4026533518]",
+        "https_ready": false,
+        "tls_results": [
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://chatgpt.com/backend-api/codex/models?client_version=0.162.1",
+            "tls_verification_enabled": true,
+            "status": "FAIL",
+            "error_type": "gaierror",
+            "errno": -3,
+            "latency_s": 0.0011413739994168282
+          },
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://api.openai.com/v1/models",
+            "tls_verification_enabled": true,
+            "status": "FAIL",
+            "error_type": "gaierror",
+            "errno": -3,
+            "latency_s": 0.0003796819946728647
+          }
+        ]
+      },
+      "worker_filtered": {
+        "network_namespace": "net:[4026533518]",
+        "https_ready": false,
+        "tls_results": [
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://chatgpt.com/backend-api/codex/models?client_version=0.162.1",
+            "tls_verification_enabled": true,
+            "status": "FAIL",
+            "error_type": "gaierror",
+            "errno": -3,
+            "latency_s": 0.0008600250002928078
+          },
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://api.openai.com/v1/models",
+            "tls_verification_enabled": true,
+            "status": "FAIL",
+            "error_type": "gaierror",
+            "errno": -3,
+            "latency_s": 0.00033602298935875297
+          }
+        ]
+      },
+      "worker_https_proxy_candidate": {
+        "network_namespace": "net:[4026533518]",
+        "https_ready": false,
+        "tls_results": [
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://chatgpt.com/backend-api/codex/models?client_version=0.162.1",
+            "tls_verification_enabled": true,
+            "status": "FAIL",
+            "error_type": "PermissionError",
+            "errno": 1,
+            "latency_s": 0.0009113110136240721
+          },
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://api.openai.com/v1/models",
+            "tls_verification_enabled": true,
+            "status": "FAIL",
+            "error_type": "PermissionError",
+            "errno": 1,
+            "latency_s": 0.0002912330091930926
+          }
+        ]
+      }
+    },
+    "actual_host": {
+      "host_current": {
+        "network_namespace": "net:[4026531840]",
+        "https_ready": true,
+        "tls_results": [
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://chatgpt.com/backend-api/codex/models?client_version=0.162.1",
+            "tls_verification_enabled": true,
+            "status": "HTTP_RESPONSE",
+            "http_status": 401,
+            "body_prefix_sha256": "8f399debe52f271e56918a3ef03cd90d60776f7c972e6807b1ef2a7437c1040c",
+            "latency_s": 0.9511431209975854
+          },
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://api.openai.com/v1/models",
+            "tls_verification_enabled": true,
+            "status": "HTTP_RESPONSE",
+            "http_status": 401,
+            "body_prefix_sha256": "020cefc21c2f2477bc862fb750a476414029d287454ca6a67d0b1d19d82d219d",
+            "latency_s": 0.888767733995337
+          }
+        ]
+      },
+      "host_filtered": {
+        "network_namespace": "net:[4026531840]",
+        "https_ready": true,
+        "tls_results": [
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://chatgpt.com/backend-api/codex/models?client_version=0.162.1",
+            "tls_verification_enabled": true,
+            "status": "HTTP_RESPONSE",
+            "http_status": 401,
+            "body_prefix_sha256": "8f399debe52f271e56918a3ef03cd90d60776f7c972e6807b1ef2a7437c1040c",
+            "latency_s": 0.919693403004203
+          },
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://api.openai.com/v1/models",
+            "tls_verification_enabled": true,
+            "status": "HTTP_RESPONSE",
+            "http_status": 401,
+            "body_prefix_sha256": "020cefc21c2f2477bc862fb750a476414029d287454ca6a67d0b1d19d82d219d",
+            "latency_s": 0.8982543770107441
+          }
+        ]
+      },
+      "worker_filtered": {
+        "network_namespace": "net:[4026531840]",
+        "https_ready": true,
+        "tls_results": [
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://chatgpt.com/backend-api/codex/models?client_version=0.162.1",
+            "tls_verification_enabled": true,
+            "status": "HTTP_RESPONSE",
+            "http_status": 401,
+            "body_prefix_sha256": "8f399debe52f271e56918a3ef03cd90d60776f7c972e6807b1ef2a7437c1040c",
+            "latency_s": 0.952633855980821
+          },
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://api.openai.com/v1/models",
+            "tls_verification_enabled": true,
+            "status": "HTTP_RESPONSE",
+            "http_status": 401,
+            "body_prefix_sha256": "020cefc21c2f2477bc862fb750a476414029d287454ca6a67d0b1d19d82d219d",
+            "latency_s": 0.9687848620233126
+          }
+        ]
+      },
+      "worker_https_proxy_candidate": {
+        "network_namespace": "net:[4026531840]",
+        "https_ready": true,
+        "tls_results": [
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://chatgpt.com/backend-api/codex/models?client_version=0.162.1",
+            "tls_verification_enabled": true,
+            "status": "HTTP_RESPONSE",
+            "http_status": 401,
+            "body_prefix_sha256": "8f399debe52f271e56918a3ef03cd90d60776f7c972e6807b1ef2a7437c1040c",
+            "latency_s": 0.9220765819773078
+          },
+          {
+            "kind": "https_get_no_auth",
+            "url": "https://api.openai.com/v1/models",
+            "tls_verification_enabled": true,
+            "status": "HTTP_RESPONSE",
+            "http_status": 401,
+            "body_prefix_sha256": "020cefc21c2f2477bc862fb750a476414029d287454ca6a67d0b1d19d82d219d",
+            "latency_s": 1.0054881399846636
+          }
+        ]
+      }
+    }
+  }
+}

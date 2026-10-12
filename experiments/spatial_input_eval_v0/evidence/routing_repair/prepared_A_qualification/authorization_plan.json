@@ -1,0 +1,33 @@
+{
+  "status": "PREPARED_WAITING_NEW_AUTHORIZATION",
+  "requested_future_budget": 1,
+  "inference_requests": 0,
+  "previous_new_budget": 1,
+  "previous_new_attempts": 1,
+  "previous_new_result": "LOCAL_WORKER_STANDARD_TIMEOUT_30S_NO_MODEL_RESPONSE",
+  "exact_original_request_equal": true,
+  "execution_timing": {
+    "mode": "qualification",
+    "request_timeout_s": 90,
+    "worker_deadline_s": 95,
+    "launcher_timeout_s": 110
+  },
+  "command_after_authorization": [
+    "/home/alex/astra/.venv/bin/python",
+    "-m",
+    "spatial_eval.cli",
+    "run",
+    "--snapshot",
+    "experiments/spatial_input_eval_v0/evidence/s1_archive/snapshot_understanding.json",
+    "--conditions",
+    "RGB_MULTI_VIEW",
+    "--real",
+    "--max-real-calls",
+    "1",
+    "--timing-mode",
+    "qualification",
+    "--output",
+    "experiments/spatial_input_eval_v0/evidence/routing_repair/real_A_qualification"
+  ],
+  "execution_requirement": "Approved host network access; unchanged original inner bwrap; no application retry; no C request."
+}

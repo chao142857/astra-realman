@@ -122,6 +122,20 @@ class EvaluationTests(unittest.TestCase):
     def test_no_output_overwrite(self):
         out=self.root/'out';out.mkdir()
         with self.assertRaises(FileExistsError):run([self.paths[0]],out,[CONDITIONS[0]])
+    def test_timing_profile_keeps_frozen_model_input_identical(self):
+        from spatial_eval.adapter import execution_timing
+        for mode in ('standard','qualification'):
+            run([self.paths[0]],self.root/mode,[CONDITIONS[0]],timing_mode=mode)
+        for name in ('request.json','model_parameters.json'):
+            self.assertEqual(read(self.root/'standard/sample-0000'/name),
+                             read(self.root/'qualification/sample-0000'/name))
+        timing=execution_timing('qualification')
+        self.assertEqual(timing['request_timeout_s'],90)
+        self.assertGreater(timing['worker_deadline_s'],timing['request_timeout_s'])
+        self.assertGreater(timing['launcher_timeout_s'],timing['worker_deadline_s'])
+        with self.assertRaisesRegex(ValueError,'TIMING_MODE'):
+            run([self.paths[0]],self.root/'invalid',[CONDITIONS[0]],timing_mode='unbounded')
+        self.assertFalse((self.root/'invalid').exists())
 
 
 class ResponseBoundaryTests(unittest.TestCase):

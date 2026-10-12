@@ -1,0 +1,91 @@
+{
+  "inference_requests": 0,
+  "authenticated_requests": 0,
+  "network_namespace": "net:[4026531840]",
+  "environment_keys": [
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "LOGNAME",
+    "PATH",
+    "TMPDIR",
+    "USER"
+  ],
+  "proxy_configuration": {},
+  "dns_configuration": "# This is /run/systemd/resolve/stub-resolv.conf managed by man:systemd-resolved(8).\n# Do not edit.\n#\n# This file might be symlinked as /etc/resolv.conf. If you're looking at\n# /etc/resolv.conf and seeing this text, you have followed the symlink.\n#\n# This is a dynamic resolv.conf file for connecting local clients to the\n# internal DNS stub resolver of systemd-resolved. This file lists all\n# configured search domains.\n#\n# Run \"resolvectl status\" to see details about the uplink DNS servers\n# currently in use.\n#\n# Third party programs should typically not access this file directly, but only\n# through the symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a\n# different way, replace this symlink by a static file or a different symlink.\n#\n# See man:systemd-resolved.service(8) for details about the supported modes of\n# operation for /etc/resolv.conf.\n\nnameserver 127.0.0.53\noptions edns0 trust-ad\nsearch tail2b8ab7.ts.net\n",
+  "ca_bundle_sha256": "c0c940a0e30d859783f7f130868d8082e79936ff0b41a0b1098ac7f98909263b",
+  "tls_default_verify_paths": {
+    "cafile": null,
+    "capath": "/usr/lib/ssl/certs",
+    "openssl_cafile_env": "SSL_CERT_FILE",
+    "openssl_cafile": "/usr/lib/ssl/cert.pem",
+    "openssl_capath_env": "SSL_CERT_DIR",
+    "openssl_capath": "/usr/lib/ssl/certs"
+  },
+  "probes": [
+    {
+      "kind": "dns",
+      "host": "chatgpt.com",
+      "addresses": [
+        "198.18.0.15"
+      ],
+      "status": "PASS",
+      "latency_s": 0.0015400790143758059
+    },
+    {
+      "kind": "dns",
+      "host": "api.openai.com",
+      "addresses": [
+        "198.18.0.4"
+      ],
+      "status": "PASS",
+      "latency_s": 0.0005208259681239724
+    },
+    {
+      "kind": "tcp",
+      "host": "127.0.0.1",
+      "port": 7897,
+      "status": "PASS",
+      "latency_s": 5.650398088619113e-05
+    },
+    {
+      "kind": "tcp",
+      "host": "chatgpt.com",
+      "port": 443,
+      "status": "PASS",
+      "latency_s": 0.0007859379984438419
+    },
+    {
+      "kind": "tcp",
+      "host": "api.openai.com",
+      "port": 443,
+      "status": "PASS",
+      "latency_s": 0.0010584929841570556
+    },
+    {
+      "kind": "https_get_no_auth",
+      "url": "https://chatgpt.com/backend-api/codex/models?client_version=0.162.1",
+      "tls_verification_enabled": true,
+      "status": "HTTP_RESPONSE",
+      "http_status": 401,
+      "body_prefix_sha256": "8f399debe52f271e56918a3ef03cd90d60776f7c972e6807b1ef2a7437c1040c",
+      "latency_s": 0.919693403004203
+    },
+    {
+      "kind": "https_get_no_auth",
+      "url": "https://api.openai.com/v1/models",
+      "tls_verification_enabled": true,
+      "status": "HTTP_RESPONSE",
+      "http_status": 401,
+      "body_prefix_sha256": "020cefc21c2f2477bc862fb750a476414029d287454ca6a67d0b1d19d82d219d",
+      "latency_s": 0.8982543770107441
+    }
+  ],
+  "gt_mount_checks": {
+    "/home/alex/astra-realman_ws": true,
+    "/home/alex/astra_spatial_capability": true,
+    "/input/ground_truth.json": false,
+    "/code/scoring.py": false
+  },
+  "user_config_mounted": true
+}

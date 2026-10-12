@@ -11,6 +11,17 @@ from .schema import read, write, strict_json
 HARNESS=Path(__file__).resolve().parents[3]/'astra_realman_harness'
 MODEL='gpt-6-astra'
 PARAMETERS={'model':MODEL,'model_reasoning_effort':'medium','provider':'openai','ephemeral':True}
+TIMING_MODES=('standard','qualification')
+
+
+def execution_timing(mode):
+    """Reuse production timing profiles; never add timing to the model input."""
+    if str(HARNESS) not in sys.path:sys.path.insert(0,str(HARNESS))
+    from sim_skills.full_pnp.timing import timing_limits
+    limits=timing_limits(mode)
+    deadline_s=max(90,limits['request_timeout_s']+5)
+    return {'mode':mode,'request_timeout_s':limits['request_timeout_s'],
+            'worker_deadline_s':deadline_s,'launcher_timeout_s':deadline_s+15}
 
 
 def production_imports():
@@ -61,7 +72,8 @@ def mock_raw(context):
                        'waypoints_m':[[0.,0.,0.]] if task['kind']=='path' else []})
 
 
-def infer(context, images, folder, *, real=False, fixture_response=None):
+def infer(context, images, folder, *, real=False, fixture_response=None, timing_mode='standard'):
+    timing=execution_timing(timing_mode)
     folder=Path(folder).resolve();prepare(context,images,folder,real=real)
     started=time.monotonic()
     if not real:
@@ -75,10 +87,12 @@ def infer(context, images, folder, *, real=False, fixture_response=None):
         inp=folder/'input_only'
         command+=['--sha256',hashlib.sha256((inp/'wire.json').read_bytes()).hexdigest(),
                   '--payload-sha256',hashlib.sha256((inp/'payload.json').read_bytes()).hexdigest(),
-                  '--deadline',str(time.monotonic()+90)]
+                  '--deadline',str(time.monotonic()+timing['worker_deadline_s'])]
+        if timing_mode!='standard':command+=['--mode',timing_mode]
+        write(folder/'execution_timing.json',timing)
         write(folder/'worker_command.json',command)
         try:
-            proc=subprocess.run(command,capture_output=True,text=True,env=env,timeout=105,cwd=inp)
+            proc=subprocess.run(command,capture_output=True,text=True,env=env,timeout=timing['launcher_timeout_s'],cwd=inp)
             (folder/'worker_stdout.txt').write_text(proc.stdout);(folder/'worker_stderr.txt').write_text(proc.stderr)
             record=folder/'infer_output/worker_record.json'
             result=read(record) if record.exists() else {'raw':'','error':'WORKER_START_FAILED','return_code':proc.returncode,'usage':None}

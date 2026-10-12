@@ -1,0 +1,38 @@
+{
+  "status": "PREPARED_NOT_INFERRED",
+  "requested_future_budget": 1,
+  "inference_requests": 0,
+  "exact_original_request_equal": true,
+  "parameters": {
+    "model": "gpt-6-astra",
+    "model_reasoning_effort": "medium",
+    "provider": "openai",
+    "ephemeral": true
+  },
+  "task_manifest": {
+    "condition": "RGB_MULTI_VIEW",
+    "image_count": 3,
+    "geometry_source": null,
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "task_prompt_sha256": "14845b005c5ee9604ff3b99a2c2d8f382a7408f7faf4f644f2d399b95fd994a8"
+  },
+  "snapshot_sha256": "1fee24488f9d0d66a5925c3a8f21401ff158cad7a159b95771431f9c2481f63f",
+  "command_after_authorization": [
+    "/home/alex/astra/.venv/bin/python",
+    "-m",
+    "spatial_eval.cli",
+    "run",
+    "--snapshot",
+    "experiments/spatial_input_eval_v0/evidence/s1_archive/snapshot_understanding.json",
+    "--conditions",
+    "RGB_MULTI_VIEW",
+    "--real",
+    "--max-real-calls",
+    "1",
+    "--output",
+    "experiments/spatial_input_eval_v0/evidence/routing_repair/real_A_recovered"
+  ],
+  "execution_requirement": "Run with approved host network access while retaining the original inner bwrap sandbox; never run model inference in the outer restricted netns."
+}

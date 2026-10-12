@@ -1,0 +1,25 @@
+{
+  "status": "LOCAL_WORKER_REQUEST_TIMEOUT_CONFIRMED",
+  "authorized_new_budget": 1,
+  "new_inference_attempts": 1,
+  "valid_real_json_answers": 0,
+  "AC_pairs": 0,
+  "raw_error": "TimeoutError:MODEL_TIMEOUT",
+  "reported_return_code": 0,
+  "latency_s": 30.099508068000432,
+  "usage": null,
+  "infer_started": {
+    "started_monotonic": 354479.440602051,
+    "timeout_s": 30,
+    "deadline_monotonic": 354569.404804175,
+    "mode": "standard",
+    "payload_sha256": "d06af366b15d2eacdda8cafb69d479ab4fcef3e11a7e42c6672b6128033b607a"
+  },
+  "request_equals_original": true,
+  "routing_error_in_events": false,
+  "model_completion_in_events": false,
+  "runtime_cli_log_rows": 0,
+  "routing_acceptance": "NOT_VERIFIED_NO_COMPLETION",
+  "cause": "infer_worker caps the request at timing_limits(standard).request_timeout_s=30 even when adapter deadline is 90 seconds; bridge terminates CLI and records MODEL_TIMEOUT.",
+  "prepared_correction": "Expose existing qualification worker profile (90 seconds), worker deadline 95 seconds, launcher timeout 110 seconds; no bridge/worker/timing source or model input changes."
+}
