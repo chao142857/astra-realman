@@ -1,0 +1,121 @@
+core/src/session/turn.rs:1620:     };
+core/src/session/turn.rs:1621:     let base_instructions = sess.get_prompt_base_instructions().await;
+core/src/session/turn.rs:1622:
+core/src/session/turn.rs:1623:     let tool_runtime = ToolCallRuntime::new(
+core/src/session/turn.rs:1624:         Arc::clone(&sess),
+core/src/session/turn.rs:1625:         Arc::clone(&step_context),
+core/src/session/turn.rs:1626:         Arc::clone(&turn_diff_tracker),
+core/src/session/turn.rs:1627:     );
+core/src/session/turn.rs:1628:     let _code_mode_worker = sess.services.code_mode_service.start_turn_worker(
+core/src/session/turn.rs:1629:         &sess,
+core/src/session/turn.rs:1630:         Arc::clone(&step_context),
+core/src/session/turn.rs:1631:         Arc::clone(&turn_diff_tracker),
+core/src/session/turn.rs:1632:     );
+core/src/session/turn.rs:1633:     let max_retries = turn_context.provider.info().stream_max_retries();
+core/src/session/turn.rs:1634:     let mut retry_state = ResponsesStreamRetryState::default();
+core/src/session/turn.rs:1635:     let mut initial_input = Some(input);
+core/src/session/turn.rs:1636:     let mut original_input = None;
+core/src/session/turn.rs:1637:     let mut executed_tool_calls_by_output = HashMap::new();
+core/src/session/turn.rs:1638:     loop {
+core/src/session/turn.rs:1639:         // Running code-mode cells can request review while this response is in flight.
+core/src/session/turn.rs:1640:         // Keep the latest received ID until response.created replaces it.
+core/src/session/turn.rs:2650:                 });
+core/src/session/turn.rs:2651:             }
+core/src/session/turn.rs:2652:             Err(_) => break Err(CodexErr::TurnAborted),
+core/src/session/turn.rs:2653:         };
+core/src/session/turn.rs:2654:
+core/src/session/turn.rs:2655:         let event = match event {
+core/src/session/turn.rs:2656:             Some(Ok(event)) => event,
+core/src/session/turn.rs:2657:             Some(Err(err)) => break Err(err),
+core/src/session/turn.rs:2658:             None => {
+core/src/session/turn.rs:2659:                 break Err(CodexErr::Stream(
+core/src/session/turn.rs:2660:                     "stream closed before response.completed".into(),
+core/src/session/turn.rs:2661:                 ));
+core/src/session/turn.rs:2662:             }
+core/src/session/turn.rs:2663:         };
+core/src/session/turn.rs:2664:
+core/src/session/turn.rs:2665:         sess.services
+core/src/session/turn.rs:2666:             .session_telemetry
+core/src/session/turn.rs:2667:             .record_responses(&handle_responses, &event);
+core/src/session/turn.rs:2668:         record_turn_ttft_metric(&turn_context, &event).await;
+core/src/session/turn.rs:2669:
+core/src/session/turn.rs:2670:         match event {
+core/src/session/turn.rs:2671:             ResponseEvent::Created { response_id } => {
+core/src/session/turn.rs:2672:                 if let Some(response_id) = response_id {
+core/src/session/turn.rs:2673:                     turn_context
+core/src/session/turn.rs:2674:                         .extension_data
+core/src/session/turn.rs:2675:                         .insert(codex_api::ResponseId(response_id));
+core/src/session/turn.rs:2676:                 }
+core/src/session/turn.rs:2677:             }
+core/src/session/turn.rs:2678:             ResponseEvent::OutputItemDone(mut item) => {
+core/src/session/turn.rs:2679:                 assign_missing_streamed_response_item_id(&mut item, active_item.as_ref());
+core/src/session/turn.rs:2680:                 sess.reserve_assistant_message_order(&turn_context, &item)
+core/src/session/turn.rs:2681:                     .await;
+core/src/session/turn.rs:2682:                 if analytics_tool_call_ids.len() < MAX_ANALYTICS_TOOL_CALL_IDS_PER_RESPONSE {
+core/src/session/turn.rs:2683:                     let call_id = match &item {
+core/src/session/turn.rs:2684:                         ResponseItem::FunctionCall { call_id, .. }
+core/src/session/turn.rs:2685:                         | ResponseItem::CustomToolCall { call_id, .. } => Some(call_id.as_str()),
+core/src/session/turn.rs:2946:             ResponseEvent::Completed {
+core/src/session/turn.rs:2947:                 response_id,
+core/src/session/turn.rs:2948:                 token_usage,
+core/src/session/turn.rs:2949:                 usage_metadata,
+core/src/session/turn.rs:2950:                 end_turn,
+core/src/session/turn.rs:2951:             } => {
+core/src/session/turn.rs:2952:                 sess.services
+core/src/session/turn.rs:2953:                     .analytics_events_client
+core/src/session/turn.rs:2954:                     .track_code_mode_tool_call(
+core/src/session/turn.rs:2955:                         codex_analytics::CodeModeToolCallFact::SamplingResponseCompleted {
+core/src/session/turn.rs:2956:                             thread_id: sess.thread_id.to_string(),
+core/src/session/turn.rs:2957:                             turn_id: turn_context.sub_id.clone(),
+core/src/session/turn.rs:2958:                             response_id: response_id.clone(),
+core/src/session/turn.rs:2959:                             tool_call_ids: std::mem::take(&mut analytics_tool_call_ids),
+core/src/session/turn.rs:2960:                         },
+core/src/session/turn.rs:2961:                     );
+core/src/session/turn.rs:2962:                 flush_assistant_text_segments_all(
+core/src/session/turn.rs:2963:                     &sess,
+core/src/session/turn.rs:2964:                     &turn_context,
+core/src/session/turn.rs:2965:                     plan_mode_state.as_mut(),
+core/src/session/turn.rs:2966:                     &mut assistant_message_stream_parsers,
+core/src/session/turn.rs:2967:                 )
+core/src/session/turn.rs:2968:                 .await;
+core/src/session/turn.rs:2969:                 sess.record_observed_response_completed(
+core/src/session/turn.rs:2970:                     &turn_context,
+core/src/session/turn.rs:2971:                     &response_id,
+core/src/session/turn.rs:2972:                     token_usage.as_ref(),
+core/src/session/turn.rs:2973:                     usage_metadata.as_ref(),
+core/src/session/turn.rs:2974:                 )
+core/src/session/turn.rs:2975:                 .await;
+core/src/session/turn.rs:2976:                 let budget_result = sess
+core/src/session/turn.rs:2977:                     .record_token_usage_info(
+core/src/session/turn.rs:2978:                         &turn_context,
+core/src/session/turn.rs:2979:                         &step_context.settings,
+core/src/session/turn.rs:2980:                         token_usage.as_ref(),
+core/src/session/turn.rs:2981:                     )
+core/src/session/turn.rs:2982:                     .await;
+core/src/session/turn.rs:2983:                 should_emit_token_count = true;
+core/src/session/turn.rs:2984:                 should_emit_turn_diff = true;
+core/src/session/turn.rs:2985:                 if let Err(err) = budget_result {
+core/src/session/turn.rs:2986:                     break Err(err);
+core/src/session/turn.rs:2987:                 }
+core/src/session/turn.rs:2988:                 if let Some(false) = end_turn {
+core/src/session/turn.rs:2989:                     needs_follow_up = true;
+core/src/session/turn.rs:2990:                 }
+core/src/session/turn.rs:2991:                 break Ok(SamplingRequestResult {
+core/src/session/turn.rs:2992:                     needs_follow_up,
+core/src/session/turn.rs:2993:                     last_agent_message,
+core/src/session/turn.rs:2994:                 });
+core/src/session/turn.rs:2995:             }
+core/src/session/turn.rs:2996:             ResponseEvent::OutputTextDelta(delta) => {
+core/src/session/turn.rs:2997:                 // In review child threads, suppress assistant text deltas; the
+core/src/session/turn.rs:2998:                 // UI will show a selection popup from the final ReviewOutput.
+core/src/session/turn.rs:2999:                 if let Some(active) = active_item.as_ref() {
+core/src/session/turn.rs:3000:                     if !active_item_is_streaming_to_client {
+core/src/session/turn.rs:3001:                         continue;
+core/src/session/turn.rs:3002:                     }
+core/src/session/turn.rs:3003:                     let item_id = active.id();
+core/src/session/turn.rs:3004:                     if matches!(active, TurnItem::AgentMessage(_)) {
+core/src/session/turn.rs:3005:                         let parsed = assistant_message_stream_parsers.parse_delta(&item_id, &delta);
+core/src/session/turn.rs:3006:                         emit_streamed_assistant_text_delta(
+core/src/session/turn.rs:3007:                             &sess,
+core/src/session/turn.rs:3008:                             &turn_context,
+core/src/session/turn.rs:3009:                             plan_mode_state.as_mut(),

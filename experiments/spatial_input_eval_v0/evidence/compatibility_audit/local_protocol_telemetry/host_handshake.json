@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "transcript": [
+    {
+      "request": {
+        "type": "connection/hello",
+        "supportedVersions": [
+          1
+        ],
+        "requiredCapabilities": [],
+        "optionalCapabilities": []
+      },
+      "response": {
+        "type": "connection/ready",
+        "selectedVersion": 1,
+        "capabilities": []
+      }
+    },
+    {
+      "request": {
+        "type": "operation/request",
+        "id": 1,
+        "request": {
+          "method": "session/open",
+          "sessionId": "offline-diagnostic"
+        }
+      },
+      "response": {
+        "type": "operation/response",
+        "id": 1,
+        "result": {
+          "status": "ok",
+          "value": {
+            "type": "session/ready",
+            "sessionId": "offline-diagnostic"
+          }
+        }
+      }
+    },
+    {
+      "request": {
+        "type": "operation/request",
+        "id": 2,
+        "request": {
+          "method": "session/shutdown",
+          "sessionId": "offline-diagnostic"
+        }
+      },
+      "response": {
+        "type": "operation/response",
+        "id": 2,
+        "result": {
+          "status": "ok",
+          "value": {
+            "type": "session/closed",
+            "sessionId": "offline-diagnostic"
+          }
+        }
+      }
+    }
+  ],
+  "stderr": "",
+  "executed_cells": 0,
+  "nested_tools": 0
+}

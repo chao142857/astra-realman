@@ -1,0 +1,209 @@
+{
+  "instruction": "Return exactly one JSON object matching output_schema. This is offline geometry evaluation. Use only observations, optional geometry and task. No tools or execution. All positions are object centers in robot_base, meters; orientations are unit quaternions wxyz. For understanding return each question_id once, populating only the relevant answer field: relation=less/equal/greater along the specified positive axis, scalar_m=height/gap, vector_m=position/size, fits=fit; all other fields null. For placement waypoints_m must be empty. For path, waypoints_m excludes start, includes the final position_m, and orientation is fixed throughout translation. Choose any constraint-valid solution.",
+  "coordinate_system": {
+    "id": "robot_base",
+    "units": "m",
+    "axes": "+x forward, +y left, +z up; right-handed",
+    "pose": "object center xyz in meters; unit quaternion wxyz, object local axes in robot_base"
+  },
+  "task": {
+    "task_id": "plan",
+    "kind": "path",
+    "frame": "robot_base",
+    "tolerance_m": 0.005,
+    "instruction": "Place the red target_cube fully inside container_interior with axes aligned to base, avoiding all other solids by 0.002 m. Plan carried-object waypoints from start [0.20,-0.18,0.06] m with fixed identity orientation; workspace center [0.45,0,0.30] size [0.90,0.90,0.58] m. Static geometric task only; no support or dynamics requirement. Container interior center [0.6200000047683716, 0.18000000715255737, 0.1000000024214387] m, size [0.18000004813075066, 0.1600000075995922, 0.18000000528991222] m.",
+    "questions": [],
+    "constraints": {
+      "object_id": "target_cube",
+      "allowed_region_id": "container_interior",
+      "clearance_m": 0.002,
+      "required_quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "orientation_tolerance_rad": 0.05,
+      "start_position_m": [
+        0.2,
+        -0.18,
+        0.06
+      ],
+      "workspace_region_id": "workspace"
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "object_id": {
+        "type": "string"
+      },
+      "position_m": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "quaternion_wxyz": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 4,
+        "maxItems": 4
+      },
+      "waypoints_m": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    },
+    "required": [
+      "object_id",
+      "position_m",
+      "quaternion_wxyz",
+      "waypoints_m"
+    ],
+    "additionalProperties": false
+  },
+  "attachments": [
+    {
+      "camera_id": "view_0",
+      "file": "image-0.png",
+      "sha256": "7dae76f41552ca89562f430459b588cfd84680e9cb64477da59d7ef497957c7b"
+    },
+    {
+      "camera_id": "view_1",
+      "file": "image-1.png",
+      "sha256": "c1983198ffea4c036d339624b2249282abd2018266eecb4a8701ed82c784cec1"
+    },
+    {
+      "camera_id": "view_2",
+      "file": "image-2.png",
+      "sha256": "d602aa9160f63b842adda1e91553143dd8a3b561119df5e77fc1429ece6931e5"
+    }
+  ],
+  "observations": {
+    "calibration": {
+      "view_0": {
+        "intrinsic": [
+          [
+            415.6921691894531,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            415.6921691894531,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.15000000596046448,
+          -0.8500000238418579,
+          0.6499999761581421,
+          0.7681894898414612,
+          -0.16892294585704803,
+          0.22576101124286652,
+          0.5747885704040527
+        ],
+        "axes": "SAPIEN camera pose: +X forward, +Y left, +Z up; RGB/depth optical axes +X right,+Y down,+Z forward"
+      },
+      "view_1": {
+        "intrinsic": [
+          [
+            415.6921691894531,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            415.6921691894531,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.8500000238418579,
+          0.6499999761581421,
+          0.6499999761581421,
+          0.4416517913341522,
+          0.2721881866455078,
+          0.14261379837989807,
+          -0.8429226279258728
+        ],
+        "axes": "SAPIEN camera pose: +X forward, +Y left, +Z up; RGB/depth optical axes +X right,+Y down,+Z forward"
+      },
+      "view_2": {
+        "intrinsic": [
+          [
+            415.6921691894531,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            415.6921691894531,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.41999998688697815,
+          0.0,
+          1.0499999523162842,
+          0.0,
+          -0.6997806429862976,
+          0.0,
+          0.7143577933311462
+        ],
+        "axes": "SAPIEN camera pose: +X forward, +Y left, +Z up; RGB/depth optical axes +X right,+Y down,+Z forward"
+      }
+    },
+    "robot_state": {
+      "joint_names": [],
+      "qpos_rad": [],
+      "flange_pose_base_xyz_wxyz": null
+    },
+    "synchronization": {
+      "simulation_step": 0,
+      "capture_span_s": 0.190711373987142,
+      "timestamp_semantics": "same static scene; sequential renderer acquisition; no physics step",
+      "same_step": true
+    }
+  },
+  "geometry": null
+}

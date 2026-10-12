@@ -1,6 +1,10 @@
 # Astra Spatial Input Evaluation V0
 
-2026-10-12 独立修复分支最新验收见 [QUALIFICATION_ACCEPTANCE.md](docs/QUALIFICATION_ACCEPTANCE.md)：原 bwrap 在宿主机网络完成无生成 workspace 路由发现，但唯一一次 qualification A 在90秒超时，无有效 JSON，C未启动。测试31/31 PASS。此前网络与30秒计时修复见 [ROUTING_REPAIR.md](docs/ROUTING_REPAIR.md)。以下 V0 结果作为原始交付记录保留。
+基于 `1925370` 的最新审查见 [COMPATIBILITY_AUDIT.md](docs/COMPATIBILITY_AUDIT.md)：本阶段真实生成 **0**。0.162.1 原生 CLI 在断外网、无凭证的本地协议 fixture 中 warning 后完成 JSON；匹配 host 的 V1 空会话握手通过。历史 24 次成功使用 0.161.0 HTTP-only shim，不能证明当前 WS 链路恢复。故障排序、源码片段及下一笔单独授权的最小文本方案均已归档；生产 bridge 未修改。
+
+已实际导出 **6 个静态 SAPIEN 场景、18 RGB-D、12 任务和独立 collider GT**，并执行 24 条明确标记的 mock A/C 样本。41/41 单元测试通过。实际验证过的 Ubuntu 命令和渲染质量证据见上述审查文档。与之不同，早期六个 analytical fixture 仍保留原 synthetic 标签。
+
+上次真实验收见 [QUALIFICATION_ACCEPTANCE.md](docs/QUALIFICATION_ACCEPTANCE.md)：原 bwrap 在宿主机网络完成无生成 workspace 路由发现，但唯一一次 qualification A 在90秒超时，无有效 JSON，C未启动。此前网络与30秒计时修复见 [ROUTING_REPAIR.md](docs/ROUTING_REPAIR.md)。以下 V0 结果作为原始交付记录保留。
 
 可执行的离线空间输入评测模块，复用原 Astra `infer_process → infer_worker → bridge.infer()`。默认 mock；不训练、不连接运动接口。当前交付完成了数据读取、A/C 输入构建、严格 JSON、独立几何评分、成对比较和失败索引；真实模型对照被网络路由故障阻塞。
 
@@ -101,7 +105,7 @@ A 为同一组同步 RGB + 标定/坐标/状态；B 加载 `geometry.reconstruct
 
 模型沙箱仅挂载实验输入，不挂载 evaluator 的 GT、原控制器或私有证据；A 不发送 3D geometry，C 只发送允许的物体/内腔/障碍几何，不发送答案/评分/历史动作。条件之间没有会话历史。oracle 导入器和评分器可以读取独立真值，但它们不运行在模型 worker 内。
 
-暂未完成：真实 A/C 有效回答与比较、6 个不同的真实仿真场景导出、真实照片可靠 GT、完整 B 重建、几何图像渲染、RoboSpatial-Home / TraceSpatial-Bench 实际数据转换、重复测量和统计显著性。公开数据扩展类明确未实现，不伪造接入记录。
+暂未完成：真实 A/C 有效回答与比较、真实照片可靠 GT、完整 B 重建、作为模型几何输入的俯视/正交渲染、RoboSpatial-Home / TraceSpatial-Bench 实际数据转换、重复测量和统计显著性。公开数据扩展类明确未实现，不伪造接入记录。新完成的六个静态 SAPIEN 场景见最新审查，未运行模型或动力学验证。
 
 Git 独立分支与原源码保护检查见 [INSPECTION.md](docs/INSPECTION.md)；最终交付计数及 Git 状态见 [DELIVERY.md](docs/DELIVERY.md)。
 

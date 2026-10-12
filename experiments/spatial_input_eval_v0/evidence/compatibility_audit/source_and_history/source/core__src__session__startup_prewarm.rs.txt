@@ -1,0 +1,46 @@
+core/src/session/startup_prewarm.rs:410:                 .attach_to_prompt(&mut history, &mut HashMap::new());
+core/src/session/startup_prewarm.rs:411:             history
+core/src/session/startup_prewarm.rs:412:         }
+core/src/session/startup_prewarm.rs:413:     };
+core/src/session/startup_prewarm.rs:414:     let startup_prompt = build_prompt(
+core/src/session/startup_prewarm.rs:415:         prompt_input,
+core/src/session/startup_prewarm.rs:416:         step_context.as_ref(),
+core/src/session/startup_prewarm.rs:417:         BaseInstructions {
+core/src/session/startup_prewarm.rs:418:             text: base_instructions,
+core/src/session/startup_prewarm.rs:419:             provenance: None,
+core/src/session/startup_prewarm.rs:420:         },
+core/src/session/startup_prewarm.rs:421:         session
+core/src/session/startup_prewarm.rs:422:             .current_window_uses_incremental_tools(&step_context)
+core/src/session/startup_prewarm.rs:423:             .await,
+core/src/session/startup_prewarm.rs:424:     );
+core/src/session/startup_prewarm.rs:425:     startup_turn_context.session_telemetry.record_startup_phase(
+core/src/session/startup_prewarm.rs:426:         "startup_prewarm_build_prompt",
+core/src/session/startup_prewarm.rs:427:         build_prompt_started_at.elapsed(),
+core/src/session/startup_prewarm.rs:428:         /*status*/ None,
+core/src/session/startup_prewarm.rs:429:     );
+core/src/session/startup_prewarm.rs:430:     // Tool discovery may have updated Responses Lite metadata since the eager handshake.
+core/src/session/startup_prewarm.rs:431:     let responses_metadata = session
+core/src/session/startup_prewarm.rs:432:         .responses_metadata(step_context.as_ref(), CodexResponsesRequestKind::Prewarm)
+core/src/session/startup_prewarm.rs:433:         .await;
+core/src/session/startup_prewarm.rs:434:     let websocket_warmup_started_at = Instant::now();
+core/src/session/startup_prewarm.rs:435:     // Prewarm establishes the request baseline before the first turn can change effort.
+core/src/session/startup_prewarm.rs:436:     client_session
+core/src/session/startup_prewarm.rs:437:         .prewarm_websocket(
+core/src/session/startup_prewarm.rs:438:             &startup_prompt,
+core/src/session/startup_prewarm.rs:439:             &step_context.settings.model_info,
+core/src/session/startup_prewarm.rs:440:             &step_context.session_telemetry,
+core/src/session/startup_prewarm.rs:441:             session
+core/src/session/startup_prewarm.rs:442:                 .reasoning_effort_for_request(&step_context.settings, RequestEffortUsage::Sampling)
+core/src/session/startup_prewarm.rs:443:                 .await,
+core/src/session/startup_prewarm.rs:444:             step_context.settings.reasoning_summary,
+core/src/session/startup_prewarm.rs:445:             step_context.settings.service_tier.clone(),
+core/src/session/startup_prewarm.rs:446:             &responses_metadata,
+core/src/session/startup_prewarm.rs:447:         )
+core/src/session/startup_prewarm.rs:448:         .await?;
+core/src/session/startup_prewarm.rs:449:     startup_turn_context.session_telemetry.record_startup_phase(
+core/src/session/startup_prewarm.rs:450:         "startup_prewarm_websocket_warmup",
+core/src/session/startup_prewarm.rs:451:         websocket_warmup_started_at.elapsed(),
+core/src/session/startup_prewarm.rs:452:         /*status*/ None,
+core/src/session/startup_prewarm.rs:453:     );
+core/src/session/startup_prewarm.rs:454:     Ok(client_session)
+core/src/session/startup_prewarm.rs:455: }

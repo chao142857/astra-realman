@@ -1,0 +1,182 @@
+codex-api/src/sse/responses.rs:345:     event: ResponsesStreamEvent,
+codex-api/src/sse/responses.rs:346: ) -> std::result::Result<Option<ResponseEvent>, ResponsesEventError> {
+codex-api/src/sse/responses.rs:347:     match event.kind.as_str() {
+codex-api/src/sse/responses.rs:348:         "error" => {
+codex-api/src/sse/responses.rs:349:             if let Some(error) = event.error.as_ref().and_then(parse_flex_unavailable) {
+codex-api/src/sse/responses.rs:350:                 return Err(ResponsesEventError::Api(error));
+codex-api/src/sse/responses.rs:351:             }
+codex-api/src/sse/responses.rs:352:         }
+codex-api/src/sse/responses.rs:353:         "response.output_item.done" => {
+codex-api/src/sse/responses.rs:354:             if let Some(item_val) = event.item {
+codex-api/src/sse/responses.rs:355:                 if let Ok(item) = serde_json::from_value::<ResponseItem>(item_val) {
+codex-api/src/sse/responses.rs:356:                     return Ok(Some(ResponseEvent::OutputItemDone(item)));
+codex-api/src/sse/responses.rs:357:                 }
+codex-api/src/sse/responses.rs:358:                 debug!("failed to parse ResponseItem from output_item.done");
+codex-api/src/sse/responses.rs:359:             }
+codex-api/src/sse/responses.rs:360:         }
+codex-api/src/sse/responses.rs:361:         "response.output_text.delta" => {
+codex-api/src/sse/responses.rs:362:             if let Some(delta) = event.delta {
+codex-api/src/sse/responses.rs:363:                 return Ok(Some(ResponseEvent::OutputTextDelta(delta)));
+codex-api/src/sse/responses.rs:364:             }
+codex-api/src/sse/responses.rs:365:         }
+codex-api/src/sse/responses.rs:366:         "response.custom_tool_call_input.delta" => {
+codex-api/src/sse/responses.rs:367:             if let (Some(delta), Some(item_id)) =
+codex-api/src/sse/responses.rs:368:                 (event.delta, event.item_id.clone().or(event.call_id.clone()))
+codex-api/src/sse/responses.rs:369:             {
+codex-api/src/sse/responses.rs:370:                 return Ok(Some(ResponseEvent::ToolCallInputDelta {
+codex-api/src/sse/responses.rs:371:                     item_id,
+codex-api/src/sse/responses.rs:372:                     call_id: event.call_id,
+codex-api/src/sse/responses.rs:373:                     delta,
+codex-api/src/sse/responses.rs:374:                 }));
+codex-api/src/sse/responses.rs:375:             }
+codex-api/src/sse/responses.rs:376:         }
+codex-api/src/sse/responses.rs:377:         "response.reasoning_summary_text.delta" => {
+codex-api/src/sse/responses.rs:378:             if let (Some(delta), Some(summary_index)) = (event.delta, event.summary_index) {
+codex-api/src/sse/responses.rs:379:                 return Ok(Some(ResponseEvent::ReasoningSummaryDelta {
+codex-api/src/sse/responses.rs:380:                     delta,
+codex-api/src/sse/responses.rs:381:                     summary_index,
+codex-api/src/sse/responses.rs:382:                 }));
+codex-api/src/sse/responses.rs:383:             }
+codex-api/src/sse/responses.rs:384:         }
+codex-api/src/sse/responses.rs:385:         "response.reasoning_summary_text.done" => {
+codex-api/src/sse/responses.rs:386:             if let (Some(item_id), Some(text), Some(summary_index)) =
+codex-api/src/sse/responses.rs:387:                 (event.item_id, event.text, event.summary_index)
+codex-api/src/sse/responses.rs:388:             {
+codex-api/src/sse/responses.rs:389:                 return Ok(Some(ResponseEvent::ReasoningSummaryDone {
+codex-api/src/sse/responses.rs:390:                     item_id,
+codex-api/src/sse/responses.rs:391:                     text,
+codex-api/src/sse/responses.rs:392:                     summary_index,
+codex-api/src/sse/responses.rs:393:                 }));
+codex-api/src/sse/responses.rs:394:             }
+codex-api/src/sse/responses.rs:395:         }
+codex-api/src/sse/responses.rs:396:         "response.reasoning_text.delta" => {
+codex-api/src/sse/responses.rs:397:             if let (Some(delta), Some(content_index)) = (event.delta, event.content_index) {
+codex-api/src/sse/responses.rs:398:                 return Ok(Some(ResponseEvent::ReasoningContentDelta {
+codex-api/src/sse/responses.rs:399:                     delta,
+codex-api/src/sse/responses.rs:400:                     content_index,
+codex-api/src/sse/responses.rs:401:                 }));
+codex-api/src/sse/responses.rs:402:             }
+codex-api/src/sse/responses.rs:403:         }
+codex-api/src/sse/responses.rs:404:         "response.created" => {
+codex-api/src/sse/responses.rs:405:             if let Some(response) = event.response {
+codex-api/src/sse/responses.rs:406:                 let response_id = response
+codex-api/src/sse/responses.rs:407:                     .get("id")
+codex-api/src/sse/responses.rs:408:                     .and_then(Value::as_str)
+codex-api/src/sse/responses.rs:409:                     .map(str::to_owned);
+codex-api/src/sse/responses.rs:410:                 return Ok(Some(ResponseEvent::Created { response_id }));
+codex-api/src/sse/responses.rs:411:             }
+codex-api/src/sse/responses.rs:412:         }
+codex-api/src/sse/responses.rs:413:         "response.failed" => {
+codex-api/src/sse/responses.rs:414:             return Err(ResponsesEventError::Api(parse_failed_response(
+codex-api/src/sse/responses.rs:415:                 event.response,
+codex-api/src/sse/responses.rs:416:             )));
+codex-api/src/sse/responses.rs:417:         }
+codex-api/src/sse/responses.rs:418:         "response.completed" | "response.incomplete" => {
+codex-api/src/sse/responses.rs:419:             let interrupted = event.kind == "response.incomplete";
+codex-api/src/sse/responses.rs:420:             if interrupted {
+codex-api/src/sse/responses.rs:421:                 let reason = event.response.as_ref().and_then(|response| {
+codex-api/src/sse/responses.rs:422:                     response
+codex-api/src/sse/responses.rs:423:                         .get("incomplete_details")
+codex-api/src/sse/responses.rs:424:                         .and_then(|details| details.get("reason"))
+codex-api/src/sse/responses.rs:425:                         .and_then(Value::as_str)
+codex-api/src/sse/responses.rs:426:                 });
+codex-api/src/sse/responses.rs:427:                 let reason = reason.unwrap_or("unknown");
+codex-api/src/sse/responses.rs:428:                 if reason == "content_filter" {
+codex-api/src/sse/responses.rs:429:                     return Err(ResponsesEventError::Api(ApiError::ContentFilter));
+codex-api/src/sse/responses.rs:430:                 }
+codex-api/src/sse/responses.rs:431:                 if reason != "interrupted" {
+codex-api/src/sse/responses.rs:432:                     let message = format!("Incomplete response returned, reason: {reason}");
+codex-api/src/sse/responses.rs:433:                     return Err(ResponsesEventError::Api(ApiError::Stream(message)));
+codex-api/src/sse/responses.rs:434:                 }
+codex-api/src/sse/responses.rs:435:             }
+codex-api/src/sse/responses.rs:436:             if let Some(resp_val) = event.response {
+codex-api/src/sse/responses.rs:437:                 let metadata = resp_val
+codex-api/src/sse/responses.rs:438:                     .get("usage")
+codex-api/src/sse/responses.rs:439:                     .filter(|usage| !usage.is_null())
+codex-api/src/sse/responses.rs:440:                     .cloned();
+codex-api/src/sse/responses.rs:441:                 match serde_json::from_value::<ResponseCompleted>(resp_val) {
+codex-api/src/sse/responses.rs:442:                     Ok(mut resp) => {
+codex-api/src/sse/responses.rs:443:                         if let Some(metadata) = metadata {
+codex-api/src/sse/responses.rs:444:                             resp.usage_metadata.get_or_insert_default().metadata = Some(metadata);
+codex-api/src/sse/responses.rs:445:                         }
+codex-api/src/sse/responses.rs:446:                         return Ok(Some(ResponseEvent::Completed {
+codex-api/src/sse/responses.rs:447:                             response_id: resp.id,
+codex-api/src/sse/responses.rs:448:                             token_usage: resp.usage.map(Into::into),
+codex-api/src/sse/responses.rs:449:                             usage_metadata: resp.usage_metadata,
+codex-api/src/sse/responses.rs:450:                             end_turn: if interrupted {
+codex-api/src/sse/responses.rs:451:                                 Some(false)
+codex-api/src/sse/responses.rs:452:                             } else {
+codex-api/src/sse/responses.rs:453:                                 resp.end_turn
+codex-api/src/sse/responses.rs:454:                             },
+codex-api/src/sse/responses.rs:455:                         }));
+codex-api/src/sse/responses.rs:456:                     }
+codex-api/src/sse/responses.rs:457:                     Err(err) => {
+codex-api/src/sse/responses.rs:458:                         let error = format!("failed to parse ResponseCompleted: {err}");
+codex-api/src/sse/responses.rs:459:                         debug!("{error}");
+codex-api/src/sse/responses.rs:460:                         return Err(ResponsesEventError::Api(ApiError::Stream(error)));
+codex-api/src/sse/responses.rs:461:                     }
+codex-api/src/sse/responses.rs:462:                 }
+codex-api/src/sse/responses.rs:463:             }
+codex-api/src/sse/responses.rs:464:         }
+codex-api/src/sse/responses.rs:465:         "response.output_item.added" => {
+codex-api/src/sse/responses.rs:528:     telemetry: Option<Arc<dyn SseTelemetry>>,
+codex-api/src/sse/responses.rs:529:     safety_buffering_treatment: SafetyBufferingTreatment,
+codex-api/src/sse/responses.rs:530: ) {
+codex-api/src/sse/responses.rs:531:     let mut stream = stream.eventsource();
+codex-api/src/sse/responses.rs:532:     let mut response_error: Option<ApiError> = None;
+codex-api/src/sse/responses.rs:533:     let mut last_server_model: Option<String> = None;
+codex-api/src/sse/responses.rs:534:
+codex-api/src/sse/responses.rs:535:     loop {
+codex-api/src/sse/responses.rs:536:         let start = Instant::now();
+codex-api/src/sse/responses.rs:537:         let response = tokio::select! {
+codex-api/src/sse/responses.rs:538:             biased;
+codex-api/src/sse/responses.rs:539:             _ = tx_event.closed() => return,
+codex-api/src/sse/responses.rs:540:             response = timeout(idle_timeout, stream.next()) => response,
+codex-api/src/sse/responses.rs:541:         };
+codex-api/src/sse/responses.rs:542:         if let Some(t) = telemetry.as_ref() {
+codex-api/src/sse/responses.rs:543:             t.on_sse_poll(&response, start.elapsed());
+codex-api/src/sse/responses.rs:544:         }
+codex-api/src/sse/responses.rs:545:         let sse = match response {
+codex-api/src/sse/responses.rs:546:             Ok(Some(Ok(sse))) => sse,
+codex-api/src/sse/responses.rs:547:             Ok(Some(Err(e))) => {
+codex-api/src/sse/responses.rs:548:                 debug!("SSE Error: {e:#}");
+codex-api/src/sse/responses.rs:549:                 let error = match e {
+codex-api/src/sse/responses.rs:550:                     eventsource_stream::EventStreamError::Transport(
+codex-api/src/sse/responses.rs:551:                         error @ codex_client::TransportError::Policy(_),
+codex-api/src/sse/responses.rs:552:                     ) => ApiError::Transport(error),
+codex-api/src/sse/responses.rs:553:                     error => ApiError::Stream(error.to_string()),
+codex-api/src/sse/responses.rs:554:                 };
+codex-api/src/sse/responses.rs:555:                 let _ = tx_event.send(Err(error)).await;
+codex-api/src/sse/responses.rs:556:                 return;
+codex-api/src/sse/responses.rs:557:             }
+codex-api/src/sse/responses.rs:558:             Ok(None) => {
+codex-api/src/sse/responses.rs:559:                 let error = response_error.unwrap_or(ApiError::Stream(
+codex-api/src/sse/responses.rs:560:                     "stream closed before response.completed".into(),
+codex-api/src/sse/responses.rs:561:                 ));
+codex-api/src/sse/responses.rs:562:                 let _ = tx_event.send(Err(error)).await;
+codex-api/src/sse/responses.rs:563:                 return;
+codex-api/src/sse/responses.rs:564:             }
+codex-api/src/sse/responses.rs:565:             Err(_) => {
+codex-api/src/sse/responses.rs:566:                 let _ = tx_event
+codex-api/src/sse/responses.rs:567:                     .send(Err(ApiError::Stream("idle timeout waiting for SSE".into())))
+codex-api/src/sse/responses.rs:568:                     .await;
+codex-api/src/sse/responses.rs:569:                 return;
+codex-api/src/sse/responses.rs:570:             }
+codex-api/src/sse/responses.rs:571:         };
+codex-api/src/sse/responses.rs:572:
+codex-api/src/sse/responses.rs:573:         trace!("SSE event: {}", &sse.data);
+codex-api/src/sse/responses.rs:574:
+codex-api/src/sse/responses.rs:575:         let event: ResponsesStreamEvent = match serde_json::from_str(&sse.data) {
+codex-api/src/sse/responses.rs:576:             Ok(event) => event,
+codex-api/src/sse/responses.rs:577:             Err(e) => {
+codex-api/src/sse/responses.rs:578:                 debug!(
+codex-api/src/sse/responses.rs:579:                     error_category = ?e.classify(),
+codex-api/src/sse/responses.rs:580:                     error_line = e.line(),
+codex-api/src/sse/responses.rs:581:                     error_column = e.column(),
+codex-api/src/sse/responses.rs:582:                     payload_bytes = sse.data.len(),
+codex-api/src/sse/responses.rs:583:                     "Failed to parse SSE event"
+codex-api/src/sse/responses.rs:584:                 );
+codex-api/src/sse/responses.rs:585:                 continue;
+codex-api/src/sse/responses.rs:586:             }
+codex-api/src/sse/responses.rs:587:         };
+codex-api/src/sse/responses.rs:588:         let model_verifications = event.model_verifications();

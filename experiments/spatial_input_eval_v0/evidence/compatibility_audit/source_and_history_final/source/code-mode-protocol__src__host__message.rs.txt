@@ -1,0 +1,121 @@
+code-mode-protocol/src/host/message.rs:125:     }
+code-mode-protocol/src/host/message.rs:126: }
+code-mode-protocol/src/host/message.rs:127:
+code-mode-protocol/src/host/message.rs:128: /// Messages sent from a client to the code-mode host.
+code-mode-protocol/src/host/message.rs:129: #[derive(Debug, Deserialize, PartialEq, Serialize)]
+code-mode-protocol/src/host/message.rs:130: #[serde(deny_unknown_fields, tag = "type", rename_all_fields = "camelCase")]
+code-mode-protocol/src/host/message.rs:131: pub enum ClientToHost {
+code-mode-protocol/src/host/message.rs:132:     #[serde(rename = "connection/hello")]
+code-mode-protocol/src/host/message.rs:133:     ClientHello(ClientHello),
+code-mode-protocol/src/host/message.rs:134:     #[serde(rename = "operation/request")]
+code-mode-protocol/src/host/message.rs:135:     Request { id: RequestId, request: HostRequest },
+code-mode-protocol/src/host/message.rs:136:     #[serde(rename = "operation/cancel")]
+code-mode-protocol/src/host/message.rs:137:     CancelRequest { id: RequestId },
+code-mode-protocol/src/host/message.rs:138:     /// Yield the active observation without cancelling its cell.
+code-mode-protocol/src/host/message.rs:139:     #[serde(rename = "operation/yield")]
+code-mode-protocol/src/host/message.rs:140:     YieldRequest { id: RequestId },
+code-mode-protocol/src/host/message.rs:141:     #[serde(rename = "delegate/response")]
+code-mode-protocol/src/host/message.rs:142:     DelegateResponse {
+code-mode-protocol/src/host/message.rs:143:         id: DelegateRequestId,
+code-mode-protocol/src/host/message.rs:144:         result: WireResult<DelegateResponse>,
+code-mode-protocol/src/host/message.rs:145:     },
+code-mode-protocol/src/host/message.rs:146: }
+code-mode-protocol/src/host/message.rs:147:
+code-mode-protocol/src/host/message.rs:148: /// Messages sent from the code-mode host to a client.
+code-mode-protocol/src/host/message.rs:149: #[derive(Debug, Deserialize, PartialEq, Serialize)]
+code-mode-protocol/src/host/message.rs:150: #[serde(deny_unknown_fields, tag = "type", rename_all_fields = "camelCase")]
+code-mode-protocol/src/host/message.rs:151: pub enum HostToClient {
+code-mode-protocol/src/host/message.rs:152:     #[serde(rename = "connection/ready")]
+code-mode-protocol/src/host/message.rs:153:     HostHello(HostHello),
+code-mode-protocol/src/host/message.rs:154:     #[serde(rename = "connection/rejected")]
+code-mode-protocol/src/host/message.rs:155:     HandshakeRejected { reason: HandshakeRejectReason },
+code-mode-protocol/src/host/message.rs:156:     #[serde(rename = "operation/response")]
+code-mode-protocol/src/host/message.rs:157:     Response {
+code-mode-protocol/src/host/message.rs:158:         id: RequestId,
+code-mode-protocol/src/host/message.rs:159:         result: WireResult<HostResponse>,
+code-mode-protocol/src/host/message.rs:160:     },
+code-mode-protocol/src/host/message.rs:161:     #[serde(rename = "execute/initialResponse")]
+code-mode-protocol/src/host/message.rs:162:     InitialResponse {
+code-mode-protocol/src/host/message.rs:163:         id: RequestId,
+code-mode-protocol/src/host/message.rs:164:         result: WireResult<WireRuntimeResponse>,
+code-mode-protocol/src/host/message.rs:165:     },
+code-mode-protocol/src/host/message.rs:166:     #[serde(rename = "delegate/request")]
+code-mode-protocol/src/host/message.rs:167:     DelegateRequest {
+code-mode-protocol/src/host/message.rs:168:         id: DelegateRequestId,
+code-mode-protocol/src/host/message.rs:169:         session_id: SessionId,
+code-mode-protocol/src/host/message.rs:170:         request: DelegateRequest,
+code-mode-protocol/src/host/message.rs:171:     },
+code-mode-protocol/src/host/message.rs:172:     #[serde(rename = "delegate/cancel")]
+code-mode-protocol/src/host/message.rs:173:     CancelDelegateRequest { id: DelegateRequestId },
+code-mode-protocol/src/host/message.rs:174:     #[serde(rename = "cell/closed")]
+code-mode-protocol/src/host/message.rs:175:     CellClosed {
+code-mode-protocol/src/host/message.rs:176:         session_id: SessionId,
+code-mode-protocol/src/host/message.rs:177:         cell_id: WireCellId,
+code-mode-protocol/src/host/message.rs:178:     },
+code-mode-protocol/src/host/message.rs:179: }
+code-mode-protocol/src/host/message.rs:180:
+code-mode-protocol/src/host/message.rs:181: #[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
+code-mode-protocol/src/host/message.rs:182: #[serde(deny_unknown_fields, tag = "method", rename_all_fields = "camelCase")]
+code-mode-protocol/src/host/message.rs:183: pub enum HostRequest {
+code-mode-protocol/src/host/message.rs:184:     #[serde(rename = "session/open")]
+code-mode-protocol/src/host/message.rs:185:     OpenSession {
+code-mode-protocol/src/host/message.rs:186:         session_id: SessionId,
+code-mode-protocol/src/host/message.rs:187:         #[serde(default, skip_serializing_if = "Option::is_none")]
+code-mode-protocol/src/host/message.rs:188:         cell_execution_limits: Option<WireSessionCellExecutionLimits>,
+code-mode-protocol/src/host/message.rs:189:     },
+code-mode-protocol/src/host/message.rs:190:     #[serde(rename = "session/execute")]
+code-mode-protocol/src/host/message.rs:191:     Execute {
+code-mode-protocol/src/host/message.rs:192:         session_id: SessionId,
+code-mode-protocol/src/host/message.rs:193:         request: WireExecuteRequest,
+code-mode-protocol/src/host/message.rs:194:     },
+code-mode-protocol/src/host/message.rs:195:     #[serde(rename = "session/wait")]
+code-mode-protocol/src/host/message.rs:196:     Wait {
+code-mode-protocol/src/host/message.rs:197:         session_id: SessionId,
+code-mode-protocol/src/host/message.rs:198:         request: WireWaitRequest,
+code-mode-protocol/src/host/message.rs:199:     },
+code-mode-protocol/src/host/message.rs:200:     #[serde(rename = "session/terminate")]
+code-mode-protocol/src/host/message.rs:201:     Terminate {
+code-mode-protocol/src/host/message.rs:202:         session_id: SessionId,
+code-mode-protocol/src/host/message.rs:203:         cell_id: WireCellId,
+code-mode-protocol/src/host/message.rs:204:     },
+code-mode-protocol/src/host/message.rs:205:     #[serde(rename = "session/shutdown")]
+code-mode-protocol/src/host/message.rs:206:     ShutdownSession { session_id: SessionId },
+code-mode-protocol/src/host/message.rs:207: }
+code-mode-protocol/src/host/message.rs:208:
+code-mode-protocol/src/host/message.rs:209: #[derive(Debug, Deserialize, PartialEq, Serialize)]
+code-mode-protocol/src/host/message.rs:210: #[serde(deny_unknown_fields, tag = "type", rename_all_fields = "camelCase")]
+code-mode-protocol/src/host/message.rs:211: pub enum HostResponse {
+code-mode-protocol/src/host/message.rs:212:     #[serde(rename = "session/ready")]
+code-mode-protocol/src/host/message.rs:213:     SessionReady { session_id: SessionId },
+code-mode-protocol/src/host/message.rs:214:     #[serde(rename = "execution/started")]
+code-mode-protocol/src/host/message.rs:215:     ExecutionStarted { cell_id: WireCellId },
+code-mode-protocol/src/host/message.rs:216:     #[serde(rename = "wait/completed")]
+code-mode-protocol/src/host/message.rs:217:     WaitCompleted { outcome: WireWaitOutcome },
+code-mode-protocol/src/host/message.rs:218:     #[serde(rename = "session/closed")]
+code-mode-protocol/src/host/message.rs:219:     SessionClosed { session_id: SessionId },
+code-mode-protocol/src/host/message.rs:220: }
+code-mode-protocol/src/host/message.rs:221:
+code-mode-protocol/src/host/message.rs:222: #[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
+code-mode-protocol/src/host/message.rs:223: #[serde(deny_unknown_fields, tag = "type", rename_all_fields = "camelCase")]
+code-mode-protocol/src/host/message.rs:224: pub enum DelegateRequest {
+code-mode-protocol/src/host/message.rs:225:     #[serde(rename = "tool/invoke")]
+code-mode-protocol/src/host/message.rs:226:     InvokeTool { invocation: WireNestedToolCall },
+code-mode-protocol/src/host/message.rs:227:     #[serde(rename = "notification/send")]
+code-mode-protocol/src/host/message.rs:228:     Notify {
+code-mode-protocol/src/host/message.rs:229:         call_id: String,
+code-mode-protocol/src/host/message.rs:230:         cell_id: WireCellId,
+code-mode-protocol/src/host/message.rs:231:         text: String,
+code-mode-protocol/src/host/message.rs:232:     },
+code-mode-protocol/src/host/message.rs:233: }
+code-mode-protocol/src/host/message.rs:234:
+code-mode-protocol/src/host/message.rs:235: #[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
+code-mode-protocol/src/host/message.rs:236: #[serde(deny_unknown_fields, tag = "type", rename_all_fields = "camelCase")]
+code-mode-protocol/src/host/message.rs:237: pub enum DelegateResponse {
+code-mode-protocol/src/host/message.rs:238:     #[serde(rename = "tool/result")]
+code-mode-protocol/src/host/message.rs:239:     ToolResult { result: JsonValue },
+code-mode-protocol/src/host/message.rs:240:     #[serde(rename = "notification/delivered")]
+code-mode-protocol/src/host/message.rs:241:     NotificationDelivered,
+code-mode-protocol/src/host/message.rs:242: }
+code-mode-protocol/src/host/message.rs:243:
+code-mode-protocol/src/host/message.rs:244: #[derive(Debug, Deserialize, PartialEq, Serialize)]
+code-mode-protocol/src/host/message.rs:245: #[serde(deny_unknown_fields, tag = "status", rename_all_fields = "camelCase")]

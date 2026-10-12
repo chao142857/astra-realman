@@ -1,0 +1,266 @@
+{
+  "instruction": "Return exactly one JSON object matching output_schema. This is offline geometry evaluation. Use only observations, optional geometry and task. No tools or execution. All positions are object centers in robot_base, meters; orientations are unit quaternions wxyz. For understanding return each question_id once, populating only the relevant answer field: relation=less/equal/greater along the specified positive axis, scalar_m=height/gap, vector_m=position/size, fits=fit; all other fields null. For placement waypoints_m must be empty. For path, waypoints_m excludes start, includes the final position_m, and orientation is fixed throughout translation. Choose any constraint-valid solution.",
+  "coordinate_system": {
+    "id": "robot_base",
+    "units": "m",
+    "axes": "+x forward, +y left, +z up; right-handed",
+    "pose": "object center xyz in meters; unit quaternion wxyz, object local axes in robot_base"
+  },
+  "task": {
+    "task_id": "understand",
+    "kind": "understanding",
+    "frame": "robot_base",
+    "tolerance_m": 0.005,
+    "instruction": "The red object is target_cube; the blue object is blue_distractor. Answer the specified positive-base-axis relations, center, top height, size, gap and oriented fit. Container interior center [0.6200000047683716, 0.18000000715255737, 0.1000000024214387] m, size [0.18000004813075066, 0.1600000075995922, 0.18000000528991222] m.",
+    "questions": [
+      {
+        "question_id": "relative_x",
+        "type": "relation",
+        "object_id": "target_cube",
+        "other_id": "blue_distractor",
+        "axis": "x"
+      },
+      {
+        "question_id": "position",
+        "type": "position",
+        "object_id": "target_cube"
+      },
+      {
+        "question_id": "top_height",
+        "type": "height",
+        "object_id": "target_cube",
+        "reference": "top"
+      },
+      {
+        "question_id": "size",
+        "type": "size",
+        "object_id": "target_cube"
+      },
+      {
+        "question_id": "gap_x",
+        "type": "gap",
+        "object_id": "target_cube",
+        "other_id": "blue_distractor",
+        "axis": "x"
+      },
+      {
+        "question_id": "fits",
+        "type": "fit",
+        "object_id": "target_cube",
+        "region_id": "container_interior",
+        "quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "constraints": {}
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "answers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "question_id": {
+              "type": "string"
+            },
+            "relation": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "scalar_m": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "vector_m": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "fits": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "question_id",
+            "relation",
+            "scalar_m",
+            "vector_m",
+            "fits"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "answers"
+    ],
+    "additionalProperties": false
+  },
+  "attachments": [
+    {
+      "camera_id": "view_0",
+      "file": "image-0.png",
+      "sha256": "23a5440a98a2d57ef9ae2650850c43f5ff494ae8019ebaec3c6b09484de1264e"
+    },
+    {
+      "camera_id": "view_1",
+      "file": "image-1.png",
+      "sha256": "d85fbc412c9a993756b8d02e9c9fd6cc3e3465746b365f0f638087f565046ced"
+    },
+    {
+      "camera_id": "view_2",
+      "file": "image-2.png",
+      "sha256": "dcb9acaf244ea1f65c192abb423a4291eff825c6a66c1b0a72c776cc2f290a02"
+    }
+  ],
+  "observations": {
+    "calibration": {
+      "view_0": {
+        "intrinsic": [
+          [
+            415.6921691894531,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            415.6921691894531,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.15000000596046448,
+          -0.8500000238418579,
+          0.6499999761581421,
+          0.7681894898414612,
+          -0.16892294585704803,
+          0.22576101124286652,
+          0.5747885704040527
+        ],
+        "axes": "SAPIEN camera pose: +X forward, +Y left, +Z up; RGB/depth optical axes +X right,+Y down,+Z forward"
+      },
+      "view_1": {
+        "intrinsic": [
+          [
+            415.6921691894531,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            415.6921691894531,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.8500000238418579,
+          0.6499999761581421,
+          0.6499999761581421,
+          0.4416517913341522,
+          0.2721881866455078,
+          0.14261379837989807,
+          -0.8429226279258728
+        ],
+        "axes": "SAPIEN camera pose: +X forward, +Y left, +Z up; RGB/depth optical axes +X right,+Y down,+Z forward"
+      },
+      "view_2": {
+        "intrinsic": [
+          [
+            415.6921691894531,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            415.6921691894531,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.41999998688697815,
+          0.0,
+          1.0499999523162842,
+          0.0,
+          -0.6997806429862976,
+          0.0,
+          0.7143577933311462
+        ],
+        "axes": "SAPIEN camera pose: +X forward, +Y left, +Z up; RGB/depth optical axes +X right,+Y down,+Z forward"
+      }
+    },
+    "robot_state": {
+      "joint_names": [],
+      "qpos_rad": [],
+      "flange_pose_base_xyz_wxyz": null
+    },
+    "synchronization": {
+      "simulation_step": 0,
+      "capture_span_s": 0.21331115497741848,
+      "timestamp_semantics": "same static scene; sequential renderer acquisition; no physics step",
+      "same_step": true
+    }
+  },
+  "geometry": null
+}

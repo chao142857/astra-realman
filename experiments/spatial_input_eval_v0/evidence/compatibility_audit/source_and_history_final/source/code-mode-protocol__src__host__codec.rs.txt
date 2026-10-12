@@ -1,0 +1,145 @@
+code-mode-protocol/src/host/codec.rs:1: use std::io;
+code-mode-protocol/src/host/codec.rs:2: use std::mem::size_of;
+code-mode-protocol/src/host/codec.rs:3:
+code-mode-protocol/src/host/codec.rs:4: use serde::Serialize;
+code-mode-protocol/src/host/codec.rs:5: use serde::de::DeserializeOwned;
+code-mode-protocol/src/host/codec.rs:6: use tokio::io::AsyncRead;
+code-mode-protocol/src/host/codec.rs:7: use tokio::io::AsyncReadExt;
+code-mode-protocol/src/host/codec.rs:8: use tokio::io::AsyncWrite;
+code-mode-protocol/src/host/codec.rs:9: use tokio::io::AsyncWriteExt;
+code-mode-protocol/src/host/codec.rs:10:
+code-mode-protocol/src/host/codec.rs:11: /// Maximum JSON payload size accepted for one code-mode host frame.
+code-mode-protocol/src/host/codec.rs:12: pub const MAX_FRAME_BYTES: usize = 64 * 1024 * 1024;
+code-mode-protocol/src/host/codec.rs:13:
+code-mode-protocol/src/host/codec.rs:14: /// A serialized IPC frame that has already passed the payload size limit.
+code-mode-protocol/src/host/codec.rs:15: #[derive(Clone, Debug)]
+code-mode-protocol/src/host/codec.rs:16: pub struct EncodedFrame {
+code-mode-protocol/src/host/codec.rs:17:     payload: Vec<u8>,
+code-mode-protocol/src/host/codec.rs:18: }
+code-mode-protocol/src/host/codec.rs:19:
+code-mode-protocol/src/host/codec.rs:20: impl EncodedFrame {
+code-mode-protocol/src/host/codec.rs:21:     pub fn encode<T>(message: &T) -> io::Result<Self>
+code-mode-protocol/src/host/codec.rs:22:     where
+code-mode-protocol/src/host/codec.rs:23:         T: Serialize,
+code-mode-protocol/src/host/codec.rs:24:     {
+code-mode-protocol/src/host/codec.rs:25:         let payload = serde_json::to_vec(message).map_err(|err| {
+code-mode-protocol/src/host/codec.rs:26:             io::Error::new(
+code-mode-protocol/src/host/codec.rs:27:                 io::ErrorKind::InvalidData,
+code-mode-protocol/src/host/codec.rs:28:                 format!("failed to encode code-mode IPC frame: {err}"),
+code-mode-protocol/src/host/codec.rs:29:             )
+code-mode-protocol/src/host/codec.rs:30:         })?;
+code-mode-protocol/src/host/codec.rs:31:         if payload.len() > MAX_FRAME_BYTES {
+code-mode-protocol/src/host/codec.rs:32:             return Err(io::Error::new(
+code-mode-protocol/src/host/codec.rs:33:                 io::ErrorKind::InvalidData,
+code-mode-protocol/src/host/codec.rs:34:                 format!(
+code-mode-protocol/src/host/codec.rs:35:                     "code-mode IPC frame length {} exceeds {MAX_FRAME_BYTES} bytes",
+code-mode-protocol/src/host/codec.rs:36:                     payload.len()
+code-mode-protocol/src/host/codec.rs:37:                 ),
+code-mode-protocol/src/host/codec.rs:38:             ));
+code-mode-protocol/src/host/codec.rs:39:         }
+code-mode-protocol/src/host/codec.rs:40:         Ok(Self { payload })
+code-mode-protocol/src/host/codec.rs:41:     }
+code-mode-protocol/src/host/codec.rs:42:
+code-mode-protocol/src/host/codec.rs:43:     /// Returns the complete length-prefixed representation of this frame.
+code-mode-protocol/src/host/codec.rs:44:     pub fn into_framed_bytes(self) -> Vec<u8> {
+code-mode-protocol/src/host/codec.rs:45:         let mut bytes = Vec::with_capacity(size_of::<u32>() + self.payload.len());
+code-mode-protocol/src/host/codec.rs:46:         bytes.extend_from_slice(&(self.payload.len() as u32).to_le_bytes());
+code-mode-protocol/src/host/codec.rs:47:         bytes.extend_from_slice(&self.payload);
+code-mode-protocol/src/host/codec.rs:48:         bytes
+code-mode-protocol/src/host/codec.rs:49:     }
+code-mode-protocol/src/host/codec.rs:50:
+code-mode-protocol/src/host/codec.rs:51:     /// Decodes exactly one complete length-prefixed frame.
+code-mode-protocol/src/host/codec.rs:52:     pub fn decode_framed<T>(bytes: &[u8]) -> io::Result<T>
+code-mode-protocol/src/host/codec.rs:53:     where
+code-mode-protocol/src/host/codec.rs:54:         T: DeserializeOwned,
+code-mode-protocol/src/host/codec.rs:55:     {
+code-mode-protocol/src/host/codec.rs:56:         let length_bytes: [u8; size_of::<u32>()] = bytes
+code-mode-protocol/src/host/codec.rs:57:             .get(..size_of::<u32>())
+code-mode-protocol/src/host/codec.rs:58:             .and_then(|length_bytes| length_bytes.try_into().ok())
+code-mode-protocol/src/host/codec.rs:59:             .ok_or_else(|| {
+code-mode-protocol/src/host/codec.rs:60:                 io::Error::new(
+code-mode-protocol/src/host/codec.rs:61:                     io::ErrorKind::InvalidData,
+code-mode-protocol/src/host/codec.rs:62:                     "code-mode IPC frame is missing its length prefix",
+code-mode-protocol/src/host/codec.rs:63:                 )
+code-mode-protocol/src/host/codec.rs:64:             })?;
+code-mode-protocol/src/host/codec.rs:65:         let length = u32::from_le_bytes(length_bytes) as usize;
+code-mode-protocol/src/host/codec.rs:66:         if length > MAX_FRAME_BYTES {
+code-mode-protocol/src/host/codec.rs:67:             return Err(io::Error::new(
+code-mode-protocol/src/host/codec.rs:68:                 io::ErrorKind::InvalidData,
+code-mode-protocol/src/host/codec.rs:69:                 format!("code-mode IPC frame length {length} exceeds {MAX_FRAME_BYTES} bytes"),
+code-mode-protocol/src/host/codec.rs:70:             ));
+code-mode-protocol/src/host/codec.rs:71:         }
+code-mode-protocol/src/host/codec.rs:72:
+code-mode-protocol/src/host/codec.rs:73:         let payload = &bytes[size_of::<u32>()..];
+code-mode-protocol/src/host/codec.rs:74:         if payload.len() != length {
+code-mode-protocol/src/host/codec.rs:75:             return Err(io::Error::new(
+code-mode-protocol/src/host/codec.rs:76:                 io::ErrorKind::InvalidData,
+code-mode-protocol/src/host/codec.rs:77:                 format!(
+code-mode-protocol/src/host/codec.rs:78:                     "code-mode IPC frame declares {length} payload bytes but contains {}",
+code-mode-protocol/src/host/codec.rs:79:                     payload.len()
+code-mode-protocol/src/host/codec.rs:80:                 ),
+code-mode-protocol/src/host/codec.rs:81:             ));
+code-mode-protocol/src/host/codec.rs:82:         }
+code-mode-protocol/src/host/codec.rs:83:
+code-mode-protocol/src/host/codec.rs:84:         serde_json::from_slice(payload).map_err(|err| {
+code-mode-protocol/src/host/codec.rs:85:             io::Error::new(
+code-mode-protocol/src/host/codec.rs:86:                 io::ErrorKind::InvalidData,
+code-mode-protocol/src/host/codec.rs:87:                 format!("failed to decode code-mode IPC frame: {err}"),
+code-mode-protocol/src/host/codec.rs:88:             )
+code-mode-protocol/src/host/codec.rs:89:         })
+code-mode-protocol/src/host/codec.rs:90:     }
+code-mode-protocol/src/host/codec.rs:91: }
+code-mode-protocol/src/host/codec.rs:92:
+code-mode-protocol/src/host/codec.rs:93: /// Decodes JSON messages prefixed by a four-byte little-endian payload length.
+code-mode-protocol/src/host/codec.rs:94: pub struct FramedReader<R> {
+code-mode-protocol/src/host/codec.rs:95:     reader: R,
+code-mode-protocol/src/host/codec.rs:96: }
+code-mode-protocol/src/host/codec.rs:97:
+code-mode-protocol/src/host/codec.rs:98: impl<R> FramedReader<R>
+code-mode-protocol/src/host/codec.rs:99: where
+code-mode-protocol/src/host/codec.rs:100:     R: AsyncRead + Unpin,
+code-mode-protocol/src/host/codec.rs:101: {
+code-mode-protocol/src/host/codec.rs:102:     pub fn new(reader: R) -> Self {
+code-mode-protocol/src/host/codec.rs:103:         Self { reader }
+code-mode-protocol/src/host/codec.rs:104:     }
+code-mode-protocol/src/host/codec.rs:105:
+code-mode-protocol/src/host/codec.rs:106:     /// Reads the next frame, returning `None` only for EOF at a frame boundary.
+code-mode-protocol/src/host/codec.rs:107:     pub async fn read<T>(&mut self) -> io::Result<Option<T>>
+code-mode-protocol/src/host/codec.rs:108:     where
+code-mode-protocol/src/host/codec.rs:109:         T: DeserializeOwned,
+code-mode-protocol/src/host/codec.rs:110:     {
+code-mode-protocol/src/host/codec.rs:111:         let mut length_bytes = [0_u8; size_of::<u32>()];
+code-mode-protocol/src/host/codec.rs:112:         if self.reader.read(&mut length_bytes[..1]).await? == 0 {
+code-mode-protocol/src/host/codec.rs:113:             return Ok(None);
+code-mode-protocol/src/host/codec.rs:114:         }
+code-mode-protocol/src/host/codec.rs:115:         self.reader.read_exact(&mut length_bytes[1..]).await?;
+code-mode-protocol/src/host/codec.rs:116:
+code-mode-protocol/src/host/codec.rs:117:         let length = u32::from_le_bytes(length_bytes) as usize;
+code-mode-protocol/src/host/codec.rs:118:         if length > MAX_FRAME_BYTES {
+code-mode-protocol/src/host/codec.rs:119:             return Err(io::Error::new(
+code-mode-protocol/src/host/codec.rs:120:                 io::ErrorKind::InvalidData,
+code-mode-protocol/src/host/codec.rs:121:                 format!("code-mode IPC frame length {length} exceeds {MAX_FRAME_BYTES} bytes"),
+code-mode-protocol/src/host/codec.rs:122:             ));
+code-mode-protocol/src/host/codec.rs:123:         }
+code-mode-protocol/src/host/codec.rs:124:
+code-mode-protocol/src/host/codec.rs:125:         let mut payload = vec![0; length];
+code-mode-protocol/src/host/codec.rs:126:         self.reader.read_exact(&mut payload).await?;
+code-mode-protocol/src/host/codec.rs:127:         serde_json::from_slice(&payload).map(Some).map_err(|err| {
+code-mode-protocol/src/host/codec.rs:128:             io::Error::new(
+code-mode-protocol/src/host/codec.rs:129:                 io::ErrorKind::InvalidData,
+code-mode-protocol/src/host/codec.rs:130:                 format!("failed to decode code-mode IPC frame: {err}"),
+code-mode-protocol/src/host/codec.rs:131:             )
+code-mode-protocol/src/host/codec.rs:132:         })
+code-mode-protocol/src/host/codec.rs:133:     }
+code-mode-protocol/src/host/codec.rs:134: }
+code-mode-protocol/src/host/codec.rs:135:
+code-mode-protocol/src/host/codec.rs:136: /// Encodes JSON messages with a four-byte little-endian payload length.
+code-mode-protocol/src/host/codec.rs:137: pub struct FramedWriter<W> {
+code-mode-protocol/src/host/codec.rs:138:     writer: W,
+code-mode-protocol/src/host/codec.rs:139: }
+code-mode-protocol/src/host/codec.rs:140:
+code-mode-protocol/src/host/codec.rs:141: impl<W> FramedWriter<W>
+code-mode-protocol/src/host/codec.rs:142: where
+code-mode-protocol/src/host/codec.rs:143:     W: AsyncWrite + Unpin,
+code-mode-protocol/src/host/codec.rs:144: {
+code-mode-protocol/src/host/codec.rs:145:     pub fn new(writer: W) -> Self {

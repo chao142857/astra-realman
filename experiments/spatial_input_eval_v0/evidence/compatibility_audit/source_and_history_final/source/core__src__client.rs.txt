@@ -1,0 +1,368 @@
+core/src/client.rs:1: //! Session- and turn-scoped helpers for talking to model provider APIs.
+core/src/client.rs:2: //!
+core/src/client.rs:3: //! `ModelClient` is intended to live for the lifetime of a Codex session and holds the stable
+core/src/client.rs:4: //! configuration and state needed to talk to a provider (auth, provider selection, conversation id,
+core/src/client.rs:5: //! and transport fallback state).
+core/src/client.rs:6: //!
+core/src/client.rs:7: //! Per-turn settings (model selection, reasoning controls, telemetry context, and turn metadata)
+core/src/client.rs:8: //! are passed explicitly to streaming and unary methods so that the turn lifetime is visible at the
+core/src/client.rs:9: //! call site.
+core/src/client.rs:10: //!
+core/src/client.rs:11: //! A [`ModelClientSession`] is created per turn and is used to stream one or more Responses API
+core/src/client.rs:12: //! requests during that turn. It caches a Responses WebSocket connection (opened lazily) and stores
+core/src/client.rs:13: //! per-turn state such as the `x-codex-turn-state` token used for sticky routing.
+core/src/client.rs:14: //! Cached connections, incremental response state, and turn routing are discarded when auth
+core/src/client.rs:15: //! ownership changes.
+core/src/client.rs:16: //!
+core/src/client.rs:17: //! WebSocket prewarm is a v2-only `response.create` with `generate=false`; it waits for completion
+core/src/client.rs:18: //! so the next request can reuse the same connection and `previous_response_id`.
+core/src/client.rs:19: //!
+core/src/client.rs:20: //! Turn execution performs prewarm as a best-effort step before the first stream request so the
+core/src/client.rs:21: //! subsequent request can reuse the same connection.
+core/src/client.rs:22: //!
+core/src/client.rs:23: //! ## Retry-Budget Tradeoff
+core/src/client.rs:24: //!
+core/src/client.rs:25: //! WebSocket prewarm is treated as the first websocket connection attempt for a turn. If it
+core/src/client.rs:26: //! fails, normal stream retry/fallback logic handles recovery on the same turn.
+core/src/client.rs:27:
+core/src/client.rs:28: use std::collections::HashMap;
+core/src/client.rs:29: use std::sync::Arc;
+core/src/client.rs:30: use std::sync::Mutex as StdMutex;
+core/src/client.rs:31: use std::sync::OnceLock;
+core/src/client.rs:32: use std::sync::atomic::AtomicBool;
+core/src/client.rs:33: use std::sync::atomic::Ordering;
+core/src/client.rs:34:
+core/src/client.rs:35: #[path = "client_tool_metadata.rs"]
+core/src/client.rs:36: mod tool_metadata;
+core/src/client.rs:870:         &self,
+core/src/client.rs:871:         model_info: &ModelInfo,
+core/src/client.rs:872:         effort: Option<ReasoningEffortConfig>,
+core/src/client.rs:873:         summary: ReasoningSummaryConfig,
+core/src/client.rs:874:     ) -> Reasoning {
+core/src/client.rs:875:         Reasoning {
+core/src/client.rs:876:             effort: effort
+core/src/client.rs:877:                 .or_else(|| model_info.default_reasoning_level.clone())
+core/src/client.rs:878:                 .map(|effort| model_info.resolve_reasoning_effort(effort)),
+core/src/client.rs:879:             summary: (model_info.supports_reasoning_summary_parameter
+core/src/client.rs:880:                 && summary != ReasoningSummaryConfig::None)
+core/src/client.rs:881:                 .then_some(summary),
+core/src/client.rs:882:             // When Responses Lite is disabled, omit context so Responses uses the default,
+core/src/client.rs:883:             // which is currently `current_turn`.
+core/src/client.rs:884:             context: model_info
+core/src/client.rs:885:                 .use_responses_lite
+core/src/client.rs:886:                 .then_some(ReasoningContext::AllTurns),
+core/src/client.rs:887:         }
+core/src/client.rs:888:     }
+core/src/client.rs:889:
+core/src/client.rs:890:     #[allow(clippy::too_many_arguments)]
+core/src/client.rs:891:     pub(crate) fn build_responses_request(
+core/src/client.rs:892:         &self,
+core/src/client.rs:893:         prompt: &Prompt,
+core/src/client.rs:894:         model_info: &ModelInfo,
+core/src/client.rs:895:         effort: Option<ReasoningEffortConfig>,
+core/src/client.rs:896:         summary: ReasoningSummaryConfig,
+core/src/client.rs:897:         service_tier: Option<String>,
+core/src/client.rs:898:         responses_metadata: &CodexResponsesMetadata,
+core/src/client.rs:899:         include_internal: bool,
+core/src/client.rs:900:     ) -> Result<ResponsesApiRequest> {
+core/src/client.rs:901:         let mut input = prompt.get_formatted_input_for_request(model_info);
+core/src/client.rs:902:         if !self.reasoning_effort_override_enabled(model_info) {
+core/src/client.rs:903:             // Unsupported models and disabled overrides must also accept saved history.
+core/src/client.rs:904:             // Filter only the request copy; persisted history remains unchanged.
+core/src/client.rs:905:             input.retain(|item| !matches!(item, ResponseItem::ConfigurationUpdate { .. }));
+core/src/client.rs:906:         }
+core/src/client.rs:907:         let is_openai = self.state.provider.info().is_openai();
+core/src/client.rs:908:         // These prompt-only items are rebuilt on every request. Hash their visible payloads
+core/src/client.rs:909:         // within the thread so retries and resumed sessions preserve their identity.
+core/src/client.rs:910:         let prefix_namespace = Uuid::new_v5(
+core/src/client.rs:911:             &Uuid::NAMESPACE_OID,
+core/src/client.rs:912:             self.state.thread_id.to_string().as_bytes(),
+core/src/client.rs:913:         );
+core/src/client.rs:914:         let mut prefix = Vec::new();
+core/src/client.rs:915:         let tools = if model_info.use_responses_lite {
+core/src/client.rs:916:             if !prompt.tools.is_empty() {
+core/src/client.rs:917:                 let tools = create_tools_json_for_responses_lite(&prompt.tools)?;
+core/src/client.rs:918:                 prefix.push(ResponseItem::AdditionalTools {
+core/src/client.rs:919:                     id: Some(ResponseItemId::with_suffix(
+core/src/client.rs:920:                         "at",
+core/src/client.rs:921:                         Uuid::new_v5(&prefix_namespace, &serde_json::to_vec(&tools)?),
+core/src/client.rs:922:                     )),
+core/src/client.rs:923:                     role: "developer".to_string(),
+core/src/client.rs:924:                     tools,
+core/src/client.rs:925:                 });
+core/src/client.rs:926:             }
+core/src/client.rs:927:             None
+core/src/client.rs:928:         } else {
+core/src/client.rs:929:             Some(create_tools_raw_json_for_responses_api(&prompt.tools)?.into())
+core/src/client.rs:930:         };
+core/src/client.rs:931:         if !prompt.base_instructions.text.is_empty() {
+core/src/client.rs:932:             let mut instructions = ContextualUserFragment::into(BaseInstructionsFragment(
+core/src/client.rs:933:                 prompt.base_instructions.text.clone(),
+core/src/client.rs:934:             ));
+core/src/client.rs:935:             instructions.set_id(Some(ResponseItemId::with_suffix(
+core/src/client.rs:936:                 "msg",
+core/src/client.rs:937:                 Uuid::new_v5(&prefix_namespace, prompt.base_instructions.text.as_bytes()),
+core/src/client.rs:938:             )));
+core/src/client.rs:939:             prefix.push(instructions);
+core/src/client.rs:940:         }
+core/src/client.rs:941:         input.splice(0..0, prefix);
+core/src/client.rs:942:         if !is_openai {
+core/src/client.rs:943:             for item in &mut input {
+core/src/client.rs:944:                 item.clear_internal_chat_message_metadata_passthrough();
+core/src/client.rs:945:                 if let ResponseItem::FunctionCall {
+core/src/client.rs:946:                     encrypted_function_args,
+core/src/client.rs:947:                     ..
+core/src/client.rs:948:                 } = item
+core/src/client.rs:949:                 {
+core/src/client.rs:950:                     *encrypted_function_args = None;
+core/src/client.rs:1030:     pub fn responses_websocket_enabled(&self) -> bool {
+core/src/client.rs:1031:         if !self.state.provider.info().supports_websockets
+core/src/client.rs:1032:             || self.state.disable_websockets.load(Ordering::Relaxed)
+core/src/client.rs:1033:         {
+core/src/client.rs:1034:             return false;
+core/src/client.rs:1035:         }
+core/src/client.rs:1036:
+core/src/client.rs:1037:         true
+core/src/client.rs:1038:     }
+core/src/client.rs:1039:
+core/src/client.rs:1040:     /// Returns auth + provider configuration resolved from the current session auth state.
+core/src/client.rs:1041:     ///
+core/src/client.rs:1042:     /// This centralizes setup used by both prewarm and normal request paths so they stay in
+core/src/client.rs:1043:     /// lockstep when auth/provider resolution changes.
+core/src/client.rs:1044:     async fn current_client_setup(&self, routing: ClientRouting) -> Result<CurrentClientSetup> {
+core/src/client.rs:1045:         // Capture before resolving credentials so an account switch during setup cannot label
+core/src/client.rs:1046:         // an old connection with the new owner's revision.
+core/src/client.rs:1047:         let auth_owner_generation = self.auth_owner_generation();
+core/src/client.rs:1048:         let auth_changes = self
+core/src/client.rs:1049:             .state
+core/src/client.rs:1050:             .provider
+core/src/client.rs:1051:             .auth_manager()
+core/src/client.rs:1052:             .map(|manager| manager.auth_change_receiver());
+core/src/client.rs:1053:         loop {
+core/src/client.rs:1054:             let revision = auth_changes.as_ref().map(|changes| *changes.borrow());
+core/src/client.rs:1055:             let auth = self.state.provider.auth().await;
+core/src/client.rs:1056:             let (api_provider, redirect_policy) = match routing {
+core/src/client.rs:1057:                 ClientRouting::Workspace => {
+core/src/client.rs:1058:                     let resolved = self
+core/src/client.rs:1059:                         .state
+core/src/client.rs:1060:                         .provider
+core/src/client.rs:1061:                         .responses_api_provider(&self.state.workspace_routing)
+core/src/client.rs:1062:                         .await?;
+core/src/client.rs:1063:                     (resolved.provider, resolved.redirect_policy)
+core/src/client.rs:1064:                 }
+core/src/client.rs:1065:                 ClientRouting::ConfiguredProvider => (
+core/src/client.rs:1066:                     self.state.provider.api_provider().await?,
+core/src/client.rs:1067:                     ClientRedirectPolicy::Default,
+core/src/client.rs:1068:                 ),
+core/src/client.rs:1069:             };
+core/src/client.rs:1070:             let resolved_auth = self
+core/src/client.rs:1071:                 .state
+core/src/client.rs:1072:                 .provider
+core/src/client.rs:1073:                 .api_auth_for_scope(ProviderAuthScope {
+core/src/client.rs:1074:                     agent_identity_policy: self.agent_identity_policy,
+core/src/client.rs:1075:                     session_source: self.state.session_source.clone(),
+core/src/client.rs:1076:                     agent_identity_session_fallback: self
+core/src/client.rs:1077:                         .state
+core/src/client.rs:1078:                         .agent_identity_session_fallback
+core/src/client.rs:1079:                         .clone(),
+core/src/client.rs:1080:                 })
+core/src/client.rs:1081:                 .await?;
+core/src/client.rs:1082:             // Command-backed bearer refreshes cannot change workspace routing. Keep the captured
+core/src/client.rs:1083:             // revisions so a refresh during setup still invalidates cached WebSocket state.
+core/src/client.rs:1084:             if self.state.provider.info().auth.is_none() {
+core/src/client.rs:1085:                 if self.auth_owner_generation() != auth_owner_generation {
+core/src/client.rs:1880:             let include_internal = self
+core/src/client.rs:1881:                 .client
+core/src/client.rs:1882:                 .state
+core/src/client.rs:1883:                 .provider
+core/src/client.rs:1884:                 .include_internal_metadata(&client_setup.api_provider);
+core/src/client.rs:1885:             let responses_headers = self
+core/src/client.rs:1886:                 .client
+core/src/client.rs:1887:                 .responses_headers(client_setup.auth.as_ref(), &model_info.slug);
+core/src/client.rs:1888:             tracing::Span::current().record("api.path", "/responses");
+core/src/client.rs:1889:             let request_auth_context = AuthRequestTelemetryContext::new(
+core/src/client.rs:1890:                 client_setup.auth.as_ref().map(CodexAuth::auth_mode),
+core/src/client.rs:1891:                 client_setup.api_auth.as_ref(),
+core/src/client.rs:1892:                 client_setup.agent_identity_telemetry.clone(),
+core/src/client.rs:1893:                 pending_retry,
+core/src/client.rs:1894:             );
+core/src/client.rs:1895:             let mut request = self.client.build_responses_request(
+core/src/client.rs:1896:                 prompt,
+core/src/client.rs:1897:                 model_info,
+core/src/client.rs:1898:                 effort.clone(),
+core/src/client.rs:1899:                 summary,
+core/src/client.rs:1900:                 service_tier.clone(),
+core/src/client.rs:1901:                 responses_metadata,
+core/src/client.rs:1902:                 include_internal,
+core/src/client.rs:1903:             )?;
+core/src/client.rs:1904:             if is_guardian_reviewer(&responses_headers) {
+core/src/client.rs:1905:                 request.service_tier = None;
+core/src/client.rs:1906:             }
+core/src/client.rs:1907:             request.access_programs = cyber_access_program::for_auth(
+core/src/client.rs:1908:                 client_setup.auth.as_ref(),
+core/src/client.rs:1909:                 prompt.cyber_access_program,
+core/src/client.rs:1910:                 self.client.api_key_cyber_access_programs,
+core/src/client.rs:1911:             )?;
+core/src/client.rs:1912:             let mut websocket_metadata = responses_metadata.clone();
+core/src/client.rs:1913:             websocket_metadata.routing_hint = self.client.build_routing_hint_header(
+core/src/client.rs:1914:                 client_setup.auth.as_ref(),
+core/src/client.rs:1915:                 &responses_headers,
+core/src/client.rs:1916:                 &request.model,
+core/src/client.rs:1917:                 request.service_tier.as_deref(),
+core/src/client.rs:1918:             );
+core/src/client.rs:1919:             let request_session_telemetry = if warmup {
+core/src/client.rs:1920:                 // `generate=false` prewarm is connection setup, not an inference request.
+core/src/client.rs:1921:                 session_telemetry.clone()
+core/src/client.rs:1922:             } else {
+core/src/client.rs:1923:                 session_telemetry_for_request(session_telemetry, &request)
+core/src/client.rs:1924:             };
+core/src/client.rs:1925:             match self
+core/src/client.rs:1926:                 .websocket_connection(WebsocketConnectParams {
+core/src/client.rs:1927:                     session_telemetry,
+core/src/client.rs:1928:                     api_provider: client_setup.api_provider,
+core/src/client.rs:1929:                     auth_revision: client_setup.auth_revision,
+core/src/client.rs:1930:                     api_auth: client_setup.api_auth,
+core/src/client.rs:1931:                     auth_owner_generation: client_setup.auth_owner_generation,
+core/src/client.rs:1932:                     responses_metadata: &websocket_metadata,
+core/src/client.rs:1933:                     auth_context: request_auth_context,
+core/src/client.rs:1934:                     request_route_telemetry: RequestRouteTelemetry::for_endpoint("/responses"),
+core/src/client.rs:1935:                     responses_headers: &responses_headers,
+core/src/client.rs:1936:                 })
+core/src/client.rs:1937:                 .await
+core/src/client.rs:1938:             {
+core/src/client.rs:1939:                 Ok(_) => {}
+core/src/client.rs:1940:                 Err(ApiError::Transport(TransportError::Http { status, .. }))
+core/src/client.rs:1941:                     if status == StatusCode::UPGRADE_REQUIRED =>
+core/src/client.rs:1942:                 {
+core/src/client.rs:1943:                     return Ok(WebsocketStreamOutcome::FallbackToHttp);
+core/src/client.rs:1944:                 }
+core/src/client.rs:1945:                 Err(ApiError::Transport(unauthorized_transport))
+core/src/client.rs:1946:                     if provider.is_recoverable_auth_error(&unauthorized_transport) =>
+core/src/client.rs:1947:                 {
+core/src/client.rs:1948:                     pending_retry = PendingUnauthorizedRetry::from_recovery(
+core/src/client.rs:1949:                         handle_unauthorized(
+core/src/client.rs:1950:                             unauthorized_transport,
+core/src/client.rs:2176:     pub async fn prewarm_websocket(
+core/src/client.rs:2177:         &mut self,
+core/src/client.rs:2178:         prompt: &Prompt,
+core/src/client.rs:2179:         model_info: &ModelInfo,
+core/src/client.rs:2180:         session_telemetry: &SessionTelemetry,
+core/src/client.rs:2181:         effort: Option<ReasoningEffortConfig>,
+core/src/client.rs:2182:         summary: ReasoningSummaryConfig,
+core/src/client.rs:2183:         service_tier: Option<String>,
+core/src/client.rs:2184:         responses_metadata: &CodexResponsesMetadata,
+core/src/client.rs:2185:     ) -> Result<()> {
+core/src/client.rs:2186:         if !self.client.responses_websocket_enabled() {
+core/src/client.rs:2187:             return Ok(());
+core/src/client.rs:2188:         }
+core/src/client.rs:2189:         if self.is_websocket_prewarmed().await {
+core/src/client.rs:2190:             return Ok(());
+core/src/client.rs:2191:         }
+core/src/client.rs:2192:
+core/src/client.rs:2193:         let disabled_trace = InferenceTraceContext::disabled();
+core/src/client.rs:2194:         match self
+core/src/client.rs:2195:             .stream_responses_websocket(
+core/src/client.rs:2196:                 prompt,
+core/src/client.rs:2197:                 model_info,
+core/src/client.rs:2198:                 session_telemetry,
+core/src/client.rs:2199:                 effort,
+core/src/client.rs:2200:                 summary,
+core/src/client.rs:2201:                 service_tier,
+core/src/client.rs:2202:                 responses_metadata,
+core/src/client.rs:2203:                 /*warmup*/ true,
+core/src/client.rs:2204:                 current_span_w3c_trace_context(),
+core/src/client.rs:2205:                 &disabled_trace,
+core/src/client.rs:2206:             )
+core/src/client.rs:2207:             .await
+core/src/client.rs:2208:         {
+core/src/client.rs:2209:             Ok(WebsocketStreamOutcome::Stream(mut stream)) => {
+core/src/client.rs:2210:                 // Wait for the v2 warmup request to complete before sending the first turn request.
+core/src/client.rs:2211:                 while let Some(event) = stream.next().await {
+core/src/client.rs:2212:                     match event {
+core/src/client.rs:2213:                         Ok(ResponseEvent::Completed { .. }) => break,
+core/src/client.rs:2214:                         Err(err) => return Err(err),
+core/src/client.rs:2215:                         _ => {}
+core/src/client.rs:2216:                     }
+core/src/client.rs:2217:                 }
+core/src/client.rs:2218:                 Ok(())
+core/src/client.rs:2219:             }
+core/src/client.rs:2220:             Ok(WebsocketStreamOutcome::FallbackToHttp) => {
+core/src/client.rs:2221:                 self.try_switch_fallback_transport(session_telemetry, model_info);
+core/src/client.rs:2222:                 Ok(())
+core/src/client.rs:2223:             }
+core/src/client.rs:2224:             Err(err) => Err(err),
+core/src/client.rs:2225:         }
+core/src/client.rs:2226:     }
+core/src/client.rs:2227:
+core/src/client.rs:2228:     #[allow(clippy::too_many_arguments)]
+core/src/client.rs:2229:     /// Streams a single model request within the current turn.
+core/src/client.rs:2230:     ///
+core/src/client.rs:2237:     pub async fn stream(
+core/src/client.rs:2238:         &mut self,
+core/src/client.rs:2239:         prompt: &Prompt,
+core/src/client.rs:2240:         model_info: &ModelInfo,
+core/src/client.rs:2241:         session_telemetry: &SessionTelemetry,
+core/src/client.rs:2242:         effort: Option<ReasoningEffortConfig>,
+core/src/client.rs:2243:         summary: ReasoningSummaryConfig,
+core/src/client.rs:2244:         service_tier: Option<String>,
+core/src/client.rs:2245:         responses_metadata: &CodexResponsesMetadata,
+core/src/client.rs:2246:         inference_trace: &InferenceTraceContext,
+core/src/client.rs:2247:     ) -> Result<ResponseStream> {
+core/src/client.rs:2248:         let wire_api = self.client.state.provider.info().wire_api;
+core/src/client.rs:2249:         match wire_api {
+core/src/client.rs:2250:             WireApi::Responses => {
+core/src/client.rs:2251:                 if self.client.responses_websocket_enabled() {
+core/src/client.rs:2252:                     let request_trace = current_span_w3c_trace_context();
+core/src/client.rs:2253:                     match self
+core/src/client.rs:2254:                         .stream_responses_websocket(
+core/src/client.rs:2255:                             prompt,
+core/src/client.rs:2256:                             model_info,
+core/src/client.rs:2257:                             session_telemetry,
+core/src/client.rs:2258:                             effort.clone(),
+core/src/client.rs:2259:                             summary,
+core/src/client.rs:2260:                             service_tier.clone(),
+core/src/client.rs:2261:                             responses_metadata,
+core/src/client.rs:2262:                             /*warmup*/ false,
+core/src/client.rs:2263:                             request_trace,
+core/src/client.rs:2264:                             inference_trace,
+core/src/client.rs:2265:                         )
+core/src/client.rs:2266:                         .await?
+core/src/client.rs:2267:                     {
+core/src/client.rs:2268:                         WebsocketStreamOutcome::Stream(stream) => return Ok(stream),
+core/src/client.rs:2269:                         WebsocketStreamOutcome::FallbackToHttp => {
+core/src/client.rs:2270:                             self.try_switch_fallback_transport(session_telemetry, model_info);
+core/src/client.rs:2271:                         }
+core/src/client.rs:2272:                     }
+core/src/client.rs:2273:                 }
+core/src/client.rs:2274:
+core/src/client.rs:2275:                 self.stream_responses_api(
+core/src/client.rs:2276:                     prompt,
+core/src/client.rs:2277:                     model_info,
+core/src/client.rs:2278:                     session_telemetry,
+core/src/client.rs:2279:                     effort,
+core/src/client.rs:2280:                     summary,
+core/src/client.rs:2281:                     service_tier,
+core/src/client.rs:2282:                     responses_metadata,
+core/src/client.rs:2283:                     inference_trace,
+core/src/client.rs:2284:                 )
+core/src/client.rs:2285:                 .await
+core/src/client.rs:2286:             }
+core/src/client.rs:2287:         }
+core/src/client.rs:2288:     }
+core/src/client.rs:2289:
+core/src/client.rs:2290:     /// Permanently disables WebSockets for this Codex session and resets WebSocket state.
+core/src/client.rs:2291:     ///
+core/src/client.rs:2292:     /// This is used after exhausting the provider retry budget, to force subsequent requests onto
+core/src/client.rs:2293:     /// the HTTP transport.
+core/src/client.rs:2294:     ///
+core/src/client.rs:2295:     /// Returns `true` if this call activated fallback, or `false` if fallback was already active.
+core/src/client.rs:2296:     pub(crate) fn try_switch_fallback_transport(
+core/src/client.rs:2297:         &mut self,
+core/src/client.rs:2298:         session_telemetry: &SessionTelemetry,
+core/src/client.rs:2299:         model_info: &ModelInfo,
+core/src/client.rs:2300:     ) -> bool {
+core/src/client.rs:2301:         let activated = self
+core/src/client.rs:2302:             .client
+core/src/client.rs:2303:             .force_http_fallback(session_telemetry, model_info);
+core/src/client.rs:2304:         self.websocket_session = WebsocketSession::default();
+core/src/client.rs:2305:         activated

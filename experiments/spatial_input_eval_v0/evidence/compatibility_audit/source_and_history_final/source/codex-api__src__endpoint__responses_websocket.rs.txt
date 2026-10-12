@@ -1,0 +1,92 @@
+codex-api/src/endpoint/responses_websocket.rs:245:     ) -> Result<ResponseStream, ApiError> {
+codex-api/src/endpoint/responses_websocket.rs:246:         let (tx_event, rx_event) =
+codex-api/src/endpoint/responses_websocket.rs:247:             mpsc::channel::<std::result::Result<ResponseEvent, ApiError>>(1600);
+codex-api/src/endpoint/responses_websocket.rs:248:         let (tx_interrupt, rx_interrupt) = oneshot::channel();
+codex-api/src/endpoint/responses_websocket.rs:249:         let stream = Arc::clone(&self.stream);
+codex-api/src/endpoint/responses_websocket.rs:250:         let idle_timeout = self.idle_timeout;
+codex-api/src/endpoint/responses_websocket.rs:251:         let server_reasoning_included = self.server_reasoning_included;
+codex-api/src/endpoint/responses_websocket.rs:252:         let server_model = self.server_model.clone();
+codex-api/src/endpoint/responses_websocket.rs:253:         let telemetry = self.telemetry.clone();
+codex-api/src/endpoint/responses_websocket.rs:254:         let ResponsesWsRequest::ResponseCreate(ws_request) = &request;
+codex-api/src/endpoint/responses_websocket.rs:255:         let client_metadata = ws_request.client_metadata.as_ref();
+codex-api/src/endpoint/responses_websocket.rs:256:         let timing_log_context = ResponsesWebsocketTimingLogContext {
+codex-api/src/endpoint/responses_websocket.rs:257:             model: ws_request.model.to_string(),
+codex-api/src/endpoint/responses_websocket.rs:258:             session_id: client_metadata
+codex-api/src/endpoint/responses_websocket.rs:259:                 .and_then(|metadata| metadata.get(SESSION_ID_CLIENT_METADATA_KEY))
+codex-api/src/endpoint/responses_websocket.rs:260:                 .cloned(),
+codex-api/src/endpoint/responses_websocket.rs:261:             thread_id: client_metadata
+codex-api/src/endpoint/responses_websocket.rs:262:                 .and_then(|metadata| metadata.get(THREAD_ID_CLIENT_METADATA_KEY))
+codex-api/src/endpoint/responses_websocket.rs:263:                 .cloned(),
+codex-api/src/endpoint/responses_websocket.rs:264:             turn_id: client_metadata
+codex-api/src/endpoint/responses_websocket.rs:265:                 .and_then(|metadata| metadata.get(TURN_ID_CLIENT_METADATA_KEY))
+codex-api/src/endpoint/responses_websocket.rs:266:                 .cloned(),
+codex-api/src/endpoint/responses_websocket.rs:267:             traceparent: client_metadata
+codex-api/src/endpoint/responses_websocket.rs:268:                 .and_then(|metadata| {
+codex-api/src/endpoint/responses_websocket.rs:269:                     metadata.get(WS_REQUEST_HEADER_TRACEPARENT_CLIENT_METADATA_KEY)
+codex-api/src/endpoint/responses_websocket.rs:270:                 })
+codex-api/src/endpoint/responses_websocket.rs:271:                 .cloned(),
+codex-api/src/endpoint/responses_websocket.rs:272:             previous_response_id: ws_request.previous_response_id.clone(),
+codex-api/src/endpoint/responses_websocket.rs:273:             request_start_ms: client_metadata
+codex-api/src/endpoint/responses_websocket.rs:274:                 .and_then(|metadata| metadata.get(WS_STREAM_REQUEST_START_MS_CLIENT_METADATA_KEY))
+codex-api/src/endpoint/responses_websocket.rs:275:                 .cloned(),
+codex-api/src/endpoint/responses_websocket.rs:276:             warmup: ws_request.generate == Some(false),
+codex-api/src/endpoint/responses_websocket.rs:277:             connection_reused,
+codex-api/src/endpoint/responses_websocket.rs:278:         };
+codex-api/src/endpoint/responses_websocket.rs:279:         let request_text = serialize_websocket_request(&request)?;
+codex-api/src/endpoint/responses_websocket.rs:280:
+codex-api/src/endpoint/responses_websocket.rs:281:         let current_span = Span::current();
+codex-api/src/endpoint/responses_websocket.rs:282:         tokio::spawn(
+codex-api/src/endpoint/responses_websocket.rs:283:             #[expect(
+codex-api/src/endpoint/responses_websocket.rs:284:                 clippy::await_holding_invalid_type,
+codex-api/src/endpoint/responses_websocket.rs:285:                 reason = "the guard serializes exclusive use of the websocket stream for the lifetime of the response stream"
+codex-api/src/endpoint/responses_websocket.rs:286:             )]
+codex-api/src/endpoint/responses_websocket.rs:287:             async move {
+codex-api/src/endpoint/responses_websocket.rs:288:                 if let Some(model) = server_model {
+codex-api/src/endpoint/responses_websocket.rs:289:                     let _ = tx_event.send(Ok(ResponseEvent::ServerModel(model))).await;
+codex-api/src/endpoint/responses_websocket.rs:290:                 }
+codex-api/src/endpoint/responses_websocket.rs:291:                 if server_reasoning_included {
+codex-api/src/endpoint/responses_websocket.rs:292:                     let _ = tx_event
+codex-api/src/endpoint/responses_websocket.rs:293:                         .send(Ok(ResponseEvent::ServerReasoningIncluded(true)))
+codex-api/src/endpoint/responses_websocket.rs:294:                         .await;
+codex-api/src/endpoint/responses_websocket.rs:295:                 }
+codex-api/src/endpoint/responses_websocket.rs:296:                 let mut guard = tokio::select! {
+codex-api/src/endpoint/responses_websocket.rs:297:                     biased;
+codex-api/src/endpoint/responses_websocket.rs:298:                     _ = tx_event.closed() => return,
+codex-api/src/endpoint/responses_websocket.rs:299:                     guard = stream.lock() => guard,
+codex-api/src/endpoint/responses_websocket.rs:300:                 };
+codex-api/src/endpoint/responses_websocket.rs:725:             Err(err) => {
+codex-api/src/endpoint/responses_websocket.rs:726:                 return Err(err);
+codex-api/src/endpoint/responses_websocket.rs:727:             }
+codex-api/src/endpoint/responses_websocket.rs:728:         };
+codex-api/src/endpoint/responses_websocket.rs:729:
+codex-api/src/endpoint/responses_websocket.rs:730:         match message {
+codex-api/src/endpoint/responses_websocket.rs:731:             Message::Text(text) => {
+codex-api/src/endpoint/responses_websocket.rs:732:                 if let Some(wrapped_error) = parse_wrapped_websocket_error_event(&text)
+codex-api/src/endpoint/responses_websocket.rs:733:                     && let Some(error) =
+codex-api/src/endpoint/responses_websocket.rs:734:                         map_wrapped_websocket_error_event(wrapped_error, text.to_string())
+codex-api/src/endpoint/responses_websocket.rs:735:                 {
+codex-api/src/endpoint/responses_websocket.rs:736:                     return Err(error);
+codex-api/src/endpoint/responses_websocket.rs:737:                 }
+codex-api/src/endpoint/responses_websocket.rs:738:
+codex-api/src/endpoint/responses_websocket.rs:739:                 let event = match serde_json::from_str::<ResponsesStreamEvent>(&text) {
+codex-api/src/endpoint/responses_websocket.rs:740:                     Ok(event) => event,
+codex-api/src/endpoint/responses_websocket.rs:741:                     Err(err) => {
+codex-api/src/endpoint/responses_websocket.rs:742:                         debug!("failed to parse websocket event: {err}, data: {text}");
+codex-api/src/endpoint/responses_websocket.rs:743:                         continue;
+codex-api/src/endpoint/responses_websocket.rs:744:                     }
+codex-api/src/endpoint/responses_websocket.rs:745:                 };
+codex-api/src/endpoint/responses_websocket.rs:746:                 emit_responses_websocket_timing_event(
+codex-api/src/endpoint/responses_websocket.rs:747:                     event.kind(),
+codex-api/src/endpoint/responses_websocket.rs:748:                     text.as_str(),
+codex-api/src/endpoint/responses_websocket.rs:749:                     timing_log_context,
+codex-api/src/endpoint/responses_websocket.rs:750:                 );
+codex-api/src/endpoint/responses_websocket.rs:751:                 if event.kind() == "codex.response.metadata"
+codex-api/src/endpoint/responses_websocket.rs:752:                     && let Some(etag) =
+codex-api/src/endpoint/responses_websocket.rs:753:                         event
+codex-api/src/endpoint/responses_websocket.rs:754:                             .headers
+codex-api/src/endpoint/responses_websocket.rs:755:                             .as_ref()
+codex-api/src/endpoint/responses_websocket.rs:756:                             .and_then(Value::as_object)
+codex-api/src/endpoint/responses_websocket.rs:757:                             .and_then(|headers| {
+codex-api/src/endpoint/responses_websocket.rs:758:                                 json_headers_to_http_headers(headers)
+codex-api/src/endpoint/responses_websocket.rs:759:                                     .get(X_MODELS_ETAG_HEADER)
+codex-api/src/endpoint/responses_websocket.rs:760:                                     .and_then(|value| value.to_str().ok())

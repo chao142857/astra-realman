@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+import os,sys
+from pathlib import Path
+binary=str(Path(__file__).resolve().parents[1]/"libexec/codex")
+args=[x.replace('model_provider="openai"','model_provider="s1_openai_no_retry"') for x in sys.argv[1:]]
+settings={"features.unbounded_connection_retries":"false","model_providers.s1_openai_no_retry.name":'"OpenAI"',
+"model_providers.s1_openai_no_retry.wire_api":'"responses"',
+"model_providers.s1_openai_no_retry.requires_openai_auth":"true",
+"model_providers.s1_openai_no_retry.supports_websockets":"false",
+"model_providers.s1_openai_no_retry.request_max_retries":"0",
+"model_providers.s1_openai_no_retry.stream_max_retries":"0"}
+options=[v for k,value in settings.items() for v in ("-c",k+"="+value)]
+argv=[binary,args[0],*options,*args[1:]] if args and args[0] == "exec" else [binary,*options,*args]
+if "exec" in args and "--help" not in args:
+    import json
+    Path("/output/effective_cli_argv.json").write_text(json.dumps(argv,indent=2))
+os.execv(binary,argv)

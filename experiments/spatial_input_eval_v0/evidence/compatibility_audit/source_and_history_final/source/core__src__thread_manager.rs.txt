@@ -1,0 +1,12 @@
+core/src/thread_manager.rs:568:             codex_apps_tools_cache,
+core/src/thread_manager.rs:569:         ));
+core/src/thread_manager.rs:570:         let code_mode_session_provider: Arc<dyn CodeModeSessionProvider> =
+core/src/thread_manager.rs:571:             if config.features.enabled(Feature::CodeModeHost)
+core/src/thread_manager.rs:572:                 || config.code_mode.disable_in_process_fallback
+core/src/thread_manager.rs:573:             {
+core/src/thread_manager.rs:574:                 Arc::new(ProcessOwnedCodeModeSessionProvider::default())
+core/src/thread_manager.rs:575:             } else {
+core/src/thread_manager.rs:576:                 Arc::new(DisabledCodeModeSessionProvider)
+core/src/thread_manager.rs:577:             };
+core/src/thread_manager.rs:578:         Self {
+core/src/thread_manager.rs:579:             state: Arc::new(ThreadManagerState {

@@ -1,0 +1,112 @@
+code-mode/src/remote_session.rs:1: use std::io;
+code-mode/src/remote_session.rs:2: use std::path::PathBuf;
+code-mode/src/remote_session.rs:3: use std::sync::Arc;
+code-mode/src/remote_session.rs:4: use std::sync::Mutex as StdMutex;
+code-mode/src/remote_session.rs:5: use std::sync::atomic::AtomicBool;
+code-mode/src/remote_session.rs:6: use std::sync::atomic::AtomicU64;
+code-mode/src/remote_session.rs:7: use std::sync::atomic::Ordering;
+code-mode/src/remote_session.rs:8:
+code-mode/src/remote_session.rs:9: use codex_code_mode_protocol::CellId;
+code-mode/src/remote_session.rs:10: use codex_code_mode_protocol::CodeModeSession;
+code-mode/src/remote_session.rs:11: use codex_code_mode_protocol::CodeModeSessionCellExecutionLimits;
+code-mode/src/remote_session.rs:12: use codex_code_mode_protocol::CodeModeSessionDelegate;
+code-mode/src/remote_session.rs:13: use codex_code_mode_protocol::CodeModeSessionProvider;
+code-mode/src/remote_session.rs:14: use codex_code_mode_protocol::CodeModeSessionProviderFuture;
+code-mode/src/remote_session.rs:15: use codex_code_mode_protocol::CodeModeSessionResultFuture;
+code-mode/src/remote_session.rs:16: use codex_code_mode_protocol::ExecuteRequest;
+code-mode/src/remote_session.rs:17: use codex_code_mode_protocol::StartedCell;
+code-mode/src/remote_session.rs:18: use codex_code_mode_protocol::WaitOutcome;
+code-mode/src/remote_session.rs:19: use codex_code_mode_protocol::WaitRequest;
+code-mode/src/remote_session.rs:20: use codex_code_mode_protocol::host::SessionId;
+code-mode/src/remote_session.rs:21: use codex_install_context::InstallContext;
+code-mode/src/remote_session.rs:22: use tokio::sync::Semaphore;
+code-mode/src/remote_session.rs:23: use tokio::sync::watch;
+code-mode/src/remote_session.rs:24: use tokio_util::sync::CancellationToken;
+code-mode/src/remote_session.rs:25:
+code-mode/src/remote_session.rs:26: use self::connection::Connection;
+code-mode/src/remote_session.rs:27: use self::connection::ConnectionError;
+code-mode/src/remote_session.rs:28: use self::connection::RemoteSession;
+code-mode/src/remote_session.rs:29: use self::connection::SessionCleanup;
+code-mode/src/remote_session.rs:30:
+code-mode/src/remote_session.rs:31: mod connection;
+code-mode/src/remote_session.rs:32:
+code-mode/src/remote_session.rs:33: pub(crate) type ShutdownResultReceiver = watch::Receiver<Option<Result<(), String>>>;
+code-mode/src/remote_session.rs:34:
+code-mode/src/remote_session.rs:35: /// Creates code-mode sessions backed by one lazily spawned process host.
+code-mode/src/remote_session.rs:36: pub struct ProcessOwnedCodeModeSessionProvider {
+code-mode/src/remote_session.rs:37:     host: Arc<OwnedCodeModeHost>,
+code-mode/src/remote_session.rs:38: }
+code-mode/src/remote_session.rs:39:
+code-mode/src/remote_session.rs:40: /// Rejects code-mode sessions when the standalone host is disabled.
+code-mode/src/remote_session.rs:41: #[derive(Default)]
+code-mode/src/remote_session.rs:42: pub struct DisabledCodeModeSessionProvider;
+code-mode/src/remote_session.rs:43:
+code-mode/src/remote_session.rs:44: impl ProcessOwnedCodeModeSessionProvider {
+code-mode/src/remote_session.rs:45:     pub fn with_host_program(host_program: PathBuf) -> Self {
+code-mode/src/remote_session.rs:46:         Self {
+code-mode/src/remote_session.rs:47:             host: Arc::new(OwnedCodeModeHost::new(host_program)),
+code-mode/src/remote_session.rs:48:         }
+code-mode/src/remote_session.rs:49:     }
+code-mode/src/remote_session.rs:50:
+code-mode/src/remote_session.rs:51:     fn process_host(&self) -> Arc<OwnedCodeModeHost> {
+code-mode/src/remote_session.rs:52:         Arc::clone(&self.host)
+code-mode/src/remote_session.rs:53:     }
+code-mode/src/remote_session.rs:54: }
+code-mode/src/remote_session.rs:55:
+code-mode/src/remote_session.rs:56: impl Default for ProcessOwnedCodeModeSessionProvider {
+code-mode/src/remote_session.rs:57:     fn default() -> Self {
+code-mode/src/remote_session.rs:58:         Self::with_host_program(InstallContext::current().code_mode_host_program())
+code-mode/src/remote_session.rs:59:     }
+code-mode/src/remote_session.rs:60: }
+code-mode/src/remote_session.rs:61:
+code-mode/src/remote_session.rs:62: impl CodeModeSessionProvider for ProcessOwnedCodeModeSessionProvider {
+code-mode/src/remote_session.rs:63:     fn availability(&self) -> Result<(), String> {
+code-mode/src/remote_session.rs:64:         let host_program = &self.host.host_program;
+code-mode/src/remote_session.rs:65:         if host_program.is_file() {
+code-mode/src/remote_session.rs:66:             Ok(())
+code-mode/src/remote_session.rs:67:         } else {
+code-mode/src/remote_session.rs:68:             Err(ConnectionError::Spawn {
+code-mode/src/remote_session.rs:69:                 host_program: host_program.clone(),
+code-mode/src/remote_session.rs:70:                 error: io::Error::new(io::ErrorKind::NotFound, "host executable was not found"),
+code-mode/src/remote_session.rs:71:             }
+code-mode/src/remote_session.rs:72:             .to_string())
+code-mode/src/remote_session.rs:73:         }
+code-mode/src/remote_session.rs:74:     }
+code-mode/src/remote_session.rs:75:
+code-mode/src/remote_session.rs:76:     fn create_session(&self) -> CodeModeSessionProviderFuture<'_> {
+code-mode/src/remote_session.rs:77:         self.create_session_with_limits(CodeModeSessionCellExecutionLimits::default())
+code-mode/src/remote_session.rs:78:     }
+code-mode/src/remote_session.rs:79:
+code-mode/src/remote_session.rs:80:     fn create_session_with_limits<'a>(
+code-mode/src/remote_session.rs:81:         &'a self,
+code-mode/src/remote_session.rs:82:         limits: CodeModeSessionCellExecutionLimits,
+code-mode/src/remote_session.rs:83:     ) -> CodeModeSessionProviderFuture<'a> {
+code-mode/src/remote_session.rs:84:         Box::pin(create_host_session(self.process_host(), limits))
+code-mode/src/remote_session.rs:85:     }
+code-mode/src/remote_session.rs:86: }
+code-mode/src/remote_session.rs:87:
+code-mode/src/remote_session.rs:88: impl CodeModeSessionProvider for DisabledCodeModeSessionProvider {
+code-mode/src/remote_session.rs:89:     fn availability(&self) -> Result<(), String> {
+code-mode/src/remote_session.rs:90:         Err("code-mode host is disabled".to_string())
+code-mode/src/remote_session.rs:91:     }
+code-mode/src/remote_session.rs:92:
+code-mode/src/remote_session.rs:93:     fn create_session(&self) -> CodeModeSessionProviderFuture<'_> {
+code-mode/src/remote_session.rs:94:         Box::pin(async { Err("code-mode host is disabled".to_string()) })
+code-mode/src/remote_session.rs:95:     }
+code-mode/src/remote_session.rs:96:
+code-mode/src/remote_session.rs:97:     fn create_session_with_limits<'a>(
+code-mode/src/remote_session.rs:98:         &'a self,
+code-mode/src/remote_session.rs:99:         _limits: CodeModeSessionCellExecutionLimits,
+code-mode/src/remote_session.rs:100:     ) -> CodeModeSessionProviderFuture<'a> {
+code-mode/src/remote_session.rs:101:         self.create_session()
+code-mode/src/remote_session.rs:102:     }
+code-mode/src/remote_session.rs:103: }
+code-mode/src/remote_session.rs:104:
+code-mode/src/remote_session.rs:105: async fn create_host_session(
+code-mode/src/remote_session.rs:106:     host: Arc<OwnedCodeModeHost>,
+code-mode/src/remote_session.rs:107:     limits: CodeModeSessionCellExecutionLimits,
+code-mode/src/remote_session.rs:108: ) -> Result<Arc<dyn CodeModeSession>, String> {
+code-mode/src/remote_session.rs:109:     let session = ProcessOwnedCodeModeSession::with_host(host, limits);
+code-mode/src/remote_session.rs:110:     session.connection().await?;
+code-mode/src/remote_session.rs:111:     Ok(Arc::new(session))
+code-mode/src/remote_session.rs:112: }

@@ -1,0 +1,73 @@
+[
+  {
+    "type": "response.created",
+    "response": {
+      "id": "resp_offline"
+    }
+  },
+  {
+    "type": "response.output_item.added",
+    "output_index": 0,
+    "item": {
+      "id": "msg_offline",
+      "type": "message",
+      "role": "assistant",
+      "status": "in_progress",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "{\"offline_fixture\":true}"
+        }
+      ]
+    }
+  },
+  {
+    "type": "response.output_text.delta",
+    "item_id": "msg_offline",
+    "output_index": 0,
+    "content_index": 0,
+    "delta": "{\"offline_fixture\":true}"
+  },
+  {
+    "type": "response.output_item.done",
+    "output_index": 0,
+    "item": {
+      "id": "msg_offline",
+      "type": "message",
+      "role": "assistant",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "{\"offline_fixture\":true}"
+        }
+      ]
+    }
+  },
+  {
+    "type": "response.completed",
+    "response": {
+      "id": "resp_offline",
+      "status": "completed",
+      "output": [
+        {
+          "id": "msg_offline",
+          "type": "message",
+          "role": "assistant",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "text": "{\"offline_fixture\":true}"
+            }
+          ]
+        }
+      ],
+      "usage": {
+        "input_tokens": 7,
+        "output_tokens": 5,
+        "total_tokens": 12
+      }
+    }
+  }
+]

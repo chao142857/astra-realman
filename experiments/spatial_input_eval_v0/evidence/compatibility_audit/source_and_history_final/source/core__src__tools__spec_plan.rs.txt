@@ -1,0 +1,106 @@
+core/src/tools/spec_plan.rs:716:     turn_context.multi_agent_version == MultiAgentVersion::V2
+core/src/tools/spec_plan.rs:717: }
+core/src/tools/spec_plan.rs:718:
+core/src/tools/spec_plan.rs:719: fn collab_tools_enabled(turn_context: &TurnContext, model_info: &ModelInfo) -> bool {
+core/src/tools/spec_plan.rs:720:     match turn_context.multi_agent_version {
+core/src/tools/spec_plan.rs:721:         MultiAgentVersion::Disabled => false,
+core/src/tools/spec_plan.rs:722:         MultiAgentVersion::V1 => !exceeds_thread_spawn_depth_limit(
+core/src/tools/spec_plan.rs:723:             next_thread_spawn_depth(&turn_context.session_source),
+core/src/tools/spec_plan.rs:724:             turn_context.config.agent_max_depth,
+core/src/tools/spec_plan.rs:725:         ),
+core/src/tools/spec_plan.rs:726:         MultiAgentVersion::V2 => {
+core/src/tools/spec_plan.rs:727:             turn_context.session_source.get_agent_path().is_none()
+core/src/tools/spec_plan.rs:728:                 || model_info.multi_agent_version == Some(MultiAgentVersion::V2)
+core/src/tools/spec_plan.rs:729:         }
+core/src/tools/spec_plan.rs:730:     }
+core/src/tools/spec_plan.rs:731: }
+core/src/tools/spec_plan.rs:732:
+core/src/tools/spec_plan.rs:733: fn required_child_management_tool_names(
+core/src/tools/spec_plan.rs:734:     turn_context: &TurnContext,
+core/src/tools/spec_plan.rs:735:     model_info: &ModelInfo,
+core/src/tools/spec_plan.rs:861: }
+core/src/tools/spec_plan.rs:862:
+core/src/tools/spec_plan.rs:863: fn register_code_mode_executors(
+core/src/tools/spec_plan.rs:864:     turn_context: &TurnContext,
+core/src/tools/spec_plan.rs:865:     model_info: &ModelInfo,
+core/src/tools/spec_plan.rs:866:     registry: &mut ToolRegistry,
+core/src/tools/spec_plan.rs:867:     indirect_prefixes: &IndirectNamespacePrefixes<'_>,
+core/src/tools/spec_plan.rs:868: ) -> BTreeMap<String, ToolName> {
+core/src/tools/spec_plan.rs:869:     let tool_mode = effective_tool_mode(turn_context, model_info);
+core/src/tools/spec_plan.rs:870:     if !matches!(tool_mode, ToolMode::CodeMode | ToolMode::CodeModeOnly) {
+core/src/tools/spec_plan.rs:871:         return BTreeMap::new();
+core/src/tools/spec_plan.rs:872:     }
+core/src/tools/spec_plan.rs:873:
+core/src/tools/spec_plan.rs:874:     let mut code_mode_tool_names = BTreeMap::new();
+core/src/tools/spec_plan.rs:875:     let mut code_mode_nested_tool_specs = Vec::new();
+core/src/tools/spec_plan.rs:876:     let mut exec_prompt_tool_specs = Vec::new();
+core/src/tools/spec_plan.rs:877:     let mut deferred_exec_prompt_tool_specs = Vec::new();
+core/src/tools/spec_plan.rs:878:     let mut included_deferred_mcp_output_schema = false;
+core/src/tools/spec_plan.rs:879:     let deferred_tools_guidance_enabled = model_info.supports_search_tool;
+core/src/tools/spec_plan.rs:880:     for tool in registry.entries() {
+core/src/tools/spec_plan.rs:881:         let exposure = tool.exposure;
+core/src/tools/spec_plan.rs:882:         if !exposure.is_available_in_code_mode() {
+core/src/tools/spec_plan.rs:883:             continue;
+core/src/tools/spec_plan.rs:884:         }
+core/src/tools/spec_plan.rs:885:
+core/src/tools/spec_plan.rs:886:         let tool_name = tool.runtime.tool_name();
+core/src/tools/spec_plan.rs:887:         // Deferred third-party tools still need an exec route to be discoverable.
+core/src/tools/spec_plan.rs:888:         if is_excluded_from_code_mode(turn_context, &tool_name)
+core/src/tools/spec_plan.rs:889:             && !(code_mode_only_strict_3p_tools(turn_context, model_info)
+core/src/tools/spec_plan.rs:890:                 && tool.runtime.is_third_party_tool())
+core/src/tools/spec_plan.rs:965:     let mut enabled_tools = collect_code_mode_exec_prompt_tool_definitions(
+core/src/tools/spec_plan.rs:966:         exec_prompt_tool_specs.iter(),
+core/src/tools/spec_plan.rs:967:         code_mode_input_schema_max_bytes,
+core/src/tools/spec_plan.rs:968:     );
+core/src/tools/spec_plan.rs:969:     let deferred_tools = collect_code_mode_exec_prompt_tool_definitions(
+core/src/tools/spec_plan.rs:970:         deferred_exec_prompt_tool_specs.iter().map(Arc::as_ref),
+core/src/tools/spec_plan.rs:971:         code_mode_input_schema_max_bytes,
+core/src/tools/spec_plan.rs:972:     );
+core/src/tools/spec_plan.rs:973:     let model_messages = ResolvedModelMessages::from_model(model_info);
+core/src/tools/spec_plan.rs:974:     if tool_mode == ToolMode::CodeModeOnly {
+core/src/tools/spec_plan.rs:975:         indirect_prefixes.apply_exec_prompt(&mut enabled_tools, &mut namespace_descriptions);
+core/src/tools/spec_plan.rs:976:     }
+core/src/tools/spec_plan.rs:977:     enabled_tools
+core/src/tools/spec_plan.rs:978:         .sort_by(|left, right| compare_code_mode_tools(left, right, &namespace_descriptions));
+core/src/tools/spec_plan.rs:979:     let exec_description = codex_code_mode::build_exec_tool_description(
+core/src/tools/spec_plan.rs:980:         &enabled_tools,
+core/src/tools/spec_plan.rs:981:         &deferred_tools,
+core/src/tools/spec_plan.rs:982:         &namespace_descriptions,
+core/src/tools/spec_plan.rs:983:         turn_context.config.code_mode.default_exec_yield_time_ms,
+core/src/tools/spec_plan.rs:984:         tool_mode == ToolMode::CodeModeOnly,
+core/src/tools/spec_plan.rs:985:         if unified_image_budget_enabled(&turn_context.config.features, model_info) {
+core/src/tools/spec_plan.rs:986:             codex_code_mode::ImageDetailVisibility::Hidden
+core/src/tools/spec_plan.rs:987:         } else {
+core/src/tools/spec_plan.rs:988:             codex_code_mode::ImageDetailVisibility::Visible
+core/src/tools/spec_plan.rs:989:         },
+core/src/tools/spec_plan.rs:990:         deferred_tool_discovery,
+core/src/tools/spec_plan.rs:991:         model_messages.code_mode(),
+core/src/tools/spec_plan.rs:992:     );
+core/src/tools/spec_plan.rs:993:     let execute_handler = CodeModeExecuteHandler::new(
+core/src/tools/spec_plan.rs:994:         create_code_mode_tool(exec_description),
+core/src/tools/spec_plan.rs:995:         code_mode_nested_tool_specs,
+core/src/tools/spec_plan.rs:996:     );
+core/src/tools/spec_plan.rs:997:
+core/src/tools/spec_plan.rs:998:     registry.prepend_trusted(Arc::new(CodeModeWaitHandler::new(
+core/src/tools/spec_plan.rs:999:         model_messages.code_mode_wait_description_override(),
+core/src/tools/spec_plan.rs:1000:         model_messages.code_mode_wait_parameters_override(),
+core/src/tools/spec_plan.rs:1001:     )));
+core/src/tools/spec_plan.rs:1002:     registry.prepend_trusted(Arc::new(execute_handler));
+core/src/tools/spec_plan.rs:1003:
+core/src/tools/spec_plan.rs:1004:     code_mode_tool_names
+core/src/tools/spec_plan.rs:1005: }
+core/src/tools/spec_plan.rs:1006:
+core/src/tools/spec_plan.rs:1007: #[instrument(level = "trace", skip_all, fields(tool_spec_count = specs.len()))]
+core/src/tools/spec_plan.rs:1008: fn merge_into_namespaces(specs: Vec<ToolSpec>) -> Vec<ToolSpec> {
+core/src/tools/spec_plan.rs:1009:     let mut merged_specs = Vec::with_capacity(specs.len());
+core/src/tools/spec_plan.rs:1010:     let mut namespace_indices = BTreeMap::<String, usize>::new();
+core/src/tools/spec_plan.rs:1011:     for spec in specs {
+core/src/tools/spec_plan.rs:1012:         match spec {
+core/src/tools/spec_plan.rs:1013:             ToolSpec::Namespace(mut namespace) => {
+core/src/tools/spec_plan.rs:1014:                 if let Some(index) = namespace_indices.get(&namespace.name).copied() {
+core/src/tools/spec_plan.rs:1015:                     let ToolSpec::Namespace(existing_namespace) = &mut merged_specs[index] else {
+core/src/tools/spec_plan.rs:1016:                         unreachable!("namespace index must point to a namespace spec");
+core/src/tools/spec_plan.rs:1017:                     };
+core/src/tools/spec_plan.rs:1018:                     if existing_namespace.description.trim().is_empty()
+core/src/tools/spec_plan.rs:1019:                         && !namespace.description.trim().is_empty()
+core/src/tools/spec_plan.rs:1020:                     {

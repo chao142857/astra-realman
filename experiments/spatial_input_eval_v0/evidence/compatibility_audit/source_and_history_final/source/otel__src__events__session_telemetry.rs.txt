@@ -1,0 +1,169 @@
+otel/src/events/session_telemetry.rs:785:         log_and_trace_event!(
+otel/src/events/session_telemetry.rs:786:             self,
+otel/src/events/session_telemetry.rs:787:             common: {
+otel/src/events/session_telemetry.rs:788:                 event.name = "codex.api_request",
+otel/src/events/session_telemetry.rs:789:                 duration_ms = %duration.as_millis(),
+otel/src/events/session_telemetry.rs:790:                 http.response.status_code = status,
+otel/src/events/session_telemetry.rs:791:                 error.message = error,
+otel/src/events/session_telemetry.rs:792:                 attempt = attempt,
+otel/src/events/session_telemetry.rs:793:                 auth.header_attached = auth_header_attached,
+otel/src/events/session_telemetry.rs:794:                 auth.header_name = auth_header_name,
+otel/src/events/session_telemetry.rs:795:                 auth.retry_after_unauthorized = retry_after_unauthorized,
+otel/src/events/session_telemetry.rs:796:                 auth.recovery_mode = recovery_mode,
+otel/src/events/session_telemetry.rs:797:                 auth.recovery_phase = recovery_phase,
+otel/src/events/session_telemetry.rs:798:                 endpoint = endpoint,
+otel/src/events/session_telemetry.rs:799:                 auth.env_openai_api_key_present = self.metadata.auth_env.openai_api_key_env_present,
+otel/src/events/session_telemetry.rs:800:                 auth.env_codex_api_key_present = self.metadata.auth_env.codex_api_key_env_present,
+otel/src/events/session_telemetry.rs:801:                 auth.env_codex_api_key_enabled = self.metadata.auth_env.codex_api_key_env_enabled,
+otel/src/events/session_telemetry.rs:802:                 auth.env_provider_key_name = self.metadata.auth_env.provider_env_key_name.as_deref(),
+otel/src/events/session_telemetry.rs:803:                 auth.env_provider_key_present = self.metadata.auth_env.provider_env_key_present,
+otel/src/events/session_telemetry.rs:804:                 auth.env_refresh_token_url_override_present = self.metadata.auth_env.refresh_token_url_override_present,
+otel/src/events/session_telemetry.rs:805:                 auth.request_id = request_id,
+otel/src/events/session_telemetry.rs:806:                 auth.cf_ray = cf_ray,
+otel/src/events/session_telemetry.rs:807:                 auth.error = auth_error,
+otel/src/events/session_telemetry.rs:808:                 auth.error_code = auth_error_code,
+otel/src/events/session_telemetry.rs:809:                 auth.agent_id = agent_identity_telemetry.map(|metadata| metadata.agent_id.as_str()),
+otel/src/events/session_telemetry.rs:810:                 auth.task_id = agent_identity_telemetry.map(|metadata| metadata.task_id.as_str()),
+otel/src/events/session_telemetry.rs:811:             },
+otel/src/events/session_telemetry.rs:812:             log: {},
+otel/src/events/session_telemetry.rs:813:             trace: {},
+otel/src/events/session_telemetry.rs:814:         );
+otel/src/events/session_telemetry.rs:815:     }
+otel/src/events/session_telemetry.rs:816:
+otel/src/events/session_telemetry.rs:842:             self,
+otel/src/events/session_telemetry.rs:843:             common: {
+otel/src/events/session_telemetry.rs:844:                 event.name = "codex.websocket_connect",
+otel/src/events/session_telemetry.rs:845:                 duration_ms = %duration.as_millis(),
+otel/src/events/session_telemetry.rs:846:                 http.response.status_code = status,
+otel/src/events/session_telemetry.rs:847:                 success = success_str,
+otel/src/events/session_telemetry.rs:848:                 error.message = error,
+otel/src/events/session_telemetry.rs:849:                 auth.header_attached = auth_header_attached,
+otel/src/events/session_telemetry.rs:850:                 auth.header_name = auth_header_name,
+otel/src/events/session_telemetry.rs:851:                 auth.retry_after_unauthorized = retry_after_unauthorized,
+otel/src/events/session_telemetry.rs:852:                 auth.recovery_mode = recovery_mode,
+otel/src/events/session_telemetry.rs:853:                 auth.recovery_phase = recovery_phase,
+otel/src/events/session_telemetry.rs:854:                 endpoint = endpoint,
+otel/src/events/session_telemetry.rs:855:                 auth.env_openai_api_key_present = self.metadata.auth_env.openai_api_key_env_present,
+otel/src/events/session_telemetry.rs:856:                 auth.env_codex_api_key_present = self.metadata.auth_env.codex_api_key_env_present,
+otel/src/events/session_telemetry.rs:857:                 auth.env_codex_api_key_enabled = self.metadata.auth_env.codex_api_key_env_enabled,
+otel/src/events/session_telemetry.rs:858:                 auth.env_provider_key_name = self.metadata.auth_env.provider_env_key_name.as_deref(),
+otel/src/events/session_telemetry.rs:859:                 auth.env_provider_key_present = self.metadata.auth_env.provider_env_key_present,
+otel/src/events/session_telemetry.rs:860:                 auth.env_refresh_token_url_override_present = self.metadata.auth_env.refresh_token_url_override_present,
+otel/src/events/session_telemetry.rs:861:                 auth.connection_reused = connection_reused,
+otel/src/events/session_telemetry.rs:862:                 auth.request_id = request_id,
+otel/src/events/session_telemetry.rs:863:                 auth.cf_ray = cf_ray,
+otel/src/events/session_telemetry.rs:864:                 auth.error = auth_error,
+otel/src/events/session_telemetry.rs:865:                 auth.error_code = auth_error_code,
+otel/src/events/session_telemetry.rs:866:                 auth.agent_id = agent_identity_telemetry.map(|metadata| metadata.agent_id.as_str()),
+otel/src/events/session_telemetry.rs:867:                 auth.task_id = agent_identity_telemetry.map(|metadata| metadata.task_id.as_str()),
+otel/src/events/session_telemetry.rs:868:             },
+otel/src/events/session_telemetry.rs:869:             log: {},
+otel/src/events/session_telemetry.rs:870:             trace: {},
+otel/src/events/session_telemetry.rs:871:         );
+otel/src/events/session_telemetry.rs:872:     }
+otel/src/events/session_telemetry.rs:873:
+otel/src/events/session_telemetry.rs:874:     pub fn record_websocket_request(
+otel/src/events/session_telemetry.rs:875:         &self,
+otel/src/events/session_telemetry.rs:876:         duration: Duration,
+otel/src/events/session_telemetry.rs:877:         error: Option<&str>,
+otel/src/events/session_telemetry.rs:893:             self,
+otel/src/events/session_telemetry.rs:894:             common: {
+otel/src/events/session_telemetry.rs:895:                 event.name = "codex.websocket_request",
+otel/src/events/session_telemetry.rs:896:                 duration_ms = %duration.as_millis(),
+otel/src/events/session_telemetry.rs:897:                 success = success_str,
+otel/src/events/session_telemetry.rs:898:                 error.message = error,
+otel/src/events/session_telemetry.rs:899:                 auth.env_openai_api_key_present = self.metadata.auth_env.openai_api_key_env_present,
+otel/src/events/session_telemetry.rs:900:                 auth.env_codex_api_key_present = self.metadata.auth_env.codex_api_key_env_present,
+otel/src/events/session_telemetry.rs:901:                 auth.env_codex_api_key_enabled = self.metadata.auth_env.codex_api_key_env_enabled,
+otel/src/events/session_telemetry.rs:902:                 auth.env_provider_key_name = self.metadata.auth_env.provider_env_key_name.as_deref(),
+otel/src/events/session_telemetry.rs:903:                 auth.env_provider_key_present = self.metadata.auth_env.provider_env_key_present,
+otel/src/events/session_telemetry.rs:904:                 auth.env_refresh_token_url_override_present = self.metadata.auth_env.refresh_token_url_override_present,
+otel/src/events/session_telemetry.rs:905:                 auth.connection_reused = connection_reused,
+otel/src/events/session_telemetry.rs:906:                 auth.agent_id = agent_identity_telemetry.map(|metadata| metadata.agent_id.as_str()),
+otel/src/events/session_telemetry.rs:907:                 auth.task_id = agent_identity_telemetry.map(|metadata| metadata.task_id.as_str()),
+otel/src/events/session_telemetry.rs:908:             },
+otel/src/events/session_telemetry.rs:909:             log: {},
+otel/src/events/session_telemetry.rs:910:             trace: {},
+otel/src/events/session_telemetry.rs:911:         );
+otel/src/events/session_telemetry.rs:912:     }
+otel/src/events/session_telemetry.rs:913:
+otel/src/events/session_telemetry.rs:914:     #[allow(clippy::too_many_arguments)]
+otel/src/events/session_telemetry.rs:915:     pub fn record_auth_recovery(
+otel/src/events/session_telemetry.rs:946:     pub fn record_websocket_event(
+otel/src/events/session_telemetry.rs:947:         &self,
+otel/src/events/session_telemetry.rs:948:         result: &Result<
+otel/src/events/session_telemetry.rs:949:             Option<
+otel/src/events/session_telemetry.rs:950:                 Result<
+otel/src/events/session_telemetry.rs:951:                     tokio_tungstenite::tungstenite::Message,
+otel/src/events/session_telemetry.rs:952:                     tokio_tungstenite::tungstenite::Error,
+otel/src/events/session_telemetry.rs:953:                 >,
+otel/src/events/session_telemetry.rs:954:             >,
+otel/src/events/session_telemetry.rs:955:             ApiError,
+otel/src/events/session_telemetry.rs:956:         >,
+otel/src/events/session_telemetry.rs:957:         duration: Duration,
+otel/src/events/session_telemetry.rs:958:     ) {
+otel/src/events/session_telemetry.rs:959:         let mut kind = None;
+otel/src/events/session_telemetry.rs:960:         let mut success = true;
+otel/src/events/session_telemetry.rs:961:
+otel/src/events/session_telemetry.rs:962:         match result {
+otel/src/events/session_telemetry.rs:963:             Ok(Some(Ok(message))) => match message {
+otel/src/events/session_telemetry.rs:964:                 tokio_tungstenite::tungstenite::Message::Text(text) => {
+otel/src/events/session_telemetry.rs:965:                     match serde_json::from_str::<serde_json::Value>(text) {
+otel/src/events/session_telemetry.rs:966:                         Ok(value) => {
+otel/src/events/session_telemetry.rs:967:                             kind = value
+otel/src/events/session_telemetry.rs:968:                                 .get("type")
+otel/src/events/session_telemetry.rs:969:                                 .and_then(|value| value.as_str())
+otel/src/events/session_telemetry.rs:970:                                 .map(std::string::ToString::to_string);
+otel/src/events/session_telemetry.rs:971:                             if kind.as_deref() == Some(RESPONSES_WEBSOCKET_TIMING_KIND) {
+otel/src/events/session_telemetry.rs:972:                                 self.record_responses_websocket_timing_metrics(&value);
+otel/src/events/session_telemetry.rs:973:                             }
+otel/src/events/session_telemetry.rs:974:                             if kind.as_deref() == Some("response.failed") {
+otel/src/events/session_telemetry.rs:975:                                 success = false;
+otel/src/events/session_telemetry.rs:976:                             }
+otel/src/events/session_telemetry.rs:977:                         }
+otel/src/events/session_telemetry.rs:978:                         Err(_) => {
+otel/src/events/session_telemetry.rs:979:                             kind = Some("parse_error".to_string());
+otel/src/events/session_telemetry.rs:980:                             success = false;
+otel/src/events/session_telemetry.rs:981:                         }
+otel/src/events/session_telemetry.rs:982:                     }
+otel/src/events/session_telemetry.rs:983:                 }
+otel/src/events/session_telemetry.rs:984:                 tokio_tungstenite::tungstenite::Message::Ping(_)
+otel/src/events/session_telemetry.rs:985:                 | tokio_tungstenite::tungstenite::Message::Pong(_) => {
+otel/src/events/session_telemetry.rs:986:                     return;
+otel/src/events/session_telemetry.rs:987:                 }
+otel/src/events/session_telemetry.rs:988:                 tokio_tungstenite::tungstenite::Message::Binary(_)
+otel/src/events/session_telemetry.rs:989:                 | tokio_tungstenite::tungstenite::Message::Close(_)
+otel/src/events/session_telemetry.rs:990:                 | tokio_tungstenite::tungstenite::Message::Frame(_) => {
+otel/src/events/session_telemetry.rs:991:                     success = false;
+otel/src/events/session_telemetry.rs:992:                 }
+otel/src/events/session_telemetry.rs:993:             },
+otel/src/events/session_telemetry.rs:994:             Ok(Some(Err(_))) | Ok(None) | Err(_) => {
+otel/src/events/session_telemetry.rs:995:                 success = false;
+otel/src/events/session_telemetry.rs:996:             }
+otel/src/events/session_telemetry.rs:997:         }
+otel/src/events/session_telemetry.rs:998:
+otel/src/events/session_telemetry.rs:999:         let kind_str = kind.as_deref().unwrap_or(WEBSOCKET_UNKNOWN_KIND);
+otel/src/events/session_telemetry.rs:1000:         let success_str = if success { "true" } else { "false" };
+otel/src/events/session_telemetry.rs:1001:         let tags = [("kind", kind_str), ("success", success_str)];
+otel/src/events/session_telemetry.rs:1002:         self.counter(WEBSOCKET_EVENT_COUNT_METRIC, /*inc*/ 1, &tags);
+otel/src/events/session_telemetry.rs:1003:         self.record_duration(WEBSOCKET_EVENT_DURATION_METRIC, duration, &tags);
+otel/src/events/session_telemetry.rs:1004:     }
+otel/src/events/session_telemetry.rs:1057:     fn sse_event(&self, kind: &str, duration: Duration) {
+otel/src/events/session_telemetry.rs:1058:         self.counter(
+otel/src/events/session_telemetry.rs:1059:             SSE_EVENT_COUNT_METRIC,
+otel/src/events/session_telemetry.rs:1060:             /*inc*/ 1,
+otel/src/events/session_telemetry.rs:1061:             &[("kind", kind), ("success", "true")],
+otel/src/events/session_telemetry.rs:1062:         );
+otel/src/events/session_telemetry.rs:1063:         self.record_duration(
+otel/src/events/session_telemetry.rs:1064:             SSE_EVENT_DURATION_METRIC,
+otel/src/events/session_telemetry.rs:1065:             duration,
+otel/src/events/session_telemetry.rs:1066:             &[("kind", kind), ("success", "true")],
+otel/src/events/session_telemetry.rs:1067:         );
+otel/src/events/session_telemetry.rs:1068:         log_event!(
+otel/src/events/session_telemetry.rs:1069:             self,
+otel/src/events/session_telemetry.rs:1070:             event.name = "codex.sse_event",
+otel/src/events/session_telemetry.rs:1071:             event.kind = %kind,
+otel/src/events/session_telemetry.rs:1072:             duration_ms = %duration.as_millis(),
+otel/src/events/session_telemetry.rs:1073:         );
+otel/src/events/session_telemetry.rs:1074:     }
+otel/src/events/session_telemetry.rs:1075:

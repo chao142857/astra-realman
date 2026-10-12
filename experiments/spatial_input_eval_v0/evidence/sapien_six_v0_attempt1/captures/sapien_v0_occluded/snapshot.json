@@ -1,0 +1,723 @@
+{
+  "version": "astra.scene_snapshot.v0",
+  "scene_id": "sapien_v0_occluded",
+  "provenance": "LIVE_SAPIEN_STATIC_RGBD_NOT_REAL_CAMERA",
+  "coordinate_system": {
+    "id": "robot_base",
+    "units": "m",
+    "axes": "+x forward, +y left, +z up; right-handed",
+    "pose": "object center xyz in meters; unit quaternion wxyz, object local axes in robot_base"
+  },
+  "observations": {
+    "rgb": [
+      {
+        "camera_id": "view_0",
+        "path": "assets/view_0.png",
+        "sha256": "7dae76f41552ca89562f430459b588cfd84680e9cb64477da59d7ef497957c7b"
+      },
+      {
+        "camera_id": "view_1",
+        "path": "assets/view_1.png",
+        "sha256": "c1983198ffea4c036d339624b2249282abd2018266eecb4a8701ed82c784cec1"
+      },
+      {
+        "camera_id": "view_2",
+        "path": "assets/view_2.png",
+        "sha256": "d602aa9160f63b842adda1e91553143dd8a3b561119df5e77fc1429ece6931e5"
+      }
+    ],
+    "depth": [
+      {
+        "camera_id": "view_0",
+        "depth": {
+          "file": "assets/view_0.depth.npy",
+          "sha256": "61e4d8a63769c2b20685b6f8605bac9c20ebe1051c8274ffbe5827a13b377fe3"
+        },
+        "validity": {
+          "file": "assets/view_0.valid.png",
+          "sha256": "962d2993439c1a8a38bd7221f7d4262b9a41b5331288ec31caf5f12c88970b21"
+        },
+        "units": "m",
+        "dtype": "<f4",
+        "aligned_rgb_sha256": "7dae76f41552ca89562f430459b588cfd84680e9cb64477da59d7ef497957c7b",
+        "simulation_step": 0,
+        "same_physics_step_three_views": true,
+        "valid_pixel_count": 137793,
+        "semantics": "optical Z depth = -Position.z; zero invalid"
+      },
+      {
+        "camera_id": "view_1",
+        "depth": {
+          "file": "assets/view_1.depth.npy",
+          "sha256": "35caedfee393ac1b771c7047557f2db2a28ea7aab3377796a6c042a9ae1cbb2e"
+        },
+        "validity": {
+          "file": "assets/view_1.valid.png",
+          "sha256": "34aab109867c6b1fdb41916132c1bc155c83596251020632cddcf8f271b5f27b"
+        },
+        "units": "m",
+        "dtype": "<f4",
+        "aligned_rgb_sha256": "c1983198ffea4c036d339624b2249282abd2018266eecb4a8701ed82c784cec1",
+        "simulation_step": 0,
+        "same_physics_step_three_views": true,
+        "valid_pixel_count": 156692,
+        "semantics": "optical Z depth = -Position.z; zero invalid"
+      },
+      {
+        "camera_id": "view_2",
+        "depth": {
+          "file": "assets/view_2.depth.npy",
+          "sha256": "fbe8f2e0e8dc79c8fe7fbc474357de217a3fd9c9e5d9e7a441cb517685d829bb"
+        },
+        "validity": {
+          "file": "assets/view_2.valid.png",
+          "sha256": "3e98ca1d84335b84a30d85f71019c67c28fde4924f0045a8e0933c0e60a9f8e9"
+        },
+        "units": "m",
+        "dtype": "<f4",
+        "aligned_rgb_sha256": "d602aa9160f63b842adda1e91553143dd8a3b561119df5e77fc1429ece6931e5",
+        "simulation_step": 0,
+        "same_physics_step_three_views": true,
+        "valid_pixel_count": 189616,
+        "semantics": "optical Z depth = -Position.z; zero invalid"
+      }
+    ],
+    "calibration": {
+      "view_0": {
+        "intrinsic": [
+          [
+            415.6921691894531,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            415.6921691894531,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.15000000596046448,
+          -0.8500000238418579,
+          0.6499999761581421,
+          0.7681894898414612,
+          -0.16892294585704803,
+          0.22576101124286652,
+          0.5747885704040527
+        ],
+        "axes": "SAPIEN camera pose: +X forward, +Y left, +Z up; RGB/depth optical axes +X right,+Y down,+Z forward"
+      },
+      "view_1": {
+        "intrinsic": [
+          [
+            415.6921691894531,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            415.6921691894531,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.8500000238418579,
+          0.6499999761581421,
+          0.6499999761581421,
+          0.4416517913341522,
+          0.2721881866455078,
+          0.14261379837989807,
+          -0.8429226279258728
+        ],
+        "axes": "SAPIEN camera pose: +X forward, +Y left, +Z up; RGB/depth optical axes +X right,+Y down,+Z forward"
+      },
+      "view_2": {
+        "intrinsic": [
+          [
+            415.6921691894531,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            415.6921691894531,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.41999998688697815,
+          0.0,
+          1.0499999523162842,
+          0.0,
+          -0.6997806429862976,
+          0.0,
+          0.7143577933311462
+        ],
+        "axes": "SAPIEN camera pose: +X forward, +Y left, +Z up; RGB/depth optical axes +X right,+Y down,+Z forward"
+      }
+    },
+    "robot_state": {
+      "joint_names": [],
+      "qpos_rad": [],
+      "flange_pose_base_xyz_wxyz": null
+    },
+    "synchronization": {
+      "simulation_step": 0,
+      "capture_span_s": 0.190711373987142,
+      "timestamp_semantics": "same static scene; sequential renderer acquisition; no physics step",
+      "same_step": true
+    }
+  },
+  "geometry": {
+    "reconstruction": null,
+    "oracle": {
+      "source": "SIMULATOR_TRUTH",
+      "frame": "robot_base",
+      "units": "m",
+      "objects": [
+        {
+          "id": "target_cube",
+          "center_m": [
+            0.20000000298023224,
+            -0.18000000715255737,
+            0.05999999865889549
+          ],
+          "size_m": [
+            0.05999999865889549,
+            0.05999999865889549,
+            0.07999999821186066
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "id": "blue_distractor",
+          "center_m": [
+            0.30000001192092896,
+            0.029999999329447746,
+            0.03500000014901161
+          ],
+          "size_m": [
+            0.07000000029802322,
+            0.05000000074505806,
+            0.07000000029802322
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": "container_interior",
+          "center_m": [
+            0.6200000047683716,
+            0.18000000715255737,
+            0.1000000024214387
+          ],
+          "size_m": [
+            0.18000004813075066,
+            0.1600000075995922,
+            0.18000000528991222
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "workspace",
+          "center_m": [
+            0.45,
+            0,
+            0.3
+          ],
+          "size_m": [
+            0.9,
+            0.9,
+            0.58
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "table",
+          "center_m": [
+            0.44999998807907104,
+            0.0,
+            -0.02500000037252903
+          ],
+          "size_m": [
+            1.100000023841858,
+            1.100000023841858,
+            0.05000000074505806
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "id": "container_floor",
+          "center_m": [
+            0.6200000047683716,
+            0.18000000715255737,
+            0.004999999888241291
+          ],
+          "size_m": [
+            0.2199999988079071,
+            0.20000000298023224,
+            0.009999999776482582
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "id": "container_x_minus",
+          "center_m": [
+            0.5199999809265137,
+            0.18000000715255737,
+            0.10000000149011612
+          ],
+          "size_m": [
+            0.019999999552965164,
+            0.20000000298023224,
+            0.18000000715255737
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "id": "container_x_plus",
+          "center_m": [
+            0.7200000286102295,
+            0.18000000715255737,
+            0.10000000149011612
+          ],
+          "size_m": [
+            0.019999999552965164,
+            0.20000000298023224,
+            0.18000000715255737
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "id": "container_y_minus",
+          "center_m": [
+            0.6200000047683716,
+            0.09000000357627869,
+            0.10000000149011612
+          ],
+          "size_m": [
+            0.2199999988079071,
+            0.019999999552965164,
+            0.18000000715255737
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "id": "container_y_plus",
+          "center_m": [
+            0.6200000047683716,
+            0.27000001072883606,
+            0.10000000149011612
+          ],
+          "size_m": [
+            0.2199999988079071,
+            0.019999999552965164,
+            0.18000000715255737
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "id": "barrier",
+          "center_m": [
+            0.17000000178813934,
+            -0.2800000011920929,
+            0.12999999523162842
+          ],
+          "size_m": [
+            0.25,
+            0.02500000037252903,
+            0.25999999046325684
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "renderings": []
+    }
+  },
+  "ground_truth": {
+    "source": "SIMULATOR_TRUTH",
+    "frame": "robot_base",
+    "units": "m",
+    "objects": [
+      {
+        "id": "target_cube",
+        "center_m": [
+          0.20000000298023224,
+          -0.18000000715255737,
+          0.05999999865889549
+        ],
+        "size_m": [
+          0.05999999865889549,
+          0.05999999865889549,
+          0.07999999821186066
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "blue_distractor",
+        "center_m": [
+          0.30000001192092896,
+          0.029999999329447746,
+          0.03500000014901161
+        ],
+        "size_m": [
+          0.07000000029802322,
+          0.05000000074505806,
+          0.07000000029802322
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "regions": [
+      {
+        "id": "container_interior",
+        "center_m": [
+          0.6200000047683716,
+          0.18000000715255737,
+          0.1000000024214387
+        ],
+        "size_m": [
+          0.18000004813075066,
+          0.1600000075995922,
+          0.18000000528991222
+        ],
+        "quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "workspace",
+        "center_m": [
+          0.45,
+          0,
+          0.3
+        ],
+        "size_m": [
+          0.9,
+          0.9,
+          0.58
+        ],
+        "quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "obstacles": [
+      {
+        "id": "table",
+        "center_m": [
+          0.44999998807907104,
+          0.0,
+          -0.02500000037252903
+        ],
+        "size_m": [
+          1.100000023841858,
+          1.100000023841858,
+          0.05000000074505806
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "container_floor",
+        "center_m": [
+          0.6200000047683716,
+          0.18000000715255737,
+          0.004999999888241291
+        ],
+        "size_m": [
+          0.2199999988079071,
+          0.20000000298023224,
+          0.009999999776482582
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "container_x_minus",
+        "center_m": [
+          0.5199999809265137,
+          0.18000000715255737,
+          0.10000000149011612
+        ],
+        "size_m": [
+          0.019999999552965164,
+          0.20000000298023224,
+          0.18000000715255737
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "container_x_plus",
+        "center_m": [
+          0.7200000286102295,
+          0.18000000715255737,
+          0.10000000149011612
+        ],
+        "size_m": [
+          0.019999999552965164,
+          0.20000000298023224,
+          0.18000000715255737
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "container_y_minus",
+        "center_m": [
+          0.6200000047683716,
+          0.09000000357627869,
+          0.10000000149011612
+        ],
+        "size_m": [
+          0.2199999988079071,
+          0.019999999552965164,
+          0.18000000715255737
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "container_y_plus",
+        "center_m": [
+          0.6200000047683716,
+          0.27000001072883606,
+          0.10000000149011612
+        ],
+        "size_m": [
+          0.2199999988079071,
+          0.019999999552965164,
+          0.18000000715255737
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "barrier",
+        "center_m": [
+          0.17000000178813934,
+          -0.2800000011920929,
+          0.12999999523162842
+        ],
+        "size_m": [
+          0.25,
+          0.02500000037252903,
+          0.25999999046325684
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "renderings": []
+  },
+  "task": [
+    {
+      "task_id": "understand",
+      "kind": "understanding",
+      "frame": "robot_base",
+      "tolerance_m": 0.005,
+      "instruction": "The red object is target_cube; the blue object is blue_distractor. Answer the specified positive-base-axis relations, center, top height, size, gap and oriented fit. Container interior center [0.6200000047683716, 0.18000000715255737, 0.1000000024214387] m, size [0.18000004813075066, 0.1600000075995922, 0.18000000528991222] m.",
+      "questions": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "object_id": "target_cube",
+          "other_id": "blue_distractor",
+          "axis": "x"
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "object_id": "target_cube"
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "object_id": "target_cube",
+          "reference": "top"
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "object_id": "target_cube"
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "object_id": "target_cube",
+          "other_id": "blue_distractor",
+          "axis": "x"
+        },
+        {
+          "question_id": "fits",
+          "type": "fit",
+          "object_id": "target_cube",
+          "region_id": "container_interior",
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "constraints": {}
+    },
+    {
+      "task_id": "plan",
+      "kind": "path",
+      "frame": "robot_base",
+      "tolerance_m": 0.005,
+      "instruction": "Place the red target_cube fully inside container_interior with axes aligned to base, avoiding all other solids by 0.002 m. Plan carried-object waypoints from start [0.20,-0.18,0.06] m with fixed identity orientation; workspace center [0.45,0,0.30] size [0.90,0.90,0.58] m. Static geometric task only; no support or dynamics requirement. Container interior center [0.6200000047683716, 0.18000000715255737, 0.1000000024214387] m, size [0.18000004813075066, 0.1600000075995922, 0.18000000528991222] m.",
+      "questions": [],
+      "constraints": {
+        "object_id": "target_cube",
+        "allowed_region_id": "container_interior",
+        "clearance_m": 0.002,
+        "required_quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "orientation_tolerance_rad": 0.05,
+        "start_position_m": [
+          0.2,
+          -0.18,
+          0.06
+        ],
+        "workspace_region_id": "workspace"
+      }
+    }
+  ]
+}

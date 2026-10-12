@@ -1,0 +1,120 @@
+core/src/responses_retry.rs:55: /// Returns `Ok(())` when the caller should retry the request loop, or the original error when
+core/src/responses_retry.rs:56: /// it is terminal or the retry budget is exhausted.
+core/src/responses_retry.rs:57: pub(crate) async fn handle_response_stream_error(
+core/src/responses_retry.rs:58:     retry_state: &mut ResponsesStreamRetryState,
+core/src/responses_retry.rs:59:     max_retries: u64,
+core/src/responses_retry.rs:60:     err: CodexErr,
+core/src/responses_retry.rs:61:     client_session: &mut ModelClientSession,
+core/src/responses_retry.rs:62:     sess: &Session,
+core/src/responses_retry.rs:63:     step_context: &StepContext,
+core/src/responses_retry.rs:64:     request: ResponsesStreamRequest,
+core/src/responses_retry.rs:65: ) -> Result<(), CodexErr> {
+core/src/responses_retry.rs:66:     let turn_context = &step_context.turn;
+core/src/responses_retry.rs:67:     if matches!(request, ResponsesStreamRequest::Sampling)
+core/src/responses_retry.rs:68:         && matches!(err.details(), CodexErrorDetails::ContentFilter)
+core/src/responses_retry.rs:69:     {
+core/src/responses_retry.rs:70:         let model_info = &step_context.settings.model_info;
+core/src/responses_retry.rs:71:         let guidance = ContentFilterGuidance {
+core/src/responses_retry.rs:72:             text: codex_prompts::ResolvedModelMessages::from_model(model_info)
+core/src/responses_retry.rs:73:                 .content_filter_guidance()
+core/src/responses_retry.rs:74:                 .to_string(),
+core/src/responses_retry.rs:75:         };
+core/src/responses_retry.rs:76:         sess.record_conversation_items(
+core/src/responses_retry.rs:77:             turn_context,
+core/src/responses_retry.rs:78:             model_info,
+core/src/responses_retry.rs:79:             &[ContextualUserFragment::into(guidance)],
+core/src/responses_retry.rs:80:         )
+core/src/responses_retry.rs:81:         .await;
+core/src/responses_retry.rs:82:     }
+core/src/responses_retry.rs:83:     let operation = match request {
+core/src/responses_retry.rs:84:         ResponsesStreamRequest::Sampling => RetryOperation::Sampling,
+core/src/responses_retry.rs:85:         ResponsesStreamRequest::RemoteCompactionV2 => RetryOperation::RemoteCompactionV2,
+core/src/responses_retry.rs:86:     };
+core/src/responses_retry.rs:87:     let retry_count = retry_state.retries.saturating_add(1);
+core/src/responses_retry.rs:88:     let Some(delay) = err.retry_delay(retry_count) else {
+core/src/responses_retry.rs:89:         return Err(err);
+core/src/responses_retry.rs:90:     };
+core/src/responses_retry.rs:91:     let retry_after = err.retry_after();
+core/src/responses_retry.rs:92:
+core/src/responses_retry.rs:93:     if turn_context
+core/src/responses_retry.rs:94:         .config
+core/src/responses_retry.rs:95:         .features
+core/src/responses_retry.rs:96:         .enabled(Feature::UnboundedConnectionRetries)
+core/src/responses_retry.rs:97:         && matches!(request, ResponsesStreamRequest::Sampling)
+core/src/responses_retry.rs:98:         && matches!(err.details(), CodexErrorDetails::ConnectionFailed(_))
+core/src/responses_retry.rs:99:         && !turn_context.session_source.is_internal()
+core/src/responses_retry.rs:100:         && !turn_context.provider.info().is_amazon_bedrock()
+core/src/responses_retry.rs:101:     {
+core/src/responses_retry.rs:102:         let retry_delay = retry_state.connection_retry_delay;
+core/src/responses_retry.rs:103:         warn!(
+core/src/responses_retry.rs:104:             turn_id = %turn_context.sub_id,
+core/src/responses_retry.rs:105:             error = %err,
+core/src/responses_retry.rs:106:             ?retry_delay,
+core/src/responses_retry.rs:107:             "stream connection failed; waiting to retry"
+core/src/responses_retry.rs:108:         );
+core/src/responses_retry.rs:109:         sess.notify_stream_error(turn_context, "Reconnecting... waiting for network", err)
+core/src/responses_retry.rs:110:             .await;
+core/src/responses_retry.rs:111:         retry_state.connection_retries = retry_state.connection_retries.saturating_add(1);
+core/src/responses_retry.rs:112:         codex_client::record_retry!(retry_state.connection_retries, retry_delay, operation);
+core/src/responses_retry.rs:113:         tokio::time::sleep(retry_delay).await;
+core/src/responses_retry.rs:114:         retry_state.connection_retry_delay = retry_delay
+core/src/responses_retry.rs:115:             .saturating_mul(2)
+core/src/responses_retry.rs:116:             .min(MAX_CONNECTION_RETRY_DELAY);
+core/src/responses_retry.rs:117:         return Ok(());
+core/src/responses_retry.rs:118:     }
+core/src/responses_retry.rs:119:
+core/src/responses_retry.rs:120:     if retry_state.retries >= max_retries
+core/src/responses_retry.rs:121:         && client_session.try_switch_fallback_transport(
+core/src/responses_retry.rs:122:             &turn_context.session_telemetry,
+core/src/responses_retry.rs:123:             turn_context.model_info(),
+core/src/responses_retry.rs:124:         )
+core/src/responses_retry.rs:125:     {
+core/src/responses_retry.rs:126:         // Changing transport must not bypass the server's retry deadline.
+core/src/responses_retry.rs:127:         if let Some(retry_after) = retry_after {
+core/src/responses_retry.rs:128:             tokio::time::sleep_until(retry_after.deadline()).await;
+core/src/responses_retry.rs:129:         }
+core/src/responses_retry.rs:130:         sess.send_event(
+core/src/responses_retry.rs:131:             turn_context,
+core/src/responses_retry.rs:132:             EventMsg::Warning(WarningEvent {
+core/src/responses_retry.rs:133:                 message: format!("Falling back from WebSockets to HTTPS transport. {err:#}"),
+core/src/responses_retry.rs:134:             }),
+core/src/responses_retry.rs:135:         )
+core/src/responses_retry.rs:136:         .await;
+core/src/responses_retry.rs:137:         retry_state.retries = 0;
+core/src/responses_retry.rs:138:         return Ok(());
+core/src/responses_retry.rs:139:     }
+core/src/responses_retry.rs:140:
+core/src/responses_retry.rs:141:     if retry_state.retries < max_retries {
+core/src/responses_retry.rs:142:         retry_state.retries = retry_count;
+core/src/responses_retry.rs:143:         log_retry(request, turn_context, &err, retry_count, max_retries, delay);
+core/src/responses_retry.rs:144:
+core/src/responses_retry.rs:145:         // In release builds, hide the first websocket retry notification to reduce noisy
+core/src/responses_retry.rs:146:         // transient reconnect messages. In debug builds, keep full visibility for diagnosis.
+core/src/responses_retry.rs:147:         let report_error = retry_count > 1
+core/src/responses_retry.rs:148:             || cfg!(debug_assertions)
+core/src/responses_retry.rs:149:             || !sess.services.model_client.responses_websocket_enabled();
+core/src/responses_retry.rs:150:         if report_error {
+core/src/responses_retry.rs:151:             // Surface retry information to any UI/front-end so the user understands what is
+core/src/responses_retry.rs:152:             // happening instead of staring at a seemingly frozen screen.
+core/src/responses_retry.rs:153:             sess.notify_stream_error(
+core/src/responses_retry.rs:154:                 turn_context,
+core/src/responses_retry.rs:155:                 format!("Reconnecting... {retry_count}/{max_retries}"),
+core/src/responses_retry.rs:156:                 err,
+core/src/responses_retry.rs:157:             )
+core/src/responses_retry.rs:158:             .await;
+core/src/responses_retry.rs:159:         }
+core/src/responses_retry.rs:160:         // Use one clock sample so local backoff telemetry retains the selected delay.
+core/src/responses_retry.rs:161:         let now = Instant::now();
+core/src/responses_retry.rs:162:         let retry_at = retry_after.map(RetryAfter::deadline).unwrap_or(now + delay);
+core/src/responses_retry.rs:163:         let delay = retry_at.saturating_duration_since(now);
+core/src/responses_retry.rs:164:         codex_client::record_retry!(retry_count, delay, operation);
+core/src/responses_retry.rs:165:         tokio::time::sleep_until(retry_at).await;
+core/src/responses_retry.rs:166:         return Ok(());
+core/src/responses_retry.rs:167:     }
+core/src/responses_retry.rs:168:
+core/src/responses_retry.rs:169:     sess.services
+core/src/responses_retry.rs:170:         .thread_extension_data
+core/src/responses_retry.rs:171:         .insert(ExhaustedResponseRetry {
+core/src/responses_retry.rs:172:             turn_id: turn_context.sub_id.clone(),
+core/src/responses_retry.rs:173:             retry_at: retry_after.map(RetryAfter::deadline),
+core/src/responses_retry.rs:174:         });

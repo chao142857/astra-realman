@@ -1,0 +1,53 @@
+config/src/types.rs:597: pub enum OtelExporterKind {
+config/src/types.rs:598:     None,
+config/src/types.rs:599:     Statsig,
+config/src/types.rs:600:     OtlpHttp {
+config/src/types.rs:601:         endpoint: String,
+config/src/types.rs:602:         #[serde(default)]
+config/src/types.rs:603:         headers: HashMap<String, String>,
+config/src/types.rs:604:         protocol: OtelHttpProtocol,
+config/src/types.rs:605:         #[serde(default)]
+config/src/types.rs:606:         tls: Option<OtelTlsConfig>,
+config/src/types.rs:607:     },
+config/src/types.rs:608:     OtlpGrpc {
+config/src/types.rs:609:         endpoint: String,
+config/src/types.rs:610:         #[serde(default)]
+config/src/types.rs:611:         headers: HashMap<String, String>,
+config/src/types.rs:612:         #[serde(default)]
+config/src/types.rs:613:         tls: Option<OtelTlsConfig>,
+config/src/types.rs:614:     },
+config/src/types.rs:615: }
+config/src/types.rs:616:
+config/src/types.rs:617: /// OTEL settings loaded from config.toml. Fields are optional so we can apply defaults.
+config/src/types.rs:618: #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default, JsonSchema)]
+config/src/types.rs:619: #[schemars(deny_unknown_fields)]
+config/src/types.rs:620: pub struct OtelConfigToml {
+config/src/types.rs:621:     /// Byte limit for tool-result log output; independent of model-visible output.
+config/src/types.rs:622:     #[serde(default)]
+config/src/types.rs:623:     pub tool_result: codex_protocol::config_types::ToolResultLogConfig,
+config/src/types.rs:624:     /// Log user prompt in traces
+config/src/types.rs:625:     pub log_user_prompt: Option<bool>,
+config/src/types.rs:626:     /// Opt in to logging final main-agent and spawned-subagent responses to an OTLP log exporter.
+config/src/types.rs:627:     /// Defaults to false. Response text can be sensitive and is capped at 64 KiB.
+config/src/types.rs:628:     pub log_agent_responses: Option<bool>,
+config/src/types.rs:629:     /// Opt in to logging completed Guardian assessments to an OTLP log exporter.
+config/src/types.rs:630:     /// Defaults to false. Rationales can be sensitive and are capped at 64 KiB.
+config/src/types.rs:631:     pub log_guardian_assessments: Option<bool>,
+config/src/types.rs:632:
+config/src/types.rs:633:     /// Mark traces with environment (dev, staging, prod, test). Defaults to dev.
+config/src/types.rs:634:     pub environment: Option<String>,
+config/src/types.rs:635:
+config/src/types.rs:636:     /// Optional log exporter
+config/src/types.rs:637:     pub exporter: Option<OtelExporterKind>,
+config/src/types.rs:638:
+config/src/types.rs:639:     /// Optional trace exporter
+config/src/types.rs:640:     pub trace_exporter: Option<OtelExporterKind>,
+config/src/types.rs:641:
+config/src/types.rs:642:     /// Optional metrics exporter
+config/src/types.rs:643:     pub metrics_exporter: Option<OtelExporterKind>,
+config/src/types.rs:644:
+config/src/types.rs:645:     /// Attributes to add to every exported trace span.
+config/src/types.rs:646:     pub span_attributes: Option<BTreeMap<String, String>>,
+config/src/types.rs:647:
+config/src/types.rs:648:     /// Semicolon-separated `key:value` fields to upsert into W3C tracestate members.
+config/src/types.rs:649:     pub tracestate: Option<BTreeMap<String, BTreeMap<String, String>>>,

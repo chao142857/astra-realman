@@ -1,0 +1,82 @@
+http-client/src/transport.rs:148:         let request_logging_enabled = match &self.client {
+http-client/src/transport.rs:149:             TransportClient::Fixed(client) => client.request_logging_enabled(),
+http-client/src/transport.rs:150:             TransportClient::RouteAware(client) => client.request_logging_enabled(),
+http-client/src/transport.rs:151:         };
+http-client/src/transport.rs:152:         if request_logging_enabled && enabled!(Level::TRACE) {
+http-client/src/transport.rs:153:             trace!(
+http-client/src/transport.rs:154:                 "{} to {}: {}",
+http-client/src/transport.rs:155:                 req.method,
+http-client/src/transport.rs:156:                 req.url,
+http-client/src/transport.rs:157:                 request_body_for_trace(req)
+http-client/src/transport.rs:158:             );
+http-client/src/transport.rs:159:         }
+http-client/src/transport.rs:160:     }
+http-client/src/transport.rs:161: }
+http-client/src/transport.rs:162:
+http-client/src/transport.rs:163: fn request_body_for_trace(req: &Request) -> String {
+http-client/src/transport.rs:164:     match req.body.as_ref() {
+http-client/src/transport.rs:165:         Some(RequestBody::Json(body)) => body.to_string(),
+http-client/src/transport.rs:166:         Some(RequestBody::EncodedJson(body)) => {
+http-client/src/transport.rs:167:             String::from_utf8_lossy(body.trace_bytes()).into_owned()
+http-client/src/transport.rs:168:         }
+http-client/src/transport.rs:169:         Some(RequestBody::Raw(body)) => format!("<raw body: {} bytes>", body.len()),
+http-client/src/transport.rs:170:         None => String::new(),
+http-client/src/transport.rs:171:     }
+http-client/src/transport.rs:172: }
+http-client/src/transport.rs:173:
+http-client/src/transport.rs:174: impl HttpTransport for ReqwestTransport {
+http-client/src/transport.rs:175:     async fn execute(&self, req: Request) -> Result<Response, TransportError> {
+http-client/src/transport.rs:215:     async fn stream(&self, req: Request) -> Result<StreamResponse, TransportError> {
+http-client/src/transport.rs:216:         self.trace_request(&req);
+http-client/src/transport.rs:217:
+http-client/src/transport.rs:218:         let url = req.url.clone();
+http-client/src/transport.rs:219:         let response_body_limit_bytes = req.response_body_limit_bytes;
+http-client/src/transport.rs:220:         let resp = self.send(req).await?;
+http-client/src/transport.rs:221:         let status = resp.status();
+http-client/src/transport.rs:222:         let headers = resp.headers().clone();
+http-client/src/transport.rs:223:         if !status.is_success() {
+http-client/src/transport.rs:224:             let retry_after = RetryAfter::from_headers(&headers);
+http-client/src/transport.rs:225:             let body = match response_body_limit_bytes {
+http-client/src/transport.rs:226:                 Some(max_bytes) => match bounded_response_bytes(resp, max_bytes).await {
+http-client/src/transport.rs:227:                     Ok(bytes) => {
+http-client/src/transport.rs:228:                         // Reuse the unbounded path's charset, BOM and replacement decoding,
+http-client/src/transport.rs:229:                         // but only after the body has passed the byte limit.
+http-client/src/transport.rs:230:                         let mut buffered = http::Response::new(bytes);
+http-client/src/transport.rs:231:                         *buffered.headers_mut() = headers.clone();
+http-client/src/transport.rs:232:                         reqwest::Response::from(buffered).text().await.ok()
+http-client/src/transport.rs:233:                     }
+http-client/src/transport.rs:234:                     Err(
+http-client/src/transport.rs:235:                         error @ (TransportError::ResponseTooLarge { .. }
+http-client/src/transport.rs:236:                         | TransportError::Policy(_)),
+http-client/src/transport.rs:237:                     ) => return Err(error),
+http-client/src/transport.rs:238:                     // A failed diagnostic body must not hide HTTP auth or retry semantics.
+http-client/src/transport.rs:239:                     Err(_) => None,
+http-client/src/transport.rs:240:                 },
+http-client/src/transport.rs:241:                 None => match resp.text().await {
+http-client/src/transport.rs:242:                     Err(crate::HttpError::Policy(denied)) => return Err(denied.into()),
+http-client/src/transport.rs:243:                     body => body.ok(),
+http-client/src/transport.rs:244:                 },
+http-client/src/transport.rs:245:             };
+http-client/src/transport.rs:246:             return Err(TransportError::Http {
+http-client/src/transport.rs:247:                 status,
+http-client/src/transport.rs:248:                 url: Some(url),
+http-client/src/transport.rs:249:                 headers: Some(headers),
+http-client/src/transport.rs:250:                 body,
+http-client/src/transport.rs:251:                 retry_after,
+http-client/src/transport.rs:252:             });
+http-client/src/transport.rs:253:         }
+http-client/src/transport.rs:254:         let bytes = match response_body_limit_bytes {
+http-client/src/transport.rs:255:             Some(max_bytes) => bounded_response_stream(resp, max_bytes)?,
+http-client/src/transport.rs:256:             None => Box::pin(
+http-client/src/transport.rs:257:                 resp.bytes_stream()
+http-client/src/transport.rs:258:                     .map(|result| result.map_err(Self::map_error)),
+http-client/src/transport.rs:259:             ),
+http-client/src/transport.rs:260:         };
+http-client/src/transport.rs:261:         Ok(StreamResponse {
+http-client/src/transport.rs:262:             status,
+http-client/src/transport.rs:263:             headers,
+http-client/src/transport.rs:264:             bytes,
+http-client/src/transport.rs:265:         })
+http-client/src/transport.rs:266:     }
+http-client/src/transport.rs:267: }
+http-client/src/transport.rs:268:

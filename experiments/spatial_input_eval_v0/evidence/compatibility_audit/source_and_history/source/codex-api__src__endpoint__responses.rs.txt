@@ -1,0 +1,80 @@
+codex-api/src/endpoint/responses.rs:80:             compression,
+codex-api/src/endpoint/responses.rs:81:             turn_state,
+codex-api/src/endpoint/responses.rs:82:         } = options;
+codex-api/src/endpoint/responses.rs:83:         let body = EncodedJsonBody::encode(&request)
+codex-api/src/endpoint/responses.rs:84:             .map_err(|e| ApiError::Stream(format!("failed to encode responses request: {e}")))?;
+codex-api/src/endpoint/responses.rs:85:
+codex-api/src/endpoint/responses.rs:86:         let mut headers = extra_headers;
+codex-api/src/endpoint/responses.rs:87:         if let Some(ref thread_id) = thread_id {
+codex-api/src/endpoint/responses.rs:88:             insert_header(&mut headers, "x-client-request-id", thread_id);
+codex-api/src/endpoint/responses.rs:89:         }
+codex-api/src/endpoint/responses.rs:90:         headers.extend(build_session_headers(session_id, thread_id));
+codex-api/src/endpoint/responses.rs:91:         if let Some(subagent) = subagent_header(&session_source) {
+codex-api/src/endpoint/responses.rs:92:             insert_header(&mut headers, "x-openai-subagent", &subagent);
+codex-api/src/endpoint/responses.rs:93:         }
+codex-api/src/endpoint/responses.rs:94:
+codex-api/src/endpoint/responses.rs:95:         self.stream_encoded(body, headers, compression, turn_state)
+codex-api/src/endpoint/responses.rs:96:             .await
+codex-api/src/endpoint/responses.rs:97:     }
+codex-api/src/endpoint/responses.rs:98:
+codex-api/src/endpoint/responses.rs:99:     #[instrument(
+codex-api/src/endpoint/responses.rs:100:         name = "responses.stream",
+codex-api/src/endpoint/responses.rs:101:         level = "info",
+codex-api/src/endpoint/responses.rs:102:         skip_all,
+codex-api/src/endpoint/responses.rs:103:         fields(
+codex-api/src/endpoint/responses.rs:104:             transport = "responses_http",
+codex-api/src/endpoint/responses.rs:105:             http.method = "POST",
+codex-api/src/endpoint/responses.rs:106:             api.path = "/responses",
+codex-api/src/endpoint/responses.rs:107:             turn.has_state = turn_state.is_some()
+codex-api/src/endpoint/responses.rs:108:         )
+codex-api/src/endpoint/responses.rs:109:     )]
+codex-api/src/endpoint/responses.rs:110:     pub async fn stream(
+codex-api/src/endpoint/responses.rs:111:         &self,
+codex-api/src/endpoint/responses.rs:112:         body: Value,
+codex-api/src/endpoint/responses.rs:113:         extra_headers: HeaderMap,
+codex-api/src/endpoint/responses.rs:114:         compression: Compression,
+codex-api/src/endpoint/responses.rs:115:         turn_state: Option<Arc<OnceLock<String>>>,
+codex-api/src/endpoint/responses.rs:116:     ) -> Result<ResponseStream, ApiError> {
+codex-api/src/endpoint/responses.rs:117:         let body = EncodedJsonBody::encode(&body)
+codex-api/src/endpoint/responses.rs:118:             .map_err(|e| ApiError::Stream(format!("failed to encode responses request: {e}")))?;
+codex-api/src/endpoint/responses.rs:119:         self.stream_encoded(body, extra_headers, compression, turn_state)
+codex-api/src/endpoint/responses.rs:120:             .await
+codex-api/src/endpoint/responses.rs:121:     }
+codex-api/src/endpoint/responses.rs:122:
+codex-api/src/endpoint/responses.rs:123:     async fn stream_encoded(
+codex-api/src/endpoint/responses.rs:124:         &self,
+codex-api/src/endpoint/responses.rs:125:         body: EncodedJsonBody,
+codex-api/src/endpoint/responses.rs:126:         extra_headers: HeaderMap,
+codex-api/src/endpoint/responses.rs:127:         compression: Compression,
+codex-api/src/endpoint/responses.rs:128:         turn_state: Option<Arc<OnceLock<String>>>,
+codex-api/src/endpoint/responses.rs:129:     ) -> Result<ResponseStream, ApiError> {
+codex-api/src/endpoint/responses.rs:130:         let request_compression = match compression {
+codex-api/src/endpoint/responses.rs:131:             Compression::None => RequestCompression::None,
+codex-api/src/endpoint/responses.rs:132:             Compression::Zstd => RequestCompression::Zstd,
+codex-api/src/endpoint/responses.rs:133:         };
+codex-api/src/endpoint/responses.rs:134:
+codex-api/src/endpoint/responses.rs:135:         let stream_response = self
+codex-api/src/endpoint/responses.rs:136:             .session
+codex-api/src/endpoint/responses.rs:137:             .stream_encoded_json_with(
+codex-api/src/endpoint/responses.rs:138:                 Method::POST,
+codex-api/src/endpoint/responses.rs:139:                 "/responses",
+codex-api/src/endpoint/responses.rs:140:                 extra_headers,
+codex-api/src/endpoint/responses.rs:141:                 Some(body),
+codex-api/src/endpoint/responses.rs:142:                 |req| {
+codex-api/src/endpoint/responses.rs:143:                     req.headers.insert(
+codex-api/src/endpoint/responses.rs:144:                         http::header::ACCEPT,
+codex-api/src/endpoint/responses.rs:145:                         HeaderValue::from_static("text/event-stream"),
+codex-api/src/endpoint/responses.rs:146:                     );
+codex-api/src/endpoint/responses.rs:147:                     req.compression = request_compression;
+codex-api/src/endpoint/responses.rs:148:                 },
+codex-api/src/endpoint/responses.rs:149:             )
+codex-api/src/endpoint/responses.rs:150:             .await?;
+codex-api/src/endpoint/responses.rs:151:
+codex-api/src/endpoint/responses.rs:152:         Ok(spawn_response_stream(
+codex-api/src/endpoint/responses.rs:153:             stream_response,
+codex-api/src/endpoint/responses.rs:154:             self.session.provider().stream_idle_timeout,
+codex-api/src/endpoint/responses.rs:155:             self.sse_telemetry.clone(),
+codex-api/src/endpoint/responses.rs:156:             turn_state,
+codex-api/src/endpoint/responses.rs:157:         ))
+codex-api/src/endpoint/responses.rs:158:     }
+codex-api/src/endpoint/responses.rs:159: }

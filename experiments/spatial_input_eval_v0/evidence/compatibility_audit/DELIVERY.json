@@ -1,0 +1,41 @@
+{
+  "baseline_commit": "192537080cab5a9b6a78f89e1bfd1d495be04a84",
+  "branch": "codex/spatial-eval-compat-audit-20261012",
+  "status": "OFFLINE_AUDIT_AND_STATIC_SCENES_DELIVERED_HOSTED_GENERATION_UNVERIFIED",
+  "new_real_generation_requests": 0,
+  "authorized_generation_budget": 0,
+  "production_bridge_modified": false,
+  "model_or_frozen_S1_prompt_schema_modified": false,
+  "unit_tests": {
+    "passed": 41,
+    "failures": 0,
+    "errors": 0
+  },
+  "local_protocol": "PASS fake loopback current native CLI text/JSON + warning + completion + usage; NOT real Astra",
+  "host_ipc": "PASS V1 empty session lifecycle, no JS cells",
+  "fault_fixtures": "PASS HTTP503/SSE truncate one fake generation POST each",
+  "historical_successes": {
+    "distinct_threads": 24,
+    "record_copies": 27,
+    "cli_version": "0.161.0",
+    "transport": "HTTP only, zero retries",
+    "same_warning": true
+  },
+  "static_sapien": {
+    "scenes": 6,
+    "rgbd_views": 18,
+    "tasks": 12,
+    "physics_steps": 0,
+    "controllers": 0,
+    "gt": "actual live PhysX poses and box colliders read after unchanged capture"
+  },
+  "mock_samples": 24,
+  "real_AC_pairs_completed": 0,
+  "next_request_plan": "config/native_text_diagnostic.plan.json; not authorized or executable",
+  "limitations": [
+    "Exact hosted transport/server acceptance fault not yet established",
+    "Tool follow-up/auth-replay guard for single future request requires offline verification",
+    "Host JS execution and hosted Code Mode not verified",
+    "Static scenes do not establish dynamics, grasp or robot reachability"
+  ]
+}

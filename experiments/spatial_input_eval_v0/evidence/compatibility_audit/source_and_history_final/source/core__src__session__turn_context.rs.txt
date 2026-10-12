@@ -1,0 +1,44 @@
+core/src/session/turn_context.rs:1405:
+core/src/session/turn_context.rs:1406:     pub(crate) async fn maybe_emit_model_warnings_for_turn(&self, tc: &TurnContext) {
+core/src/session/turn_context.rs:1407:         if tc.model_info().used_fallback_model_metadata {
+core/src/session/turn_context.rs:1408:             self.send_event(
+core/src/session/turn_context.rs:1409:                 tc,
+core/src/session/turn_context.rs:1410:                 EventMsg::Warning(WarningEvent {
+core/src/session/turn_context.rs:1411:                     message: format!(
+core/src/session/turn_context.rs:1412:                         "Model metadata for `{}` not found. Defaulting to fallback metadata; this can degrade performance and cause issues.",
+core/src/session/turn_context.rs:1413:                         tc.model_info().slug
+core/src/session/turn_context.rs:1414:                     ),
+core/src/session/turn_context.rs:1415:                 }),
+core/src/session/turn_context.rs:1416:             )
+core/src/session/turn_context.rs:1417:             .await;
+core/src/session/turn_context.rs:1418:         }
+core/src/session/turn_context.rs:1419:
+core/src/session/turn_context.rs:1420:         if !tc.code_mode_available
+core/src/session/turn_context.rs:1421:             && matches!(
+core/src/session/turn_context.rs:1422:                 crate::tools::requested_tool_mode(tc, tc.model_info()),
+core/src/session/turn_context.rs:1423:                 codex_protocol::openai_models::ToolMode::CodeMode
+core/src/session/turn_context.rs:1424:                     | codex_protocol::openai_models::ToolMode::CodeModeOnly
+core/src/session/turn_context.rs:1425:             )
+core/src/session/turn_context.rs:1426:             && let Some(message) = self
+core/src/session/turn_context.rs:1427:                 .services
+core/src/session/turn_context.rs:1428:                 .code_mode_service
+core/src/session/turn_context.rs:1429:                 .take_unavailable_warning(crate::tools::effective_tool_mode(tc, tc.model_info()))
+core/src/session/turn_context.rs:1430:         {
+core/src/session/turn_context.rs:1431:             self.send_event(tc, EventMsg::Warning(WarningEvent { message }))
+core/src/session/turn_context.rs:1432:                 .await;
+core/src/session/turn_context.rs:1433:         }
+core/src/session/turn_context.rs:1434:
+core/src/session/turn_context.rs:1435:         if let Some(message) =
+core/src/session/turn_context.rs:1436:             unsupported_code_mode_warning(tc.model_info(), tc.config.features.get())
+core/src/session/turn_context.rs:1437:         {
+core/src/session/turn_context.rs:1438:             self.send_event(tc, EventMsg::Warning(WarningEvent { message }))
+core/src/session/turn_context.rs:1439:                 .await;
+core/src/session/turn_context.rs:1440:         }
+core/src/session/turn_context.rs:1441:     }
+core/src/session/turn_context.rs:1442:
+core/src/session/turn_context.rs:1443:     /// Builds a context without starting work or changing the current environments.
+core/src/session/turn_context.rs:1444:     pub(crate) async fn new_default_turn(&self) -> Arc<TurnContext> {
+core/src/session/turn_context.rs:1445:         self.new_default_turn_for(TurnContextBuildMode::Full).await
+core/src/session/turn_context.rs:1446:     }
+core/src/session/turn_context.rs:1447:
+core/src/session/turn_context.rs:1448:     /// Captures current recording settings without discovering skills.

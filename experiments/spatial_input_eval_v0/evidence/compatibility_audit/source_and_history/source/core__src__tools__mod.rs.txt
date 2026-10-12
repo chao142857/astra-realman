@@ -1,0 +1,26 @@
+core/src/tools/mod.rs:75: pub(crate) fn requested_tool_mode(turn_context: &TurnContext, model_info: &ModelInfo) -> ToolMode {
+core/src/tools/mod.rs:76:     model_info.tool_mode.unwrap_or_else(|| {
+core/src/tools/mod.rs:77:         if turn_context.config.features.enabled(Feature::CodeModeOnly) {
+core/src/tools/mod.rs:78:             ToolMode::CodeModeOnly
+core/src/tools/mod.rs:79:         } else if turn_context.config.features.enabled(Feature::CodeMode) {
+core/src/tools/mod.rs:80:             ToolMode::CodeMode
+core/src/tools/mod.rs:81:         } else {
+core/src/tools/mod.rs:82:             ToolMode::Direct
+core/src/tools/mod.rs:83:         }
+core/src/tools/mod.rs:84:     })
+core/src/tools/mod.rs:85: }
+core/src/tools/mod.rs:86:
+core/src/tools/mod.rs:87: pub(crate) fn effective_tool_mode(turn_context: &TurnContext, model_info: &ModelInfo) -> ToolMode {
+core/src/tools/mod.rs:88:     let requested_tool_mode = requested_tool_mode(turn_context, model_info);
+core/src/tools/mod.rs:89:     if !turn_context.code_mode_available
+core/src/tools/mod.rs:90:         && requested_tool_mode == ToolMode::CodeMode
+core/src/tools/mod.rs:91:         && !turn_context.config.code_mode.disable_in_process_fallback
+core/src/tools/mod.rs:92:     {
+core/src/tools/mod.rs:93:         ToolMode::Direct
+core/src/tools/mod.rs:94:     } else {
+core/src/tools/mod.rs:95:         requested_tool_mode
+core/src/tools/mod.rs:96:     }
+core/src/tools/mod.rs:97: }
+core/src/tools/mod.rs:98:
+core/src/tools/mod.rs:99: /// Format the combined exec output for sending back to the model.
+core/src/tools/mod.rs:100: /// Includes exit code and duration metadata; truncates large bodies safely.

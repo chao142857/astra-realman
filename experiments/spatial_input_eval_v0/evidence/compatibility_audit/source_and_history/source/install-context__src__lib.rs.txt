@@ -1,0 +1,35 @@
+install-context/src/lib.rs:176:     pub fn code_mode_host_program(&self) -> PathBuf {
+install-context/src/lib.rs:177:         // prefer the one packed under codex-resources
+install-context/src/lib.rs:178:         self.bundled_resource(CODE_MODE_HOST_EXECUTABLE_NAME)
+install-context/src/lib.rs:179:             .map_or_else(
+install-context/src/lib.rs:180:                 || self.code_mode_host_program_from_exe(std::env::current_exe().ok().as_deref()),
+install-context/src/lib.rs:181:                 AbsolutePathBuf::into_path_buf,
+install-context/src/lib.rs:182:             )
+install-context/src/lib.rs:183:     }
+install-context/src/lib.rs:184:
+install-context/src/lib.rs:185:     fn code_mode_host_program_from_exe(&self, current_exe: Option<&Path>) -> PathBuf {
+install-context/src/lib.rs:186:         let executable_dir = if let Some(package_layout) = &self.package_layout {
+install-context/src/lib.rs:187:             Some(package_layout.bin_dir.clone())
+install-context/src/lib.rs:188:         } else if let InstallMethod::Standalone { release_dir, .. } = &self.method {
+install-context/src/lib.rs:189:             Some(release_dir.clone())
+install-context/src/lib.rs:190:         } else {
+install-context/src/lib.rs:191:             current_exe
+install-context/src/lib.rs:192:                 .and_then(Path::parent)
+install-context/src/lib.rs:193:                 .and_then(canonical_absolute_path)
+install-context/src/lib.rs:194:         };
+install-context/src/lib.rs:195:         if let Some(executable_dir) = executable_dir {
+install-context/src/lib.rs:196:             let executable = executable_dir.join(CODE_MODE_HOST_EXECUTABLE_NAME);
+install-context/src/lib.rs:197:             if executable.is_file() {
+install-context/src/lib.rs:198:                 return executable.into_path_buf();
+install-context/src/lib.rs:199:             }
+install-context/src/lib.rs:200:         }
+install-context/src/lib.rs:201:
+install-context/src/lib.rs:202:         current_exe
+install-context/src/lib.rs:203:             .and_then(Path::parent)
+install-context/src/lib.rs:204:             .map(|parent| parent.join(CODE_MODE_HOST_EXECUTABLE_NAME))
+install-context/src/lib.rs:205:             .unwrap_or_else(|| PathBuf::from(CODE_MODE_HOST_EXECUTABLE_NAME))
+install-context/src/lib.rs:206:     }
+install-context/src/lib.rs:207:
+install-context/src/lib.rs:208:     pub fn bundled_resource(&self, file_name: impl AsRef<Path>) -> Option<AbsolutePathBuf> {
+install-context/src/lib.rs:209:         if let Some(package_layout) = &self.package_layout
+install-context/src/lib.rs:210:             && let Some(resources_dir) = &package_layout.resources_dir

@@ -1,0 +1,74 @@
+[
+  {
+    "type": "span",
+    "name": "endpoint_session.stream_encoded_json_with",
+    "attributes": {}
+  },
+  {
+    "type": "span",
+    "name": "responses.stream_request",
+    "attributes": {}
+  },
+  {
+    "type": "span",
+    "name": "model_client.stream_responses_api",
+    "attributes": {}
+  },
+  {
+    "type": "event",
+    "attributes": {
+      "event.name": "codex.api_request",
+      "duration_ms": 1.0,
+      "http.response.status_code": 200.0,
+      "attempt": 0.0,
+      "auth.header_attached": false
+    }
+  },
+  {
+    "type": "event",
+    "attributes": {
+      "event.name": "codex.sse_event",
+      "event.kind": "response.created",
+      "duration_ms": 0.0
+    }
+  },
+  {
+    "type": "event",
+    "attributes": {
+      "event.name": "codex.sse_event",
+      "event.kind": "response.output_item.added",
+      "duration_ms": 0.0
+    }
+  },
+  {
+    "type": "event",
+    "attributes": {
+      "event.name": "codex.sse_event",
+      "event.kind": "response.output_text.delta",
+      "duration_ms": 0.0
+    }
+  },
+  {
+    "type": "event",
+    "attributes": {
+      "event.name": "codex.sse_event",
+      "event.kind": "response.output_item.done",
+      "duration_ms": 0.0
+    }
+  },
+  {
+    "type": "event",
+    "attributes": {
+      "event.name": "codex.sse_event",
+      "event.kind": "response.completed",
+      "duration_ms": 0.0
+    }
+  },
+  {
+    "type": "event",
+    "attributes": {
+      "event.name": "codex.sse_event",
+      "event.kind": "response.completed"
+    }
+  }
+]

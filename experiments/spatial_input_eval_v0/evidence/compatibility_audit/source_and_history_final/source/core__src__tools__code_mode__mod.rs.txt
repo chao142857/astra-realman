@@ -1,0 +1,81 @@
+core/src/tools/code_mode/mod.rs:90:         config: &CodeModeConfig,
+core/src/tools/code_mode/mod.rs:91:         executed_tool_calls: ExecutedToolCalls,
+core/src/tools/code_mode/mod.rs:92:     ) -> Self {
+core/src/tools/code_mode/mod.rs:93:         let dispatch_broker = Arc::new(CodeModeDispatchBroker::new(thread_id, executed_tool_calls));
+core/src/tools/code_mode/mod.rs:94:         let availability = session_provider.availability();
+core/src/tools/code_mode/mod.rs:95:         Self {
+core/src/tools/code_mode/mod.rs:96:             session: OnceCell::new(),
+core/src/tools/code_mode/mod.rs:97:             session_provider,
+core/src/tools/code_mode/mod.rs:98:             availability,
+core/src/tools/code_mode/mod.rs:99:             dispatch_broker,
+core/src/tools/code_mode/mod.rs:100:             default_exec_yield_time_ms: config.default_exec_yield_time_ms,
+core/src/tools/code_mode/mod.rs:101:             shutdown_token: CancellationToken::new(),
+core/src/tools/code_mode/mod.rs:102:             unavailable_warning_emitted: AtomicBool::new(false),
+core/src/tools/code_mode/mod.rs:103:         }
+core/src/tools/code_mode/mod.rs:104:     }
+core/src/tools/code_mode/mod.rs:105:
+core/src/tools/code_mode/mod.rs:106:     pub(crate) fn is_available(&self) -> bool {
+core/src/tools/code_mode/mod.rs:107:         self.availability.is_ok()
+core/src/tools/code_mode/mod.rs:108:     }
+core/src/tools/code_mode/mod.rs:109:
+core/src/tools/code_mode/mod.rs:110:     pub(crate) fn take_unavailable_warning(&self, tool_mode: ToolMode) -> Option<String> {
+core/src/tools/code_mode/mod.rs:111:         let error = self.availability.as_ref().err()?;
+core/src/tools/code_mode/mod.rs:112:         let behavior = match tool_mode {
+core/src/tools/code_mode/mod.rs:113:             ToolMode::Direct => "Falling back to direct tools",
+core/src/tools/code_mode/mod.rs:114:             ToolMode::CodeMode | ToolMode::CodeModeOnly => "Code mode will fail closed",
+core/src/tools/code_mode/mod.rs:115:         };
+core/src/tools/code_mode/mod.rs:116:         (!self
+core/src/tools/code_mode/mod.rs:117:             .unavailable_warning_emitted
+core/src/tools/code_mode/mod.rs:118:             .swap(true, Ordering::Relaxed))
+core/src/tools/code_mode/mod.rs:119:         .then(|| {
+core/src/tools/code_mode/mod.rs:120:             format!(
+core/src/tools/code_mode/mod.rs:121:                 "Code Mode is unavailable because {error}. {behavior}; enable `features.code_mode_host` and install `codex-code-mode-host`."
+core/src/tools/code_mode/mod.rs:122:             )
+core/src/tools/code_mode/mod.rs:123:         })
+core/src/tools/code_mode/mod.rs:124:     }
+core/src/tools/code_mode/mod.rs:125:
+core/src/tools/code_mode/mod.rs:126:     pub(crate) fn session_provider(&self) -> Arc<dyn CodeModeSessionProvider> {
+core/src/tools/code_mode/mod.rs:127:         Arc::clone(&self.session_provider)
+core/src/tools/code_mode/mod.rs:128:     }
+core/src/tools/code_mode/mod.rs:129:
+core/src/tools/code_mode/mod.rs:130:     pub(crate) async fn execute(
+core/src/tools/code_mode/mod.rs:131:         &self,
+core/src/tools/code_mode/mod.rs:132:         mut request: codex_code_mode::ExecuteRequest,
+core/src/tools/code_mode/mod.rs:133:         step_context: Arc<StepContext>,
+core/src/tools/code_mode/mod.rs:134:     ) -> Result<codex_code_mode::StartedCell, String> {
+core/src/tools/code_mode/mod.rs:135:         request
+core/src/tools/code_mode/mod.rs:136:             .yield_time_ms
+core/src/tools/code_mode/mod.rs:137:             .get_or_insert(self.default_exec_yield_time_ms);
+core/src/tools/code_mode/mod.rs:138:         let preempt = step_context.preempt.clone();
+core/src/tools/code_mode/mod.rs:139:         let delegate = Arc::new(CodeModeCellDelegate {
+core/src/tools/code_mode/mod.rs:140:             broker: Arc::clone(&self.dispatch_broker),
+core/src/tools/code_mode/mod.rs:141:             step_context,
+core/src/tools/code_mode/mod.rs:142:         });
+core/src/tools/code_mode/mod.rs:143:         self.session()
+core/src/tools/code_mode/mod.rs:144:             .await?
+core/src/tools/code_mode/mod.rs:145:             .execute(request, delegate, preempt)
+core/src/tools/code_mode/mod.rs:146:             .await
+core/src/tools/code_mode/mod.rs:147:     }
+core/src/tools/code_mode/mod.rs:148:
+core/src/tools/code_mode/mod.rs:149:     pub(crate) async fn wait(
+core/src/tools/code_mode/mod.rs:150:         &self,
+core/src/tools/code_mode/mod.rs:151:         request: codex_code_mode::WaitRequest,
+core/src/tools/code_mode/mod.rs:152:         preempt: Option<CancellationToken>,
+core/src/tools/code_mode/mod.rs:153:     ) -> Result<codex_code_mode::WaitOutcome, String> {
+core/src/tools/code_mode/mod.rs:154:         self.session().await?.wait(request, preempt).await
+core/src/tools/code_mode/mod.rs:155:     }
+core/src/tools/code_mode/mod.rs:156:
+core/src/tools/code_mode/mod.rs:157:     pub(crate) async fn terminate(
+core/src/tools/code_mode/mod.rs:158:         &self,
+core/src/tools/code_mode/mod.rs:159:         cell_id: CellId,
+core/src/tools/code_mode/mod.rs:160:     ) -> Result<codex_code_mode::WaitOutcome, String> {
+core/src/tools/code_mode/mod.rs:161:         self.session().await?.terminate(cell_id).await
+core/src/tools/code_mode/mod.rs:162:     }
+core/src/tools/code_mode/mod.rs:163:
+core/src/tools/code_mode/mod.rs:164:     pub(crate) async fn interrupt_active_cells(&self) {
+core/src/tools/code_mode/mod.rs:165:         let Some(session) = self.session.get() else {
+core/src/tools/code_mode/mod.rs:166:             return;
+core/src/tools/code_mode/mod.rs:167:         };
+core/src/tools/code_mode/mod.rs:168:         join_all(
+core/src/tools/code_mode/mod.rs:169:             self.dispatch_broker
+core/src/tools/code_mode/mod.rs:170:                 .active_cell_ids()

@@ -1,0 +1,112 @@
+codex-api/src/endpoint/session.rs:45:         &self.provider
+codex-api/src/endpoint/session.rs:46:     }
+codex-api/src/endpoint/session.rs:47:
+codex-api/src/endpoint/session.rs:48:     fn make_request(
+codex-api/src/endpoint/session.rs:49:         &self,
+codex-api/src/endpoint/session.rs:50:         method: &Method,
+codex-api/src/endpoint/session.rs:51:         path: &str,
+codex-api/src/endpoint/session.rs:52:         extra_headers: &HeaderMap,
+codex-api/src/endpoint/session.rs:53:         body: Option<&RequestBody>,
+codex-api/src/endpoint/session.rs:54:     ) -> Request {
+codex-api/src/endpoint/session.rs:55:         let mut req = self.provider.build_request(method.clone(), path);
+codex-api/src/endpoint/session.rs:56:         req.headers.extend(extra_headers.clone());
+codex-api/src/endpoint/session.rs:57:         if let Some(body) = body {
+codex-api/src/endpoint/session.rs:58:             req.body = Some(body.clone());
+codex-api/src/endpoint/session.rs:59:         }
+codex-api/src/endpoint/session.rs:60:         req
+codex-api/src/endpoint/session.rs:61:     }
+codex-api/src/endpoint/session.rs:62:
+codex-api/src/endpoint/session.rs:63:     pub(crate) async fn execute(
+codex-api/src/endpoint/session.rs:64:         &self,
+codex-api/src/endpoint/session.rs:65:         method: Method,
+codex-api/src/endpoint/session.rs:66:         path: &str,
+codex-api/src/endpoint/session.rs:67:         extra_headers: HeaderMap,
+codex-api/src/endpoint/session.rs:68:         body: Option<Value>,
+codex-api/src/endpoint/session.rs:69:     ) -> Result<Response, ApiError> {
+codex-api/src/endpoint/session.rs:70:         self.execute_with(method, path, extra_headers, body, |_| {})
+codex-api/src/endpoint/session.rs:71:             .await
+codex-api/src/endpoint/session.rs:72:     }
+codex-api/src/endpoint/session.rs:73:
+codex-api/src/endpoint/session.rs:74:     #[instrument(
+codex-api/src/endpoint/session.rs:75:         name = "endpoint_session.execute_with",
+codex-api/src/endpoint/session.rs:76:         level = "info",
+codex-api/src/endpoint/session.rs:77:         skip_all,
+codex-api/src/endpoint/session.rs:78:         fields(http.method = %method, api.path = path)
+codex-api/src/endpoint/session.rs:79:     )]
+codex-api/src/endpoint/session.rs:80:     pub(crate) async fn execute_with<C>(
+codex-api/src/endpoint/session.rs:81:         &self,
+codex-api/src/endpoint/session.rs:82:         method: Method,
+codex-api/src/endpoint/session.rs:83:         path: &str,
+codex-api/src/endpoint/session.rs:84:         extra_headers: HeaderMap,
+codex-api/src/endpoint/session.rs:85:         body: Option<Value>,
+codex-api/src/endpoint/session.rs:86:         configure: C,
+codex-api/src/endpoint/session.rs:87:     ) -> Result<Response, ApiError>
+codex-api/src/endpoint/session.rs:88:     where
+codex-api/src/endpoint/session.rs:89:         C: Fn(&mut Request),
+codex-api/src/endpoint/session.rs:90:     {
+codex-api/src/endpoint/session.rs:91:         let body = body.map(RequestBody::Json);
+codex-api/src/endpoint/session.rs:92:         let make_request = || {
+codex-api/src/endpoint/session.rs:93:             let mut req = self.make_request(&method, path, &extra_headers, body.as_ref());
+codex-api/src/endpoint/session.rs:94:             configure(&mut req);
+codex-api/src/endpoint/session.rs:95:             req
+codex-api/src/endpoint/session.rs:96:         };
+codex-api/src/endpoint/session.rs:97:
+codex-api/src/endpoint/session.rs:98:         let response = run_with_request_telemetry(
+codex-api/src/endpoint/session.rs:99:             self.provider.retry.to_policy(),
+codex-api/src/endpoint/session.rs:100:             self.request_telemetry.clone(),
+codex-api/src/endpoint/session.rs:101:             make_request,
+codex-api/src/endpoint/session.rs:102:             |req| {
+codex-api/src/endpoint/session.rs:103:                 let auth = self.auth.clone();
+codex-api/src/endpoint/session.rs:104:                 let transport = &self.transport;
+codex-api/src/endpoint/session.rs:105:                 async move {
+codex-api/src/endpoint/session.rs:106:                     let req = auth.apply_auth(req).await.map_err(TransportError::from)?;
+codex-api/src/endpoint/session.rs:107:                     transport.execute(req).await
+codex-api/src/endpoint/session.rs:108:                 }
+codex-api/src/endpoint/session.rs:109:             },
+codex-api/src/endpoint/session.rs:110:         )
+codex-api/src/endpoint/session.rs:111:         .await?;
+codex-api/src/endpoint/session.rs:112:
+codex-api/src/endpoint/session.rs:113:         Ok(response)
+codex-api/src/endpoint/session.rs:114:     }
+codex-api/src/endpoint/session.rs:115:
+codex-api/src/endpoint/session.rs:116:     #[instrument(
+codex-api/src/endpoint/session.rs:117:         name = "endpoint_session.stream_encoded_json_with",
+codex-api/src/endpoint/session.rs:118:         level = "info",
+codex-api/src/endpoint/session.rs:119:         skip_all,
+codex-api/src/endpoint/session.rs:120:         fields(http.method = %method, api.path = path)
+codex-api/src/endpoint/session.rs:121:     )]
+codex-api/src/endpoint/session.rs:122:     pub(crate) async fn stream_encoded_json_with<C>(
+codex-api/src/endpoint/session.rs:123:         &self,
+codex-api/src/endpoint/session.rs:124:         method: Method,
+codex-api/src/endpoint/session.rs:125:         path: &str,
+codex-api/src/endpoint/session.rs:126:         extra_headers: HeaderMap,
+codex-api/src/endpoint/session.rs:127:         body: Option<EncodedJsonBody>,
+codex-api/src/endpoint/session.rs:128:         configure: C,
+codex-api/src/endpoint/session.rs:129:     ) -> Result<StreamResponse, ApiError>
+codex-api/src/endpoint/session.rs:130:     where
+codex-api/src/endpoint/session.rs:131:         C: Fn(&mut Request),
+codex-api/src/endpoint/session.rs:132:     {
+codex-api/src/endpoint/session.rs:133:         let body = body.map(RequestBody::EncodedJson);
+codex-api/src/endpoint/session.rs:134:         let mut request = self.make_request(&method, path, &extra_headers, body.as_ref());
+codex-api/src/endpoint/session.rs:135:         configure(&mut request);
+codex-api/src/endpoint/session.rs:136:         let request = request.into_prepared().map_err(TransportError::Build)?;
+codex-api/src/endpoint/session.rs:137:         let make_request = || request.clone();
+codex-api/src/endpoint/session.rs:138:
+codex-api/src/endpoint/session.rs:139:         let stream = run_with_request_telemetry(
+codex-api/src/endpoint/session.rs:140:             self.provider.retry.to_policy(),
+codex-api/src/endpoint/session.rs:141:             self.request_telemetry.clone(),
+codex-api/src/endpoint/session.rs:142:             make_request,
+codex-api/src/endpoint/session.rs:143:             |req| {
+codex-api/src/endpoint/session.rs:144:                 let auth = self.auth.clone();
+codex-api/src/endpoint/session.rs:145:                 let transport = &self.transport;
+codex-api/src/endpoint/session.rs:146:                 async move {
+codex-api/src/endpoint/session.rs:147:                     let req = auth.apply_auth(req).await.map_err(TransportError::from)?;
+codex-api/src/endpoint/session.rs:148:                     transport.stream(req).await
+codex-api/src/endpoint/session.rs:149:                 }
+codex-api/src/endpoint/session.rs:150:             },
+codex-api/src/endpoint/session.rs:151:         )
+codex-api/src/endpoint/session.rs:152:         .await?;
+codex-api/src/endpoint/session.rs:153:
+codex-api/src/endpoint/session.rs:154:         Ok(stream)
+codex-api/src/endpoint/session.rs:155:     }
+codex-api/src/endpoint/session.rs:156: }

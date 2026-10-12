@@ -1,0 +1,23 @@
+exec/src/lib.rs:254: fn exec_stderr_env_filter() -> EnvFilter {
+exec/src/lib.rs:255:     // OTEL export is best-effort; keep exporter self-diagnostics out of
+exec/src/lib.rs:256:     // headless command output unless the caller opts in with RUST_LOG.
+exec/src/lib.rs:257:     EnvFilter::try_from_default_env()
+exec/src/lib.rs:258:         .or_else(|_| EnvFilter::try_new(EXEC_DEFAULT_LOG_FILTER))
+exec/src/lib.rs:259:         .unwrap_or_else(|_| EnvFilter::new("error"))
+exec/src/lib.rs:260: }
+exec/src/lib.rs:261:
+exec/src/lib.rs:338:     let fmt_layer = tracing_subscriber::fmt::layer()
+exec/src/lib.rs:339:         .with_ansi(stderr_with_ansi)
+exec/src/lib.rs:340:         .with_writer(std::io::stderr)
+exec/src/lib.rs:341:         .with_filter(exec_stderr_env_filter());
+exec/src/lib.rs:342:
+exec/src/lib.rs:684:     let otel_logger_layer = otel.as_ref().and_then(|o| o.logger_layer());
+exec/src/lib.rs:685:
+exec/src/lib.rs:686:     let otel_tracing_layer = otel.as_ref().and_then(|o| o.tracing_layer());
+exec/src/lib.rs:687:
+exec/src/lib.rs:688:     let _ = tracing_subscriber::registry()
+exec/src/lib.rs:689:         .with(fmt_layer)
+exec/src/lib.rs:690:         .with(otel_tracing_layer)
+exec/src/lib.rs:691:         .with(otel_logger_layer)
+exec/src/lib.rs:692:         .try_init();
+exec/src/lib.rs:693:

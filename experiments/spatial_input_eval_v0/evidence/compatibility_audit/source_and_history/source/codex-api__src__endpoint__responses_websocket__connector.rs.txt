@@ -1,0 +1,49 @@
+codex-api/src/endpoint/responses_websocket/connector.rs:1: //! Establishes Responses sockets with caller-owned TLS and proxy configuration.
+codex-api/src/endpoint/responses_websocket/connector.rs:2: //! Connector reuse never caches authentication or bypasses per-connection destination policy.
+codex-api/src/endpoint/responses_websocket/connector.rs:3:
+codex-api/src/endpoint/responses_websocket/connector.rs:4: use super::ResponsesWebsocketClient;
+codex-api/src/endpoint/responses_websocket/connector.rs:5: use super::ResponsesWebsocketConnection;
+codex-api/src/endpoint/responses_websocket/connector.rs:6: use super::connect_websocket;
+codex-api/src/endpoint/responses_websocket/connector.rs:7: use super::merge_request_headers;
+codex-api/src/endpoint/responses_websocket/connector.rs:8: use crate::ApiError;
+codex-api/src/endpoint/responses_websocket/connector.rs:9: use crate::WebsocketTelemetry;
+codex-api/src/endpoint/responses_websocket/connector.rs:10: use codex_websocket_client::WebSocketConnector;
+codex-api/src/endpoint/responses_websocket/connector.rs:11: use http::HeaderMap;
+codex-api/src/endpoint/responses_websocket/connector.rs:12: use std::sync::Arc;
+codex-api/src/endpoint/responses_websocket/connector.rs:13: use std::sync::OnceLock;
+codex-api/src/endpoint/responses_websocket/connector.rs:14:
+codex-api/src/endpoint/responses_websocket/connector.rs:15: impl ResponsesWebsocketClient {
+codex-api/src/endpoint/responses_websocket/connector.rs:16:     /// Opens a socket using the caller's reusable connector and this client's current auth.
+codex-api/src/endpoint/responses_websocket/connector.rs:17:     /// The caller owns the lifetime of the connector's TLS configuration snapshot.
+codex-api/src/endpoint/responses_websocket/connector.rs:18:     #[tracing::instrument(
+codex-api/src/endpoint/responses_websocket/connector.rs:19:         name = "responses_websocket.connect",
+codex-api/src/endpoint/responses_websocket/connector.rs:20:         level = "info",
+codex-api/src/endpoint/responses_websocket/connector.rs:21:         skip_all,
+codex-api/src/endpoint/responses_websocket/connector.rs:22:         fields(transport = "responses_websocket", api.path = "/responses")
+codex-api/src/endpoint/responses_websocket/connector.rs:23:     )]
+codex-api/src/endpoint/responses_websocket/connector.rs:24:     pub async fn connect_with_connector(
+codex-api/src/endpoint/responses_websocket/connector.rs:25:         &self,
+codex-api/src/endpoint/responses_websocket/connector.rs:26:         connector: &WebSocketConnector,
+codex-api/src/endpoint/responses_websocket/connector.rs:27:         extra_headers: HeaderMap,
+codex-api/src/endpoint/responses_websocket/connector.rs:28:         default_headers: HeaderMap,
+codex-api/src/endpoint/responses_websocket/connector.rs:29:         turn_state: Option<Arc<OnceLock<String>>>,
+codex-api/src/endpoint/responses_websocket/connector.rs:30:         telemetry: Option<Arc<dyn WebsocketTelemetry>>,
+codex-api/src/endpoint/responses_websocket/connector.rs:31:     ) -> Result<ResponsesWebsocketConnection, ApiError> {
+codex-api/src/endpoint/responses_websocket/connector.rs:32:         let ws_url = self
+codex-api/src/endpoint/responses_websocket/connector.rs:33:             .provider
+codex-api/src/endpoint/responses_websocket/connector.rs:34:             .websocket_url_for_path("/responses")
+codex-api/src/endpoint/responses_websocket/connector.rs:35:             .map_err(|err| ApiError::Stream(format!("failed to build websocket URL: {err}")))?;
+codex-api/src/endpoint/responses_websocket/connector.rs:36:         let mut headers =
+codex-api/src/endpoint/responses_websocket/connector.rs:37:             merge_request_headers(&self.provider.headers, extra_headers, default_headers);
+codex-api/src/endpoint/responses_websocket/connector.rs:38:         self.auth.add_auth_headers(&mut headers);
+codex-api/src/endpoint/responses_websocket/connector.rs:39:         let (stream, _status, server_reasoning_included, server_model) =
+codex-api/src/endpoint/responses_websocket/connector.rs:40:             connect_websocket(ws_url, headers, connector, turn_state).await?;
+codex-api/src/endpoint/responses_websocket/connector.rs:41:         Ok(ResponsesWebsocketConnection::new(
+codex-api/src/endpoint/responses_websocket/connector.rs:42:             stream,
+codex-api/src/endpoint/responses_websocket/connector.rs:43:             self.provider.stream_idle_timeout,
+codex-api/src/endpoint/responses_websocket/connector.rs:44:             server_reasoning_included,
+codex-api/src/endpoint/responses_websocket/connector.rs:45:             server_model,
+codex-api/src/endpoint/responses_websocket/connector.rs:46:             telemetry,
+codex-api/src/endpoint/responses_websocket/connector.rs:47:         ))
+codex-api/src/endpoint/responses_websocket/connector.rs:48:     }
+codex-api/src/endpoint/responses_websocket/connector.rs:49: }

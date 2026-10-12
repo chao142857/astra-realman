@@ -1,0 +1,115 @@
+model-provider-info/src/lib.rs:64: }
+model-provider-info/src/lib.rs:65:
+model-provider-info/src/lib.rs:66: const DEFAULT_STREAM_IDLE_TIMEOUT_MS: u64 = 300_000;
+model-provider-info/src/lib.rs:67: const DEFAULT_STREAM_MAX_RETRIES: u64 = 5;
+model-provider-info/src/lib.rs:68: const DEFAULT_REQUEST_MAX_RETRIES: u64 = 4;
+model-provider-info/src/lib.rs:69: const DEFAULT_AWS_CREDENTIAL_EXPORT_TIMEOUT_MS: u64 = 30_000;
+model-provider-info/src/lib.rs:70: const DEFAULT_AWS_AUTH_REFRESH_TIMEOUT_MS: u64 = 300_000;
+model-provider-info/src/lib.rs:71: pub const DEFAULT_WEBSOCKET_CONNECT_TIMEOUT_MS: u64 = 15_000;
+model-provider-info/src/lib.rs:72: /// Hard cap for user-configured `stream_max_retries`.
+model-provider-info/src/lib.rs:73: const MAX_STREAM_MAX_RETRIES: u64 = 100;
+model-provider-info/src/lib.rs:74: /// Hard cap for user-configured `request_max_retries`.
+model-provider-info/src/lib.rs:75: const MAX_REQUEST_MAX_RETRIES: u64 = 100;
+model-provider-info/src/lib.rs:76:
+model-provider-info/src/lib.rs:490:                         })
+model-provider-info/src/lib.rs:491:                     })?;
+model-provider-info/src/lib.rs:492:                 Ok(Some(api_key))
+model-provider-info/src/lib.rs:493:             }
+model-provider-info/src/lib.rs:494:             None => Ok(None),
+model-provider-info/src/lib.rs:495:         }
+model-provider-info/src/lib.rs:496:     }
+model-provider-info/src/lib.rs:497:
+model-provider-info/src/lib.rs:498:     /// Effective maximum number of request retries for this provider.
+model-provider-info/src/lib.rs:499:     pub fn request_max_retries(&self) -> u64 {
+model-provider-info/src/lib.rs:500:         self.request_max_retries
+model-provider-info/src/lib.rs:501:             .unwrap_or(DEFAULT_REQUEST_MAX_RETRIES)
+model-provider-info/src/lib.rs:502:             .min(MAX_REQUEST_MAX_RETRIES)
+model-provider-info/src/lib.rs:503:     }
+model-provider-info/src/lib.rs:504:
+model-provider-info/src/lib.rs:505:     /// Effective maximum number of stream reconnection attempts for this provider.
+model-provider-info/src/lib.rs:506:     pub fn stream_max_retries(&self) -> u64 {
+model-provider-info/src/lib.rs:507:         self.stream_max_retries
+model-provider-info/src/lib.rs:508:             .unwrap_or(DEFAULT_STREAM_MAX_RETRIES)
+model-provider-info/src/lib.rs:509:             .min(MAX_STREAM_MAX_RETRIES)
+model-provider-info/src/lib.rs:510:     }
+model-provider-info/src/lib.rs:511:
+model-provider-info/src/lib.rs:512:     /// Effective idle timeout for streaming responses.
+model-provider-info/src/lib.rs:513:     pub fn stream_idle_timeout(&self) -> Duration {
+model-provider-info/src/lib.rs:514:         self.stream_idle_timeout_ms
+model-provider-info/src/lib.rs:515:             .map(Duration::from_millis)
+model-provider-info/src/lib.rs:516:             .unwrap_or(Duration::from_millis(DEFAULT_STREAM_IDLE_TIMEOUT_MS))
+model-provider-info/src/lib.rs:517:     }
+model-provider-info/src/lib.rs:518:
+model-provider-info/src/lib.rs:519:     /// Effective timeout for websocket connect attempts.
+model-provider-info/src/lib.rs:520:     pub fn websocket_connect_timeout(&self) -> Duration {
+model-provider-info/src/lib.rs:521:         self.websocket_connect_timeout_ms
+model-provider-info/src/lib.rs:522:             .map(Duration::from_millis)
+model-provider-info/src/lib.rs:523:             .unwrap_or(Duration::from_millis(DEFAULT_WEBSOCKET_CONNECT_TIMEOUT_MS))
+model-provider-info/src/lib.rs:524:     }
+model-provider-info/src/lib.rs:525:
+model-provider-info/src/lib.rs:526:     pub fn create_openai_provider(base_url: Option<String>) -> ModelProviderInfo {
+model-provider-info/src/lib.rs:540:                 [("version".to_string(), env!("CARGO_PKG_VERSION").into())]
+model-provider-info/src/lib.rs:541:                     .into_iter()
+model-provider-info/src/lib.rs:542:                     .collect(),
+model-provider-info/src/lib.rs:543:             ),
+model-provider-info/src/lib.rs:544:             env_http_headers: Some(
+model-provider-info/src/lib.rs:545:                 [
+model-provider-info/src/lib.rs:546:                     (
+model-provider-info/src/lib.rs:547:                         "OpenAI-Organization".to_string(),
+model-provider-info/src/lib.rs:548:                         "OPENAI_ORGANIZATION".to_string(),
+model-provider-info/src/lib.rs:549:                     ),
+model-provider-info/src/lib.rs:550:                     ("OpenAI-Project".to_string(), "OPENAI_PROJECT".to_string()),
+model-provider-info/src/lib.rs:551:                 ]
+model-provider-info/src/lib.rs:552:                 .into_iter()
+model-provider-info/src/lib.rs:553:                 .collect(),
+model-provider-info/src/lib.rs:554:             ),
+model-provider-info/src/lib.rs:555:             // Use global defaults for retry/timeout unless overridden in config.toml.
+model-provider-info/src/lib.rs:556:             request_max_retries: None,
+model-provider-info/src/lib.rs:557:             stream_max_retries: None,
+model-provider-info/src/lib.rs:558:             stream_idle_timeout_ms: None,
+model-provider-info/src/lib.rs:559:             websocket_connect_timeout_ms: None,
+model-provider-info/src/lib.rs:560:             requires_openai_auth: true,
+model-provider-info/src/lib.rs:561:             supports_websockets: true,
+model-provider-info/src/lib.rs:562:             supports_standalone_web_search: true,
+model-provider-info/src/lib.rs:563:             capabilities: None,
+model-provider-info/src/lib.rs:564:             include_internal_metadata: true,
+model-provider-info/src/lib.rs:565:         }
+model-provider-info/src/lib.rs:699: pub fn merge_configured_model_providers(
+model-provider-info/src/lib.rs:700:     mut model_providers: HashMap<String, ModelProviderInfo>,
+model-provider-info/src/lib.rs:701:     configured_model_providers: HashMap<String, ModelProviderInfo>,
+model-provider-info/src/lib.rs:702: ) -> Result<HashMap<String, ModelProviderInfo>, String> {
+model-provider-info/src/lib.rs:703:     for (key, mut provider) in configured_model_providers {
+model-provider-info/src/lib.rs:704:         if matches!(
+model-provider-info/src/lib.rs:705:             key.as_str(),
+model-provider-info/src/lib.rs:706:             AMAZON_BEDROCK_PROVIDER_ID | AMAZON_BEDROCK_RUNTIME_PROVIDER_ID
+model-provider-info/src/lib.rs:707:         ) {
+model-provider-info/src/lib.rs:708:             provider
+model-provider-info/src/lib.rs:709:                 .validate_bedrock_override()
+model-provider-info/src/lib.rs:710:                 .map_err(|message| format!("model_providers.{key} {message}"))?;
+model-provider-info/src/lib.rs:711:             let base_url_override = provider.base_url.take();
+model-provider-info/src/lib.rs:712:             let auth_override = provider.auth.take();
+model-provider-info/src/lib.rs:713:             let aws_override = provider.aws.take();
+model-provider-info/src/lib.rs:714:             let http_headers_override = provider.http_headers.take();
+model-provider-info/src/lib.rs:715:             if let Some(built_in_provider) = model_providers.get_mut(&key) {
+model-provider-info/src/lib.rs:716:                 built_in_provider.base_url = base_url_override;
+model-provider-info/src/lib.rs:717:                 built_in_provider.auth = auth_override;
+model-provider-info/src/lib.rs:718:                 if let Some(aws_override) = aws_override {
+model-provider-info/src/lib.rs:719:                     built_in_provider.aws = Some(aws_override);
+model-provider-info/src/lib.rs:720:                 }
+model-provider-info/src/lib.rs:721:                 if let Some(http_headers_override) = http_headers_override {
+model-provider-info/src/lib.rs:722:                     built_in_provider
+model-provider-info/src/lib.rs:723:                         .http_headers
+model-provider-info/src/lib.rs:724:                         .get_or_insert_default()
+model-provider-info/src/lib.rs:725:                         .extend(http_headers_override);
+model-provider-info/src/lib.rs:726:                 }
+model-provider-info/src/lib.rs:727:             }
+model-provider-info/src/lib.rs:728:         } else {
+model-provider-info/src/lib.rs:729:             model_providers.entry(key).or_insert(provider);
+model-provider-info/src/lib.rs:730:         }
+model-provider-info/src/lib.rs:731:     }
+model-provider-info/src/lib.rs:732:
+model-provider-info/src/lib.rs:733:     Ok(model_providers)
+model-provider-info/src/lib.rs:734: }
+model-provider-info/src/lib.rs:735:
+model-provider-info/src/lib.rs:736: pub fn create_oss_provider(default_provider_port: u16, wire_api: WireApi) -> ModelProviderInfo {
+model-provider-info/src/lib.rs:737:     // These CODEX_OSS_ environment variables are experimental: we may

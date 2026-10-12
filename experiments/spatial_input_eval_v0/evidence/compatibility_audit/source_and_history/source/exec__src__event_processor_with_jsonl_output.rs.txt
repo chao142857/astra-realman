@@ -1,0 +1,131 @@
+exec/src/event_processor_with_jsonl_output.rs:407:     }
+exec/src/event_processor_with_jsonl_output.rs:408:
+exec/src/event_processor_with_jsonl_output.rs:409:     pub fn collect_warning(&mut self, message: String) -> CollectedThreadEvents {
+exec/src/event_processor_with_jsonl_output.rs:410:         CollectedThreadEvents {
+exec/src/event_processor_with_jsonl_output.rs:411:             events: vec![ThreadEvent::ItemCompleted(ItemCompletedEvent {
+exec/src/event_processor_with_jsonl_output.rs:412:                 item: ExecThreadItem {
+exec/src/event_processor_with_jsonl_output.rs:413:                     id: self.next_item_id(),
+exec/src/event_processor_with_jsonl_output.rs:414:                     details: ThreadItemDetails::Error(ErrorItem { message }),
+exec/src/event_processor_with_jsonl_output.rs:415:                 },
+exec/src/event_processor_with_jsonl_output.rs:416:             })],
+exec/src/event_processor_with_jsonl_output.rs:417:             status: CodexStatus::Running,
+exec/src/event_processor_with_jsonl_output.rs:418:         }
+exec/src/event_processor_with_jsonl_output.rs:419:     }
+exec/src/event_processor_with_jsonl_output.rs:420:
+exec/src/event_processor_with_jsonl_output.rs:421:     pub fn collect_thread_events(
+exec/src/event_processor_with_jsonl_output.rs:422:         &mut self,
+exec/src/event_processor_with_jsonl_output.rs:423:         notification: ServerNotification,
+exec/src/event_processor_with_jsonl_output.rs:424:     ) -> CollectedThreadEvents {
+exec/src/event_processor_with_jsonl_output.rs:425:         let mut events = Vec::new();
+exec/src/event_processor_with_jsonl_output.rs:426:         let status = match notification {
+exec/src/event_processor_with_jsonl_output.rs:427:             ServerNotification::ConfigWarning(notification) => {
+exec/src/event_processor_with_jsonl_output.rs:428:                 let message = match notification.details {
+exec/src/event_processor_with_jsonl_output.rs:429:                     Some(details) if !details.is_empty() => {
+exec/src/event_processor_with_jsonl_output.rs:430:                         format!("{} ({details})", notification.summary)
+exec/src/event_processor_with_jsonl_output.rs:431:                     }
+exec/src/event_processor_with_jsonl_output.rs:432:                     _ => notification.summary,
+exec/src/event_processor_with_jsonl_output.rs:433:                 };
+exec/src/event_processor_with_jsonl_output.rs:434:                 events.push(ThreadEvent::ItemCompleted(ItemCompletedEvent {
+exec/src/event_processor_with_jsonl_output.rs:435:                     item: ExecThreadItem {
+exec/src/event_processor_with_jsonl_output.rs:436:                         id: self.next_item_id(),
+exec/src/event_processor_with_jsonl_output.rs:437:                         details: ThreadItemDetails::Error(ErrorItem { message }),
+exec/src/event_processor_with_jsonl_output.rs:438:                     },
+exec/src/event_processor_with_jsonl_output.rs:439:                 }));
+exec/src/event_processor_with_jsonl_output.rs:440:                 CodexStatus::Running
+exec/src/event_processor_with_jsonl_output.rs:441:             }
+exec/src/event_processor_with_jsonl_output.rs:442:             ServerNotification::Warning(notification) => {
+exec/src/event_processor_with_jsonl_output.rs:443:                 let warning = self.collect_warning(notification.message);
+exec/src/event_processor_with_jsonl_output.rs:444:                 events.extend(warning.events);
+exec/src/event_processor_with_jsonl_output.rs:445:                 warning.status
+exec/src/event_processor_with_jsonl_output.rs:446:             }
+exec/src/event_processor_with_jsonl_output.rs:447:             ServerNotification::Error(notification) => {
+exec/src/event_processor_with_jsonl_output.rs:448:                 let message = match notification.error.additional_details {
+exec/src/event_processor_with_jsonl_output.rs:449:                     Some(details) if !details.is_empty() => {
+exec/src/event_processor_with_jsonl_output.rs:450:                         format!("{} ({details})", notification.error.message)
+exec/src/event_processor_with_jsonl_output.rs:451:                     }
+exec/src/event_processor_with_jsonl_output.rs:452:                     _ => notification.error.message,
+exec/src/event_processor_with_jsonl_output.rs:453:                 };
+exec/src/event_processor_with_jsonl_output.rs:454:                 let error = ThreadErrorEvent { message };
+exec/src/event_processor_with_jsonl_output.rs:455:                 self.last_critical_error = Some(error.clone());
+exec/src/event_processor_with_jsonl_output.rs:475:                 CodexStatus::Running
+exec/src/event_processor_with_jsonl_output.rs:476:             }
+exec/src/event_processor_with_jsonl_output.rs:477:             ServerNotification::ItemStarted(notification) => {
+exec/src/event_processor_with_jsonl_output.rs:478:                 if let Some(item) = self.map_started_item(notification.item) {
+exec/src/event_processor_with_jsonl_output.rs:479:                     events.push(ThreadEvent::ItemStarted(ItemStartedEvent { item }));
+exec/src/event_processor_with_jsonl_output.rs:480:                 }
+exec/src/event_processor_with_jsonl_output.rs:481:                 CodexStatus::Running
+exec/src/event_processor_with_jsonl_output.rs:482:             }
+exec/src/event_processor_with_jsonl_output.rs:483:             ServerNotification::ItemCompleted(notification) => {
+exec/src/event_processor_with_jsonl_output.rs:484:                 if let Some(item) = self.map_completed_item_mut(notification.item) {
+exec/src/event_processor_with_jsonl_output.rs:485:                     if let ThreadItemDetails::AgentMessage(AgentMessageItem { text }) =
+exec/src/event_processor_with_jsonl_output.rs:486:                         &item.details
+exec/src/event_processor_with_jsonl_output.rs:487:                     {
+exec/src/event_processor_with_jsonl_output.rs:488:                         self.final_message = Some(text.clone());
+exec/src/event_processor_with_jsonl_output.rs:489:                     }
+exec/src/event_processor_with_jsonl_output.rs:490:                     events.push(ThreadEvent::ItemCompleted(ItemCompletedEvent { item }));
+exec/src/event_processor_with_jsonl_output.rs:491:                 }
+exec/src/event_processor_with_jsonl_output.rs:492:                 CodexStatus::Running
+exec/src/event_processor_with_jsonl_output.rs:493:             }
+exec/src/event_processor_with_jsonl_output.rs:494:             ServerNotification::ModelRerouted(notification) => {
+exec/src/event_processor_with_jsonl_output.rs:495:                 events.push(ThreadEvent::ItemCompleted(ItemCompletedEvent {
+exec/src/event_processor_with_jsonl_output.rs:496:                     item: ExecThreadItem {
+exec/src/event_processor_with_jsonl_output.rs:497:                         id: self.next_item_id(),
+exec/src/event_processor_with_jsonl_output.rs:498:                         details: ThreadItemDetails::Error(ErrorItem {
+exec/src/event_processor_with_jsonl_output.rs:499:                             message: format!(
+exec/src/event_processor_with_jsonl_output.rs:500:                                 "model rerouted: {} -> {} ({:?})",
+exec/src/event_processor_with_jsonl_output.rs:501:                                 notification.from_model, notification.to_model, notification.reason
+exec/src/event_processor_with_jsonl_output.rs:502:                             ),
+exec/src/event_processor_with_jsonl_output.rs:503:                         }),
+exec/src/event_processor_with_jsonl_output.rs:504:                     },
+exec/src/event_processor_with_jsonl_output.rs:505:                 }));
+exec/src/event_processor_with_jsonl_output.rs:506:                 CodexStatus::Running
+exec/src/event_processor_with_jsonl_output.rs:507:             }
+exec/src/event_processor_with_jsonl_output.rs:508:             ServerNotification::ModelVerification(_) => CodexStatus::Running,
+exec/src/event_processor_with_jsonl_output.rs:509:             ServerNotification::ThreadTokenUsageUpdated(notification) => {
+exec/src/event_processor_with_jsonl_output.rs:510:                 self.last_total_token_usage = Some(notification.token_usage);
+exec/src/event_processor_with_jsonl_output.rs:511:                 CodexStatus::Running
+exec/src/event_processor_with_jsonl_output.rs:512:             }
+exec/src/event_processor_with_jsonl_output.rs:513:             ServerNotification::TurnCompleted(notification) => {
+exec/src/event_processor_with_jsonl_output.rs:514:                 if let Some(running) = self.running_todo_list.take() {
+exec/src/event_processor_with_jsonl_output.rs:515:                     events.push(ThreadEvent::ItemCompleted(ItemCompletedEvent {
+exec/src/event_processor_with_jsonl_output.rs:516:                         item: ExecThreadItem {
+exec/src/event_processor_with_jsonl_output.rs:517:                             id: running.item_id,
+exec/src/event_processor_with_jsonl_output.rs:518:                             details: ThreadItemDetails::TodoList(TodoListItem {
+exec/src/event_processor_with_jsonl_output.rs:519:                                 items: running.items,
+exec/src/event_processor_with_jsonl_output.rs:520:                             }),
+exec/src/event_processor_with_jsonl_output.rs:521:                         },
+exec/src/event_processor_with_jsonl_output.rs:522:                     }));
+exec/src/event_processor_with_jsonl_output.rs:523:                 }
+exec/src/event_processor_with_jsonl_output.rs:524:                 events.extend(self.reconcile_unfinished_started_items(&notification.turn.items));
+exec/src/event_processor_with_jsonl_output.rs:525:                 match notification.turn.status {
+exec/src/event_processor_with_jsonl_output.rs:526:                     TurnStatus::Completed => {
+exec/src/event_processor_with_jsonl_output.rs:527:                         if let Some(final_message) =
+exec/src/event_processor_with_jsonl_output.rs:528:                             Self::final_message_from_turn_items(notification.turn.items.as_slice())
+exec/src/event_processor_with_jsonl_output.rs:529:                         {
+exec/src/event_processor_with_jsonl_output.rs:530:                             self.final_message = Some(final_message);
+exec/src/event_processor_with_jsonl_output.rs:531:                         }
+exec/src/event_processor_with_jsonl_output.rs:532:                         self.emit_final_message_on_shutdown = true;
+exec/src/event_processor_with_jsonl_output.rs:533:                         events.push(ThreadEvent::TurnCompleted(TurnCompletedEvent {
+exec/src/event_processor_with_jsonl_output.rs:534:                             usage: self.usage_from_last_total(),
+exec/src/event_processor_with_jsonl_output.rs:535:                         }));
+exec/src/event_processor_with_jsonl_output.rs:536:                         CodexStatus::InitiateShutdown
+exec/src/event_processor_with_jsonl_output.rs:537:                     }
+exec/src/event_processor_with_jsonl_output.rs:538:                     TurnStatus::Failed => {
+exec/src/event_processor_with_jsonl_output.rs:539:                         self.final_message = None;
+exec/src/event_processor_with_jsonl_output.rs:540:                         self.emit_final_message_on_shutdown = false;
+exec/src/event_processor_with_jsonl_output.rs:541:                         let error = notification
+exec/src/event_processor_with_jsonl_output.rs:542:                             .turn
+exec/src/event_processor_with_jsonl_output.rs:543:                             .error
+exec/src/event_processor_with_jsonl_output.rs:544:                             .map(|error| ThreadErrorEvent {
+exec/src/event_processor_with_jsonl_output.rs:545:                                 message: match error.additional_details {
+exec/src/event_processor_with_jsonl_output.rs:590:                     }));
+exec/src/event_processor_with_jsonl_output.rs:591:                 }
+exec/src/event_processor_with_jsonl_output.rs:592:                 CodexStatus::Running
+exec/src/event_processor_with_jsonl_output.rs:593:             }
+exec/src/event_processor_with_jsonl_output.rs:594:             ServerNotification::TurnStarted(_) => {
+exec/src/event_processor_with_jsonl_output.rs:595:                 events.push(ThreadEvent::TurnStarted(TurnStartedEvent {}));
+exec/src/event_processor_with_jsonl_output.rs:596:                 CodexStatus::Running
+exec/src/event_processor_with_jsonl_output.rs:597:             }
+exec/src/event_processor_with_jsonl_output.rs:598:             _ => CodexStatus::Running,
+exec/src/event_processor_with_jsonl_output.rs:599:         };
+exec/src/event_processor_with_jsonl_output.rs:600:
