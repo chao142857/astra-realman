@@ -1,0 +1,83 @@
+{
+  "status": "READY",
+  "authorized_new_budget": 24,
+  "reserved_new_budget": 0,
+  "remaining_new_budget": 24,
+  "valid_new_samples": 0,
+  "invalid_or_infrastructure_samples": 0,
+  "counts_by_nonvalid_status": {},
+  "primary_valid_samples": 1,
+  "completed_pairs": 0,
+  "repeat_valid_samples": 0,
+  "groups": {
+    "understand/RGB_MULTI_VIEW": {
+      "n": 0,
+      "all_constraints_passed": 0,
+      "mean_task_score": null,
+      "mean_latency_s": null,
+      "total_latency_s": 0,
+      "token_totals": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "cached_input_tokens": 0
+      },
+      "correct_questions": 0,
+      "questions": 0,
+      "numeric_question_count": 0,
+      "mean_numeric_error_m": null,
+      "by_question_type": {}
+    },
+    "understand/RGB_ORACLE_3D": {
+      "n": 0,
+      "all_constraints_passed": 0,
+      "mean_task_score": null,
+      "mean_latency_s": null,
+      "total_latency_s": 0,
+      "token_totals": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "cached_input_tokens": 0
+      },
+      "correct_questions": 0,
+      "questions": 0,
+      "numeric_question_count": 0,
+      "mean_numeric_error_m": null,
+      "by_question_type": {}
+    },
+    "plan/RGB_MULTI_VIEW": {
+      "n": 1,
+      "all_constraints_passed": 1,
+      "mean_task_score": 1.0,
+      "mean_latency_s": 32.177250380998885,
+      "total_latency_s": 32.177250380998885,
+      "token_totals": {
+        "input_tokens": 11600,
+        "output_tokens": 367,
+        "reasoning_output_tokens": 316,
+        "cached_input_tokens": 0
+      }
+    },
+    "plan/RGB_ORACLE_3D": {
+      "n": 0,
+      "all_constraints_passed": 0,
+      "mean_task_score": null,
+      "mean_latency_s": null,
+      "total_latency_s": 0,
+      "token_totals": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "cached_input_tokens": 0
+      }
+    }
+  },
+  "paired_deltas": [],
+  "limitations": [
+    "Exploratory descriptive statistics only; six scenes, related tasks, no significance or generalization claim.",
+    "S4 orientation is prescribed; it is not autonomous orientation planning.",
+    "S5 A has a binary ceiling; equal A/C scores do not establish geometry has no value.",
+    "Static OBB geometry, no dynamics, support, IK or real hardware."
+  ]
+}
