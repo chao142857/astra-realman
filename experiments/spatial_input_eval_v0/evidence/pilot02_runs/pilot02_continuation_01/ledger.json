@@ -3,7 +3,7 @@
   "batch_id": "bc2fbd0b683f4190a81945d251372a42",
   "root": "/home/alex/astra-realman_ws/spatial-pilot02-continuation-real-20261013/experiments/spatial_input_eval_v0/evidence/pilot02_runs/pilot02_continuation_01",
   "created_at": "2026-10-13T11:11:48.938326+00:00",
-  "status": "READY",
+  "status": "BUDGET_EXHAUSTED",
   "mode": "REAL",
   "authorization": {
     "sha256": "c6240b5bb4083013181792a194b75dcaf2b09fb394148a21ca2fb8467289e10e",
@@ -470,9 +470,50 @@
         ],
         "output_schema_sha256": "cc619c76adde6fcccf95d04136ddfdc6dbd9e27bf520fc467c6294728452797a"
       },
-      "status": "RESERVED",
+      "status": "VALID",
       "reserved_at": "2026-10-13T11:16:59.174928+00:00",
-      "artifact": "run-008"
+      "artifact": "run-008",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "REAL_ASTRA_ATTEMPT",
+        "usage": {
+          "input_tokens": 13092,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 992,
+          "reasoning_output_tokens": 934
+        },
+        "latency_s": 59.42110370900264,
+        "usage_kind": "CLI_REPORTED",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "01a134fa-fd3a-79c1-88e0-add8de5fa988",
+        "input_sha256": "2492ccca3898e42e506f9f8eca7f772a5db1849f7c4ffa70dfa02a310c8700ba",
+        "raw_sha256": "1931f7d913472f55b3e0f549858fc04cddaf51100a3edf52934102c83a0dd1e5",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "finished_at": "2026-10-13T11:17:58.669296+00:00"
     }
   ],
   "jobs": [

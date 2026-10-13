@@ -1,0 +1,118 @@
+{
+  "scope": "CONTINUATION_ONLY; original STOPPED batch and original run12 NOT_SCORED unchanged",
+  "batch_id": "bc2fbd0b683f4190a81945d251372a42",
+  "original_batch_id": "953a8d18a01447599664db2170862d98",
+  "status": "BUDGET_EXHAUSTED",
+  "completed_all_eight": true,
+  "maximum_new_client_dispatches": 8,
+  "new_client_dispatches": 8,
+  "prior_client_dispatches": 12,
+  "cumulative_client_dispatches": 20,
+  "unused_new_dispatch_capacity": 0,
+  "dispatcher_retries": 0,
+  "upstream_generation_attempts": "Not independently measurable from client dispatch count or native reconnect counters",
+  "valid_outputs": 8,
+  "not_scored_outputs": 0,
+  "groups": [
+    {
+      "group": "restricted_detour",
+      "A": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      },
+      "C": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      }
+    },
+    {
+      "group": "autonomous_yaw",
+      "A": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      },
+      "C": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      }
+    }
+  ],
+  "complete_pairs": 4,
+  "paired_resources": {
+    "A": {
+      "complete_pairs": 4,
+      "input_tokens": {
+        "reported_samples": 4,
+        "mean": 13153.5,
+        "total": 52614
+      },
+      "output_tokens": {
+        "reported_samples": 4,
+        "mean": 827.75,
+        "total": 3311
+      },
+      "reasoning_tokens": {
+        "reported_samples": 4,
+        "mean": 756,
+        "total": 3024
+      },
+      "other_output_tokens": {
+        "reported_samples": 4,
+        "mean": 71.75,
+        "total": 287
+      },
+      "client_wall_latency_s": {
+        "reported_samples": 4,
+        "mean": 55.30729395250091,
+        "total": 221.22917581000365
+      }
+    },
+    "C": {
+      "complete_pairs": 4,
+      "input_tokens": {
+        "reported_samples": 4,
+        "mean": 13855.75,
+        "total": 55423
+      },
+      "output_tokens": {
+        "reported_samples": 4,
+        "mean": 125,
+        "total": 500
+      },
+      "reasoning_tokens": {
+        "reported_samples": 4,
+        "mean": 51.75,
+        "total": 207
+      },
+      "other_output_tokens": {
+        "reported_samples": 4,
+        "mean": 73.25,
+        "total": 293
+      },
+      "client_wall_latency_s": {
+        "reported_samples": 4,
+        "mean": 21.904382357499344,
+        "total": 87.61752942999738
+      }
+    }
+  },
+  "pairs_with_reported_cache_hits": [
+    "p02_c_slot_030"
+  ],
+  "old_batch_status": "STOPPED",
+  "old_run12_status": "NOT_SCORED",
+  "old_files_verified": 212,
+  "sealed_files_verified": 607
+}
