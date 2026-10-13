@@ -1,0 +1,203 @@
+{
+  "instruction": "Return exactly one JSON object matching output_schema. This is offline geometry evaluation. Use only observations, optional geometry and task. No tools or execution. All positions are object centers in robot_base, meters; orientations are unit quaternions wxyz. For understanding return each question_id once, populating only the relevant answer field: relation=less/equal/greater along the specified positive axis, scalar_m=height/gap, vector_m=position/size, fits=fit; all other fields null. For placement waypoints_m must be empty. For path, waypoints_m excludes start, includes the final position_m, and orientation is fixed throughout translation. Choose any constraint-valid solution.",
+  "coordinate_system": {
+    "id": "robot_base",
+    "units": "m",
+    "axes": "+x forward, +y left, +z up; right-handed",
+    "pose": "object center xyz in meters; unit quaternion wxyz, object local axes in robot_base"
+  },
+  "task": {
+    "task_id": "plan",
+    "kind": "placement",
+    "frame": "robot_base",
+    "tolerance_m": 0.005,
+    "instruction": "The red cuboid is target; the blue cuboid is other. Gray solids are obstacles. Green outlines mark task regions and are visual annotations, not solids. Frame robot_base coincides with the simulation world; +x forward, +y left, +z up. These are static geometric tasks, with no robot reachability or support requirement. Task-defined regions: task_volume: center [0.7, 0.2, 0.1] m, local full size [0.09, 0.07, 0.18] m, wxyz [1, 0, 0, 0]; placement_volume: center [0.48, -0.2, 0.1] m, local full size [0.2, 0.15, 0.18] m, wxyz [1, 0, 0, 0]. Choose any fully contained placement, avoiding all solids with the specified clearance. Return no waypoints.",
+    "questions": [],
+    "constraints": {
+      "object_id": "target",
+      "allowed_region_id": "placement_volume",
+      "clearance_m": 0.002,
+      "required_quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "orientation_tolerance_rad": 0.05
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "object_id": {
+        "type": "string"
+      },
+      "position_m": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "quaternion_wxyz": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 4,
+        "maxItems": 4
+      },
+      "waypoints_m": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    },
+    "required": [
+      "object_id",
+      "position_m",
+      "quaternion_wxyz",
+      "waypoints_m"
+    ],
+    "additionalProperties": false
+  },
+  "attachments": [
+    {
+      "camera_id": "front",
+      "file": "image-0.png",
+      "sha256": "4f839d7259009561c31539c6a37648bfa09f9a5843af0d97d69a69b07318fd26"
+    },
+    {
+      "camera_id": "side",
+      "file": "image-1.png",
+      "sha256": "83d5626841f081839856bc4722948b9d48ed506ca4cfc9b7f7bce22f668348b7"
+    },
+    {
+      "camera_id": "overhead",
+      "file": "image-2.png",
+      "sha256": "795862f65f99b3058fee409b9b758d3e5a378df6310de4242ff8786ae3005613"
+    }
+  ],
+  "observations": {
+    "calibration": {
+      "front": {
+        "intrinsic": [
+          [
+            496.8377685546875,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            496.8377685546875,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          -0.550000011920929,
+          -0.8500000238418579,
+          0.6499999761581421,
+          0.9152332544326782,
+          -0.07233194261789322,
+          0.19042904675006866,
+          0.34763917326927185
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      },
+      "side": {
+        "intrinsic": [
+          [
+            496.8377685546875,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            496.8377685546875,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.949999988079071,
+          -0.6499999761581421,
+          0.699999988079071,
+          0.41809001564979553,
+          -0.27877649664878845,
+          0.13652373850345612,
+          0.8537245988845825
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      },
+      "overhead": {
+        "intrinsic": [
+          [
+            496.8377685546875,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            496.8377685546875,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.4000000059604645,
+          0.029999999329447746,
+          1.25,
+          0.7073423862457275,
+          0.111725352704525,
+          0.6884826421737671,
+          -0.11478587239980698
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      }
+    },
+    "robot_state": {
+      "joint_names": [],
+      "qpos_rad": [],
+      "flange_pose_base_xyz_wxyz": null
+    },
+    "synchronization": {
+      "simulation_step": 10,
+      "capture_span_s": 0.22495198099932168,
+      "timestamp_semantics": "sequential render readback; no physics step between cameras; immutable static actors",
+      "same_step": true
+    }
+  },
+  "geometry": null
+}

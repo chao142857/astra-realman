@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "scene_id": "lab_s5_placement",
+  "engine": "SAPIEN",
+  "sapien": "3.0.0b1",
+  "physics_steps": 10,
+  "timestep_s": 0.004,
+  "shader": "default",
+  "denoiser": "none",
+  "cameras": [
+    {
+      "camera_id": "front",
+      "rgb_std": 19.797356261153528,
+      "valid_depth_pixels": 247040,
+      "target_visible_pixels": 1863,
+      "reprojection_p99_px": 0.015317991614563972,
+      "depth_min_m": 0.7729741930961609,
+      "depth_max_m": 4.987875461578369
+    },
+    {
+      "camera_id": "side",
+      "rgb_std": 18.919124249460197,
+      "valid_depth_pixels": 307200,
+      "target_visible_pixels": 2446,
+      "reprojection_p99_px": 0.0013885879117974671,
+      "depth_min_m": 0.7147892713546753,
+      "depth_max_m": 3.482544183731079
+    },
+    {
+      "camera_id": "overhead",
+      "rgb_std": 13.778437305253263,
+      "valid_depth_pixels": 307200,
+      "target_visible_pixels": 1226,
+      "reprojection_p99_px": 0.0015814295093036239,
+      "depth_min_m": 1.0603384971618652,
+      "depth_max_m": 1.2669638395309448
+    }
+  ],
+  "solid_actor_ids": {
+    "target": 5,
+    "other": 6,
+    "table": 7
+  },
+  "truth_export": "PhysX box half_size and composed actor/shape pose readback",
+  "regions": "public task definitions; container walls are separate measured solids",
+  "new_model_calls": 0,
+  "hardware_connections": 0
+}

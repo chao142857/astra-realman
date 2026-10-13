@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "scene_id": "lab_s3_narrow_container",
+  "engine": "SAPIEN",
+  "sapien": "3.0.0b1",
+  "physics_steps": 10,
+  "timestep_s": 0.004,
+  "shader": "default",
+  "denoiser": "none",
+  "cameras": [
+    {
+      "camera_id": "front",
+      "rgb_std": 22.074852455595128,
+      "valid_depth_pixels": 247040,
+      "target_visible_pixels": 2192,
+      "reprojection_p99_px": 0.015317991614563972,
+      "depth_min_m": 0.7729741930961609,
+      "depth_max_m": 4.987875461578369
+    },
+    {
+      "camera_id": "side",
+      "rgb_std": 23.836623335492067,
+      "valid_depth_pixels": 307200,
+      "target_visible_pixels": 2642,
+      "reprojection_p99_px": 0.001515278689244152,
+      "depth_min_m": 0.7147892713546753,
+      "depth_max_m": 3.482544183731079
+    },
+    {
+      "camera_id": "overhead",
+      "rgb_std": 16.16555737625334,
+      "valid_depth_pixels": 307200,
+      "target_visible_pixels": 1718,
+      "reprojection_p99_px": 0.0015826768685543186,
+      "depth_min_m": 1.0594156980514526,
+      "depth_max_m": 1.2669638395309448
+    }
+  ],
+  "solid_actor_ids": {
+    "target": 5,
+    "other": 6,
+    "table": 7,
+    "container_x_minus": 8,
+    "container_x_plus": 9,
+    "container_y_minus": 10,
+    "container_y_plus": 11,
+    "container_floor": 12
+  },
+  "truth_export": "PhysX box half_size and composed actor/shape pose readback",
+  "regions": "public task definitions; container walls are separate measured solids",
+  "new_model_calls": 0,
+  "hardware_connections": 0
+}

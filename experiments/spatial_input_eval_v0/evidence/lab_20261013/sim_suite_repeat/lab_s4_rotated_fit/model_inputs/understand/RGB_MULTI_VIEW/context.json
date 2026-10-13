@@ -1,0 +1,292 @@
+{
+  "instruction": "Return exactly one JSON object matching output_schema. This is offline geometry evaluation. Use only observations, optional geometry and task. No tools or execution. All positions are object centers in robot_base, meters; orientations are unit quaternions wxyz. For understanding return each question_id once, populating only the relevant answer field: relation=less/equal/greater along the specified positive axis, scalar_m=height/gap, vector_m=position/size, fits=fit; all other fields null. For placement waypoints_m must be empty. For path, waypoints_m excludes start, includes the final position_m, and orientation is fixed throughout translation. Choose any constraint-valid solution.",
+  "coordinate_system": {
+    "id": "robot_base",
+    "units": "m",
+    "axes": "+x forward, +y left, +z up; right-handed",
+    "pose": "object center xyz in meters; unit quaternion wxyz, object local axes in robot_base"
+  },
+  "task": {
+    "task_id": "understand",
+    "kind": "understanding",
+    "frame": "robot_base",
+    "tolerance_m": 0.005,
+    "instruction": "The red cuboid is target; the blue cuboid is other. Gray solids are obstacles. Green outlines mark task regions and are visual annotations, not solids. Frame robot_base coincides with the simulation world; +x forward, +y left, +z up. These are static geometric tasks, with no robot reachability or support requirement. Task-defined regions: task_volume: center [0.7, 0.2, 0.1] m, local full size [0.09, 0.2, 0.18] m, wxyz [1, 0, 0, 0]. Answer every listed geometric question.",
+    "questions": [
+      {
+        "question_id": "relative_x",
+        "type": "relation",
+        "object_id": "target",
+        "other_id": "other",
+        "axis": "x"
+      },
+      {
+        "question_id": "position",
+        "type": "position",
+        "object_id": "target"
+      },
+      {
+        "question_id": "top_height",
+        "type": "height",
+        "object_id": "target",
+        "reference": "top"
+      },
+      {
+        "question_id": "size",
+        "type": "size",
+        "object_id": "target"
+      },
+      {
+        "question_id": "gap_x",
+        "type": "gap",
+        "object_id": "target",
+        "other_id": "other",
+        "axis": "x"
+      },
+      {
+        "question_id": "relative_y",
+        "type": "relation",
+        "object_id": "target",
+        "other_id": "other",
+        "axis": "y"
+      },
+      {
+        "question_id": "relative_z",
+        "type": "relation",
+        "object_id": "target",
+        "other_id": "other",
+        "axis": "z"
+      },
+      {
+        "question_id": "fit_identity",
+        "type": "fit",
+        "object_id": "target",
+        "region_id": "task_volume",
+        "quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "question_id": "fit_rotated",
+        "type": "fit",
+        "object_id": "target",
+        "region_id": "task_volume",
+        "quaternion_wxyz": [
+          0.7071067811865476,
+          0,
+          0,
+          0.7071067811865476
+        ]
+      }
+    ],
+    "constraints": {}
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "answers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "question_id": {
+              "type": "string"
+            },
+            "relation": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "scalar_m": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "vector_m": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "fits": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "question_id",
+            "relation",
+            "scalar_m",
+            "vector_m",
+            "fits"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "answers"
+    ],
+    "additionalProperties": false
+  },
+  "attachments": [
+    {
+      "camera_id": "front",
+      "file": "image-0.png",
+      "sha256": "dbd04940746a82ca6c094013f5be678f66121976d74ba9921d128dfc53f319c6"
+    },
+    {
+      "camera_id": "side",
+      "file": "image-1.png",
+      "sha256": "d92d0b7b118ff841df4e02d2dfef4d63c5c15cd5ee756c17a8ff9003e381d725"
+    },
+    {
+      "camera_id": "overhead",
+      "file": "image-2.png",
+      "sha256": "45c1b2f701edb5b7e585f5de7f13c0dcc7c33e6eaae3e28f27d21401164ab3eb"
+    }
+  ],
+  "observations": {
+    "calibration": {
+      "front": {
+        "intrinsic": [
+          [
+            496.8377685546875,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            496.8377685546875,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          -0.550000011920929,
+          -0.8500000238418579,
+          0.6499999761581421,
+          0.9152332544326782,
+          -0.07233194261789322,
+          0.19042904675006866,
+          0.34763917326927185
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      },
+      "side": {
+        "intrinsic": [
+          [
+            496.8377685546875,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            496.8377685546875,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.949999988079071,
+          -0.6499999761581421,
+          0.699999988079071,
+          0.41809001564979553,
+          -0.27877649664878845,
+          0.13652373850345612,
+          0.8537245988845825
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      },
+      "overhead": {
+        "intrinsic": [
+          [
+            496.8377685546875,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            496.8377685546875,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "pose_base_xyz_wxyz": [
+          0.4000000059604645,
+          0.029999999329447746,
+          1.25,
+          0.7073423862457275,
+          0.111725352704525,
+          0.6884826421737671,
+          -0.11478587239980698
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      }
+    },
+    "robot_state": {
+      "joint_names": [],
+      "qpos_rad": [],
+      "flange_pose_base_xyz_wxyz": null
+    },
+    "synchronization": {
+      "simulation_step": 10,
+      "capture_span_s": 0.22334784200211288,
+      "timestamp_semantics": "sequential render readback; no physics step between cameras; immutable static actors",
+      "same_step": true
+    }
+  },
+  "geometry": null
+}

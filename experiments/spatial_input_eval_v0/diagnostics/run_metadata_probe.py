@@ -9,7 +9,8 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[3]
 sys.path.insert(0,str(ROOT/'astra_realman_harness'))
-from sim_skills.full_pnp.infer_process import InferConfig,sandbox_command
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from spatial_eval.adapter import environment_config, environment_sandbox
 
 
 def main():
@@ -25,7 +26,7 @@ def main():
     out=args.output.resolve();out.mkdir(parents=True,exist_ok=False);(out/'runtime').mkdir()
     if args.kind=='frozen-input':shutil.copytree(args.frozen_sample/'input_only',out/'input_only')
     else:(out/'input_only').mkdir()
-    config=InferConfig();cmd,env=sandbox_command(out,config)
+    config=environment_config();cmd,env=environment_sandbox(out)
     cmd=cmd[:cmd.index('--chdir')]+['--chdir','/input','--setenv','TMPDIR','/tmp']
     if args.kind=='protocol-schema':
         cmd += [config.executable,'app-server','generate-json-schema','--out','/output/protocol_schema','--experimental']

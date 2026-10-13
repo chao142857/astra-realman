@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "scene_id": "lab_s6_held_object_detour",
+  "engine": "SAPIEN",
+  "sapien": "3.0.0b1",
+  "physics_steps": 10,
+  "timestep_s": 0.004,
+  "shader": "default",
+  "denoiser": "none",
+  "cameras": [
+    {
+      "camera_id": "front",
+      "rgb_std": 23.265054030705567,
+      "valid_depth_pixels": 247040,
+      "target_visible_pixels": 955,
+      "reprojection_p99_px": 0.015317991614563972,
+      "depth_min_m": 0.7729741930961609,
+      "depth_max_m": 4.987875461578369
+    },
+    {
+      "camera_id": "side",
+      "rgb_std": 23.609779906298254,
+      "valid_depth_pixels": 307200,
+      "target_visible_pixels": 958,
+      "reprojection_p99_px": 0.0013810838072787675,
+      "depth_min_m": 0.6940900087356567,
+      "depth_max_m": 3.482544183731079
+    },
+    {
+      "camera_id": "overhead",
+      "rgb_std": 14.482716156158867,
+      "valid_depth_pixels": 307200,
+      "target_visible_pixels": 759,
+      "reprojection_p99_px": 0.0015821710619501276,
+      "depth_min_m": 0.9592809677124023,
+      "depth_max_m": 1.2669638395309448
+    }
+  ],
+  "solid_actor_ids": {
+    "target": 5,
+    "other": 6,
+    "table": 7,
+    "barrier": 8
+  },
+  "truth_export": "PhysX box half_size and composed actor/shape pose readback",
+  "regions": "public task definitions; container walls are separate measured solids",
+  "new_model_calls": 0,
+  "hardware_connections": 0
+}

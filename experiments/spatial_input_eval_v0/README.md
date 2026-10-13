@@ -1,5 +1,7 @@
 # Astra Spatial Input Evaluation V0
 
+2026-10-13 yanglab 纯仿真验收见 [lab/README.md](lab/README.md)：实验室实际 33/33 测试通过，新增六个真实 SAPIEN GPU 静态场景、18 组多视角 RGB-D、12 道任务、24 份 A/C 输入及 mock 闭环。独立重渲染的 72 个资产逐字节一致，GT 隔离和 provider payload 验证通过。一键启动脚本已实际运行成功。新真实 Astra 生成请求为 **0**；原生 CLI 当前为 API-key 认证、无 ChatGPT workspace route，真实 JSON 验收仍待认证确认和用户单独授权。以下个人 Ubuntu 的历史记录保持原样，不能当作实验室现状。
+
 2026-10-12 独立修复分支最新验收见 [QUALIFICATION_ACCEPTANCE.md](docs/QUALIFICATION_ACCEPTANCE.md)：原 bwrap 在宿主机网络完成无生成 workspace 路由发现，但唯一一次 qualification A 在90秒超时，无有效 JSON，C未启动。测试31/31 PASS。此前网络与30秒计时修复见 [ROUTING_REPAIR.md](docs/ROUTING_REPAIR.md)。以下 V0 结果作为原始交付记录保留。
 
 可执行的离线空间输入评测模块，复用原 Astra `infer_process → infer_worker → bridge.infer()`。默认 mock；不训练、不连接运动接口。当前交付完成了数据读取、A/C 输入构建、严格 JSON、独立几何评分、成对比较和失败索引；真实模型对照被网络路由故障阻塞。

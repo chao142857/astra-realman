@@ -1,0 +1,151 @@
+{
+  "status": "ACCOUNT_READ_RESPONSE",
+  "inference_requests": 0,
+  "generation_methods_sent": [],
+  "command": [
+    "/home/tongji/alex/spatial-eval-lab-20261013/.toolchain/bin/codex",
+    "app-server",
+    "--listen",
+    "stdio://",
+    "-c",
+    "approval_policy=\"never\"",
+    "-c",
+    "web_search=\"disabled\"",
+    "-c",
+    "project_doc_max_bytes=0",
+    "-c",
+    "shell_environment_policy.inherit=\"none\"",
+    "-c",
+    "history.persistence=\"none\"",
+    "-c",
+    "log_dir=\"/output/account_routing/runtime\"",
+    "-c",
+    "sqlite_home=\"/output/account_routing/runtime\"",
+    "-c",
+    "model_reasoning_effort=\"medium\"",
+    "-c",
+    "mcp_servers={}",
+    "-c",
+    "features.skip_host_skill_discovery=true",
+    "-c",
+    "analytics.enabled=false",
+    "-c",
+    "feedback.enabled=false",
+    "-c",
+    "model_provider=\"openai\"",
+    "--disable",
+    "shell_tool",
+    "--disable",
+    "unified_exec",
+    "--disable",
+    "code_mode",
+    "--disable",
+    "code_mode_host",
+    "--disable",
+    "code_mode_only",
+    "--disable",
+    "multi_agent",
+    "--disable",
+    "multi_agent_v2",
+    "--disable",
+    "apps",
+    "--disable",
+    "plugins",
+    "--disable",
+    "hooks",
+    "--disable",
+    "remote_plugin",
+    "--disable",
+    "shell_snapshot",
+    "--disable",
+    "browser_use",
+    "--disable",
+    "browser_use_external",
+    "--disable",
+    "computer_use",
+    "--disable",
+    "in_app_browser",
+    "--disable",
+    "image_generation",
+    "--disable",
+    "view_image",
+    "--disable",
+    "workspace_dependencies",
+    "--disable",
+    "skill_search",
+    "--disable",
+    "skill_mcp_dependency_install",
+    "--disable",
+    "memories",
+    "--disable",
+    "goals",
+    "--disable",
+    "realtime_conversation",
+    "--disable",
+    "daemon_auto_start"
+  ],
+  "requests": [
+    {
+      "id": 1,
+      "method": "initialize",
+      "params": {
+        "clientInfo": {
+          "name": "spatial-routing-diagnostic",
+          "version": "0"
+        },
+        "capabilities": {
+          "experimentalApi": true
+        }
+      }
+    },
+    {
+      "method": "initialized"
+    },
+    {
+      "id": 2,
+      "method": "account/read",
+      "params": {
+        "refreshToken": false
+      }
+    }
+  ],
+  "sanitized_responses": [
+    {
+      "id": 1,
+      "result": {
+        "userAgent": "spatial-routing-diagnostic/0.160.0 (Ubuntu 20.4.0; x86_64) unknown (spatial-routing-diagnostic; 0)",
+        "codexHome": "/home/tongji/.codex",
+        "platformFamily": "unix",
+        "platformOs": "linux"
+      }
+    },
+    {
+      "method": "remoteControl/status/changed",
+      "params": {
+        "status": "disabled",
+        "serverName": "tongji-Precision-3680",
+        "installationId": {
+          "sha256": "f7de1bc67ffba71960483d7c973c5a08b2246a665bb8001c06580960baf1ae5f"
+        },
+        "environmentId": null
+      },
+      "emittedAtMs": 1791851266181
+    },
+    {
+      "id": 2,
+      "result": {
+        "account": {
+          "type": "apiKey"
+        },
+        "requiresOpenaiAuth": true,
+        "workspaceRouting": null
+      }
+    }
+  ],
+  "account_request_sent": true,
+  "latency_s": 0.14304050899954746,
+  "stderr": "",
+  "network_namespace": "net:[4026531840]",
+  "credential_refresh_requested": false,
+  "credential_mount_read_only": true
+}

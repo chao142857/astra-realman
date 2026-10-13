@@ -1,0 +1,57 @@
+{
+  "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.31",
+  "python": "3.10.19 (main, Jun 17 2026, 19:53:31) [GCC 14.3.0]",
+  "executable": "/home/tongji/alex/spatial-eval-lab-20261013/.venv/bin/python",
+  "prefix": "/home/tongji/alex/spatial-eval-lab-20261013/.venv",
+  "base_prefix": "/home/tongji/miniconda3/envs/xr_pico",
+  "packages": {
+    "sapien": "3.0.0b1",
+    "numpy": "1.26.4",
+    "Pillow": "12.3.0",
+    "jsonschema": "4.26.0",
+    "opencv-python": "4.10.0.84",
+    "transforms3d": "0.4.2"
+  },
+  "system_node": {
+    "command": [
+      "node",
+      "--version"
+    ],
+    "return_code": 0,
+    "stdout": "v10.19.0\n",
+    "stderr": ""
+  },
+  "gpu": {
+    "command": [
+      "nvidia-smi",
+      "--query-gpu=name,driver_version,memory.total",
+      "--format=csv"
+    ],
+    "return_code": 0,
+    "stdout": "name, driver_version, memory.total [MiB]\nNVIDIA GeForce RTX 3060, 535.230.02, 12288 MiB\n",
+    "stderr": ""
+  },
+  "bwrap": "/usr/bin/bwrap",
+  "native_cli_on_original_path": null,
+  "hardware_probes": [],
+  "generation_requests": 0,
+  "prepared_native_cli": {
+    "command": [
+      "/home/tongji/alex/spatial-eval-lab-20261013/.toolchain/bin/codex",
+      "--version"
+    ],
+    "return_code": 0,
+    "stdout": "codex-cli 0.160.0\n",
+    "stderr": ""
+  },
+  "local_login_status": {
+    "command": [
+      "/home/tongji/alex/spatial-eval-lab-20261013/.toolchain/bin/codex",
+      "login",
+      "status"
+    ],
+    "return_code": 0,
+    "stdout": "",
+    "stderr": "Logged in using an API key - [REDACTED_API_KEY]\n"
+  }
+}

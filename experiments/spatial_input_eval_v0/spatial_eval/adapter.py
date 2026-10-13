@@ -2,6 +2,7 @@
 import base64
 import hashlib
 import json
+import os
 import subprocess
 import sys
 import time
@@ -31,9 +32,53 @@ def production_imports():
     return InferConfig,sandbox_command,isolated_preflight,compile_schema
 
 
+def environment_config():
+    """Optional host path only. Model, timing and security switches are immutable."""
+    InferConfig,*_=production_imports()
+    path=os.environ.get('SPATIAL_EVAL_ENV_CONFIG')
+    if not path:return InferConfig()
+    data=read(path)
+    if set(data)!={'cli_executable'}:raise ValueError('ENV_CONFIG_ONLY_CLI_EXECUTABLE')
+    executable=data['cli_executable']
+    if not isinstance(executable,str) or not Path(executable).is_absolute():
+        raise ValueError('ENV_CONFIG_ABSOLUTE_CLI_REQUIRED')
+    return InferConfig(executable=executable)
+
+
+def environment_sandbox(run):
+    """Preserve production mounts; additionally expose a venv's interpreter runtime."""
+    _,sandbox_command,*_=production_imports()
+    cmd,env=sandbox_command(run,environment_config())
+    base=Path(sys.base_prefix).resolve()
+    if base!=Path(sys.prefix).resolve() and not base.is_relative_to('/usr'):
+        # venv executables may symlink into Conda. Mount precisely that runtime,
+        # never its home, project workspace, simulator or evaluator directories.
+        pos=cmd.index('--chdir')
+        cmd[pos:pos]=['--ro-bind',str(base),str(base)]
+    return cmd,env
+
+
 def preflight(output):
+    # The original preflight uses sandbox_command internally. Preserve its
+    # normal path when no separate interpreter mount is needed.
     InferConfig,_,probe,_=production_imports()
-    return probe(InferConfig(),Path(output))
+    base=Path(sys.base_prefix).resolve()
+    if base==Path(sys.prefix).resolve() or base.is_relative_to('/usr'):
+        return probe(environment_config(),Path(output))
+    root=Path(output).resolve();root.mkdir(parents=True,exist_ok=False)
+    (root/'input_only').mkdir();(root/'runtime').mkdir()
+    report={'status':'FAIL','model_calls':0,'source':'LOCAL_CODEX_ASTRA_RAW'}
+    try:
+        cmd,env=environment_sandbox(root);cmd+=['--preflight']
+        write(root/'command.json',cmd)
+        proc=subprocess.run(cmd,stdin=subprocess.DEVNULL,capture_output=True,text=True,env=env,
+                            cwd=root/'input_only',timeout=50)
+        (root/'stdout.json').write_text(proc.stdout);(root/'stderr.log').write_text(proc.stderr)
+        worker=json.loads(proc.stdout);report.update(return_code=proc.returncode,worker=worker)
+        if proc.returncode==0 and worker['status']=='PASS':report['status']='PASS'
+    except Exception as exc:report['error']=repr(exc)
+    write(root/'preflight.json',report)
+    return report
 
 
 def prepare(context, images, folder, *, real=False):
@@ -83,7 +128,7 @@ def infer(context, images, folder, *, real=False, fixture_response=None, timing_
     else:
         if fixture_response:raise ValueError('FIXTURE_CANNOT_ENTER_REAL_MODEL')
         InferConfig,sandbox_command,_,_=production_imports()
-        command,env=sandbox_command(folder,InferConfig())
+        command,env=environment_sandbox(folder)
         inp=folder/'input_only'
         command+=['--sha256',hashlib.sha256((inp/'wire.json').read_bytes()).hexdigest(),
                   '--payload-sha256',hashlib.sha256((inp/'payload.json').read_bytes()).hexdigest(),
