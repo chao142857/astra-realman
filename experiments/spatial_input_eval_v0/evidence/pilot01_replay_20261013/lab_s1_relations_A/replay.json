@@ -1,0 +1,125 @@
+{
+  "scene_id": "lab_s1_relations",
+  "condition": "RGB_MULTI_VIEW",
+  "task_kind": "placement",
+  "original_score": 1.0,
+  "original_evaluation": {
+    "status": "SCORED",
+    "score": 1.0,
+    "success": true,
+    "constraints": {
+      "correct_object": true,
+      "entire_volume_in_allowed_region": true,
+      "placement_collision_free": true,
+      "required_orientation": true
+    },
+    "orientation_error_rad": 0.0,
+    "collisions": [],
+    "error_types": []
+  },
+  "prediction_unchanged": {
+    "object_id": "target",
+    "position_m": [
+      0.7,
+      0.2,
+      0.1
+    ],
+    "quaternion_wxyz": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "waypoints_m": []
+  },
+  "original_artifact": "runs/13_lab_s1_relations_plan_A_180s/sample-0000",
+  "calibration_consistency": {
+    "corner_projection_checks": 96,
+    "maximum_difference_px": 9.609154730487022e-05,
+    "threshold_px": 0.01,
+    "note": "A consistency check of two exported camera representations, not a new calibration estimate."
+  },
+  "metrics": {
+    "placement_region_face_margin": {
+      "minimum_m": 0.03999999925494194,
+      "faces": [
+        {
+          "face": "local_x-",
+          "margin_m": 0.06000000089406968
+        },
+        {
+          "face": "local_x+",
+          "margin_m": 0.06000000089406968
+        },
+        {
+          "face": "local_y-",
+          "margin_m": 0.06000000067055225
+        },
+        {
+          "face": "local_y+",
+          "margin_m": 0.06000000067055225
+        },
+        {
+          "face": "local_z-",
+          "margin_m": 0.03999999925494194
+        },
+        {
+          "face": "local_z+",
+          "margin_m": 0.03999999925494194
+        }
+      ]
+    },
+    "required_sat_projection_clearance_m": 0.002,
+    "placement_sat_projection_clearance_threshold": {
+      "limiting_obstacle_id": "table",
+      "noncollision_lower_m": 0.055000000073505785,
+      "collision_upper_m": 0.05500000007350579,
+      "collision_at_zero": false,
+      "excess_over_required_projection_clearance_m": 0.05300000007350578,
+      "per_obstacle": {
+        "table": {
+          "noncollision_lower_m": 0.055000000073505785,
+          "collision_upper_m": 0.05500000007350579,
+          "collision_at_zero": false
+        },
+        "other": {
+          "noncollision_lower_m": 0.1350000098337663,
+          "collision_upper_m": 0.13500000983376634,
+          "collision_at_zero": false
+        }
+      }
+    },
+    "path_sat_projection_clearance_threshold": null,
+    "path_workspace_region_face_margin": null,
+    "path_length_m": null,
+    "start_to_landing_displacement_m": null,
+    "maximum_center_height_m": null,
+    "points_m": [
+      [
+        0.7,
+        0.2,
+        0.1
+      ]
+    ],
+    "held_box_at_landing": {
+      "id": "target",
+      "center_m": [
+        0.7,
+        0.2,
+        0.1
+      ],
+      "size_m": [
+        0.07999999821186066,
+        0.05999999865889549,
+        0.10000000149011612
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "replay": "lab_s1_relations_A/replay.png"
+}

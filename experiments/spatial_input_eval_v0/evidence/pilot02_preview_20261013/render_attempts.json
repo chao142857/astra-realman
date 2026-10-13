@@ -1,0 +1,26 @@
+{
+  "selected_suite": "suite_v2",
+  "attempts": [
+    {
+      "output": "suite",
+      "log": "render.log",
+      "exit_code": 139,
+      "completed_snapshots": 9,
+      "planned_scenes": 10,
+      "status": "INCOMPLETE_RENDERER_PROCESS_FAILURE",
+      "source_archive": "attempt01_sources",
+      "diagnosis": "Failure while creating tenth renderer in one process; Vulkan instance creation failed. Resource lifetime is suspected, not proven. All existing outputs retained."
+    },
+    {
+      "output": "suite_v2",
+      "log": "render_v2.log",
+      "exit_code": 0,
+      "completed_snapshots": 10,
+      "planned_scenes": 10,
+      "status": "PASS",
+      "change": "Same predetermined scene specifications and camera poses; fresh OS process per scene releases renderer resources. Public policy prompt/hash validation was completed before this final suite; failed-attempt contexts are not selected."
+    }
+  ],
+  "selection_basis": "Renderer completion and offline geometry/calibration/isolation acceptance, never model outcomes",
+  "real_generation_requests": 0
+}

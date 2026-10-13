@@ -1,0 +1,150 @@
+{
+  "scene_id": "lab_s4_rotated_fit",
+  "condition": "RGB_ORACLE_3D",
+  "task_kind": "placement",
+  "original_score": 1.0,
+  "original_evaluation": {
+    "status": "SCORED",
+    "score": 1.0,
+    "success": true,
+    "constraints": {
+      "correct_object": true,
+      "entire_volume_in_allowed_region": true,
+      "placement_collision_free": true,
+      "required_orientation": true
+    },
+    "orientation_error_rad": 0.0,
+    "collisions": [],
+    "error_types": []
+  },
+  "prediction_unchanged": {
+    "object_id": "target",
+    "position_m": [
+      0.7,
+      0.2,
+      0.1
+    ],
+    "quaternion_wxyz": [
+      0.7071067811865476,
+      0,
+      0,
+      0.7071067811865476
+    ],
+    "waypoints_m": []
+  },
+  "original_artifact": "runs/20_lab_s4_rotated_fit_plan_C_180s/sample-0000",
+  "calibration_consistency": {
+    "corner_projection_checks": 216,
+    "maximum_difference_px": 9.609154730487022e-05,
+    "threshold_px": 0.01,
+    "note": "A consistency check of two exported camera representations, not a new calibration estimate."
+  },
+  "metrics": {
+    "placement_region_face_margin": {
+      "minimum_m": 0.015000000670552252,
+      "faces": [
+        {
+          "face": "local_x-",
+          "margin_m": 0.015000000670552252
+        },
+        {
+          "face": "local_x+",
+          "margin_m": 0.015000000670552252
+        },
+        {
+          "face": "local_y-",
+          "margin_m": 0.020000001788139335
+        },
+        {
+          "face": "local_y+",
+          "margin_m": 0.02000000178813935
+        },
+        {
+          "face": "local_z-",
+          "margin_m": 0.06499999962747097
+        },
+        {
+          "face": "local_z+",
+          "margin_m": 0.06499999962747097
+        }
+      ]
+    },
+    "required_sat_projection_clearance_m": 0.002,
+    "placement_sat_projection_clearance_threshold": {
+      "limiting_obstacle_id": "container_x_plus",
+      "noncollision_lower_m": 0.01499999845300454,
+      "collision_upper_m": 0.014999998453004542,
+      "collision_at_zero": false,
+      "excess_over_required_projection_clearance_m": 0.01299999845300454,
+      "per_obstacle": {
+        "table": {
+          "noncollision_lower_m": 0.08000000044603481,
+          "collision_upper_m": 0.08000000044603482,
+          "collision_at_zero": false
+        },
+        "container_x_minus": {
+          "noncollision_lower_m": 0.015000022294862362,
+          "collision_upper_m": 0.015000022294862364,
+          "collision_at_zero": false
+        },
+        "container_x_plus": {
+          "noncollision_lower_m": 0.01499999845300454,
+          "collision_upper_m": 0.014999998453004542,
+          "collision_at_zero": false
+        },
+        "container_y_minus": {
+          "noncollision_lower_m": 0.020000000762684492,
+          "collision_upper_m": 0.020000000762684496,
+          "collision_at_zero": false
+        },
+        "container_y_plus": {
+          "noncollision_lower_m": 0.020000006723148948,
+          "collision_upper_m": 0.02000000672314895,
+          "collision_at_zero": false
+        },
+        "container_floor": {
+          "noncollision_lower_m": 0.06499999984998837,
+          "collision_upper_m": 0.06499999984998839,
+          "collision_at_zero": false
+        },
+        "other": {
+          "noncollision_lower_m": 0.1450000096102489,
+          "collision_upper_m": 0.14500000961024892,
+          "collision_at_zero": false
+        }
+      }
+    },
+    "path_sat_projection_clearance_threshold": null,
+    "path_workspace_region_face_margin": null,
+    "path_length_m": null,
+    "start_to_landing_displacement_m": null,
+    "maximum_center_height_m": null,
+    "points_m": [
+      [
+        0.7,
+        0.2,
+        0.1
+      ]
+    ],
+    "held_box_at_landing": {
+      "id": "target",
+      "center_m": [
+        0.7,
+        0.2,
+        0.1
+      ],
+      "size_m": [
+        0.1599999964237213,
+        0.05999999865889549,
+        0.05000000074505806
+      ],
+      "quaternion_wxyz": [
+        0.7071067811865476,
+        0,
+        0,
+        0.7071067811865476
+      ]
+    }
+  },
+  "replay": "lab_s4_rotated_fit_C/replay.png"
+}

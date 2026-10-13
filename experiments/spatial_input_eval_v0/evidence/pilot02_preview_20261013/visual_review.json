@@ -1,0 +1,116 @@
+{
+  "status": "PASS_WITH_DOCUMENTED_LIMITATIONS",
+  "reviewer_kind": "ASSISTANT_DIRECT_VISUAL_INSPECTION",
+  "date": "2026-10-13",
+  "suite": "suite_v2",
+  "reviewed_rgb_images": 9,
+  "images": [
+    {
+      "file": "suite_v2/p02_a_m03_minus/assets/overhead.png",
+      "sha256": "fe275b7d77671cf0d7a87857c0e0fc33d5a5100c5a78ab9a00d1bf694c2c85d5",
+      "inspection_resolution_px": [
+        960,
+        720
+      ],
+      "viewed_at_original_resolution": true,
+      "observation": "The red target and the complete rectangular opening are visible. Four opening edges and some inner wall/floor appearance are distinguishable. The opening occupies the upper part of the gray footprint in this view."
+    },
+    {
+      "file": "suite_v2/p02_a_m03_plus/assets/overhead.png",
+      "sha256": "f77635359ec780a8dbbafe7567d7cac8a16318c2ff549983fbee724f1aa46330",
+      "inspection_resolution_px": [
+        960,
+        720
+      ],
+      "viewed_at_original_resolution": true,
+      "observation": "The target and exterior footprint remain in the same visual positions, while the complete opening moves to the lower part of the footprint. The paired opening shift is visible without Oracle geometry."
+    },
+    {
+      "file": "suite_v2/p02_c_slot_030/assets/opposite.png",
+      "sha256": "66c4d18865cdfc07bec3c1d3dd7d8521474164d70aac891e7ca71873a59edd28",
+      "inspection_resolution_px": [
+        960,
+        720
+      ],
+      "viewed_at_original_resolution": true,
+      "observation": "The elongated red object is visible separately from the thick gray assembly. The slot opening and depth-facing interior faces are visible at an oblique angle. The opening is elongated; no target orientation is drawn inside it."
+    },
+    {
+      "file": "suite_v2/p02_c_slot_030/assets/overhead.png",
+      "sha256": "c452faa3ef8feb8b2ace3b9d98653504f8a2a39f2bf99e57eee648e350645dc8",
+      "inspection_resolution_px": [
+        960,
+        720
+      ],
+      "viewed_at_original_resolution": true,
+      "observation": "The complete elongated slot opening is visible. Its long axis differs from the red target initial long axis. Some outer gray footprint extends beyond the bottom image edge; the decision-critical opening is fully within the image."
+    },
+    {
+      "file": "suite_v2/p02_c_slot_120/assets/overhead.png",
+      "sha256": "cf4dc2d30fce4591063d9c274d8c77c9689989f625ed6f17facc140c2e075c56",
+      "inspection_resolution_px": [
+        960,
+        720
+      ],
+      "viewed_at_original_resolution": true,
+      "observation": "The slot long axis rotates approximately a quarter turn relative to the paired 030 view while the red target stays in the same image position and orientation. The complete slot is visible; peripheral gray solids are cropped at the bottom."
+    },
+    {
+      "file": "suite_v2/p02_b_open_minus/assets/overhead.png",
+      "sha256": "63456c689b3893f78fd27f32b238a69de97e9879f8abf14d1e25f8c676765148",
+      "inspection_resolution_px": [
+        960,
+        720
+      ],
+      "viewed_at_original_resolution": true,
+      "observation": "The target, goal wireframe, central barrier and one open side corridor are visible. The barrier extends close to one workspace side and leaves a substantially larger gap on the other side. Some exterior workspace edges are cropped in this view."
+    },
+    {
+      "file": "suite_v2/p02_b_open_plus/assets/overhead.png",
+      "sha256": "3ab8444ccc17c2d507113da8a1bf710cb3b378fa9b940770d25c4d61ef915ac5",
+      "inspection_resolution_px": [
+        960,
+        720
+      ],
+      "viewed_at_original_resolution": true,
+      "observation": "The target and goal remain fixed while the barrier shifts to the opposite workspace side. The available side passage swaps visibly. The obstruction remains between start and goal."
+    },
+    {
+      "file": "suite_v2/p02_b_open_minus/assets/front.png",
+      "sha256": "08a7c8eb4248c7992d019d4941c3b860e23c43692d3e7cbd40bc4e772d9dbef5",
+      "inspection_resolution_px": [
+        960,
+        720
+      ],
+      "viewed_at_original_resolution": true,
+      "observation": "The complete green workspace volume, two gray upper rails, target, goal and barrier are visible. The barrier reaches the height boundary; the side passage is visually inspectable. The upper bound is a public workspace constraint marked by a frame, not a closed physical ceiling."
+    },
+    {
+      "file": "suite_v2/p02_b_open_plus/assets/front.png",
+      "sha256": "188dd7049a1d861f863e4cf5751d3ab711432b3ab3b29758d3fd482bd50f4094",
+      "inspection_resolution_px": [
+        960,
+        720
+      ],
+      "viewed_at_original_resolution": true,
+      "observation": "The full workspace height frame and rails are visible again, with the barrier shifted to the other side. The paired change in available passage is visible from this oblique view as well as overhead."
+    }
+  ],
+  "conclusions": [
+    "The selected real SAPIEN RGB views show the changed opening location, changed corridor side and changed slot orientation.",
+    "The fixed-position and fixed-yaw shortcuts are contradicted by visible paired geometry changes; offline scoring separately establishes their failures.",
+    "The B upper limit is explicit in the shared task and visually marked; no opaque roof hides the route geometry."
+  ],
+  "limitations": [
+    "This assistant inspection is not a completed human usability or metric-accuracy study.",
+    "The tight 3 mm per-side tolerance is a geometric design quantity; seeing the opening does not establish that the images permit 3 mm measurement accuracy.",
+    "The 6 mm depth-neighborhood acceptance radius verifies projected boundary support, not the precision needed to solve the 3 mm task.",
+    "In A and C, most green task-volume wireframe is occluded by the gray blocking solids. Public numeric task-volume definitions remain identical for A/C and for paired scene variants.",
+    "C overhead views crop peripheral gray solids and place the target near the upper image edge; the target and all slot opening edges remain visible, with an additional oblique view showing the target away from the image border.",
+    "Some B overhead workspace edges are cropped; both reviewed front views show the complete height frame and rails.",
+    "Occluded bottom/support faces are not a scored requirement in these explicitly static placement tasks. Oracle precision and representation effects remain coupled."
+  ],
+  "models_called_for_review": 0,
+  "hardware_connections": 0,
+  "source_images_modified": false
+}

@@ -1,0 +1,56 @@
+{
+  "source_commit": "b103ee5577f6a3805ae18984dee9157ffa328849",
+  "real_generation_requests": 0,
+  "analysis_only": true,
+  "original_understanding": {
+    "A": {
+      "correct": 45,
+      "n": 54
+    },
+    "C": {
+      "correct": 54,
+      "n": 54
+    }
+  },
+  "sensitivity_uniform_10nm": {
+    "A": {
+      "correct": 49,
+      "n": 54
+    },
+    "C": {
+      "correct": 54,
+      "n": 54
+    }
+  },
+  "uniform_numeric_slack_m": 1e-08,
+  "boundary_cases": 4,
+  "planning": {
+    "A": {
+      "valid": 6,
+      "n": 6
+    },
+    "C": {
+      "valid": 6,
+      "n": 6
+    }
+  },
+  "valid_understanding_phase": "180s_four_worker",
+  "valid_understanding_pairs": 6,
+  "no_cache_understanding_pairs": 5,
+  "unknown_token_attempts": 1,
+  "source_files_unchanged": true,
+  "metric_definitions": {
+    "position": "position_vector_L2_m",
+    "size": "size_vector_L2_m",
+    "height": "height_scalar_absolute_m",
+    "gap": "gap_scalar_absolute_m"
+  },
+  "warnings": [
+    "Sensitivity is post-hoc, original score unchanged",
+    "Do not average different numerical error metrics",
+    "No inference about latent reasoning from answer-operation labels",
+    "Tokens are not exact internal compute",
+    "Client/bridge wall latency is not pure model compute",
+    "No significance or generalization claims"
+  ]
+}

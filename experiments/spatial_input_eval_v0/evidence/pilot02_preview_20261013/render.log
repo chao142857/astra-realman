@@ -1,0 +1,18 @@
+SAPIEN rendering p02_a_m03_minus
+/home/tongji/alex/spatial-pilot02-offline-20261013/experiments/spatial_input_eval_v0/lab/pilot02_render.py:53: DeprecationWarning: component.set_pose can be ambiguous thus deprecated. It is equivalent to component.set_entity_pose, which should be used instead
+  cam=scene.add_camera(name,*RESOLUTION,.90,.01,5.); cam.set_pose(camera_pose(p,LOOK_AT)); cams.append((name,cam))
+/home/tongji/alex/spatial-pilot02-offline-20261013/experiments/spatial_input_eval_v0/lab/pilot02_render.py:64: DeprecationWarning: component.get_pose can be ambiguous thus deprecated. It is equivalent to component.get_entity_pose, which should be used instead
+  K=cam.get_intrinsic_matrix()[:3,:3]; pose=cam.get_pose(); cv2base=cam.get_model_matrix()@np.diag([1,-1,-1,1])
+SAPIEN rendering p02_a_m03_plus
+SAPIEN rendering p02_a_m10_minus
+SAPIEN rendering p02_a_m10_plus
+SAPIEN rendering p02_a_m30_minus
+SAPIEN rendering p02_a_m30_plus
+SAPIEN rendering p02_b_open_minus
+SAPIEN rendering p02_b_open_plus
+SAPIEN rendering p02_c_slot_030
+SAPIEN rendering p02_c_slot_120
+[2026-10-13 11:24:59.920] [svulkan2] [error] Extension VK_KHR_external_memory_capabilities is not available. Interop with external library is disabled.
+[2026-10-13 11:24:59.920] [svulkan2] [error] Extension VK_KHR_external_semaphore_capabilities is not available. Interop with external library is disabled.
+[2026-10-13 11:24:59.933] [svulkan2] [error] Your GPU driver does not support Vulkan. You may not use the renderer for rendering.
+[2026-10-13 11:24:59.933] [svulkan2] [error] Failed to create renderer with error: vk::createInstanceUnique: ErrorIncompatibleDriver

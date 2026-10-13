@@ -1,0 +1,56 @@
+{
+  "engine": "SAPIEN",
+  "version": "3.0.0b1",
+  "physics_steps": 10,
+  "cameras": [
+    {
+      "camera_id": "front",
+      "rgb_std": 20.318168955372776,
+      "valid_pixels": 690240,
+      "reprojection_p99_px": 0.0021586565493814398,
+      "visible_pixels": {
+        "target": 2726,
+        "barrier": 23700,
+        "height_rail_minus": 5339,
+        "height_rail_plus": 3246,
+        "table": 0
+      }
+    },
+    {
+      "camera_id": "opposite",
+      "rgb_std": 21.513348312767818,
+      "valid_pixels": 691200,
+      "reprojection_p99_px": 0.001911622729676636,
+      "visible_pixels": {
+        "target": 1805,
+        "barrier": 28942,
+        "height_rail_minus": 3683,
+        "height_rail_plus": 6141,
+        "table": 0
+      }
+    },
+    {
+      "camera_id": "overhead",
+      "rgb_std": 19.040567659721773,
+      "valid_pixels": 691200,
+      "reprojection_p99_px": 0.0016606849520616096,
+      "visible_pixels": {
+        "target": 2459,
+        "barrier": 18936,
+        "height_rail_minus": 8044,
+        "height_rail_plus": 7597,
+        "table": 0
+      }
+    }
+  ],
+  "solid_actor_ids": {
+    "target": 5,
+    "barrier": 6,
+    "height_rail_minus": 7,
+    "height_rail_plus": 8,
+    "table": 9
+  },
+  "geometry_source": "PhysX box half-sizes and actor/shape pose readback",
+  "new_model_calls": 0,
+  "hardware_connections": 0
+}

@@ -1,0 +1,2586 @@
+{
+  "selection": "10 deterministic pre-model designs; all attempts retained; no model-based selection",
+  "specifications": [
+    {
+      "scene_id": "p02_a_m03_minus",
+      "family": "A_PLACEMENT_MARGIN",
+      "pair_id": "A_margin_03mm",
+      "design": {
+        "nominal_per_side_gap_m": 0.003,
+        "pocket_side": -1
+      },
+      "objects": [
+        {
+          "id": "target",
+          "center_m": [
+            0.19,
+            -0.32,
+            0.09
+          ],
+          "size_m": [
+            0.08,
+            0.06,
+            0.08
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": "task_volume",
+          "center_m": [
+            0.62,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.42,
+            0.46,
+            0.18
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "block_x_minus",
+          "center_m": [
+            0.4935,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.16699999999999993,
+            0.46,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_x_plus",
+          "center_m": [
+            0.7464999999999999,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.16699999999999995,
+            0.46,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_y_minus",
+          "center_m": [
+            0.62,
+            -0.1865,
+            0.12
+          ],
+          "size_m": [
+            0.08600000000000001,
+            0.087,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_y_plus",
+          "center_m": [
+            0.62,
+            0.07650000000000001,
+            0.12
+          ],
+          "size_m": [
+            0.08600000000000001,
+            0.30700000000000005,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "table",
+          "center_m": [
+            0.48,
+            0,
+            -0.025
+          ],
+          "size_m": [
+            1.6,
+            1.5,
+            0.04
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "kind": "placement",
+      "orientation_policy": {
+        "mode": "fixed",
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tolerance_rad": 0.02
+      },
+      "witness": {
+        "object_id": "target",
+        "position_m": [
+          0.62,
+          -0.11,
+          0.12
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "waypoints_m": []
+      },
+      "alternate_witnesses": [
+        {
+          "object_id": "target",
+          "position_m": [
+            0.6202,
+            -0.11,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": []
+        }
+      ],
+      "negative_controls": {
+        "blocked_center": {
+          "object_id": "target",
+          "position_m": [
+            0.62,
+            0,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": []
+        }
+      },
+      "task": {
+        "task_id": "plan",
+        "kind": "placement",
+        "frame": "robot_base",
+        "tolerance_m": 0.005,
+        "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.62, 0, 0.12] m, full_size=[0.42, 0.46, 0.18] m, wxyz=[1, 0, 0, 0]. Return no waypoints. ",
+        "questions": [],
+        "constraints": {
+          "object_id": "target",
+          "allowed_region_id": "task_volume",
+          "clearance_m": 0.002,
+          "required_quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "orientation_tolerance_rad": 0.02
+        }
+      }
+    },
+    {
+      "scene_id": "p02_a_m03_plus",
+      "family": "A_PLACEMENT_MARGIN",
+      "pair_id": "A_margin_03mm",
+      "design": {
+        "nominal_per_side_gap_m": 0.003,
+        "pocket_side": 1
+      },
+      "objects": [
+        {
+          "id": "target",
+          "center_m": [
+            0.19,
+            -0.32,
+            0.09
+          ],
+          "size_m": [
+            0.08,
+            0.06,
+            0.08
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": "task_volume",
+          "center_m": [
+            0.62,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.42,
+            0.46,
+            0.18
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "block_x_minus",
+          "center_m": [
+            0.4935,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.16699999999999993,
+            0.46,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_x_plus",
+          "center_m": [
+            0.7464999999999999,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.16699999999999995,
+            0.46,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_y_minus",
+          "center_m": [
+            0.62,
+            -0.07650000000000001,
+            0.12
+          ],
+          "size_m": [
+            0.08600000000000001,
+            0.307,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_y_plus",
+          "center_m": [
+            0.62,
+            0.1865,
+            0.12
+          ],
+          "size_m": [
+            0.08600000000000001,
+            0.08700000000000001,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "table",
+          "center_m": [
+            0.48,
+            0,
+            -0.025
+          ],
+          "size_m": [
+            1.6,
+            1.5,
+            0.04
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "kind": "placement",
+      "orientation_policy": {
+        "mode": "fixed",
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tolerance_rad": 0.02
+      },
+      "witness": {
+        "object_id": "target",
+        "position_m": [
+          0.62,
+          0.11,
+          0.12
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "waypoints_m": []
+      },
+      "alternate_witnesses": [
+        {
+          "object_id": "target",
+          "position_m": [
+            0.6202,
+            0.11,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": []
+        }
+      ],
+      "negative_controls": {
+        "blocked_center": {
+          "object_id": "target",
+          "position_m": [
+            0.62,
+            0,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": []
+        }
+      },
+      "task": {
+        "task_id": "plan",
+        "kind": "placement",
+        "frame": "robot_base",
+        "tolerance_m": 0.005,
+        "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.62, 0, 0.12] m, full_size=[0.42, 0.46, 0.18] m, wxyz=[1, 0, 0, 0]. Return no waypoints. ",
+        "questions": [],
+        "constraints": {
+          "object_id": "target",
+          "allowed_region_id": "task_volume",
+          "clearance_m": 0.002,
+          "required_quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "orientation_tolerance_rad": 0.02
+        }
+      }
+    },
+    {
+      "scene_id": "p02_a_m10_minus",
+      "family": "A_PLACEMENT_MARGIN",
+      "pair_id": "A_margin_10mm",
+      "design": {
+        "nominal_per_side_gap_m": 0.01,
+        "pocket_side": -1
+      },
+      "objects": [
+        {
+          "id": "target",
+          "center_m": [
+            0.19,
+            -0.32,
+            0.09
+          ],
+          "size_m": [
+            0.08,
+            0.06,
+            0.08
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": "task_volume",
+          "center_m": [
+            0.62,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.42,
+            0.46,
+            0.18
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "block_x_minus",
+          "center_m": [
+            0.49,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.15999999999999992,
+            0.46,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_x_plus",
+          "center_m": [
+            0.75,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.15999999999999998,
+            0.46,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_y_minus",
+          "center_m": [
+            0.62,
+            -0.19,
+            0.12
+          ],
+          "size_m": [
+            0.1,
+            0.08000000000000002,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_y_plus",
+          "center_m": [
+            0.62,
+            0.08,
+            0.12
+          ],
+          "size_m": [
+            0.1,
+            0.30000000000000004,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "table",
+          "center_m": [
+            0.48,
+            0,
+            -0.025
+          ],
+          "size_m": [
+            1.6,
+            1.5,
+            0.04
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "kind": "placement",
+      "orientation_policy": {
+        "mode": "fixed",
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tolerance_rad": 0.02
+      },
+      "witness": {
+        "object_id": "target",
+        "position_m": [
+          0.62,
+          -0.11,
+          0.12
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "waypoints_m": []
+      },
+      "alternate_witnesses": [
+        {
+          "object_id": "target",
+          "position_m": [
+            0.6202,
+            -0.11,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": []
+        }
+      ],
+      "negative_controls": {
+        "blocked_center": {
+          "object_id": "target",
+          "position_m": [
+            0.62,
+            0,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": []
+        }
+      },
+      "task": {
+        "task_id": "plan",
+        "kind": "placement",
+        "frame": "robot_base",
+        "tolerance_m": 0.005,
+        "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.62, 0, 0.12] m, full_size=[0.42, 0.46, 0.18] m, wxyz=[1, 0, 0, 0]. Return no waypoints. ",
+        "questions": [],
+        "constraints": {
+          "object_id": "target",
+          "allowed_region_id": "task_volume",
+          "clearance_m": 0.002,
+          "required_quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "orientation_tolerance_rad": 0.02
+        }
+      }
+    },
+    {
+      "scene_id": "p02_a_m10_plus",
+      "family": "A_PLACEMENT_MARGIN",
+      "pair_id": "A_margin_10mm",
+      "design": {
+        "nominal_per_side_gap_m": 0.01,
+        "pocket_side": 1
+      },
+      "objects": [
+        {
+          "id": "target",
+          "center_m": [
+            0.19,
+            -0.32,
+            0.09
+          ],
+          "size_m": [
+            0.08,
+            0.06,
+            0.08
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": "task_volume",
+          "center_m": [
+            0.62,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.42,
+            0.46,
+            0.18
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "block_x_minus",
+          "center_m": [
+            0.49,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.15999999999999992,
+            0.46,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_x_plus",
+          "center_m": [
+            0.75,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.15999999999999998,
+            0.46,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_y_minus",
+          "center_m": [
+            0.62,
+            -0.08,
+            0.12
+          ],
+          "size_m": [
+            0.1,
+            0.30000000000000004,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_y_plus",
+          "center_m": [
+            0.62,
+            0.19,
+            0.12
+          ],
+          "size_m": [
+            0.1,
+            0.08000000000000002,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "table",
+          "center_m": [
+            0.48,
+            0,
+            -0.025
+          ],
+          "size_m": [
+            1.6,
+            1.5,
+            0.04
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "kind": "placement",
+      "orientation_policy": {
+        "mode": "fixed",
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tolerance_rad": 0.02
+      },
+      "witness": {
+        "object_id": "target",
+        "position_m": [
+          0.62,
+          0.11,
+          0.12
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "waypoints_m": []
+      },
+      "alternate_witnesses": [
+        {
+          "object_id": "target",
+          "position_m": [
+            0.6202,
+            0.11,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": []
+        }
+      ],
+      "negative_controls": {
+        "blocked_center": {
+          "object_id": "target",
+          "position_m": [
+            0.62,
+            0,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": []
+        }
+      },
+      "task": {
+        "task_id": "plan",
+        "kind": "placement",
+        "frame": "robot_base",
+        "tolerance_m": 0.005,
+        "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.62, 0, 0.12] m, full_size=[0.42, 0.46, 0.18] m, wxyz=[1, 0, 0, 0]. Return no waypoints. ",
+        "questions": [],
+        "constraints": {
+          "object_id": "target",
+          "allowed_region_id": "task_volume",
+          "clearance_m": 0.002,
+          "required_quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "orientation_tolerance_rad": 0.02
+        }
+      }
+    },
+    {
+      "scene_id": "p02_a_m30_minus",
+      "family": "A_PLACEMENT_MARGIN",
+      "pair_id": "A_margin_30mm",
+      "design": {
+        "nominal_per_side_gap_m": 0.03,
+        "pocket_side": -1
+      },
+      "objects": [
+        {
+          "id": "target",
+          "center_m": [
+            0.19,
+            -0.32,
+            0.09
+          ],
+          "size_m": [
+            0.08,
+            0.06,
+            0.08
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": "task_volume",
+          "center_m": [
+            0.62,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.42,
+            0.46,
+            0.18
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "block_x_minus",
+          "center_m": [
+            0.48,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.14,
+            0.46,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_x_plus",
+          "center_m": [
+            0.76,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.13999999999999996,
+            0.46,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_y_minus",
+          "center_m": [
+            0.62,
+            -0.2,
+            0.12
+          ],
+          "size_m": [
+            0.14,
+            0.060000000000000026,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_y_plus",
+          "center_m": [
+            0.62,
+            0.09,
+            0.12
+          ],
+          "size_m": [
+            0.14,
+            0.28,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "table",
+          "center_m": [
+            0.48,
+            0,
+            -0.025
+          ],
+          "size_m": [
+            1.6,
+            1.5,
+            0.04
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "kind": "placement",
+      "orientation_policy": {
+        "mode": "fixed",
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tolerance_rad": 0.02
+      },
+      "witness": {
+        "object_id": "target",
+        "position_m": [
+          0.62,
+          -0.11,
+          0.12
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "waypoints_m": []
+      },
+      "alternate_witnesses": [
+        {
+          "object_id": "target",
+          "position_m": [
+            0.6202,
+            -0.11,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": []
+        }
+      ],
+      "negative_controls": {
+        "blocked_center": {
+          "object_id": "target",
+          "position_m": [
+            0.62,
+            0,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": []
+        }
+      },
+      "task": {
+        "task_id": "plan",
+        "kind": "placement",
+        "frame": "robot_base",
+        "tolerance_m": 0.005,
+        "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.62, 0, 0.12] m, full_size=[0.42, 0.46, 0.18] m, wxyz=[1, 0, 0, 0]. Return no waypoints. ",
+        "questions": [],
+        "constraints": {
+          "object_id": "target",
+          "allowed_region_id": "task_volume",
+          "clearance_m": 0.002,
+          "required_quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "orientation_tolerance_rad": 0.02
+        }
+      }
+    },
+    {
+      "scene_id": "p02_a_m30_plus",
+      "family": "A_PLACEMENT_MARGIN",
+      "pair_id": "A_margin_30mm",
+      "design": {
+        "nominal_per_side_gap_m": 0.03,
+        "pocket_side": 1
+      },
+      "objects": [
+        {
+          "id": "target",
+          "center_m": [
+            0.19,
+            -0.32,
+            0.09
+          ],
+          "size_m": [
+            0.08,
+            0.06,
+            0.08
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": "task_volume",
+          "center_m": [
+            0.62,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.42,
+            0.46,
+            0.18
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "block_x_minus",
+          "center_m": [
+            0.48,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.14,
+            0.46,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_x_plus",
+          "center_m": [
+            0.76,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.13999999999999996,
+            0.46,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_y_minus",
+          "center_m": [
+            0.62,
+            -0.09,
+            0.12
+          ],
+          "size_m": [
+            0.14,
+            0.28,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "block_y_plus",
+          "center_m": [
+            0.62,
+            0.2,
+            0.12
+          ],
+          "size_m": [
+            0.14,
+            0.06000000000000001,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "table",
+          "center_m": [
+            0.48,
+            0,
+            -0.025
+          ],
+          "size_m": [
+            1.6,
+            1.5,
+            0.04
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "kind": "placement",
+      "orientation_policy": {
+        "mode": "fixed",
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tolerance_rad": 0.02
+      },
+      "witness": {
+        "object_id": "target",
+        "position_m": [
+          0.62,
+          0.11,
+          0.12
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "waypoints_m": []
+      },
+      "alternate_witnesses": [
+        {
+          "object_id": "target",
+          "position_m": [
+            0.6202,
+            0.11,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": []
+        }
+      ],
+      "negative_controls": {
+        "blocked_center": {
+          "object_id": "target",
+          "position_m": [
+            0.62,
+            0,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": []
+        }
+      },
+      "task": {
+        "task_id": "plan",
+        "kind": "placement",
+        "frame": "robot_base",
+        "tolerance_m": 0.005,
+        "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.62, 0, 0.12] m, full_size=[0.42, 0.46, 0.18] m, wxyz=[1, 0, 0, 0]. Return no waypoints. ",
+        "questions": [],
+        "constraints": {
+          "object_id": "target",
+          "allowed_region_id": "task_volume",
+          "clearance_m": 0.002,
+          "required_quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "orientation_tolerance_rad": 0.02
+        }
+      }
+    },
+    {
+      "scene_id": "p02_b_open_minus",
+      "family": "B_BOUNDED_DETOUR",
+      "pair_id": "B_side_swap",
+      "design": {
+        "open_side": -1
+      },
+      "objects": [
+        {
+          "id": "target",
+          "center_m": [
+            0.18,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.06,
+            0.06,
+            0.06
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": "task_volume",
+          "center_m": [
+            0.76,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.1,
+            0.12,
+            0.1
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "workspace",
+          "center_m": [
+            0.48,
+            0,
+            0.14
+          ],
+          "size_m": [
+            0.72,
+            0.56,
+            0.22
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "barrier",
+          "center_m": [
+            0.48,
+            0.08,
+            0.14
+          ],
+          "size_m": [
+            0.07,
+            0.38,
+            0.24
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "height_rail_minus",
+          "center_m": [
+            0.48,
+            -0.292,
+            0.26
+          ],
+          "size_m": [
+            0.744,
+            0.012,
+            0.012
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "height_rail_plus",
+          "center_m": [
+            0.48,
+            0.292,
+            0.26
+          ],
+          "size_m": [
+            0.744,
+            0.012,
+            0.012
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "table",
+          "center_m": [
+            0.48,
+            0,
+            -0.025
+          ],
+          "size_m": [
+            1.6,
+            1.5,
+            0.04
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "kind": "path",
+      "orientation_policy": {
+        "mode": "fixed",
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tolerance_rad": 0.02
+      },
+      "witness": {
+        "object_id": "target",
+        "position_m": [
+          0.76,
+          0,
+          0.12
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "waypoints_m": [
+          [
+            0.18,
+            -0.2,
+            0.12
+          ],
+          [
+            0.76,
+            -0.2,
+            0.12
+          ],
+          [
+            0.76,
+            0,
+            0.12
+          ]
+        ]
+      },
+      "alternate_witnesses": [
+        {
+          "object_id": "target",
+          "position_m": [
+            0.76,
+            0,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": [
+            [
+              0.18,
+              -0.21,
+              0.12
+            ],
+            [
+              0.76,
+              -0.21,
+              0.12
+            ],
+            [
+              0.76,
+              0,
+              0.12
+            ]
+          ]
+        }
+      ],
+      "negative_controls": {
+        "straight": {
+          "object_id": "target",
+          "position_m": [
+            0.76,
+            0,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": [
+            [
+              0.76,
+              0,
+              0.12
+            ]
+          ]
+        },
+        "overfly": {
+          "object_id": "target",
+          "position_m": [
+            0.76,
+            0,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": [
+            [
+              0.18,
+              0,
+              0.45
+            ],
+            [
+              0.76,
+              0,
+              0.45
+            ],
+            [
+              0.76,
+              0,
+              0.12
+            ]
+          ]
+        }
+      },
+      "task": {
+        "task_id": "plan",
+        "kind": "path",
+        "frame": "robot_base",
+        "tolerance_m": 0.005,
+        "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.76, 0, 0.12] m, full_size=[0.1, 0.12, 0.1] m, wxyz=[1, 0, 0, 0]; workspace: center=[0.48, 0, 0.14] m, full_size=[0.72, 0.56, 0.22] m, wxyz=[1, 0, 0, 0]. Move at fixed orientation through workspace using center waypoints. The entire object must remain below the workspace top z=0.25 m and above its bottom z=0.03 m along every segment; gray perimeter rails and green frame mark the height limit. ",
+        "questions": [],
+        "constraints": {
+          "object_id": "target",
+          "allowed_region_id": "task_volume",
+          "clearance_m": 0.002,
+          "required_quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "orientation_tolerance_rad": 0.02,
+          "start_position_m": [
+            0.18,
+            0,
+            0.12
+          ],
+          "workspace_region_id": "workspace"
+        }
+      }
+    },
+    {
+      "scene_id": "p02_b_open_plus",
+      "family": "B_BOUNDED_DETOUR",
+      "pair_id": "B_side_swap",
+      "design": {
+        "open_side": 1
+      },
+      "objects": [
+        {
+          "id": "target",
+          "center_m": [
+            0.18,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.06,
+            0.06,
+            0.06
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": "task_volume",
+          "center_m": [
+            0.76,
+            0,
+            0.12
+          ],
+          "size_m": [
+            0.1,
+            0.12,
+            0.1
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "workspace",
+          "center_m": [
+            0.48,
+            0,
+            0.14
+          ],
+          "size_m": [
+            0.72,
+            0.56,
+            0.22
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "barrier",
+          "center_m": [
+            0.48,
+            -0.08,
+            0.14
+          ],
+          "size_m": [
+            0.07,
+            0.38,
+            0.24
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "height_rail_minus",
+          "center_m": [
+            0.48,
+            -0.292,
+            0.26
+          ],
+          "size_m": [
+            0.744,
+            0.012,
+            0.012
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "height_rail_plus",
+          "center_m": [
+            0.48,
+            0.292,
+            0.26
+          ],
+          "size_m": [
+            0.744,
+            0.012,
+            0.012
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "table",
+          "center_m": [
+            0.48,
+            0,
+            -0.025
+          ],
+          "size_m": [
+            1.6,
+            1.5,
+            0.04
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "kind": "path",
+      "orientation_policy": {
+        "mode": "fixed",
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tolerance_rad": 0.02
+      },
+      "witness": {
+        "object_id": "target",
+        "position_m": [
+          0.76,
+          0,
+          0.12
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "waypoints_m": [
+          [
+            0.18,
+            0.2,
+            0.12
+          ],
+          [
+            0.76,
+            0.2,
+            0.12
+          ],
+          [
+            0.76,
+            0,
+            0.12
+          ]
+        ]
+      },
+      "alternate_witnesses": [
+        {
+          "object_id": "target",
+          "position_m": [
+            0.76,
+            0,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": [
+            [
+              0.18,
+              0.21,
+              0.12
+            ],
+            [
+              0.76,
+              0.21,
+              0.12
+            ],
+            [
+              0.76,
+              0,
+              0.12
+            ]
+          ]
+        }
+      ],
+      "negative_controls": {
+        "straight": {
+          "object_id": "target",
+          "position_m": [
+            0.76,
+            0,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": [
+            [
+              0.76,
+              0,
+              0.12
+            ]
+          ]
+        },
+        "overfly": {
+          "object_id": "target",
+          "position_m": [
+            0.76,
+            0,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "waypoints_m": [
+            [
+              0.18,
+              0,
+              0.45
+            ],
+            [
+              0.76,
+              0,
+              0.45
+            ],
+            [
+              0.76,
+              0,
+              0.12
+            ]
+          ]
+        }
+      },
+      "task": {
+        "task_id": "plan",
+        "kind": "path",
+        "frame": "robot_base",
+        "tolerance_m": 0.005,
+        "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.76, 0, 0.12] m, full_size=[0.1, 0.12, 0.1] m, wxyz=[1, 0, 0, 0]; workspace: center=[0.48, 0, 0.14] m, full_size=[0.72, 0.56, 0.22] m, wxyz=[1, 0, 0, 0]. Move at fixed orientation through workspace using center waypoints. The entire object must remain below the workspace top z=0.25 m and above its bottom z=0.03 m along every segment; gray perimeter rails and green frame mark the height limit. ",
+        "questions": [],
+        "constraints": {
+          "object_id": "target",
+          "allowed_region_id": "task_volume",
+          "clearance_m": 0.002,
+          "required_quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "orientation_tolerance_rad": 0.02,
+          "start_position_m": [
+            0.18,
+            0,
+            0.12
+          ],
+          "workspace_region_id": "workspace"
+        }
+      }
+    },
+    {
+      "scene_id": "p02_c_slot_030",
+      "family": "C_FREE_YAW",
+      "pair_id": "C_slot_rotation",
+      "design": {
+        "private_slot_angle_deg": 30
+      },
+      "objects": [
+        {
+          "id": "target",
+          "center_m": [
+            0.12,
+            -0.37,
+            0.09
+          ],
+          "size_m": [
+            0.14,
+            0.045,
+            0.065
+          ],
+          "quaternion_wxyz": [
+            0.984807753012208,
+            0.0,
+            0.0,
+            0.17364817766693033
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": "task_volume",
+          "center_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "size_m": [
+            0.28,
+            0.28,
+            0.16
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "block_x_minus",
+          "center_m": [
+            0.4841154273188011,
+            -0.04999999999999998,
+            0.12
+          ],
+          "size_m": [
+            0.2,
+            0.55,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            0.9659258262890683,
+            0.0,
+            0.0,
+            0.25881904510252074
+          ]
+        },
+        {
+          "id": "block_x_plus",
+          "center_m": [
+            0.7958845726811989,
+            0.12999999999999998,
+            0.12
+          ],
+          "size_m": [
+            0.2,
+            0.55,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            0.9659258262890683,
+            0.0,
+            0.0,
+            0.25881904510252074
+          ]
+        },
+        {
+          "id": "block_y_minus",
+          "center_m": [
+            0.70625,
+            -0.07474836600143814,
+            0.12
+          ],
+          "size_m": [
+            0.55,
+            0.2,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            0.9659258262890683,
+            0.0,
+            0.0,
+            0.25881904510252074
+          ]
+        },
+        {
+          "id": "block_y_plus",
+          "center_m": [
+            0.57375,
+            0.15474836600143813,
+            0.12
+          ],
+          "size_m": [
+            0.55,
+            0.2,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            0.9659258262890683,
+            0.0,
+            0.0,
+            0.25881904510252074
+          ]
+        },
+        {
+          "id": "table",
+          "center_m": [
+            0.48,
+            0,
+            -0.025
+          ],
+          "size_m": [
+            1.6,
+            1.5,
+            0.04
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "kind": "placement",
+      "orientation_policy": {
+        "mode": "upright_free_yaw",
+        "local_axis": [
+          0,
+          0,
+          1
+        ],
+        "world_axis": [
+          0,
+          0,
+          1
+        ],
+        "max_tilt_rad": 0.02
+      },
+      "witness": {
+        "object_id": "target",
+        "position_m": [
+          0.64,
+          0.04,
+          0.12
+        ],
+        "quaternion_wxyz": [
+          0.9659258262890683,
+          0.0,
+          0.0,
+          0.25881904510252074
+        ],
+        "waypoints_m": []
+      },
+      "alternate_witnesses": [
+        {
+          "object_id": "target",
+          "position_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            -0.25881904510252085,
+            0.0,
+            0.0,
+            0.9659258262890683
+          ],
+          "waypoints_m": []
+        },
+        {
+          "object_id": "target",
+          "position_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            0.963630453208623,
+            0.0,
+            0.0,
+            0.26723837607825685
+          ],
+          "waypoints_m": []
+        },
+        {
+          "object_id": "target",
+          "position_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            0.9681476403781077,
+            0.0,
+            0.0,
+            0.25038000405444144
+          ],
+          "waypoints_m": []
+        },
+        {
+          "object_id": "target",
+          "position_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            -0.9659258262890683,
+            -0.0,
+            -0.0,
+            -0.25881904510252074
+          ],
+          "waypoints_m": []
+        }
+      ],
+      "negative_controls": {
+        "wrong_paired_yaw": {
+          "object_id": "target",
+          "position_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            0.5000000000000001,
+            0.0,
+            0.0,
+            0.8660254037844386
+          ],
+          "waypoints_m": []
+        },
+        "not_upright": {
+          "object_id": "target",
+          "position_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "waypoints_m": []
+        }
+      },
+      "task": {
+        "task_id": "plan",
+        "kind": "placement",
+        "frame": "robot_base",
+        "tolerance_m": 0.005,
+        "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.64, 0.04, 0.12] m, full_size=[0.28, 0.28, 0.16] m, wxyz=[1, 0, 0, 0]. Return no waypoints. Keep the local +z axis within 0.02 radians of world +z; choose yaw freely using this scene. No target quaternion is prescribed. ",
+        "questions": [],
+        "constraints": {
+          "object_id": "target",
+          "allowed_region_id": "task_volume",
+          "clearance_m": 0.002,
+          "required_quaternion_wxyz": null,
+          "orientation_tolerance_rad": 0.02
+        }
+      }
+    },
+    {
+      "scene_id": "p02_c_slot_120",
+      "family": "C_FREE_YAW",
+      "pair_id": "C_slot_rotation",
+      "design": {
+        "private_slot_angle_deg": 120
+      },
+      "objects": [
+        {
+          "id": "target",
+          "center_m": [
+            0.12,
+            -0.37,
+            0.09
+          ],
+          "size_m": [
+            0.14,
+            0.045,
+            0.065
+          ],
+          "quaternion_wxyz": [
+            0.984807753012208,
+            0.0,
+            0.0,
+            0.17364817766693033
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": "task_volume",
+          "center_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "size_m": [
+            0.28,
+            0.28,
+            0.16
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "block_x_minus",
+          "center_m": [
+            0.73,
+            -0.11588457268119895,
+            0.12
+          ],
+          "size_m": [
+            0.2,
+            0.55,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            0.5000000000000001,
+            0.0,
+            0.0,
+            0.8660254037844386
+          ]
+        },
+        {
+          "id": "block_x_plus",
+          "center_m": [
+            0.55,
+            0.19588457268119897,
+            0.12
+          ],
+          "size_m": [
+            0.2,
+            0.55,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            0.5000000000000001,
+            0.0,
+            0.0,
+            0.8660254037844386
+          ]
+        },
+        {
+          "id": "block_y_minus",
+          "center_m": [
+            0.7547483660014381,
+            0.10624999999999998,
+            0.12
+          ],
+          "size_m": [
+            0.55,
+            0.2,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            0.5000000000000001,
+            0.0,
+            0.0,
+            0.8660254037844386
+          ]
+        },
+        {
+          "id": "block_y_plus",
+          "center_m": [
+            0.5252516339985619,
+            -0.026249999999999975,
+            0.12
+          ],
+          "size_m": [
+            0.55,
+            0.2,
+            0.2
+          ],
+          "quaternion_wxyz": [
+            0.5000000000000001,
+            0.0,
+            0.0,
+            0.8660254037844386
+          ]
+        },
+        {
+          "id": "table",
+          "center_m": [
+            0.48,
+            0,
+            -0.025
+          ],
+          "size_m": [
+            1.6,
+            1.5,
+            0.04
+          ],
+          "quaternion_wxyz": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "kind": "placement",
+      "orientation_policy": {
+        "mode": "upright_free_yaw",
+        "local_axis": [
+          0,
+          0,
+          1
+        ],
+        "world_axis": [
+          0,
+          0,
+          1
+        ],
+        "max_tilt_rad": 0.02
+      },
+      "witness": {
+        "object_id": "target",
+        "position_m": [
+          0.64,
+          0.04,
+          0.12
+        ],
+        "quaternion_wxyz": [
+          0.5000000000000001,
+          0.0,
+          0.0,
+          0.8660254037844386
+        ],
+        "waypoints_m": []
+      },
+      "alternate_witnesses": [
+        {
+          "object_id": "target",
+          "position_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            -0.8660254037844387,
+            0.0,
+            0.0,
+            0.49999999999999994
+          ],
+          "waypoints_m": []
+        },
+        {
+          "object_id": "target",
+          "position_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            0.4924235601034671,
+            0.0,
+            0.0,
+            0.8703556959398997
+          ],
+          "waypoints_m": []
+        },
+        {
+          "object_id": "target",
+          "position_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            0.5075383629607042,
+            0.0,
+            0.0,
+            0.8616291604415257
+          ],
+          "waypoints_m": []
+        },
+        {
+          "object_id": "target",
+          "position_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            -0.5000000000000001,
+            -0.0,
+            -0.0,
+            -0.8660254037844386
+          ],
+          "waypoints_m": []
+        }
+      ],
+      "negative_controls": {
+        "wrong_paired_yaw": {
+          "object_id": "target",
+          "position_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            -0.25881904510252085,
+            0.0,
+            0.0,
+            0.9659258262890683
+          ],
+          "waypoints_m": []
+        },
+        "not_upright": {
+          "object_id": "target",
+          "position_m": [
+            0.64,
+            0.04,
+            0.12
+          ],
+          "quaternion_wxyz": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "waypoints_m": []
+        }
+      },
+      "task": {
+        "task_id": "plan",
+        "kind": "placement",
+        "frame": "robot_base",
+        "tolerance_m": 0.005,
+        "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.64, 0.04, 0.12] m, full_size=[0.28, 0.28, 0.16] m, wxyz=[1, 0, 0, 0]. Return no waypoints. Keep the local +z axis within 0.02 radians of world +z; choose yaw freely using this scene. No target quaternion is prescribed. ",
+        "questions": [],
+        "constraints": {
+          "object_id": "target",
+          "allowed_region_id": "task_volume",
+          "clearance_m": 0.002,
+          "required_quaternion_wxyz": null,
+          "orientation_tolerance_rad": 0.02
+        }
+      }
+    }
+  ],
+  "new_generation_budget": 0,
+  "camera_positions": [
+    [
+      "front",
+      [
+        -0.25,
+        -0.8,
+        0.8
+      ]
+    ],
+    [
+      "opposite",
+      [
+        1.12,
+        0.72,
+        0.9
+      ]
+    ],
+    [
+      "overhead",
+      [
+        0.48,
+        0.0,
+        1.15
+      ]
+    ]
+  ],
+  "look_at": [
+    0.46,
+    -0.045,
+    0.1
+  ],
+  "resolution": [
+    960,
+    720
+  ],
+  "scene_spec_sha256": "07a5119f52ac4a35643c3984bf64859c80cc01b89f55c7f2e6dcf0efcf416482"
+}

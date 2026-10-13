@@ -1,0 +1,308 @@
+{
+  "scene_id": "lab_s6_held_object_detour",
+  "condition": "RGB_MULTI_VIEW",
+  "task_kind": "path",
+  "original_score": 1.0,
+  "original_evaluation": {
+    "status": "SCORED",
+    "score": 1.0,
+    "success": true,
+    "constraints": {
+      "correct_object": true,
+      "entire_volume_in_allowed_region": true,
+      "placement_collision_free": true,
+      "required_orientation": true,
+      "path_ends_at_placement": true,
+      "path_in_workspace": true,
+      "continuous_path_collision_free": true
+    },
+    "orientation_error_rad": 0.0,
+    "collisions": [],
+    "error_types": []
+  },
+  "prediction_unchanged": {
+    "object_id": "target",
+    "position_m": [
+      0.72,
+      -0.05,
+      0.12
+    ],
+    "quaternion_wxyz": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "waypoints_m": [
+      [
+        0.18,
+        -0.05,
+        0.46
+      ],
+      [
+        0.72,
+        -0.05,
+        0.46
+      ],
+      [
+        0.72,
+        -0.05,
+        0.12
+      ]
+    ]
+  },
+  "original_artifact": "../pilot01_20261013/runs/02_lab_s6_held_object_detour_plan_A/sample-0000",
+  "calibration_consistency": {
+    "corner_projection_checks": 144,
+    "maximum_difference_px": 9.609154730487022e-05,
+    "threshold_px": 0.01,
+    "note": "A consistency check of two exported camera representations, not a new calibration estimate."
+  },
+  "metrics": {
+    "placement_region_face_margin": {
+      "minimum_m": 0.050000000670552255,
+      "faces": [
+        {
+          "face": "local_x-",
+          "margin_m": 0.050000000670552255
+        },
+        {
+          "face": "local_x+",
+          "margin_m": 0.050000000670552255
+        },
+        {
+          "face": "local_y-",
+          "margin_m": 0.05499999962747097
+        },
+        {
+          "face": "local_y+",
+          "margin_m": 0.05499999962747097
+        },
+        {
+          "face": "local_z-",
+          "margin_m": 0.06000000067055225
+        },
+        {
+          "face": "local_z+",
+          "margin_m": 0.06000000067055225
+        }
+      ]
+    },
+    "required_sat_projection_clearance_m": 0.002,
+    "placement_sat_projection_clearance_threshold": {
+      "limiting_obstacle_id": "table",
+      "noncollision_lower_m": 0.0950000014891161,
+      "collision_upper_m": 0.09500000148911611,
+      "collision_at_zero": false,
+      "excess_over_required_projection_clearance_m": 0.0930000014891161,
+      "per_obstacle": {
+        "table": {
+          "noncollision_lower_m": 0.0950000014891161,
+          "collision_upper_m": 0.09500000148911611,
+          "collision_at_zero": false
+        },
+        "barrier": {
+          "noncollision_lower_m": 0.20500001244146954,
+          "collision_upper_m": 0.20500001244146956,
+          "collision_at_zero": false
+        },
+        "other": {
+          "noncollision_lower_m": 0.3549999885996116,
+          "collision_upper_m": 0.3549999885996117,
+          "collision_at_zero": false
+        }
+      }
+    },
+    "path_sat_projection_clearance_threshold": {
+      "limiting_obstacle_id": "table",
+      "noncollision_lower_m": 0.09500000148977603,
+      "collision_upper_m": 0.09500000148977604,
+      "collision_at_zero": false,
+      "excess_over_required_projection_clearance_m": 0.09300000148977602,
+      "per_obstacle": {
+        "table": {
+          "noncollision_lower_m": 0.09500000148977603,
+          "collision_upper_m": 0.09500000148977604,
+          "collision_at_zero": false
+        },
+        "barrier": {
+          "noncollision_lower_m": 0.13999999411304134,
+          "collision_upper_m": 0.13999999411304137,
+          "collision_at_zero": false
+        },
+        "other": {
+          "noncollision_lower_m": 0.33999999351699484,
+          "collision_upper_m": 0.3399999935169949,
+          "collision_at_zero": false
+        }
+      }
+    },
+    "path_workspace_region_face_margin": {
+      "minimum_m": 0.020000000670552243,
+      "at_vertices": [
+        {
+          "minimum_m": 0.08000000067055224,
+          "faces": [
+            {
+              "face": "local_x-",
+              "margin_m": 0.2500000006705523
+            },
+            {
+              "face": "local_x+",
+              "margin_m": 0.7900000006705523
+            },
+            {
+              "face": "local_y-",
+              "margin_m": 0.449999999627471
+            },
+            {
+              "face": "local_y+",
+              "margin_m": 0.549999999627471
+            },
+            {
+              "face": "local_z-",
+              "margin_m": 0.08000000067055224
+            },
+            {
+              "face": "local_z+",
+              "margin_m": 0.36000000067055227
+            }
+          ]
+        },
+        {
+          "minimum_m": 0.020000000670552243,
+          "faces": [
+            {
+              "face": "local_x-",
+              "margin_m": 0.2500000006705523
+            },
+            {
+              "face": "local_x+",
+              "margin_m": 0.7900000006705523
+            },
+            {
+              "face": "local_y-",
+              "margin_m": 0.449999999627471
+            },
+            {
+              "face": "local_y+",
+              "margin_m": 0.549999999627471
+            },
+            {
+              "face": "local_z-",
+              "margin_m": 0.42000000067055226
+            },
+            {
+              "face": "local_z+",
+              "margin_m": 0.020000000670552243
+            }
+          ]
+        },
+        {
+          "minimum_m": 0.020000000670552243,
+          "faces": [
+            {
+              "face": "local_x-",
+              "margin_m": 0.7900000006705523
+            },
+            {
+              "face": "local_x+",
+              "margin_m": 0.25000000067055234
+            },
+            {
+              "face": "local_y-",
+              "margin_m": 0.449999999627471
+            },
+            {
+              "face": "local_y+",
+              "margin_m": 0.549999999627471
+            },
+            {
+              "face": "local_z-",
+              "margin_m": 0.42000000067055226
+            },
+            {
+              "face": "local_z+",
+              "margin_m": 0.020000000670552243
+            }
+          ]
+        },
+        {
+          "minimum_m": 0.08000000067055224,
+          "faces": [
+            {
+              "face": "local_x-",
+              "margin_m": 0.7900000006705523
+            },
+            {
+              "face": "local_x+",
+              "margin_m": 0.25000000067055234
+            },
+            {
+              "face": "local_y-",
+              "margin_m": 0.449999999627471
+            },
+            {
+              "face": "local_y+",
+              "margin_m": 0.549999999627471
+            },
+            {
+              "face": "local_z-",
+              "margin_m": 0.08000000067055224
+            },
+            {
+              "face": "local_z+",
+              "margin_m": 0.36000000067055227
+            }
+          ]
+        }
+      ],
+      "method": "Minimum over endpoints is sufficient for fixed-orientation translation in a convex box."
+    },
+    "path_length_m": 1.2200000000000002,
+    "start_to_landing_displacement_m": 0.54,
+    "maximum_center_height_m": 0.46,
+    "points_m": [
+      [
+        0.18,
+        -0.05,
+        0.12
+      ],
+      [
+        0.18,
+        -0.05,
+        0.46
+      ],
+      [
+        0.72,
+        -0.05,
+        0.46
+      ],
+      [
+        0.72,
+        -0.05,
+        0.12
+      ]
+    ],
+    "held_box_at_landing": {
+      "id": "target",
+      "center_m": [
+        0.72,
+        -0.05,
+        0.12
+      ],
+      "size_m": [
+        0.05999999865889549,
+        0.05000000074505806,
+        0.05999999865889549
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "replay": "lab_s6_held_object_detour_A/replay.png"
+}

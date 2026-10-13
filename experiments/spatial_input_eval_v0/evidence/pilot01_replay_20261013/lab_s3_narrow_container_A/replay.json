@@ -1,0 +1,150 @@
+{
+  "scene_id": "lab_s3_narrow_container",
+  "condition": "RGB_MULTI_VIEW",
+  "task_kind": "placement",
+  "original_score": 1.0,
+  "original_evaluation": {
+    "status": "SCORED",
+    "score": 1.0,
+    "success": true,
+    "constraints": {
+      "correct_object": true,
+      "entire_volume_in_allowed_region": true,
+      "placement_collision_free": true,
+      "required_orientation": true
+    },
+    "orientation_error_rad": 0.0,
+    "collisions": [],
+    "error_types": []
+  },
+  "prediction_unchanged": {
+    "object_id": "target",
+    "position_m": [
+      0.48,
+      -0.2,
+      0.1
+    ],
+    "quaternion_wxyz": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "waypoints_m": []
+  },
+  "original_artifact": "runs/17_lab_s3_narrow_container_plan_A_180s/sample-0000",
+  "calibration_consistency": {
+    "corner_projection_checks": 240,
+    "maximum_difference_px": 9.609154730487022e-05,
+    "threshold_px": 0.01,
+    "note": "A consistency check of two exported camera representations, not a new calibration estimate."
+  },
+  "metrics": {
+    "placement_region_face_margin": {
+      "minimum_m": 0.04000000134110451,
+      "faces": [
+        {
+          "face": "local_x-",
+          "margin_m": 0.04000000134110451
+        },
+        {
+          "face": "local_x+",
+          "margin_m": 0.04000000134110451
+        },
+        {
+          "face": "local_y-",
+          "margin_m": 0.04500000067055225
+        },
+        {
+          "face": "local_y+",
+          "margin_m": 0.04500000067055225
+        },
+        {
+          "face": "local_z-",
+          "margin_m": 0.05000000089406967
+        },
+        {
+          "face": "local_z+",
+          "margin_m": 0.05000000089406967
+        }
+      ]
+    },
+    "required_sat_projection_clearance_m": 0.002,
+    "placement_sat_projection_clearance_threshold": {
+      "limiting_obstacle_id": "table",
+      "noncollision_lower_m": 0.06500000171263351,
+      "collision_upper_m": 0.06500000171263352,
+      "collision_at_zero": false,
+      "excess_over_required_projection_clearance_m": 0.06300000171263351,
+      "per_obstacle": {
+        "table": {
+          "noncollision_lower_m": 0.06500000171263351,
+          "collision_upper_m": 0.06500000171263352,
+          "collision_at_zero": false
+        },
+        "container_x_minus": {
+          "noncollision_lower_m": 0.3200000029047264,
+          "collision_upper_m": 0.32000000290472647,
+          "collision_at_zero": false
+        },
+        "container_x_plus": {
+          "noncollision_lower_m": 0.3200000029047264,
+          "collision_upper_m": 0.32000000290472647,
+          "collision_at_zero": false
+        },
+        "container_y_minus": {
+          "noncollision_lower_m": 0.3199999996450974,
+          "collision_upper_m": 0.31999999964509745,
+          "collision_at_zero": false
+        },
+        "container_y_plus": {
+          "noncollision_lower_m": 0.40500000798974767,
+          "collision_upper_m": 0.4050000079897477,
+          "collision_at_zero": false
+        },
+        "container_floor": {
+          "noncollision_lower_m": 0.3200000029047264,
+          "collision_upper_m": 0.32000000290472647,
+          "collision_at_zero": false
+        },
+        "other": {
+          "noncollision_lower_m": 0.2149999987324013,
+          "collision_upper_m": 0.21499999873240133,
+          "collision_at_zero": false
+        }
+      }
+    },
+    "path_sat_projection_clearance_threshold": null,
+    "path_workspace_region_face_margin": null,
+    "path_length_m": null,
+    "start_to_landing_displacement_m": null,
+    "maximum_center_height_m": null,
+    "points_m": [
+      [
+        0.48,
+        -0.2,
+        0.1
+      ]
+    ],
+    "held_box_at_landing": {
+      "id": "target",
+      "center_m": [
+        0.48,
+        -0.2,
+        0.1
+      ],
+      "size_m": [
+        0.11999999731779099,
+        0.05999999865889549,
+        0.07999999821186066
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "replay": "lab_s3_narrow_container_A/replay.png"
+}

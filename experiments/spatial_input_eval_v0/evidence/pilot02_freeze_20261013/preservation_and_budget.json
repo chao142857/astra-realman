@@ -1,0 +1,46 @@
+{
+  "baseline_commit": "b103ee5577f6a3805ae18984dee9157ffa328849",
+  "baseline_tracked_files_unchanged": true,
+  "test_status": {
+    "status": "PASS_NEW_TESTS_WITH_LEGACY_PLATFORM_FIXTURE_FAILURE",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "full_suite": {
+      "total": 94,
+      "passed": 93,
+      "failed": 1,
+      "log": "full_offline_tests.log",
+      "sha256": "c23f2ad04b6ca484939afc21de5eded5d6b61fcd11e6feaa91a4074871a9e61e"
+    },
+    "new_tests": {
+      "total": 26,
+      "passed": 26,
+      "modules": {
+        "test_pilot01_analysis": 5,
+        "test_pilot01_replay": 4,
+        "test_pilot02": 17
+      }
+    },
+    "failed_test": "test_connection_refused_is_archived_without_retry (test_mac_bridge.MacBridgeTests.test_connection_refused_is_archived_without_retry)",
+    "diagnosis": "On this Mac, a bound-but-not-listening loopback socket times out; closing that socket yields ConnectionRefusedError. The legacy Linux fixture expects an immediate refusal from the bound socket. Production code and original test were not changed.",
+    "probe": "mac_socket_probe.json",
+    "lab_test_completion": "UNKNOWN_AFTER_SSH_DISCONNECT; not counted as PASS",
+    "no_real_generation": true,
+    "old_batch_commands_executed": false,
+    "offline_freeze_scope": "Geometry, images, input isolation and new scorers passed independently. This caveat concerns an existing OS transport fixture; future actual dispatch remains blocked pending adapter acceptance and new authorization."
+  },
+  "historical_ledgers": {
+    "experiments/spatial_input_eval_v0/evidence/pilot01_20261013/ledger.json": {
+      "sha256": "1e8345840b708d1a3cbb8645bca0f858b107b4a403c431a5c743a877d4560d17",
+      "unchanged": true
+    },
+    "experiments/spatial_input_eval_v0/evidence/pilot01_parallel180_20261013/ledger.json": {
+      "sha256": "d4a986ec4828b35f7a5b74d69e08c687376702626f30ca8798e4ace945670787",
+      "unchanged": true
+    }
+  },
+  "new_generation_budget": 0,
+  "new_generation_dispatches": 0,
+  "old_next_or_wave_executed": false,
+  "hardware_connections": 0,
+  "scope": "offline analysis, private replay, actual simulation capture, fixture tests and inert schedule"
+}
