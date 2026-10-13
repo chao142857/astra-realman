@@ -21,7 +21,7 @@
       "continuation_manifest_sha256": "2df52de971fdb2759b56ede59a346f2362331c1bd4fbaae73685c00d382f7d5e"
     }
   },
-  "reserved_budget": 5,
+  "reserved_budget": 8,
   "runs": [
     {
       "index": 1,
@@ -287,9 +287,192 @@
         ],
         "output_schema_sha256": "cc619c76adde6fcccf95d04136ddfdc6dbd9e27bf520fc467c6294728452797a"
       },
-      "status": "RESERVED",
+      "status": "VALID",
       "reserved_at": "2026-10-13T11:15:20.416784+00:00",
-      "artifact": "run-005"
+      "artifact": "run-005",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "REAL_ASTRA_ATTEMPT",
+        "usage": {
+          "input_tokens": 13112,
+          "cached_input_tokens": 6912,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 739,
+          "reasoning_output_tokens": 678
+        },
+        "latency_s": 53.50313650099997,
+        "usage_kind": "CLI_REPORTED",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "01a134f9-7ca1-7431-8b60-777d3a6cadcb",
+        "input_sha256": "fa39e10fab3c9e589d8e4739ca78ae778c4d96185de42ad19889cdbad32f960c",
+        "raw_sha256": "4bcebf8931105f0a399c859411fd785ef8f0c3a794224269cd932d532b4991bf",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "finished_at": "2026-10-13T11:16:13.991274+00:00"
+    },
+    {
+      "index": 6,
+      "job": {
+        "planned_order": 18,
+        "scene_id_private_catalog_only": "p02_c_slot_030",
+        "task_id": "plan",
+        "condition": "RGB_ORACLE_3D",
+        "input_directory": "evidence/pilot02_preview_20261013/suite_v2/p02_c_slot_030/model_inputs/RGB_ORACLE_3D",
+        "context_sha256": "d9c0a120e8f1012d43553ba64743d8d8f08d9ae5c680ea596608cdb7d17d8164",
+        "rgb_sha256": [
+          "b7a7effeec26709364fc8a9aedadb90b4e2173a1070e93820e554e1b0438fdc9",
+          "66c4d18865cdfc07bec3c1d3dd7d8521474164d70aac891e7ca71873a59edd28",
+          "c452faa3ef8feb8b2ace3b9d98653504f8a2a39f2bf99e57eee648e350645dc8"
+        ],
+        "output_schema_sha256": "cc619c76adde6fcccf95d04136ddfdc6dbd9e27bf520fc467c6294728452797a"
+      },
+      "status": "VALID",
+      "reserved_at": "2026-10-13T11:16:14.033488+00:00",
+      "artifact": "run-006",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "REAL_ASTRA_ATTEMPT",
+        "usage": {
+          "input_tokens": 13843,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 127,
+          "reasoning_output_tokens": 62
+        },
+        "latency_s": 27.256377343001077,
+        "usage_kind": "CLI_REPORTED",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "01a134fa-4eda-7091-91d6-b2916bc05a01",
+        "input_sha256": "d9c0a120e8f1012d43553ba64743d8d8f08d9ae5c680ea596608cdb7d17d8164",
+        "raw_sha256": "549e86f60710d463293c9c05a93e84a7b0fa124c2e46968af7f93bbc3bb3e4e3",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "finished_at": "2026-10-13T11:16:41.365358+00:00"
+    },
+    {
+      "index": 7,
+      "job": {
+        "planned_order": 19,
+        "scene_id_private_catalog_only": "p02_c_slot_120",
+        "task_id": "plan",
+        "condition": "RGB_ORACLE_3D",
+        "input_directory": "evidence/pilot02_preview_20261013/suite_v2/p02_c_slot_120/model_inputs/RGB_ORACLE_3D",
+        "context_sha256": "5b9ea1e3737dba50d8e044884f12ca703bdc2005599d74bd71799976c69aa8f7",
+        "rgb_sha256": [
+          "0ddb9a3d6f9ec67798e51c7b7380d9485331ebb7a566e9f002bebe4be61ccbdc",
+          "182cd89486904db93a0d95a6ed32c5ed7392620bbf707cb732fa9c19b0875886",
+          "cf4dc2d30fce4591063d9c274d8c77c9689989f625ed6f17facc140c2e075c56"
+        ],
+        "output_schema_sha256": "cc619c76adde6fcccf95d04136ddfdc6dbd9e27bf520fc467c6294728452797a"
+      },
+      "status": "VALID",
+      "reserved_at": "2026-10-13T11:16:41.401171+00:00",
+      "artifact": "run-007",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "REAL_ASTRA_ATTEMPT",
+        "usage": {
+          "input_tokens": 13841,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 118,
+          "reasoning_output_tokens": 58
+        },
+        "latency_s": 17.66010826099955,
+        "usage_kind": "CLI_REPORTED",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "01a134fa-b751-7253-b00c-5cb318f0838d",
+        "input_sha256": "5b9ea1e3737dba50d8e044884f12ca703bdc2005599d74bd71799976c69aa8f7",
+        "raw_sha256": "f85a9c8dacf362e6dd50d2f4707a1f5df7115157f2857575510de05a6b302419",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "finished_at": "2026-10-13T11:16:59.137259+00:00"
+    },
+    {
+      "index": 8,
+      "job": {
+        "planned_order": 20,
+        "scene_id_private_catalog_only": "p02_c_slot_120",
+        "task_id": "plan",
+        "condition": "RGB_MULTI_VIEW",
+        "input_directory": "evidence/pilot02_preview_20261013/suite_v2/p02_c_slot_120/model_inputs/RGB_MULTI_VIEW",
+        "context_sha256": "2492ccca3898e42e506f9f8eca7f772a5db1849f7c4ffa70dfa02a310c8700ba",
+        "rgb_sha256": [
+          "0ddb9a3d6f9ec67798e51c7b7380d9485331ebb7a566e9f002bebe4be61ccbdc",
+          "182cd89486904db93a0d95a6ed32c5ed7392620bbf707cb732fa9c19b0875886",
+          "cf4dc2d30fce4591063d9c274d8c77c9689989f625ed6f17facc140c2e075c56"
+        ],
+        "output_schema_sha256": "cc619c76adde6fcccf95d04136ddfdc6dbd9e27bf520fc467c6294728452797a"
+      },
+      "status": "RESERVED",
+      "reserved_at": "2026-10-13T11:16:59.174928+00:00",
+      "artifact": "run-008"
     }
   ],
   "jobs": [
