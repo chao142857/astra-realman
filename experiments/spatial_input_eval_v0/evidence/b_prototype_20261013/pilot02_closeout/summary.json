@@ -1,0 +1,394 @@
+{
+  "stages": [
+    {
+      "phase": "pilot02_real_01",
+      "batch_id": "953a8d18a01447599664db2170862d98",
+      "status": "STOPPED",
+      "client_dispatches": 12,
+      "client_deadline_s": 180,
+      "worker_count": 1
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "batch_id": "bc2fbd0b683f4190a81945d251372a42",
+      "status": "BUDGET_EXHAUSTED",
+      "client_dispatches": 8,
+      "client_deadline_s": 180,
+      "worker_count": 1
+    }
+  ],
+  "protocol_valid_outputs": 19,
+  "complete_pairs": 9,
+  "groups": [
+    {
+      "phase": "pilot02_real_01",
+      "group": "placement",
+      "condition": "RGB_MULTI_VIEW",
+      "valid": 5,
+      "successes": 5,
+      "success_rate": 1.0,
+      "client_wall_s": {
+        "reported_n": 5,
+        "mean": 41.281897300200214,
+        "total": 206.40948650100108
+      },
+      "reported_reasoning_tokens": {
+        "reported_n": 5,
+        "mean": 545.2,
+        "total": 2726
+      }
+    },
+    {
+      "phase": "pilot02_real_01",
+      "group": "placement",
+      "condition": "RGB_ORACLE_3D",
+      "valid": 6,
+      "successes": 6,
+      "success_rate": 1.0,
+      "client_wall_s": {
+        "reported_n": 6,
+        "mean": 20.49289909816677,
+        "total": 122.95739458900061
+      },
+      "reported_reasoning_tokens": {
+        "reported_n": 6,
+        "mean": 38.333333333333336,
+        "total": 230
+      }
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "group": "restricted_detour",
+      "condition": "RGB_MULTI_VIEW",
+      "valid": 2,
+      "successes": 2,
+      "success_rate": 1.0,
+      "client_wall_s": {
+        "reported_n": 2,
+        "mean": 54.15246780000052,
+        "total": 108.30493560000104
+      },
+      "reported_reasoning_tokens": {
+        "reported_n": 2,
+        "mean": 706,
+        "total": 1412
+      }
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "group": "restricted_detour",
+      "condition": "RGB_ORACLE_3D",
+      "valid": 2,
+      "successes": 2,
+      "success_rate": 1.0,
+      "client_wall_s": {
+        "reported_n": 2,
+        "mean": 21.350521912998374,
+        "total": 42.70104382599675
+      },
+      "reported_reasoning_tokens": {
+        "reported_n": 2,
+        "mean": 43.5,
+        "total": 87
+      }
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "group": "autonomous_yaw",
+      "condition": "RGB_MULTI_VIEW",
+      "valid": 2,
+      "successes": 2,
+      "success_rate": 1.0,
+      "client_wall_s": {
+        "reported_n": 2,
+        "mean": 56.462120105001304,
+        "total": 112.92424021000261
+      },
+      "reported_reasoning_tokens": {
+        "reported_n": 2,
+        "mean": 806,
+        "total": 1612
+      }
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "group": "autonomous_yaw",
+      "condition": "RGB_ORACLE_3D",
+      "valid": 2,
+      "successes": 2,
+      "success_rate": 1.0,
+      "client_wall_s": {
+        "reported_n": 2,
+        "mean": 22.458242802000314,
+        "total": 44.91648560400063
+      },
+      "reported_reasoning_tokens": {
+        "reported_n": 2,
+        "mean": 60,
+        "total": 120
+      }
+    }
+  ],
+  "main_rows": [
+    {
+      "phase": "pilot02_real_01",
+      "original_order": 1,
+      "scene": "p02_a_m03_minus",
+      "group": "placement",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 31.60848640599943,
+      "reported_reasoning_tokens": 534,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_real_01",
+      "original_order": 2,
+      "scene": "p02_a_m03_minus",
+      "group": "placement",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 22.369312029000866,
+      "reported_reasoning_tokens": 37,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_real_01",
+      "original_order": 3,
+      "scene": "p02_a_m03_plus",
+      "group": "placement",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 19.36607358999936,
+      "reported_reasoning_tokens": 44,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_real_01",
+      "original_order": 4,
+      "scene": "p02_a_m03_plus",
+      "group": "placement",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 53.90742398800103,
+      "reported_reasoning_tokens": 664,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_real_01",
+      "original_order": 5,
+      "scene": "p02_a_m10_minus",
+      "group": "placement",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 21.864433652001026,
+      "reported_reasoning_tokens": 41,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_real_01",
+      "original_order": 6,
+      "scene": "p02_a_m10_minus",
+      "group": "placement",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 34.025802355999986,
+      "reported_reasoning_tokens": 362,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_real_01",
+      "original_order": 7,
+      "scene": "p02_a_m10_plus",
+      "group": "placement",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 58.760433620000185,
+      "reported_reasoning_tokens": 775,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_real_01",
+      "original_order": 8,
+      "scene": "p02_a_m10_plus",
+      "group": "placement",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 21.47017944899926,
+      "reported_reasoning_tokens": 30,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_real_01",
+      "original_order": 9,
+      "scene": "p02_a_m30_minus",
+      "group": "placement",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 28.107340131000456,
+      "reported_reasoning_tokens": 391,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_real_01",
+      "original_order": 10,
+      "scene": "p02_a_m30_minus",
+      "group": "placement",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 19.17390556600003,
+      "reported_reasoning_tokens": 41,
+      "cached_input_tokens": 6912
+    },
+    {
+      "phase": "pilot02_real_01",
+      "original_order": 11,
+      "scene": "p02_a_m30_plus",
+      "group": "placement",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 18.71349030300007,
+      "reported_reasoning_tokens": 37,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "original_order": 13,
+      "scene": "p02_b_open_minus",
+      "group": "restricted_detour",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 22.191677949998848,
+      "reported_reasoning_tokens": 38,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "original_order": 14,
+      "scene": "p02_b_open_minus",
+      "group": "restricted_detour",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 69.92420413299988,
+      "reported_reasoning_tokens": 1034,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "original_order": 15,
+      "scene": "p02_b_open_plus",
+      "group": "restricted_detour",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 38.38073146700117,
+      "reported_reasoning_tokens": 378,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "original_order": 16,
+      "scene": "p02_b_open_plus",
+      "group": "restricted_detour",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 20.5093658759979,
+      "reported_reasoning_tokens": 49,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "original_order": 17,
+      "scene": "p02_c_slot_030",
+      "group": "autonomous_yaw",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 53.50313650099997,
+      "reported_reasoning_tokens": 678,
+      "cached_input_tokens": 6912
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "original_order": 18,
+      "scene": "p02_c_slot_030",
+      "group": "autonomous_yaw",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 27.256377343001077,
+      "reported_reasoning_tokens": 62,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "original_order": 19,
+      "scene": "p02_c_slot_120",
+      "group": "autonomous_yaw",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 17.66010826099955,
+      "reported_reasoning_tokens": 58,
+      "cached_input_tokens": 0
+    },
+    {
+      "phase": "pilot02_continuation_01",
+      "original_order": 20,
+      "scene": "p02_c_slot_120",
+      "group": "autonomous_yaw",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "client_wall_s": 59.42110370900264,
+      "reported_reasoning_tokens": 934,
+      "cached_input_tokens": 0
+    }
+  ],
+  "excluded_appendix_only": [
+    {
+      "phase": "pilot02_real_01",
+      "original_order": 12,
+      "scene": "p02_a_m30_plus",
+      "group": "placement",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "NOT_SCORED",
+      "score": null,
+      "client_wall_s": 109.57819774400014,
+      "reported_reasoning_tokens": 667,
+      "cached_input_tokens": 12928
+    }
+  ],
+  "complete_pair_scenes": [
+    "p02_a_m03_minus",
+    "p02_a_m03_plus",
+    "p02_a_m10_minus",
+    "p02_a_m10_plus",
+    "p02_a_m30_minus",
+    "p02_b_open_minus",
+    "p02_b_open_plus",
+    "p02_c_slot_030",
+    "p02_c_slot_120"
+  ],
+  "new_astra_requests": 0,
+  "notes": [
+    "Original run12 remains NOT_SCORED, excluded from primary success/time/token aggregates.",
+    "Reported tokens are not exact compute; wall time is not pure model latency.",
+    "Cache values are recorded per row; missing values are unknown, not zero.",
+    "Historical A/C are references, not future repeated samples."
+  ]
+}
