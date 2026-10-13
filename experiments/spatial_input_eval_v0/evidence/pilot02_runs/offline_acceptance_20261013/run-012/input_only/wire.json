@@ -1,0 +1,217 @@
+{
+  "instruction": "Return exactly one JSON object matching output_schema. This is offline geometry evaluation. Use only observations, optional geometry and task. No tools or execution. All positions are object centers in robot_base, meters; orientations are unit quaternions wxyz. For understanding return each question_id once, populating only the relevant answer field: relation=less/equal/greater along the specified positive axis, scalar_m=height/gap, vector_m=position/size, fits=fit; all other fields null. For placement waypoints_m must be empty. For path, waypoints_m excludes start, includes the final position_m, and orientation is fixed throughout translation. Choose any constraint-valid solution. The public task_policy is part of the task constraints; satisfy it as well as task.constraints.",
+  "coordinate_system": {
+    "id": "robot_base",
+    "units": "m",
+    "axes": "+x forward, +y left, +z up; right-handed",
+    "pose": "object center xyz in meters; unit quaternion wxyz, object local axes in robot_base"
+  },
+  "task": {
+    "task_id": "plan",
+    "kind": "placement",
+    "frame": "robot_base",
+    "tolerance_m": 0.005,
+    "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.62, 0, 0.12] m, full_size=[0.42, 0.46, 0.18] m, wxyz=[1, 0, 0, 0]. Return no waypoints. ",
+    "questions": [],
+    "constraints": {
+      "object_id": "target",
+      "allowed_region_id": "task_volume",
+      "clearance_m": 0.002,
+      "required_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "orientation_tolerance_rad": 0.02
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "object_id": {
+        "type": "string"
+      },
+      "position_m": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "quaternion_wxyz": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 4,
+        "maxItems": 4
+      },
+      "waypoints_m": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    },
+    "required": [
+      "object_id",
+      "position_m",
+      "quaternion_wxyz",
+      "waypoints_m"
+    ],
+    "additionalProperties": false
+  },
+  "attachments": [
+    {
+      "camera_id": "front",
+      "file": "image-0.png",
+      "sha256": "66f5f95892e96d392156a52712bee2ac9a15e1389384a125dca528e5f93d53c3"
+    },
+    {
+      "camera_id": "opposite",
+      "file": "image-1.png",
+      "sha256": "0b79664708c5c08ccb070661f2c29733926e177ae25ae698afe210b554cb638f"
+    },
+    {
+      "camera_id": "overhead",
+      "file": "image-2.png",
+      "sha256": "1d79a259d87c33faa7cba199cdbeb807a0c1fab23c17fce2fa347c22137ac155"
+    }
+  ],
+  "observations": {
+    "calibration": {
+      "front": {
+        "intrinsic": [
+          [
+            745.2566528320312,
+            0.0,
+            480.0
+          ],
+          [
+            0.0,
+            745.2566528320312,
+            360.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          960,
+          720
+        ],
+        "pose_base_xyz_wxyz": [
+          -0.25,
+          -0.800000011920929,
+          0.800000011920929,
+          0.8777040839195251,
+          -0.11613783985376358,
+          0.2686398923397064,
+          0.37944719195365906
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      },
+      "opposite": {
+        "intrinsic": [
+          [
+            745.2566528320312,
+            0.0,
+            480.0
+          ],
+          [
+            0.0,
+            745.2566528320312,
+            360.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          960,
+          720
+        ],
+        "pose_base_xyz_wxyz": [
+          1.1200000047683716,
+          0.7200000286102295,
+          0.8999999761581421,
+          0.3932653069496155,
+          0.29879146814346313,
+          0.13684214651584625,
+          -0.8586851954460144
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      },
+      "overhead": {
+        "intrinsic": [
+          [
+            745.2566528320312,
+            0.0,
+            480.0
+          ],
+          [
+            0.0,
+            745.2566528320312,
+            360.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          960,
+          720
+        ],
+        "pose_base_xyz_wxyz": [
+          0.47999998927116394,
+          0.0,
+          1.149999976158142,
+          0.3942342698574066,
+          0.5788488388061523,
+          0.3761782944202423,
+          -0.6066327095031738
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      }
+    },
+    "robot_state": {
+      "joint_names": [],
+      "qpos_rad": [],
+      "flange_pose_base_xyz_wxyz": null
+    },
+    "synchronization": {
+      "simulation_step": 10,
+      "capture_span_s": 0.4523081240040483,
+      "same_step": true,
+      "timestamp_semantics": "sequential readback from immutable static actors; no physics step between views"
+    }
+  },
+  "geometry": null,
+  "task_policy": {
+    "version": "astra.pilot02.task_policy.v1",
+    "task_id": "plan",
+    "orientation": {
+      "mode": "fixed",
+      "quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tolerance_rad": 0.02
+    }
+  }
+}

@@ -1,0 +1,2927 @@
+{
+  "status": "PASS",
+  "source": "OFFLINE_FIXTURE_NOT_ASTRA",
+  "real_generation_requests": 0,
+  "production_bridge_contacted": false,
+  "complete_frozen_samples": 20,
+  "pairs": 10,
+  "all_independent_rescores_equal": true,
+  "frozen_files_verified": 607,
+  "fault_and_control_checks": [
+    {
+      "name": "invalid_json",
+      "status": "PASS",
+      "assessment": {
+        "status": "NOT_SCORED",
+        "score": null,
+        "failure": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": null,
+        "latency_s": 0.00547183600065182,
+        "usage_kind": "NOT_APPLICABLE_MOCK"
+      },
+      "artifact": "faults/invalid_json"
+    },
+    {
+      "name": "empty",
+      "status": "PASS",
+      "assessment": {
+        "status": "NOT_SCORED",
+        "score": null,
+        "failure": "EMPTY_OUTPUT",
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": null,
+        "latency_s": 0.005688815000212344,
+        "usage_kind": "NOT_APPLICABLE_MOCK"
+      },
+      "artifact": "faults/empty"
+    },
+    {
+      "name": "no_completed",
+      "status": "PASS",
+      "assessment": {
+        "status": "NOT_SCORED",
+        "score": null,
+        "failure": "COMPLETION_NOT_CONFIRMED",
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": null,
+        "latency_s": 0.005487829000230704,
+        "usage_kind": "NOT_APPLICABLE_MOCK"
+      },
+      "artifact": "faults/no_completed"
+    },
+    {
+      "name": "duplicate_completed",
+      "status": "PASS",
+      "assessment": {
+        "status": "NOT_SCORED",
+        "score": null,
+        "failure": "COMPLETION_NOT_CONFIRMED",
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": null,
+        "latency_s": 0.005324687999745947,
+        "usage_kind": "NOT_APPLICABLE_MOCK"
+      },
+      "artifact": "faults/duplicate_completed"
+    },
+    {
+      "name": "failed_event",
+      "status": "PASS",
+      "assessment": {
+        "status": "NOT_SCORED",
+        "score": null,
+        "failure": "COMPLETION_NOT_CONFIRMED",
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": null,
+        "latency_s": 0.005359514999327075,
+        "usage_kind": "NOT_APPLICABLE_MOCK"
+      },
+      "artifact": "faults/failed_event"
+    },
+    {
+      "name": "return_error",
+      "status": "PASS",
+      "assessment": {
+        "status": "NOT_SCORED",
+        "score": null,
+        "failure": "REMOTE_ERROR",
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": null,
+        "latency_s": 0.00500874599947565,
+        "usage_kind": "NOT_APPLICABLE_MOCK"
+      },
+      "artifact": "faults/return_error"
+    },
+    {
+      "name": "transport_error",
+      "status": "PASS",
+      "assessment": {
+        "status": "NOT_SCORED",
+        "score": null,
+        "failure": "REMOTE_ERROR",
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": null,
+        "latency_s": 0.005152723000719561,
+        "usage_kind": "NOT_APPLICABLE_MOCK"
+      },
+      "artifact": "faults/transport_error"
+    },
+    {
+      "name": "parameter_drift",
+      "status": "PASS",
+      "assessment": {
+        "status": "NOT_SCORED",
+        "score": null,
+        "failure": "REMOTE_ERROR",
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": null,
+        "latency_s": 0.0052766859998882865,
+        "usage_kind": "NOT_APPLICABLE_MOCK"
+      },
+      "artifact": "faults/parameter_drift"
+    },
+    {
+      "name": "code_mode_drift",
+      "status": "PASS",
+      "assessment": {
+        "status": "NOT_SCORED",
+        "score": null,
+        "failure": "MODEL_OR_CODE_MODE_DRIFT",
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": null,
+        "latency_s": 0.005516905000149563,
+        "usage_kind": "NOT_APPLICABLE_MOCK"
+      },
+      "artifact": "faults/code_mode_drift"
+    },
+    {
+      "name": "http403",
+      "status": "PASS",
+      "assessment": {
+        "status": "NOT_SCORED",
+        "score": null,
+        "failure": "TRANSPORT_FAILURE_OR_UNKNOWN",
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": null,
+        "latency_s": 0.000985835999927076,
+        "usage_kind": "NOT_APPLICABLE_MOCK"
+      },
+      "artifact": "faults/http403"
+    },
+    {
+      "name": "http409",
+      "status": "PASS",
+      "assessment": {
+        "status": "NOT_SCORED",
+        "score": null,
+        "failure": "TRANSPORT_FAILURE_OR_UNKNOWN",
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": null,
+        "latency_s": 0.0012621899995792774,
+        "usage_kind": "NOT_APPLICABLE_MOCK"
+      },
+      "artifact": "faults/http409"
+    },
+    {
+      "name": "timeout_cancel_unknown",
+      "status": "PASS",
+      "assessment": {
+        "status": "NOT_SCORED",
+        "score": null,
+        "failure": "TRANSPORT_FAILURE_OR_UNKNOWN",
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": null,
+        "latency_s": 0.08205306399941037,
+        "usage_kind": "NOT_APPLICABLE_MOCK"
+      },
+      "artifact": "faults/timeout_cancel_unknown"
+    },
+    {
+      "name": "negative-00-blocked_center",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005004353000003903,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "53fb8ca46c214486b72483fb864b637b",
+        "input_sha256": "572c387a5d70c60332c6cd5286ee013a79eda465545c84d90635a66d494edcf3",
+        "raw_sha256": "94a751196bae764066a8075962d14b1506688e7a319984d209143564f774c2a1",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-00-blocked_center"
+    },
+    {
+      "name": "alternate-00-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005206271000133711,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "690622d47c364e3686daf32a3488e913",
+        "input_sha256": "572c387a5d70c60332c6cd5286ee013a79eda465545c84d90635a66d494edcf3",
+        "raw_sha256": "f70ab156af255c9b763ab66289a57fa116c4291f70050fd6f8f6638d4910e33d",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-00-0"
+    },
+    {
+      "name": "negative-01-blocked_center",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.0055923770005392726,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "58d74d2716494122a344c5a51941eb60",
+        "input_sha256": "c6a7401375d6514d8ddf63140a588c3830e2fa89d47a7bb1cc8a7bf2f2c21ab0",
+        "raw_sha256": "94a751196bae764066a8075962d14b1506688e7a319984d209143564f774c2a1",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-01-blocked_center"
+    },
+    {
+      "name": "alternate-01-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005636400000184949,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "a4a50343db524a6c8bef86cd48facc2b",
+        "input_sha256": "c6a7401375d6514d8ddf63140a588c3830e2fa89d47a7bb1cc8a7bf2f2c21ab0",
+        "raw_sha256": "f70ab156af255c9b763ab66289a57fa116c4291f70050fd6f8f6638d4910e33d",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-01-0"
+    },
+    {
+      "name": "negative-02-blocked_center",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005504937000296195,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "c9e110d7ec3c4d0c87b991e23de8eb9f",
+        "input_sha256": "eb9a25802b84e5e147af18cc3b73c45267fe6b6e8d789cfc4e8d64a4f66bc40c",
+        "raw_sha256": "94a751196bae764066a8075962d14b1506688e7a319984d209143564f774c2a1",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-02-blocked_center"
+    },
+    {
+      "name": "alternate-02-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005189624999729858,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "84b33375993749059027adc873a136f6",
+        "input_sha256": "eb9a25802b84e5e147af18cc3b73c45267fe6b6e8d789cfc4e8d64a4f66bc40c",
+        "raw_sha256": "c8e27814cd113851fd0c7d163e4164e849422ee02d218e79049768b191d3c8a3",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-02-0"
+    },
+    {
+      "name": "negative-03-blocked_center",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005189151999729802,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "5a426e8886784df0bc4abdc0f38e3f2d",
+        "input_sha256": "b186115eb8d8dcdc8fd429bbacb8945d899a844fae1e0cba15a402e8c1969e82",
+        "raw_sha256": "94a751196bae764066a8075962d14b1506688e7a319984d209143564f774c2a1",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-03-blocked_center"
+    },
+    {
+      "name": "alternate-03-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.00514288399972429,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "07b1e04ced814a018e7cc76ae9a56970",
+        "input_sha256": "b186115eb8d8dcdc8fd429bbacb8945d899a844fae1e0cba15a402e8c1969e82",
+        "raw_sha256": "c8e27814cd113851fd0c7d163e4164e849422ee02d218e79049768b191d3c8a3",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-03-0"
+    },
+    {
+      "name": "negative-04-blocked_center",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.00534748399968521,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "70dc918db211489a990453e9020bf595",
+        "input_sha256": "ad00cb381a06a6d187d320f020f5e4aae5af4611afd5fcd3b77f3a0a90649c04",
+        "raw_sha256": "94a751196bae764066a8075962d14b1506688e7a319984d209143564f774c2a1",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-04-blocked_center"
+    },
+    {
+      "name": "alternate-04-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005105430000185152,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "f9eabc88511640d0b3324bed41d45faf",
+        "input_sha256": "ad00cb381a06a6d187d320f020f5e4aae5af4611afd5fcd3b77f3a0a90649c04",
+        "raw_sha256": "f70ab156af255c9b763ab66289a57fa116c4291f70050fd6f8f6638d4910e33d",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-04-0"
+    },
+    {
+      "name": "negative-05-blocked_center",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005081795000478451,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "7276fa56331a4433b003d42b21d4afb7",
+        "input_sha256": "0847dac729bc1888f246abf77c531bec2bf148bc966ae7df758fdb58b18f311b",
+        "raw_sha256": "94a751196bae764066a8075962d14b1506688e7a319984d209143564f774c2a1",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-05-blocked_center"
+    },
+    {
+      "name": "alternate-05-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.0051527539999369765,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "78cce477aa0c4b7592a7e4dc31c38fb4",
+        "input_sha256": "0847dac729bc1888f246abf77c531bec2bf148bc966ae7df758fdb58b18f311b",
+        "raw_sha256": "f70ab156af255c9b763ab66289a57fa116c4291f70050fd6f8f6638d4910e33d",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-05-0"
+    },
+    {
+      "name": "negative-06-blocked_center",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005735149000429374,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "8563097e91c847c686fbb9dc64489234",
+        "input_sha256": "698a27b430917727d22bf7d84688ad37eae1a60d4c5e97b3550d78b494d9c8c3",
+        "raw_sha256": "94a751196bae764066a8075962d14b1506688e7a319984d209143564f774c2a1",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-06-blocked_center"
+    },
+    {
+      "name": "alternate-06-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.0052258759997130255,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "0fdb03c232d242b3a4b7f118fe801514",
+        "input_sha256": "698a27b430917727d22bf7d84688ad37eae1a60d4c5e97b3550d78b494d9c8c3",
+        "raw_sha256": "c8e27814cd113851fd0c7d163e4164e849422ee02d218e79049768b191d3c8a3",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-06-0"
+    },
+    {
+      "name": "negative-07-blocked_center",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005401069000072312,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "151be9222cdd44769ab3917dc01a965c",
+        "input_sha256": "c00445633cd4791b65ca68afcfe415d52aaa67320a4a1b995351805ca6c845c1",
+        "raw_sha256": "94a751196bae764066a8075962d14b1506688e7a319984d209143564f774c2a1",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-07-blocked_center"
+    },
+    {
+      "name": "alternate-07-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005039732000113872,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "71586d49719a4070bbf0bbbb276a7e6f",
+        "input_sha256": "c00445633cd4791b65ca68afcfe415d52aaa67320a4a1b995351805ca6c845c1",
+        "raw_sha256": "c8e27814cd113851fd0c7d163e4164e849422ee02d218e79049768b191d3c8a3",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-07-0"
+    },
+    {
+      "name": "negative-08-blocked_center",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.0073415189999650465,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "dc0292b769344488a36e4c0f64f63a78",
+        "input_sha256": "b311cec0ba757c5159d925295d20190bc12ea700e5ec90f2f2184a73f60b9a85",
+        "raw_sha256": "94a751196bae764066a8075962d14b1506688e7a319984d209143564f774c2a1",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-08-blocked_center"
+    },
+    {
+      "name": "alternate-08-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005257849999907194,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "25c3e78d75a84afb89e7b68abd8261a5",
+        "input_sha256": "b311cec0ba757c5159d925295d20190bc12ea700e5ec90f2f2184a73f60b9a85",
+        "raw_sha256": "f70ab156af255c9b763ab66289a57fa116c4291f70050fd6f8f6638d4910e33d",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-08-0"
+    },
+    {
+      "name": "negative-09-blocked_center",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005567536999478762,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "abe3682175b049d4a4fd177a8bfac4a0",
+        "input_sha256": "050ee2ae8fa3e6eef25643a9eac02f5d72a08e64e3c26e32c0d25c06101f32e6",
+        "raw_sha256": "94a751196bae764066a8075962d14b1506688e7a319984d209143564f774c2a1",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-09-blocked_center"
+    },
+    {
+      "name": "alternate-09-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.00509919300020556,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "61c737a9ff994be4bd4a9114c3c28824",
+        "input_sha256": "050ee2ae8fa3e6eef25643a9eac02f5d72a08e64e3c26e32c0d25c06101f32e6",
+        "raw_sha256": "f70ab156af255c9b763ab66289a57fa116c4291f70050fd6f8f6638d4910e33d",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-09-0"
+    },
+    {
+      "name": "negative-10-blocked_center",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.0056198410002252785,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "729ae551d5044a3f8715e1a595f6afff",
+        "input_sha256": "95c1f069d18dec0b3b22ecced74abfe81d0a86bfca9192c438c60f0b7c4db6d8",
+        "raw_sha256": "94a751196bae764066a8075962d14b1506688e7a319984d209143564f774c2a1",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-10-blocked_center"
+    },
+    {
+      "name": "alternate-10-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.00856910600032279,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "f91cb477f58046d4a0d2be80bd511dba",
+        "input_sha256": "95c1f069d18dec0b3b22ecced74abfe81d0a86bfca9192c438c60f0b7c4db6d8",
+        "raw_sha256": "c8e27814cd113851fd0c7d163e4164e849422ee02d218e79049768b191d3c8a3",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-10-0"
+    },
+    {
+      "name": "negative-11-blocked_center",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005621726000754279,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "a0d4577f188542d3a6d16a4f65fd39f8",
+        "input_sha256": "91a28ef3f92479e0b8b4d38abfb163b1eb9aa11c0558b1fd726af6e22670abe4",
+        "raw_sha256": "94a751196bae764066a8075962d14b1506688e7a319984d209143564f774c2a1",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-11-blocked_center"
+    },
+    {
+      "name": "alternate-11-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.0056455320000168285,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "0ef62ca7807a4b99b012fda92f63c941",
+        "input_sha256": "91a28ef3f92479e0b8b4d38abfb163b1eb9aa11c0558b1fd726af6e22670abe4",
+        "raw_sha256": "c8e27814cd113851fd0c7d163e4164e849422ee02d218e79049768b191d3c8a3",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-11-0"
+    },
+    {
+      "name": "negative-12-straight",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.006199192999702063,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": false
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [
+            {
+              "segment": 0,
+              "obstacle_id": "barrier"
+            }
+          ],
+          "error_types": [
+            "continuous_path_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "fc9c9a080eb645458cfc24b47e715d7b",
+        "input_sha256": "9822fc929d62c403404b7124fb6584e6a140945819983db76109a372bee4ccf5",
+        "raw_sha256": "9c62ccfddf6116861e6b2973a9cf55c6c5758cc99f8af48c1d0480b5f7370ffe",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-12-straight"
+    },
+    {
+      "name": "negative-12-overfly",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.006534857999213273,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": false,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "path_in_workspace"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "8075cd7322584672b06836dbf08fe135",
+        "input_sha256": "9822fc929d62c403404b7124fb6584e6a140945819983db76109a372bee4ccf5",
+        "raw_sha256": "45b3108ce2fd4efb8cb0576e6d435fa73df22ae2f8f83982716e82e1fe078575",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-12-overfly"
+    },
+    {
+      "name": "alternate-12-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.006308881000222755,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "338cf509026a4df9ad433bd2d6e92124",
+        "input_sha256": "9822fc929d62c403404b7124fb6584e6a140945819983db76109a372bee4ccf5",
+        "raw_sha256": "0dd41155ba92e25a28baff506ba33d3733d8534d3f9a3e15e2d5ae8b012ae53f",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-12-0"
+    },
+    {
+      "name": "negative-13-straight",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005549610000343819,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": false
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [
+            {
+              "segment": 0,
+              "obstacle_id": "barrier"
+            }
+          ],
+          "error_types": [
+            "continuous_path_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "e2c6d00edd994ac89bbf5342abe4cd95",
+        "input_sha256": "e980e73dee162f5441c186c9f4ee3a94535d275a00c2f6db081fabbe50f7f5ba",
+        "raw_sha256": "9c62ccfddf6116861e6b2973a9cf55c6c5758cc99f8af48c1d0480b5f7370ffe",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-13-straight"
+    },
+    {
+      "name": "negative-13-overfly",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005810051000480598,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": false,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "path_in_workspace"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "c17b0913517f44eb8bdf877eb8feb6f3",
+        "input_sha256": "e980e73dee162f5441c186c9f4ee3a94535d275a00c2f6db081fabbe50f7f5ba",
+        "raw_sha256": "45b3108ce2fd4efb8cb0576e6d435fa73df22ae2f8f83982716e82e1fe078575",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-13-overfly"
+    },
+    {
+      "name": "alternate-13-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.00828105099935783,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "8726fd666d024e31b8efbe2bd7bc721c",
+        "input_sha256": "e980e73dee162f5441c186c9f4ee3a94535d275a00c2f6db081fabbe50f7f5ba",
+        "raw_sha256": "0dd41155ba92e25a28baff506ba33d3733d8534d3f9a3e15e2d5ae8b012ae53f",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-13-0"
+    },
+    {
+      "name": "negative-14-straight",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.00574012099968968,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": false
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [
+            {
+              "segment": 0,
+              "obstacle_id": "barrier"
+            }
+          ],
+          "error_types": [
+            "continuous_path_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "9f80caf3d0cb44e9b26312ac3c9da9c2",
+        "input_sha256": "e4462714126f1a9526ad2eb1940f782476b91d3bb2c5d0fc4943cbae575d8bca",
+        "raw_sha256": "9c62ccfddf6116861e6b2973a9cf55c6c5758cc99f8af48c1d0480b5f7370ffe",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-14-straight"
+    },
+    {
+      "name": "negative-14-overfly",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.006022120000125142,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": false,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "path_in_workspace"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "a55f50de4cda4a678008eb1f803b6020",
+        "input_sha256": "e4462714126f1a9526ad2eb1940f782476b91d3bb2c5d0fc4943cbae575d8bca",
+        "raw_sha256": "45b3108ce2fd4efb8cb0576e6d435fa73df22ae2f8f83982716e82e1fe078575",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-14-overfly"
+    },
+    {
+      "name": "alternate-14-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005923452000388352,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "bb8b66169bb64c80b687c3623160572e",
+        "input_sha256": "e4462714126f1a9526ad2eb1940f782476b91d3bb2c5d0fc4943cbae575d8bca",
+        "raw_sha256": "5c2da7087c347f51712f480dfc777fa1c8e7434e4f04adf2b5a5f681b887f0a9",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-14-0"
+    },
+    {
+      "name": "negative-15-straight",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.006574565999471815,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": false
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [
+            {
+              "segment": 0,
+              "obstacle_id": "barrier"
+            }
+          ],
+          "error_types": [
+            "continuous_path_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "a3606322290b41bcb7f80cae786c9375",
+        "input_sha256": "a70fd0f3839d635a704e0b20a3fa7d0d201899d1d9919bd4e9e1383fc2821ab2",
+        "raw_sha256": "9c62ccfddf6116861e6b2973a9cf55c6c5758cc99f8af48c1d0480b5f7370ffe",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-15-straight"
+    },
+    {
+      "name": "negative-15-overfly",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.006251347000215901,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": false,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "path_in_workspace"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "90944bc7cf04477face5f40c52fdb31f",
+        "input_sha256": "a70fd0f3839d635a704e0b20a3fa7d0d201899d1d9919bd4e9e1383fc2821ab2",
+        "raw_sha256": "45b3108ce2fd4efb8cb0576e6d435fa73df22ae2f8f83982716e82e1fe078575",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-15-overfly"
+    },
+    {
+      "name": "alternate-15-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.006841218000772642,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "3337f777d14849b193ebdcfbd6223301",
+        "input_sha256": "a70fd0f3839d635a704e0b20a3fa7d0d201899d1d9919bd4e9e1383fc2821ab2",
+        "raw_sha256": "5c2da7087c347f51712f480dfc777fa1c8e7434e4f04adf2b5a5f681b887f0a9",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-15-0"
+    },
+    {
+      "name": "negative-16-wrong_paired_yaw",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005062289000306919,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "44314b35715744b8bb05f8c76dc645dd",
+        "input_sha256": "fa39e10fab3c9e589d8e4739ca78ae778c4d96185de42ad19889cdbad32f960c",
+        "raw_sha256": "475176509fbc4337d2ac77b2a21050967ee902baffd9fba5ebccbe621a0dc8d5",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-16-wrong_paired_yaw"
+    },
+    {
+      "name": "negative-16-not_upright",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005459945000438893,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true,
+            "upright_local_positive_z": false
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free",
+            "upright_local_positive_z"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 3.141592653589793
+        },
+        "thread_id": "4d7a37544db14d4da574f6261d707c11",
+        "input_sha256": "fa39e10fab3c9e589d8e4739ca78ae778c4d96185de42ad19889cdbad32f960c",
+        "raw_sha256": "a6c47bb7021cf533826513180f9c8af0b7e260887035a14205107b9f597efaa4",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-16-not_upright"
+    },
+    {
+      "name": "alternate-16-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005395027000304253,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "a60b37c14e004531b407b1d0cbaf4672",
+        "input_sha256": "fa39e10fab3c9e589d8e4739ca78ae778c4d96185de42ad19889cdbad32f960c",
+        "raw_sha256": "39e2fbbb65639fa1b498a590cf13ce82a03ffb6affc7a86488d8e31dc400a069",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-16-0"
+    },
+    {
+      "name": "alternate-16-1",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005762445999607735,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "e602ffd885ce480eaab770fc24c3300e",
+        "input_sha256": "fa39e10fab3c9e589d8e4739ca78ae778c4d96185de42ad19889cdbad32f960c",
+        "raw_sha256": "72160e75b8b226aea8d405f9056d9f8525b59fcc6bc4ee3031339b380665ff37",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-16-1"
+    },
+    {
+      "name": "alternate-16-2",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005061001000285614,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "e6160a9a8bc24ab4b555989b2c43ba65",
+        "input_sha256": "fa39e10fab3c9e589d8e4739ca78ae778c4d96185de42ad19889cdbad32f960c",
+        "raw_sha256": "23d09009ad1966bb5359d7c88f7a162139bc0b7dc43d681c59084811529a0bc3",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-16-2"
+    },
+    {
+      "name": "alternate-16-3",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005282420000185084,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "be06357dd54f40caa5e8e7600e9ba11c",
+        "input_sha256": "fa39e10fab3c9e589d8e4739ca78ae778c4d96185de42ad19889cdbad32f960c",
+        "raw_sha256": "9d68ae3ce875af0f030db84b24639842503a127cd8260ff977de1596e76b15cb",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-16-3"
+    },
+    {
+      "name": "negative-17-wrong_paired_yaw",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005347237999558274,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "9348700c6c1e49ae8aca4d7bd4793fb5",
+        "input_sha256": "d9c0a120e8f1012d43553ba64743d8d8f08d9ae5c680ea596608cdb7d17d8164",
+        "raw_sha256": "475176509fbc4337d2ac77b2a21050967ee902baffd9fba5ebccbe621a0dc8d5",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-17-wrong_paired_yaw"
+    },
+    {
+      "name": "negative-17-not_upright",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005814772000121593,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true,
+            "upright_local_positive_z": false
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free",
+            "upright_local_positive_z"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 3.141592653589793
+        },
+        "thread_id": "2a8ec825704e47bdad64ed9845e393cc",
+        "input_sha256": "d9c0a120e8f1012d43553ba64743d8d8f08d9ae5c680ea596608cdb7d17d8164",
+        "raw_sha256": "a6c47bb7021cf533826513180f9c8af0b7e260887035a14205107b9f597efaa4",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-17-not_upright"
+    },
+    {
+      "name": "alternate-17-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005253342000287375,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "742367592f3a4b449f833003f7f86c36",
+        "input_sha256": "d9c0a120e8f1012d43553ba64743d8d8f08d9ae5c680ea596608cdb7d17d8164",
+        "raw_sha256": "39e2fbbb65639fa1b498a590cf13ce82a03ffb6affc7a86488d8e31dc400a069",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-17-0"
+    },
+    {
+      "name": "alternate-17-1",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005989944999782892,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "5bd7d9e16bd44fb98782e85c3612a99b",
+        "input_sha256": "d9c0a120e8f1012d43553ba64743d8d8f08d9ae5c680ea596608cdb7d17d8164",
+        "raw_sha256": "72160e75b8b226aea8d405f9056d9f8525b59fcc6bc4ee3031339b380665ff37",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-17-1"
+    },
+    {
+      "name": "alternate-17-2",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.008077333999608527,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "3136d3cc500340c38b8f7cdc41ea03d3",
+        "input_sha256": "d9c0a120e8f1012d43553ba64743d8d8f08d9ae5c680ea596608cdb7d17d8164",
+        "raw_sha256": "23d09009ad1966bb5359d7c88f7a162139bc0b7dc43d681c59084811529a0bc3",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-17-2"
+    },
+    {
+      "name": "alternate-17-3",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.006087400999604142,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "090af0ba56484fb8a0bcd1fd07a07e82",
+        "input_sha256": "d9c0a120e8f1012d43553ba64743d8d8f08d9ae5c680ea596608cdb7d17d8164",
+        "raw_sha256": "9d68ae3ce875af0f030db84b24639842503a127cd8260ff977de1596e76b15cb",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-17-3"
+    },
+    {
+      "name": "negative-18-wrong_paired_yaw",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005909847999646445,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "cf20dacfe5c64321a61246912b123825",
+        "input_sha256": "5b9ea1e3737dba50d8e044884f12ca703bdc2005599d74bd71799976c69aa8f7",
+        "raw_sha256": "39e2fbbb65639fa1b498a590cf13ce82a03ffb6affc7a86488d8e31dc400a069",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-18-wrong_paired_yaw"
+    },
+    {
+      "name": "negative-18-not_upright",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.006029642999237694,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true,
+            "upright_local_positive_z": false
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free",
+            "upright_local_positive_z"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 3.141592653589793
+        },
+        "thread_id": "cddfe19239124917a6a333b214a4aaa5",
+        "input_sha256": "5b9ea1e3737dba50d8e044884f12ca703bdc2005599d74bd71799976c69aa8f7",
+        "raw_sha256": "a6c47bb7021cf533826513180f9c8af0b7e260887035a14205107b9f597efaa4",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-18-not_upright"
+    },
+    {
+      "name": "alternate-18-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.0053625990003638435,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "407f1968fa924513b6f099a64c14cdd8",
+        "input_sha256": "5b9ea1e3737dba50d8e044884f12ca703bdc2005599d74bd71799976c69aa8f7",
+        "raw_sha256": "5beec9a3ed631f3e6825b160ed871c870bf357df5b3cf00a978c85c8ab5d0d70",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-18-0"
+    },
+    {
+      "name": "alternate-18-1",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005976567000288924,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "47d5b34a6e2b48cc9dbf57ca08bbd501",
+        "input_sha256": "5b9ea1e3737dba50d8e044884f12ca703bdc2005599d74bd71799976c69aa8f7",
+        "raw_sha256": "866eb23dc22d68f835494ecb13937d30a3b88177f705d12a78850b4330dca280",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-18-1"
+    },
+    {
+      "name": "alternate-18-2",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005926470999838784,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "3dc86a565b5f4191918a8a03b53cd354",
+        "input_sha256": "5b9ea1e3737dba50d8e044884f12ca703bdc2005599d74bd71799976c69aa8f7",
+        "raw_sha256": "3ed10e0034cfd554db1d314334a806a7b3c9f36bf2df1b44ac48fd4130430d30",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-18-2"
+    },
+    {
+      "name": "alternate-18-3",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.0065426620003563585,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "3fd46f61ec6f44e9943fb2f959371302",
+        "input_sha256": "5b9ea1e3737dba50d8e044884f12ca703bdc2005599d74bd71799976c69aa8f7",
+        "raw_sha256": "94cbc3181c9b1b6caea1611e4804ab9796802789e816e819cb48af52cbf6465c",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-18-3"
+    },
+    {
+      "name": "negative-19-wrong_paired_yaw",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005637803999889002,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "de4a0f0422c14e338d87dac2119b99a2",
+        "input_sha256": "2492ccca3898e42e506f9f8eca7f772a5db1849f7c4ffa70dfa02a310c8700ba",
+        "raw_sha256": "39e2fbbb65639fa1b498a590cf13ce82a03ffb6affc7a86488d8e31dc400a069",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-19-wrong_paired_yaw"
+    },
+    {
+      "name": "negative-19-not_upright",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 0.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.007262609999997949,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": false,
+            "required_orientation": true,
+            "upright_local_positive_z": false
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [
+            "placement_collision_free",
+            "upright_local_positive_z"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 3.141592653589793
+        },
+        "thread_id": "3076a7dcfa304a3cbac1e6698a377772",
+        "input_sha256": "2492ccca3898e42e506f9f8eca7f772a5db1849f7c4ffa70dfa02a310c8700ba",
+        "raw_sha256": "a6c47bb7021cf533826513180f9c8af0b7e260887035a14205107b9f597efaa4",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/negative-19-not_upright"
+    },
+    {
+      "name": "alternate-19-0",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005883849000383634,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "29b60d655f79476590202086a154b3d4",
+        "input_sha256": "2492ccca3898e42e506f9f8eca7f772a5db1849f7c4ffa70dfa02a310c8700ba",
+        "raw_sha256": "5beec9a3ed631f3e6825b160ed871c870bf357df5b3cf00a978c85c8ab5d0d70",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-19-0"
+    },
+    {
+      "name": "alternate-19-1",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.00576215500041144,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "1ca787365c57464b9dda3925230a7207",
+        "input_sha256": "2492ccca3898e42e506f9f8eca7f772a5db1849f7c4ffa70dfa02a310c8700ba",
+        "raw_sha256": "866eb23dc22d68f835494ecb13937d30a3b88177f705d12a78850b4330dca280",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-19-1"
+    },
+    {
+      "name": "alternate-19-2",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005868576000466419,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "bbb81c83f20b4422937b670a385258a8",
+        "input_sha256": "2492ccca3898e42e506f9f8eca7f772a5db1849f7c4ffa70dfa02a310c8700ba",
+        "raw_sha256": "3ed10e0034cfd554db1d314334a806a7b3c9f36bf2df1b44ac48fd4130430d30",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-19-2"
+    },
+    {
+      "name": "alternate-19-3",
+      "status": "PASS",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+        "usage": {
+          "input_tokens": 10,
+          "output_tokens": 5,
+          "output_tokens_details": {
+            "reasoning_tokens": 2
+          }
+        },
+        "latency_s": 0.005246777999673213,
+        "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "upright_local_positive_z": true
+          },
+          "orientation_error_rad": null,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1",
+          "upright_tilt_rad": 0.0
+        },
+        "thread_id": "f470b53a01a340688276d1d9bbba4644",
+        "input_sha256": "2492ccca3898e42e506f9f8eca7f772a5db1849f7c4ffa70dfa02a310c8700ba",
+        "raw_sha256": "94cbc3181c9b1b6caea1611e4804ab9796802789e816e819cb48af52cbf6465c",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "artifact": "faults/alternate-19-3"
+    }
+  ],
+  "fake_http_dispatches": 92,
+  "cancel_requests": 1,
+  "budget_note": "OFFLINE_FIXTURE reservations are simulated; cannot authorize or resume as REAL."
+}
