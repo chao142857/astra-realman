@@ -104,6 +104,16 @@ def main():
         '', 'S5/S6 为主要规划任务；S4 朝向由任务规定，不代表自主选择朝向。S5 历史 A 已满分，同分不等于几何信息无效。六个静态场景及其相关任务只支持探索性描述；不做统计显著性或总体泛化结论。评分不涵盖动力学、支撑稳定性、IK 或真实硬件。']
     if prior:
         lines+=['','用户在第 4 次（S2 A）90 秒超时后明确选择四个隔离 worker、180 秒的新阶段。累计预算未增加；先前超时保留且消耗一次。S2 A 新请求是明确授权后的独立重测。S5/S6 plan 的原 90 秒串行配对作为 carryover 保留，其他任务在 180 秒四并发阶段执行；各行保留 deadline_s/concurrency。不能把跨阶段延迟变化单独归因为几何信息。剩余 20 次若全部用于补齐主矩阵，则没有额外 S5 A 复测预算。']
+    if (ROOT/'final_offline_audit.json').exists():
+        audit=read(ROOT/'final_offline_audit.json');tokens=audit['token_totals_known_only']
+        lines+=['','最终跨阶段审计：', '',
+            f'- 累计新增派发 {audit["cumulative_new_dispatches"]}/24；结果分类 {json.dumps(audit["counts"],ensure_ascii=False)}；剩余预算 {audit["remaining_budget"]}。',
+            f'- 主实验 {audit["primary_samples"]} 个有效样本全部离线重评分一致；实际最大并发 {audit["measured_max_native_overlap"]}。',
+            f'- 新增请求已知 input/output token 合计 {tokens["input_tokens"]}/{tokens["output_tokens"]}；{audit["unknown_usage_samples"]} 次超时的 usage 未知，不按 0 补值。',
+            f'- 四并发阶段从首次派发到最后完成约 {audit["parallel_phase_wall_span_s"]:.1f}s，包含波次间检查与归档；各波实际运行时长之和 {audit.get("summed_parallel_wave_wall_s",0):.1f}s。',
+            f'- 数值边界：{len(audit["numerical_boundary_cases"])} 个 A 失败仅比冻结的 5mm 阈值多约 2–4nm，涉及 S1/S3 顶面高度及 S5 位置/高度。可能受仿真浮点表示影响，原始答案和评分保持不变；不能忽略这一敏感性。',
+            '- S6 路径长度补充描述：A 为 1.22m，C 为 1.00m；路径长度不是冻结评分目标，不据此声称最优性。',
+            '- 已观测到部分 C 请求的 provider prompt cache 命中；独立 ephemeral 会话并不禁用 prompt caching，延迟差异不宜作纯输入因果解释。']
     (ROOT/'research_report.md').write_text('\n'.join(lines)+'\n')
     print(json.dumps({k:metrics[k] for k in ('batch_status','new_budget_reserved','known_http_dispatches','new_sample_classifications','completed_pairs')}))
 

@@ -15,6 +15,11 @@ def main():
     p.require(len(records)<=24,'CUMULATIVE_BUDGET_EXCEEDED')
     p.require(phase0['status']=='STOPPED' and phase1['status'] in ('COMPLETE','STOPPED'),'BATCH_STILL_ACTIVE')
     rows=p.read(ROOT/'primary_results.json');sealed=p.read(ROOT/'frozen_preflight.json')
+    p.verify_seal(sealed)
+    original=p.read(PRIOR/'frozen_preflight.json')
+    for rel,expected in original['file_sha256'].items():
+        if rel.endswith('/spatial_eval/mac_bridge.py'):continue  # Explicit opt-in 180 s amendment only.
+        p.require(p.sha(p.REPO/rel)==expected,'ORIGINAL_DATA_OR_SCORER_CHANGED:'+rel)
     counts=collections.Counter();ids=[];threads=[];intervals=[];dispatches=0;known_usage=[];client_latencies=[]
     for root,record in records:
         run=root/record['directory'];sample=run/'sample-0000'
@@ -57,6 +62,8 @@ def main():
                         error_m=error,tolerance_m=tol,excess_m=error-tol,
                         note='Frozen score retained; simulator floating-point representation is material at this boundary.'))
     p.require(len(primary_identities)==len(set(primary_identities)),'DUPLICATE_PRIMARY_CELL')
+    if phase1['status']=='COMPLETE':
+        p.require(len(rows)==24 and all(n==6 for n in types.values()) and len(types)==4,'PRIMARY_MATRIX_INCOMPLETE')
     times=[]
     for interval in intervals:times.extend([(interval['prompt_written_unix'],1),(interval['result_written_unix'],-1)])
     active=peak=0
@@ -64,6 +71,10 @@ def main():
     p.require(peak<=4 and active==0,'CONCURRENCY_EXCEEDED')
     stage1=[i for i in intervals if i['phase']=='180s_four_workers']
     phase1_wall=max(i['result_written_unix'] for i in stage1)-min(i['prompt_written_unix'] for i in stage1) if stage1 else None
+    wave_spans=[]
+    for wave in sorted({(i['index']-5)//4+1 for i in stage1}):
+        group=[i for i in stage1 if (i['index']-5)//4+1==wave]
+        wave_spans.append(dict(wave=wave,elapsed_s=max(i['result_written_unix'] for i in group)-min(i['prompt_written_unix'] for i in group)))
     paths={}
     s6=p.load_snapshot(p.SUITE/p.SCENES[5]/'snapshot.json');plan=next(t for t in s6['task'] if t['task_id']=='plan')
     for row in rows:
@@ -74,7 +85,9 @@ def main():
         cumulative_new_dispatches=dispatches,remaining_budget=24-dispatches,counts=dict(counts),
         primary_samples=len(rows),primary_rescores='ALL_IDENTICAL',primary_by_task_and_condition=dict(types),
         unique_new_request_ids=len(set(ids)),unique_new_threads=len(set(threads)),measured_max_native_overlap=peak,
-        native_intervals=intervals,parallel_phase_wall_span_s=phase1_wall,
+        native_intervals=intervals,parallel_phase_wall_span_s=phase1_wall,parallel_wave_spans=wave_spans,
+        summed_parallel_wave_wall_s=sum(w['elapsed_s'] for w in wave_spans),
+        original_data_prompts_schemas_scoring_and_bridge='UNCHANGED_SHA256',
         summed_new_client_wait_s=sum(client_latencies),known_usage_samples=len(known_usage),
         token_totals_known_only={k:sum(u.get(k,0) for u in known_usage) for k in
                                 ('input_tokens','output_tokens','reasoning_output_tokens','cached_input_tokens')},

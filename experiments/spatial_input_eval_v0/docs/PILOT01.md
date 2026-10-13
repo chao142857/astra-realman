@@ -1,5 +1,17 @@
 # Pilot 01 — frozen six-scene A/C exploration
 
+Completed: 24/24 newly authorized dispatches, 23 valid and one original 90-second
+timeout. With the preserved historical S5 A, all 24 primary cells / 12 pairs are
+complete. Understanding: A 45/54 questions, C 54/54; planning: A and C both 6/6.
+Four numerical failures are within a few nanometers of the frozen 5 mm boundary;
+scores are preserved and this sensitivity is reported. No extra S5 A repeat was
+dispatched because the cumulative budget was exhausted.
+
+Final artifacts: [research report](../evidence/pilot01_parallel180_20261013/research_report.md),
+[offline audit](../evidence/pilot01_parallel180_20261013/final_offline_audit.json),
+[original stopped phase](../evidence/pilot01_20261013/ledger.json),
+[completed 180-second phase](../evidence/pilot01_parallel180_20261013/ledger.json).
+
 User authorization on 2026-10-13 permits at most **24 new dispatches**, sequentially,
 through the original Mac ChatGPT bridge. The historical S5 plan A at `0091de8`
 is preserved and excluded from the new budget. The primary matrix contains 12 pairs;
@@ -99,3 +111,13 @@ original Handler. Commands/PIDs and source hashes are recorded in service_launch
 and worker-N.json. Deadline/concurrency phase labels accompany the combined primary
 matrix; latency differences across the 90-second serial and 180-second concurrent
 phases must not be attributed solely to geometry.
+
+Final offline reproduction (no model or simulator is invoked):
+
+```bash
+$PY experiments/spatial_input_eval_v0/lab/finalize_pilot01.py
+$PY experiments/spatial_input_eval_v0/lab/pilot01_report.py --phase pilot01_parallel180_20261013
+```
+
+The complete ledger blocks any further wave. Do not reset it to replay generation;
+the saved responses are sufficient for offline re-scoring and report reproduction.
