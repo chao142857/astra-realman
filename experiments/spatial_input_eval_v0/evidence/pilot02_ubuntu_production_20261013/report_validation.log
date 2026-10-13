@@ -1,0 +1,160 @@
+{
+  "status": "STOPPED",
+  "batch_id": "953a8d18a01447599664db2170862d98",
+  "authorized_max": 20,
+  "budget_reserved": 12,
+  "remaining_authorized": 8,
+  "remaining_note": "Unused dispatcher capacity only; stopped batch must not automatically consume it.",
+  "real_dispatches": 12,
+  "native_cli_reconnect_events": [
+    {
+      "index": 12,
+      "messages": [
+        "Reconnecting... 2/5 (stream disconnected before completion: websocket closed by server before response.completed)"
+      ]
+    }
+  ],
+  "upstream_generation_attempts": "UNKNOWN; native CLI reconnected",
+  "valid_samples": 11,
+  "not_scored_samples": 1,
+  "completed_pairs": 5,
+  "groups": [
+    {
+      "group": "placement_3mm",
+      "A": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      },
+      "C": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      }
+    },
+    {
+      "group": "placement_10mm",
+      "A": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      },
+      "C": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      }
+    },
+    {
+      "group": "placement_30mm",
+      "A": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 1,
+        "successes": 1,
+        "success_rate_valid": 1.0
+      },
+      "C": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      }
+    },
+    {
+      "group": "restricted_detour",
+      "A": {
+        "planned": 2,
+        "dispatched": 0,
+        "valid": 0,
+        "successes": 0,
+        "success_rate_valid": null
+      },
+      "C": {
+        "planned": 2,
+        "dispatched": 0,
+        "valid": 0,
+        "successes": 0,
+        "success_rate_valid": null
+      }
+    },
+    {
+      "group": "autonomous_yaw",
+      "A": {
+        "planned": 2,
+        "dispatched": 0,
+        "valid": 0,
+        "successes": 0,
+        "success_rate_valid": null
+      },
+      "C": {
+        "planned": 2,
+        "dispatched": 0,
+        "valid": 0,
+        "successes": 0,
+        "success_rate_valid": null
+      }
+    }
+  ],
+  "resources": {
+    "RGB_MULTI_VIEW": {
+      "samples": 6,
+      "mean_client_wall_s": 52.664614040833534,
+      "median_client_wall_s": 43.96661317200051,
+      "input_tokens": {
+        "reported_samples": 6,
+        "total": 78494
+      },
+      "output_tokens": {
+        "reported_samples": 6,
+        "total": 3699
+      },
+      "reasoning_tokens": {
+        "reported_samples": 6,
+        "total": 3393
+      },
+      "other_output_tokens": {
+        "reported_samples": 6,
+        "total": 306
+      },
+      "cached_input_tokens": {
+        "reported_samples": 6,
+        "total": 12928
+      }
+    },
+    "RGB_ORACLE_3D": {
+      "samples": 6,
+      "mean_client_wall_s": 20.49289909816677,
+      "median_client_wall_s": 20.41812651949931,
+      "input_tokens": {
+        "reported_samples": 6,
+        "total": 82607
+      },
+      "output_tokens": {
+        "reported_samples": 6,
+        "total": 536
+      },
+      "reasoning_tokens": {
+        "reported_samples": 6,
+        "total": 230
+      },
+      "other_output_tokens": {
+        "reported_samples": 6,
+        "total": 306
+      },
+      "cached_input_tokens": {
+        "reported_samples": 6,
+        "total": 6912
+      }
+    }
+  }
+}

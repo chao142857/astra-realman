@@ -1,0 +1,679 @@
+{
+  "status": "STOPPED",
+  "batch_id": "953a8d18a01447599664db2170862d98",
+  "authorized_max": 20,
+  "budget_reserved": 12,
+  "remaining_authorized": 8,
+  "remaining_note": "Unused dispatcher capacity only; stopped batch must not automatically consume it.",
+  "real_dispatches": 12,
+  "native_cli_reconnect_events": [
+    {
+      "index": 12,
+      "messages": [
+        "Reconnecting... 2/5 (stream disconnected before completion: websocket closed by server before response.completed)"
+      ]
+    }
+  ],
+  "upstream_generation_attempts": "UNKNOWN; native CLI reconnected",
+  "valid_samples": 11,
+  "not_scored_samples": 1,
+  "completed_pairs": 5,
+  "groups": [
+    {
+      "group": "placement_3mm",
+      "A": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      },
+      "C": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      }
+    },
+    {
+      "group": "placement_10mm",
+      "A": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      },
+      "C": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      }
+    },
+    {
+      "group": "placement_30mm",
+      "A": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 1,
+        "successes": 1,
+        "success_rate_valid": 1.0
+      },
+      "C": {
+        "planned": 2,
+        "dispatched": 2,
+        "valid": 2,
+        "successes": 2,
+        "success_rate_valid": 1.0
+      }
+    },
+    {
+      "group": "restricted_detour",
+      "A": {
+        "planned": 2,
+        "dispatched": 0,
+        "valid": 0,
+        "successes": 0,
+        "success_rate_valid": null
+      },
+      "C": {
+        "planned": 2,
+        "dispatched": 0,
+        "valid": 0,
+        "successes": 0,
+        "success_rate_valid": null
+      }
+    },
+    {
+      "group": "autonomous_yaw",
+      "A": {
+        "planned": 2,
+        "dispatched": 0,
+        "valid": 0,
+        "successes": 0,
+        "success_rate_valid": null
+      },
+      "C": {
+        "planned": 2,
+        "dispatched": 0,
+        "valid": 0,
+        "successes": 0,
+        "success_rate_valid": null
+      }
+    }
+  ],
+  "runs": [
+    {
+      "index": 1,
+      "scene": "p02_a_m03_minus",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "failure": null,
+      "failed_constraints": [],
+      "client_wall_latency_s": 31.60848640599943,
+      "input_tokens": 13082,
+      "output_tokens": 585,
+      "reasoning_tokens": 534,
+      "cached_input_tokens": 0,
+      "other_output_tokens": 51,
+      "group": "placement_3mm",
+      "cli_error_events": [],
+      "cli_reconnect_events": []
+    },
+    {
+      "index": 2,
+      "scene": "p02_a_m03_minus",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "failure": null,
+      "failed_constraints": [],
+      "client_wall_latency_s": 22.369312029000866,
+      "input_tokens": 13790,
+      "output_tokens": 88,
+      "reasoning_tokens": 37,
+      "cached_input_tokens": 0,
+      "other_output_tokens": 51,
+      "group": "placement_3mm",
+      "cli_error_events": [],
+      "cli_reconnect_events": []
+    },
+    {
+      "index": 3,
+      "scene": "p02_a_m03_plus",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "failure": null,
+      "failed_constraints": [],
+      "client_wall_latency_s": 19.36607358999936,
+      "input_tokens": 13765,
+      "output_tokens": 95,
+      "reasoning_tokens": 44,
+      "cached_input_tokens": 0,
+      "other_output_tokens": 51,
+      "group": "placement_3mm",
+      "cli_error_events": [],
+      "cli_reconnect_events": []
+    },
+    {
+      "index": 4,
+      "scene": "p02_a_m03_plus",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "failure": null,
+      "failed_constraints": [],
+      "client_wall_latency_s": 53.90742398800103,
+      "input_tokens": 13087,
+      "output_tokens": 715,
+      "reasoning_tokens": 664,
+      "cached_input_tokens": 0,
+      "other_output_tokens": 51,
+      "group": "placement_3mm",
+      "cli_error_events": [],
+      "cli_reconnect_events": []
+    },
+    {
+      "index": 5,
+      "scene": "p02_a_m10_minus",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "failure": null,
+      "failed_constraints": [],
+      "client_wall_latency_s": 21.864433652001026,
+      "input_tokens": 13768,
+      "output_tokens": 92,
+      "reasoning_tokens": 41,
+      "cached_input_tokens": 0,
+      "other_output_tokens": 51,
+      "group": "placement_10mm",
+      "cli_error_events": [],
+      "cli_reconnect_events": []
+    },
+    {
+      "index": 6,
+      "scene": "p02_a_m10_minus",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "failure": null,
+      "failed_constraints": [],
+      "client_wall_latency_s": 34.025802355999986,
+      "input_tokens": 13075,
+      "output_tokens": 413,
+      "reasoning_tokens": 362,
+      "cached_input_tokens": 0,
+      "other_output_tokens": 51,
+      "group": "placement_10mm",
+      "cli_error_events": [],
+      "cli_reconnect_events": []
+    },
+    {
+      "index": 7,
+      "scene": "p02_a_m10_plus",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "failure": null,
+      "failed_constraints": [],
+      "client_wall_latency_s": 58.760433620000185,
+      "input_tokens": 13076,
+      "output_tokens": 826,
+      "reasoning_tokens": 775,
+      "cached_input_tokens": 0,
+      "other_output_tokens": 51,
+      "group": "placement_10mm",
+      "cli_error_events": [],
+      "cli_reconnect_events": []
+    },
+    {
+      "index": 8,
+      "scene": "p02_a_m10_plus",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "failure": null,
+      "failed_constraints": [],
+      "client_wall_latency_s": 21.47017944899926,
+      "input_tokens": 13759,
+      "output_tokens": 81,
+      "reasoning_tokens": 30,
+      "cached_input_tokens": 0,
+      "other_output_tokens": 51,
+      "group": "placement_10mm",
+      "cli_error_events": [],
+      "cli_reconnect_events": []
+    },
+    {
+      "index": 9,
+      "scene": "p02_a_m30_minus",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "VALID",
+      "score": 1.0,
+      "failure": null,
+      "failed_constraints": [],
+      "client_wall_latency_s": 28.107340131000456,
+      "input_tokens": 13103,
+      "output_tokens": 442,
+      "reasoning_tokens": 391,
+      "cached_input_tokens": 0,
+      "other_output_tokens": 51,
+      "group": "placement_30mm",
+      "cli_error_events": [],
+      "cli_reconnect_events": []
+    },
+    {
+      "index": 10,
+      "scene": "p02_a_m30_minus",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "failure": null,
+      "failed_constraints": [],
+      "client_wall_latency_s": 19.17390556600003,
+      "input_tokens": 13761,
+      "output_tokens": 92,
+      "reasoning_tokens": 41,
+      "cached_input_tokens": 6912,
+      "other_output_tokens": 51,
+      "group": "placement_30mm",
+      "cli_error_events": [],
+      "cli_reconnect_events": []
+    },
+    {
+      "index": 11,
+      "scene": "p02_a_m30_plus",
+      "condition": "RGB_ORACLE_3D",
+      "status": "VALID",
+      "score": 1.0,
+      "failure": null,
+      "failed_constraints": [],
+      "client_wall_latency_s": 18.71349030300007,
+      "input_tokens": 13764,
+      "output_tokens": 88,
+      "reasoning_tokens": 37,
+      "cached_input_tokens": 0,
+      "other_output_tokens": 51,
+      "group": "placement_30mm",
+      "cli_error_events": [],
+      "cli_reconnect_events": []
+    },
+    {
+      "index": 12,
+      "scene": "p02_a_m30_plus",
+      "condition": "RGB_MULTI_VIEW",
+      "status": "NOT_SCORED",
+      "score": null,
+      "failure": "COMPLETION_NOT_CONFIRMED",
+      "failed_constraints": [],
+      "client_wall_latency_s": 109.57819774400014,
+      "input_tokens": 13071,
+      "output_tokens": 718,
+      "reasoning_tokens": 667,
+      "cached_input_tokens": 12928,
+      "other_output_tokens": 51,
+      "group": "placement_30mm",
+      "cli_error_events": [
+        "Reconnecting... 2/5 (stream disconnected before completion: websocket closed by server before response.completed)"
+      ],
+      "cli_reconnect_events": [
+        "Reconnecting... 2/5 (stream disconnected before completion: websocket closed by server before response.completed)"
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "scene_id": "p02_a_m03_minus",
+      "A": 1.0,
+      "C": 1.0,
+      "C_minus_A": 0.0,
+      "source": "REAL_ASTRA_ATTEMPT",
+      "descriptive_only": true
+    },
+    {
+      "scene_id": "p02_a_m03_plus",
+      "A": 1.0,
+      "C": 1.0,
+      "C_minus_A": 0.0,
+      "source": "REAL_ASTRA_ATTEMPT",
+      "descriptive_only": true
+    },
+    {
+      "scene_id": "p02_a_m10_minus",
+      "A": 1.0,
+      "C": 1.0,
+      "C_minus_A": 0.0,
+      "source": "REAL_ASTRA_ATTEMPT",
+      "descriptive_only": true
+    },
+    {
+      "scene_id": "p02_a_m10_plus",
+      "A": 1.0,
+      "C": 1.0,
+      "C_minus_A": 0.0,
+      "source": "REAL_ASTRA_ATTEMPT",
+      "descriptive_only": true
+    },
+    {
+      "scene_id": "p02_a_m30_minus",
+      "A": 1.0,
+      "C": 1.0,
+      "C_minus_A": 0.0,
+      "source": "REAL_ASTRA_ATTEMPT",
+      "descriptive_only": true
+    }
+  ],
+  "paired_metrics": [
+    {
+      "scene": "p02_a_m03_minus",
+      "group": "placement_3mm",
+      "A": {
+        "index": 1,
+        "scene": "p02_a_m03_minus",
+        "condition": "RGB_MULTI_VIEW",
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "failed_constraints": [],
+        "client_wall_latency_s": 31.60848640599943,
+        "input_tokens": 13082,
+        "output_tokens": 585,
+        "reasoning_tokens": 534,
+        "cached_input_tokens": 0,
+        "other_output_tokens": 51,
+        "group": "placement_3mm",
+        "cli_error_events": [],
+        "cli_reconnect_events": []
+      },
+      "C": {
+        "index": 2,
+        "scene": "p02_a_m03_minus",
+        "condition": "RGB_ORACLE_3D",
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "failed_constraints": [],
+        "client_wall_latency_s": 22.369312029000866,
+        "input_tokens": 13790,
+        "output_tokens": 88,
+        "reasoning_tokens": 37,
+        "cached_input_tokens": 0,
+        "other_output_tokens": 51,
+        "group": "placement_3mm",
+        "cli_error_events": [],
+        "cli_reconnect_events": []
+      },
+      "C_minus_A": {
+        "score": 0.0,
+        "input_tokens": 708,
+        "output_tokens": -497,
+        "reasoning_tokens": -497,
+        "other_output_tokens": 0,
+        "cached_input_tokens": 0,
+        "client_wall_latency_s": -9.239174376998562
+      }
+    },
+    {
+      "scene": "p02_a_m03_plus",
+      "group": "placement_3mm",
+      "A": {
+        "index": 4,
+        "scene": "p02_a_m03_plus",
+        "condition": "RGB_MULTI_VIEW",
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "failed_constraints": [],
+        "client_wall_latency_s": 53.90742398800103,
+        "input_tokens": 13087,
+        "output_tokens": 715,
+        "reasoning_tokens": 664,
+        "cached_input_tokens": 0,
+        "other_output_tokens": 51,
+        "group": "placement_3mm",
+        "cli_error_events": [],
+        "cli_reconnect_events": []
+      },
+      "C": {
+        "index": 3,
+        "scene": "p02_a_m03_plus",
+        "condition": "RGB_ORACLE_3D",
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "failed_constraints": [],
+        "client_wall_latency_s": 19.36607358999936,
+        "input_tokens": 13765,
+        "output_tokens": 95,
+        "reasoning_tokens": 44,
+        "cached_input_tokens": 0,
+        "other_output_tokens": 51,
+        "group": "placement_3mm",
+        "cli_error_events": [],
+        "cli_reconnect_events": []
+      },
+      "C_minus_A": {
+        "score": 0.0,
+        "input_tokens": 678,
+        "output_tokens": -620,
+        "reasoning_tokens": -620,
+        "other_output_tokens": 0,
+        "cached_input_tokens": 0,
+        "client_wall_latency_s": -34.54135039800167
+      }
+    },
+    {
+      "scene": "p02_a_m10_minus",
+      "group": "placement_10mm",
+      "A": {
+        "index": 6,
+        "scene": "p02_a_m10_minus",
+        "condition": "RGB_MULTI_VIEW",
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "failed_constraints": [],
+        "client_wall_latency_s": 34.025802355999986,
+        "input_tokens": 13075,
+        "output_tokens": 413,
+        "reasoning_tokens": 362,
+        "cached_input_tokens": 0,
+        "other_output_tokens": 51,
+        "group": "placement_10mm",
+        "cli_error_events": [],
+        "cli_reconnect_events": []
+      },
+      "C": {
+        "index": 5,
+        "scene": "p02_a_m10_minus",
+        "condition": "RGB_ORACLE_3D",
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "failed_constraints": [],
+        "client_wall_latency_s": 21.864433652001026,
+        "input_tokens": 13768,
+        "output_tokens": 92,
+        "reasoning_tokens": 41,
+        "cached_input_tokens": 0,
+        "other_output_tokens": 51,
+        "group": "placement_10mm",
+        "cli_error_events": [],
+        "cli_reconnect_events": []
+      },
+      "C_minus_A": {
+        "score": 0.0,
+        "input_tokens": 693,
+        "output_tokens": -321,
+        "reasoning_tokens": -321,
+        "other_output_tokens": 0,
+        "cached_input_tokens": 0,
+        "client_wall_latency_s": -12.16136870399896
+      }
+    },
+    {
+      "scene": "p02_a_m10_plus",
+      "group": "placement_10mm",
+      "A": {
+        "index": 7,
+        "scene": "p02_a_m10_plus",
+        "condition": "RGB_MULTI_VIEW",
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "failed_constraints": [],
+        "client_wall_latency_s": 58.760433620000185,
+        "input_tokens": 13076,
+        "output_tokens": 826,
+        "reasoning_tokens": 775,
+        "cached_input_tokens": 0,
+        "other_output_tokens": 51,
+        "group": "placement_10mm",
+        "cli_error_events": [],
+        "cli_reconnect_events": []
+      },
+      "C": {
+        "index": 8,
+        "scene": "p02_a_m10_plus",
+        "condition": "RGB_ORACLE_3D",
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "failed_constraints": [],
+        "client_wall_latency_s": 21.47017944899926,
+        "input_tokens": 13759,
+        "output_tokens": 81,
+        "reasoning_tokens": 30,
+        "cached_input_tokens": 0,
+        "other_output_tokens": 51,
+        "group": "placement_10mm",
+        "cli_error_events": [],
+        "cli_reconnect_events": []
+      },
+      "C_minus_A": {
+        "score": 0.0,
+        "input_tokens": 683,
+        "output_tokens": -745,
+        "reasoning_tokens": -745,
+        "other_output_tokens": 0,
+        "cached_input_tokens": 0,
+        "client_wall_latency_s": -37.290254171000925
+      }
+    },
+    {
+      "scene": "p02_a_m30_minus",
+      "group": "placement_30mm",
+      "A": {
+        "index": 9,
+        "scene": "p02_a_m30_minus",
+        "condition": "RGB_MULTI_VIEW",
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "failed_constraints": [],
+        "client_wall_latency_s": 28.107340131000456,
+        "input_tokens": 13103,
+        "output_tokens": 442,
+        "reasoning_tokens": 391,
+        "cached_input_tokens": 0,
+        "other_output_tokens": 51,
+        "group": "placement_30mm",
+        "cli_error_events": [],
+        "cli_reconnect_events": []
+      },
+      "C": {
+        "index": 10,
+        "scene": "p02_a_m30_minus",
+        "condition": "RGB_ORACLE_3D",
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "failed_constraints": [],
+        "client_wall_latency_s": 19.17390556600003,
+        "input_tokens": 13761,
+        "output_tokens": 92,
+        "reasoning_tokens": 41,
+        "cached_input_tokens": 6912,
+        "other_output_tokens": 51,
+        "group": "placement_30mm",
+        "cli_error_events": [],
+        "cli_reconnect_events": []
+      },
+      "C_minus_A": {
+        "score": 0.0,
+        "input_tokens": 658,
+        "output_tokens": -350,
+        "reasoning_tokens": -350,
+        "other_output_tokens": 0,
+        "cached_input_tokens": 6912,
+        "client_wall_latency_s": -8.933434565000425
+      }
+    }
+  ],
+  "resources": {
+    "RGB_MULTI_VIEW": {
+      "samples": 6,
+      "mean_client_wall_s": 52.664614040833534,
+      "median_client_wall_s": 43.96661317200051,
+      "input_tokens": {
+        "reported_samples": 6,
+        "total": 78494
+      },
+      "output_tokens": {
+        "reported_samples": 6,
+        "total": 3699
+      },
+      "reasoning_tokens": {
+        "reported_samples": 6,
+        "total": 3393
+      },
+      "other_output_tokens": {
+        "reported_samples": 6,
+        "total": 306
+      },
+      "cached_input_tokens": {
+        "reported_samples": 6,
+        "total": 12928
+      }
+    },
+    "RGB_ORACLE_3D": {
+      "samples": 6,
+      "mean_client_wall_s": 20.49289909816677,
+      "median_client_wall_s": 20.41812651949931,
+      "input_tokens": {
+        "reported_samples": 6,
+        "total": 82607
+      },
+      "output_tokens": {
+        "reported_samples": 6,
+        "total": 536
+      },
+      "reasoning_tokens": {
+        "reported_samples": 6,
+        "total": 230
+      },
+      "other_output_tokens": {
+        "reported_samples": 6,
+        "total": 306
+      },
+      "cached_input_tokens": {
+        "reported_samples": 6,
+        "total": 6912
+      }
+    }
+  },
+  "notes": [
+    "No missing/invalid output is counted as a geometry zero.",
+    "Descriptive pilot results only; no significance or generalization claims.",
+    "Null reasoning/cache tokens mean not reported, not zero. Tokens are usage, not exact internal compute.",
+    "Client wall time includes transport and any cancellation; not pure model compute time.",
+    "All raw predictions and frozen scoring thresholds unchanged.",
+    "A top-level CLI error is disqualifying even if JSON and turn.completed later appear. Native CLI reconnection is distinct from dispatcher retry (zero); upstream generation attempts cannot be inferred from its reconnect counter."
+  ]
+}

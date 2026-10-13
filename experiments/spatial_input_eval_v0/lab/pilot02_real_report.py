@@ -19,7 +19,8 @@ def usage_parts(usage):
     reasoning=details.get('reasoning_tokens',usage.get('reasoning_output_tokens'))
     cached=(usage.get('input_tokens_details') or {}).get('cached_tokens',usage.get('cached_input_tokens'))
     return {'input_tokens':usage.get('input_tokens'),'output_tokens':usage.get('output_tokens'),
-            'reasoning_tokens':reasoning,'cached_input_tokens':cached}
+            'reasoning_tokens':reasoning,'cached_input_tokens':cached,
+            'other_output_tokens':usage['output_tokens']-reasoning if isinstance(reasoning,int) and isinstance(usage.get('output_tokens'),int) else None}
 
 def summarize(root):
     root=Path(root);state=read(root/'ledger.json')
@@ -33,7 +34,11 @@ def summarize(root):
         row={'index':run['index'],'scene':run['job']['scene_id_private_catalog_only'],'condition':run['job']['condition'],
              'status':result['status'],'score':result['score'],'failure':result.get('failure'),
              'failed_constraints':result.get('evaluation',{}).get('error_types',[]),'client_wall_latency_s':result.get('latency_s'),**usage}
-        row['group']=group(row['scene']);rows.append(row)
+        row['group']=group(row['scene'])
+        events=[json.loads(line) for line in (folder/'events.jsonl').read_text().splitlines() if line.strip()]
+        row['cli_error_events']=[event.get('message') for event in events if event.get('type')=='error']
+        row['cli_reconnect_events']=[message for message in row['cli_error_events'] if isinstance(message,str) and 'reconnecting' in message.lower()]
+        rows.append(row)
     grouped=[]
     for name in ['placement_3mm','placement_10mm','placement_30mm','restricted_detour','autonomous_yaw']:
         record={'group':name}
@@ -43,12 +48,28 @@ def summarize(root):
                            'success_rate_valid':sum(r['score']==1 for r in valid)/len(valid) if valid else None}
         grouped.append(record)
     pairs=read(root/'paired_results.json')
+    paired_metrics=[]
+    for scene in dict.fromkeys(row['scene'] for row in rows):
+        by={row['condition']:row for row in rows if row['scene']==scene and row['status']=='VALID'}
+        if set(by)=={'RGB_MULTI_VIEW','RGB_ORACLE_3D'}:
+            a=by['RGB_MULTI_VIEW'];c=by['RGB_ORACLE_3D']
+            keys=['score','input_tokens','output_tokens','reasoning_tokens','other_output_tokens','cached_input_tokens','client_wall_latency_s']
+            paired_metrics.append({'scene':scene,'group':a['group'],'A':a,'C':c,'C_minus_A':{k:c[k]-a[k] if c[k] is not None and a[k] is not None else None for k in keys}})
+    resources={}
+    for condition in ('RGB_MULTI_VIEW','RGB_ORACLE_3D'):
+        selected=[row for row in rows if row['condition']==condition]
+        lat=[row['client_wall_latency_s'] for row in selected if row['client_wall_latency_s'] is not None]
+        resources[condition]={'samples':len(selected),'mean_client_wall_s':statistics.mean(lat) if lat else None,'median_client_wall_s':statistics.median(lat) if lat else None}
+        for key in ('input_tokens','output_tokens','reasoning_tokens','other_output_tokens','cached_input_tokens'):
+            values=[row[key] for row in selected if row[key] is not None]
+            resources[condition][key]={'reported_samples':len(values),'total':sum(values) if values else None}
+    reconnects=[{'index':row['index'],'messages':row['cli_reconnect_events']} for row in rows if row['cli_reconnect_events']]
     out={'status':state['status'],'batch_id':state['batch_id'],'authorized_max':20,'budget_reserved':state['reserved_budget'],
-         'remaining_authorized':20-state['reserved_budget'],'real_dispatches':len(rows),'valid_samples':sum(r['status']=='VALID' for r in rows),
-         'not_scored_samples':sum(r['status']!='VALID' for r in rows),'completed_pairs':len(pairs),'groups':grouped,'runs':rows,'pairs':pairs,
+         'remaining_authorized':20-state['reserved_budget'],'remaining_note':'Unused dispatcher capacity only; stopped batch must not automatically consume it.','real_dispatches':len(rows),'native_cli_reconnect_events':reconnects,'upstream_generation_attempts':'UNKNOWN; native CLI reconnected' if reconnects else 'Not independently measured','valid_samples':sum(r['status']=='VALID' for r in rows),
+         'not_scored_samples':sum(r['status']!='VALID' for r in rows),'completed_pairs':len(pairs),'groups':grouped,'runs':rows,'pairs':pairs,'paired_metrics':paired_metrics,'resources':resources,
          'notes':['No missing/invalid output is counted as a geometry zero.','Descriptive pilot results only; no significance or generalization claims.',
                   'Null reasoning/cache tokens mean not reported, not zero. Tokens are usage, not exact internal compute.',
-                  'Client wall time includes transport and any cancellation; not pure model compute time.','All raw predictions and frozen scoring thresholds unchanged.']}
+                  'Client wall time includes transport and any cancellation; not pure model compute time.','All raw predictions and frozen scoring thresholds unchanged.','A top-level CLI error is disqualifying even if JSON and turn.completed later appear. Native CLI reconnection is distinct from dispatcher retry (zero); upstream generation attempts cannot be inferred from its reconnect counter.']}
     write(root/'research_summary.json',out)
     lines=['# Pilot 02 real batch results','',f'Batch `{state["batch_id"]}`; status **{state["status"]}**; reserved {state["reserved_budget"]}/20. Valid {out["valid_samples"]}; NOT_SCORED {out["not_scored_samples"]}; complete A/C pairs {len(pairs)}.','',
            '| Group | A successes / valid | C successes / valid |','|---|---:|---:|']
@@ -64,4 +85,4 @@ def summarize(root):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);a=p.parse_args()
-    result=summarize(a.output);print(json.dumps({k:v for k,v in result.items() if k not in ('runs','pairs','notes')},indent=2))
+    result=summarize(a.output);print(json.dumps({k:v for k,v in result.items() if k not in ('runs','pairs','paired_metrics','notes')},indent=2))
