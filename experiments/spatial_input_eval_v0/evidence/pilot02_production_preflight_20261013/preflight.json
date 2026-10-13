@@ -1,0 +1,40 @@
+{
+  "status": "BLOCKED_BEFORE_DISPATCH",
+  "checked_at": "2026-10-13T16:34:09.248889+08:00",
+  "baseline_commit": "e6f0e31bcb2fe4d4f728036bb156cb6c9860414a",
+  "authorized_max_new_requests": 20,
+  "real_dispatches": 0,
+  "remaining_authorized_requests": 20,
+  "selected_execution_host": "yanglab",
+  "checks": {
+    "yanglab_ssh": "FAIL: connect to 100.78.222.78 port 22 timed out after ConnectTimeout=10",
+    "tailscale_backend": "Running",
+    "yanglab_peer_entry_for_100_78_222_78": "NOT_LISTED; not proof of permanent unavailability",
+    "mac_chatgpt_login": "PASS: Logged in using ChatGPT",
+    "mac_single_bridge_port_18767": "NO_LISTENER_FOUND",
+    "mac_original_bridge_source_sha256": "922c63556a838a1a9280d76b280e22babba5d517e10073c18c05a033dfce7bae",
+    "original_source_matches_baseline": true,
+    "existing_worker_processes": [
+      78213,
+      78214,
+      78215,
+      78216
+    ],
+    "existing_worker_source_timeout_s": 180,
+    "existing_workers_used": false,
+    "required_server_timeout_s": 190,
+    "server_timeout_configured": false,
+    "local_frozen_files_verified": 607,
+    "local_frozen_jobs_verified": 20,
+    "yanglab_code_hash_tests": "NOT_RUN: SSH unavailable"
+  },
+  "decide_health_requests": 0,
+  "generation_requests": 0,
+  "production_token_read": false,
+  "production_bridge_source_modified": false,
+  "pilot01_ledgers_read_or_modified": false,
+  "real_ledger_created": false,
+  "batch_bound_grant_created": false,
+  "group_success_rates": null,
+  "next_action": "Restore yanglab connectivity, sync baseline, verify hashes/tests there, start unchanged original single bridge with --timeout-s 190, verify authentication/listening/reverse tunnel using non-generating checks, then prepare a new real ledger and bind this existing user authorization. No additional generation authorization needed within the original 20-request cumulative limit."
+}
