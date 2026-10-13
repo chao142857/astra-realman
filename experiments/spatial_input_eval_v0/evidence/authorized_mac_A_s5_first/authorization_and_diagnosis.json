@@ -1,0 +1,33 @@
+{
+  "human_authorization": "已恢复，授权一次",
+  "scope": {
+    "scene": "lab_s5_placement",
+    "task_id": "plan",
+    "condition": "RGB_MULTI_VIEW",
+    "max_dispatches": 1,
+    "deadline_s": 90
+  },
+  "base_commit": "5f7e4fa5313f0b1c7eb3e8763fd1b9b150cff5af",
+  "checked_at_utc": "2026-10-13T01:29:15.155932+00:00",
+  "pre_dispatch_checks": {
+    "mac_18767_listening": true,
+    "lab_18766_listening": true,
+    "prior_output_absent": true,
+    "prior_eval_process_absent": true
+  },
+  "dispatch_attempts": 1,
+  "retries": 0,
+  "cancel_attempts": 0,
+  "http_status": 200,
+  "failure_stage": "MAC_BRIDGE_SCHEMA_COMPILER_BEFORE_CODEX_WORKER_START",
+  "evidence": "production infer validates payload via compile_schema before creating the worker or calling Popen; same interpreter reproduces missing dependency offline",
+  "service_generation_count": "No worker start observed; failure localized before generation. CLI model_calls is dispatch accounting, not service usage.",
+  "original_bridge_sha256": "922c63556a838a1a9280d76b280e22babba5d517e10073c18c05a033dfce7bae",
+  "active_original_bridge_pid": 71211,
+  "active_bridge_interpreter": "Xcode Python 3.9.6",
+  "production_bridge_restarted": false,
+  "no_C_call": true,
+  "no_hardware_connection": true,
+  "score_status": "NOT_SCORED",
+  "score": null
+}
