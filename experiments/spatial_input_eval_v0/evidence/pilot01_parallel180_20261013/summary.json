@@ -2,50 +2,112 @@
   "status": "READY",
   "authorized_new_budget": 20,
   "prior_budget_consumed": 4,
-  "reserved_new_budget": 0,
-  "remaining_new_budget": 20,
-  "valid_new_samples": 0,
+  "reserved_new_budget": 4,
+  "remaining_new_budget": 16,
+  "valid_new_samples": 4,
   "invalid_or_infrastructure_samples": 0,
   "counts_by_nonvalid_status": {},
-  "primary_valid_samples": 4,
-  "completed_pairs": 2,
+  "primary_valid_samples": 8,
+  "completed_pairs": 4,
   "repeat_valid_samples": 0,
   "groups": {
     "understand/RGB_MULTI_VIEW": {
-      "n": 0,
-      "all_constraints_passed": 0,
-      "mean_task_score": null,
-      "mean_latency_s": null,
-      "total_latency_s": 0,
+      "n": 2,
+      "all_constraints_passed": 1,
+      "mean_task_score": 0.8333333333333333,
+      "mean_latency_s": 117.22650894250546,
+      "total_latency_s": 234.45301788501092,
       "token_totals": {
-        "input_tokens": 0,
-        "output_tokens": 0,
-        "reasoning_output_tokens": 0,
+        "input_tokens": 23873,
+        "output_tokens": 4792,
+        "reasoning_output_tokens": 4275,
         "cached_input_tokens": 0
       },
-      "correct_questions": 0,
-      "questions": 0,
-      "numeric_question_count": 0,
-      "mean_numeric_error_m": null,
-      "by_question_type": {}
+      "correct_questions": 15,
+      "questions": 18,
+      "numeric_question_count": 8,
+      "mean_numeric_error_m": 0.003383883658932934,
+      "by_question_type": {
+        "fit": {
+          "n": 4,
+          "correct": 4,
+          "mean_error_m": null
+        },
+        "gap": {
+          "n": 2,
+          "correct": 2,
+          "mean_error_m": 0.0024999959021806753
+        },
+        "height": {
+          "n": 2,
+          "correct": 1,
+          "mean_error_m": 0.0025000015646219273
+        },
+        "position": {
+          "n": 2,
+          "correct": 1,
+          "mean_error_m": 0.0035355366493503115
+        },
+        "relation": {
+          "n": 6,
+          "correct": 6,
+          "mean_error_m": null
+        },
+        "size": {
+          "n": 2,
+          "correct": 1,
+          "mean_error_m": 0.005000000519578824
+        }
+      }
     },
     "understand/RGB_ORACLE_3D": {
-      "n": 0,
-      "all_constraints_passed": 0,
-      "mean_task_score": null,
-      "mean_latency_s": null,
-      "total_latency_s": 0,
+      "n": 2,
+      "all_constraints_passed": 2,
+      "mean_task_score": 1.0,
+      "mean_latency_s": 26.76728978099709,
+      "total_latency_s": 53.53457956199418,
       "token_totals": {
-        "input_tokens": 0,
-        "output_tokens": 0,
+        "input_tokens": 25227,
+        "output_tokens": 513,
         "reasoning_output_tokens": 0,
-        "cached_input_tokens": 0
+        "cached_input_tokens": 7040
       },
-      "correct_questions": 0,
-      "questions": 0,
-      "numeric_question_count": 0,
-      "mean_numeric_error_m": null,
-      "by_question_type": {}
+      "correct_questions": 18,
+      "questions": 18,
+      "numeric_question_count": 8,
+      "mean_numeric_error_m": 4.149762395980239e-09,
+      "by_question_type": {
+        "fit": {
+          "n": 4,
+          "correct": 4,
+          "mean_error_m": null
+        },
+        "gap": {
+          "n": 2,
+          "correct": 2,
+          "mean_error_m": 5.88595867184738e-09
+        },
+        "height": {
+          "n": 2,
+          "correct": 2,
+          "mean_error_m": 1.5646219250764482e-09
+        },
+        "position": {
+          "n": 2,
+          "correct": 2,
+          "mean_error_m": 5.989093873825522e-09
+        },
+        "relation": {
+          "n": 6,
+          "correct": 6,
+          "mean_error_m": null
+        },
+        "size": {
+          "n": 2,
+          "correct": 2,
+          "mean_error_m": 3.1593751131716043e-09
+        }
+      }
     },
     "plan/RGB_MULTI_VIEW": {
       "n": 2,
@@ -75,6 +137,26 @@
     }
   },
   "paired_deltas": [
+    {
+      "scene_id": "lab_s2_occlusion",
+      "task_id": "understand",
+      "delta_C_minus_A": {
+        "score": 0.0,
+        "latency_s": -82.71055752500251,
+        "input_tokens": 387,
+        "output_tokens": -1861
+      }
+    },
+    {
+      "scene_id": "lab_s3_narrow_container",
+      "task_id": "understand",
+      "delta_C_minus_A": {
+        "score": 0.33333333333333337,
+        "latency_s": -98.20788079801423,
+        "input_tokens": 967,
+        "output_tokens": -2418
+      }
+    },
     {
       "scene_id": "lab_s5_placement",
       "task_id": "plan",

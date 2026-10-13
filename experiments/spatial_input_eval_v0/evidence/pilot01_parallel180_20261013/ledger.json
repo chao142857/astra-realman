@@ -291,6 +291,203 @@
       "concurrency": 4
     }
   ],
-  "reservations": [],
+  "reservations": [
+    {
+      "index": 5,
+      "scene_id": "lab_s2_occlusion",
+      "task_id": "understand",
+      "condition": "RGB_MULTI_VIEW",
+      "role": "primary",
+      "stage": 2,
+      "directory": "runs/05_lab_s2_occlusion_understand_A_180s",
+      "phase_index": 1,
+      "wave": 1,
+      "worker": 1,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:40:10.071923+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a13321-e089-71b1-94ef-f827f1dc3f61",
+        "request_id": "9c104fec795b43cea4ee48d7c859da0b",
+        "native_log": "/private/tmp/codex-astra-bridge/815e0a5734704ff6ba2ae9fb254a2d36",
+        "native_latency_s": 108.77573899994604,
+        "score": 1.0,
+        "failed_constraints": [],
+        "token_usage": {
+          "input_tokens": 11911,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2118,
+          "reasoning_output_tokens": 1859
+        },
+        "wall_latency_s": 108.94181184300396,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 11911,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2118,
+            "reasoning_output_tokens": 1859
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS",
+        "deadline_s": 180,
+        "worker": 1
+      },
+      "finished_at": "2026-10-13T02:41:59.199669+00:00"
+    },
+    {
+      "index": 6,
+      "scene_id": "lab_s2_occlusion",
+      "task_id": "understand",
+      "condition": "RGB_ORACLE_3D",
+      "role": "primary",
+      "stage": 2,
+      "directory": "runs/06_lab_s2_occlusion_understand_C_180s",
+      "phase_index": 2,
+      "wave": 1,
+      "worker": 2,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:40:10.071980+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a13321-e08a-7f70-a129-fdccdd1f38b2",
+        "request_id": "c79b2f8b74ad4ffbbd6eaa00cd312d85",
+        "native_log": "/private/tmp/codex-astra-bridge/13ca46393d714d29b4eff443f8ad344b",
+        "native_latency_s": 25.95150254201144,
+        "score": 1.0,
+        "failed_constraints": [],
+        "token_usage": {
+          "input_tokens": 12298,
+          "cached_input_tokens": 7040,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 257,
+          "reasoning_output_tokens": 0
+        },
+        "wall_latency_s": 26.231254318001447,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 12298,
+            "cached_input_tokens": 7040,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 257,
+            "reasoning_output_tokens": 0
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS",
+        "deadline_s": 180,
+        "worker": 2
+      },
+      "finished_at": "2026-10-13T02:40:36.444586+00:00"
+    },
+    {
+      "index": 7,
+      "scene_id": "lab_s3_narrow_container",
+      "task_id": "understand",
+      "condition": "RGB_MULTI_VIEW",
+      "role": "primary",
+      "stage": 2,
+      "directory": "runs/07_lab_s3_narrow_container_understand_A_180s",
+      "phase_index": 3,
+      "wave": 1,
+      "worker": 3,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:40:10.072014+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a13321-e08a-78b3-bde6-370b1f38729a",
+        "request_id": "6cb1cd28ece44f65ad470d02822eb3a0",
+        "native_log": "/private/tmp/codex-astra-bridge/3d25990f25e449908db62f5e1fac9add",
+        "native_latency_s": 125.3318032908719,
+        "score": 0.6666666666666666,
+        "failed_constraints": [
+          "UNDERSTANDING:position",
+          "UNDERSTANDING:top_height",
+          "UNDERSTANDING:size"
+        ],
+        "token_usage": {
+          "input_tokens": 11962,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2674,
+          "reasoning_output_tokens": 2416
+        },
+        "wall_latency_s": 125.51120604200696,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 11962,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2674,
+            "reasoning_output_tokens": 2416
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS",
+        "deadline_s": 180,
+        "worker": 3
+      },
+      "finished_at": "2026-10-13T02:42:15.773591+00:00"
+    },
+    {
+      "index": 8,
+      "scene_id": "lab_s3_narrow_container",
+      "task_id": "understand",
+      "condition": "RGB_ORACLE_3D",
+      "role": "primary",
+      "stage": 2,
+      "directory": "runs/08_lab_s3_narrow_container_understand_C_180s",
+      "phase_index": 4,
+      "wave": 1,
+      "worker": 4,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:40:10.072036+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a13321-e089-7371-85bd-64f89258d7f3",
+        "request_id": "36abce78232c480b8377e844cd55f1ac",
+        "native_log": "/private/tmp/codex-astra-bridge/1e625beb4f534bafb35294af4ef4bbf0",
+        "native_latency_s": 27.062906292034313,
+        "score": 1.0,
+        "failed_constraints": [],
+        "token_usage": {
+          "input_tokens": 12929,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 256,
+          "reasoning_output_tokens": 0
+        },
+        "wall_latency_s": 27.30332524399273,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 12929,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 256,
+            "reasoning_output_tokens": 0
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS",
+        "deadline_s": 180,
+        "worker": 4
+      },
+      "finished_at": "2026-10-13T02:40:37.570142+00:00"
+    }
+  ],
   "final_S5_A_repeat": "OMITTED_IF_PRIMARY_MATRIX_USES_REMAINING_20; no extra authorization inferred"
 }
