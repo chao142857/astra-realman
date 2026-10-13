@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "workers": 4,
+  "tests_run": 68,
+  "test_failures": 0,
+  "elapsed_s": 9.814,
+  "new_real_generation_requests": 0,
+  "worker_peak_concurrency_offline": 4,
+  "checks": [
+    "FOUR_ISOLATED_ORIGINAL_HANDLERS",
+    "FROZEN_RGB_SCHEMA_AND_PAYLOAD",
+    "ORIGINAL_INFER_NOT_CALLED_IN_TESTS",
+    "Popen_FORBIDDEN_IN_OFFLINE_PROTOCOL",
+    "180_SECONDS_OPT_IN_DEFAULT_STAYS_90",
+    "RESERVATION_BEFORE_ANY_DISPATCH",
+    "CUMULATIVE_24_CAP_PRIOR_4_DEDUCTED",
+    "PEER_CANCELLATION_AND_STOP_LATER_WAVES",
+    "NO_AUTOMATIC_RETRY",
+    "CRASH_IN_FLIGHT_BLOCK",
+    "VALID_GEOMETRY_ZERO_CONTINUES",
+    "FOUR_MAC_AND_LAB_GET_501_PROBES"
+  ],
+  "recorded_at_utc": "2026-10-13T02:39:14.935643+00:00",
+  "authorization_amendment": "用户选择：先搭建并离线验收四个隔离 bridge worker，再四并发测试；客户端和 worker 截止时间为 180 秒。原 24 次累计预算不增加。"
+}

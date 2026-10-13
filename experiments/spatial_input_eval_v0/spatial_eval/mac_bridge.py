@@ -86,7 +86,9 @@ def usage_from_events(events):
 
 
 class MacBridgeAdapter:
-    def __init__(self,config,*,offline_test=False):
+    def __init__(self,config,*,offline_test=False,timeout_limit_s=90):
+        if timeout_limit_s not in (90,180):raise ValueError('BRIDGE_AUTHORIZED_TIMEOUT_LIMIT_REQUIRED')
+        self.timeout_limit_s=timeout_limit_s
         self.config=config;self.offline_test=offline_test
         if offline_test and urlsplit(config.endpoint).port in (18766,18767):
             raise ValueError('OFFLINE_TEST_FORBIDS_PRODUCTION_BRIDGE_PORTS')
@@ -126,7 +128,8 @@ class MacBridgeAdapter:
     def infer(self,context,images,folder,*,real=False,timeout_s=90):
         if not real and not self.offline_test:raise ValueError('MAC_BRIDGE_EXPLICIT_REAL_MODE_REQUIRED')
         if real and self.offline_test:raise ValueError('OFFLINE_BRIDGE_CANNOT_CLAIM_REAL_MODEL')
-        if not 0<timeout_s<=90:raise ValueError('BRIDGE_TIMEOUT_MUST_BE_BOUNDED_AT_90_SECONDS')
+        if not 0<timeout_s<=self.timeout_limit_s:
+            raise ValueError('BRIDGE_TIMEOUT_MUST_BE_BOUNDED_AT_'+str(self.timeout_limit_s)+'_SECONDS')
         validate_context(context,images)
         folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
         # Generic production payload validation only; never load decision_backends.

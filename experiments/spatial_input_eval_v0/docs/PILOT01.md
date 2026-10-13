@@ -56,3 +56,46 @@ S5/S6 are the main planning tasks. S4 uses a prescribed orientation and does not
 autonomous orientation choice. Equal binary S5 A/C scores do not establish geometry has no
 value. The scenes and related tasks provide exploratory descriptive statistics only;
 no significance or population-generalization claim is warranted.
+
+## User amendment after the fourth request
+
+The original 90-second phase stopped after S2 understand A timed out. It used four
+dispatches: three valid completions and one timeout. Its ledger remains STOPPED.
+The user then explicitly chose **four isolated bridge workers, offline acceptance,
+and 180-second deadlines**. The cumulative limit remains 24; the amended phase has
+at most 20 dispatches. Completing the primary matrix uses all 20, so the extra S5 A
+repeat is omitted unless further authorization is provided. No extra budget is inferred.
+
+`lab/isolated_mac_worker.py` imports the unchanged, SHA-pinned original Handler and
+infer implementation in four independent processes. Mac ports 18771–18774 forward
+to the same loopback ports on yanglab. The original service on 18767/18766 is untouched.
+The bearer token is acquired by the original SSH command into memory, and generation
+uses the existing Mac ChatGPT authentication; no auth file is copied. Each request
+retains the original CLI command and its independent UUID input/runtime directories.
+Only the server timeout option changes to 180. The evaluation adapter's 180-second
+limit is opt-in; all existing callers default to 90.
+
+`lab/parallel180.py` has an independent immutable-output phase directory and subtracts
+the four prior reservations before scheduling. Each invocation launches one wave of
+up to four, with all reservations persisted before dispatch. Any failure sets an abort
+flag, sends non-generating cancellation to in-flight peers and stops later waves.
+Already dispatched peers still consume budget. Cancellation acknowledgment does not
+prove remote model completion. Neither timeout nor invalid output is a geometric zero.
+
+```bash
+# On yanglab, using the PYTHONPATH/PY environment above:
+$PY experiments/spatial_input_eval_v0/lab/parallel180.py init  # one time only
+$PY experiments/spatial_input_eval_v0/lab/parallel180.py wave  # at most four new calls
+$PY experiments/spatial_input_eval_v0/lab/parallel180.py report  # offline only
+# On Mac, after copying the phase evidence:
+python3 experiments/spatial_input_eval_v0/lab/archive_pilot_native.py --phase pilot01_parallel180_20261013
+python3 experiments/spatial_input_eval_v0/lab/pilot01_report.py --phase pilot01_parallel180_20261013
+```
+
+The four-worker offline protocol reached measured concurrency four with generation
+disabled, preserved the frozen schemas/images, and all 68 tests passed. Non-generating
+GET checks returned 501 on all eight local/forwarded endpoints, as expected from the
+original Handler. Commands/PIDs and source hashes are recorded in service_launch.json
+and worker-N.json. Deadline/concurrency phase labels accompany the combined primary
+matrix; latency differences across the 90-second serial and 180-second concurrent
+phases must not be attributed solely to geometry.

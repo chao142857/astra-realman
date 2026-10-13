@@ -196,15 +196,16 @@ def inspect_result(run, job, seal):
                 payload_and_command='PASS', offline_rescore='PASS')
 
 
-def summarize(root, ledger):
-    primary = [dict(read(HISTORY/'results.json')[0], origin='historical',
-                    artifact=os.path.relpath(HISTORY/'sample-0000', root), new_budget_cost=0)]
+def summarize(root, ledger, *, baseline_rows=None, budget=BUDGET):
+    primary = copy.deepcopy(baseline_rows) if baseline_rows is not None else [dict(read(HISTORY/'results.json')[0], origin='historical',
+                    artifact=os.path.relpath(HISTORY/'sample-0000', root), new_budget_cost=0, deadline_s=90, concurrency=1)]
     repeats = []; invalid = []
     for record in ledger['reservations']:
         if record['status'] != 'VALID':
             invalid.append(record); continue
         row = read(root/record['directory']/'results.json')[0]
-        row.update(origin='pilot01_new', new_budget_cost=1,
+        row.update(origin=ledger.get('phase','pilot01_new'), new_budget_cost=1,
+                   deadline_s=ledger.get('deadline_s',90), concurrency=ledger.get('concurrency',1),
                    artifact=record['directory']+'/sample-0000', audit=record['audit'])
         (repeats if record['role'] == 'independent_repeat' else primary).append(row)
     pairs = []
@@ -218,8 +219,9 @@ def summarize(root, ledger):
                         delta_C_minus_A=dict(score=c['score']-a['score'], latency_s=c['latency_s']-a['latency_s'],
                           **{k:c['token_usage'][k]-a['token_usage'][k] for k in ('input_tokens', 'output_tokens')}))
             pairs.append(pair); save(root/'pairs'/f'{scene}_{task}.json', pair)
-    summary = dict(status=ledger['status'], authorized_new_budget=BUDGET,
-                   reserved_new_budget=len(ledger['reservations']), remaining_new_budget=BUDGET-len(ledger['reservations']),
+    summary = dict(status=ledger['status'], authorized_new_budget=budget,
+                   prior_budget_consumed=ledger.get('prior_budget_consumed',0),
+                   reserved_new_budget=len(ledger['reservations']), remaining_new_budget=budget-len(ledger['reservations']),
                    valid_new_samples=sum(r['status']=='VALID' for r in ledger['reservations']),
                    invalid_or_infrastructure_samples=len(invalid),
                    counts_by_nonvalid_status={s:sum(r['status']==s for r in invalid) for s in sorted({r['status'] for r in invalid})},

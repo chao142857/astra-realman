@@ -60,8 +60,10 @@ def main():
             mean_latency_delta_s_C_minus_A=mean([r['latency_s'] for r in rows]),
             mean_input_token_delta_C_minus_A=mean([r['input_tokens'] for r in rows]),
             mean_output_token_delta_C_minus_A=mean([r['output_tokens'] for r in rows]))
-    metrics=dict(batch_status=state['status'], new_budget_reserved=len(state['reservations']),
-        known_http_dispatches=sum(r['dispatched'] or 0 for r in attempted),new_budget_remaining=24-len(state['reservations']),
+    prior=state.get('prior_budget_consumed',0)
+    metrics=dict(batch_status=state['status'], new_budget_reserved=len(state['reservations']),prior_budget_consumed=prior,
+        cumulative_budget_reserved=prior+len(state['reservations']),
+        known_http_dispatches=sum(r['dispatched'] or 0 for r in attempted),new_budget_remaining=24-prior-len(state['reservations']),
         new_sample_classifications=dict(counts),primary_valid=len(primary),completed_pairs=len(paired),
         totals=totals,paired_descriptive_statistics=pair_summary,attempts=attempted,paired_details=paired)
     save(ROOT/'research_metrics.json',metrics)
@@ -71,7 +73,7 @@ def main():
         for row in questions:
             w.writerow({k:json.dumps(row[k],ensure_ascii=False) if k in ('expected','actual') else row[k] for k in fields})
     lines=['# Pilot 01 实际 A/C 评测','',
-        f'批次状态：**{state["status"]}**。新增预算已保留 {len(state["reservations"])}/24；确认 HTTP 派发 {metrics["known_http_dispatches"]} 次。',
+        f'批次状态：**{state["status"]}**。累计预算已保留 {prior+len(state["reservations"])}/24（前阶段 {prior} 次）；本阶段确认 HTTP 派发 {metrics["known_http_dispatches"]} 次。',
         f'新增结果分类：{json.dumps(dict(counts),ensure_ascii=False)}。主实验有效样本 {len(primary)}/24，完整配对 {len(paired)}/12；独立 S5 A 复测 {len(repeats)}/1。',
         '历史 S5 A（0091de8）原始文件未修改，不计新增预算。复测独立报告，不替换主配对。','',
         '| 类别 | 输入 | 有效任务 | 全部约束通过 | 平均任务分 | 数值题平均误差 m | 平均耗时 s |',
@@ -97,11 +99,19 @@ def main():
     for r in repeats: lines.append(f'- score={r["score"]}；耗时 {r["latency_s"]:.3f}s；原始预测 `{json.dumps(r["prediction"],ensure_ascii=False)}`。')
     if not repeats: lines.append('- 尚未执行。')
     new=totals['new_dispatches']
-    lines+=['',f'新增派发的已知 token 合计：input={new["token_totals"]["input_tokens"]}，output={new["token_totals"]["output_tokens"]}（reasoning 是 output 的子集，不重复相加）。已知客户端等待耗时合计 {new["summed_client_latency_s"]:.3f}s；包括历史样本的主实验统计另列于 research_metrics.json。',
+    lines+=['',f'本阶段新增派发的已知 token 合计：input={new["token_totals"]["input_tokens"]}，output={new["token_totals"]["output_tokens"]}（reasoning 是 output 的子集，不重复相加）。已知客户端等待耗时合计 {new["summed_client_latency_s"]:.3f}s；并发时该值是各请求等待之和，并非批次墙钟耗时。包括历史样本的主实验统计另列于 research_metrics.json。',
         '', '所有 A/C 输入与历史配对均经冻结 payload、图像 SHA、任务、schema 和模型参数一致性核验。每个有效新样本均有独立 ephemeral thread、turn.completed、完整 CLI command、usage 与离线重评分审计。',
         '', 'S5/S6 为主要规划任务；S4 朝向由任务规定，不代表自主选择朝向。S5 历史 A 已满分，同分不等于几何信息无效。六个静态场景及其相关任务只支持探索性描述；不做统计显著性或总体泛化结论。评分不涵盖动力学、支撑稳定性、IK 或真实硬件。']
+    if prior:
+        lines+=['','用户在第 4 次（S2 A）90 秒超时后明确选择四个隔离 worker、180 秒的新阶段。累计预算未增加；先前超时保留且消耗一次。S2 A 新请求是明确授权后的独立重测。S5/S6 plan 的原 90 秒串行配对作为 carryover 保留，其他任务在 180 秒四并发阶段执行；各行保留 deadline_s/concurrency。不能把跨阶段延迟变化单独归因为几何信息。剩余 20 次若全部用于补齐主矩阵，则没有额外 S5 A 复测预算。']
     (ROOT/'research_report.md').write_text('\n'.join(lines)+'\n')
     print(json.dumps({k:metrics[k] for k in ('batch_status','new_budget_reserved','known_http_dispatches','new_sample_classifications','completed_pairs')}))
 
 
-if __name__=='__main__': main()
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--phase',choices=['pilot01_20261013','pilot01_parallel180_20261013'],default='pilot01_20261013')
+    args=parser.parse_args()
+    ROOT=Path(__file__).resolve().parents[1]/'evidence'/args.phase
+    main()

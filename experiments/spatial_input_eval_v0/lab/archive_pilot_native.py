@@ -64,4 +64,10 @@ def main():
         print(f'{row["index"]:02d} native archive PASS')
 
 
-if __name__=='__main__': main()
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--phase',choices=['pilot01_20261013','pilot01_parallel180_20261013'],default='pilot01_20261013')
+    args=parser.parse_args()
+    ROOT=Path(__file__).resolve().parents[1]/'evidence'/args.phase
+    main()

@@ -1,0 +1,96 @@
+{
+  "worker_launches": [
+    {
+      "worker": 1,
+      "pid": 78213,
+      "command": [
+        "/Users/tangchao/Desktop/资料/P7/spatial-eval-mac-bridge-20261013/experiments/spatial_input_eval_v0/.mac-bridge-venv/bin/python",
+        "-B",
+        "/Users/tangchao/Desktop/资料/P7/spatial-eval-pilot01-20261013/experiments/spatial_input_eval_v0/lab/isolated_mac_worker.py",
+        "--bridge-source",
+        "/Users/tangchao/Desktop/资料/P7/astra-realman-onsite-1011/astra_realman_harness/scripts/codex_astra_mac_bridge.py",
+        "--worker",
+        "1",
+        "--metadata",
+        "/Users/tangchao/Desktop/资料/P7/spatial-eval-pilot01-20261013/experiments/spatial_input_eval_v0/evidence/pilot01_parallel180_20261013/worker-1.json"
+      ],
+      "log": "/private/tmp/spatial-pilot01-parallel180-worker1.log"
+    },
+    {
+      "worker": 2,
+      "pid": 78214,
+      "command": [
+        "/Users/tangchao/Desktop/资料/P7/spatial-eval-mac-bridge-20261013/experiments/spatial_input_eval_v0/.mac-bridge-venv/bin/python",
+        "-B",
+        "/Users/tangchao/Desktop/资料/P7/spatial-eval-pilot01-20261013/experiments/spatial_input_eval_v0/lab/isolated_mac_worker.py",
+        "--bridge-source",
+        "/Users/tangchao/Desktop/资料/P7/astra-realman-onsite-1011/astra_realman_harness/scripts/codex_astra_mac_bridge.py",
+        "--worker",
+        "2",
+        "--metadata",
+        "/Users/tangchao/Desktop/资料/P7/spatial-eval-pilot01-20261013/experiments/spatial_input_eval_v0/evidence/pilot01_parallel180_20261013/worker-2.json"
+      ],
+      "log": "/private/tmp/spatial-pilot01-parallel180-worker2.log"
+    },
+    {
+      "worker": 3,
+      "pid": 78215,
+      "command": [
+        "/Users/tangchao/Desktop/资料/P7/spatial-eval-mac-bridge-20261013/experiments/spatial_input_eval_v0/.mac-bridge-venv/bin/python",
+        "-B",
+        "/Users/tangchao/Desktop/资料/P7/spatial-eval-pilot01-20261013/experiments/spatial_input_eval_v0/lab/isolated_mac_worker.py",
+        "--bridge-source",
+        "/Users/tangchao/Desktop/资料/P7/astra-realman-onsite-1011/astra_realman_harness/scripts/codex_astra_mac_bridge.py",
+        "--worker",
+        "3",
+        "--metadata",
+        "/Users/tangchao/Desktop/资料/P7/spatial-eval-pilot01-20261013/experiments/spatial_input_eval_v0/evidence/pilot01_parallel180_20261013/worker-3.json"
+      ],
+      "log": "/private/tmp/spatial-pilot01-parallel180-worker3.log"
+    },
+    {
+      "worker": 4,
+      "pid": 78216,
+      "command": [
+        "/Users/tangchao/Desktop/资料/P7/spatial-eval-mac-bridge-20261013/experiments/spatial_input_eval_v0/.mac-bridge-venv/bin/python",
+        "-B",
+        "/Users/tangchao/Desktop/资料/P7/spatial-eval-pilot01-20261013/experiments/spatial_input_eval_v0/lab/isolated_mac_worker.py",
+        "--bridge-source",
+        "/Users/tangchao/Desktop/资料/P7/astra-realman-onsite-1011/astra_realman_harness/scripts/codex_astra_mac_bridge.py",
+        "--worker",
+        "4",
+        "--metadata",
+        "/Users/tangchao/Desktop/资料/P7/spatial-eval-pilot01-20261013/experiments/spatial_input_eval_v0/evidence/pilot01_parallel180_20261013/worker-4.json"
+      ],
+      "log": "/private/tmp/spatial-pilot01-parallel180-worker4.log"
+    }
+  ],
+  "tunnel": {
+    "pid": 78217,
+    "command": [
+      "ssh",
+      "-N",
+      "-T",
+      "-o",
+      "BatchMode=yes",
+      "-o",
+      "ExitOnForwardFailure=yes",
+      "-o",
+      "ServerAliveInterval=15",
+      "-o",
+      "ServerAliveCountMax=2",
+      "-R",
+      "127.0.0.1:18771:127.0.0.1:18771",
+      "-R",
+      "127.0.0.1:18772:127.0.0.1:18772",
+      "-R",
+      "127.0.0.1:18773:127.0.0.1:18773",
+      "-R",
+      "127.0.0.1:18774:127.0.0.1:18774",
+      "yanglab"
+    ],
+    "log": "/private/tmp/spatial-pilot01-parallel180-tunnel.log"
+  },
+  "new_generation_requests": 0,
+  "original_bridge_untouched": true
+}
