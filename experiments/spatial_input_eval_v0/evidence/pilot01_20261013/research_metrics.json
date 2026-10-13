@@ -1,16 +1,17 @@
 {
-  "batch_status": "READY",
-  "new_budget_reserved": 3,
-  "known_http_dispatches": 3,
-  "new_budget_remaining": 21,
+  "batch_status": "STOPPED",
+  "new_budget_reserved": 4,
+  "known_http_dispatches": 4,
+  "new_budget_remaining": 20,
   "new_sample_classifications": {
-    "valid": 3
+    "valid": 3,
+    "infrastructure_failure": 1
   },
   "primary_valid": 4,
   "completed_pairs": 2,
   "totals": {
     "new_dispatches": {
-      "samples": 3,
+      "samples": 4,
       "known_usage_samples": 3,
       "token_totals": {
         "input_tokens": 35963,
@@ -18,8 +19,8 @@
         "reasoning_output_tokens": 169,
         "cached_input_tokens": 0
       },
-      "summed_client_latency_s": 55.55959554800211,
-      "mean_client_latency_s": 18.51986518266737
+      "summed_client_latency_s": 145.65650245999132,
+      "mean_client_latency_s": 36.41412561499783
     },
     "primary": {
       "samples": 4,
@@ -113,6 +114,15 @@
       },
       "failure": null,
       "artifact": "runs/03_lab_s6_held_object_detour_plan_C/sample-0000"
+    },
+    {
+      "index": 4,
+      "classification": "infrastructure_failure",
+      "dispatched": 1,
+      "latency_s": 90.09690691198921,
+      "token_usage": null,
+      "failure": "ValueError:TRANSPORT_FAILURE_OR_TIMEOUT",
+      "artifact": "runs/04_lab_s2_occlusion_understand_A/sample-0000"
     }
   ],
   "paired_details": [

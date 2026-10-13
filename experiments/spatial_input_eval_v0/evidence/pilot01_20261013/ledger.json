@@ -1,5 +1,5 @@
 {
-  "status": "READY",
+  "status": "STOPPED",
   "authorization": "2026-10-13 user Pilot 01 up to 24 NEW dispatches",
   "max_new_dispatches": 24,
   "deadline_s": 90,
@@ -347,6 +347,19 @@
         "offline_rescore": "PASS"
       },
       "finished_at": "2026-10-13T02:24:00.829596+00:00"
+    },
+    {
+      "index": 4,
+      "scene_id": "lab_s2_occlusion",
+      "task_id": "understand",
+      "condition": "RGB_MULTI_VIEW",
+      "role": "primary",
+      "stage": 2,
+      "directory": "runs/04_lab_s2_occlusion_understand_A",
+      "status": "STOPPED_UNVALIDATED",
+      "reserved_at": "2026-10-13T02:25:14.791343+00:00",
+      "failure": "ValueError:TRANSPORT_FAILURE_OR_TIMEOUT",
+      "finished_at": "2026-10-13T02:26:44.920727+00:00"
     }
   ],
   "historical_dispatches_in_new_budget": 0

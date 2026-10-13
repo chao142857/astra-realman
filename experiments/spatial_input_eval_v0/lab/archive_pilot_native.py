@@ -20,9 +20,16 @@ def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
 def main():
     for row in read(ROOT/'ledger.json')['reservations']:
         run = ROOT/row['directory']; sample = run/'sample-0000'
-        if not (sample/'bridge_result.json').exists():
+        received = (sample/'bridge_result.json').exists()
+        if received:
+            result = read(sample/'bridge_result.json'); source = result.get('local_log')
+        elif (run/'poststop_native_locator.json').exists():
+            source = read(run/'poststop_native_locator.json')['native_source']
+            if not re.fullmatch(r'/private/tmp/codex-astra-bridge/[0-9a-f]{32}', source):
+                raise ValueError('UNEXPECTED_NATIVE_PATH')
+            result = read(Path(source)/'result.json')
+        else:
             continue
-        result = read(sample/'bridge_result.json'); source = result.get('local_log')
         if not source:
             continue
         if not re.fullmatch(r'/private/tmp/codex-astra-bridge/[0-9a-f]{32}', source):
@@ -44,6 +51,11 @@ def main():
             else: shutil.copy2(source/name, target)
             hashes[name] = sha(target)
         audit = dict(status='PASS', source=str(source), context_schema_rgb_and_result='EXACT_MATCH',
+                     native_result_returned_to_client=received,
+                     late_collection_does_not_override_client_timeout=not received,
+                     native_worker_error=result.get('error'),
+                     native_completed_events=sum(json.loads(line).get('type')=='turn.completed'
+                          for line in result.get('events','').splitlines() if line.strip()),
                      archived_sha256=hashes, new_generation_requests=0, credentials_copied=False,
                      excluded=[str(p.relative_to(source)) for p in sorted(source.rglob('*')) if p.is_file() and str(p.relative_to(source)) not in FILES],
                      exclusion_reason='Runtime databases/caches excluded under ARTIFACT_POLICY.')
