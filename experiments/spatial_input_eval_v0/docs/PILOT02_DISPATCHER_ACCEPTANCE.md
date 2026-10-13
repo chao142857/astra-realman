@@ -25,6 +25,7 @@
 
 - 最终回归：`evidence/pilot02_dispatcher_acceptance_20261013/linux_full_tests_final.log`，111 项，22.593 秒。
 - 最终模拟归档：`evidence/pilot02_runs/offline_acceptance_final_20261013/`。
+- Mac 最终新增测试：`mac_new_tests_final.log`，17/17，10.899 秒；取回 Linux 归档后在 Mac 无网络独立重评分 92 项全部一致，见 `cross_host_archive_audit.json`。
 - 最终验收：其中 `acceptance.json`，20 次有序模拟派发 + 72 项协议故障/正负对照，共 92 次 **fake HTTP** `/decide`，1 次非生成取消。
 - 最终每项包含完整原始输出、events、传输回执、输入 SHA、模拟 usage、客户端耗时、约束评分及独立重评分。模拟 token 与分数不能作为 Astra 能力结果。
 - `ledger.json` 中 `mode=OFFLINE_FIXTURE`，其 20 次预留为模拟预算；不能转换为真实批次。实际真实派发数为 0。
