@@ -1,5 +1,7 @@
 # 首次获授权 S5 A：生成前依赖失败
 
+后续状态：2026-10-13 09:48 已用独立环境恢复原 bridge，隧道验证通过，仍未再次生成。见 [隧道恢复记录](MAC_BRIDGE_TUNNEL_RECOVERY.md)。本文保留首次失败的历史记录。
+
 用户明确授权“已恢复，授权一次”。在提交 `5f7e4fa` 的代码上执行了一个冻结样本：
 `lab_s5_placement / plan / RGB_MULTI_VIEW`，gpt-6-astra / medium，qualification 90 秒，
 预算 1。执行前确认 Mac 18767、实验室 18766 均监听，输出目录不存在，无运行中的评测进程。
