@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "python_executable": "/home/alex/astra/.venv/bin/python",
+  "packages": {
+    "numpy": "1.26.4",
+    "Pillow": "12.3.0",
+    "jsonschema": "4.26.0"
+  },
+  "checkpoint_commit": "9beb20db17e62d4baae8aa0fd986f3d81fa15783",
+  "frozen_entries_verified": 607,
+  "baseline_changed_files": [],
+  "commands": [
+    "python -B -m unittest discover -s experiments/spatial_input_eval_v0/tests -v",
+    "python -B lab/pilot02_verify.py --suite evidence/pilot02_preview_20261013/suite_v2 --output NEW/acceptance"
+  ],
+  "real_generation_requests": 0,
+  "hardware_connections": 0
+}
