@@ -1,5 +1,5 @@
 {
-  "status": "READY",
+  "status": "COMPLETE",
   "phase": "pilot01_parallel180",
   "authorization": "User explicitly selected four isolated workers with offline acceptance and 180 s deadline",
   "created_at": "2026-10-13T02:37:05.053225+00:00",
@@ -1067,6 +1067,203 @@
         "worker": 4
       },
       "finished_at": "2026-10-13T02:48:43.463593+00:00"
+    },
+    {
+      "index": 21,
+      "scene_id": "lab_s5_placement",
+      "task_id": "understand",
+      "condition": "RGB_MULTI_VIEW",
+      "role": "primary",
+      "stage": 3,
+      "directory": "runs/21_lab_s5_placement_understand_A_180s",
+      "phase_index": 17,
+      "wave": 5,
+      "worker": 1,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:49:57.170423+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a1332a-cd39-7d63-b2c1-5aae461b6ed9",
+        "request_id": "20079185330e413d9dfcaa72da7e223b",
+        "native_log": "/private/tmp/codex-astra-bridge/82a7d120176f4c1e88afa760ea238cdc",
+        "native_latency_s": 138.4117585408967,
+        "score": 0.7777777777777778,
+        "failed_constraints": [
+          "UNDERSTANDING:position",
+          "UNDERSTANDING:top_height"
+        ],
+        "token_usage": {
+          "input_tokens": 11904,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2714,
+          "reasoning_output_tokens": 2456
+        },
+        "wall_latency_s": 139.19007863999286,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 11904,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2714,
+            "reasoning_output_tokens": 2456
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS",
+        "deadline_s": 180,
+        "worker": 1
+      },
+      "finished_at": "2026-10-13T02:52:16.564880+00:00"
+    },
+    {
+      "index": 22,
+      "scene_id": "lab_s5_placement",
+      "task_id": "understand",
+      "condition": "RGB_ORACLE_3D",
+      "role": "primary",
+      "stage": 3,
+      "directory": "runs/22_lab_s5_placement_understand_C_180s",
+      "phase_index": 18,
+      "wave": 5,
+      "worker": 2,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:49:57.170484+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a1332a-cd20-7b22-9a5d-ba901f2cf5ca",
+        "request_id": "859eb9115d3941aa8a1f643158d54760",
+        "native_log": "/private/tmp/codex-astra-bridge/17dc4fac6d1b4bd8b0d2d940c2ea1332",
+        "native_latency_s": 28.24084229208529,
+        "score": 1.0,
+        "failed_constraints": [],
+        "token_usage": {
+          "input_tokens": 12326,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 256,
+          "reasoning_output_tokens": 0
+        },
+        "wall_latency_s": 28.90728418099752,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 12326,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 256,
+            "reasoning_output_tokens": 0
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS",
+        "deadline_s": 180,
+        "worker": 2
+      },
+      "finished_at": "2026-10-13T02:50:26.301341+00:00"
+    },
+    {
+      "index": 23,
+      "scene_id": "lab_s6_held_object_detour",
+      "task_id": "understand",
+      "condition": "RGB_MULTI_VIEW",
+      "role": "primary",
+      "stage": 3,
+      "directory": "runs/23_lab_s6_held_object_detour_understand_A_180s",
+      "phase_index": 19,
+      "wave": 5,
+      "worker": 3,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:49:57.170515+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a1332a-cd39-70f0-b6fc-644602363bce",
+        "request_id": "7b56855961b44bc79d656985591b2d03",
+        "native_log": "/private/tmp/codex-astra-bridge/c78f7c181f1347dabaccb28d3e045aaa",
+        "native_latency_s": 134.86309499992058,
+        "score": 0.8888888888888888,
+        "failed_constraints": [
+          "UNDERSTANDING:size"
+        ],
+        "token_usage": {
+          "input_tokens": 11949,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2752,
+          "reasoning_output_tokens": 2494
+        },
+        "wall_latency_s": 135.60491397800797,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 11949,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2752,
+            "reasoning_output_tokens": 2494
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS",
+        "deadline_s": 180,
+        "worker": 3
+      },
+      "finished_at": "2026-10-13T02:52:12.982178+00:00"
+    },
+    {
+      "index": 24,
+      "scene_id": "lab_s6_held_object_detour",
+      "task_id": "understand",
+      "condition": "RGB_ORACLE_3D",
+      "role": "primary",
+      "stage": 3,
+      "directory": "runs/24_lab_s6_held_object_detour_understand_C_180s",
+      "phase_index": 20,
+      "wave": 5,
+      "worker": 4,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:49:57.170540+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a1332a-cd20-7801-ad08-7d2062fc0e6b",
+        "request_id": "678258cc38e14a6e93ef120b305c8268",
+        "native_log": "/private/tmp/codex-astra-bridge/7913768aee5842b0b66546e438219c9d",
+        "native_latency_s": 38.57340450002812,
+        "score": 1.0,
+        "failed_constraints": [],
+        "token_usage": {
+          "input_tokens": 12512,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 256,
+          "reasoning_output_tokens": 0
+        },
+        "wall_latency_s": 39.35713714300073,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 12512,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 256,
+            "reasoning_output_tokens": 0
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS",
+        "deadline_s": 180,
+        "worker": 4
+      },
+      "finished_at": "2026-10-13T02:50:36.725816+00:00"
     }
   ],
   "final_S5_A_repeat": "OMITTED_IF_PRIMARY_MATRIX_USES_REMAINING_20; no extra authorization inferred"

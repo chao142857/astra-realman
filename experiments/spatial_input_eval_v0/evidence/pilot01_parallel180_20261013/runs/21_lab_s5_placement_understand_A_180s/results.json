@@ -1,0 +1,220 @@
+[
+  {
+    "scene_id": "lab_s5_placement",
+    "task_id": "understand",
+    "condition": "RGB_MULTI_VIEW",
+    "artifact": "sample-0000",
+    "source": "REAL_ASTRA_ATTEMPT",
+    "model_calls": 1,
+    "raw_output": "{\"answers\":[{\"fits\":null,\"question_id\":\"relative_x\",\"relation\":\"less\",\"scalar_m\":null,\"vector_m\":null},{\"fits\":null,\"question_id\":\"position\",\"relation\":null,\"scalar_m\":null,\"vector_m\":[0.24,-0.14,0.07]},{\"fits\":null,\"question_id\":\"top_height\",\"relation\":null,\"scalar_m\":0.12,\"vector_m\":null},{\"fits\":null,\"question_id\":\"size\",\"relation\":null,\"scalar_m\":null,\"vector_m\":[0.08,0.06,0.1]},{\"fits\":null,\"question_id\":\"gap_x\",\"relation\":null,\"scalar_m\":0.42,\"vector_m\":null},{\"fits\":null,\"question_id\":\"relative_y\",\"relation\":\"less\",\"scalar_m\":null,\"vector_m\":null},{\"fits\":null,\"question_id\":\"relative_z\",\"relation\":\"less\",\"scalar_m\":null,\"vector_m\":null},{\"fits\":true,\"question_id\":\"fit_identity\",\"relation\":null,\"scalar_m\":null,\"vector_m\":null},{\"fits\":true,\"question_id\":\"fit_rotated\",\"relation\":null,\"scalar_m\":null,\"vector_m\":null}]}",
+    "latency_s": 139.19007863999286,
+    "token_usage": {
+      "input_tokens": 11904,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 2714,
+      "reasoning_output_tokens": 2456
+    },
+    "image_count": 3,
+    "geometry_source": null,
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "task_prompt_sha256": "143efd0421112137a795d2266c1a225be900821291d9b1395327cdc79ec7af7c",
+    "parse_status": "VALID",
+    "prediction": {
+      "answers": [
+        {
+          "fits": null,
+          "question_id": "relative_x",
+          "relation": "less",
+          "scalar_m": null,
+          "vector_m": null
+        },
+        {
+          "fits": null,
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.24,
+            -0.14,
+            0.07
+          ]
+        },
+        {
+          "fits": null,
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.12,
+          "vector_m": null
+        },
+        {
+          "fits": null,
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.08,
+            0.06,
+            0.1
+          ]
+        },
+        {
+          "fits": null,
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.42,
+          "vector_m": null
+        },
+        {
+          "fits": null,
+          "question_id": "relative_y",
+          "relation": "less",
+          "scalar_m": null,
+          "vector_m": null
+        },
+        {
+          "fits": null,
+          "question_id": "relative_z",
+          "relation": "less",
+          "scalar_m": null,
+          "vector_m": null
+        },
+        {
+          "fits": true,
+          "question_id": "fit_identity",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null
+        },
+        {
+          "fits": true,
+          "question_id": "fit_rotated",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null
+        }
+      ]
+    },
+    "score_status": "SCORED",
+    "score": 0.7777777777777778,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.7777777777777778,
+      "success": false,
+      "constraints": {
+        "relative_x": true,
+        "position": false,
+        "top_height": false,
+        "size": true,
+        "gap_x": true,
+        "relative_y": true,
+        "relative_z": true,
+        "fit_identity": true,
+        "fit_rotated": true
+      },
+      "relation_accuracy": 1.0,
+      "mean_geometric_error_m": 0.003749996983549587,
+      "within_tolerance_ratio": 0.7777777777777778,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "less",
+          "within_tolerance": true,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.23999999463558197,
+            -0.14000000059604645,
+            0.07500000298023224
+          ],
+          "actual": [
+            0.24,
+            -0.14,
+            0.07
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.005000002980235146
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.1250000037252903,
+          "actual": 0.12,
+          "within_tolerance": false,
+          "geometric_error_m": 0.005000003725290303
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.07999999821186066,
+            0.05999999865889549,
+            0.10000000149011612
+          ],
+          "actual": [
+            0.08,
+            0.06,
+            0.1
+          ],
+          "within_tolerance": true,
+          "geometric_error_m": 2.6863450343393915e-09
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.4150000214576721,
+          "actual": 0.42,
+          "within_tolerance": true,
+          "geometric_error_m": 0.004999978542327865
+        },
+        {
+          "question_id": "relative_y",
+          "type": "relation",
+          "expected": "less",
+          "actual": "less",
+          "within_tolerance": true,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "relative_z",
+          "type": "relation",
+          "expected": "less",
+          "actual": "less",
+          "within_tolerance": true,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "fit_identity",
+          "type": "fit",
+          "expected": true,
+          "actual": true,
+          "within_tolerance": true,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "fit_rotated",
+          "type": "fit",
+          "expected": true,
+          "actual": true,
+          "within_tolerance": true,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height"
+      ]
+    },
+    "error_types": [
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height"
+    ]
+  }
+]

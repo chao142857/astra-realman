@@ -42,5 +42,46 @@
       "UNDERSTANDING:size"
     ],
     "artifact": "runs/11_lab_s1_relations_understand_A_180s/sample-0000"
+  },
+  {
+    "scene_id": "lab_s5_placement",
+    "task_id": "understand",
+    "condition": "RGB_MULTI_VIEW",
+    "constraints": {
+      "relative_x": true,
+      "position": false,
+      "top_height": false,
+      "size": true,
+      "gap_x": true,
+      "relative_y": true,
+      "relative_z": true,
+      "fit_identity": true,
+      "fit_rotated": true
+    },
+    "errors": [
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height"
+    ],
+    "artifact": "runs/21_lab_s5_placement_understand_A_180s/sample-0000"
+  },
+  {
+    "scene_id": "lab_s6_held_object_detour",
+    "task_id": "understand",
+    "condition": "RGB_MULTI_VIEW",
+    "constraints": {
+      "relative_x": true,
+      "position": true,
+      "top_height": true,
+      "size": false,
+      "gap_x": true,
+      "relative_y": true,
+      "relative_z": true,
+      "fit_identity": true,
+      "fit_rotated": true
+    },
+    "errors": [
+      "UNDERSTANDING:size"
+    ],
+    "artifact": "runs/23_lab_s6_held_object_detour_understand_A_180s/sample-0000"
   }
 ]

@@ -61,6 +61,13 @@ def main():
                      exclusion_reason='Runtime databases/caches excluded under ARTIFACT_POLICY.')
         dest=run/'native_archive_audit.json'
         if not dest.exists(): dest.write_text(json.dumps(audit, indent=2)+'\n')
+        timing=run/'native_timing.json'
+        if not timing.exists():
+            timing.write_text(json.dumps(dict(source=str(source),
+                prompt_written_unix=(source/'prompt.json').stat().st_mtime,
+                result_written_unix=(source/'result.json').stat().st_mtime,
+                native_inference_latency_s=result['latency_s'],
+                note='Read from the original Mac runtime before Git checkout can change artifact mtimes.'),indent=2)+'\n')
         print(f'{row["index"]:02d} native archive PASS')
 
 
