@@ -108,3 +108,5 @@ A 为同一组同步 RGB + 标定/坐标/状态；B 加载 `geometry.reconstruct
 Git 独立分支与原源码保护检查见 [INSPECTION.md](docs/INSPECTION.md)；最终交付计数及 Git 状态见 [DELIVERY.md](docs/DELIVERY.md)。
 
 所有实验产出默认提交并推送，包含早期、失败及临时复现归档；详见 [ARTIFACT_POLICY.md](docs/ARTIFACT_POLICY.md)。
+
+实验室仿真通过既有 Mac ChatGPT / SSH bridge 的接入、离线验收及单次真实调用前置条件见 [MAC_BRIDGE_INTEGRATION.md](docs/MAC_BRIDGE_INTEGRATION.md)。真实调用仍需单独授权。

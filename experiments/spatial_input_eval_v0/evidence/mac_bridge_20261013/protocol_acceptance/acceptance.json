@@ -1,0 +1,99 @@
+{
+  "status": "PASS",
+  "base_commit": "d9000b3",
+  "real_model_calls": 0,
+  "production_endpoint_requests": 0,
+  "success_protocol_samples": 24,
+  "paired_tasks": 12,
+  "fake_service": {
+    "decide_calls": 31,
+    "cancel_calls": 2,
+    "stub_calls": 27,
+    "real_model_calls": 0,
+    "original_infer_never_called": true
+  },
+  "fault_cases": [
+    {
+      "case": "invalid-output",
+      "status": "PASS",
+      "dispatches": 1,
+      "retries": 0,
+      "score_status": "SCORED",
+      "error": "LOCAL_OUTPUT_VALIDATION:JSONDecodeError"
+    },
+    {
+      "case": "parameter-drift",
+      "status": "PASS",
+      "dispatches": 1,
+      "retries": 0,
+      "score_status": "NOT_SCORED",
+      "error": "MAC_BRIDGE_MODEL_PARAMETER_MISMATCH"
+    },
+    {
+      "case": "malformed-response",
+      "status": "PASS",
+      "dispatches": 1,
+      "retries": 0,
+      "score_status": "NOT_SCORED",
+      "error": "MAC_BRIDGE_PROTOCOL_OR_CONNECTION:ValueError"
+    },
+    {
+      "case": "timeout",
+      "status": "PASS",
+      "dispatches": 1,
+      "retries": 0,
+      "score_status": "NOT_SCORED",
+      "error": "MAC_BRIDGE_TIMEOUT_COMPLETION_UNKNOWN"
+    },
+    {
+      "case": "trickle",
+      "status": "PASS",
+      "dispatches": 1,
+      "retries": 0,
+      "score_status": "NOT_SCORED",
+      "error": "MAC_BRIDGE_TIMEOUT_COMPLETION_UNKNOWN"
+    },
+    {
+      "case": "busy",
+      "status": "PASS",
+      "dispatches": 1,
+      "retries": 0,
+      "score_status": "NOT_SCORED",
+      "error": "MAC_BRIDGE_HTTP_409"
+    },
+    {
+      "case": "auth-failure",
+      "status": "PASS",
+      "dispatches": 1,
+      "retries": 0,
+      "score_status": "NOT_SCORED",
+      "error": "MAC_BRIDGE_HTTP_403"
+    },
+    {
+      "case": "image-hash",
+      "status": "PASS",
+      "dispatches": 0,
+      "retries": 0,
+      "error": "FROZEN_IMAGE_HASH"
+    },
+    {
+      "case": "schema",
+      "status": "PASS",
+      "dispatches": 0,
+      "retries": 0,
+      "error": "BRIDGE_OUTPUT_SCHEMA"
+    }
+  ],
+  "parameters": {
+    "model": "gpt-6-astra",
+    "model_reasoning_effort": "medium",
+    "provider": "openai",
+    "ephemeral": true
+  },
+  "parity": "same task, RGB, calibration, schema, model parameters and evaluator; only geometry differs",
+  "limitations": [
+    "Fake responses validate integration only; no Astra capability conclusion.",
+    "Current production bridge and reverse tunnel were not started or contacted.",
+    "First real valid JSON still requires separate user authorization."
+  ]
+}

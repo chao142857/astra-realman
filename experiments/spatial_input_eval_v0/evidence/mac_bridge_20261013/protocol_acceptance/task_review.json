@@ -1,0 +1,85 @@
+[
+  {
+    "scene_id": "lab_s1_relations",
+    "task_id": "plan",
+    "kind": "placement",
+    "first_round_primary_planning": false,
+    "orientation_choice": "PRESCRIBED",
+    "planning_scope": "static geometry; no dynamics, reachability, support or robot control",
+    "limitations": [
+      "Task-region centers and dimensions are explicitly provided in both A and C."
+    ],
+    "interpretation": "Understanding / simple placement control; not primary planning difficulty."
+  },
+  {
+    "scene_id": "lab_s2_occlusion",
+    "task_id": "plan",
+    "kind": "placement",
+    "first_round_primary_planning": false,
+    "orientation_choice": "PRESCRIBED",
+    "planning_scope": "static geometry; no dynamics, reachability, support or robot control",
+    "limitations": [
+      "Task-region centers and dimensions are explicitly provided in both A and C."
+    ],
+    "interpretation": "Understanding / simple placement control; not primary planning difficulty."
+  },
+  {
+    "scene_id": "lab_s3_narrow_container",
+    "task_id": "plan",
+    "kind": "placement",
+    "first_round_primary_planning": false,
+    "orientation_choice": "PRESCRIBED",
+    "planning_scope": "static geometry; no dynamics, reachability, support or robot control",
+    "limitations": [
+      "Task-region centers and dimensions are explicitly provided in both A and C."
+    ],
+    "interpretation": "Understanding / simple placement control; not primary planning difficulty."
+  },
+  {
+    "scene_id": "lab_s4_rotated_fit",
+    "task_id": "plan",
+    "kind": "placement",
+    "first_round_primary_planning": false,
+    "orientation_choice": "PRESCRIBED",
+    "planning_scope": "static geometry; no dynamics, reachability, support or robot control",
+    "limitations": [
+      "Task-region centers and dimensions are explicitly provided in both A and C."
+    ],
+    "interpretation": "Instructed orientation and geometric fit; not autonomous orientation planning.",
+    "future_variant": {
+      "status": "DEFERRED",
+      "task_id": "plan_free_orientation",
+      "required_quaternion_wxyz": null,
+      "requirement": "Remove prescribed orientation, let model choose unit quaternion; freeze new A/C pair separately."
+    }
+  },
+  {
+    "scene_id": "lab_s5_placement",
+    "task_id": "plan",
+    "kind": "placement",
+    "first_round_primary_planning": true,
+    "orientation_choice": "PRESCRIBED",
+    "planning_scope": "static geometry; no dynamics, reachability, support or robot control",
+    "limitations": [
+      "Task-region centers and dimensions are explicitly provided in both A and C."
+    ],
+    "private_feasibility_check": "PASS",
+    "naive_policy_rejection": "PASS",
+    "rejected_constraint": "placement_collision_free"
+  },
+  {
+    "scene_id": "lab_s6_held_object_detour",
+    "task_id": "plan",
+    "kind": "path",
+    "first_round_primary_planning": true,
+    "orientation_choice": "PRESCRIBED",
+    "planning_scope": "static geometry; no dynamics, reachability, support or robot control",
+    "limitations": [
+      "Task-region centers and dimensions are explicitly provided in both A and C.",
+      "Any feasible 3D detour is accepted, including over the obstacle; fixed orientation, no optimality requirement."
+    ],
+    "private_feasibility_check": "PASS",
+    "naive_policy_rejection": "PASS",
+    "rejected_constraint": "continuous_path_collision_free"
+  }
+]

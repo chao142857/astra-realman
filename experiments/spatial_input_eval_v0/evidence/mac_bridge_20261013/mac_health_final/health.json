@@ -1,0 +1,35 @@
+{
+  "checked_at_utc": "2026-10-13T01:06:10.365501+00:00",
+  "mac_listener_18767": {
+    "command": [
+      "lsof",
+      "-nP",
+      "-iTCP:18767",
+      "-sTCP:LISTEN"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "lab_listener_18766": {
+    "command": [
+      "ssh",
+      "yanglab",
+      "ss -ltnp \"sport = :18766\""
+    ],
+    "return_code": 0,
+    "stdout": "State   Recv-Q   Send-Q     Local Address:Port     Peer Address:Port  Process   \n",
+    "stderr": ""
+  },
+  "bridge_or_tunnel_processes": [],
+  "process_check_return_code": 0,
+  "lab_token_file_readable": true,
+  "token_contents_read_or_copied": false,
+  "original_bridge_path": "/Users/tangchao/Desktop/\u8d44\u6599/P7/astra-realman-onsite-1011/astra_realman_harness/scripts/codex_astra_mac_bridge.py",
+  "original_bridge_sha256": "922c63556a838a1a9280d76b280e22babba5d517e10073c18c05a033dfce7bae",
+  "cli_version_help_preflight": "PASS",
+  "http_endpoint_requests": 0,
+  "real_model_calls": 0,
+  "online_status": "OFFLINE",
+  "generation_compatibility": "NOT_VERIFIED; version/help does not prove current Astra generation works"
+}
