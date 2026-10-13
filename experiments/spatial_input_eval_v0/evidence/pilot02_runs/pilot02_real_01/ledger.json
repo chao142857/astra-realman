@@ -23,7 +23,7 @@
       "user_authorization_statement": "User explicitly authorized Pilot 02 up to 20 NEW real gpt-6-astra/medium generations on 2026-10-13, then corrected the sole execution host to ubuntu-robot. Frozen 20 A/C order, original Mac ChatGPT bridge, ephemeral sessions, client deadline 180s, single worker, no automatic retry or budget additions; stop on infrastructure/parse/parameter/integrity failure. No hardware or Pilot01 requests. Prior failed yanglab preflight dispatched 0 requests."
     }
   },
-  "reserved_budget": 7,
+  "reserved_budget": 12,
   "jobs": [
     {
       "planned_order": 1,
@@ -677,9 +677,304 @@
         ],
         "output_schema_sha256": "cc619c76adde6fcccf95d04136ddfdc6dbd9e27bf520fc467c6294728452797a"
       },
-      "status": "RESERVED",
+      "status": "VALID",
       "reserved_at": "2026-10-13T08:55:10.460937+00:00",
-      "artifact": "run-007"
+      "artifact": "run-007",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "REAL_ASTRA_ATTEMPT",
+        "usage": {
+          "input_tokens": 13076,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 826,
+          "reasoning_output_tokens": 775
+        },
+        "latency_s": 58.760433620000185,
+        "usage_kind": "CLI_REPORTED",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "01a13479-2b7a-7560-8c5c-6714ee7feed2",
+        "input_sha256": "698a27b430917727d22bf7d84688ad37eae1a60d4c5e97b3550d78b494d9c8c3",
+        "raw_sha256": "f2d6257b0b64a9c4f5d75caca70686828d485b0e94e29bcf708d837a413350e4",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "finished_at": "2026-10-13T08:56:09.301396+00:00"
+    },
+    {
+      "index": 8,
+      "job": {
+        "planned_order": 8,
+        "scene_id_private_catalog_only": "p02_a_m10_plus",
+        "task_id": "plan",
+        "condition": "RGB_ORACLE_3D",
+        "input_directory": "evidence/pilot02_preview_20261013/suite_v2/p02_a_m10_plus/model_inputs/RGB_ORACLE_3D",
+        "context_sha256": "c00445633cd4791b65ca68afcfe415d52aaa67320a4a1b995351805ca6c845c1",
+        "rgb_sha256": [
+          "6ad6825b1a1f335680e30c57f0f1bdad090a17f645c73dda2f8a119a506f534f",
+          "2b46c52b558481310d4122abe150ae4c5bd21e7145f951399152d81849441bba",
+          "d6688e06c356e6d11e9681a1a2175b54806927df69ad06ed46a5b466203c820d"
+        ],
+        "output_schema_sha256": "cc619c76adde6fcccf95d04136ddfdc6dbd9e27bf520fc467c6294728452797a"
+      },
+      "status": "VALID",
+      "reserved_at": "2026-10-13T08:56:09.341954+00:00",
+      "artifact": "run-008",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "REAL_ASTRA_ATTEMPT",
+        "usage": {
+          "input_tokens": 13759,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 81,
+          "reasoning_output_tokens": 30
+        },
+        "latency_s": 21.47017944899926,
+        "usage_kind": "CLI_REPORTED",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "01a1347a-1627-7692-aaef-60caf12c4703",
+        "input_sha256": "c00445633cd4791b65ca68afcfe415d52aaa67320a4a1b995351805ca6c845c1",
+        "raw_sha256": "8276207d7f7b4546891905951cd793aa594623bb0a3af53dd0bcad100bbe7405",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "finished_at": "2026-10-13T08:56:30.874772+00:00"
+    },
+    {
+      "index": 9,
+      "job": {
+        "planned_order": 9,
+        "scene_id_private_catalog_only": "p02_a_m30_minus",
+        "task_id": "plan",
+        "condition": "RGB_MULTI_VIEW",
+        "input_directory": "evidence/pilot02_preview_20261013/suite_v2/p02_a_m30_minus/model_inputs/RGB_MULTI_VIEW",
+        "context_sha256": "b311cec0ba757c5159d925295d20190bc12ea700e5ec90f2f2184a73f60b9a85",
+        "rgb_sha256": [
+          "b10de2a39632f40e238aff0e4642ad67a932ce08bb5e11e2e6ad78863e6b48f3",
+          "10e87fcdb32dc41cc9a50d6525f062f842b50967a1a958f44ac0a82bc982cb91",
+          "ddf354bcd3e6ecf8587b46f795e6bdedf00ad0a96fa2d9b72484f61dbd5d1d28"
+        ],
+        "output_schema_sha256": "cc619c76adde6fcccf95d04136ddfdc6dbd9e27bf520fc467c6294728452797a"
+      },
+      "status": "VALID",
+      "reserved_at": "2026-10-13T08:56:30.914489+00:00",
+      "artifact": "run-009",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "REAL_ASTRA_ATTEMPT",
+        "usage": {
+          "input_tokens": 13103,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 442,
+          "reasoning_output_tokens": 391
+        },
+        "latency_s": 28.107340131000456,
+        "usage_kind": "CLI_REPORTED",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "01a1347a-650c-7f60-a254-2de04ac2b823",
+        "input_sha256": "b311cec0ba757c5159d925295d20190bc12ea700e5ec90f2f2184a73f60b9a85",
+        "raw_sha256": "662e87dc4f024c0d1fadd25b770fd64961e18f90394a2e0412096512733bfd0e",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "finished_at": "2026-10-13T08:56:59.084088+00:00"
+    },
+    {
+      "index": 10,
+      "job": {
+        "planned_order": 10,
+        "scene_id_private_catalog_only": "p02_a_m30_minus",
+        "task_id": "plan",
+        "condition": "RGB_ORACLE_3D",
+        "input_directory": "evidence/pilot02_preview_20261013/suite_v2/p02_a_m30_minus/model_inputs/RGB_ORACLE_3D",
+        "context_sha256": "050ee2ae8fa3e6eef25643a9eac02f5d72a08e64e3c26e32c0d25c06101f32e6",
+        "rgb_sha256": [
+          "b10de2a39632f40e238aff0e4642ad67a932ce08bb5e11e2e6ad78863e6b48f3",
+          "10e87fcdb32dc41cc9a50d6525f062f842b50967a1a958f44ac0a82bc982cb91",
+          "ddf354bcd3e6ecf8587b46f795e6bdedf00ad0a96fa2d9b72484f61dbd5d1d28"
+        ],
+        "output_schema_sha256": "cc619c76adde6fcccf95d04136ddfdc6dbd9e27bf520fc467c6294728452797a"
+      },
+      "status": "VALID",
+      "reserved_at": "2026-10-13T08:56:59.123809+00:00",
+      "artifact": "run-010",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "REAL_ASTRA_ATTEMPT",
+        "usage": {
+          "input_tokens": 13761,
+          "cached_input_tokens": 6912,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 92,
+          "reasoning_output_tokens": 41
+        },
+        "latency_s": 19.17390556600003,
+        "usage_kind": "CLI_REPORTED",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "01a1347a-d5ec-7383-9268-9ab8c5c8921b",
+        "input_sha256": "050ee2ae8fa3e6eef25643a9eac02f5d72a08e64e3c26e32c0d25c06101f32e6",
+        "raw_sha256": "662e87dc4f024c0d1fadd25b770fd64961e18f90394a2e0412096512733bfd0e",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "finished_at": "2026-10-13T08:57:18.360508+00:00"
+    },
+    {
+      "index": 11,
+      "job": {
+        "planned_order": 11,
+        "scene_id_private_catalog_only": "p02_a_m30_plus",
+        "task_id": "plan",
+        "condition": "RGB_ORACLE_3D",
+        "input_directory": "evidence/pilot02_preview_20261013/suite_v2/p02_a_m30_plus/model_inputs/RGB_ORACLE_3D",
+        "context_sha256": "95c1f069d18dec0b3b22ecced74abfe81d0a86bfca9192c438c60f0b7c4db6d8",
+        "rgb_sha256": [
+          "66f5f95892e96d392156a52712bee2ac9a15e1389384a125dca528e5f93d53c3",
+          "0b79664708c5c08ccb070661f2c29733926e177ae25ae698afe210b554cb638f",
+          "1d79a259d87c33faa7cba199cdbeb807a0c1fab23c17fce2fa347c22137ac155"
+        ],
+        "output_schema_sha256": "cc619c76adde6fcccf95d04136ddfdc6dbd9e27bf520fc467c6294728452797a"
+      },
+      "status": "VALID",
+      "reserved_at": "2026-10-13T08:57:18.400789+00:00",
+      "artifact": "run-011",
+      "assessment": {
+        "status": "VALID",
+        "score": 1.0,
+        "failure": null,
+        "source": "REAL_ASTRA_ATTEMPT",
+        "usage": {
+          "input_tokens": 13764,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 88,
+          "reasoning_output_tokens": 37
+        },
+        "latency_s": 18.71349030300007,
+        "usage_kind": "CLI_REPORTED",
+        "evaluation": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "thread_id": "01a1347b-21bb-7d30-baf0-6ce9a04ecec9",
+        "input_sha256": "95c1f069d18dec0b3b22ecced74abfe81d0a86bfca9192c438c60f0b7c4db6d8",
+        "raw_sha256": "8276207d7f7b4546891905951cd793aa594623bb0a3af53dd0bcad100bbe7405",
+        "model_parameters": {
+          "model": "gpt-6-astra",
+          "reasoning": "medium",
+          "ephemeral": true
+        }
+      },
+      "finished_at": "2026-10-13T08:57:37.177002+00:00"
+    },
+    {
+      "index": 12,
+      "job": {
+        "planned_order": 12,
+        "scene_id_private_catalog_only": "p02_a_m30_plus",
+        "task_id": "plan",
+        "condition": "RGB_MULTI_VIEW",
+        "input_directory": "evidence/pilot02_preview_20261013/suite_v2/p02_a_m30_plus/model_inputs/RGB_MULTI_VIEW",
+        "context_sha256": "91a28ef3f92479e0b8b4d38abfb163b1eb9aa11c0558b1fd726af6e22670abe4",
+        "rgb_sha256": [
+          "66f5f95892e96d392156a52712bee2ac9a15e1389384a125dca528e5f93d53c3",
+          "0b79664708c5c08ccb070661f2c29733926e177ae25ae698afe210b554cb638f",
+          "1d79a259d87c33faa7cba199cdbeb807a0c1fab23c17fce2fa347c22137ac155"
+        ],
+        "output_schema_sha256": "cc619c76adde6fcccf95d04136ddfdc6dbd9e27bf520fc467c6294728452797a"
+      },
+      "status": "RESERVED",
+      "reserved_at": "2026-10-13T08:57:37.218115+00:00",
+      "artifact": "run-012"
     }
   ],
   "deadline_s": 180,

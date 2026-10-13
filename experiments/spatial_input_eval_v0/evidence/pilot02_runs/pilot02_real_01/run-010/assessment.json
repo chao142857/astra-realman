@@ -1,0 +1,38 @@
+{
+  "status": "VALID",
+  "score": 1.0,
+  "failure": null,
+  "source": "REAL_ASTRA_ATTEMPT",
+  "usage": {
+    "input_tokens": 13761,
+    "cached_input_tokens": 6912,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 92,
+    "reasoning_output_tokens": 41
+  },
+  "latency_s": 19.17390556600003,
+  "usage_kind": "CLI_REPORTED",
+  "evaluation": {
+    "status": "SCORED",
+    "score": 1.0,
+    "success": true,
+    "constraints": {
+      "correct_object": true,
+      "entire_volume_in_allowed_region": true,
+      "placement_collision_free": true,
+      "required_orientation": true
+    },
+    "orientation_error_rad": 0.0,
+    "collisions": [],
+    "error_types": [],
+    "scorer_contract": "astra.pilot02.task_policy.v1"
+  },
+  "thread_id": "01a1347a-d5ec-7383-9268-9ab8c5c8921b",
+  "input_sha256": "050ee2ae8fa3e6eef25643a9eac02f5d72a08e64e3c26e32c0d25c06101f32e6",
+  "raw_sha256": "662e87dc4f024c0d1fadd25b770fd64961e18f90394a2e0412096512733bfd0e",
+  "model_parameters": {
+    "model": "gpt-6-astra",
+    "reasoning": "medium",
+    "ephemeral": true
+  }
+}
