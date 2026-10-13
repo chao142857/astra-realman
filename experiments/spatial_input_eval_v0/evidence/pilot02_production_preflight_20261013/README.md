@@ -13,3 +13,5 @@ Baseline: `e6f0e31`. The user authorized at most 20 new requests on 2026-10-13. 
 No hardware accessed, no worker switched, no old ledger read/reset, no model inference or retries. No success rates can be calculated without real observations; missing samples are not zero scores.
 
 Restore yanglab connectivity, then continue the already authorized preflight and sequential batch. The existing 20-request authorization persists; do not create a second budget. Future server startup uses the original source with `--mode lab --executable /opt/homebrew/bin/codex --timeout-s 190`. Do not start generation until yanglab code/tests, authentication, reverse tunnel and server timeout pass, and a fresh ledger has been bound to this authorization.
+
+An additional read-only TCP probe from the reachable `ubuntu-robot` workstation to yanglab port 22 also timed out (5 seconds). No experiment was moved to that workstation.
