@@ -1,0 +1,9 @@
+{
+  "action": "Start wave 4 (cumulative requests 17-20)",
+  "automatic_review": "REJECTED_BEFORE_EXECUTION",
+  "reason": "Latest local checkpoint showed four completion-unknown rows from an in-flight snapshot.",
+  "verification": "Synced final wave-3 ledger from yanglab; indices 13-16 each have one turn.completed, HTTP 200, return_code 0, error null, VALID schema and score 1. All 12 amended-phase samples are VALID; no in-flight records remain.",
+  "new_generation_requests_from_rejected_action": 0,
+  "cumulative_budget_consumed": 16,
+  "resolution": "Archive verified completed records before attempting next authorized wave. Report now labels genuinely running reservations in_flight rather than completion_unknown."
+}

@@ -23,7 +23,7 @@ def main():
         response=read(folder/'response.json') if (folder/'response.json').exists() else {}
         transport=read(folder/'transport.json') if (folder/'transport.json').exists() else {}
         if reservation['status']=='VALID': classification='valid'
-        elif reservation['status']=='IN_FLIGHT': classification='completion_unknown'
+        elif reservation['status']=='IN_FLIGHT': classification='in_flight'
         elif str(response.get('error','')).startswith('LOCAL_OUTPUT_VALIDATION:'): classification='invalid_output'
         elif response.get('return_code')==0 and not response.get('error') and response.get('raw'):
             rows=read(folder.parent/'results.json') if (folder.parent/'results.json').exists() else []

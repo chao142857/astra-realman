@@ -2,13 +2,13 @@
   "status": "READY",
   "authorized_new_budget": 20,
   "prior_budget_consumed": 4,
-  "reserved_new_budget": 8,
-  "remaining_new_budget": 12,
-  "valid_new_samples": 8,
+  "reserved_new_budget": 12,
+  "remaining_new_budget": 8,
+  "valid_new_samples": 12,
   "invalid_or_infrastructure_samples": 0,
   "counts_by_nonvalid_status": {},
-  "primary_valid_samples": 12,
-  "completed_pairs": 6,
+  "primary_valid_samples": 16,
+  "completed_pairs": 8,
   "repeat_valid_samples": 0,
   "groups": {
     "understand/RGB_MULTI_VIEW": {
@@ -110,29 +110,29 @@
       }
     },
     "plan/RGB_MULTI_VIEW": {
-      "n": 2,
-      "all_constraints_passed": 2,
+      "n": 4,
+      "all_constraints_passed": 4,
       "mean_task_score": 1.0,
-      "mean_latency_s": 25.798565414504992,
-      "total_latency_s": 51.597130829009984,
+      "mean_latency_s": 23.463680989005297,
+      "total_latency_s": 93.85472395602119,
       "token_totals": {
-        "input_tokens": 23304,
-        "output_tokens": 538,
-        "reasoning_output_tokens": 399,
+        "input_tokens": 46471,
+        "output_tokens": 672,
+        "reasoning_output_tokens": 433,
         "cached_input_tokens": 0
       }
     },
     "plan/RGB_ORACLE_3D": {
-      "n": 2,
-      "all_constraints_passed": 2,
+      "n": 4,
+      "all_constraints_passed": 4,
       "mean_task_score": 1.0,
-      "mean_latency_s": 18.069857549995504,
-      "total_latency_s": 36.13971509999101,
+      "mean_latency_s": 19.606441839498075,
+      "total_latency_s": 78.4257673579923,
       "token_totals": {
-        "input_tokens": 24259,
-        "output_tokens": 225,
+        "input_tokens": 48240,
+        "output_tokens": 323,
         "reasoning_output_tokens": 86,
-        "cached_input_tokens": 0
+        "cached_input_tokens": 6912
       }
     }
   },
@@ -148,6 +148,16 @@
       }
     },
     {
+      "scene_id": "lab_s1_relations",
+      "task_id": "plan",
+      "delta_C_minus_A": {
+        "score": 0.0,
+        "latency_s": 1.207686192006804,
+        "input_tokens": 417,
+        "output_tokens": -36
+      }
+    },
+    {
       "scene_id": "lab_s2_occlusion",
       "task_id": "understand",
       "delta_C_minus_A": {
@@ -155,6 +165,16 @@
         "latency_s": -82.71055752500251,
         "input_tokens": 387,
         "output_tokens": -1861
+      }
+    },
+    {
+      "scene_id": "lab_s2_occlusion",
+      "task_id": "plan",
+      "delta_C_minus_A": {
+        "score": 0.0,
+        "latency_s": -1.179227061016718,
+        "input_tokens": 397,
+        "output_tokens": 0
       }
     },
     {
