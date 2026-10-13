@@ -487,6 +487,266 @@
         "worker": 4
       },
       "finished_at": "2026-10-13T02:40:37.570142+00:00"
+    },
+    {
+      "index": 9,
+      "scene_id": "lab_s4_rotated_fit",
+      "task_id": "understand",
+      "condition": "RGB_MULTI_VIEW",
+      "role": "primary",
+      "stage": 2,
+      "directory": "runs/09_lab_s4_rotated_fit_understand_A_180s",
+      "phase_index": 5,
+      "wave": 2,
+      "worker": 1,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:43:04.490368+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a13324-87fd-7c93-89f4-3a0955266de4",
+        "request_id": "dda041947fbf46f88e6284922ff4151a",
+        "native_log": "/private/tmp/codex-astra-bridge/0507c64bf3374503a9a39c89c1c7d3fb",
+        "native_latency_s": 112.3913650419563,
+        "score": 1.0,
+        "failed_constraints": [],
+        "token_usage": {
+          "input_tokens": 11931,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2262,
+          "reasoning_output_tokens": 2004
+        },
+        "wall_latency_s": 113.91539944898977,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 11931,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2262,
+            "reasoning_output_tokens": 2004
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS",
+        "deadline_s": 180,
+        "worker": 1
+      },
+      "finished_at": "2026-10-13T02:44:58.592590+00:00"
+    },
+    {
+      "index": 10,
+      "scene_id": "lab_s4_rotated_fit",
+      "task_id": "understand",
+      "condition": "RGB_ORACLE_3D",
+      "role": "primary",
+      "stage": 2,
+      "directory": "runs/10_lab_s4_rotated_fit_understand_C_180s",
+      "phase_index": 6,
+      "wave": 2,
+      "worker": 2,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:43:04.490383+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a13324-87fd-7500-b96c-b181fb83a60d",
+        "request_id": "6a974c60e5244c60afa129eea738a61c",
+        "native_log": "/private/tmp/codex-astra-bridge/bbc37e8f83254ea3946e292a41c144ea",
+        "native_latency_s": 28.095482458127663,
+        "score": 1.0,
+        "failed_constraints": [],
+        "token_usage": {
+          "input_tokens": 12825,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 296,
+          "reasoning_output_tokens": 37
+        },
+        "wall_latency_s": 28.745003100004396,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 12825,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 296,
+            "reasoning_output_tokens": 37
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS",
+        "deadline_s": 180,
+        "worker": 2
+      },
+      "finished_at": "2026-10-13T02:43:33.395139+00:00"
+    },
+    {
+      "index": 11,
+      "scene_id": "lab_s1_relations",
+      "task_id": "understand",
+      "condition": "RGB_MULTI_VIEW",
+      "role": "primary",
+      "stage": 3,
+      "directory": "runs/11_lab_s1_relations_understand_A_180s",
+      "phase_index": 7,
+      "wave": 2,
+      "worker": 3,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:43:04.490389+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a13324-87fd-71d3-b0fd-5049b5103706",
+        "request_id": "534b697177d040edac223f76c6e1e089",
+        "native_log": "/private/tmp/codex-astra-bridge/1ea618d99c6f4db08648bc013994f686",
+        "native_latency_s": 125.20909741707146,
+        "score": 0.6666666666666666,
+        "failed_constraints": [
+          "UNDERSTANDING:position",
+          "UNDERSTANDING:top_height",
+          "UNDERSTANDING:size"
+        ],
+        "token_usage": {
+          "input_tokens": 11899,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2453,
+          "reasoning_output_tokens": 2195
+        },
+        "wall_latency_s": 125.99916291001136,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 11899,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2453,
+            "reasoning_output_tokens": 2195
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS",
+        "deadline_s": 180,
+        "worker": 3
+      },
+      "finished_at": "2026-10-13T02:45:10.677465+00:00"
+    },
+    {
+      "index": 12,
+      "scene_id": "lab_s1_relations",
+      "task_id": "understand",
+      "condition": "RGB_ORACLE_3D",
+      "role": "primary",
+      "stage": 3,
+      "directory": "runs/12_lab_s1_relations_understand_C_180s",
+      "phase_index": 8,
+      "wave": 2,
+      "worker": 4,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:43:04.490394+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a13324-87fd-7342-b884-ee08bca4eaf7",
+        "request_id": "79c87c52ce8e479b964702d82e905c40",
+        "native_log": "/private/tmp/codex-astra-bridge/1484e81fbc824bf09498143383e14d5f",
+        "native_latency_s": 25.502420250093564,
+        "score": 1.0,
+        "failed_constraints": [],
+        "token_usage": {
+          "input_tokens": 12296,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 256,
+          "reasoning_output_tokens": 0
+        },
+        "wall_latency_s": 26.175890780010377,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 12296,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 256,
+            "reasoning_output_tokens": 0
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS",
+        "deadline_s": 180,
+        "worker": 4
+      },
+      "finished_at": "2026-10-13T02:43:30.833712+00:00"
+    },
+    {
+      "index": 13,
+      "scene_id": "lab_s1_relations",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "role": "primary",
+      "stage": 3,
+      "directory": "runs/13_lab_s1_relations_plan_A_180s",
+      "phase_index": 9,
+      "wave": 3,
+      "worker": 1,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "IN_FLIGHT",
+      "reserved_at": "2026-10-13T02:45:53.045772+00:00"
+    },
+    {
+      "index": 14,
+      "scene_id": "lab_s1_relations",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "role": "primary",
+      "stage": 3,
+      "directory": "runs/14_lab_s1_relations_plan_C_180s",
+      "phase_index": 10,
+      "wave": 3,
+      "worker": 2,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "IN_FLIGHT",
+      "reserved_at": "2026-10-13T02:45:53.045835+00:00"
+    },
+    {
+      "index": 15,
+      "scene_id": "lab_s2_occlusion",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "role": "primary",
+      "stage": 3,
+      "directory": "runs/15_lab_s2_occlusion_plan_A_180s",
+      "phase_index": 11,
+      "wave": 3,
+      "worker": 3,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "IN_FLIGHT",
+      "reserved_at": "2026-10-13T02:45:53.045867+00:00"
+    },
+    {
+      "index": 16,
+      "scene_id": "lab_s2_occlusion",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "role": "primary",
+      "stage": 3,
+      "directory": "runs/16_lab_s2_occlusion_plan_C_180s",
+      "phase_index": 12,
+      "wave": 3,
+      "worker": 4,
+      "deadline_s": 180,
+      "concurrency": 4,
+      "status": "IN_FLIGHT",
+      "reserved_at": "2026-10-13T02:45:53.045892+00:00"
     }
   ],
   "final_S5_A_repeat": "OMITTED_IF_PRIMARY_MATRIX_USES_REMAINING_20; no extra authorization inferred"

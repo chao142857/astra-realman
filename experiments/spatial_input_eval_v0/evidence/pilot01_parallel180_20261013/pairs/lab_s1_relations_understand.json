@@ -1,0 +1,521 @@
+{
+  "scene_id": "lab_s1_relations",
+  "task_id": "understand",
+  "frozen_parity": "PASS",
+  "A": {
+    "scene_id": "lab_s1_relations",
+    "task_id": "understand",
+    "condition": "RGB_MULTI_VIEW",
+    "artifact": "runs/11_lab_s1_relations_understand_A_180s/sample-0000",
+    "source": "REAL_ASTRA_ATTEMPT",
+    "model_calls": 1,
+    "raw_output": "{\"answers\":[{\"fits\":null,\"question_id\":\"relative_x\",\"relation\":\"less\",\"scalar_m\":null,\"vector_m\":null},{\"fits\":null,\"question_id\":\"position\",\"relation\":null,\"scalar_m\":null,\"vector_m\":[0.24,-0.14,0.06]},{\"fits\":null,\"question_id\":\"top_height\",\"relation\":null,\"scalar_m\":0.12,\"vector_m\":null},{\"fits\":null,\"question_id\":\"size\",\"relation\":null,\"scalar_m\":null,\"vector_m\":[0.08,0.06,0.12]},{\"fits\":null,\"question_id\":\"gap_x\",\"relation\":null,\"scalar_m\":0.155,\"vector_m\":null},{\"fits\":null,\"question_id\":\"relative_y\",\"relation\":\"less\",\"scalar_m\":null,\"vector_m\":null},{\"fits\":null,\"question_id\":\"relative_z\",\"relation\":\"less\",\"scalar_m\":null,\"vector_m\":null},{\"fits\":true,\"question_id\":\"fit_identity\",\"relation\":null,\"scalar_m\":null,\"vector_m\":null},{\"fits\":true,\"question_id\":\"fit_rotated\",\"relation\":null,\"scalar_m\":null,\"vector_m\":null}]}",
+    "latency_s": 125.99916291001136,
+    "token_usage": {
+      "input_tokens": 11899,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 2453,
+      "reasoning_output_tokens": 2195
+    },
+    "image_count": 3,
+    "geometry_source": null,
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "task_prompt_sha256": "aaf72f1a4691a0aaee712bfda98296d521219f5f3370769b652b78b6f8a29735",
+    "parse_status": "VALID",
+    "prediction": {
+      "answers": [
+        {
+          "fits": null,
+          "question_id": "relative_x",
+          "relation": "less",
+          "scalar_m": null,
+          "vector_m": null
+        },
+        {
+          "fits": null,
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.24,
+            -0.14,
+            0.06
+          ]
+        },
+        {
+          "fits": null,
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.12,
+          "vector_m": null
+        },
+        {
+          "fits": null,
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.08,
+            0.06,
+            0.12
+          ]
+        },
+        {
+          "fits": null,
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.155,
+          "vector_m": null
+        },
+        {
+          "fits": null,
+          "question_id": "relative_y",
+          "relation": "less",
+          "scalar_m": null,
+          "vector_m": null
+        },
+        {
+          "fits": null,
+          "question_id": "relative_z",
+          "relation": "less",
+          "scalar_m": null,
+          "vector_m": null
+        },
+        {
+          "fits": true,
+          "question_id": "fit_identity",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null
+        },
+        {
+          "fits": true,
+          "question_id": "fit_rotated",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null
+        }
+      ]
+    },
+    "score_status": "SCORED",
+    "score": 0.6666666666666666,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 0.6666666666666666,
+      "success": false,
+      "constraints": {
+        "relative_x": true,
+        "position": false,
+        "top_height": false,
+        "size": false,
+        "gap_x": true,
+        "relative_y": true,
+        "relative_z": true,
+        "fit_identity": true,
+        "fit_rotated": true
+      },
+      "relation_accuracy": 1.0,
+      "mean_geometric_error_m": 0.010000002868473804,
+      "within_tolerance_ratio": 0.6666666666666666,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "less",
+          "within_tolerance": true,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.23999999463558197,
+            -0.14000000059604645,
+            0.07500000298023224
+          ],
+          "actual": [
+            0.24,
+            -0.14,
+            0.06
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.015000002980233212
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.1250000037252903,
+          "actual": 0.12,
+          "within_tolerance": false,
+          "geometric_error_m": 0.005000003725290303
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.07999999821186066,
+            0.05999999865889549,
+            0.10000000149011612
+          ],
+          "actual": [
+            0.08,
+            0.06,
+            0.12
+          ],
+          "within_tolerance": false,
+          "geometric_error_m": 0.019999998509884
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.1549999937415123,
+          "actual": 0.155,
+          "within_tolerance": true,
+          "geometric_error_m": 6.258487700305793e-09
+        },
+        {
+          "question_id": "relative_y",
+          "type": "relation",
+          "expected": "less",
+          "actual": "less",
+          "within_tolerance": true,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "relative_z",
+          "type": "relation",
+          "expected": "less",
+          "actual": "less",
+          "within_tolerance": true,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "fit_identity",
+          "type": "fit",
+          "expected": true,
+          "actual": true,
+          "within_tolerance": true,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "fit_rotated",
+          "type": "fit",
+          "expected": true,
+          "actual": true,
+          "within_tolerance": true,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": [
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size"
+      ]
+    },
+    "error_types": [
+      "UNDERSTANDING:position",
+      "UNDERSTANDING:top_height",
+      "UNDERSTANDING:size"
+    ],
+    "origin": "pilot01_parallel180",
+    "new_budget_cost": 1,
+    "deadline_s": 180,
+    "concurrency": 4,
+    "audit": {
+      "status": "VALID",
+      "thread_id": "01a13324-87fd-71d3-b0fd-5049b5103706",
+      "request_id": "534b697177d040edac223f76c6e1e089",
+      "native_log": "/private/tmp/codex-astra-bridge/1ea618d99c6f4db08648bc013994f686",
+      "native_latency_s": 125.20909741707146,
+      "score": 0.6666666666666666,
+      "failed_constraints": [
+        "UNDERSTANDING:position",
+        "UNDERSTANDING:top_height",
+        "UNDERSTANDING:size"
+      ],
+      "token_usage": {
+        "input_tokens": 11899,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2453,
+        "reasoning_output_tokens": 2195
+      },
+      "wall_latency_s": 125.99916291001136,
+      "terminal_event": {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 11899,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2453,
+          "reasoning_output_tokens": 2195
+        }
+      },
+      "payload_and_command": "PASS",
+      "offline_rescore": "PASS",
+      "deadline_s": 180,
+      "worker": 3
+    }
+  },
+  "C": {
+    "scene_id": "lab_s1_relations",
+    "task_id": "understand",
+    "condition": "RGB_ORACLE_3D",
+    "artifact": "runs/12_lab_s1_relations_understand_C_180s/sample-0000",
+    "source": "REAL_ASTRA_ATTEMPT",
+    "model_calls": 1,
+    "raw_output": "{\"answers\":[{\"fits\":null,\"question_id\":\"relative_x\",\"relation\":\"less\",\"scalar_m\":null,\"vector_m\":null},{\"fits\":null,\"question_id\":\"position\",\"relation\":null,\"scalar_m\":null,\"vector_m\":[0.24,-0.14,0.075]},{\"fits\":null,\"question_id\":\"top_height\",\"relation\":null,\"scalar_m\":0.125,\"vector_m\":null},{\"fits\":null,\"question_id\":\"size\",\"relation\":null,\"scalar_m\":null,\"vector_m\":[0.08,0.06,0.1]},{\"fits\":null,\"question_id\":\"gap_x\",\"relation\":null,\"scalar_m\":0.155,\"vector_m\":null},{\"fits\":null,\"question_id\":\"relative_y\",\"relation\":\"less\",\"scalar_m\":null,\"vector_m\":null},{\"fits\":null,\"question_id\":\"relative_z\",\"relation\":\"less\",\"scalar_m\":null,\"vector_m\":null},{\"fits\":true,\"question_id\":\"fit_identity\",\"relation\":null,\"scalar_m\":null,\"vector_m\":null},{\"fits\":true,\"question_id\":\"fit_rotated\",\"relation\":null,\"scalar_m\":null,\"vector_m\":null}]}",
+    "latency_s": 26.175890780010377,
+    "token_usage": {
+      "input_tokens": 12296,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 256,
+      "reasoning_output_tokens": 0
+    },
+    "image_count": 3,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "task_prompt_sha256": "aaf72f1a4691a0aaee712bfda98296d521219f5f3370769b652b78b6f8a29735",
+    "parse_status": "VALID",
+    "prediction": {
+      "answers": [
+        {
+          "fits": null,
+          "question_id": "relative_x",
+          "relation": "less",
+          "scalar_m": null,
+          "vector_m": null
+        },
+        {
+          "fits": null,
+          "question_id": "position",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.24,
+            -0.14,
+            0.075
+          ]
+        },
+        {
+          "fits": null,
+          "question_id": "top_height",
+          "relation": null,
+          "scalar_m": 0.125,
+          "vector_m": null
+        },
+        {
+          "fits": null,
+          "question_id": "size",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": [
+            0.08,
+            0.06,
+            0.1
+          ]
+        },
+        {
+          "fits": null,
+          "question_id": "gap_x",
+          "relation": null,
+          "scalar_m": 0.155,
+          "vector_m": null
+        },
+        {
+          "fits": null,
+          "question_id": "relative_y",
+          "relation": "less",
+          "scalar_m": null,
+          "vector_m": null
+        },
+        {
+          "fits": null,
+          "question_id": "relative_z",
+          "relation": "less",
+          "scalar_m": null,
+          "vector_m": null
+        },
+        {
+          "fits": true,
+          "question_id": "fit_identity",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null
+        },
+        {
+          "fits": true,
+          "question_id": "fit_rotated",
+          "relation": null,
+          "scalar_m": null,
+          "vector_m": null
+        }
+      ]
+    },
+    "score_status": "SCORED",
+    "score": 1.0,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 1.0,
+      "success": true,
+      "constraints": {
+        "relative_x": true,
+        "position": true,
+        "top_height": true,
+        "size": true,
+        "gap_x": true,
+        "relative_y": true,
+        "relative_z": true,
+        "fit_identity": true,
+        "fit_rotated": true
+      },
+      "relation_accuracy": 1.0,
+      "mean_geometric_error_m": 4.708918855669346e-09,
+      "within_tolerance_ratio": 1.0,
+      "details": [
+        {
+          "question_id": "relative_x",
+          "type": "relation",
+          "expected": "less",
+          "actual": "less",
+          "within_tolerance": true,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "position",
+          "type": "position",
+          "expected": [
+            0.23999999463558197,
+            -0.14000000059604645,
+            0.07500000298023224
+          ],
+          "actual": [
+            0.24,
+            -0.14,
+            0.075
+          ],
+          "within_tolerance": true,
+          "geometric_error_m": 6.165552389570289e-09
+        },
+        {
+          "question_id": "top_height",
+          "type": "height",
+          "expected": 0.1250000037252903,
+          "actual": 0.125,
+          "within_tolerance": true,
+          "geometric_error_m": 3.725290298461914e-09
+        },
+        {
+          "question_id": "size",
+          "type": "size",
+          "expected": [
+            0.07999999821186066,
+            0.05999999865889549,
+            0.10000000149011612
+          ],
+          "actual": [
+            0.08,
+            0.06,
+            0.1
+          ],
+          "within_tolerance": true,
+          "geometric_error_m": 2.6863450343393915e-09
+        },
+        {
+          "question_id": "gap_x",
+          "type": "gap",
+          "expected": 0.1549999937415123,
+          "actual": 0.155,
+          "within_tolerance": true,
+          "geometric_error_m": 6.258487700305793e-09
+        },
+        {
+          "question_id": "relative_y",
+          "type": "relation",
+          "expected": "less",
+          "actual": "less",
+          "within_tolerance": true,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "relative_z",
+          "type": "relation",
+          "expected": "less",
+          "actual": "less",
+          "within_tolerance": true,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "fit_identity",
+          "type": "fit",
+          "expected": true,
+          "actual": true,
+          "within_tolerance": true,
+          "geometric_error_m": null
+        },
+        {
+          "question_id": "fit_rotated",
+          "type": "fit",
+          "expected": true,
+          "actual": true,
+          "within_tolerance": true,
+          "geometric_error_m": null
+        }
+      ],
+      "error_types": []
+    },
+    "error_types": [],
+    "origin": "pilot01_parallel180",
+    "new_budget_cost": 1,
+    "deadline_s": 180,
+    "concurrency": 4,
+    "audit": {
+      "status": "VALID",
+      "thread_id": "01a13324-87fd-7342-b884-ee08bca4eaf7",
+      "request_id": "79c87c52ce8e479b964702d82e905c40",
+      "native_log": "/private/tmp/codex-astra-bridge/1484e81fbc824bf09498143383e14d5f",
+      "native_latency_s": 25.502420250093564,
+      "score": 1.0,
+      "failed_constraints": [],
+      "token_usage": {
+        "input_tokens": 12296,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 256,
+        "reasoning_output_tokens": 0
+      },
+      "wall_latency_s": 26.175890780010377,
+      "terminal_event": {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 12296,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 256,
+          "reasoning_output_tokens": 0
+        }
+      },
+      "payload_and_command": "PASS",
+      "offline_rescore": "PASS",
+      "deadline_s": 180,
+      "worker": 4
+    }
+  },
+  "delta_C_minus_A": {
+    "score": 0.33333333333333337,
+    "latency_s": -99.82327213000099,
+    "input_tokens": 397,
+    "output_tokens": -2197
+  }
+}
