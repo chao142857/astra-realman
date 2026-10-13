@@ -2763,5 +2763,377 @@
       "deadline_s": 180,
       "worker": 4
     }
+  },
+  {
+    "scene_id": "lab_s3_narrow_container",
+    "task_id": "plan",
+    "condition": "RGB_MULTI_VIEW",
+    "artifact": "runs/17_lab_s3_narrow_container_plan_A_180s/sample-0000",
+    "source": "REAL_ASTRA_ATTEMPT",
+    "model_calls": 1,
+    "raw_output": "{\"object_id\":\"target\",\"position_m\":[0.48,-0.2,0.1],\"quaternion_wxyz\":[1,0,0,0],\"waypoints_m\":[]}",
+    "latency_s": 18.77020012799767,
+    "token_usage": {
+      "input_tokens": 11648,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 49,
+      "reasoning_output_tokens": 0
+    },
+    "image_count": 3,
+    "geometry_source": null,
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "task_prompt_sha256": "c917c628ac7f907811019a0c7be86631cdad545c60333a21cbdf12a0f1fd112c",
+    "parse_status": "VALID",
+    "prediction": {
+      "object_id": "target",
+      "position_m": [
+        0.48,
+        -0.2,
+        0.1
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": []
+    },
+    "score_status": "SCORED",
+    "score": 1.0,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 1.0,
+      "success": true,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": true,
+        "placement_collision_free": true,
+        "required_orientation": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": []
+    },
+    "error_types": [],
+    "origin": "pilot01_parallel180",
+    "new_budget_cost": 1,
+    "deadline_s": 180,
+    "concurrency": 4,
+    "audit": {
+      "status": "VALID",
+      "thread_id": "01a13329-5ff7-7e93-b2fd-edb9b82451b0",
+      "request_id": "c800e675507148c6808506adc1ac9a13",
+      "native_log": "/private/tmp/codex-astra-bridge/8649124048624a06b7cddfa2b452d990",
+      "native_latency_s": 18.173542791046202,
+      "score": 1.0,
+      "failed_constraints": [],
+      "token_usage": {
+        "input_tokens": 11648,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 49,
+        "reasoning_output_tokens": 0
+      },
+      "wall_latency_s": 18.77020012799767,
+      "terminal_event": {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 11648,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 49,
+          "reasoning_output_tokens": 0
+        }
+      },
+      "payload_and_command": "PASS",
+      "offline_rescore": "PASS",
+      "deadline_s": 180,
+      "worker": 1
+    }
+  },
+  {
+    "scene_id": "lab_s3_narrow_container",
+    "task_id": "plan",
+    "condition": "RGB_ORACLE_3D",
+    "artifact": "runs/18_lab_s3_narrow_container_plan_C_180s/sample-0000",
+    "source": "REAL_ASTRA_ATTEMPT",
+    "model_calls": 1,
+    "raw_output": "{\"object_id\":\"target\",\"position_m\":[0.48,-0.2,0.1],\"quaternion_wxyz\":[1,0,0,0],\"waypoints_m\":[]}",
+    "latency_s": 19.528367206003168,
+    "token_usage": {
+      "input_tokens": 12625,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 49,
+      "reasoning_output_tokens": 0
+    },
+    "image_count": 3,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "task_prompt_sha256": "c917c628ac7f907811019a0c7be86631cdad545c60333a21cbdf12a0f1fd112c",
+    "parse_status": "VALID",
+    "prediction": {
+      "object_id": "target",
+      "position_m": [
+        0.48,
+        -0.2,
+        0.1
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": []
+    },
+    "score_status": "SCORED",
+    "score": 1.0,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 1.0,
+      "success": true,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": true,
+        "placement_collision_free": true,
+        "required_orientation": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": []
+    },
+    "error_types": [],
+    "origin": "pilot01_parallel180",
+    "new_budget_cost": 1,
+    "deadline_s": 180,
+    "concurrency": 4,
+    "audit": {
+      "status": "VALID",
+      "thread_id": "01a13329-60ac-7333-8aac-b4af42bad67c",
+      "request_id": "a46024f4f00b49d6898807b1414d09ad",
+      "native_log": "/private/tmp/codex-astra-bridge/9da9b7e527c0469785fa4570a22df5db",
+      "native_latency_s": 18.691867833025753,
+      "score": 1.0,
+      "failed_constraints": [],
+      "token_usage": {
+        "input_tokens": 12625,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 49,
+        "reasoning_output_tokens": 0
+      },
+      "wall_latency_s": 19.528367206003168,
+      "terminal_event": {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 12625,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 49,
+          "reasoning_output_tokens": 0
+        }
+      },
+      "payload_and_command": "PASS",
+      "offline_rescore": "PASS",
+      "deadline_s": 180,
+      "worker": 2
+    }
+  },
+  {
+    "scene_id": "lab_s4_rotated_fit",
+    "task_id": "plan",
+    "condition": "RGB_MULTI_VIEW",
+    "artifact": "runs/19_lab_s4_rotated_fit_plan_A_180s/sample-0000",
+    "source": "REAL_ASTRA_ATTEMPT",
+    "model_calls": 1,
+    "raw_output": "{\"object_id\":\"target\",\"position_m\":[0.7,0.2,0.1],\"quaternion_wxyz\":[0.7071067811865476,0,0,0.7071067811865476],\"waypoints_m\":[]}",
+    "latency_s": 19.707640337001067,
+    "token_usage": {
+      "input_tokens": 11621,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 137,
+      "reasoning_output_tokens": 72
+    },
+    "image_count": 3,
+    "geometry_source": null,
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "task_prompt_sha256": "1e6171ff649eee0e3d0f696c1d4b12450ff2d161ba4e0b0016c31d3cb041eaca",
+    "parse_status": "VALID",
+    "prediction": {
+      "object_id": "target",
+      "position_m": [
+        0.7,
+        0.2,
+        0.1
+      ],
+      "quaternion_wxyz": [
+        0.7071067811865476,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "waypoints_m": []
+    },
+    "score_status": "SCORED",
+    "score": 1.0,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 1.0,
+      "success": true,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": true,
+        "placement_collision_free": true,
+        "required_orientation": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": []
+    },
+    "error_types": [],
+    "origin": "pilot01_parallel180",
+    "new_budget_cost": 1,
+    "deadline_s": 180,
+    "concurrency": 4,
+    "audit": {
+      "status": "VALID",
+      "thread_id": "01a13329-5ec0-7703-afde-4fb8bd192023",
+      "request_id": "c7c65e0a6e7e46768fa802d7de378baa",
+      "native_log": "/private/tmp/codex-astra-bridge/34a73d230fdc4f379fc77d678db1cd51",
+      "native_latency_s": 19.376538374926895,
+      "score": 1.0,
+      "failed_constraints": [],
+      "token_usage": {
+        "input_tokens": 11621,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 137,
+        "reasoning_output_tokens": 72
+      },
+      "wall_latency_s": 19.707640337001067,
+      "terminal_event": {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 11621,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 137,
+          "reasoning_output_tokens": 72
+        }
+      },
+      "payload_and_command": "PASS",
+      "offline_rescore": "PASS",
+      "deadline_s": 180,
+      "worker": 3
+    }
+  },
+  {
+    "scene_id": "lab_s4_rotated_fit",
+    "task_id": "plan",
+    "condition": "RGB_ORACLE_3D",
+    "artifact": "runs/20_lab_s4_rotated_fit_plan_C_180s/sample-0000",
+    "source": "REAL_ASTRA_ATTEMPT",
+    "model_calls": 1,
+    "raw_output": "{\"object_id\":\"target\",\"position_m\":[0.7,0.2,0.1],\"quaternion_wxyz\":[0.7071067811865476,0,0,0.7071067811865476],\"waypoints_m\":[]}",
+    "latency_s": 19.17695383699902,
+    "token_usage": {
+      "input_tokens": 12530,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 63,
+      "reasoning_output_tokens": 0
+    },
+    "image_count": 3,
+    "geometry_source": "SIMULATOR_TRUTH",
+    "extra_information": [
+      "objects: ids, centers, sizes, orientations",
+      "regions: interior centers, sizes, orientations",
+      "obstacles: centers, sizes, orientations"
+    ],
+    "depth_sent": false,
+    "geometry_representation": "structured_text",
+    "task_prompt_sha256": "1e6171ff649eee0e3d0f696c1d4b12450ff2d161ba4e0b0016c31d3cb041eaca",
+    "parse_status": "VALID",
+    "prediction": {
+      "object_id": "target",
+      "position_m": [
+        0.7,
+        0.2,
+        0.1
+      ],
+      "quaternion_wxyz": [
+        0.7071067811865476,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "waypoints_m": []
+    },
+    "score_status": "SCORED",
+    "score": 1.0,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 1.0,
+      "success": true,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": true,
+        "placement_collision_free": true,
+        "required_orientation": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": []
+    },
+    "error_types": [],
+    "origin": "pilot01_parallel180",
+    "new_budget_cost": 1,
+    "deadline_s": 180,
+    "concurrency": 4,
+    "audit": {
+      "status": "VALID",
+      "thread_id": "01a13329-60ac-7102-8b8b-44a81b87c348",
+      "request_id": "9b0210ee01a6404f93d3477e40d29fd8",
+      "native_log": "/private/tmp/codex-astra-bridge/27b7ab841e2149e4affca56801312e09",
+      "native_latency_s": 18.577819250058383,
+      "score": 1.0,
+      "failed_constraints": [],
+      "token_usage": {
+        "input_tokens": 12530,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 63,
+        "reasoning_output_tokens": 0
+      },
+      "wall_latency_s": 19.17695383699902,
+      "terminal_event": {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 12530,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 63,
+          "reasoning_output_tokens": 0
+        }
+      },
+      "payload_and_command": "PASS",
+      "offline_rescore": "PASS",
+      "deadline_s": 180,
+      "worker": 4
+    }
   }
 ]
