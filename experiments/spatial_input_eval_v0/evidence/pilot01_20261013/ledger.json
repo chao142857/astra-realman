@@ -224,6 +224,130 @@
       "directory": "runs/24_lab_s5_placement_plan_A"
     }
   ],
-  "reservations": [],
+  "reservations": [
+    {
+      "index": 1,
+      "scene_id": "lab_s5_placement",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "role": "primary",
+      "stage": 1,
+      "directory": "runs/01_lab_s5_placement_plan_C",
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:22:02.700036+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a13311-341f-7802-b448-031533acf342",
+        "request_id": "4223ab08a9a446208ba74e14e46fa3c9",
+        "native_log": "/private/tmp/codex-astra-bridge/bb36c23a0caf4c7c9798fcf653e3921b",
+        "native_latency_s": 17.59365495783277,
+        "score": 1.0,
+        "failed_constraints": [],
+        "token_usage": {
+          "input_tokens": 12007,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 101,
+          "reasoning_output_tokens": 50
+        },
+        "wall_latency_s": 17.78280090199405,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 12007,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 101,
+            "reasoning_output_tokens": 50
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS"
+      },
+      "finished_at": "2026-10-13T02:22:20.573452+00:00"
+    },
+    {
+      "index": 2,
+      "scene_id": "lab_s6_held_object_detour",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "role": "primary",
+      "stage": 1,
+      "directory": "runs/02_lab_s6_held_object_detour_plan_A",
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:23:02.411745+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a13312-1c01-7bd2-ab42-601c643a3878",
+        "request_id": "db8c9f2c542043b98613b76d14917b3f",
+        "native_log": "/private/tmp/codex-astra-bridge/09d66599a20d4ea095d119e9b64e3f6c",
+        "native_latency_s": 19.242318958975375,
+        "score": 1.0,
+        "failed_constraints": [],
+        "token_usage": {
+          "input_tokens": 11704,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 171,
+          "reasoning_output_tokens": 83
+        },
+        "wall_latency_s": 19.4198804480111,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 11704,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 171,
+            "reasoning_output_tokens": 83
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS"
+      },
+      "finished_at": "2026-10-13T02:23:21.917442+00:00"
+    },
+    {
+      "index": 3,
+      "scene_id": "lab_s6_held_object_detour",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "role": "primary",
+      "stage": 1,
+      "directory": "runs/03_lab_s6_held_object_detour_plan_C",
+      "status": "VALID",
+      "reserved_at": "2026-10-13T02:23:42.390610+00:00",
+      "audit": {
+        "status": "VALID",
+        "thread_id": "01a13312-b968-78c2-a061-19018ce765df",
+        "request_id": "bfca816bd7234648a966497e1acec849",
+        "native_log": "/private/tmp/codex-astra-bridge/ca95fd9ec39f4cde8fb928c7658a6add",
+        "native_latency_s": 18.158269291976467,
+        "score": 1.0,
+        "failed_constraints": [],
+        "token_usage": {
+          "input_tokens": 12252,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 124,
+          "reasoning_output_tokens": 36
+        },
+        "wall_latency_s": 18.356914197996957,
+        "terminal_event": {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 12252,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 124,
+            "reasoning_output_tokens": 36
+          }
+        },
+        "payload_and_command": "PASS",
+        "offline_rescore": "PASS"
+      },
+      "finished_at": "2026-10-13T02:24:00.829596+00:00"
+    }
+  ],
   "historical_dispatches_in_new_budget": 0
 }

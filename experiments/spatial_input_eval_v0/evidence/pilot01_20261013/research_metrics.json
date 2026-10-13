@@ -1,0 +1,146 @@
+{
+  "batch_status": "READY",
+  "new_budget_reserved": 3,
+  "known_http_dispatches": 3,
+  "new_budget_remaining": 21,
+  "new_sample_classifications": {
+    "valid": 3
+  },
+  "primary_valid": 4,
+  "completed_pairs": 2,
+  "totals": {
+    "new_dispatches": {
+      "samples": 3,
+      "known_usage_samples": 3,
+      "token_totals": {
+        "input_tokens": 35963,
+        "output_tokens": 396,
+        "reasoning_output_tokens": 169,
+        "cached_input_tokens": 0
+      },
+      "summed_client_latency_s": 55.55959554800211,
+      "mean_client_latency_s": 18.51986518266737
+    },
+    "primary": {
+      "samples": 4,
+      "known_usage_samples": 4,
+      "token_totals": {
+        "input_tokens": 47563,
+        "output_tokens": 763,
+        "reasoning_output_tokens": 485,
+        "cached_input_tokens": 0
+      },
+      "summed_client_latency_s": 87.73684592900099,
+      "mean_client_latency_s": 21.934211482250248
+    },
+    "independent_repeat": {
+      "samples": 0,
+      "known_usage_samples": 0,
+      "token_totals": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "cached_input_tokens": 0
+      },
+      "summed_client_latency_s": 0,
+      "mean_client_latency_s": null
+    }
+  },
+  "paired_descriptive_statistics": {
+    "understand": {
+      "n": 0,
+      "C_higher": 0,
+      "equal": 0,
+      "A_higher": 0,
+      "mean_score_delta_C_minus_A": null,
+      "mean_latency_delta_s_C_minus_A": null,
+      "mean_input_token_delta_C_minus_A": null,
+      "mean_output_token_delta_C_minus_A": null
+    },
+    "plan": {
+      "n": 2,
+      "C_higher": 0,
+      "equal": 2,
+      "A_higher": 0,
+      "mean_score_delta_C_minus_A": 0.0,
+      "mean_latency_delta_s_C_minus_A": -7.728707864509488,
+      "mean_input_token_delta_C_minus_A": 477.5,
+      "mean_output_token_delta_C_minus_A": -156.5
+    }
+  },
+  "attempts": [
+    {
+      "index": 1,
+      "classification": "valid",
+      "dispatched": 1,
+      "latency_s": 17.78280090199405,
+      "token_usage": {
+        "input_tokens": 12007,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 101,
+        "reasoning_output_tokens": 50
+      },
+      "failure": null,
+      "artifact": "runs/01_lab_s5_placement_plan_C/sample-0000"
+    },
+    {
+      "index": 2,
+      "classification": "valid",
+      "dispatched": 1,
+      "latency_s": 19.4198804480111,
+      "token_usage": {
+        "input_tokens": 11704,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 171,
+        "reasoning_output_tokens": 83
+      },
+      "failure": null,
+      "artifact": "runs/02_lab_s6_held_object_detour_plan_A/sample-0000"
+    },
+    {
+      "index": 3,
+      "classification": "valid",
+      "dispatched": 1,
+      "latency_s": 18.356914197996957,
+      "token_usage": {
+        "input_tokens": 12252,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 124,
+        "reasoning_output_tokens": 36
+      },
+      "failure": null,
+      "artifact": "runs/03_lab_s6_held_object_detour_plan_C/sample-0000"
+    }
+  ],
+  "paired_details": [
+    {
+      "scene_id": "lab_s5_placement",
+      "task_id": "plan",
+      "score_A": 1.0,
+      "score_C": 1.0,
+      "score": 0.0,
+      "latency_s": -14.394449479004834,
+      "input_tokens": 407,
+      "output_tokens": -266,
+      "mean_numeric_error_m_A": null,
+      "mean_numeric_error_m_C": null,
+      "delta_numeric_error_m_C_minus_A": null
+    },
+    {
+      "scene_id": "lab_s6_held_object_detour",
+      "task_id": "plan",
+      "score_A": 1.0,
+      "score_C": 1.0,
+      "score": 0.0,
+      "latency_s": -1.0629662500141421,
+      "input_tokens": 548,
+      "output_tokens": -47,
+      "mean_numeric_error_m_A": null,
+      "mean_numeric_error_m_C": null,
+      "delta_numeric_error_m_C_minus_A": null
+    }
+  ]
+}

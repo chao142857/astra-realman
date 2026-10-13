@@ -1,0 +1,77 @@
+[
+  {
+    "scene_id": "lab_s6_held_object_detour",
+    "task_id": "plan",
+    "condition": "RGB_MULTI_VIEW",
+    "source": "REAL_ASTRA_ATTEMPT",
+    "model_calls": 1,
+    "image_count": 3,
+    "geometry_source": null,
+    "raw_output": "{\"object_id\":\"target\",\"position_m\":[0.72,-0.05,0.12],\"quaternion_wxyz\":[1,0,0,0],\"waypoints_m\":[[0.18,-0.05,0.46],[0.72,-0.05,0.46],[0.72,-0.05,0.12]]}",
+    "prediction": {
+      "object_id": "target",
+      "position_m": [
+        0.72,
+        -0.05,
+        0.12
+      ],
+      "quaternion_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "waypoints_m": [
+        [
+          0.18,
+          -0.05,
+          0.46
+        ],
+        [
+          0.72,
+          -0.05,
+          0.46
+        ],
+        [
+          0.72,
+          -0.05,
+          0.12
+        ]
+      ]
+    },
+    "parse_status": "VALID",
+    "score_status": "SCORED",
+    "score": 1.0,
+    "latency_s": 19.4198804480111,
+    "token_usage": {
+      "input_tokens": 11704,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 171,
+      "reasoning_output_tokens": 83
+    },
+    "error_types": [],
+    "artifact": "sample-0000",
+    "task_prompt_sha256": "e5ac001e4141af99813956a24238c2f84edf6b1ec830638ffb04e22b012e8e54",
+    "extra_information": [],
+    "depth_sent": false,
+    "geometry_representation": null,
+    "evaluation": {
+      "status": "SCORED",
+      "score": 1.0,
+      "success": true,
+      "constraints": {
+        "correct_object": true,
+        "entire_volume_in_allowed_region": true,
+        "placement_collision_free": true,
+        "required_orientation": true,
+        "path_ends_at_placement": true,
+        "path_in_workspace": true,
+        "continuous_path_collision_free": true
+      },
+      "orientation_error_rad": 0.0,
+      "collisions": [],
+      "error_types": []
+    }
+  }
+]
