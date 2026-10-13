@@ -76,3 +76,5 @@ PYTHONPATH=experiments/spatial_input_eval_v0 /home/alex/astra/.venv/bin/python \
 ```
 
 证据目录：`evidence/pilot02_continuation_prep_20261013/`。主批次目录始终只读；原 STOPPED、12 次派发、NOT_SCORED 和五对主配对均不变。
+
+最终验收：Mac 7/7，ubuntu-robot 7/7；原真实工作树 212 个批次文件哈希未变，607 个冻结文件未变。真实派发 0，未创建持久化续测 ledger 或可使用的新授权。
