@@ -1,5 +1,7 @@
 # Spatial Evaluation V0：Mac ChatGPT → SSH bridge 接入
 
+最新验收：新授权的单次真实 S5 A 已在 32.177 秒返回有效 JSON，独立评分 1.0，离线重评分一致；无重试、无 C 请求。见 [真实 S5 A 成功记录](MAC_BRIDGE_S5_A_SUCCESS.md)。
+
 当前运行状态：2026-10-13 09:48 原 bridge 已使用独立环境恢复，监听与非生成 GET 验收通过；详见 [隧道恢复记录](MAC_BRIDGE_TUNNEL_RECOVERY.md)。下一次生成仍待新授权。
 
 首次获授权 A 的最新结果见 [MAC_BRIDGE_FIRST_A.md](MAC_BRIDGE_FIRST_A.md)：链路在线，但原 Python 缺 jsonschema，生成前失败；独立环境已通过完整 payload 预检，未重试。以下离线状态与计数为前一轮接入验收记录。

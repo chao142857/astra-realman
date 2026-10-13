@@ -1,0 +1,68 @@
+{
+  "status": "PASS_SINGLE_REAL_S5_A",
+  "base_commit": "8da20ae43e7d5d034cb6958fc78290c6e04ecd26",
+  "scene_id": "lab_s5_placement",
+  "task_id": "plan",
+  "condition": "RGB_MULTI_VIEW",
+  "bridge_dispatches": 1,
+  "observed_completed_cli_turns": 1,
+  "automatic_retries": 0,
+  "cancel_requests": 0,
+  "C_dispatches": 0,
+  "http_status": 200,
+  "deadline_s": 90,
+  "wall_latency_s": 32.177250380998885,
+  "model_parameters": {
+    "model": "gpt-6-astra",
+    "model_reasoning_effort": "medium",
+    "provider": "openai",
+    "ephemeral": true
+  },
+  "parameter_audit": "PASS",
+  "auth_type": "CHATGPT",
+  "parse_status": "VALID",
+  "score_status": "SCORED",
+  "score": 1.0,
+  "constraints": {
+    "correct_object": true,
+    "entire_volume_in_allowed_region": true,
+    "placement_collision_free": true,
+    "required_orientation": true
+  },
+  "prediction": {
+    "object_id": "target",
+    "position_m": [
+      0.62,
+      0.145,
+      0.1
+    ],
+    "quaternion_wxyz": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "waypoints_m": []
+  },
+  "usage": {
+    "input_tokens": 11600,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 367,
+    "reasoning_output_tokens": 316
+  },
+  "frozen_input_and_native_archive_audit": "PASS",
+  "offline_rescore": "PASS_IDENTICAL_RESULT_NO_MODEL_CALLS",
+  "nonfatal_cli_messages": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/tangchao/.codex/config.toml.",
+    "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+  ],
+  "bridge_code_or_model_flags_changed": false,
+  "GT_or_witness_transmitted": false,
+  "hardware_connections": 0,
+  "limits": [
+    "Single prescribed-orientation placement trial; not autonomous orientation planning.",
+    "No paired C trial, no A/C capability improvement conclusion.",
+    "Code Mode warnings did not block this structured answer; tool-based Code Mode compatibility was not exercised."
+  ]
+}
