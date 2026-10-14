@@ -1,0 +1,52 @@
+{
+  "status": "VALID",
+  "score": 0.0,
+  "failure": null,
+  "source": "FAKE_MAC_BRIDGE_NOT_ASTRA",
+  "usage": {
+    "input_tokens": 10,
+    "output_tokens": 5,
+    "output_tokens_details": {
+      "reasoning_tokens": 2
+    }
+  },
+  "latency_s": 0.006998949000262655,
+  "usage_kind": "FIXTURE_NOT_MODEL_USAGE",
+  "evaluation": {
+    "status": "SCORED",
+    "score": 0.0,
+    "success": false,
+    "constraints": {
+      "correct_object": true,
+      "entire_volume_in_allowed_region": true,
+      "placement_collision_free": true,
+      "required_orientation": true,
+      "path_ends_at_placement": true,
+      "path_in_workspace": true,
+      "continuous_path_collision_free": false
+    },
+    "orientation_error_rad": 0.0,
+    "collisions": [
+      {
+        "segment": 0,
+        "obstacle_id": "barrier"
+      }
+    ],
+    "error_types": [
+      "continuous_path_collision_free"
+    ],
+    "scorer_contract": "astra.pilot02.task_policy.v1"
+  },
+  "thread_id": "287a4010871f4012ba0e16d7f2dc9bcc",
+  "input_sha256": "866946aa2520f19c588fe38729cbb9a9c42dd4e2b5396fd479a48113934332bd",
+  "raw_sha256": "b9d5ac1c4b45faa1cc3045ec31f2ab1cbe63b6f7b94c2290a67a69edf4a87d9c",
+  "model_parameters": {
+    "model": "gpt-6-astra",
+    "reasoning": "medium",
+    "ephemeral": true
+  },
+  "request_id": "e7933ce549974a679584745bba98ccd9",
+  "reported_reasoning_tokens": 2,
+  "cached_input_tokens": null,
+  "upstream_generation_attempts": "NOT_MEASURED; distinct from client dispatch and CLI reconnect diagnostics"
+}
