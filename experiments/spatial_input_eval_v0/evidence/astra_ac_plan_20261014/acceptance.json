@@ -1,0 +1,873 @@
+{
+  "status": "PASS",
+  "eligible_scenes": 6,
+  "input_sets": 12,
+  "scheduled_requests": 24,
+  "real_generation_requests": 0,
+  "bridge_connections": 0,
+  "new_ledgers": 0,
+  "pair_checks": [
+    {
+      "scene": "v2_val_path_01",
+      "same_context_except_geometry": true,
+      "C_exact_scene_geometry": true,
+      "C_contains_reference_action_or_path": false,
+      "depth_sent": false
+    },
+    {
+      "scene": "v2_val_path_02",
+      "same_context_except_geometry": true,
+      "C_exact_scene_geometry": true,
+      "C_contains_reference_action_or_path": false,
+      "depth_sent": false
+    },
+    {
+      "scene": "v2_val_path_03",
+      "same_context_except_geometry": true,
+      "C_exact_scene_geometry": true,
+      "C_contains_reference_action_or_path": false,
+      "depth_sent": false
+    },
+    {
+      "scene": "v2_val_yaw_01",
+      "same_context_except_geometry": true,
+      "C_exact_scene_geometry": true,
+      "C_contains_reference_action_or_path": false,
+      "depth_sent": false
+    },
+    {
+      "scene": "v2_val_yaw_02",
+      "same_context_except_geometry": true,
+      "C_exact_scene_geometry": true,
+      "C_contains_reference_action_or_path": false,
+      "depth_sent": false
+    },
+    {
+      "scene": "v2_val_yaw_03",
+      "same_context_except_geometry": true,
+      "C_exact_scene_geometry": true,
+      "C_contains_reference_action_or_path": false,
+      "depth_sent": false
+    }
+  ],
+  "protocol_checks": [
+    {
+      "scene": "v2_val_path_01",
+      "condition": "RGB_MULTI_VIEW",
+      "public_validator": "PASS",
+      "production_payload_validator": "PASS",
+      "source_bytes_identical": true,
+      "schema_compiler_audit": {
+        "profile": "astra.structured_outputs.v1",
+        "status": "PASS",
+        "counts": {
+          "properties": 4,
+          "enum_values": 0,
+          "strings": 45,
+          "depth": 4
+        },
+        "bytes": 438,
+        "nodes": [
+          {
+            "path": "$/properties/object_id",
+            "status": "PASS",
+            "type": "string"
+          },
+          {
+            "path": "$/properties/position_m/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/position_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m/items/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/waypoints_m/items",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$",
+            "status": "PASS",
+            "type": "object"
+          }
+        ],
+        "authoritative_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "provider_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "changes": []
+      }
+    },
+    {
+      "scene": "v2_val_path_01",
+      "condition": "RGB_ORACLE_3D",
+      "public_validator": "PASS",
+      "production_payload_validator": "PASS",
+      "source_bytes_identical": true,
+      "schema_compiler_audit": {
+        "profile": "astra.structured_outputs.v1",
+        "status": "PASS",
+        "counts": {
+          "properties": 4,
+          "enum_values": 0,
+          "strings": 45,
+          "depth": 4
+        },
+        "bytes": 438,
+        "nodes": [
+          {
+            "path": "$/properties/object_id",
+            "status": "PASS",
+            "type": "string"
+          },
+          {
+            "path": "$/properties/position_m/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/position_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m/items/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/waypoints_m/items",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$",
+            "status": "PASS",
+            "type": "object"
+          }
+        ],
+        "authoritative_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "provider_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "changes": []
+      }
+    },
+    {
+      "scene": "v2_val_path_02",
+      "condition": "RGB_MULTI_VIEW",
+      "public_validator": "PASS",
+      "production_payload_validator": "PASS",
+      "source_bytes_identical": true,
+      "schema_compiler_audit": {
+        "profile": "astra.structured_outputs.v1",
+        "status": "PASS",
+        "counts": {
+          "properties": 4,
+          "enum_values": 0,
+          "strings": 45,
+          "depth": 4
+        },
+        "bytes": 438,
+        "nodes": [
+          {
+            "path": "$/properties/object_id",
+            "status": "PASS",
+            "type": "string"
+          },
+          {
+            "path": "$/properties/position_m/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/position_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m/items/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/waypoints_m/items",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$",
+            "status": "PASS",
+            "type": "object"
+          }
+        ],
+        "authoritative_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "provider_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "changes": []
+      }
+    },
+    {
+      "scene": "v2_val_path_02",
+      "condition": "RGB_ORACLE_3D",
+      "public_validator": "PASS",
+      "production_payload_validator": "PASS",
+      "source_bytes_identical": true,
+      "schema_compiler_audit": {
+        "profile": "astra.structured_outputs.v1",
+        "status": "PASS",
+        "counts": {
+          "properties": 4,
+          "enum_values": 0,
+          "strings": 45,
+          "depth": 4
+        },
+        "bytes": 438,
+        "nodes": [
+          {
+            "path": "$/properties/object_id",
+            "status": "PASS",
+            "type": "string"
+          },
+          {
+            "path": "$/properties/position_m/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/position_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m/items/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/waypoints_m/items",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$",
+            "status": "PASS",
+            "type": "object"
+          }
+        ],
+        "authoritative_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "provider_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "changes": []
+      }
+    },
+    {
+      "scene": "v2_val_path_03",
+      "condition": "RGB_MULTI_VIEW",
+      "public_validator": "PASS",
+      "production_payload_validator": "PASS",
+      "source_bytes_identical": true,
+      "schema_compiler_audit": {
+        "profile": "astra.structured_outputs.v1",
+        "status": "PASS",
+        "counts": {
+          "properties": 4,
+          "enum_values": 0,
+          "strings": 45,
+          "depth": 4
+        },
+        "bytes": 438,
+        "nodes": [
+          {
+            "path": "$/properties/object_id",
+            "status": "PASS",
+            "type": "string"
+          },
+          {
+            "path": "$/properties/position_m/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/position_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m/items/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/waypoints_m/items",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$",
+            "status": "PASS",
+            "type": "object"
+          }
+        ],
+        "authoritative_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "provider_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "changes": []
+      }
+    },
+    {
+      "scene": "v2_val_path_03",
+      "condition": "RGB_ORACLE_3D",
+      "public_validator": "PASS",
+      "production_payload_validator": "PASS",
+      "source_bytes_identical": true,
+      "schema_compiler_audit": {
+        "profile": "astra.structured_outputs.v1",
+        "status": "PASS",
+        "counts": {
+          "properties": 4,
+          "enum_values": 0,
+          "strings": 45,
+          "depth": 4
+        },
+        "bytes": 438,
+        "nodes": [
+          {
+            "path": "$/properties/object_id",
+            "status": "PASS",
+            "type": "string"
+          },
+          {
+            "path": "$/properties/position_m/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/position_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m/items/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/waypoints_m/items",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$",
+            "status": "PASS",
+            "type": "object"
+          }
+        ],
+        "authoritative_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "provider_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "changes": []
+      }
+    },
+    {
+      "scene": "v2_val_yaw_01",
+      "condition": "RGB_MULTI_VIEW",
+      "public_validator": "PASS",
+      "production_payload_validator": "PASS",
+      "source_bytes_identical": true,
+      "schema_compiler_audit": {
+        "profile": "astra.structured_outputs.v1",
+        "status": "PASS",
+        "counts": {
+          "properties": 4,
+          "enum_values": 0,
+          "strings": 45,
+          "depth": 4
+        },
+        "bytes": 438,
+        "nodes": [
+          {
+            "path": "$/properties/object_id",
+            "status": "PASS",
+            "type": "string"
+          },
+          {
+            "path": "$/properties/position_m/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/position_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m/items/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/waypoints_m/items",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$",
+            "status": "PASS",
+            "type": "object"
+          }
+        ],
+        "authoritative_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "provider_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "changes": []
+      }
+    },
+    {
+      "scene": "v2_val_yaw_01",
+      "condition": "RGB_ORACLE_3D",
+      "public_validator": "PASS",
+      "production_payload_validator": "PASS",
+      "source_bytes_identical": true,
+      "schema_compiler_audit": {
+        "profile": "astra.structured_outputs.v1",
+        "status": "PASS",
+        "counts": {
+          "properties": 4,
+          "enum_values": 0,
+          "strings": 45,
+          "depth": 4
+        },
+        "bytes": 438,
+        "nodes": [
+          {
+            "path": "$/properties/object_id",
+            "status": "PASS",
+            "type": "string"
+          },
+          {
+            "path": "$/properties/position_m/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/position_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m/items/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/waypoints_m/items",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$",
+            "status": "PASS",
+            "type": "object"
+          }
+        ],
+        "authoritative_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "provider_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "changes": []
+      }
+    },
+    {
+      "scene": "v2_val_yaw_02",
+      "condition": "RGB_MULTI_VIEW",
+      "public_validator": "PASS",
+      "production_payload_validator": "PASS",
+      "source_bytes_identical": true,
+      "schema_compiler_audit": {
+        "profile": "astra.structured_outputs.v1",
+        "status": "PASS",
+        "counts": {
+          "properties": 4,
+          "enum_values": 0,
+          "strings": 45,
+          "depth": 4
+        },
+        "bytes": 438,
+        "nodes": [
+          {
+            "path": "$/properties/object_id",
+            "status": "PASS",
+            "type": "string"
+          },
+          {
+            "path": "$/properties/position_m/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/position_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m/items/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/waypoints_m/items",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$",
+            "status": "PASS",
+            "type": "object"
+          }
+        ],
+        "authoritative_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "provider_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "changes": []
+      }
+    },
+    {
+      "scene": "v2_val_yaw_02",
+      "condition": "RGB_ORACLE_3D",
+      "public_validator": "PASS",
+      "production_payload_validator": "PASS",
+      "source_bytes_identical": true,
+      "schema_compiler_audit": {
+        "profile": "astra.structured_outputs.v1",
+        "status": "PASS",
+        "counts": {
+          "properties": 4,
+          "enum_values": 0,
+          "strings": 45,
+          "depth": 4
+        },
+        "bytes": 438,
+        "nodes": [
+          {
+            "path": "$/properties/object_id",
+            "status": "PASS",
+            "type": "string"
+          },
+          {
+            "path": "$/properties/position_m/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/position_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m/items/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/waypoints_m/items",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$",
+            "status": "PASS",
+            "type": "object"
+          }
+        ],
+        "authoritative_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "provider_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "changes": []
+      }
+    },
+    {
+      "scene": "v2_val_yaw_03",
+      "condition": "RGB_MULTI_VIEW",
+      "public_validator": "PASS",
+      "production_payload_validator": "PASS",
+      "source_bytes_identical": true,
+      "schema_compiler_audit": {
+        "profile": "astra.structured_outputs.v1",
+        "status": "PASS",
+        "counts": {
+          "properties": 4,
+          "enum_values": 0,
+          "strings": 45,
+          "depth": 4
+        },
+        "bytes": 438,
+        "nodes": [
+          {
+            "path": "$/properties/object_id",
+            "status": "PASS",
+            "type": "string"
+          },
+          {
+            "path": "$/properties/position_m/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/position_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m/items/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/waypoints_m/items",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$",
+            "status": "PASS",
+            "type": "object"
+          }
+        ],
+        "authoritative_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "provider_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "changes": []
+      }
+    },
+    {
+      "scene": "v2_val_yaw_03",
+      "condition": "RGB_ORACLE_3D",
+      "public_validator": "PASS",
+      "production_payload_validator": "PASS",
+      "source_bytes_identical": true,
+      "schema_compiler_audit": {
+        "profile": "astra.structured_outputs.v1",
+        "status": "PASS",
+        "counts": {
+          "properties": 4,
+          "enum_values": 0,
+          "strings": 45,
+          "depth": 4
+        },
+        "bytes": 438,
+        "nodes": [
+          {
+            "path": "$/properties/object_id",
+            "status": "PASS",
+            "type": "string"
+          },
+          {
+            "path": "$/properties/position_m/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/position_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/quaternion_wxyz",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m/items/items",
+            "status": "PASS",
+            "type": "number"
+          },
+          {
+            "path": "$/properties/waypoints_m/items",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$/properties/waypoints_m",
+            "status": "PASS",
+            "type": "array"
+          },
+          {
+            "path": "$",
+            "status": "PASS",
+            "type": "object"
+          }
+        ],
+        "authoritative_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "provider_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+        "changes": []
+      }
+    }
+  ],
+  "scoring_fixture_checks": 33,
+  "scope": "static payload validation + original scorer fixtures, not production readiness or live bridge test"
+}

@@ -1,0 +1,489 @@
+{
+  "version": "astra.six_scene_ac.plan.v1",
+  "protocol": {
+    "model": "gpt-6-astra",
+    "reasoning": "medium",
+    "backend": "existing Mac ChatGPT SSH bridge",
+    "ephemeral": true,
+    "workers": 1,
+    "client_deadline_s": 180,
+    "server_timeout_required_s": 190,
+    "automatic_retries": 0,
+    "code_mode": "existing production configuration unchanged",
+    "generation_authorized": false,
+    "current_budget": 0,
+    "requested_future_max_client_dispatches": 24,
+    "repetitions": 2,
+    "stop_on": [
+      "timeout",
+      "transport error",
+      "403/409",
+      "native CLI error/reconnect",
+      "unknown completion",
+      "invalid JSON",
+      "parameter drift",
+      "input integrity failure"
+    ],
+    "valid_geometric_failure": "score zero and continue",
+    "budget_unit": "client dispatch; CLI upstream reconnects are distinct and not precisely controllable by client",
+    "old_batch_next_or_wave_allowed": false
+  },
+  "ordered_samples": [
+    {
+      "index": 1,
+      "repeat": 1,
+      "pair_id": "v2_val_path_01-r1",
+      "scene": "v2_val_path_01",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "input_directory": "inputs/v2_val_path_01/RGB_MULTI_VIEW",
+      "context_sha256": "157ffc206f1d9d739e51782b640bbb6cc8b8a18d53afc417b5228bfc4e162d3f",
+      "rgb_sha256": [
+        "7a819198f11b06db35abd5d07ffa938fb81a8380056f88918359f2e6aca36563",
+        "c3bf4060801e465eac95c00f743d8a11dd67439acc400528e1e1b4429c6c28ad",
+        "0e55a30ee01809f59577b63315768a43c397f52308f731cab84ad1c31f215448"
+      ],
+      "task_sha256": "d672b7d8fe0918c3c889beecfa776007aa2a95cfd2c7bff82b275300f40e085b",
+      "policy_sha256": "2989e6a62f30f5632508fd08853f807eb4460d5af457cad6770012c4df47ce19",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 2,
+      "repeat": 1,
+      "pair_id": "v2_val_path_01-r1",
+      "scene": "v2_val_path_01",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "input_directory": "inputs/v2_val_path_01/RGB_ORACLE_3D",
+      "context_sha256": "897bb055486997f3e5189e779b20b041664c9c018262a5b853a0c8baab6456f8",
+      "rgb_sha256": [
+        "7a819198f11b06db35abd5d07ffa938fb81a8380056f88918359f2e6aca36563",
+        "c3bf4060801e465eac95c00f743d8a11dd67439acc400528e1e1b4429c6c28ad",
+        "0e55a30ee01809f59577b63315768a43c397f52308f731cab84ad1c31f215448"
+      ],
+      "task_sha256": "d672b7d8fe0918c3c889beecfa776007aa2a95cfd2c7bff82b275300f40e085b",
+      "policy_sha256": "2989e6a62f30f5632508fd08853f807eb4460d5af457cad6770012c4df47ce19",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 3,
+      "repeat": 1,
+      "pair_id": "v2_val_path_02-r1",
+      "scene": "v2_val_path_02",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "input_directory": "inputs/v2_val_path_02/RGB_ORACLE_3D",
+      "context_sha256": "aa8c7c1f4e0b5cd6bb8191b52724173a34bdd3fe7d3daf83d2a0cd2859220f1d",
+      "rgb_sha256": [
+        "e2b8835208bfe962b7ef23ff79de4aabdf313400b981b88eac7604735faaa744",
+        "c23e857b2946825d972a539122c3c2e6289a679345468165298bd56ae111dad6",
+        "3590d7794c1c8a00ab082e5554465524480221339eebb0e9b60f6cd9bb5ce6d8"
+      ],
+      "task_sha256": "e341ee46f39770e06ecbc1b252bf9a43685548da6364facc056b3772c9b6d6a6",
+      "policy_sha256": "2989e6a62f30f5632508fd08853f807eb4460d5af457cad6770012c4df47ce19",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 4,
+      "repeat": 1,
+      "pair_id": "v2_val_path_02-r1",
+      "scene": "v2_val_path_02",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "input_directory": "inputs/v2_val_path_02/RGB_MULTI_VIEW",
+      "context_sha256": "866946aa2520f19c588fe38729cbb9a9c42dd4e2b5396fd479a48113934332bd",
+      "rgb_sha256": [
+        "e2b8835208bfe962b7ef23ff79de4aabdf313400b981b88eac7604735faaa744",
+        "c23e857b2946825d972a539122c3c2e6289a679345468165298bd56ae111dad6",
+        "3590d7794c1c8a00ab082e5554465524480221339eebb0e9b60f6cd9bb5ce6d8"
+      ],
+      "task_sha256": "e341ee46f39770e06ecbc1b252bf9a43685548da6364facc056b3772c9b6d6a6",
+      "policy_sha256": "2989e6a62f30f5632508fd08853f807eb4460d5af457cad6770012c4df47ce19",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 5,
+      "repeat": 1,
+      "pair_id": "v2_val_path_03-r1",
+      "scene": "v2_val_path_03",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "input_directory": "inputs/v2_val_path_03/RGB_MULTI_VIEW",
+      "context_sha256": "a63d664ffc24eebc2526f8c1be77642fad3e11f5722500061653fb6d9aa658a2",
+      "rgb_sha256": [
+        "a127466d251341c76f2d4ea98df4c594728c1dbf4dbd14abd85c491af5e5102b",
+        "a6532dfabaef638d8224cfe6b69dbf6969f24c2b1ee2a888a41394612f36794c",
+        "8db724c875a24a48273f5e49187b2acd1d916029542c2e25951d3be34177f5b9"
+      ],
+      "task_sha256": "7e7d6cb09a63d8f5eb3381a7f9b8509420c5d2df34f502e9826149ad14ac4986",
+      "policy_sha256": "2989e6a62f30f5632508fd08853f807eb4460d5af457cad6770012c4df47ce19",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 6,
+      "repeat": 1,
+      "pair_id": "v2_val_path_03-r1",
+      "scene": "v2_val_path_03",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "input_directory": "inputs/v2_val_path_03/RGB_ORACLE_3D",
+      "context_sha256": "1d8dcd80a38d765e9c2eb657d6a5be84c11f0f26c8634920cd92e08a196f0d46",
+      "rgb_sha256": [
+        "a127466d251341c76f2d4ea98df4c594728c1dbf4dbd14abd85c491af5e5102b",
+        "a6532dfabaef638d8224cfe6b69dbf6969f24c2b1ee2a888a41394612f36794c",
+        "8db724c875a24a48273f5e49187b2acd1d916029542c2e25951d3be34177f5b9"
+      ],
+      "task_sha256": "7e7d6cb09a63d8f5eb3381a7f9b8509420c5d2df34f502e9826149ad14ac4986",
+      "policy_sha256": "2989e6a62f30f5632508fd08853f807eb4460d5af457cad6770012c4df47ce19",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 7,
+      "repeat": 1,
+      "pair_id": "v2_val_yaw_01-r1",
+      "scene": "v2_val_yaw_01",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "input_directory": "inputs/v2_val_yaw_01/RGB_ORACLE_3D",
+      "context_sha256": "b27c89c23025a1e6971a0a57df1041777058d7c35d7ebf6a24daba7c0ca16282",
+      "rgb_sha256": [
+        "3da627df67d93ddb5b4454bcaa9f5be55b33a93bbd2851a7269c9f974f2fa5ac",
+        "2cbc42914a09f7844f223710642ea1eeac98775e3f0f01bc9bb7734269cb69b8",
+        "8633c111caf97c17f6e52d6cc6eefb3faef03c25d810f034c838ce37cd314dd6"
+      ],
+      "task_sha256": "a38de2444079195f5be635dd829d2b4bb2342b27de2a57cc81f50091c3c165dd",
+      "policy_sha256": "34590fd31e7a312fe4d02de86f90434737ceb28ac3ca50320a4f420816dabcc7",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 8,
+      "repeat": 1,
+      "pair_id": "v2_val_yaw_01-r1",
+      "scene": "v2_val_yaw_01",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "input_directory": "inputs/v2_val_yaw_01/RGB_MULTI_VIEW",
+      "context_sha256": "ed2d7d5f86f1a4cdb397d845aece473d713f3609b3f7eed8fd6e1643d0744ff7",
+      "rgb_sha256": [
+        "3da627df67d93ddb5b4454bcaa9f5be55b33a93bbd2851a7269c9f974f2fa5ac",
+        "2cbc42914a09f7844f223710642ea1eeac98775e3f0f01bc9bb7734269cb69b8",
+        "8633c111caf97c17f6e52d6cc6eefb3faef03c25d810f034c838ce37cd314dd6"
+      ],
+      "task_sha256": "a38de2444079195f5be635dd829d2b4bb2342b27de2a57cc81f50091c3c165dd",
+      "policy_sha256": "34590fd31e7a312fe4d02de86f90434737ceb28ac3ca50320a4f420816dabcc7",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 9,
+      "repeat": 1,
+      "pair_id": "v2_val_yaw_02-r1",
+      "scene": "v2_val_yaw_02",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "input_directory": "inputs/v2_val_yaw_02/RGB_MULTI_VIEW",
+      "context_sha256": "d615c5e7366cf93d5acc390d4c88e8d43b3e16d1d3d974de88935b2b4b644709",
+      "rgb_sha256": [
+        "afa80ab19c5a4e2f17576637f0f50d8189ae1976d79773d38d1f1b373181c878",
+        "74b935ad840eddcb0de63bfee21134175b836a989a0138bc103ffdd97d63c25a",
+        "b58971a90b6be2810c3e76b9d6692f803663a0bf30aaeb8c5ed158fa659013dc"
+      ],
+      "task_sha256": "3bb2fbb59dc886346e5e3868475c650797533cf482677beec8eab7ce3b220902",
+      "policy_sha256": "34590fd31e7a312fe4d02de86f90434737ceb28ac3ca50320a4f420816dabcc7",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 10,
+      "repeat": 1,
+      "pair_id": "v2_val_yaw_02-r1",
+      "scene": "v2_val_yaw_02",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "input_directory": "inputs/v2_val_yaw_02/RGB_ORACLE_3D",
+      "context_sha256": "7c5272e6d358f2912de712cfdea4893fa046983f213145fbcaafea417e9b1bf8",
+      "rgb_sha256": [
+        "afa80ab19c5a4e2f17576637f0f50d8189ae1976d79773d38d1f1b373181c878",
+        "74b935ad840eddcb0de63bfee21134175b836a989a0138bc103ffdd97d63c25a",
+        "b58971a90b6be2810c3e76b9d6692f803663a0bf30aaeb8c5ed158fa659013dc"
+      ],
+      "task_sha256": "3bb2fbb59dc886346e5e3868475c650797533cf482677beec8eab7ce3b220902",
+      "policy_sha256": "34590fd31e7a312fe4d02de86f90434737ceb28ac3ca50320a4f420816dabcc7",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 11,
+      "repeat": 1,
+      "pair_id": "v2_val_yaw_03-r1",
+      "scene": "v2_val_yaw_03",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "input_directory": "inputs/v2_val_yaw_03/RGB_ORACLE_3D",
+      "context_sha256": "5499635acf321e922e925fab14a5484155260ec4963d05cc495180b2270f8321",
+      "rgb_sha256": [
+        "e7d027556ea3dc2c2a153d82a1b1e064795e72a5f682620f727bbb8b88ded2cf",
+        "dd4d194e81eacb9eead04d60492fa15a3d055c940705c9d01bd289de45389975",
+        "2211b98dd97c415e97e158bef54a6cca0d6501d6e4aa011c1abd32dff967ce1a"
+      ],
+      "task_sha256": "feaa14c266c66a64f60e3e02fb08c3bce20e426ed0c57512eb85bc5fc451982c",
+      "policy_sha256": "34590fd31e7a312fe4d02de86f90434737ceb28ac3ca50320a4f420816dabcc7",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 12,
+      "repeat": 1,
+      "pair_id": "v2_val_yaw_03-r1",
+      "scene": "v2_val_yaw_03",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "input_directory": "inputs/v2_val_yaw_03/RGB_MULTI_VIEW",
+      "context_sha256": "645eea027e43495b3c18edba788ae380101b407edbe7bad67d3e780d511bf371",
+      "rgb_sha256": [
+        "e7d027556ea3dc2c2a153d82a1b1e064795e72a5f682620f727bbb8b88ded2cf",
+        "dd4d194e81eacb9eead04d60492fa15a3d055c940705c9d01bd289de45389975",
+        "2211b98dd97c415e97e158bef54a6cca0d6501d6e4aa011c1abd32dff967ce1a"
+      ],
+      "task_sha256": "feaa14c266c66a64f60e3e02fb08c3bce20e426ed0c57512eb85bc5fc451982c",
+      "policy_sha256": "34590fd31e7a312fe4d02de86f90434737ceb28ac3ca50320a4f420816dabcc7",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 13,
+      "repeat": 2,
+      "pair_id": "v2_val_path_01-r2",
+      "scene": "v2_val_path_01",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "input_directory": "inputs/v2_val_path_01/RGB_ORACLE_3D",
+      "context_sha256": "897bb055486997f3e5189e779b20b041664c9c018262a5b853a0c8baab6456f8",
+      "rgb_sha256": [
+        "7a819198f11b06db35abd5d07ffa938fb81a8380056f88918359f2e6aca36563",
+        "c3bf4060801e465eac95c00f743d8a11dd67439acc400528e1e1b4429c6c28ad",
+        "0e55a30ee01809f59577b63315768a43c397f52308f731cab84ad1c31f215448"
+      ],
+      "task_sha256": "d672b7d8fe0918c3c889beecfa776007aa2a95cfd2c7bff82b275300f40e085b",
+      "policy_sha256": "2989e6a62f30f5632508fd08853f807eb4460d5af457cad6770012c4df47ce19",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 14,
+      "repeat": 2,
+      "pair_id": "v2_val_path_01-r2",
+      "scene": "v2_val_path_01",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "input_directory": "inputs/v2_val_path_01/RGB_MULTI_VIEW",
+      "context_sha256": "157ffc206f1d9d739e51782b640bbb6cc8b8a18d53afc417b5228bfc4e162d3f",
+      "rgb_sha256": [
+        "7a819198f11b06db35abd5d07ffa938fb81a8380056f88918359f2e6aca36563",
+        "c3bf4060801e465eac95c00f743d8a11dd67439acc400528e1e1b4429c6c28ad",
+        "0e55a30ee01809f59577b63315768a43c397f52308f731cab84ad1c31f215448"
+      ],
+      "task_sha256": "d672b7d8fe0918c3c889beecfa776007aa2a95cfd2c7bff82b275300f40e085b",
+      "policy_sha256": "2989e6a62f30f5632508fd08853f807eb4460d5af457cad6770012c4df47ce19",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 15,
+      "repeat": 2,
+      "pair_id": "v2_val_path_02-r2",
+      "scene": "v2_val_path_02",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "input_directory": "inputs/v2_val_path_02/RGB_MULTI_VIEW",
+      "context_sha256": "866946aa2520f19c588fe38729cbb9a9c42dd4e2b5396fd479a48113934332bd",
+      "rgb_sha256": [
+        "e2b8835208bfe962b7ef23ff79de4aabdf313400b981b88eac7604735faaa744",
+        "c23e857b2946825d972a539122c3c2e6289a679345468165298bd56ae111dad6",
+        "3590d7794c1c8a00ab082e5554465524480221339eebb0e9b60f6cd9bb5ce6d8"
+      ],
+      "task_sha256": "e341ee46f39770e06ecbc1b252bf9a43685548da6364facc056b3772c9b6d6a6",
+      "policy_sha256": "2989e6a62f30f5632508fd08853f807eb4460d5af457cad6770012c4df47ce19",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 16,
+      "repeat": 2,
+      "pair_id": "v2_val_path_02-r2",
+      "scene": "v2_val_path_02",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "input_directory": "inputs/v2_val_path_02/RGB_ORACLE_3D",
+      "context_sha256": "aa8c7c1f4e0b5cd6bb8191b52724173a34bdd3fe7d3daf83d2a0cd2859220f1d",
+      "rgb_sha256": [
+        "e2b8835208bfe962b7ef23ff79de4aabdf313400b981b88eac7604735faaa744",
+        "c23e857b2946825d972a539122c3c2e6289a679345468165298bd56ae111dad6",
+        "3590d7794c1c8a00ab082e5554465524480221339eebb0e9b60f6cd9bb5ce6d8"
+      ],
+      "task_sha256": "e341ee46f39770e06ecbc1b252bf9a43685548da6364facc056b3772c9b6d6a6",
+      "policy_sha256": "2989e6a62f30f5632508fd08853f807eb4460d5af457cad6770012c4df47ce19",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 17,
+      "repeat": 2,
+      "pair_id": "v2_val_path_03-r2",
+      "scene": "v2_val_path_03",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "input_directory": "inputs/v2_val_path_03/RGB_ORACLE_3D",
+      "context_sha256": "1d8dcd80a38d765e9c2eb657d6a5be84c11f0f26c8634920cd92e08a196f0d46",
+      "rgb_sha256": [
+        "a127466d251341c76f2d4ea98df4c594728c1dbf4dbd14abd85c491af5e5102b",
+        "a6532dfabaef638d8224cfe6b69dbf6969f24c2b1ee2a888a41394612f36794c",
+        "8db724c875a24a48273f5e49187b2acd1d916029542c2e25951d3be34177f5b9"
+      ],
+      "task_sha256": "7e7d6cb09a63d8f5eb3381a7f9b8509420c5d2df34f502e9826149ad14ac4986",
+      "policy_sha256": "2989e6a62f30f5632508fd08853f807eb4460d5af457cad6770012c4df47ce19",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 18,
+      "repeat": 2,
+      "pair_id": "v2_val_path_03-r2",
+      "scene": "v2_val_path_03",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "input_directory": "inputs/v2_val_path_03/RGB_MULTI_VIEW",
+      "context_sha256": "a63d664ffc24eebc2526f8c1be77642fad3e11f5722500061653fb6d9aa658a2",
+      "rgb_sha256": [
+        "a127466d251341c76f2d4ea98df4c594728c1dbf4dbd14abd85c491af5e5102b",
+        "a6532dfabaef638d8224cfe6b69dbf6969f24c2b1ee2a888a41394612f36794c",
+        "8db724c875a24a48273f5e49187b2acd1d916029542c2e25951d3be34177f5b9"
+      ],
+      "task_sha256": "7e7d6cb09a63d8f5eb3381a7f9b8509420c5d2df34f502e9826149ad14ac4986",
+      "policy_sha256": "2989e6a62f30f5632508fd08853f807eb4460d5af457cad6770012c4df47ce19",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 19,
+      "repeat": 2,
+      "pair_id": "v2_val_yaw_01-r2",
+      "scene": "v2_val_yaw_01",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "input_directory": "inputs/v2_val_yaw_01/RGB_MULTI_VIEW",
+      "context_sha256": "ed2d7d5f86f1a4cdb397d845aece473d713f3609b3f7eed8fd6e1643d0744ff7",
+      "rgb_sha256": [
+        "3da627df67d93ddb5b4454bcaa9f5be55b33a93bbd2851a7269c9f974f2fa5ac",
+        "2cbc42914a09f7844f223710642ea1eeac98775e3f0f01bc9bb7734269cb69b8",
+        "8633c111caf97c17f6e52d6cc6eefb3faef03c25d810f034c838ce37cd314dd6"
+      ],
+      "task_sha256": "a38de2444079195f5be635dd829d2b4bb2342b27de2a57cc81f50091c3c165dd",
+      "policy_sha256": "34590fd31e7a312fe4d02de86f90434737ceb28ac3ca50320a4f420816dabcc7",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 20,
+      "repeat": 2,
+      "pair_id": "v2_val_yaw_01-r2",
+      "scene": "v2_val_yaw_01",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "input_directory": "inputs/v2_val_yaw_01/RGB_ORACLE_3D",
+      "context_sha256": "b27c89c23025a1e6971a0a57df1041777058d7c35d7ebf6a24daba7c0ca16282",
+      "rgb_sha256": [
+        "3da627df67d93ddb5b4454bcaa9f5be55b33a93bbd2851a7269c9f974f2fa5ac",
+        "2cbc42914a09f7844f223710642ea1eeac98775e3f0f01bc9bb7734269cb69b8",
+        "8633c111caf97c17f6e52d6cc6eefb3faef03c25d810f034c838ce37cd314dd6"
+      ],
+      "task_sha256": "a38de2444079195f5be635dd829d2b4bb2342b27de2a57cc81f50091c3c165dd",
+      "policy_sha256": "34590fd31e7a312fe4d02de86f90434737ceb28ac3ca50320a4f420816dabcc7",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 21,
+      "repeat": 2,
+      "pair_id": "v2_val_yaw_02-r2",
+      "scene": "v2_val_yaw_02",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "input_directory": "inputs/v2_val_yaw_02/RGB_ORACLE_3D",
+      "context_sha256": "7c5272e6d358f2912de712cfdea4893fa046983f213145fbcaafea417e9b1bf8",
+      "rgb_sha256": [
+        "afa80ab19c5a4e2f17576637f0f50d8189ae1976d79773d38d1f1b373181c878",
+        "74b935ad840eddcb0de63bfee21134175b836a989a0138bc103ffdd97d63c25a",
+        "b58971a90b6be2810c3e76b9d6692f803663a0bf30aaeb8c5ed158fa659013dc"
+      ],
+      "task_sha256": "3bb2fbb59dc886346e5e3868475c650797533cf482677beec8eab7ce3b220902",
+      "policy_sha256": "34590fd31e7a312fe4d02de86f90434737ceb28ac3ca50320a4f420816dabcc7",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 22,
+      "repeat": 2,
+      "pair_id": "v2_val_yaw_02-r2",
+      "scene": "v2_val_yaw_02",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "input_directory": "inputs/v2_val_yaw_02/RGB_MULTI_VIEW",
+      "context_sha256": "d615c5e7366cf93d5acc390d4c88e8d43b3e16d1d3d974de88935b2b4b644709",
+      "rgb_sha256": [
+        "afa80ab19c5a4e2f17576637f0f50d8189ae1976d79773d38d1f1b373181c878",
+        "74b935ad840eddcb0de63bfee21134175b836a989a0138bc103ffdd97d63c25a",
+        "b58971a90b6be2810c3e76b9d6692f803663a0bf30aaeb8c5ed158fa659013dc"
+      ],
+      "task_sha256": "3bb2fbb59dc886346e5e3868475c650797533cf482677beec8eab7ce3b220902",
+      "policy_sha256": "34590fd31e7a312fe4d02de86f90434737ceb28ac3ca50320a4f420816dabcc7",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 23,
+      "repeat": 2,
+      "pair_id": "v2_val_yaw_03-r2",
+      "scene": "v2_val_yaw_03",
+      "task_id": "plan",
+      "condition": "RGB_MULTI_VIEW",
+      "input_directory": "inputs/v2_val_yaw_03/RGB_MULTI_VIEW",
+      "context_sha256": "645eea027e43495b3c18edba788ae380101b407edbe7bad67d3e780d511bf371",
+      "rgb_sha256": [
+        "e7d027556ea3dc2c2a153d82a1b1e064795e72a5f682620f727bbb8b88ded2cf",
+        "dd4d194e81eacb9eead04d60492fa15a3d055c940705c9d01bd289de45389975",
+        "2211b98dd97c415e97e158bef54a6cca0d6501d6e4aa011c1abd32dff967ce1a"
+      ],
+      "task_sha256": "feaa14c266c66a64f60e3e02fb08c3bce20e426ed0c57512eb85bc5fc451982c",
+      "policy_sha256": "34590fd31e7a312fe4d02de86f90434737ceb28ac3ca50320a4f420816dabcc7",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    },
+    {
+      "index": 24,
+      "repeat": 2,
+      "pair_id": "v2_val_yaw_03-r2",
+      "scene": "v2_val_yaw_03",
+      "task_id": "plan",
+      "condition": "RGB_ORACLE_3D",
+      "input_directory": "inputs/v2_val_yaw_03/RGB_ORACLE_3D",
+      "context_sha256": "5499635acf321e922e925fab14a5484155260ec4963d05cc495180b2270f8321",
+      "rgb_sha256": [
+        "e7d027556ea3dc2c2a153d82a1b1e064795e72a5f682620f727bbb8b88ded2cf",
+        "dd4d194e81eacb9eead04d60492fa15a3d055c940705c9d01bd289de45389975",
+        "2211b98dd97c415e97e158bef54a6cca0d6501d6e4aa011c1abd32dff967ce1a"
+      ],
+      "task_sha256": "feaa14c266c66a64f60e3e02fb08c3bce20e426ed0c57512eb85bc5fc451982c",
+      "policy_sha256": "34590fd31e7a312fe4d02de86f90434737ceb28ac3ca50320a4f420816dabcc7",
+      "schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+      "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518"
+    }
+  ]
+}

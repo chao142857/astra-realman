@@ -1,0 +1,41 @@
+{
+  "version": "astra.six_scene_ac.analysis.v1",
+  "primary": "task-oriented spatial planning under A versus C",
+  "spatial_fact_estimation": {
+    "status": "NOT_MEASURED",
+    "reason": "unchanged planning schema has no fact estimates",
+    "prohibited_inference": "planning failure does not identify perception error; C repetition of given coordinates is not reasoning improvement"
+  },
+  "decision_score": "original pilot02_contract.score; unchanged task_policy and 2 mm SAT clearance",
+  "pairing": [
+    "scene",
+    "repeat"
+  ],
+  "categories": [
+    "both_success",
+    "A_only_success",
+    "C_only_success",
+    "both_failed"
+  ],
+  "groups": [
+    "bounded_path",
+    "upright_free_yaw"
+  ],
+  "repetitions": 2,
+  "independent_scenes": 6,
+  "protocol_invalid": "NOT_SCORED, stop batch",
+  "valid_geometric_failure": "zero, retain, continue",
+  "metrics": [
+    "success and failed constraints",
+    "original positions/quaternions/waypoints",
+    "reported input/cached/output/reasoning tokens; unavailable remains missing",
+    "client wall latency and input preparation latency",
+    "cache-hit pairs separately"
+  ],
+  "interpretation": "descriptive only; no internal-compute, pure-model-time, statistical-significance or generalization claim",
+  "all_outputs_retained": true,
+  "no_response_based_selection": true,
+  "generation_authorized": false,
+  "B_optimization_paused": true,
+  "B3_planned": false
+}
