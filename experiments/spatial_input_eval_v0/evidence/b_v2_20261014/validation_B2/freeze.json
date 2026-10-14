@@ -1,0 +1,196 @@
+{
+  "version": "public_rgbd_local_planes.v2",
+  "estimator_sha256": "eca7c3464ddb8e7a07b525c5c221b1240a82c0af9dc2249efda1696f111e046b",
+  "config": {
+    "inspired_by": "B v1 four-scene GT task audit; these scenes are development-only",
+    "pixel_center_offset": 0.5,
+    "mask_erosion_pixels": 1,
+    "depth_neighbor_discontinuity_m": 0.02,
+    "gray_spread": 18,
+    "red_ratio": 1.5,
+    "component_voxel_m": 0.004,
+    "component_connectivity_dilation": 1,
+    "minimum_component_points": 80,
+    "normal_alignment_degrees": 8,
+    "plane_gap_m": 0.001,
+    "min_plane_points": 20,
+    "cell_min_top_points": 12,
+    "boundary_support_band_m": 0.001,
+    "cell_edge_exclusion_m": 0.001,
+    "floor_exclusion_m": 0.008,
+    "free_ray_tolerance_pixel_footprint_factor": 1.0,
+    "reliability_boundary_clearance_fraction": 0.5,
+    "geometry_prior": "upright piecewise rectangular solids supported by visible top/side planes; interiors are hypotheses, not directly observed occupancy"
+  },
+  "files": [
+    {
+      "file": "v2_val_path_01/context.json",
+      "sha256": "f100c9beed86f30923a989cddeb672b151b68c1426871f05feb42f17f8d7c525"
+    },
+    {
+      "file": "v2_val_path_01/geometry.json",
+      "sha256": "edc6b7152a13dd223dc94cff49925fe2299b38f79384ffac25901bfc9762234d"
+    },
+    {
+      "file": "v2_val_path_01/image-0.png",
+      "sha256": "7a819198f11b06db35abd5d07ffa938fb81a8380056f88918359f2e6aca36563"
+    },
+    {
+      "file": "v2_val_path_01/image-1.png",
+      "sha256": "c3bf4060801e465eac95c00f743d8a11dd67439acc400528e1e1b4429c6c28ad"
+    },
+    {
+      "file": "v2_val_path_01/image-2.png",
+      "sha256": "0e55a30ee01809f59577b63315768a43c397f52308f731cab84ad1c31f215448"
+    },
+    {
+      "file": "v2_val_path_01/reliability.json",
+      "sha256": "30f3e156f4c0ee77d4f043fcb8270402787e9e04980a3ed1c855af330404adea"
+    },
+    {
+      "file": "v2_val_path_01/timing.json",
+      "sha256": "36b964500a76a2e34ce3bdaf644b67ddc93f552ac6fb9310e29631bc9b15ee1b"
+    },
+    {
+      "file": "v2_val_path_02/context.json",
+      "sha256": "937e9c2bdc20309ccbd8dd4b92ba20afef8361d311ca3751643dcff2d8541ee6"
+    },
+    {
+      "file": "v2_val_path_02/geometry.json",
+      "sha256": "ae95df89ab7ffec550c4e24085547cf4fdfeb64742e9cbad3c880f2c49519d80"
+    },
+    {
+      "file": "v2_val_path_02/image-0.png",
+      "sha256": "e2b8835208bfe962b7ef23ff79de4aabdf313400b981b88eac7604735faaa744"
+    },
+    {
+      "file": "v2_val_path_02/image-1.png",
+      "sha256": "c23e857b2946825d972a539122c3c2e6289a679345468165298bd56ae111dad6"
+    },
+    {
+      "file": "v2_val_path_02/image-2.png",
+      "sha256": "3590d7794c1c8a00ab082e5554465524480221339eebb0e9b60f6cd9bb5ce6d8"
+    },
+    {
+      "file": "v2_val_path_02/reliability.json",
+      "sha256": "814176cbf53f88e57cfc3da6339bcbdc46c2b50f947f3274ddcb1e7bae1ce70e"
+    },
+    {
+      "file": "v2_val_path_02/timing.json",
+      "sha256": "dbe9ffb84aaf7b6b5dae91963e7cb5bf12f679a6b3761c2829d62ad87ecaa57a"
+    },
+    {
+      "file": "v2_val_path_03/context.json",
+      "sha256": "ca08eabc874958b9cbcb57b5e509c58a64782d11e320b88d13ef8331906db29c"
+    },
+    {
+      "file": "v2_val_path_03/geometry.json",
+      "sha256": "2867c8b239fae9057259dead9206fcfe7fb5d686140b35a679116e2d82ad6664"
+    },
+    {
+      "file": "v2_val_path_03/image-0.png",
+      "sha256": "a127466d251341c76f2d4ea98df4c594728c1dbf4dbd14abd85c491af5e5102b"
+    },
+    {
+      "file": "v2_val_path_03/image-1.png",
+      "sha256": "a6532dfabaef638d8224cfe6b69dbf6969f24c2b1ee2a888a41394612f36794c"
+    },
+    {
+      "file": "v2_val_path_03/image-2.png",
+      "sha256": "8db724c875a24a48273f5e49187b2acd1d916029542c2e25951d3be34177f5b9"
+    },
+    {
+      "file": "v2_val_path_03/reliability.json",
+      "sha256": "e8d1bea2daed43f140ca11aebb255e653d4c0fc626ba3b87aa885de0792048a5"
+    },
+    {
+      "file": "v2_val_path_03/timing.json",
+      "sha256": "7d3a34ab928762ff43e125a2d102b35f113fc369fc0b30788450dbc8bf9e1fcb"
+    },
+    {
+      "file": "v2_val_yaw_01/context.json",
+      "sha256": "c47963910ce9f827a578a714293989060f9b98338a98bdbc5dd367a4909fc402"
+    },
+    {
+      "file": "v2_val_yaw_01/geometry.json",
+      "sha256": "403feb2790089df00f4081708a0734d266662bc5e195922c4c3183818a1f61bc"
+    },
+    {
+      "file": "v2_val_yaw_01/image-0.png",
+      "sha256": "3da627df67d93ddb5b4454bcaa9f5be55b33a93bbd2851a7269c9f974f2fa5ac"
+    },
+    {
+      "file": "v2_val_yaw_01/image-1.png",
+      "sha256": "2cbc42914a09f7844f223710642ea1eeac98775e3f0f01bc9bb7734269cb69b8"
+    },
+    {
+      "file": "v2_val_yaw_01/image-2.png",
+      "sha256": "8633c111caf97c17f6e52d6cc6eefb3faef03c25d810f034c838ce37cd314dd6"
+    },
+    {
+      "file": "v2_val_yaw_01/reliability.json",
+      "sha256": "3c8baf41585d1aa38122621f19f27e45f963d98258f7fb7fede8dc47d917697e"
+    },
+    {
+      "file": "v2_val_yaw_01/timing.json",
+      "sha256": "1919b42d87ba2c7fbebbd0c09902e37571d9c46bd1732d5a0e2909bb27909a40"
+    },
+    {
+      "file": "v2_val_yaw_02/context.json",
+      "sha256": "7cdca3e9ab2a15a101b2e372a7342a9e3ce3038e450f0880e118480a5baac587"
+    },
+    {
+      "file": "v2_val_yaw_02/geometry.json",
+      "sha256": "312e34c61141ec8f26381730d0db9b07d69e4bba4f313a6b5e9667c791a1bcc9"
+    },
+    {
+      "file": "v2_val_yaw_02/image-0.png",
+      "sha256": "afa80ab19c5a4e2f17576637f0f50d8189ae1976d79773d38d1f1b373181c878"
+    },
+    {
+      "file": "v2_val_yaw_02/image-1.png",
+      "sha256": "74b935ad840eddcb0de63bfee21134175b836a989a0138bc103ffdd97d63c25a"
+    },
+    {
+      "file": "v2_val_yaw_02/image-2.png",
+      "sha256": "b58971a90b6be2810c3e76b9d6692f803663a0bf30aaeb8c5ed158fa659013dc"
+    },
+    {
+      "file": "v2_val_yaw_02/reliability.json",
+      "sha256": "b0c8d7f7738633fcd58a9066283da32812a562edd320851c511f90036d14bb3d"
+    },
+    {
+      "file": "v2_val_yaw_02/timing.json",
+      "sha256": "cf0cfd2c82dbf3d781c6d67fe031fb16c1e318479d091dd1674ebfdecf30efdc"
+    },
+    {
+      "file": "v2_val_yaw_03/context.json",
+      "sha256": "5e008cfd8ecfcd72feecb740e3f585cf1b61e9fe76a06d30ad4c336673e4d125"
+    },
+    {
+      "file": "v2_val_yaw_03/geometry.json",
+      "sha256": "29835ac7c6b4c34836e77517d10d9e386eb78857643e1e3023cbf37ec1e86ec0"
+    },
+    {
+      "file": "v2_val_yaw_03/image-0.png",
+      "sha256": "e7d027556ea3dc2c2a153d82a1b1e064795e72a5f682620f727bbb8b88ded2cf"
+    },
+    {
+      "file": "v2_val_yaw_03/image-1.png",
+      "sha256": "dd4d194e81eacb9eead04d60492fa15a3d055c940705c9d01bd289de45389975"
+    },
+    {
+      "file": "v2_val_yaw_03/image-2.png",
+      "sha256": "2211b98dd97c415e97e158bef54a6cca0d6501d6e4aa011c1abd32dff967ce1a"
+    },
+    {
+      "file": "v2_val_yaw_03/reliability.json",
+      "sha256": "737c35b2bf4221e1a173ee82caebba68a332de99e07b4fc5f491f5192427f06c"
+    },
+    {
+      "file": "v2_val_yaw_03/timing.json",
+      "sha256": "9d931d1abfe9ef6e0b769e1681773126d05fd055a425888fcacc0c66bc50eaee"
+    }
+  ],
+  "generation_requests": 0
+}

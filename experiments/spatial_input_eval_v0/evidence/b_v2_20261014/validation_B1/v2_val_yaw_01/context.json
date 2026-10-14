@@ -1,0 +1,910 @@
+{
+  "instruction": "Return exactly one JSON object matching output_schema. This is offline geometry evaluation. Use only observations, optional geometry and task. No tools or execution. All positions are object centers in robot_base, meters; orientations are unit quaternions wxyz. For understanding return each question_id once, populating only the relevant answer field: relation=less/equal/greater along the specified positive axis, scalar_m=height/gap, vector_m=position/size, fits=fit; all other fields null. For placement waypoints_m must be empty. For path, waypoints_m excludes start, includes the final position_m, and orientation is fixed throughout translation. Choose any constraint-valid solution. The public task_policy is part of the task constraints; satisfy it as well as task.constraints.",
+  "coordinate_system": {
+    "id": "robot_base",
+    "units": "m",
+    "axes": "+x forward, +y left, +z up; right-handed",
+    "pose": "object center xyz in meters; unit quaternion wxyz, object local axes in robot_base"
+  },
+  "task": {
+    "task_id": "plan",
+    "kind": "placement",
+    "frame": "robot_base",
+    "tolerance_m": 0.005,
+    "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.605, -0.045, 0.115] m, full_size=[0.29, 0.29, 0.16] m, wxyz=[1, 0, 0, 0]. Return no waypoints. Keep local +z upright within 0.02 radians; choose yaw freely. No target quaternion is prescribed.",
+    "questions": [],
+    "constraints": {
+      "object_id": "target",
+      "allowed_region_id": "task_volume",
+      "clearance_m": 0.002,
+      "required_quaternion_wxyz": null,
+      "orientation_tolerance_rad": 0.02
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "object_id": {
+        "type": "string"
+      },
+      "position_m": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "quaternion_wxyz": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 4,
+        "maxItems": 4
+      },
+      "waypoints_m": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    },
+    "required": [
+      "object_id",
+      "position_m",
+      "quaternion_wxyz",
+      "waypoints_m"
+    ],
+    "additionalProperties": false
+  },
+  "attachments": [
+    {
+      "camera_id": "front",
+      "file": "image-0.png",
+      "sha256": "3da627df67d93ddb5b4454bcaa9f5be55b33a93bbd2851a7269c9f974f2fa5ac"
+    },
+    {
+      "camera_id": "opposite",
+      "file": "image-1.png",
+      "sha256": "2cbc42914a09f7844f223710642ea1eeac98775e3f0f01bc9bb7734269cb69b8"
+    },
+    {
+      "camera_id": "overhead",
+      "file": "image-2.png",
+      "sha256": "8633c111caf97c17f6e52d6cc6eefb3faef03c25d810f034c838ce37cd314dd6"
+    }
+  ],
+  "observations": {
+    "calibration": {
+      "front": {
+        "intrinsic": [
+          [
+            745.2566528320312,
+            0.0,
+            480.0
+          ],
+          [
+            0.0,
+            745.2566528320312,
+            360.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          960,
+          720
+        ],
+        "pose_base_xyz_wxyz": [
+          -0.25,
+          -0.800000011920929,
+          0.800000011920929,
+          0.8777040839195251,
+          -0.11613783985376358,
+          0.2686398923397064,
+          0.37944719195365906
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      },
+      "opposite": {
+        "intrinsic": [
+          [
+            745.2566528320312,
+            0.0,
+            480.0
+          ],
+          [
+            0.0,
+            745.2566528320312,
+            360.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          960,
+          720
+        ],
+        "pose_base_xyz_wxyz": [
+          1.1200000047683716,
+          0.7200000286102295,
+          0.8999999761581421,
+          0.3932653069496155,
+          0.29879146814346313,
+          0.13684214651584625,
+          -0.8586851954460144
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      },
+      "overhead": {
+        "intrinsic": [
+          [
+            745.2566528320312,
+            0.0,
+            480.0
+          ],
+          [
+            0.0,
+            745.2566528320312,
+            360.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          960,
+          720
+        ],
+        "pose_base_xyz_wxyz": [
+          0.47999998927116394,
+          0.0,
+          1.149999976158142,
+          0.3942342698574066,
+          0.5788488388061523,
+          0.3761782944202423,
+          -0.6066327095031738
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      }
+    },
+    "robot_state": {
+      "joint_names": [],
+      "qpos_rad": [],
+      "flange_pose_base_xyz_wxyz": null
+    },
+    "synchronization": {
+      "simulation_step": 10,
+      "capture_span_s": 0.5781186879903544,
+      "same_step": true,
+      "timestamp_semantics": "sequential readback from immutable static actors; no physics step between views"
+    }
+  },
+  "geometry": {
+    "source": "RECONSTRUCTION",
+    "frame": "robot_base",
+    "units": "m",
+    "objects": [
+      {
+        "id": "target",
+        "center_m": [
+          0.1451237419988211,
+          -0.345282689783423,
+          0.08545954639757536
+        ],
+        "size_m": [
+          0.12508291001157507,
+          0.04495201079345651,
+          0.06183788273083968
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      }
+    ],
+    "regions": [],
+    "obstacles": [
+      {
+        "id": "observed_obstacle_000",
+        "center_m": [
+          0.6443021164001737,
+          -0.1663949602670017,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.435,
+          0.20500000000000002,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_001",
+        "center_m": [
+          0.4797204215694613,
+          -0.10691499955206611,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.15499999999999997,
+          0.0050000000000000044,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_002",
+        "center_m": [
+          0.6136030874042863,
+          -0.06598296089088296,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.06499999999999995,
+          0.0050000000000000044,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_003",
+        "center_m": [
+          0.7474857532391113,
+          -0.025050922229699818,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.15500000000000003,
+          0.0050000000000000044,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_004",
+        "center_m": [
+          0.4758678011559401,
+          -0.10286440503405778,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.14999999999999997,
+          0.004999999999999977,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_005",
+        "center_m": [
+          0.7133300520386767,
+          0.09521810152748646,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.15000000000000002,
+          0.245,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_006",
+        "center_m": [
+          0.43766150543749716,
+          0.013551998309607197,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.14499999999999996,
+          0.24000000000000002,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_007",
+        "center_m": [
+          0.5049987865638838,
+          0.049824447503257985,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.21000000000000002,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_008",
+        "center_m": [
+          0.6333689993570868,
+          0.09168538953073506,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.21500000000000002,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_009",
+        "center_m": [
+          0.5688184283295818,
+          0.07195029946195029,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.13,
+          0.20500000000000002,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_010",
+        "center_m": [
+          0.3349046386915495,
+          0.11023331158448749,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.004999999999999949,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_011",
+        "center_m": [
+          0.3468584481410874,
+          0.11388795789352169,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.010000000000000009,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_012",
+        "center_m": [
+          0.3635937813704405,
+          0.11900446272616957,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.015000000000000013,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_013",
+        "center_m": [
+          0.37793835270988607,
+          0.12339003829701063,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_014",
+        "center_m": [
+          0.3994552097190544,
+          0.12996840165327223,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.02999999999999997,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_015",
+        "center_m": [
+          0.4209720667282226,
+          0.1365467650095338,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_016",
+        "center_m": [
+          0.44009816184748335,
+          0.14239419910398854,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.025000000000000022,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_017",
+        "center_m": [
+          0.45922425696674407,
+          0.14824163319844327,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_018",
+        "center_m": [
+          0.4687873045263744,
+          0.15116535024567063,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_019",
+        "center_m": [
+          0.48313187586582,
+          0.1555509258165117,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.015000000000000013,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_020",
+        "center_m": [
+          0.49747644720526546,
+          0.15993650138735274,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_021",
+        "center_m": [
+          0.5070394947648958,
+          0.1628602184345801,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_022",
+        "center_m": [
+          0.523774827994249,
+          0.167976723267228,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.020000000000000018,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_023",
+        "center_m": [
+          0.5405101612236022,
+          0.17309322809987593,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_024",
+        "center_m": [
+          0.5500732087832324,
+          0.17601694514710325,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.004999999999999893,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_025",
+        "center_m": [
+          0.5715900657924007,
+          0.18259530850336483,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.030000000000000027,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_026",
+        "center_m": [
+          0.5931069228015691,
+          0.18917367185962644,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_027",
+        "center_m": [
+          0.6170145417006448,
+          0.19648296447769484,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.025000000000000022,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_028",
+        "center_m": [
+          0.6361406368199056,
+          0.20233039857214957,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_029",
+        "center_m": [
+          0.6504852081593513,
+          0.20671597414299064,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_030",
+        "center_m": [
+          0.6672205413887042,
+          0.2118324789756385,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.019999999999999907,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_031",
+        "center_m": [
+          0.6839558746180574,
+          0.21694898380828642,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_032",
+        "center_m": [
+          0.6983004459575028,
+          0.22133455937912744,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_033",
+        "center_m": [
+          0.715035779186856,
+          0.22645106421177535,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.020000000000000018,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      },
+      {
+        "id": "observed_obstacle_034",
+        "center_m": [
+          0.7365526361960243,
+          0.23302942756803693,
+          0.1146445643705501
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.005,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      }
+    ],
+    "renderings": []
+  },
+  "task_policy": {
+    "version": "astra.pilot02.task_policy.v1",
+    "task_id": "plan",
+    "orientation": {
+      "mode": "upright_free_yaw",
+      "local_axis": [
+        0,
+        0,
+        1
+      ],
+      "world_axis": [
+        0,
+        0,
+        1
+      ],
+      "max_tilt_rad": 0.02
+    }
+  }
+}

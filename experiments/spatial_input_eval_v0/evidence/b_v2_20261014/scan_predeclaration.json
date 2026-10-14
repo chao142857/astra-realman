@@ -1,0 +1,12 @@
+{
+  "declared_before_GT_evaluation": true,
+  "selection": "all six deterministic validation scenes retained; all four old scenes development only",
+  "yaw": {"xy_offsets_m": [-0.012, -0.008, -0.004, 0, 0.004, 0.008, 0.012], "z": "public task volume center", "yaw_degrees": "0 through 178 inclusive, step 2", "samples_per_scene": 4410},
+  "path": {"lateral_y_m": [-0.26, 0.26], "y_step_m": 0.01, "z_m": [0.06, 0.24], "z_step_m": 0.02, "family": "start -> (start.x,y,z) -> (public_goal.x,y,z) -> public_goal; fixed task quaternion", "samples_per_scene": 530},
+  "candidates": "all predeclared private witnesses, alternate witnesses and negatives; no score-dependent selection",
+  "occupancy_grid_m": 0.01,
+  "boundary_matching": "estimated observed plane support median compared against nearest parallel GT face (normal within 8 degrees); proximity association is diagnostic and can be ambiguous; also report candidate SAT thresholds",
+  "clearance_m": 0.002,
+  "not_a_complete_feasibility_proof": true,
+  "model_requests": 0
+}

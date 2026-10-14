@@ -1,0 +1,52 @@
+{
+  "engine": "SAPIEN",
+  "version": "3.0.0b1",
+  "physics_steps": 10,
+  "cameras": [
+    {
+      "camera_id": "front",
+      "rgb_std": 20.62334679582848,
+      "valid_pixels": 690240,
+      "reprojection_p99_px": 0.0021589220095326062,
+      "visible_pixels": {
+        "target": 2031,
+        "barrier": 30354,
+        "suspended_beam": 1121,
+        "table": 0
+      }
+    },
+    {
+      "camera_id": "opposite",
+      "rgb_std": 19.914558271245397,
+      "valid_pixels": 691200,
+      "reprojection_p99_px": 0.001909842490397206,
+      "visible_pixels": {
+        "target": 1344,
+        "barrier": 24682,
+        "suspended_beam": 2888,
+        "table": 0
+      }
+    },
+    {
+      "camera_id": "overhead",
+      "rgb_std": 16.616100593128643,
+      "valid_pixels": 691200,
+      "reprojection_p99_px": 0.0013902614699335303,
+      "visible_pixels": {
+        "target": 1835,
+        "barrier": 15644,
+        "suspended_beam": 3900,
+        "table": 0
+      }
+    }
+  ],
+  "solid_actor_ids": {
+    "target": 5,
+    "barrier": 6,
+    "suspended_beam": 7,
+    "table": 8
+  },
+  "geometry_source": "PhysX box half-sizes and actor/shape pose readback",
+  "new_model_calls": 0,
+  "hardware_connections": 0
+}

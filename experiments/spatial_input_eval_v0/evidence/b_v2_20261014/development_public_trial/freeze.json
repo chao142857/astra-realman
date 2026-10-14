@@ -1,0 +1,140 @@
+{
+  "version": "public_rgbd_local_planes.v2",
+  "estimator_sha256": "88694eace93a3dba2216a6f986414d239b7624a25f7e2dcd03ed449059fd749d",
+  "config": {
+    "inspired_by": "B v1 four-scene GT task audit; these scenes are development-only",
+    "pixel_center_offset": 0.5,
+    "mask_erosion_pixels": 1,
+    "depth_neighbor_discontinuity_m": 0.02,
+    "gray_spread": 18,
+    "red_ratio": 1.5,
+    "component_voxel_m": 0.004,
+    "component_connectivity_dilation": 1,
+    "minimum_component_points": 80,
+    "normal_alignment_degrees": 8,
+    "plane_gap_m": 0.001,
+    "min_plane_points": 20,
+    "cell_min_top_points": 12,
+    "boundary_support_band_m": 0.001,
+    "cell_edge_exclusion_m": 0.001,
+    "floor_exclusion_m": 0.008,
+    "free_ray_tolerance_pixel_footprint_factor": 1.0,
+    "reliability_boundary_clearance_fraction": 0.5,
+    "geometry_prior": "upright piecewise rectangular solids supported by visible top/side planes; interiors are hypotheses, not directly observed occupancy"
+  },
+  "files": [
+    {
+      "file": "p02_b_open_minus/context.json",
+      "sha256": "2f94e9c4854da86e21c93210d8ac0e89ca0cf6d9d796c3138b1aa62acc500d11"
+    },
+    {
+      "file": "p02_b_open_minus/geometry.json",
+      "sha256": "b843baf15e98fb85f15198ed4571b27fb313f770c0c4aa2ed19e95b7104d23ce"
+    },
+    {
+      "file": "p02_b_open_minus/image-0.png",
+      "sha256": "08a7c8eb4248c7992d019d4941c3b860e23c43692d3e7cbd40bc4e772d9dbef5"
+    },
+    {
+      "file": "p02_b_open_minus/image-1.png",
+      "sha256": "2a2306c88abc0a64e1521223e98e2df14ba2d156de2f6f45cab01d98f552cdc8"
+    },
+    {
+      "file": "p02_b_open_minus/image-2.png",
+      "sha256": "63456c689b3893f78fd27f32b238a69de97e9879f8abf14d1e25f8c676765148"
+    },
+    {
+      "file": "p02_b_open_minus/reliability.json",
+      "sha256": "da111ab2c992999ace49a1891322e082569a20a882d17f25e8ed65346cc587c2"
+    },
+    {
+      "file": "p02_b_open_minus/timing.json",
+      "sha256": "00bad5742587b6ff048ed880afd80efcf2da768ad119ee155730ed2d5f09bcfe"
+    },
+    {
+      "file": "p02_b_open_plus/context.json",
+      "sha256": "466727ed666472bdaa444f04414950a946764abf8ce930559333b3a0b3f35feb"
+    },
+    {
+      "file": "p02_b_open_plus/geometry.json",
+      "sha256": "f3a8d0edb7f8398d1716d24615f76aa525c6647c69890ee82e12e8017596941d"
+    },
+    {
+      "file": "p02_b_open_plus/image-0.png",
+      "sha256": "188dd7049a1d861f863e4cf5751d3ab711432b3ab3b29758d3fd482bd50f4094"
+    },
+    {
+      "file": "p02_b_open_plus/image-1.png",
+      "sha256": "e22591d12b63f8c65aa3f80ff6f54454ea9b9ec5fe701249146bd5d52c7fd8f5"
+    },
+    {
+      "file": "p02_b_open_plus/image-2.png",
+      "sha256": "3ab8444ccc17c2d507113da8a1bf710cb3b378fa9b940770d25c4d61ef915ac5"
+    },
+    {
+      "file": "p02_b_open_plus/reliability.json",
+      "sha256": "e2e7b51fdec165cdacd8ccc56c41be68dc82c54b800ec13f36c8033a20739665"
+    },
+    {
+      "file": "p02_b_open_plus/timing.json",
+      "sha256": "62220b9e3bf7b9c8693fa5131f001de10b73c9fa2b5b41a56cbee1f599907726"
+    },
+    {
+      "file": "p02_c_slot_030/context.json",
+      "sha256": "daed63ee4df4c05ceffff736c7425007cc3e4d422e8281a7861dc53ed6feb79c"
+    },
+    {
+      "file": "p02_c_slot_030/geometry.json",
+      "sha256": "84d06ab5263fb794fbfe4fa53bac64540196772899691cadf3f053dde1bd1a04"
+    },
+    {
+      "file": "p02_c_slot_030/image-0.png",
+      "sha256": "b7a7effeec26709364fc8a9aedadb90b4e2173a1070e93820e554e1b0438fdc9"
+    },
+    {
+      "file": "p02_c_slot_030/image-1.png",
+      "sha256": "66c4d18865cdfc07bec3c1d3dd7d8521474164d70aac891e7ca71873a59edd28"
+    },
+    {
+      "file": "p02_c_slot_030/image-2.png",
+      "sha256": "c452faa3ef8feb8b2ace3b9d98653504f8a2a39f2bf99e57eee648e350645dc8"
+    },
+    {
+      "file": "p02_c_slot_030/reliability.json",
+      "sha256": "eec89be883cb24a4b2a47ae2567ca574a442fb8a503d22beb84efa5a1e45aba0"
+    },
+    {
+      "file": "p02_c_slot_030/timing.json",
+      "sha256": "7d7f0c6928fe1b9b4703375d27518d4b21daf503c362c5f0b5fa4c672dc69eca"
+    },
+    {
+      "file": "p02_c_slot_120/context.json",
+      "sha256": "863515b0b3449581fe7c9de52aecc78593f7083c9d306d3b9b3b47b3add26253"
+    },
+    {
+      "file": "p02_c_slot_120/geometry.json",
+      "sha256": "00995b5cdcd012ff080acf043efa8196234a0b58e6567e5683286458f40b2bf6"
+    },
+    {
+      "file": "p02_c_slot_120/image-0.png",
+      "sha256": "0ddb9a3d6f9ec67798e51c7b7380d9485331ebb7a566e9f002bebe4be61ccbdc"
+    },
+    {
+      "file": "p02_c_slot_120/image-1.png",
+      "sha256": "182cd89486904db93a0d95a6ed32c5ed7392620bbf707cb732fa9c19b0875886"
+    },
+    {
+      "file": "p02_c_slot_120/image-2.png",
+      "sha256": "cf4dc2d30fce4591063d9c274d8c77c9689989f625ed6f17facc140c2e075c56"
+    },
+    {
+      "file": "p02_c_slot_120/reliability.json",
+      "sha256": "15beb8557a2ff1eef35bf38cbc78d332f382dab351e56be36872b95a05213d8d"
+    },
+    {
+      "file": "p02_c_slot_120/timing.json",
+      "sha256": "6c04b6870ba1e7c40a5ef2acce27d664c6096542122479fd801f9a2f8f020f28"
+    }
+  ],
+  "generation_requests": 0
+}

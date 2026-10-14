@@ -1,0 +1,57 @@
+{
+  "version": "public_rgbd_boxes.v1",
+  "config": {
+    "grid_m": 0.005,
+    "red_min": 70,
+    "red_ratio": 1.5,
+    "gray_channel_spread_max": 18,
+    "gray_min": 30,
+    "floor_exclusion_m": 0.015,
+    "top_band_m": 0.003,
+    "minimum_component_cells": 8,
+    "closing_iterations": 1,
+    "yaw_step_degrees": 0.5,
+    "footprint_frame": "observed_neutral_minimum_area_rectangle"
+  },
+  "views": [
+    {
+      "camera": "front",
+      "valid_depth_pixels": 690240,
+      "red_pixels": 2031,
+      "neutral_pixels": 683680
+    },
+    {
+      "camera": "opposite",
+      "valid_depth_pixels": 691200,
+      "red_pixels": 1344,
+      "neutral_pixels": 684419
+    },
+    {
+      "camera": "overhead",
+      "valid_depth_pixels": 691200,
+      "red_pixels": 1835,
+      "neutral_pixels": 681817
+    }
+  ],
+  "target_points": 5210,
+  "neutral_points_above_floor": 78589,
+  "estimated_floor_height_m": 0.0004960491642040932,
+  "top_layers": [
+    {
+      "observed_top_m": 0.21769364735601915,
+      "footprint_cells": 442
+    },
+    {
+      "observed_top_m": 0.2696936473560192,
+      "footprint_cells": 978
+    }
+  ],
+  "missing_and_assumptions": [
+    "Back/bottom surfaces are not guaranteed observed.",
+    "Floor/table omitted after dominant-height removal.",
+    "Upright extrusion and top-surface visibility are assumptions; no certification of free space.",
+    "Public task volumes remain in task text; regions are not re-estimated."
+  ],
+  "segmentation_used": false,
+  "geometry_estimation_s": 0.44725884500076063
+}

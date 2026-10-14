@@ -1,0 +1,60 @@
+{
+  "engine": "SAPIEN",
+  "version": "3.0.0b1",
+  "physics_steps": 10,
+  "cameras": [
+    {
+      "camera_id": "front",
+      "rgb_std": 20.55576910702045,
+      "valid_pixels": 690240,
+      "reprojection_p99_px": 0.002158607150193714,
+      "visible_pixels": {
+        "target": 2054,
+        "barrier": 24552,
+        "suspended_beam": 3283,
+        "post_inner": 138,
+        "post_outer": 2820,
+        "table": 0
+      }
+    },
+    {
+      "camera_id": "opposite",
+      "rgb_std": 21.297794462722365,
+      "valid_pixels": 691200,
+      "reprojection_p99_px": 0.001912283148691755,
+      "visible_pixels": {
+        "target": 1334,
+        "barrier": 30604,
+        "suspended_beam": 1569,
+        "post_inner": 13,
+        "post_outer": 1574,
+        "table": 0
+      }
+    },
+    {
+      "camera_id": "overhead",
+      "rgb_std": 16.556546928882398,
+      "valid_pixels": 691200,
+      "reprojection_p99_px": 0.00139106770961169,
+      "visible_pixels": {
+        "target": 1837,
+        "barrier": 15990,
+        "suspended_beam": 3884,
+        "post_inner": 0,
+        "post_outer": 0,
+        "table": 0
+      }
+    }
+  ],
+  "solid_actor_ids": {
+    "target": 5,
+    "barrier": 6,
+    "suspended_beam": 7,
+    "post_inner": 8,
+    "post_outer": 9,
+    "table": 10
+  },
+  "geometry_source": "PhysX box half-sizes and actor/shape pose readback",
+  "new_model_calls": 0,
+  "hardware_connections": 0
+}

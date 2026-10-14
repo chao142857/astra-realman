@@ -1,0 +1,397 @@
+{
+  "instruction": "Return exactly one JSON object matching output_schema. This is offline geometry evaluation. Use only observations, optional geometry and task. No tools or execution. All positions are object centers in robot_base, meters; orientations are unit quaternions wxyz. For understanding return each question_id once, populating only the relevant answer field: relation=less/equal/greater along the specified positive axis, scalar_m=height/gap, vector_m=position/size, fits=fit; all other fields null. For placement waypoints_m must be empty. For path, waypoints_m excludes start, includes the final position_m, and orientation is fixed throughout translation. Choose any constraint-valid solution. The public task_policy is part of the task constraints; satisfy it as well as task.constraints.",
+  "coordinate_system": {
+    "id": "robot_base",
+    "units": "m",
+    "axes": "+x forward, +y left, +z up; right-handed",
+    "pose": "object center xyz in meters; unit quaternion wxyz, object local axes in robot_base"
+  },
+  "task": {
+    "task_id": "plan",
+    "kind": "placement",
+    "frame": "robot_base",
+    "tolerance_m": 0.005,
+    "instruction": "The red cuboid is target; gray solids are obstacles. Green wireframes mark public task volumes, not solids. Choose any collision-free object-center placement fully inside task_volume with the specified SAT-axis clearance. All positions use robot_base=simulation world, meters; +z up. Static geometry only; no support, robot or dynamics requirement. Public volumes: task_volume: center=[0.655, 0.065, 0.125] m, full_size=[0.29, 0.29, 0.16] m, wxyz=[1, 0, 0, 0]. Return no waypoints. Keep local +z upright within 0.02 radians; choose yaw freely. No target quaternion is prescribed.",
+    "questions": [],
+    "constraints": {
+      "object_id": "target",
+      "allowed_region_id": "task_volume",
+      "clearance_m": 0.002,
+      "required_quaternion_wxyz": null,
+      "orientation_tolerance_rad": 0.02
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "object_id": {
+        "type": "string"
+      },
+      "position_m": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "quaternion_wxyz": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 4,
+        "maxItems": 4
+      },
+      "waypoints_m": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    },
+    "required": [
+      "object_id",
+      "position_m",
+      "quaternion_wxyz",
+      "waypoints_m"
+    ],
+    "additionalProperties": false
+  },
+  "attachments": [
+    {
+      "camera_id": "front",
+      "file": "image-0.png",
+      "sha256": "afa80ab19c5a4e2f17576637f0f50d8189ae1976d79773d38d1f1b373181c878"
+    },
+    {
+      "camera_id": "opposite",
+      "file": "image-1.png",
+      "sha256": "74b935ad840eddcb0de63bfee21134175b836a989a0138bc103ffdd97d63c25a"
+    },
+    {
+      "camera_id": "overhead",
+      "file": "image-2.png",
+      "sha256": "b58971a90b6be2810c3e76b9d6692f803663a0bf30aaeb8c5ed158fa659013dc"
+    }
+  ],
+  "observations": {
+    "calibration": {
+      "front": {
+        "intrinsic": [
+          [
+            745.2566528320312,
+            0.0,
+            480.0
+          ],
+          [
+            0.0,
+            745.2566528320312,
+            360.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          960,
+          720
+        ],
+        "pose_base_xyz_wxyz": [
+          -0.25,
+          -0.800000011920929,
+          0.800000011920929,
+          0.8777040839195251,
+          -0.11613783985376358,
+          0.2686398923397064,
+          0.37944719195365906
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      },
+      "opposite": {
+        "intrinsic": [
+          [
+            745.2566528320312,
+            0.0,
+            480.0
+          ],
+          [
+            0.0,
+            745.2566528320312,
+            360.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          960,
+          720
+        ],
+        "pose_base_xyz_wxyz": [
+          1.1200000047683716,
+          0.7200000286102295,
+          0.8999999761581421,
+          0.3932653069496155,
+          0.29879146814346313,
+          0.13684214651584625,
+          -0.8586851954460144
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      },
+      "overhead": {
+        "intrinsic": [
+          [
+            745.2566528320312,
+            0.0,
+            480.0
+          ],
+          [
+            0.0,
+            745.2566528320312,
+            360.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "resolution": [
+          960,
+          720
+        ],
+        "pose_base_xyz_wxyz": [
+          0.47999998927116394,
+          0.0,
+          1.149999976158142,
+          0.3942342698574066,
+          0.5788488388061523,
+          0.3761782944202423,
+          -0.6066327095031738
+        ],
+        "axes": "SAPIEN pose: +x forward,+y left,+z up. Intrinsic: OpenCV +x right,+y down,+z forward."
+      }
+    },
+    "robot_state": {
+      "joint_names": [],
+      "qpos_rad": [],
+      "flange_pose_base_xyz_wxyz": null
+    },
+    "synchronization": {
+      "simulation_step": 10,
+      "capture_span_s": 0.5994536880025407,
+      "same_step": true,
+      "timestamp_semantics": "sequential readback from immutable static actors; no physics step between views"
+    }
+  },
+  "geometry": {
+    "source": "RECONSTRUCTION",
+    "frame": "robot_base",
+    "units": "m",
+    "objects": [
+      {
+        "id": "target",
+        "center_m": [
+          0.1451237419988211,
+          -0.345282689783423,
+          0.08545954639757536
+        ],
+        "size_m": [
+          0.12508291001157507,
+          0.04495201079345651,
+          0.06183788273083968
+        ],
+        "quaternion_wxyz": [
+          0.9890158633619168,
+          0,
+          0,
+          0.14780941112961063
+        ]
+      }
+    ],
+    "regions": [],
+    "obstacles": [
+      {
+        "id": "observed_obstacle_000",
+        "center_m": [
+          0.7743170891854144,
+          0.027304677171261782,
+          0.12454759736253967
+        ],
+        "size_m": [
+          0.43500000000000005,
+          0.20499999999999996,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.8038568606172173,
+          0,
+          0,
+          0.5948227867513413
+        ]
+      },
+      {
+        "id": "observed_obstacle_001",
+        "center_m": [
+          0.6329730511481126,
+          -0.07587895966767581,
+          0.12454759736253967
+        ],
+        "size_m": [
+          0.155,
+          0.0050000000000000044,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.8038568606172173,
+          0,
+          0,
+          0.5948227867513413
+        ]
+      },
+      {
+        "id": "observed_obstacle_002",
+        "center_m": [
+          0.7148371284704789,
+          0.19188637200197414,
+          0.12454759736253967
+        ],
+        "size_m": [
+          0.15500000000000003,
+          0.0050000000000000044,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.8038568606172173,
+          0,
+          0,
+          0.5948227867513413
+        ]
+      },
+      {
+        "id": "observed_obstacle_003",
+        "center_m": [
+          0.5127040273909264,
+          -0.0417232584672413,
+          0.12454759736253967
+        ],
+        "size_m": [
+          0.15,
+          0.245,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.8038568606172173,
+          0,
+          0,
+          0.5948227867513413
+        ]
+      },
+      {
+        "id": "observed_obstacle_004",
+        "center_m": [
+          0.5960299632369063,
+          0.2308235969822238,
+          0.12454759736253967
+        ],
+        "size_m": [
+          0.15000000000000002,
+          0.245,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.8038568606172173,
+          0,
+          0,
+          0.5948227867513413
+        ]
+      },
+      {
+        "id": "observed_obstacle_005",
+        "center_m": [
+          0.5186275012775853,
+          0.037506864952541796,
+          0.12454759736253967
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.20999999999999996,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.8038568606172173,
+          0,
+          0,
+          0.5948227867513413
+        ]
+      },
+      {
+        "id": "observed_obstacle_006",
+        "center_m": [
+          0.5566358228915411,
+          0.16182648322773643,
+          0.12454759736253967
+        ],
+        "size_m": [
+          0.0050000000000000044,
+          0.20999999999999996,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.8038568606172173,
+          0,
+          0,
+          0.5948227867513413
+        ]
+      },
+      {
+        "id": "observed_obstacle_007",
+        "center_m": [
+          0.5352409001946556,
+          0.10039760335194595,
+          0.12454759736253967
+        ],
+        "size_m": [
+          0.125,
+          0.20499999999999996,
+          0.18900000000000017
+        ],
+        "quaternion_wxyz": [
+          0.8038568606172173,
+          0,
+          0,
+          0.5948227867513413
+        ]
+      }
+    ],
+    "renderings": []
+  },
+  "task_policy": {
+    "version": "astra.pilot02.task_policy.v1",
+    "task_id": "plan",
+    "orientation": {
+      "mode": "upright_free_yaw",
+      "local_axis": [
+        0,
+        0,
+        1
+      ],
+      "world_axis": [
+        0,
+        0,
+        1
+      ],
+      "max_tilt_rad": 0.02
+    }
+  }
+}

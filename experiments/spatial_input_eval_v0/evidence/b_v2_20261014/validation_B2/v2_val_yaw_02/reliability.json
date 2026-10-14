@@ -1,0 +1,416 @@
+{
+  "version": "public_rgbd_local_planes.v2",
+  "config": {
+    "inspired_by": "B v1 four-scene GT task audit; these scenes are development-only",
+    "pixel_center_offset": 0.5,
+    "mask_erosion_pixels": 1,
+    "depth_neighbor_discontinuity_m": 0.02,
+    "gray_spread": 18,
+    "red_ratio": 1.5,
+    "component_voxel_m": 0.004,
+    "component_connectivity_dilation": 1,
+    "minimum_component_points": 80,
+    "normal_alignment_degrees": 8,
+    "plane_gap_m": 0.001,
+    "min_plane_points": 20,
+    "cell_min_top_points": 12,
+    "boundary_support_band_m": 0.001,
+    "cell_edge_exclusion_m": 0.001,
+    "floor_exclusion_m": 0.008,
+    "free_ray_tolerance_pixel_footprint_factor": 1.0,
+    "reliability_boundary_clearance_fraction": 0.5,
+    "geometry_prior": "upright piecewise rectangular solids supported by visible top/side planes; interiors are hypotheses, not directly observed occupancy"
+  },
+  "views": [
+    {
+      "camera_id": "front",
+      "red_points": 5569,
+      "neutral_points": 635866
+    },
+    {
+      "camera_id": "opposite",
+      "red_points": 1533,
+      "neutral_points": 682531
+    },
+    {
+      "camera_id": "overhead",
+      "red_points": 3543,
+      "neutral_points": 680537
+    }
+  ],
+  "objects": [
+    {
+      "id": "target",
+      "overall_solid_reliability": "INSUFFICIENT",
+      "critical_boundary_reliability": "INSUFFICIENT",
+      "details": {
+        "angle_rad": 0.2957588744697498,
+        "missing_faces": [
+          {
+            "axis": 2,
+            "side": -1,
+            "status": "UNKNOWN_BEYOND_VISIBLE_EXTENT; no hidden face filled"
+          }
+        ],
+        "status": "observed-plane-supported box hypothesis; unknown faces are truncated to visible extent"
+      },
+      "planes": [
+        {
+          "axis": 0,
+          "sign": -1,
+          "level_m": -0.024350376313386088,
+          "support_n": 936,
+          "residual_p95_m": 1.8279322125926145e-05,
+          "view_support": {
+            "0": {
+              "n": 936,
+              "median_m": -0.024350376313386088
+            }
+          },
+          "view_spread_m": 0.0,
+          "uncertainty_proxy_m": 0.0005726064555346966
+        },
+        {
+          "axis": 0,
+          "sign": 1,
+          "level_m": 0.10064772641465654,
+          "support_n": 701,
+          "residual_p95_m": 1.7231176794016423e-05,
+          "view_support": {
+            "1": {
+              "n": 345,
+              "median_m": 0.1006473768599952
+            },
+            "2": {
+              "n": 356,
+              "median_m": 0.10064857408329636
+            }
+          },
+          "view_spread_m": 1.1972233011636746e-06,
+          "uncertainty_proxy_m": 0.0007440479239448905
+        },
+        {
+          "axis": 1,
+          "sign": -1,
+          "level_m": -0.3937890023296632,
+          "support_n": 1644,
+          "residual_p95_m": 5.4893605126427046e-05,
+          "view_support": {
+            "0": {
+              "n": 1644,
+              "median_m": -0.3937890023296632
+            }
+          },
+          "view_spread_m": 0.0,
+          "uncertainty_proxy_m": 0.0005943845608271658
+        },
+        {
+          "axis": 1,
+          "sign": 1,
+          "level_m": -0.3507811316773354,
+          "support_n": 1215,
+          "residual_p95_m": 5.448083464897334e-05,
+          "view_support": {
+            "1": {
+              "n": 612,
+              "median_m": -0.3507799519210447
+            },
+            "2": {
+              "n": 603,
+              "median_m": -0.35078363605673196
+            }
+          },
+          "view_spread_m": 3.6841356872430175e-06,
+          "uncertainty_proxy_m": 0.0010585953714326024
+        },
+        {
+          "axis": 2,
+          "sign": 1,
+          "level_m": 0.11549983015263576,
+          "support_n": 5748,
+          "residual_p95_m": 1.4699605352941335e-06,
+          "view_support": {
+            "0": {
+              "n": 2806,
+              "median_m": 0.11549925060111371
+            },
+            "1": {
+              "n": 477,
+              "median_m": 0.11550158812962519
+            },
+            "2": {
+              "n": 2465,
+              "median_m": 0.11549991987632646
+            }
+          },
+          "view_spread_m": 2.3375285114757283e-06,
+          "uncertainty_proxy_m": 0.0007060831412672997
+        }
+      ]
+    },
+    {
+      "id": "observed_obstacle_000",
+      "component": 1,
+      "top_support_n": 7858,
+      "side_support_n": 3702,
+      "observed_z_extent_m": [
+        0.03233089782770859,
+        0.21999994329760136
+      ],
+      "overall_solid_reliability": "INSUFFICIENT_UNOBSERVED_BOTTOM",
+      "bottom_status": "UNKNOWN_BELOW_OBSERVED_SIDE_EXTENT; no GT completion",
+      "interior_status": "UNKNOWN_OCCLUSION + upright-solid prior; not directly observed solid",
+      "ray_probe_states": {
+        "surface": 0,
+        "free": 0,
+        "unknown": 27
+      },
+      "boundary_uncertainty_proxy_m": 0.0008349506533704698,
+      "all_supported_faces_multiview": false,
+      "critical_boundary_reliability": "INSUFFICIENT",
+      "uncertainty_note": "proxy, not a calibrated probability or bound; grid size is NOT accuracy"
+    },
+    {
+      "id": "observed_obstacle_001",
+      "component": 1,
+      "top_support_n": 28880,
+      "side_support_n": 13191,
+      "observed_z_extent_m": [
+        0.03214763382122099,
+        0.21999997129526988
+      ],
+      "overall_solid_reliability": "INSUFFICIENT_UNOBSERVED_BOTTOM",
+      "bottom_status": "UNKNOWN_BELOW_OBSERVED_SIDE_EXTENT; no GT completion",
+      "interior_status": "UNKNOWN_OCCLUSION + upright-solid prior; not directly observed solid",
+      "ray_probe_states": {
+        "surface": 0,
+        "free": 0,
+        "unknown": 27
+      },
+      "boundary_uncertainty_proxy_m": 0.0008723357459530234,
+      "all_supported_faces_multiview": false,
+      "critical_boundary_reliability": "INSUFFICIENT",
+      "uncertainty_note": "proxy, not a calibrated probability or bound; grid size is NOT accuracy"
+    },
+    {
+      "id": "observed_obstacle_002",
+      "component": 1,
+      "top_support_n": 30029,
+      "side_support_n": 3496,
+      "observed_z_extent_m": [
+        0.03329981616882016,
+        0.21999995819072793
+      ],
+      "overall_solid_reliability": "INSUFFICIENT_UNOBSERVED_BOTTOM",
+      "bottom_status": "UNKNOWN_BELOW_OBSERVED_SIDE_EXTENT; no GT completion",
+      "interior_status": "UNKNOWN_OCCLUSION + upright-solid prior; not directly observed solid",
+      "ray_probe_states": {
+        "surface": 0,
+        "free": 0,
+        "unknown": 27
+      },
+      "boundary_uncertainty_proxy_m": 0.0008723357459530234,
+      "all_supported_faces_multiview": false,
+      "critical_boundary_reliability": "INSUFFICIENT",
+      "uncertainty_note": "proxy, not a calibrated probability or bound; grid size is NOT accuracy"
+    },
+    {
+      "id": "observed_obstacle_003",
+      "component": 1,
+      "top_support_n": 9111,
+      "side_support_n": 4513,
+      "observed_z_extent_m": [
+        0.03231790779944388,
+        0.21999996336138217
+      ],
+      "overall_solid_reliability": "INSUFFICIENT_UNOBSERVED_BOTTOM",
+      "bottom_status": "UNKNOWN_BELOW_OBSERVED_SIDE_EXTENT; no GT completion",
+      "interior_status": "UNKNOWN_OCCLUSION + upright-solid prior; not directly observed solid",
+      "ray_probe_states": {
+        "surface": 0,
+        "free": 0,
+        "unknown": 27
+      },
+      "boundary_uncertainty_proxy_m": 0.0006831172504462302,
+      "all_supported_faces_multiview": false,
+      "critical_boundary_reliability": "INSUFFICIENT",
+      "uncertainty_note": "proxy, not a calibrated probability or bound; grid size is NOT accuracy"
+    },
+    {
+      "id": "observed_obstacle_004",
+      "component": 1,
+      "top_support_n": 32489,
+      "side_support_n": 13191,
+      "observed_z_extent_m": [
+        0.03236917394513705,
+        0.2199999463808905
+      ],
+      "overall_solid_reliability": "INSUFFICIENT_UNOBSERVED_BOTTOM",
+      "bottom_status": "UNKNOWN_BELOW_OBSERVED_SIDE_EXTENT; no GT completion",
+      "interior_status": "UNKNOWN_OCCLUSION + upright-solid prior; not directly observed solid",
+      "ray_probe_states": {
+        "surface": 0,
+        "free": 0,
+        "unknown": 27
+      },
+      "boundary_uncertainty_proxy_m": 0.0008723357459530234,
+      "all_supported_faces_multiview": false,
+      "critical_boundary_reliability": "INSUFFICIENT",
+      "uncertainty_note": "proxy, not a calibrated probability or bound; grid size is NOT accuracy"
+    }
+  ],
+  "components": [
+    {
+      "component": 1,
+      "points": 273548,
+      "angle_rad": 1.2746500060121462,
+      "planes": [
+        {
+          "axis": 0,
+          "sign": -1,
+          "level_m": 0.03833747096194304,
+          "support_n": 20789,
+          "residual_p95_m": 0.00012231998129352272,
+          "view_support": {
+            "0": {
+              "n": 20789,
+              "median_m": 0.03833747096194304
+            }
+          },
+          "view_spread_m": 0.0,
+          "uncertainty_proxy_m": 0.0008349506533704698
+        },
+        {
+          "axis": 0,
+          "sign": -1,
+          "level_m": 0.3248180152298167,
+          "support_n": 1022,
+          "residual_p95_m": 1.3249104447388136e-05,
+          "view_support": {
+            "0": {
+              "n": 265,
+              "median_m": 0.3248166483928063
+            },
+            "2": {
+              "n": 757,
+              "median_m": 0.32481862824752183
+            }
+          },
+          "view_spread_m": 1.979854715561391e-06,
+          "uncertainty_proxy_m": 0.0006831172504462302
+        },
+        {
+          "axis": 0,
+          "sign": 1,
+          "level_m": 0.18182889154906595,
+          "support_n": 1256,
+          "residual_p95_m": 1.3683420648127886e-05,
+          "view_support": {
+            "1": {
+              "n": 1256,
+              "median_m": 0.18182889154906595
+            }
+          },
+          "view_spread_m": 0.0,
+          "uncertainty_proxy_m": 0.0007579299854114652
+        },
+        {
+          "axis": 0,
+          "sign": 1,
+          "level_m": 0.46830918602983285,
+          "support_n": 29795,
+          "residual_p95_m": 0.00012382808705178048,
+          "view_support": {
+            "1": {
+              "n": 29795,
+              "median_m": 0.46830918602983285
+            }
+          },
+          "view_spread_m": 0.0,
+          "uncertainty_proxy_m": 0.0006331648910418153
+        },
+        {
+          "axis": 1,
+          "sign": -1,
+          "level_m": -0.5800044441504798,
+          "support_n": 1092,
+          "residual_p95_m": 3.570239465787717e-05,
+          "view_support": {
+            "1": {
+              "n": 1092,
+              "median_m": -0.5800044441504798
+            }
+          },
+          "view_spread_m": 0.0,
+          "uncertainty_proxy_m": 0.0007381531759165227
+        },
+        {
+          "axis": 1,
+          "sign": 1,
+          "level_m": -0.6350204377961784,
+          "support_n": 2940,
+          "residual_p95_m": 3.7410430392337264e-05,
+          "view_support": {
+            "0": {
+              "n": 594,
+              "median_m": -0.6350282678507028
+            },
+            "2": {
+              "n": 2346,
+              "median_m": -0.6350176049477256
+            }
+          },
+          "view_spread_m": 1.0662902977132127e-05,
+          "uncertainty_proxy_m": 0.0006864696624688804
+        },
+        {
+          "axis": 1,
+          "sign": 1,
+          "level_m": -0.3824939577243904,
+          "support_n": 7388,
+          "residual_p95_m": 0.00012457065981963112,
+          "view_support": {
+            "0": {
+              "n": 7388,
+              "median_m": -0.3824939577243904
+            }
+          },
+          "view_spread_m": 0.0,
+          "uncertainty_proxy_m": 0.0008723357459530234
+        },
+        {
+          "axis": 2,
+          "sign": 1,
+          "level_m": 0.21999995491929542,
+          "support_n": 207392,
+          "residual_p95_m": 1.339355496599026e-06,
+          "view_support": {
+            "0": {
+              "n": 23979,
+              "median_m": 0.21999882018652595
+            },
+            "1": {
+              "n": 63115,
+              "median_m": 0.21999996109890296
+            },
+            "2": {
+              "n": 120298,
+              "median_m": 0.21999996697289353
+            }
+          },
+          "view_spread_m": 1.1467863675895806e-06,
+          "uncertainty_proxy_m": 0.0006226531113497913
+        }
+      ]
+    }
+  ],
+  "unknown_or_rejected": [],
+  "missing": [],
+  "estimated_floor_m": 6.03429900492003e-08,
+  "segmentation_used": false,
+  "states": {
+    "OBSERVED_SURFACE": "measured depth shell",
+    "OBSERVED_FREE": "point in front of measured surface by depth/pixel tolerance",
+    "UNKNOWN": "occluded/unseen/unsupported; solid box interiors remain explicit hypotheses"
+  }
+}
