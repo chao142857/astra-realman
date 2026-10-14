@@ -1,0 +1,139 @@
+{
+  "config": {
+    "lateral_waypoint_y_range_m": [
+      -0.24,
+      0.24
+    ],
+    "y_step_m": 0.01,
+    "lateral_waypoint_z_range_m": [
+      0.06,
+      0.22
+    ],
+    "z_step_m": 0.02,
+    "path_family": "start -> same start x at (y,z) -> same placement x at (y,z) -> public region center; fixed quaternion"
+  },
+  "confusion": {
+    "both_feasible": 70,
+    "GT_only": 20,
+    "B_only": 0,
+    "neither": 351,
+    "samples": 441,
+    "GT_feasible": 90,
+    "GT_infeasible": 351,
+    "retention_given_GT_feasible": 0.7777777777777778,
+    "false_rejection_given_GT_feasible": 0.2222222222222222,
+    "false_acceptance_given_GT_infeasible": 0.0,
+    "agreement": 0.9546485260770975
+  },
+  "examples": {
+    "GT_only": {
+      "object_id": "target",
+      "position_m": [
+        0.76,
+        0.0,
+        0.12
+      ],
+      "quaternion_wxyz": [
+        1.0,
+        0,
+        0,
+        0.0
+      ],
+      "waypoints_m": [
+        [
+          0.18,
+          -0.24,
+          0.06
+        ],
+        [
+          0.76,
+          -0.24,
+          0.06
+        ],
+        [
+          0.76,
+          0,
+          0.12
+        ]
+      ]
+    },
+    "both_feasible": {
+      "object_id": "target",
+      "position_m": [
+        0.76,
+        0.0,
+        0.12
+      ],
+      "quaternion_wxyz": [
+        1.0,
+        0,
+        0,
+        0.0
+      ],
+      "waypoints_m": [
+        [
+          0.18,
+          -0.24,
+          0.08
+        ],
+        [
+          0.76,
+          -0.24,
+          0.08
+        ],
+        [
+          0.76,
+          0,
+          0.12
+        ]
+      ]
+    },
+    "neither": {
+      "object_id": "target",
+      "position_m": [
+        0.76,
+        0.0,
+        0.12
+      ],
+      "quaternion_wxyz": [
+        1.0,
+        0,
+        0,
+        0.0
+      ],
+      "waypoints_m": [
+        [
+          0.18,
+          -0.14,
+          0.06
+        ],
+        [
+          0.76,
+          -0.14,
+          0.06
+        ],
+        [
+          0.76,
+          0,
+          0.12
+        ]
+      ]
+    }
+  },
+  "seconds": 0.43140500000000004,
+  "per_yaw": {},
+  "continuous_collision_agreement": {
+    "both_feasible": 90,
+    "GT_only": 0,
+    "B_only": 0,
+    "neither": 351,
+    "samples": 441,
+    "GT_feasible": 90,
+    "GT_infeasible": 351,
+    "retention_given_GT_feasible": 1.0,
+    "false_rejection_given_GT_feasible": 0.0,
+    "false_acceptance_given_GT_infeasible": 0.0,
+    "agreement": 1.0
+  },
+  "not_a_global_feasibility_proof": true
+}

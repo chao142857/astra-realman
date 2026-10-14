@@ -1,0 +1,28 @@
+{
+  "reason": "Exploratory follow-up after coarse/local scans; not part of initial predeclared grid. No changes to B or future 36-run plan.",
+  "yaw_refinement": {
+    "position_offsets_xy_m": [
+      -0.006,
+      0.006
+    ],
+    "xy_step_m": 0.0005,
+    "z": "public task-volume center",
+    "yaw": "private diagnostic witness yaw +/- 6 degrees, inclusive",
+    "yaw_step_deg": 0.25,
+    "source_note": "GT-witness-guided diagnostic slice, not unseen model testing"
+  },
+  "rail_boundary_probe": {
+    "x_step_m": 0.005,
+    "y_inset_from_both_geometry_contained_boundary_m": [
+      0,
+      0.001,
+      0.002,
+      0.005,
+      0.01
+    ],
+    "z": "lower/center/upper jointly-contained workspace center heights",
+    "rail_assignment": "evaluation-only: B box center y within 20mm of GT height rail center and B y-size <=30mm",
+    "failure_attribution": "compare B full against B without rail-associated components, diagnostics only"
+  },
+  "new_generation_budget": 0
+}

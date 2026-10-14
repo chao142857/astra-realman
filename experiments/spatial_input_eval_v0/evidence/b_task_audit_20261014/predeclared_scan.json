@@ -1,0 +1,40 @@
+{
+  "yaw_global": {
+    "xy_step_m": 0.02,
+    "z_step_m": 0.04,
+    "yaw_step_deg": 10,
+    "yaw_range_deg": [
+      0,
+      180
+    ],
+    "position_range": "entire publicly declared task-volume bounds (including endpoints)"
+  },
+  "yaw_local": {
+    "xy_offsets_m": [
+      -0.012,
+      0.012
+    ],
+    "xy_step_m": 0.002,
+    "z": "public task-volume center only",
+    "yaw_range_deg": [
+      0,
+      180
+    ],
+    "yaw_step_deg": 2
+  },
+  "detour": {
+    "lateral_waypoint_y_range_m": [
+      -0.24,
+      0.24
+    ],
+    "y_step_m": 0.01,
+    "lateral_waypoint_z_range_m": [
+      0.06,
+      0.22
+    ],
+    "z_step_m": 0.02,
+    "path_family": "start -> same start x at (y,z) -> same placement x at (y,z) -> public region center; fixed quaternion"
+  },
+  "boundary_contacts": "original SAT treats touch as collision; thresholds are brackets, not exact Euclidean distance",
+  "generation_budget": 0
+}
