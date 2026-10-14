@@ -49,6 +49,8 @@ The numeric/expert baseline commands reproduce a diagnostic attempt; they are **
 
 The public executor chooses closest IK and fixed cubic joint interpolation, checks the entire shared collision world, then advances real physics. Expert OMPL and the private RRT waypoint script are engineering references only. Inference pauses physics; wall and simulation times are distinct. Collision/contact GT is private safety/evaluation data and never model feedback. Only robot measured state, four calibrated RGB, task and two recent raw proposal/receipt pairs enter the model context.
 
+Additional shared-physics test `interface_smoke.py --output evidence/NEW` PASS: both TCPs move upward 5 mm in overlapping shared steps 550–775; position residuals approximately 0.032 mm each. Parallel gripper commands PASS; invalid parallel group is rejected before any physics step. This does not prove handoff coordination.
+
 Seven protocol tests PASS (including malformed JSON/events, auth, parameter drift, forbidden real dispatch, image/GT validation and timeout/cancel). Two-step fake Bridge + physics loop PASS. This is not evidence of Astra ability.
 
 `run_episode.py --real` and the real adapter deliberately fail closed. A future run needs physical baseline acceptance, production preflight, a separate authorization record and a real budget gate. No current command can spend an old authorization. **Suggested future budget only after those prerequisites: one handoff_only episode, at most 16 decisions. No authorization is requested while the physical baseline remains blocked.**
