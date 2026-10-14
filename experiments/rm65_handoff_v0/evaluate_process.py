@@ -1,7 +1,7 @@
 """Private post-hoc physical metrics. Never imported by public context builder."""
 import argparse,json,math
 from pathlib import Path
-CRITERIA={'continuous_hold_s':.5,'hold_min_center_z_m':.07,'hold_max_speed_m_s':.03,'stable_place_s':1.,'place_max_speed_m_s':.01,'cube_size_m':.05,'target_half_size_m':.07,'target_xy':[.60,.16],'max_pad_penetration_m':.002,'contact_impulse_threshold':1e-7,'note':'Process metrics separate from provisional original terminal check. No real model results in this experiment.'}
+CRITERIA={'version':2,'released_gap_m':.07,'continuous_hold_s':.5,'hold_min_center_z_m':.07,'hold_max_speed_m_s':.03,'stable_place_s':1.,'place_max_speed_m_s':.01,'cube_size_m':.05,'target_half_size_m':.07,'target_xy':[.60,.16],'max_pad_penetration_m':.002,'contact_impulse_threshold':1e-7,'note':'Process metrics separate from provisional original terminal check. No real model results in this experiment.'}
 def evaluate(folder):
  p=Path(folder);rows=[json.loads(x) for x in (p/'physics.jsonl').read_text().splitlines()];dt=json.loads((p/'configuration.json').read_text())['dt'];longest={k:0 for k in ['left_hold','right_independent_hold','stable_place']};current=dict(longest);interarm=[];penetrations=[]
  for r in rows:
@@ -9,7 +9,7 @@ def evaluate(folder):
   # OBB footprint from quaternion; no unique reference object orientation.
   from scipy.spatial.transform import Rotation
   q=r['object_pose'][3:];rot=Rotation.from_quat([q[1],q[2],q[3],q[0]]).as_matrix();extent=abs(rot)@([.025]*3)
-  tests={'left_hold':r['bilateral_contact']['left'] and xyz[2]>.07 and speed<.03,'right_independent_hold':r['bilateral_contact']['right'] and not left_contact and not table and xyz[2]>.07 and speed<.03,'stable_place':table and not left_contact and not r['bilateral_contact']['right'] and speed<.01 and all(abs(xyz[i]-CRITERIA['target_xy'][i])+extent[i]<=.07 for i in range(2))}
+  tests={'left_hold':r['bilateral_contact']['left'] and xyz[2]>.07 and speed<.03,'right_independent_hold':r['bilateral_contact']['right'] and not left_contact and r['arms']['left']['actual_pad_gap_m']>.07 and not table and xyz[2]>.07 and speed<.03,'stable_place':table and r['arms']['right']['actual_pad_gap_m']>.07 and not left_contact and not r['bilateral_contact']['right'] and speed<.01 and all(abs(xyz[i]-CRITERIA['target_xy'][i])+extent[i]<=.07 for i in range(2))}
   for k,v in tests.items():current[k]=current[k]+dt if v else 0;longest[k]=max(longest[k],current[k])
   for c in r['contacts']:
    if any(n.startswith('L__') for n in c['names']) and any(n.startswith('R__') for n in c['names']):interarm.append(r['step'])
@@ -17,4 +17,4 @@ def evaluate(folder):
  verdict={'left_hold':longest['left_hold']>=.5,'right_independent_hold':longest['right_independent_hold']>=.5,'stable_place':longest['stable_place']>=1.,'no_interarm_contact':not interarm,'no_pad_penetration_abort':not penetrations}
  return {'criteria':CRITERIA,'longest_continuous_s':longest,'checks':verdict,'full_process_pass':all(verdict.values()),'interarm_steps':interarm,'pad_penetrations':penetrations,'physics_steps':len(rows),'model_calls':0}
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('folder',type=Path);a=p.parse_args();r=evaluate(a.folder);(a.folder/'process_evaluation.json').write_text(json.dumps(r,indent=2));print(json.dumps(r,indent=2))
+ p=argparse.ArgumentParser();p.add_argument('folder',type=Path);a=p.parse_args();r=evaluate(a.folder);(a.folder/'process_evaluation_v2.json').write_text(json.dumps(r,indent=2));print(json.dumps(r,indent=2))
