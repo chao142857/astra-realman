@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/numeric_baseline.py", line 22, in <module>
+    move('right',obj+np.array([0,-.07,0]),q);move('right',obj,q,True)
+  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/numeric_baseline.py", line 15, in move
+    out=RM65Scene.move_tcp(w.arms[side],pose) if a.expert else w.execute_group({side:{'pose':pose}})
+  File "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/scripts/rm65_scene.py", line 331, in move_tcp
+    return self.move_flange(flange_target)
+  File "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/scripts/rm65_scene.py", line 311, in move_flange
+    if self.motion.check_for_self_collision(full) or self.motion.check_for_env_collision(full):raise RuntimeError('INTERPOLATED_PATH_COLLISION')
+RuntimeError: INTERPOLATED_PATH_COLLISION
+{'status': 'FAIL', 'model_calls': 0, 'post_initialization_executor': 'original OMPL expert with explicit segments', 'error': "RuntimeError('INTERPOLATED_PATH_COLLISION')", 'traceback': 'Traceback (most recent call last):\n  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/numeric_baseline.py", line 22, in <module>\n    move(\'right\',obj+np.array([0,-.07,0]),q);move(\'right\',obj,q,True)\n  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/numeric_baseline.py", line 15, in move\n    out=RM65Scene.move_tcp(w.arms[side],pose) if a.expert else w.execute_group({side:{\'pose\':pose}})\n  File "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/scripts/rm65_scene.py", line 331, in move_tcp\n    return self.move_flange(flange_target)\n  File "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/scripts/rm65_scene.py", line 311, in move_flange\n    if self.motion.check_for_self_collision(full) or self.motion.check_for_env_collision(full):raise RuntimeError(\'INTERPOLATED_PATH_COLLISION\')\nRuntimeError: INTERPOLATED_PATH_COLLISION\n', 'steps': 6662}

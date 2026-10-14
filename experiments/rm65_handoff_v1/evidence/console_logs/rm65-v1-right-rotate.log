@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/right_control.py", line 22, in <module>
+    for t in np.linspace(0,1,7)[1:]:move('right',center,np.roll(slerp(t).as_quat(),1).tolist())
+  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/right_control.py", line 8, in move
+    r=RM65Scene.move_tcp(w.arms[side],[*xyz,*q])
+  File "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/scripts/rm65_scene.py", line 331, in move_tcp
+    return self.move_flange(flange_target)
+  File "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/scripts/rm65_scene.py", line 318, in move_flange
+    self.tick(1)
+  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/dual_scene.py", line 46, in tick
+    def tick(self,n):return self.world.tick(n)
+  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/dual_scene.py", line 128, in tick
+    if other=='target_cube' and own[0] in a.pad_vertices:raise RuntimeError('PAD_PENETRATION')
+RuntimeError: PAD_PENETRATION
+{"real_model_calls": 0, "controller": "original", "status": "FAIL", "down_hold_final_contact": true, "down_hold_object_z": 0.16432353854179382, "error": "RuntimeError('PAD_PENETRATION')", "phase": "move_right", "traceback": "Traceback (most recent call last):\n  File \"/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/right_control.py\", line 22, in <module>\n    for t in np.linspace(0,1,7)[1:]:move('right',center,np.roll(slerp(t).as_quat(),1).tolist())\n  File \"/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/right_control.py\", line 8, in move\n    r=RM65Scene.move_tcp(w.arms[side],[*xyz,*q])\n  File \"/home/tongji/alex/rm65-handoff-runtime-20261014/assets/scripts/rm65_scene.py\", line 331, in move_tcp\n    return self.move_flange(flange_target)\n  File \"/home/tongji/alex/rm65-handoff-runtime-20261014/assets/scripts/rm65_scene.py\", line 318, in move_flange\n    self.tick(1)\n  File \"/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/dual_scene.py\", line 46, in tick\n    def tick(self,n):return self.world.tick(n)\n  File \"/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/dual_scene.py\", line 128, in tick\n    if other=='target_cube' and own[0] in a.pad_vertices:raise RuntimeError('PAD_PENETRATION')\nRuntimeError: PAD_PENETRATION\n", "step": 6182, "simulation_time_s": 24.728}

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/numeric_baseline.py", line 20, in <module>
+    move('right',obj+np.array([0,-.07,0]),q);move('right',obj,q,True)
+  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/numeric_baseline.py", line 14, in move
+    if not out['ok']:raise RuntimeError('NUMERIC_REJECTED:'+side+':'+str(out))
+RuntimeError: NUMERIC_REJECTED:right:{'ok': False, 'executed': False, 'reason': 'INTERPOLATED_COLLISION:left:736'}
+{'status': 'FAIL', 'model_calls': 0, 'post_initialization_executor': 'public closest IK/cubic interpolation; explicit private waypoints; no OMPL', 'error': 'RuntimeError("NUMERIC_REJECTED:right:{\'ok\': False, \'executed\': False, \'reason\': \'INTERPOLATED_COLLISION:left:736\'}")', 'traceback': 'Traceback (most recent call last):\n  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/numeric_baseline.py", line 20, in <module>\n    move(\'right\',obj+np.array([0,-.07,0]),q);move(\'right\',obj,q,True)\n  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/numeric_baseline.py", line 14, in move\n    if not out[\'ok\']:raise RuntimeError(\'NUMERIC_REJECTED:\'+side+\':\'+str(out))\nRuntimeError: NUMERIC_REJECTED:right:{\'ok\': False, \'executed\': False, \'reason\': \'INTERPOLATED_COLLISION:left:736\'}\n', 'steps': 7286}

@@ -1,0 +1,10 @@
+{
+  "real_model_calls": 0,
+  "controller": "original",
+  "status": "FAIL",
+  "error": "RuntimeError('MOTION_FAILED:right:IK Failed! Cannot find valid solution.')",
+  "phase": "move_right",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/right_control.py\", line 13, in <module>\n    for z in [.18,.08,.04]:move('right',[*xy,z],down)\n  File \"/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/right_control.py\", line 9, in move\n    if not r['ok']:raise RuntimeError('MOTION_FAILED:'+side+':'+str(r.get('planner_status')))\nRuntimeError: MOTION_FAILED:right:IK Failed! Cannot find valid solution.\n",
+  "step": 636,
+  "simulation_time_s": 2.544
+}

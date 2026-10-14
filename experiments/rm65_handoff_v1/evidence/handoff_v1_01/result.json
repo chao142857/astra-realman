@@ -1,0 +1,7 @@
+{
+  "status": "FAIL",
+  "model_calls": 0,
+  "error": "RuntimeError('EXPERT_MOTION_FAILED:right:IK Failed! Cannot find valid solution.')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/handoff_attempt.py\", line 10, in <module>\n    expert_move(w,'right',[obj[0],obj[1]-.07,obj[2]],q);expert_move(w,'right',obj,q)\n  File \"/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/initial_v1.py\", line 7, in expert_move\n    if not r['ok']:raise RuntimeError('EXPERT_MOTION_FAILED:'+side+':'+str(r.get('planner_status')))\nRuntimeError: EXPERT_MOTION_FAILED:right:IK Failed! Cannot find valid solution.\n",
+  "steps": 3648
+}

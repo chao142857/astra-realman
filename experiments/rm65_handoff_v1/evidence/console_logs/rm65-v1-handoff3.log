@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/handoff_attempt.py", line 7, in <module>
+    w=DualScene(a.output);w.start_video();prepare_left(w)
+  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/dual_scene.py", line 111, in __init__
+    paint(self.table,[.35,.20,.10])
+  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/dual_scene.py", line 110, in paint
+    for shape in body.render_shapes:shape.set_material(material)
+AttributeError: 'sapien.pysapien.render.RenderShapeBox' object has no attribute 'set_material'
+{'status': 'FAIL', 'model_calls': 0, 'error': 'AttributeError("\'sapien.pysapien.render.RenderShapeBox\' object has no attribute \'set_material\'")', 'traceback': 'Traceback (most recent call last):\n  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/handoff_attempt.py", line 7, in <module>\n    w=DualScene(a.output);w.start_video();prepare_left(w)\n  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/dual_scene.py", line 111, in __init__\n    paint(self.table,[.35,.20,.10])\n  File "/home/tongji/alex/rm65-dual-handoff-v1-20261014/experiments/rm65_handoff_v1/dual_scene.py", line 110, in paint\n    for shape in body.render_shapes:shape.set_material(material)\nAttributeError: \'sapien.pysapien.render.RenderShapeBox\' object has no attribute \'set_material\'\n'}
