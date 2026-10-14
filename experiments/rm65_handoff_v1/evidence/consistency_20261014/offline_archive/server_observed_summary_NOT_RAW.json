@@ -1,0 +1,102 @@
+{
+  "evidence_status": "SERVER_OBSERVED_VIA_TOOL_OUTPUT; FULL_NEW_RAW_LOGS_AND_VIDEOS_NOT_RETRIEVED",
+  "runtime": {
+    "sapien": "3.0.0b1",
+    "physx": "105.1-physx-5.3.1.patch0",
+    "TGS": true,
+    "position_iterations": 10,
+    "velocity_iterations": 1,
+    "cube_COM_local_translation_m": [
+      0,
+      0,
+      0
+    ]
+  },
+  "roundtrip": {
+    "archived_group": 70,
+    "physical_step_before_rejection": 18760,
+    "FK_request_translation_error_m": 1.145806807283957e-06,
+    "FK_logged_translation_error_m": 2.452044541222607e-07,
+    "FK_logged_rotation_error_rad": 1.352396034773318e-06,
+    "pure_CLIK_success": true,
+    "joint_limits_pass": true,
+    "collision_pairs": [
+      [
+        "R__ctag_Left_1_Link",
+        "L__Link6"
+      ]
+    ],
+    "full_audit_waiting_on_yanglab": true
+  },
+  "carry_smoke": {
+    "observed_result": "PASS",
+    "same_requested_tcp": [
+      0.36,
+      0.2,
+      0.102,
+      0,
+      1,
+      0,
+      0
+    ],
+    "stale_first_collision_index": 94,
+    "stale_pairs": [
+      [
+        "L__ctag_Right_2_Link",
+        "target_cube_4"
+      ]
+    ],
+    "following_collision_count": 0,
+    "executed_start_step": 3235,
+    "executed_end_step": 3716,
+    "object_position_before_m": [
+      0.3612034022808075,
+      5.953328582108952e-05,
+      0.164341539144516
+    ],
+    "object_position_after_m": [
+      0.3606320023536682,
+      0.19991470873355865,
+      0.09991900622844696
+    ],
+    "numeric_TCP_position_residual_m": 0.0006424175389693456
+  },
+  "replay_01": {
+    "status": "FAIL_BEFORE_RIGHT_MOTION",
+    "step": 3716,
+    "attempted_phase": "right_approach",
+    "raw_result_phase_metadata_erratum": "reported previous physical phase left_to_handoff; attempted phase is right_approach",
+    "reason": "dense RRT sample true collision or unchanged public workspace violation"
+  },
+  "replay_02": {
+    "status": "FAIL",
+    "step": 9547,
+    "sim_time_s": 38.188,
+    "phase": "right_to_place",
+    "reason": "IK_REJECTED_NO_VALID_SOLUTION; not executed",
+    "script_reached": [
+      "right_receive",
+      "left_release",
+      "right_independent_hold_1250_steps",
+      "right_exit",
+      "left_retreat"
+    ],
+    "whole_phase_independent_contact_score": "PENDING_RAW_RETRIEVAL"
+  },
+  "replay_03": {
+    "status": "FAIL",
+    "step": 9628,
+    "sim_time_s": 38.512,
+    "phase": "right_reorient",
+    "reason": "PAD_PENETRATION; original 2mm protection stopped partial execution",
+    "exact_last_contact_depth": "PENDING_RAW_RETRIEVAL"
+  },
+  "replay_04": {
+    "status": "OUTCOME_NOT_READ",
+    "process_exited": true,
+    "reason": "SSH lost before result retrieval",
+    "cannot_claim_success_or_failure": true
+  },
+  "new_negative_controls_and_regression_tests": "PREPARED_NOT_RUN_AFTER_CONNECTION_LOSS",
+  "real_astra_requests": 0
+}

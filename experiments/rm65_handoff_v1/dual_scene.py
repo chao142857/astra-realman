@@ -38,6 +38,8 @@ class Arm(RM65Scene):
    for a,b in map(tuple,arm.ignore):self.motion.acm.set_entry(arm.prefix+a,arm.prefix+b,True)
    self.motion.acm.set_entry(arm.prefix+'base_link',convert_object_name(arm.stand),True)
    for pad in arm.pad_vertices:self.motion.acm.set_entry(arm.prefix+pad,convert_object_name(self.cube),True)
+  from carry_collision import install
+  install(self.world,self)
  def bilateral_pad_contact(self):
   touching=set()
   for c in self.scene.get_contacts():
@@ -64,10 +66,19 @@ class Arm(RM65Scene):
   if not (-.15<=p[0]<=.9 and -.4<=p[1]<=.4 and .025<=p[2]<=.5):raise ValueError('TCP_WORKSPACE')
   if self.motion is None:self.init_planner()
   q=self.robot.get_qpos();flange=self.links['Link6'].get_pose().to_transformation_matrix();local=flange[:3,:3].T@(self.pads().mean(0)-flange[:3,3]);fp=p.copy();fp[:3]-=Rotation.from_quat(np.roll(p[3:],-1)).as_matrix()@local
-  self.motion.update_from_simulation();goal=self.motion._transform_goal_to_wrt_base(mplib.Pose(fp[:3],fp[3:]));mask=np.ones(len(q),dtype=bool);mask[self.arm_indices]=False
+  from carry_collision import prepare
+  prepare(self.world,getattr(self.world,'pending_collision_commands',None))
+  goal=self.motion._transform_goal_to_wrt_base(mplib.Pose(fp[:3],fp[3:]));mask=np.ones(len(q),dtype=bool);mask[self.arm_indices]=False
   status,ik=self.motion.IK(goal,q,mask=mask,return_closest=True)
   self.log('numeric_ik',{'target_tcp':p.tolist(),'target_flange':fp.tolist(),'status':status,'start_qpos':q.tolist(),'goal_qpos':None if ik is None else ik.tolist(),'no_target_correction':True})
-  if status!='Success':raise ValueError('IK_REJECTED:'+status)
+  if status!='Success':
+   pure,ok,_=self.motion.pinocchio_model.compute_IK_CLIK(self.motion.link_name_2_idx[self.motion.move_group],goal,q,mask)
+   limit_ok=bool(ok and self.motion.wrap_joint_limit(pure));pairs=[]
+   if limit_ok:
+    self.motion.robot.set_qpos(pure,True);pairs=[(x.object_name1,x.link_name1,x.object_name2,x.link_name2) for x in self.motion.planning_world.check_collision()]
+   diagnosis={'pure_clik_success':bool(ok),'within_joint_limits':limit_ok,'collision_pairs':pairs,'goal_unchanged':True};self.log('numeric_ik_rejection_diagnosis',diagnosis)
+   code='COLLISION' if pairs else ('JOINT_LIMIT' if ok and not limit_ok else 'NO_VALID_SOLUTION')
+   raise ValueError('IK_REJECTED_'+code+':'+str(diagnosis))
   delta=ik[self.arm_indices]-q[self.arm_indices];duration=max(.5,float(np.max(np.abs(delta)))*3);n=int(np.ceil(duration/self.cfg['scene']['dt']))
   if n>2500:raise ValueError('ACTION_DURATION_LIMIT')
   u=np.linspace(0,1,n);pos=q[self.arm_indices]+(3*u*u-2*u*u*u)[:,None]*delta;vel=(6*u-6*u*u)[:,None]*delta/duration
@@ -178,7 +189,10 @@ class DualScene:
   self.writer.append_data(np.vstack([np.hstack(frames[:2]),np.hstack(frames[2:])]))
  def execute_group(self,commands):
   from mplib.sapien_utils.conversion import convert_object_name
-  self.group_count+=1;folder=self.output/f'group_{self.group_count:03d}';folder.mkdir();write_json(folder/'proposal.json',commands);plans={}
+  self.pending_collision_commands=commands
+  from carry_collision import prepare
+  collision_state=prepare(self,commands)
+  self.group_count+=1;folder=self.output/f'group_{self.group_count:03d}';folder.mkdir();write_json(folder/'proposal.json',commands);write_json(folder/'collision_representation_PRIVATE.json',collision_state);plans={}
   try:
    for s,c in commands.items():
     if s not in self.arms or set(c) not in ({'pose'},{'opening'}):raise ValueError('NUMERIC_ACTION_ONLY')
@@ -204,7 +218,7 @@ class DualScene:
     for s,a in self.arms.items():
      world=a.motion.planning_world
      for other,oa in self.arms.items():world.get_articulation(convert_object_name(oa.robot)).set_qpos(qs[other],full=True)
-     collisions=a.motion.check_for_self_collision(qs[s])+a.motion.check_for_env_collision(qs[s])
+     collisions=world.check_collision()
      if collisions:raise ValueError('INTERPOLATED_COLLISION:'+s+':'+str(i)+':'+str([(c.object_name1,c.link_name1,c.object_name2,c.link_name2) for c in collisions]))
    for s,plan in plans.items():np.savez_compressed(folder/(s+'_trajectory.npz'),**plan)
   except (ValueError,RuntimeError) as e:
