@@ -1,0 +1,61 @@
+.......................................................................{
+  "status": "PASS",
+  "checked_at_utc": "2026-10-14T02:55:32.512690+00:00",
+  "python": "3.10.12",
+  "interpreter": "/home/alex/astra/.venv/bin/python",
+  "bridge_source": "/home/alex/astra-realman_ws/spatial-b-v2-20261014/astra_realman_harness/scripts/codex_astra_mac_bridge.py",
+  "bridge_sha256": "922c63556a838a1a9280d76b280e22babba5d517e10073c18c05a033dfce7bae",
+  "payload_sha256": "24d95a1afeb2f6d502d994429ebc631c0e22bc44adffa761580373ffaef901b8",
+  "model_calls": 0,
+  "http_requests": 0,
+  "auth_files_read": false,
+  "checks": [
+    "PROVIDER_SCHEMA_AUTHORITATIVE_BINDING",
+    "THREE_PNG_BASE64_AND_SHA256",
+    "LOCAL_OUTPUT_SCHEMA_VALIDATION_SMOKE_NOT_ASTRA"
+  ],
+  "image_sha256": [
+    "a8fd32aa056a5f79a4a45b19b7a28462eff34d45ce1ed4c62dd48b8c32e4bb45",
+    "28fe97a85b61094b59f836c6cd373c4402a23f6f90dd9e10ffffc09d8d959f30",
+    "93aac4a5ad572193934dd665325f32185114b421be15e635c0e88bc166732816"
+  ],
+  "provider_schema_sha256": "1a9012830331f21463f8416d49e17bd769fd4e119dab3d13294020901f47b518",
+  "jsonschema_version": "4.26.0"
+}
+{
+  "status": "FAIL",
+  "checked_at_utc": "2026-10-14T02:55:32.527058+00:00",
+  "python": "3.10.12",
+  "interpreter": "/home/alex/astra/.venv/bin/python",
+  "bridge_source": "/home/alex/astra-realman_ws/spatial-b-v2-20261014/astra_realman_harness/scripts/codex_astra_mac_bridge.py",
+  "bridge_sha256": "922c63556a838a1a9280d76b280e22babba5d517e10073c18c05a033dfce7bae",
+  "payload_sha256": "24d95a1afeb2f6d502d994429ebc631c0e22bc44adffa761580373ffaef901b8",
+  "model_calls": 0,
+  "http_requests": 0,
+  "auth_files_read": false,
+  "checks": [],
+  "error_type": "ModuleNotFoundError",
+  "error": "No module named 'jsonschema'"
+}
+WAVE_RESERVED {"indices": [21, 22, 23, 24], "cumulative_reserved": 24}
+{"index": 22, "status": "VALID", "score": 1, "failure": null, "batch_status": "READY"}
+{"index": 23, "status": "VALID", "score": 1, "failure": null, "batch_status": "READY"}
+{"index": 21, "status": "VALID", "score": 1, "failure": null, "batch_status": "READY"}
+{"index": 24, "status": "VALID", "score": 1, "failure": null, "batch_status": "READY"}
+...WAVE_RESERVED {"indices": [5, 6, 7, 8], "cumulative_reserved": 8}
+{"index": 5, "status": "STOPPED_UNVALIDATED", "score": null, "failure": "TimeoutError:OFFLINE_TIMEOUT", "batch_status": "STOPPED"}
+{"index": 6, "status": "STOPPED_UNVALIDATED", "score": null, "failure": "RuntimeError:OFFLINE_PEER_CANCELLED", "batch_status": "STOPPED"}
+{"index": 7, "status": "STOPPED_UNVALIDATED", "score": null, "failure": "RuntimeError:OFFLINE_PEER_CANCELLED", "batch_status": "STOPPED"}
+{"index": 8, "status": "STOPPED_UNVALIDATED", "score": null, "failure": "RuntimeError:OFFLINE_PEER_CANCELLED", "batch_status": "STOPPED"}
+.WAVE_RESERVED {"indices": [5, 6, 7, 8], "cumulative_reserved": 8}
+{"index": 8, "status": "VALID", "score": 0, "failure": null, "batch_status": "READY"}
+{"index": 6, "status": "VALID", "score": 0, "failure": null, "batch_status": "READY"}
+{"index": 5, "status": "VALID", "score": 0, "failure": null, "batch_status": "READY"}
+{"index": 7, "status": "VALID", "score": 0, "failure": null, "batch_status": "READY"}
+.........DISPATCH_RESERVED {"index": 1, "scene_id": "lab_s5_placement", "task_id": "plan", "condition": "RGB_ORACLE_3D", "role": "primary"}
+{"batch_status": "STOPPED", "consumed": 1, "sample_status": "STOPPED_UNVALIDATED", "score": null, "completed_pairs": 0, "failure": "TimeoutError:simulated"}
+....................................................
+----------------------------------------------------------------------
+Ran 136 tests in 24.529s
+
+OK

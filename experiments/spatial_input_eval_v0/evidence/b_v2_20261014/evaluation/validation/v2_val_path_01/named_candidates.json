@@ -1,0 +1,1862 @@
+[
+  {
+    "name": "witness",
+    "prediction": {
+      "object_id": "target",
+      "position_m": [
+        0.745,
+        -0.018,
+        0.11
+      ],
+      "quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "waypoints_m": [
+        [
+          0.155,
+          -0.215,
+          0.11
+        ],
+        [
+          0.745,
+          -0.215,
+          0.11
+        ],
+        [
+          0.745,
+          -0.018,
+          0.11
+        ]
+      ]
+    },
+    "checks": {
+      "GT": {
+        "score": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.08900000028212203,
+            "collision_upper_m": 0.08900000028212204,
+            "per_obstacle": [
+              {
+                "obstacle_id": "barrier",
+                "noncollision_lower_m": 0.22649999603529108,
+                "collision_upper_m": 0.2264999960352911,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "suspended_beam",
+                "noncollision_lower_m": 0.15400000211496487,
+                "collision_upper_m": 0.1540000021149649,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "table",
+                "noncollision_lower_m": 0.08900000028212203,
+                "collision_upper_m": 0.08900000028212204,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.05599999740619794,
+            "collision_upper_m": 0.055999997406197946,
+            "per_obstacle": [
+              {
+                "obstacle_id": "barrier",
+                "noncollision_lower_m": 0.06399999946255815,
+                "collision_upper_m": 0.06399999946255816,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "suspended_beam",
+                "noncollision_lower_m": 0.05599999740619794,
+                "collision_upper_m": 0.055999997406197946,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "table",
+                "noncollision_lower_m": 0.08900000028212203,
+                "collision_upper_m": 0.08900000028212204,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      },
+      "B1": {
+        "score": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": false
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [
+            {
+              "segment": 1,
+              "obstacle_id": "observed_obstacle_000"
+            }
+          ],
+          "error_types": [
+            "continuous_path_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.15009926646326419,
+            "collision_upper_m": 0.1500992664632642,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.15009926646326419,
+                "collision_upper_m": 0.1500992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_002",
+                "noncollision_lower_m": 0.273689174744135,
+                "collision_upper_m": 0.27368917474413507,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_003",
+                "noncollision_lower_m": 0.223689174744135,
+                "collision_upper_m": 0.22368917474413502,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_004",
+                "noncollision_lower_m": 0.27868917474413496,
+                "collision_upper_m": 0.278689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_005",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_006",
+                "noncollision_lower_m": 0.27368917474413496,
+                "collision_upper_m": 0.273689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_007",
+                "noncollision_lower_m": 0.2560992664632642,
+                "collision_upper_m": 0.25609926646326425,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_008",
+                "noncollision_lower_m": 0.2610992664632642,
+                "collision_upper_m": 0.26109926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_009",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_010",
+                "noncollision_lower_m": 0.27368917474413496,
+                "collision_upper_m": 0.273689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_011",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_012",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": true,
+            "noncollision_lower_m": null,
+            "collision_upper_m": 0.0,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": null,
+                "collision_upper_m": 0.0,
+                "collision_at_zero": true
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.06309926646326418,
+                "collision_upper_m": 0.06309926646326419,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_002",
+                "noncollision_lower_m": 0.06809926646326418,
+                "collision_upper_m": 0.0680992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_003",
+                "noncollision_lower_m": 0.06809926646326418,
+                "collision_upper_m": 0.0680992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_004",
+                "noncollision_lower_m": 0.07309926646326416,
+                "collision_upper_m": 0.07309926646326417,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_005",
+                "noncollision_lower_m": 0.07309926646326421,
+                "collision_upper_m": 0.07309926646326423,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_006",
+                "noncollision_lower_m": 0.25868917474413494,
+                "collision_upper_m": 0.258689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_007",
+                "noncollision_lower_m": 0.2560992664640671,
+                "collision_upper_m": 0.25609926646406717,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_008",
+                "noncollision_lower_m": 0.26109926646406717,
+                "collision_upper_m": 0.2610992664640672,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_009",
+                "noncollision_lower_m": 0.05809926646326415,
+                "collision_upper_m": 0.05809926646326416,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_010",
+                "noncollision_lower_m": 0.26609926646406723,
+                "collision_upper_m": 0.2660992664640673,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_011",
+                "noncollision_lower_m": 0.2660992664640672,
+                "collision_upper_m": 0.26609926646406723,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_012",
+                "noncollision_lower_m": 0.2660992664640672,
+                "collision_upper_m": 0.26609926646406723,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      },
+      "B2": {
+        "score": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.15472003113033195,
+            "collision_upper_m": 0.15472003113033198,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.15472003113033195,
+                "collision_upper_m": 0.15472003113033198,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.22651810454693294,
+                "collision_upper_m": 0.22651810454693297,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.058672547428104745,
+            "collision_upper_m": 0.05867254742810475,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.058672547428104745,
+                "collision_upper_m": 0.05867254742810475,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.06399501501275355,
+                "collision_upper_m": 0.06399501501275356,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "alternate_0",
+    "prediction": {
+      "object_id": "target",
+      "position_m": [
+        0.745,
+        -0.018,
+        0.11
+      ],
+      "quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "waypoints_m": [
+        [
+          0.155,
+          -0.221,
+          0.12
+        ],
+        [
+          0.745,
+          -0.221,
+          0.12
+        ],
+        [
+          0.745,
+          -0.018,
+          0.11
+        ]
+      ]
+    },
+    "checks": {
+      "GT": {
+        "score": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.08900000028212203,
+            "collision_upper_m": 0.08900000028212204,
+            "per_obstacle": [
+              {
+                "obstacle_id": "barrier",
+                "noncollision_lower_m": 0.22649999603529108,
+                "collision_upper_m": 0.2264999960352911,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "suspended_beam",
+                "noncollision_lower_m": 0.15400000211496487,
+                "collision_upper_m": 0.1540000021149649,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "table",
+                "noncollision_lower_m": 0.08900000028212203,
+                "collision_upper_m": 0.08900000028212204,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.04599999740619794,
+            "collision_upper_m": 0.045999997406197944,
+            "per_obstacle": [
+              {
+                "obstacle_id": "barrier",
+                "noncollision_lower_m": 0.06999999946255815,
+                "collision_upper_m": 0.06999999946255817,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "suspended_beam",
+                "noncollision_lower_m": 0.04599999740619794,
+                "collision_upper_m": 0.045999997406197944,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "table",
+                "noncollision_lower_m": 0.08900000028311203,
+                "collision_upper_m": 0.08900000028311204,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      },
+      "B1": {
+        "score": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": false
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [
+            {
+              "segment": 1,
+              "obstacle_id": "observed_obstacle_000"
+            }
+          ],
+          "error_types": [
+            "continuous_path_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.15009926646326419,
+            "collision_upper_m": 0.1500992664632642,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.15009926646326419,
+                "collision_upper_m": 0.1500992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_002",
+                "noncollision_lower_m": 0.273689174744135,
+                "collision_upper_m": 0.27368917474413507,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_003",
+                "noncollision_lower_m": 0.223689174744135,
+                "collision_upper_m": 0.22368917474413502,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_004",
+                "noncollision_lower_m": 0.27868917474413496,
+                "collision_upper_m": 0.278689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_005",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_006",
+                "noncollision_lower_m": 0.27368917474413496,
+                "collision_upper_m": 0.273689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_007",
+                "noncollision_lower_m": 0.2560992664632642,
+                "collision_upper_m": 0.25609926646326425,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_008",
+                "noncollision_lower_m": 0.2610992664632642,
+                "collision_upper_m": 0.26109926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_009",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_010",
+                "noncollision_lower_m": 0.27368917474413496,
+                "collision_upper_m": 0.273689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_011",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_012",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": true,
+            "noncollision_lower_m": null,
+            "collision_upper_m": 0.0,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": null,
+                "collision_upper_m": 0.0,
+                "collision_at_zero": true
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.06909926646326418,
+                "collision_upper_m": 0.0690992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_002",
+                "noncollision_lower_m": 0.07409926646326419,
+                "collision_upper_m": 0.0740992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_003",
+                "noncollision_lower_m": 0.07409926646326419,
+                "collision_upper_m": 0.0740992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_004",
+                "noncollision_lower_m": 0.07909926646326416,
+                "collision_upper_m": 0.07909926646326418,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_005",
+                "noncollision_lower_m": 0.07909926646326422,
+                "collision_upper_m": 0.07909926646326423,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_006",
+                "noncollision_lower_m": 0.25868917474413494,
+                "collision_upper_m": 0.258689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_007",
+                "noncollision_lower_m": 0.2560992664640611,
+                "collision_upper_m": 0.25609926646406117,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_008",
+                "noncollision_lower_m": 0.2610992664640612,
+                "collision_upper_m": 0.26109926646406123,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_009",
+                "noncollision_lower_m": 0.06409926646326415,
+                "collision_upper_m": 0.06409926646326417,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_010",
+                "noncollision_lower_m": 0.26609926646406123,
+                "collision_upper_m": 0.2660992664640613,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_011",
+                "noncollision_lower_m": 0.2660992664640612,
+                "collision_upper_m": 0.26609926646406123,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_012",
+                "noncollision_lower_m": 0.2660992664640612,
+                "collision_upper_m": 0.26609926646406123,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      },
+      "B2": {
+        "score": {
+          "status": "SCORED",
+          "score": 1.0,
+          "success": true,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.15472003113033195,
+            "collision_upper_m": 0.15472003113033198,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.15472003113033195,
+                "collision_upper_m": 0.15472003113033198,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.22651810454693294,
+                "collision_upper_m": 0.22651810454693297,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.04867254742810474,
+            "collision_upper_m": 0.04867254742810475,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.04867254742810474,
+                "collision_upper_m": 0.04867254742810475,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.06999501501275356,
+                "collision_upper_m": 0.06999501501275357,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "negative_straight",
+    "prediction": {
+      "object_id": "target",
+      "position_m": [
+        0.745,
+        -0.018,
+        0.11
+      ],
+      "quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "waypoints_m": [
+        [
+          0.745,
+          -0.018,
+          0.11
+        ]
+      ]
+    },
+    "checks": {
+      "GT": {
+        "score": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": false
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [
+            {
+              "segment": 0,
+              "obstacle_id": "barrier"
+            }
+          ],
+          "error_types": [
+            "continuous_path_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.08900000028212203,
+            "collision_upper_m": 0.08900000028212204,
+            "per_obstacle": [
+              {
+                "obstacle_id": "barrier",
+                "noncollision_lower_m": 0.22649999603529108,
+                "collision_upper_m": 0.2264999960352911,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "suspended_beam",
+                "noncollision_lower_m": 0.15400000211496487,
+                "collision_upper_m": 0.1540000021149649,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "table",
+                "noncollision_lower_m": 0.08900000028212203,
+                "collision_upper_m": 0.08900000028212204,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": true,
+            "noncollision_lower_m": null,
+            "collision_upper_m": 0.0,
+            "per_obstacle": [
+              {
+                "obstacle_id": "barrier",
+                "noncollision_lower_m": null,
+                "collision_upper_m": 0.0,
+                "collision_at_zero": true
+              },
+              {
+                "obstacle_id": "suspended_beam",
+                "noncollision_lower_m": 0.15400000211496487,
+                "collision_upper_m": 0.1540000021149649,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "table",
+                "noncollision_lower_m": 0.08900000028212203,
+                "collision_upper_m": 0.08900000028212204,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      },
+      "B1": {
+        "score": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": false
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [
+            {
+              "segment": 0,
+              "obstacle_id": "observed_obstacle_004"
+            },
+            {
+              "segment": 0,
+              "obstacle_id": "observed_obstacle_005"
+            },
+            {
+              "segment": 0,
+              "obstacle_id": "observed_obstacle_009"
+            }
+          ],
+          "error_types": [
+            "continuous_path_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.15009926646326419,
+            "collision_upper_m": 0.1500992664632642,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.15009926646326419,
+                "collision_upper_m": 0.1500992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_002",
+                "noncollision_lower_m": 0.273689174744135,
+                "collision_upper_m": 0.27368917474413507,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_003",
+                "noncollision_lower_m": 0.223689174744135,
+                "collision_upper_m": 0.22368917474413502,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_004",
+                "noncollision_lower_m": 0.27868917474413496,
+                "collision_upper_m": 0.278689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_005",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_006",
+                "noncollision_lower_m": 0.27368917474413496,
+                "collision_upper_m": 0.273689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_007",
+                "noncollision_lower_m": 0.2560992664632642,
+                "collision_upper_m": 0.25609926646326425,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_008",
+                "noncollision_lower_m": 0.2610992664632642,
+                "collision_upper_m": 0.26109926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_009",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_010",
+                "noncollision_lower_m": 0.27368917474413496,
+                "collision_upper_m": 0.273689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_011",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_012",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": true,
+            "noncollision_lower_m": null,
+            "collision_upper_m": 0.0,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.15009926646326419,
+                "collision_upper_m": 0.1500992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.07509926646326417,
+                "collision_upper_m": 0.07509926646326419,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_002",
+                "noncollision_lower_m": 0.07009926646326418,
+                "collision_upper_m": 0.0700992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_003",
+                "noncollision_lower_m": 0.07009926646326418,
+                "collision_upper_m": 0.0700992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_004",
+                "noncollision_lower_m": null,
+                "collision_upper_m": 0.0,
+                "collision_at_zero": true
+              },
+              {
+                "obstacle_id": "observed_obstacle_005",
+                "noncollision_lower_m": null,
+                "collision_upper_m": 0.0,
+                "collision_at_zero": true
+              },
+              {
+                "obstacle_id": "observed_obstacle_006",
+                "noncollision_lower_m": 0.2560992664632642,
+                "collision_upper_m": 0.25609926646326425,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_007",
+                "noncollision_lower_m": 0.2560992664632642,
+                "collision_upper_m": 0.25609926646326425,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_008",
+                "noncollision_lower_m": 0.2610992664632642,
+                "collision_upper_m": 0.26109926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_009",
+                "noncollision_lower_m": null,
+                "collision_upper_m": 0.0,
+                "collision_at_zero": true
+              },
+              {
+                "obstacle_id": "observed_obstacle_010",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_011",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_012",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      },
+      "B2": {
+        "score": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": false
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [
+            {
+              "segment": 0,
+              "obstacle_id": "observed_obstacle_001"
+            }
+          ],
+          "error_types": [
+            "continuous_path_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.15472003113033195,
+            "collision_upper_m": 0.15472003113033198,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.15472003113033195,
+                "collision_upper_m": 0.15472003113033198,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.22651810454693294,
+                "collision_upper_m": 0.22651810454693297,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": true,
+            "noncollision_lower_m": null,
+            "collision_upper_m": 0.0,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.15373017848297854,
+                "collision_upper_m": 0.15373017848297857,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": null,
+                "collision_upper_m": 0.0,
+                "collision_at_zero": true
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "negative_too_high",
+    "prediction": {
+      "object_id": "target",
+      "position_m": [
+        0.745,
+        -0.018,
+        0.11
+      ],
+      "quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "waypoints_m": [
+        [
+          0.155,
+          -0.215,
+          0.35
+        ],
+        [
+          0.745,
+          -0.215,
+          0.35
+        ],
+        [
+          0.745,
+          -0.018,
+          0.11
+        ]
+      ]
+    },
+    "checks": {
+      "GT": {
+        "score": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": false,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "path_in_workspace"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.08900000028212203,
+            "collision_upper_m": 0.08900000028212204,
+            "per_obstacle": [
+              {
+                "obstacle_id": "barrier",
+                "noncollision_lower_m": 0.22649999603529108,
+                "collision_upper_m": 0.2264999960352911,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "suspended_beam",
+                "noncollision_lower_m": 0.15400000211496487,
+                "collision_upper_m": 0.1540000021149649,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "table",
+                "noncollision_lower_m": 0.08900000028212203,
+                "collision_upper_m": 0.08900000028212204,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.06399999946255815,
+            "collision_upper_m": 0.06399999946255816,
+            "per_obstacle": [
+              {
+                "obstacle_id": "barrier",
+                "noncollision_lower_m": 0.06399999946255815,
+                "collision_upper_m": 0.06399999946255816,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "suspended_beam",
+                "noncollision_lower_m": 0.1060000009824766,
+                "collision_upper_m": 0.10600000098247661,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "table",
+                "noncollision_lower_m": 0.08900000028288199,
+                "collision_upper_m": 0.089000000282882,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      },
+      "B1": {
+        "score": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": false,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "path_in_workspace"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.15009926646326419,
+            "collision_upper_m": 0.1500992664632642,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.15009926646326419,
+                "collision_upper_m": 0.1500992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_002",
+                "noncollision_lower_m": 0.273689174744135,
+                "collision_upper_m": 0.27368917474413507,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_003",
+                "noncollision_lower_m": 0.223689174744135,
+                "collision_upper_m": 0.22368917474413502,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_004",
+                "noncollision_lower_m": 0.27868917474413496,
+                "collision_upper_m": 0.278689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_005",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_006",
+                "noncollision_lower_m": 0.27368917474413496,
+                "collision_upper_m": 0.273689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_007",
+                "noncollision_lower_m": 0.2560992664632642,
+                "collision_upper_m": 0.25609926646326425,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_008",
+                "noncollision_lower_m": 0.2610992664632642,
+                "collision_upper_m": 0.26109926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_009",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_010",
+                "noncollision_lower_m": 0.27368917474413496,
+                "collision_upper_m": 0.273689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_011",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_012",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.05809926646326415,
+            "collision_upper_m": 0.05809926646326416,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.10611948641128773,
+                "collision_upper_m": 0.10611948641128774,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.10611948641128773,
+                "collision_upper_m": 0.10611948641128774,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_002",
+                "noncollision_lower_m": 0.10611948641128773,
+                "collision_upper_m": 0.10611948641128774,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_003",
+                "noncollision_lower_m": 0.10611948641128773,
+                "collision_upper_m": 0.10611948641128774,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_004",
+                "noncollision_lower_m": 0.10611948641128773,
+                "collision_upper_m": 0.10611948641128774,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_005",
+                "noncollision_lower_m": 0.10611948641128773,
+                "collision_upper_m": 0.10611948641128774,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_006",
+                "noncollision_lower_m": 0.25868917474413494,
+                "collision_upper_m": 0.258689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_007",
+                "noncollision_lower_m": 0.2560992664640671,
+                "collision_upper_m": 0.25609926646406717,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_008",
+                "noncollision_lower_m": 0.26109926646406717,
+                "collision_upper_m": 0.2610992664640672,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_009",
+                "noncollision_lower_m": 0.05809926646326415,
+                "collision_upper_m": 0.05809926646326416,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_010",
+                "noncollision_lower_m": 0.26609926646406723,
+                "collision_upper_m": 0.2660992664640673,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_011",
+                "noncollision_lower_m": 0.2660992664640672,
+                "collision_upper_m": 0.26609926646406723,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_012",
+                "noncollision_lower_m": 0.2660992664640672,
+                "collision_upper_m": 0.26609926646406723,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      },
+      "B2": {
+        "score": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": false,
+            "continuous_path_collision_free": true
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [],
+          "error_types": [
+            "path_in_workspace"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.15472003113033195,
+            "collision_upper_m": 0.15472003113033198,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.15472003113033195,
+                "collision_upper_m": 0.15472003113033198,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.22651810454693294,
+                "collision_upper_m": 0.22651810454693297,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.06399501501275355,
+            "collision_upper_m": 0.06399501501275356,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.1069391555065315,
+                "collision_upper_m": 0.10693915550653152,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.06399501501275355,
+                "collision_upper_m": 0.06399501501275356,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "negative_hit_suspended_beam",
+    "prediction": {
+      "object_id": "target",
+      "position_m": [
+        0.745,
+        -0.018,
+        0.11
+      ],
+      "quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "waypoints_m": [
+        [
+          0.155,
+          -0.215,
+          0.205
+        ],
+        [
+          0.745,
+          -0.215,
+          0.205
+        ],
+        [
+          0.745,
+          -0.018,
+          0.11
+        ]
+      ]
+    },
+    "checks": {
+      "GT": {
+        "score": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": false
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [
+            {
+              "segment": 1,
+              "obstacle_id": "suspended_beam"
+            }
+          ],
+          "error_types": [
+            "continuous_path_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.08900000028212203,
+            "collision_upper_m": 0.08900000028212204,
+            "per_obstacle": [
+              {
+                "obstacle_id": "barrier",
+                "noncollision_lower_m": 0.22649999603529108,
+                "collision_upper_m": 0.2264999960352911,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "suspended_beam",
+                "noncollision_lower_m": 0.15400000211496487,
+                "collision_upper_m": 0.1540000021149649,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "table",
+                "noncollision_lower_m": 0.08900000028212203,
+                "collision_upper_m": 0.08900000028212204,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": true,
+            "noncollision_lower_m": null,
+            "collision_upper_m": 0.0,
+            "per_obstacle": [
+              {
+                "obstacle_id": "barrier",
+                "noncollision_lower_m": 0.06399999946255815,
+                "collision_upper_m": 0.06399999946255816,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "suspended_beam",
+                "noncollision_lower_m": null,
+                "collision_upper_m": 0.0,
+                "collision_at_zero": true
+              },
+              {
+                "obstacle_id": "table",
+                "noncollision_lower_m": 0.08900000028302704,
+                "collision_upper_m": 0.08900000028302706,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      },
+      "B1": {
+        "score": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": false
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [
+            {
+              "segment": 1,
+              "obstacle_id": "observed_obstacle_000"
+            }
+          ],
+          "error_types": [
+            "continuous_path_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.15009926646326419,
+            "collision_upper_m": 0.1500992664632642,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.15009926646326419,
+                "collision_upper_m": 0.1500992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_002",
+                "noncollision_lower_m": 0.273689174744135,
+                "collision_upper_m": 0.27368917474413507,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_003",
+                "noncollision_lower_m": 0.223689174744135,
+                "collision_upper_m": 0.22368917474413502,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_004",
+                "noncollision_lower_m": 0.27868917474413496,
+                "collision_upper_m": 0.278689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_005",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_006",
+                "noncollision_lower_m": 0.27368917474413496,
+                "collision_upper_m": 0.273689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_007",
+                "noncollision_lower_m": 0.2560992664632642,
+                "collision_upper_m": 0.25609926646326425,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_008",
+                "noncollision_lower_m": 0.2610992664632642,
+                "collision_upper_m": 0.26109926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_009",
+                "noncollision_lower_m": 0.22368917474413502,
+                "collision_upper_m": 0.22368917474413505,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_010",
+                "noncollision_lower_m": 0.27368917474413496,
+                "collision_upper_m": 0.273689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_011",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_012",
+                "noncollision_lower_m": 0.2660992664632642,
+                "collision_upper_m": 0.26609926646326426,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": true,
+            "noncollision_lower_m": null,
+            "collision_upper_m": 0.0,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": null,
+                "collision_upper_m": 0.0,
+                "collision_at_zero": true
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.06309926646326418,
+                "collision_upper_m": 0.06309926646326419,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_002",
+                "noncollision_lower_m": 0.06809926646326418,
+                "collision_upper_m": 0.0680992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_003",
+                "noncollision_lower_m": 0.06809926646326418,
+                "collision_upper_m": 0.0680992664632642,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_004",
+                "noncollision_lower_m": 0.07309926646326416,
+                "collision_upper_m": 0.07309926646326417,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_005",
+                "noncollision_lower_m": 0.07309926646326421,
+                "collision_upper_m": 0.07309926646326423,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_006",
+                "noncollision_lower_m": 0.25868917474413494,
+                "collision_upper_m": 0.258689174744135,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_007",
+                "noncollision_lower_m": 0.2560992664640671,
+                "collision_upper_m": 0.25609926646406717,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_008",
+                "noncollision_lower_m": 0.26109926646406717,
+                "collision_upper_m": 0.2610992664640672,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_009",
+                "noncollision_lower_m": 0.05809926646326415,
+                "collision_upper_m": 0.05809926646326416,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_010",
+                "noncollision_lower_m": 0.26609926646406723,
+                "collision_upper_m": 0.2660992664640673,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_011",
+                "noncollision_lower_m": 0.2660992664640672,
+                "collision_upper_m": 0.26609926646406723,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_012",
+                "noncollision_lower_m": 0.2660992664640672,
+                "collision_upper_m": 0.26609926646406723,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      },
+      "B2": {
+        "score": {
+          "status": "SCORED",
+          "score": 0.0,
+          "success": false,
+          "constraints": {
+            "correct_object": true,
+            "entire_volume_in_allowed_region": true,
+            "placement_collision_free": true,
+            "required_orientation": true,
+            "path_ends_at_placement": true,
+            "path_in_workspace": true,
+            "continuous_path_collision_free": false
+          },
+          "orientation_error_rad": 0.0,
+          "collisions": [
+            {
+              "segment": 1,
+              "obstacle_id": "observed_obstacle_000"
+            }
+          ],
+          "error_types": [
+            "continuous_path_collision_free"
+          ],
+          "scorer_contract": "astra.pilot02.task_policy.v1"
+        },
+        "SAT_projection_threshold": {
+          "placement": {
+            "collision_at_zero": false,
+            "noncollision_lower_m": 0.15472003113033195,
+            "collision_upper_m": 0.15472003113033198,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": 0.15472003113033195,
+                "collision_upper_m": 0.15472003113033198,
+                "collision_at_zero": false
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.22651810454693294,
+                "collision_upper_m": 0.22651810454693297,
+                "collision_at_zero": false
+              }
+            ]
+          },
+          "continuous_path": {
+            "collision_at_zero": true,
+            "noncollision_lower_m": null,
+            "collision_upper_m": 0.0,
+            "per_obstacle": [
+              {
+                "obstacle_id": "observed_obstacle_000",
+                "noncollision_lower_m": null,
+                "collision_upper_m": 0.0,
+                "collision_at_zero": true
+              },
+              {
+                "obstacle_id": "observed_obstacle_001",
+                "noncollision_lower_m": 0.06399501501275355,
+                "collision_upper_m": 0.06399501501275356,
+                "collision_at_zero": false
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+]

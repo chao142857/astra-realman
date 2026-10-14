@@ -1,0 +1,311 @@
+{
+  "version": "b_independent_diagnostics.v1",
+  "estimates_freeze_sha256": "3263010d908556ccc78ea3c01d3875b38c68e86058f94d7699cf27037d802162",
+  "inputs_unchanged_after_diagnostics": true,
+  "new_astra_requests": 0,
+  "rows": [
+    {
+      "scene": "v2_val_path_01",
+      "target_detected": true,
+      "obstacle_boxes": 13,
+      "timing": {
+        "geometry_estimation_s": 0.48061946300731506,
+        "input_preparation_and_preview_s": 0.017323740001302212,
+        "total_s": 0.4984722490044078,
+        "clock": "perf_counter; wall time; includes local I/O",
+        "host": "Ubuntu-Robot"
+      },
+      "gt_fed_back_to_estimator": false,
+      "target_errors": {
+        "center_vector_l2_m": 0.0005033130577984243,
+        "size_sorted_vector_l2_m": 0.001981589260838091,
+        "height_scalar_abs_m": 0.000543109779205686,
+        "corner_set_hausdorff_m": 0.0013355068968481235,
+        "note": "Sorted dimensions and corner-set comparison are invariant to cuboid axis relabeling; not a signed yaw error."
+      },
+      "obstacle_occupancy": {
+        "sampling_grid_m": 0.01,
+        "grid_points": 27216,
+        "intersection_points": 5260,
+        "predicted_points": 8775,
+        "gt_points": 5260,
+        "precision": 0.5994301994301995,
+        "recall_coverage": 1.0,
+        "iou": 0.5994301994301995,
+        "excluded_table": "Explicit missing surface; not silently treated as reconstructed. Metrics cover task-relevant non-table obstacles only.",
+        "per_gt_obstacle": [
+          {
+            "id": "barrier",
+            "sampled_volume_points": 5125,
+            "covered_fraction": 1.0
+          },
+          {
+            "id": "suspended_beam",
+            "sampled_volume_points": 135,
+            "covered_fraction": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "scene": "v2_val_path_02",
+      "target_detected": true,
+      "obstacle_boxes": 14,
+      "timing": {
+        "geometry_estimation_s": 0.44725884500076063,
+        "input_preparation_and_preview_s": 0.016946199990343302,
+        "total_s": 0.4647180110041518,
+        "clock": "perf_counter; wall time; includes local I/O",
+        "host": "Ubuntu-Robot"
+      },
+      "gt_fed_back_to_estimator": false,
+      "target_errors": {
+        "center_vector_l2_m": 0.0004893860305449924,
+        "size_sorted_vector_l2_m": 0.001954746051592197,
+        "height_scalar_abs_m": 0.0005326935161500401,
+        "corner_set_hausdorff_m": 0.0012796795055635885,
+        "note": "Sorted dimensions and corner-set comparison are invariant to cuboid axis relabeling; not a signed yaw error."
+      },
+      "obstacle_occupancy": {
+        "sampling_grid_m": 0.01,
+        "grid_points": 27216,
+        "intersection_points": 5260,
+        "predicted_points": 8775,
+        "gt_points": 5260,
+        "precision": 0.5994301994301995,
+        "recall_coverage": 1.0,
+        "iou": 0.5994301994301995,
+        "excluded_table": "Explicit missing surface; not silently treated as reconstructed. Metrics cover task-relevant non-table obstacles only.",
+        "per_gt_obstacle": [
+          {
+            "id": "barrier",
+            "sampled_volume_points": 5125,
+            "covered_fraction": 1.0
+          },
+          {
+            "id": "suspended_beam",
+            "sampled_volume_points": 135,
+            "covered_fraction": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "scene": "v2_val_path_03",
+      "target_detected": true,
+      "obstacle_boxes": 12,
+      "timing": {
+        "geometry_estimation_s": 0.4544973320007557,
+        "input_preparation_and_preview_s": 0.016983794994303025,
+        "total_s": 0.4719848030072171,
+        "clock": "perf_counter; wall time; includes local I/O",
+        "host": "Ubuntu-Robot"
+      },
+      "gt_fed_back_to_estimator": false,
+      "target_errors": {
+        "center_vector_l2_m": 0.0004936731681862451,
+        "size_sorted_vector_l2_m": 0.0019592777513402874,
+        "height_scalar_abs_m": 0.0005390809469062452,
+        "corner_set_hausdorff_m": 0.0013067375341454012,
+        "note": "Sorted dimensions and corner-set comparison are invariant to cuboid axis relabeling; not a signed yaw error."
+      },
+      "obstacle_occupancy": {
+        "sampling_grid_m": 0.01,
+        "grid_points": 16704,
+        "intersection_points": 5407,
+        "predicted_points": 9275,
+        "gt_points": 5431,
+        "precision": 0.5829649595687332,
+        "recall_coverage": 0.995580924323329,
+        "iou": 0.5814603720830197,
+        "excluded_table": "Explicit missing surface; not silently treated as reconstructed. Metrics cover task-relevant non-table obstacles only.",
+        "per_gt_obstacle": [
+          {
+            "id": "barrier",
+            "sampled_volume_points": 5125,
+            "covered_fraction": 1.0
+          },
+          {
+            "id": "suspended_beam",
+            "sampled_volume_points": 207,
+            "covered_fraction": 1.0
+          },
+          {
+            "id": "post_inner",
+            "sampled_volume_points": 126,
+            "covered_fraction": 0.9047619047619048
+          },
+          {
+            "id": "post_outer",
+            "sampled_volume_points": 126,
+            "covered_fraction": 0.9047619047619048
+          }
+        ]
+      }
+    },
+    {
+      "scene": "v2_val_yaw_01",
+      "target_detected": true,
+      "obstacle_boxes": 35,
+      "timing": {
+        "geometry_estimation_s": 0.5700730179960374,
+        "input_preparation_and_preview_s": 0.014150918010273017,
+        "total_s": 0.5850969399907626,
+        "clock": "perf_counter; wall time; includes local I/O",
+        "host": "Ubuntu-Robot"
+      },
+      "gt_fed_back_to_estimator": false,
+      "target_errors": {
+        "center_vector_l2_m": 0.0005535425659367071,
+        "size_sorted_vector_l2_m": 0.0021258553169668675,
+        "height_scalar_abs_m": 0.0008378820453862623,
+        "corner_set_hausdorff_m": 0.0015564567842787078,
+        "note": "Sorted dimensions and corner-set comparison are invariant to cuboid axis relabeling; not a signed yaw error."
+      },
+      "obstacle_occupancy": {
+        "sampling_grid_m": 0.01,
+        "grid_points": 70623,
+        "intersection_points": 35378,
+        "predicted_points": 36727,
+        "gt_points": 35378,
+        "precision": 0.9632695292291774,
+        "recall_coverage": 1.0,
+        "iou": 0.9632695292291774,
+        "excluded_table": "Explicit missing surface; not silently treated as reconstructed. Metrics cover task-relevant non-table obstacles only.",
+        "per_gt_obstacle": [
+          {
+            "id": "block_xm",
+            "sampled_volume_points": 12274,
+            "covered_fraction": 1.0
+          },
+          {
+            "id": "block_xp",
+            "sampled_volume_points": 12274,
+            "covered_fraction": 1.0
+          },
+          {
+            "id": "block_ym",
+            "sampled_volume_points": 5415,
+            "covered_fraction": 1.0
+          },
+          {
+            "id": "block_yp",
+            "sampled_volume_points": 5415,
+            "covered_fraction": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "scene": "v2_val_yaw_02",
+      "target_detected": true,
+      "obstacle_boxes": 8,
+      "timing": {
+        "geometry_estimation_s": 0.5802687340037664,
+        "input_preparation_and_preview_s": 0.013959442003397271,
+        "total_s": 0.5983602210035315,
+        "clock": "perf_counter; wall time; includes local I/O",
+        "host": "Ubuntu-Robot"
+      },
+      "gt_fed_back_to_estimator": false,
+      "target_errors": {
+        "center_vector_l2_m": 0.0005535425659367071,
+        "size_sorted_vector_l2_m": 0.0021258553169668675,
+        "height_scalar_abs_m": 0.0008378820453862623,
+        "corner_set_hausdorff_m": 0.0015564567842787078,
+        "note": "Sorted dimensions and corner-set comparison are invariant to cuboid axis relabeling; not a signed yaw error."
+      },
+      "obstacle_occupancy": {
+        "sampling_grid_m": 0.01,
+        "grid_points": 71862,
+        "intersection_points": 35264,
+        "predicted_points": 36480,
+        "gt_points": 35264,
+        "precision": 0.9666666666666667,
+        "recall_coverage": 1.0,
+        "iou": 0.9666666666666667,
+        "excluded_table": "Explicit missing surface; not silently treated as reconstructed. Metrics cover task-relevant non-table obstacles only.",
+        "per_gt_obstacle": [
+          {
+            "id": "block_xm",
+            "sampled_volume_points": 12274,
+            "covered_fraction": 1.0
+          },
+          {
+            "id": "block_xp",
+            "sampled_volume_points": 12274,
+            "covered_fraction": 1.0
+          },
+          {
+            "id": "block_ym",
+            "sampled_volume_points": 5358,
+            "covered_fraction": 1.0
+          },
+          {
+            "id": "block_yp",
+            "sampled_volume_points": 5358,
+            "covered_fraction": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "scene": "v2_val_yaw_03",
+      "target_detected": true,
+      "obstacle_boxes": 28,
+      "timing": {
+        "geometry_estimation_s": 0.5779785920021823,
+        "input_preparation_and_preview_s": 0.01362073801283259,
+        "total_s": 0.5922698299982585,
+        "clock": "perf_counter; wall time; includes local I/O",
+        "host": "Ubuntu-Robot"
+      },
+      "gt_fed_back_to_estimator": false,
+      "target_errors": {
+        "center_vector_l2_m": 0.0005535425659367071,
+        "size_sorted_vector_l2_m": 0.0021258553169668675,
+        "height_scalar_abs_m": 0.0008378820453862623,
+        "corner_set_hausdorff_m": 0.0015564567842787078,
+        "note": "Sorted dimensions and corner-set comparison are invariant to cuboid axis relabeling; not a signed yaw error."
+      },
+      "obstacle_occupancy": {
+        "sampling_grid_m": 0.01,
+        "grid_points": 90090,
+        "intersection_points": 33156,
+        "predicted_points": 34470,
+        "gt_points": 34998,
+        "precision": 0.9618798955613577,
+        "recall_coverage": 0.9473684210526315,
+        "iou": 0.9130865829477859,
+        "excluded_table": "Explicit missing surface; not silently treated as reconstructed. Metrics cover task-relevant non-table obstacles only.",
+        "per_gt_obstacle": [
+          {
+            "id": "block_xm",
+            "sampled_volume_points": 12274,
+            "covered_fraction": 0.9473684210526315
+          },
+          {
+            "id": "block_xp",
+            "sampled_volume_points": 12274,
+            "covered_fraction": 0.9473684210526315
+          },
+          {
+            "id": "block_ym",
+            "sampled_volume_points": 5225,
+            "covered_fraction": 0.9473684210526315
+          },
+          {
+            "id": "block_yp",
+            "sampled_volume_points": 5225,
+            "covered_fraction": 0.9473684210526315
+          }
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "10 mm sampled occupancy is a coarse volume diagnostic, not exact geometric clearance or collision certification.",
+    "Unseen interiors are extruded under an upright-object assumption; phantom occupancy and missed geometry are possible.",
+    "No GT diagnostic is fed back to this frozen input version."
+  ]
+}

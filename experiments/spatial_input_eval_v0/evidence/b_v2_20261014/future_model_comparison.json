@@ -1,0 +1,119 @@
+{
+  "status": "PROPOSAL_ONLY_NOT_FROZEN_NOT_AUTHORIZED",
+  "current_generation_budget": 0,
+  "existing_36_request_plan_modified": false,
+  "scene_selection": "all six validation scenes, including missing-wall failures; no model-response selection",
+  "core_screening": {
+    "conditions": [
+      "A_RGB",
+      "B1_geometry",
+      "B2_geometry",
+      "C_oracle"
+    ],
+    "repetitions_per_scene_condition": 1,
+    "new_client_requests": 24,
+    "proposed_order": [
+      {
+        "scene": "v2_val_path_01",
+        "conditions": [
+          "A",
+          "B1",
+          "C",
+          "B2"
+        ]
+      },
+      {
+        "scene": "v2_val_path_02",
+        "conditions": [
+          "B1",
+          "B2",
+          "A",
+          "C"
+        ]
+      },
+      {
+        "scene": "v2_val_path_03",
+        "conditions": [
+          "B2",
+          "C",
+          "B1",
+          "A"
+        ]
+      },
+      {
+        "scene": "v2_val_yaw_01",
+        "conditions": [
+          "C",
+          "A",
+          "B2",
+          "B1"
+        ]
+      },
+      {
+        "scene": "v2_val_yaw_02",
+        "conditions": [
+          "A",
+          "B1",
+          "C",
+          "B2"
+        ]
+      },
+      {
+        "scene": "v2_val_yaw_03",
+        "conditions": [
+          "B1",
+          "B2",
+          "A",
+          "C"
+        ]
+      }
+    ],
+    "scope": "mechanistic screening, not repeatability or generalization estimate"
+  },
+  "optional_full_second_block": {
+    "additional_requests": 24,
+    "total_core_requests": 48,
+    "order": "complement first block into three complete four-row Williams blocks; freeze all requests before execution"
+  },
+  "reliability_expression_extension": {
+    "condition": "B2_R",
+    "geometry_identical_to": "B2_geometry",
+    "additional_payload": "public-only reliability.json fields; no diagnostic GT plane errors, scores, witnesses or private designs",
+    "additional_requests_minimal": 6,
+    "repetitions_per_scene": 1,
+    "paired_reference": "same scene B2_geometry; interleave and counterbalance B2/B2_R order before authorization",
+    "interpretation": "effect of public reliability information/expression; never attribute this contrast to improved geometry",
+    "extra_instruction": "explicitly state missing boxes do not imply free space; version separately",
+    "minimum_total_with_extension": 30
+  },
+  "fixed": {
+    "model": "gpt-6-astra",
+    "reasoning": "medium",
+    "backend": "existing Mac ChatGPT SSH bridge",
+    "ephemeral": true,
+    "workers": 1,
+    "client_timeout_s": 180,
+    "server_timeout_s": 190,
+    "automatic_retry": false,
+    "scorer": "original pilot02_contract.score",
+    "clearance_m": 0.002,
+    "RGB_task_policy_schema": "same per scene across main conditions; only geometry differs"
+  },
+  "before_new_authorization": [
+    "freeze exact payloads, hashes, order and repeat count in independent proposal version",
+    "verify bridge non-generation health, authentication and timeout",
+    "independent fresh authorization only after user approval; no ledger created now"
+  ],
+  "record": [
+    "cached input tokens and all reported tokens separately",
+    "client latency includes network/queueing; not pure model time",
+    "geometry construction + input preparation + model call end-to-end latency",
+    "raw JSON/events, parameter checks, completion status, stop on protocol/transport error",
+    "score valid geometry failures as zero; protocol failures NOT_SCORED"
+  ],
+  "caveats": [
+    "six scenes already inspected with GT; future model comparison is diagnostic, not unseen reconstruction validation",
+    "A/B/C historical outputs are references, not repetitions",
+    "B2 missing geometry is known; reliability is not calibrated and box-only acceptance is not safety certification"
+  ]
+}
