@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_script.py", line 13, in <module>
+    w.phase_name='left_close';left.gripper(.45);w.tick(100)
+  File "/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_scene.py", line 44, in gripper
+    self.tick(1)
+  File "/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_scene.py", line 32, in tick
+    def tick(self,n):return self.world.tick(n)
+  File "/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_scene.py", line 117, in tick
+    if other=='target_cube' and own[0] in a.pad_vertices:raise RuntimeError('PAD_PENETRATION')
+RuntimeError: PAD_PENETRATION
+{"status": "FAIL", "model_calls": 0, "hardware_connections": 0, "shared_scene_articulations": 2, "error": "RuntimeError('PAD_PENETRATION')", "traceback": "Traceback (most recent call last):\n  File \"/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_script.py\", line 13, in <module>\n    w.phase_name='left_close';left.gripper(.45);w.tick(100)\n  File \"/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_scene.py\", line 44, in gripper\n    self.tick(1)\n  File \"/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_scene.py\", line 32, in tick\n    def tick(self,n):return self.world.tick(n)\n  File \"/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_scene.py\", line 117, in tick\n    if other=='target_cube' and own[0] in a.pad_vertices:raise RuntimeError('PAD_PENETRATION')\nRuntimeError: PAD_PENETRATION\n", "physics_steps": 7836, "sim_time_s": 7.836}

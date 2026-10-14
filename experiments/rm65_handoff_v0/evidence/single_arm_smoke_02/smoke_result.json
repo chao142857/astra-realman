@@ -1,0 +1,173 @@
+{
+  "status": "PASS",
+  "source": "SAPIEN_PHYSX",
+  "model_calls": 0,
+  "hardware_connections": 0,
+  "started": 1791959216.7555602,
+  "initial_state": {
+    "sim_step": 100,
+    "stopped": false,
+    "joint_names": [
+      "joint1",
+      "joint2",
+      "joint3",
+      "joint4",
+      "joint5",
+      "joint6",
+      "ctag_Left_1_Joint",
+      "ctag_Left_2_Joint",
+      "ctag_Right_2_Joint",
+      "ctag_Right_1_Joint",
+      "ctag_Left_Support_Joint",
+      "ctag_Right_Support_Joint"
+    ],
+    "qpos": [
+      -2.2901009288034402e-05,
+      -3.7808201795996865e-06,
+      -0.0005686527001671493,
+      0.0007389807142317295,
+      0.0006700286758132279,
+      -0.0004928561393171549,
+      -7.666839519515634e-05,
+      -0.00023476016940549016,
+      3.378644760232419e-05,
+      -4.977040953235701e-05,
+      7.986485434230417e-05,
+      1.836060391724459e-06
+    ],
+    "flange_pose_world": [
+      0.0001036464236676693,
+      -7.35744833946228e-08,
+      0.8805000185966492,
+      -0.00011338823242112994,
+      -5.2532937843352556e-05,
+      1.5120604075491428e-06,
+      1.0
+    ],
+    "actual_pad_centers_world": [
+      [
+        -0.04483785853249069,
+        0.00021708437946687625,
+        1.0819590342732914
+      ],
+      [
+        0.045010060151784416,
+        -0.0002504095459679118,
+        1.0819646733966664
+      ]
+    ],
+    "actual_grasp_center_world": [
+      8.610080964686212e-05,
+      -1.6662583250517786e-05,
+      1.081961853834979
+    ],
+    "actual_pad_gap_m": 0.08984913507800808,
+    "gripper_master_rad": -7.666839519515634e-05
+  },
+  "images": {
+    "assembly": "evidence/single_arm_smoke_02/obs_0001/assembly.png",
+    "fixed": "evidence/single_arm_smoke_02/obs_0001/fixed.png",
+    "wrist": "evidence/single_arm_smoke_02/obs_0001/wrist.png"
+  },
+  "setup_hold": {
+    "source": "ENGINEERING_ORACLE",
+    "policy_grasp_credit": false,
+    "method": "recorded_reinitialization_then_physical_script",
+    "exact_clone": false,
+    "hold_steps": 300,
+    "minimum_lift_m": 0.07920781336724758,
+    "steps": 2807
+  },
+  "evaluation": {
+    "status": "PASS",
+    "source": "SIMULATOR_TRUTH_EVALUATOR",
+    "final_object_pose": [
+      0.3593457043170929,
+      0.17015941441059113,
+      0.02500072494149208,
+      0.9999988079071045,
+      -4.972111128154211e-06,
+      -1.0013631253968924e-05,
+      0.0016024266369640827
+    ],
+    "xy_error_m": 0.0006734358135523895,
+    "speed_m_s": 0.0,
+    "position_range_m": 0.0,
+    "released": true,
+    "settle_steps": 300
+  },
+  "final_observation": {
+    "observation_id": "rm65:0003",
+    "images": {
+      "assembly": "evidence/single_arm_smoke_02/obs_0003/assembly.png",
+      "fixed": "evidence/single_arm_smoke_02/obs_0003/fixed.png",
+      "wrist": "evidence/single_arm_smoke_02/obs_0003/wrist.png"
+    },
+    "state": {
+      "sim_step": 4625,
+      "stopped": false,
+      "joint_names": [
+        "joint1",
+        "joint2",
+        "joint3",
+        "joint4",
+        "joint5",
+        "joint6",
+        "ctag_Left_1_Joint",
+        "ctag_Left_2_Joint",
+        "ctag_Right_2_Joint",
+        "ctag_Right_1_Joint",
+        "ctag_Left_Support_Joint",
+        "ctag_Right_Support_Joint"
+      ],
+      "qpos": [
+        0.44051945209503174,
+        -0.8339361548423767,
+        -0.8487869501113892,
+        0.0013891281560063362,
+        -1.4608149528503418,
+        0.4415893256664276,
+        -0.019969964399933815,
+        -0.01983819156885147,
+        0.020116806030273438,
+        0.020272495225071907,
+        0.020070362836122513,
+        0.020115680992603302
+      ],
+      "flange_pose_world": [
+        0.35991358757019043,
+        0.16989001631736755,
+        0.27507030963897705,
+        -0.00021221197675913572,
+        0.9999991655349731,
+        -0.0006104168714955449,
+        -0.0011717574670910835
+      ],
+      "actual_pad_centers_world": [
+        [
+          0.4036137793524416,
+          0.17014897776875676,
+          0.07270583514063732
+        ],
+        [
+          0.31529033704899107,
+          0.1697688850166324,
+          0.0729072308956204
+        ]
+      ],
+      "actual_grasp_center_world": [
+        0.35945205820071635,
+        0.16995893139269458,
+        0.07280653301812887
+      ],
+      "actual_pad_gap_m": 0.08832448975839767,
+      "gripper_master_rad": -0.019969964399933815
+    },
+    "captured_at": 1791959220.373753,
+    "frame": "sapien:world",
+    "pose_convention": "pad centre xyz metres; Link6 wxyz",
+    "observation_source": "SAPIEN_PHYSX",
+    "decision_wait_mode": "physics_paused"
+  },
+  "ended": 1791959220.42489
+}

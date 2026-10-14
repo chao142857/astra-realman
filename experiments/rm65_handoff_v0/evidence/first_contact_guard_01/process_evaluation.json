@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "continuous_hold_s": 0.5,
+    "hold_min_center_z_m": 0.07,
+    "hold_max_speed_m_s": 0.03,
+    "stable_place_s": 1.0,
+    "place_max_speed_m_s": 0.01,
+    "cube_size_m": 0.05,
+    "target_half_size_m": 0.07,
+    "target_xy": [
+      0.6,
+      0.16
+    ],
+    "max_pad_penetration_m": 0.002,
+    "contact_impulse_threshold": 1e-07,
+    "note": "Process metrics separate from provisional original terminal check. No real model results in this experiment."
+  },
+  "longest_continuous_s": {
+    "left_hold": 0,
+    "right_independent_hold": 0,
+    "stable_place": 0
+  },
+  "checks": {
+    "left_hold": false,
+    "right_independent_hold": false,
+    "stable_place": false,
+    "no_interarm_contact": true,
+    "no_pad_penetration_abort": true
+  },
+  "full_process_pass": false,
+  "interarm_steps": [],
+  "pad_penetrations": [],
+  "physics_steps": 3330,
+  "model_calls": 0
+}

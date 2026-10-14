@@ -1,0 +1,10 @@
+{
+  "status": "FAIL",
+  "model_calls": 0,
+  "hardware_connections": 0,
+  "shared_scene_articulations": 2,
+  "error": "RuntimeError('RIGHT_NO_CONTACT_ESTABLISHED')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_script.py\", line 18, in <module>\n    if not any(r['bilateral_contact']['right'] for r in w.records[-500:]):raise RuntimeError('RIGHT_NO_CONTACT_ESTABLISHED')\nRuntimeError: RIGHT_NO_CONTACT_ESTABLISHED\n",
+  "physics_steps": 5326,
+  "sim_time_s": 21.304000000000002
+}

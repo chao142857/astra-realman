@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_script.py", line 19, in <module>
+    w.phase_name='left_release';left.gripper(1.);w.phase_name='right_independent_hold';w.tick(300)
+  File "/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_scene.py", line 109, in tick
+    if other=='target_cube' and own[0] in a.pad_vertices:raise RuntimeError('PAD_PENETRATION')
+RuntimeError: PAD_PENETRATION
+{"status": "FAIL", "model_calls": 0, "hardware_connections": 0, "shared_scene_articulations": 2, "error": "RuntimeError('PAD_PENETRATION')", "traceback": "Traceback (most recent call last):\n  File \"/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_script.py\", line 19, in <module>\n    w.phase_name='left_release';left.gripper(1.);w.phase_name='right_independent_hold';w.tick(300)\n  File \"/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_scene.py\", line 109, in tick\n    if other=='target_cube' and own[0] in a.pad_vertices:raise RuntimeError('PAD_PENETRATION')\nRuntimeError: PAD_PENETRATION\n", "physics_steps": 5685, "sim_time_s": 22.740000000000002}

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_script.py", line 13, in <module>
+    prepare_left(w)
+  File "/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/prepare_initial.py", line 12, in prepare_left
+    if not left.bilateral_pad_contact():raise RuntimeError('LEFT_INITIAL_HOLD_FAILED')
+RuntimeError: LEFT_INITIAL_HOLD_FAILED
+{"status": "FAIL", "model_calls": 0, "hardware_connections": 0, "shared_scene_articulations": 2, "error": "RuntimeError('LEFT_INITIAL_HOLD_FAILED')", "traceback": "Traceback (most recent call last):\n  File \"/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/dual_script.py\", line 13, in <module>\n    prepare_left(w)\n  File \"/home/tongji/alex/rm65-dual-handoff-20261014/experiments/rm65_handoff_v0/prepare_initial.py\", line 12, in prepare_left\n    if not left.bilateral_pad_contact():raise RuntimeError('LEFT_INITIAL_HOLD_FAILED')\nRuntimeError: LEFT_INITIAL_HOLD_FAILED\n", "physics_steps": 3330, "sim_time_s": 13.32}
