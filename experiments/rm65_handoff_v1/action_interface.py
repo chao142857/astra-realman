@@ -46,9 +46,9 @@ def context_from_observation(obs,history,*,task_id='handoff_place_v1',task_polic
  context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
  if task_id=='handoff_transfer_only':context['instruction']=TRANSFER_INSTRUCTION
  elif task_id=='shared_workspace_yield_v1':
-  from workspace_task import INSTRUCTION,validate_policy
+  from workspace_task import INSTRUCTION as WI,validate_policy
   validate_policy(task_policy)
-  context.update(instruction=INSTRUCTION,conventions=workspace_conventions(),task_policy=copy.deepcopy(task_policy))
+  context.update(instruction=WI,conventions=workspace_conventions(),task_policy=copy.deepcopy(task_policy))
  elif task_id!='handoff_place_v1':raise ValueError('UNKNOWN_TASK')
  images=[Path(p) for p in obs['images']]
  for i,(camera,path) in enumerate(zip(['overhead','tabletop_front','left_wrist','right_wrist'],images)):
