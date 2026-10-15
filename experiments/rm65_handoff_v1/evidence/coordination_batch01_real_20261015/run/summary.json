@@ -1,0 +1,386 @@
+{
+  "campaign_id": "38ec72e4d49d43d7972a1ce24f1e6d69",
+  "source": "REAL_ASTRA",
+  "status": "STOPPED",
+  "reserved_budget": 16,
+  "elapsed_wall_s": 473.74103469299735,
+  "groups": {
+    "A_fixed": {
+      "counts": {
+        "SUCCESS": 1,
+        "TASK_FAILURE": 0,
+        "BUDGET_TRUNCATED": 0,
+        "INFRASTRUCTURE_FAILURE": 0,
+        "NOT_STARTED": 2
+      },
+      "planned_episodes": 3,
+      "started_episodes": 1,
+      "success_per_started": 1.0,
+      "success_per_uncensored_evaluable": 1.0,
+      "mean_decisions_per_started": 3.0,
+      "mean_client_dispatches_per_started": 3.0,
+      "mean_inference_wall_s": 64.65501543200662,
+      "mean_sim_time_s": 31.804000000000002,
+      "mean_episode_wall_s": 89.13790593899466
+    },
+    "B_shift_y40": {
+      "counts": {
+        "SUCCESS": 2,
+        "TASK_FAILURE": 0,
+        "BUDGET_TRUNCATED": 0,
+        "INFRASTRUCTURE_FAILURE": 0,
+        "NOT_STARTED": 1
+      },
+      "planned_episodes": 3,
+      "started_episodes": 2,
+      "success_per_started": 1.0,
+      "success_per_uncensored_evaluable": 1.0,
+      "mean_decisions_per_started": 3.5,
+      "mean_client_dispatches_per_started": 3.5,
+      "mean_inference_wall_s": 80.02447370049777,
+      "mean_sim_time_s": 32.82,
+      "mean_episode_wall_s": 107.36076632999902
+    },
+    "C_roles_swapped": {
+      "counts": {
+        "SUCCESS": 1,
+        "TASK_FAILURE": 0,
+        "BUDGET_TRUNCATED": 0,
+        "INFRASTRUCTURE_FAILURE": 1,
+        "NOT_STARTED": 1
+      },
+      "planned_episodes": 3,
+      "started_episodes": 2,
+      "success_per_started": 0.5,
+      "success_per_uncensored_evaluable": 1.0,
+      "mean_decisions_per_started": 2.5,
+      "mean_client_dispatches_per_started": 3.0,
+      "mean_inference_wall_s": 65.59876034800254,
+      "mean_sim_time_s": 24.652,
+      "mean_episode_wall_s": 84.56680947399946
+    },
+    "ALL": {
+      "counts": {
+        "SUCCESS": 4,
+        "TASK_FAILURE": 0,
+        "BUDGET_TRUNCATED": 0,
+        "INFRASTRUCTURE_FAILURE": 1,
+        "NOT_STARTED": 4
+      },
+      "planned_episodes": 9,
+      "started_episodes": 5,
+      "success_per_started": 0.8,
+      "success_per_uncensored_evaluable": 1.0,
+      "mean_decisions_per_started": 3.0,
+      "mean_client_dispatches_per_started": 3.2,
+      "mean_inference_wall_s": 71.18029670580145,
+      "mean_sim_time_s": 29.349600000000002,
+      "mean_episode_wall_s": 94.59861150939832
+    }
+  },
+  "episodes": [
+    {
+      "episode_id": "ep01",
+      "condition_id": "A_fixed",
+      "repeat": 1,
+      "status": "SUCCESS",
+      "decisions": 3,
+      "client_dispatches": 3,
+      "executed_action_groups": 4,
+      "numeric_refusals": 0,
+      "episode_wall_s": 89.13790593899466,
+      "sim_time_s": 31.804000000000002,
+      "inference_wall_s": 64.65501543200662,
+      "usage": {
+        "input_tokens": 50007,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 422,
+        "reasoning_output_tokens": 92
+      },
+      "score": {
+        "version": "rm65.coordination.batch01.physical.v1",
+        "condition_id": "A_fixed",
+        "visit_order": [
+          "right",
+          "left"
+        ],
+        "pass": true,
+        "checks": {
+          "first_dwell_0_5s": true,
+          "subsequent_second_dwell_0_5s": true,
+          "no_interarm_contact": true,
+          "no_unexpected_arm_table_contact": true,
+          "grippers_remain_open": true,
+          "final_goals_continuous_2s": true,
+          "no_physical_protection_stop": true
+        },
+        "first_dwell_completed_step": 4369,
+        "second_dwell_completed_step": 7281,
+        "minimum_actual_gap_m": 0.089799721951534,
+        "violations": [],
+        "tolerances": {
+          "position_tolerance_m": 0.01,
+          "orientation_tolerance_rad": 0.05,
+          "max_physical_penetration_m": 0.002
+        },
+        "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+      },
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep02",
+      "condition_id": "B_shift_y40",
+      "repeat": 1,
+      "status": "SUCCESS",
+      "decisions": 4,
+      "client_dispatches": 4,
+      "executed_action_groups": 4,
+      "numeric_refusals": 0,
+      "episode_wall_s": 122.58630155299761,
+      "sim_time_s": 32.82,
+      "inference_wall_s": 95.81501931399544,
+      "usage": {
+        "input_tokens": 64460,
+        "cached_input_tokens": 7040,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 473,
+        "reasoning_output_tokens": 112
+      },
+      "score": {
+        "version": "rm65.coordination.batch01.physical.v1",
+        "condition_id": "B_shift_y40",
+        "visit_order": [
+          "right",
+          "left"
+        ],
+        "pass": true,
+        "checks": {
+          "first_dwell_0_5s": true,
+          "subsequent_second_dwell_0_5s": true,
+          "no_interarm_contact": true,
+          "no_unexpected_arm_table_contact": true,
+          "grippers_remain_open": true,
+          "final_goals_continuous_2s": true,
+          "no_physical_protection_stop": true
+        },
+        "first_dwell_completed_step": 4569,
+        "second_dwell_completed_step": 7592,
+        "minimum_actual_gap_m": 0.08979117033544896,
+        "violations": [],
+        "tolerances": {
+          "position_tolerance_m": 0.01,
+          "orientation_tolerance_rad": 0.05,
+          "max_physical_penetration_m": 0.002
+        },
+        "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+      },
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep03",
+      "condition_id": "C_roles_swapped",
+      "repeat": 1,
+      "status": "SUCCESS",
+      "decisions": 4,
+      "client_dispatches": 4,
+      "executed_action_groups": 4,
+      "numeric_refusals": 0,
+      "episode_wall_s": 112.93667528899823,
+      "sim_time_s": 31.504,
+      "inference_wall_s": 88.51927770500333,
+      "usage": {
+        "input_tokens": 64536,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 442,
+        "reasoning_output_tokens": 85
+      },
+      "score": {
+        "version": "rm65.coordination.batch01.physical.v1",
+        "condition_id": "C_roles_swapped",
+        "visit_order": [
+          "left",
+          "right"
+        ],
+        "pass": true,
+        "checks": {
+          "first_dwell_0_5s": true,
+          "subsequent_second_dwell_0_5s": true,
+          "no_interarm_contact": true,
+          "no_unexpected_arm_table_contact": true,
+          "grippers_remain_open": true,
+          "final_goals_continuous_2s": true,
+          "no_physical_protection_stop": true
+        },
+        "first_dwell_completed_step": 4280,
+        "second_dwell_completed_step": 7220,
+        "minimum_actual_gap_m": 0.08979972882787698,
+        "violations": [],
+        "tolerances": {
+          "position_tolerance_m": 0.01,
+          "orientation_tolerance_rad": 0.05,
+          "max_physical_penetration_m": 0.002
+        },
+        "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+      },
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep04",
+      "condition_id": "B_shift_y40",
+      "repeat": 2,
+      "status": "SUCCESS",
+      "decisions": 3,
+      "client_dispatches": 3,
+      "executed_action_groups": 4,
+      "numeric_refusals": 0,
+      "episode_wall_s": 92.13523110700044,
+      "sim_time_s": 32.82,
+      "inference_wall_s": 64.2339280870001,
+      "usage": {
+        "input_tokens": 49946,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 418,
+        "reasoning_output_tokens": 82
+      },
+      "score": {
+        "version": "rm65.coordination.batch01.physical.v1",
+        "condition_id": "B_shift_y40",
+        "visit_order": [
+          "right",
+          "left"
+        ],
+        "pass": true,
+        "checks": {
+          "first_dwell_0_5s": true,
+          "subsequent_second_dwell_0_5s": true,
+          "no_interarm_contact": true,
+          "no_unexpected_arm_table_contact": true,
+          "grippers_remain_open": true,
+          "final_goals_continuous_2s": true,
+          "no_physical_protection_stop": true
+        },
+        "first_dwell_completed_step": 4569,
+        "second_dwell_completed_step": 7592,
+        "minimum_actual_gap_m": 0.08979117033544896,
+        "violations": [],
+        "tolerances": {
+          "position_tolerance_m": 0.01,
+          "orientation_tolerance_rad": 0.05,
+          "max_physical_penetration_m": 0.002
+        },
+        "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+      },
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep05",
+      "condition_id": "C_roles_swapped",
+      "repeat": 2,
+      "status": "INFRASTRUCTURE_FAILURE",
+      "decisions": 1,
+      "client_dispatches": 2,
+      "executed_action_groups": 2,
+      "numeric_refusals": 0,
+      "episode_wall_s": 56.19694365900068,
+      "sim_time_s": 17.8,
+      "inference_wall_s": 42.67824299100175,
+      "usage": {
+        "input_tokens": 31130,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 383,
+        "reasoning_output_tokens": 74
+      },
+      "score": {
+        "status": "NOT_SCORED_INFRASTRUCTURE_OR_UNKNOWN"
+      },
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep06",
+      "condition_id": "A_fixed",
+      "repeat": 2,
+      "status": "NOT_STARTED",
+      "decisions": 0,
+      "client_dispatches": 0,
+      "executed_action_groups": 0,
+      "numeric_refusals": 0,
+      "episode_wall_s": null,
+      "sim_time_s": null,
+      "inference_wall_s": 0.0,
+      "usage": {},
+      "score": null,
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep07",
+      "condition_id": "C_roles_swapped",
+      "repeat": 3,
+      "status": "NOT_STARTED",
+      "decisions": 0,
+      "client_dispatches": 0,
+      "executed_action_groups": 0,
+      "numeric_refusals": 0,
+      "episode_wall_s": null,
+      "sim_time_s": null,
+      "inference_wall_s": 0.0,
+      "usage": {},
+      "score": null,
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep08",
+      "condition_id": "A_fixed",
+      "repeat": 3,
+      "status": "NOT_STARTED",
+      "decisions": 0,
+      "client_dispatches": 0,
+      "executed_action_groups": 0,
+      "numeric_refusals": 0,
+      "episode_wall_s": null,
+      "sim_time_s": null,
+      "inference_wall_s": 0.0,
+      "usage": {},
+      "score": null,
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep09",
+      "condition_id": "B_shift_y40",
+      "repeat": 3,
+      "status": "NOT_STARTED",
+      "decisions": 0,
+      "client_dispatches": 0,
+      "executed_action_groups": 0,
+      "numeric_refusals": 0,
+      "episode_wall_s": null,
+      "sim_time_s": null,
+      "inference_wall_s": 0.0,
+      "usage": {},
+      "score": null,
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    }
+  ],
+  "interpretation": "Descriptive fixed-scene results only. Budget/time truncation and infrastructure failures are separate; no replacement episodes."
+}

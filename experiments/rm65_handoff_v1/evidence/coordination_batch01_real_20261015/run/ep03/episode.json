@@ -1,0 +1,92 @@
+{
+  "episode_id": "ep03",
+  "condition_id": "C_roles_swapped",
+  "repeat": 1,
+  "source": "REAL_ASTRA",
+  "status": "SUCCESS",
+  "decisions": 4,
+  "numeric_refusals": 0,
+  "executed_action_groups": 4,
+  "safety_stop": false,
+  "phase": "DECISION_LOOP",
+  "score": {
+    "version": "rm65.coordination.batch01.physical.v1",
+    "condition_id": "C_roles_swapped",
+    "visit_order": [
+      "left",
+      "right"
+    ],
+    "pass": true,
+    "checks": {
+      "first_dwell_0_5s": true,
+      "subsequent_second_dwell_0_5s": true,
+      "no_interarm_contact": true,
+      "no_unexpected_arm_table_contact": true,
+      "grippers_remain_open": true,
+      "final_goals_continuous_2s": true,
+      "no_physical_protection_stop": true
+    },
+    "first_dwell_completed_step": 4280,
+    "second_dwell_completed_step": 7220,
+    "minimum_actual_gap_m": 0.08979972882787698,
+    "violations": [],
+    "tolerances": {
+      "position_tolerance_m": 0.01,
+      "orientation_tolerance_rad": 0.05,
+      "max_physical_penetration_m": 0.002
+    },
+    "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+  },
+  "model_history_at_reset": [],
+  "started_at": "2026-10-15T11:50:50.627130+00:00",
+  "corrections_after_refusal": [],
+  "rejections": [],
+  "generated_runtime_config_hashes": {
+    "assembly.urdf": "162ea012acb2a06f452444b3b24c5879531444807ab980159bc9f133143e7c17",
+    "planning.urdf": "7246c8a93a3b15422c62905fd766b1d5d4888ef77c5301f5b5949234475a4524",
+    "assembly.json": "c0b2d6e96ead3c44eca33265ce40b449e7d7301c7edca085ec6a2f40ce5bae46"
+  },
+  "task_start_step": 1525,
+  "initialization_action_groups": 1,
+  "termination": "MODEL_STOP",
+  "terminal_hold_start_step": 7376,
+  "terminal_hold_end_step": 7876,
+  "posthoc_actual_state_score": {
+    "version": "rm65.coordination.batch01.physical.v1",
+    "condition_id": "C_roles_swapped",
+    "visit_order": [
+      "left",
+      "right"
+    ],
+    "pass": true,
+    "checks": {
+      "first_dwell_0_5s": true,
+      "subsequent_second_dwell_0_5s": true,
+      "no_interarm_contact": true,
+      "no_unexpected_arm_table_contact": true,
+      "grippers_remain_open": true,
+      "final_goals_continuous_2s": true,
+      "no_physical_protection_stop": true
+    },
+    "first_dwell_completed_step": 4280,
+    "second_dwell_completed_step": 7220,
+    "minimum_actual_gap_m": 0.08979972882787698,
+    "violations": [],
+    "tolerances": {
+      "position_tolerance_m": 0.01,
+      "orientation_tolerance_rad": 0.05,
+      "max_physical_penetration_m": 0.002
+    },
+    "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+  },
+  "physics_steps": 7876,
+  "sim_time_s": 31.504,
+  "task_sim_time_s": 25.404,
+  "episode_wall_s": 112.93667528899823,
+  "finished_at": "2026-10-15T11:52:43.563805+00:00",
+  "budget_reservations": 4,
+  "client_dispatches": 4,
+  "dispatch_status_unknown": false,
+  "completed_action_groups": 4,
+  "partial_action_groups": 0
+}
