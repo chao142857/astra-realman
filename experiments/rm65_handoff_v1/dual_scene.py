@@ -52,10 +52,11 @@ class Arm(RM65Scene):
     if n in [self.prefix+p for p in self.pad_vertices] and any(p.separation<=.0002 and np.linalg.norm(p.impulse)>1e-6 for p in c.points):touching.add(n)
   return len(touching)==2
  def latch_grasp_contact(self):
-  super().latch_grasp_contact()
+  result=super().latch_grasp_contact()
   if CONTROLLER=='light_latch_v1':
    self.joints[self.master].set_drive_property(self.cfg['control']['gripper_stiffness'],self.cfg['control']['gripper_damping'],force_limit=.05)
    self.log('v1_contact_latch_force',{'force_limit_Nm':.05,'original_force_limit_Nm':.1,'preload_unchanged_rad':.005})
+  return result
  def tick(self,n):return self.world.tick(n)
  def monitor(self):
   q=self.robot.get_qpos();lim=self.robot.get_qlimits();tol=self.cfg['control']['joint_limit_tolerance_rad']
