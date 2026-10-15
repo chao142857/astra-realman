@@ -1,0 +1,13 @@
+{
+  "status": "FAIL",
+  "model_calls": 0,
+  "controller": "original",
+  "public_executor": "closest IK + cubic interpolation; unchanged supplied goals",
+  "private_engineering_route": false,
+  "private_engineering_candidate": "negative Y rear-facing receiving; validated in candidates_PRIVATE.json",
+  "error": "RuntimeError('EXPERT_MOTION_FAILED:right:IK Failed! Cannot find valid solution.')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/tongji/alex/rm65-wide-layout-20261015/experiments/rm65_handoff_v1/physical_replay.py\", line 12, in <module>\n    w=DualScene(args.output);w.start_video();prepare_left(w)\n  File \"/home/tongji/alex/rm65-wide-layout-20261015/experiments/rm65_handoff_v1/initial_v1.py\", line 11, in prepare_left\n    expert_move(w,'right',[.55,.18,.18],[0,0,1,0])\n  File \"/home/tongji/alex/rm65-wide-layout-20261015/experiments/rm65_handoff_v1/initial_v1.py\", line 7, in expert_move\n    if not r['ok']:raise RuntimeError('EXPERT_MOTION_FAILED:'+side+':'+str(r.get('planner_status')))\nRuntimeError: EXPERT_MOTION_FAILED:right:IK Failed! Cannot find valid solution.\n",
+  "physics_steps": 100,
+  "sim_time_s": 0.4,
+  "earliest_failed_phase": "expert_move_right"
+}
