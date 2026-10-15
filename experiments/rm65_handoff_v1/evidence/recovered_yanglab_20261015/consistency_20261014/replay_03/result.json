@@ -1,0 +1,13 @@
+{
+  "status": "FAIL",
+  "model_calls": 0,
+  "controller": "original",
+  "public_executor": "closest IK + cubic interpolation; unchanged supplied goals",
+  "private_engineering_route": false,
+  "private_engineering_candidate": "negative Y rear-facing receiving; validated in candidates_PRIVATE.json",
+  "error": "RuntimeError('PAD_PENETRATION')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/tongji/alex/rm65-handoff-consistency-20261014/experiments/rm65_handoff_v1/physical_replay.py\", line 35, in <module>\n    for f in np.linspace(0,1,7)[1:]:move('right',fixed_tcp,np.roll(rotation_path(f).as_quat(),1).tolist())\n  File \"/home/tongji/alex/rm65-handoff-consistency-20261014/experiments/rm65_handoff_v1/physical_replay.py\", line 16, in move\n    pose=[*((1-f)*start+f*np.array(xyz)),*quat];receipt=w.execute_group({side:{'pose':pose}})\n  File \"/home/tongji/alex/rm65-handoff-consistency-20261014/experiments/rm65_handoff_v1/dual_scene.py\", line 236, in execute_group\n    self.tick(1)\n  File \"/home/tongji/alex/rm65-handoff-consistency-20261014/experiments/rm65_handoff_v1/dual_scene.py\", line 168, in tick\n    if other=='target_cube' and own[0] in a.pad_vertices:raise RuntimeError('PAD_PENETRATION')\nRuntimeError: PAD_PENETRATION\n",
+  "physics_steps": 9628,
+  "sim_time_s": 38.512,
+  "earliest_failed_phase": "right_reorient"
+}

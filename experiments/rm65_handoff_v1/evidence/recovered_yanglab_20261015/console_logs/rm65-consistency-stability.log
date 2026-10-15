@@ -1,0 +1,58 @@
+{
+  "source": "evidence/legacy_centered_hold5_01/physics.jsonl.gz",
+  "phase": "right_independent_hold",
+  "start_step": 5711,
+  "end_step": 6960,
+  "samples": 1250,
+  "duration_recorded_s": 5.0,
+  "between_first_last_s": 4.995999999999999,
+  "dt_range_s": [
+    0.003999999999997783,
+    0.004000000000001336
+  ],
+  "same_reference_point": "Actor origin in old log; COM offset is checked independently in runtime_info.json. Cube is centered box. No smoothing or records filtered inside this phase. FD uses adjacent post-step positions.",
+  "reported_world_speed_m_s": {
+    "min": 0.0329286069117206,
+    "median": 0.033472755595147397,
+    "mean": 0.03351284555145402,
+    "p95": 0.03373426743011625,
+    "max": 0.03396141992390275
+  },
+  "world_position_difference_speed_m_s": {
+    "min": 0.0,
+    "median": 8.381903171543952e-06,
+    "mean": 2.2159231423656425e-05,
+    "p95": 9.140195932543226e-05,
+    "max": 0.00014771374980285926
+  },
+  "world_position_range_m": [
+    4.1931867599487305e-05,
+    6.530433893203735e-05,
+    5.349516868591309e-06
+  ],
+  "observed_net_displacement_m": [
+    4.1604042053222656e-05,
+    6.527826189994812e-05,
+    -4.9620866775512695e-06
+  ],
+  "integrated_reported_velocity_over_matching_intervals_m": [
+    -0.09856208820641035,
+    -0.1015392533913252,
+    0.08948822896927597
+  ],
+  "relative_position_range_m": [
+    7.65167496060787e-07,
+    7.403115033419432e-07,
+    3.3824842919725345e-07
+  ],
+  "maximum_relative_position_drift_m": 9.167299596521662e-07,
+  "maximum_relative_rotation_drift_degrees": 0.0005334774273834486,
+  "right_bilateral_fraction": 1.0,
+  "left_contact_samples": 0,
+  "table_contact_samples": 0,
+  "maximum_pad_penetration_m": 0.00035524857230484486,
+  "original_speed_criterion_m_s": 0.03,
+  "original_speed_criterion_all_samples_pass": false,
+  "old_score_unchanged": true,
+  "conclusion": "Reported velocity fails the old criterion but does not demonstrate sustained sliding: pose differences and relative grip pose show retention. Solver velocity and integrated transform motion are distinct quantities. No new PASS replaces the historical score."
+}

@@ -1,0 +1,551 @@
+{
+  "instruction": "\u628a\u5de6\u81c2\u6301\u6709\u7684\u7ea2\u8272\u65b9\u5757\u4ea4\u7ed9\u53f3\u81c2\uff0c\u518d\u7531\u53f3\u81c2\u653e\u5230\u84dd\u8272\u76ee\u6807\u533a\u57df\u3002\u4ec5\u8f93\u51fa\u6240\u7ed9 schema \u7684 JSON\u3002\u81ea\u4e3b\u51b3\u5b9a\u4ea4\u63a5\u4f4d\u7f6e\u3001\u63a5\u8fd1\u65b9\u5f0f\u548c\u5939\u722a\u65f6\u673a\u3002\u672a\u6307\u5b9a\u673a\u68b0\u81c2\u4fdd\u6301\u3002done=true \u53ea\u8868\u793a\u4f60\u51b3\u5b9a\u505c\u6b62\uff0c\u4e0d\u4ee3\u8868\u8bc4\u6d4b\u6210\u529f\u3002",
+  "conventions": {
+    "position": "metres, shared SAPIEN world",
+    "quaternion": "unit quaternion [w,x,y,z], Link6 orientation in world",
+    "tcp": "mean of the actual two inner pad face centres; offset depends on measured gripper configuration",
+    "opening_fraction": "0 closed command, 1 open command; measured gap is actual_pad_gap_m, not this command",
+    "execution": "one tcp OR gripper operation per named arm. sequential follows list order. parallel overlaps both operations in shared physics steps. Omitted arm holds drive targets. No automatic obstacle rerouting or target correction.",
+    "time": "physics paused during inference; execution advances physics. Not real-time asynchronous control."
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "done": {
+        "type": "boolean"
+      },
+      "execution": {
+        "type": "string",
+        "enum": [
+          "sequential",
+          "parallel"
+        ]
+      },
+      "actions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "arm": {
+              "type": "string",
+              "enum": [
+                "left",
+                "right"
+              ]
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "tcp",
+                "gripper"
+              ]
+            },
+            "pose_world_wxyz": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 7,
+                  "maxItems": 7
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "opening_fraction": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "arm",
+            "kind",
+            "pose_world_wxyz",
+            "opening_fraction"
+          ],
+          "additionalProperties": false
+        },
+        "maxItems": 2
+      }
+    },
+    "required": [
+      "done",
+      "execution",
+      "actions"
+    ],
+    "additionalProperties": false
+  },
+  "observations": {
+    "calibration": {
+      "overhead": {
+        "role": "overhead",
+        "resolution": [
+          640,
+          480
+        ],
+        "observation_sim_time_s": 14.864,
+        "observation_wall_time": 1792023708.1016614,
+        "intrinsic_cv": [
+          [
+            432.97149658203125,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            432.97149658203125,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "world_to_camera_cv": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.36000001430511475
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0,
+            1.350000023841858
+          ]
+        ],
+        "camera_to_world_gl": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.36000001430511475
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.350000023841858
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "sha256": "e3453e845f5fc7e8ff18f53d5989574b113853efbb62ebca477dd21e40a21578"
+      },
+      "tabletop_front": {
+        "role": "tabletop_front",
+        "resolution": [
+          640,
+          480
+        ],
+        "observation_sim_time_s": 14.864,
+        "observation_wall_time": 1792023708.1212206,
+        "intrinsic_cv": [
+          [
+            330.3316345214844,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            330.3316345214844,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "world_to_camera_cv": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.36000001430511475
+          ],
+          [
+            0.0,
+            0.27195701003074646,
+            -0.9623094201087952,
+            0.21170806884765625
+          ],
+          [
+            0.0,
+            0.9623093605041504,
+            0.27195701003074646,
+            0.418186217546463
+          ]
+        ],
+        "camera_to_world_gl": [
+          [
+            1.0,
+            -5.941708458578887e-09,
+            -4.495247729607854e-09,
+            0.36000001430511475
+          ],
+          [
+            -5.941708458578887e-09,
+            -0.27195703983306885,
+            -0.9623094201087952,
+            -0.46000000834465027
+          ],
+          [
+            4.495247729607854e-09,
+            0.9623094201087952,
+            -0.27195703983306885,
+            0.09000000357627869
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "sha256": "1a48f633fcd172bef83ebc1c5a7411694e60302a023b62538943f84f6eb43bbb"
+      },
+      "left_wrist": {
+        "role": "left_wrist",
+        "resolution": [
+          640,
+          480
+        ],
+        "observation_sim_time_s": 14.864,
+        "observation_wall_time": 1792023708.148399,
+        "intrinsic_cv": [
+          [
+            514.681640625,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            514.681640625,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "world_to_camera_cv": [
+          [
+            0.9999980926513672,
+            0.0006089210510253906,
+            0.001913994550704956,
+            -0.36095038056373596
+          ],
+          [
+            -0.00040844082832336426,
+            -0.8713929653167725,
+            0.4905860424041748,
+            0.12320384383201599
+          ],
+          [
+            0.0019663572311401367,
+            -0.49058565497398376,
+            -0.8713909387588501,
+            0.37170863151550293
+          ]
+        ],
+        "camera_to_world_gl": [
+          [
+            0.9999979734420776,
+            0.0004084309621248394,
+            -0.0019665218424052,
+            0.3602689504623413
+          ],
+          [
+            0.0006088445661589503,
+            0.8713928461074829,
+            0.490585595369339,
+            0.28993356227874756
+          ],
+          [
+            0.0019139832584187388,
+            -0.4905857741832733,
+            0.8713908195495605,
+            0.2641522288322449
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "sha256": "2b122c750d2116806322ae16ba19de489f08b741f4734454318fb59c48fc0975"
+      },
+      "right_wrist": {
+        "role": "right_wrist",
+        "resolution": [
+          640,
+          480
+        ],
+        "observation_sim_time_s": 14.864,
+        "observation_wall_time": 1792023708.1797583,
+        "intrinsic_cv": [
+          [
+            514.681640625,
+            0.0,
+            320.0
+          ],
+          [
+            0.0,
+            514.681640625,
+            240.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "world_to_camera_cv": [
+          [
+            -1.0,
+            -1.7285346984863281e-06,
+            -1.0669231414794922e-05,
+            0.5499989986419678
+          ],
+          [
+            -6.794929504394531e-06,
+            0.8715732097625732,
+            0.4902653694152832,
+            -0.23944978415966034
+          ],
+          [
+            8.463859558105469e-06,
+            0.4902653694152832,
+            -0.8715732097625732,
+            0.24216800928115845
+          ]
+        ],
+        "camera_to_world_gl": [
+          [
+            -0.9999998807907104,
+            6.774048415536527e-06,
+            -8.453725968138315e-06,
+            0.5499951839447021
+          ],
+          [
+            -1.759510041665635e-06,
+            -0.8715730905532837,
+            -0.4902653992176056,
+            0.08997232466936111
+          ],
+          [
+            -1.0689122063922696e-05,
+            -0.4902653992176056,
+            0.8715732097625732,
+            0.32846689224243164
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "sha256": "dbbec33e9c05a1f7e17f98694ee238bb542aad3b746def6c9279689f17347d6d"
+      }
+    },
+    "arms": {
+      "left": {
+        "sim_step": 3716,
+        "stopped": false,
+        "joint_names": [
+          "joint1",
+          "joint2",
+          "joint3",
+          "joint4",
+          "joint5",
+          "joint6",
+          "ctag_Left_1_Joint",
+          "ctag_Left_2_Joint",
+          "ctag_Right_2_Joint",
+          "ctag_Right_1_Joint",
+          "ctag_Left_Support_Joint",
+          "ctag_Right_Support_Joint"
+        ],
+        "qpos": [
+          0.5071738958358765,
+          -0.9297266006469727,
+          -0.46114063262939453,
+          -0.0012792946072295308,
+          -1.7492403984069824,
+          0.5063403248786926,
+          -0.442155659198761,
+          -0.4423433840274811,
+          0.44206932187080383,
+          0.4418920874595642,
+          0.44217008352279663,
+          0.4420333206653595
+        ],
+        "flange_pose_world": [
+          0.3602222204208374,
+          0.19995330274105072,
+          0.31718572974205017,
+          0.00018645814270712435,
+          0.999999463558197,
+          0.0003043091855943203,
+          0.0009570874972268939
+        ],
+        "actual_pad_centers_world": [
+          [
+            0.38568825647615623,
+            0.2001152622964411,
+            0.102097241256253
+          ],
+          [
+            0.33555978485276716,
+            0.1995966035258022,
+            0.10200361861886699
+          ]
+        ],
+        "actual_grasp_center_world": [
+          0.3606240206644617,
+          0.19985593291112164,
+          0.10205042993756
+        ],
+        "actual_pad_gap_m": 0.05013124214913805,
+        "gripper_master_rad": -0.442155659198761
+      },
+      "right": {
+        "sim_step": 3716,
+        "stopped": false,
+        "joint_names": [
+          "joint1",
+          "joint2",
+          "joint3",
+          "joint4",
+          "joint5",
+          "joint6",
+          "ctag_Left_1_Joint",
+          "ctag_Left_2_Joint",
+          "ctag_Right_2_Joint",
+          "ctag_Right_1_Joint",
+          "ctag_Left_Support_Joint",
+          "ctag_Right_Support_Joint"
+        ],
+        "qpos": [
+          -0.8138633370399475,
+          -0.14733172953128815,
+          -1.4151833057403564,
+          -1.4747422937944066e-05,
+          -1.5790890455245972,
+          -0.8138619065284729,
+          -4.688596163759939e-06,
+          8.118061600725923e-08,
+          7.37278651286033e-06,
+          5.084802523924736e-06,
+          4.986990916222567e-06,
+          4.823423751076916e-06
+        ],
+        "flange_pose_world": [
+          0.5499944090843201,
+          0.1799720823764801,
+          0.3814673125743866,
+          5.348934791982174e-06,
+          -8.642673492431641e-07,
+          1.0,
+          2.3616012185811996e-06
+        ],
+        "actual_pad_centers_world": [
+          [
+            0.5050737501572597,
+            0.1797462197650018,
+            0.18000608665522982
+          ],
+          [
+            0.5949194428943064,
+            0.18023422997203709,
+            0.180007048824689
+          ]
+        ],
+        "actual_grasp_center_world": [
+          0.5499965965257831,
+          0.17999022486851946,
+          0.1800065677399594
+        ],
+        "actual_pad_gap_m": 0.08984701808233672,
+        "gripper_master_rad": -4.688596163759939e-06
+      }
+    },
+    "sim_time_s": 14.864,
+    "base_transforms_world_wxyz": {
+      "left": [
+        0,
+        0,
+        0.03,
+        1,
+        0,
+        0,
+        0
+      ],
+      "right": [
+        0.72,
+        0,
+        0.03,
+        0,
+        0,
+        0,
+        1
+      ]
+    }
+  },
+  "recent_history": [],
+  "attachments": [
+    {
+      "camera_id": "overhead",
+      "file": "image-0.png",
+      "sha256": "e3453e845f5fc7e8ff18f53d5989574b113853efbb62ebca477dd21e40a21578"
+    },
+    {
+      "camera_id": "tabletop_front",
+      "file": "image-1.png",
+      "sha256": "1a48f633fcd172bef83ebc1c5a7411694e60302a023b62538943f84f6eb43bbb"
+    },
+    {
+      "camera_id": "left_wrist",
+      "file": "image-2.png",
+      "sha256": "2b122c750d2116806322ae16ba19de489f08b741f4734454318fb59c48fc0975"
+    },
+    {
+      "camera_id": "right_wrist",
+      "file": "image-3.png",
+      "sha256": "dbbec33e9c05a1f7e17f98694ee238bb542aad3b746def6c9279689f17347d6d"
+    }
+  ]
+}

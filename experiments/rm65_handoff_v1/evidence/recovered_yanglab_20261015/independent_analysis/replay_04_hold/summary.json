@@ -1,0 +1,67 @@
+{
+  "source": "evidence/recovered_yanglab_20261015/consistency_20261014/replay_04/physics.jsonl",
+  "phase": "right_independent_hold",
+  "start_step": 6815,
+  "end_step": 8064,
+  "samples": 1250,
+  "duration_recorded_s": 5.0,
+  "between_first_last_s": 4.995999999999999,
+  "dt_range_s": [
+    0.003999999999997783,
+    0.0040000000000048885
+  ],
+  "same_reference_point": "Actor origin in old log; COM offset is checked independently in runtime_info.json. Cube is centered box. No smoothing or records filtered inside this phase. FD uses adjacent post-step positions.",
+  "matched_comparison_interval_count": 1249,
+  "matched_reported_world_speed_m_s": {
+    "min": 0.03878118310167277,
+    "median": 0.03946583268272906,
+    "mean": 0.04119967309418415,
+    "p95": 0.043429160443301175,
+    "max": 0.043594736985067356
+  },
+  "matched_difference_definition": "At row i, (position_i-position_{i-1})/dt is paired with reported velocity_i; full-phase engine statistics and old score also retain the first row.",
+  "reported_world_speed_m_s": {
+    "min": 0.03878118310167277,
+    "median": 0.04123311124510158,
+    "mean": 0.04120143247492875,
+    "p95": 0.04342909006270584,
+    "max": 0.043594736985067356
+  },
+  "world_position_difference_speed_m_s": {
+    "min": 0.00281820365484981,
+    "median": 0.002872216335208019,
+    "mean": 0.0028730029564694474,
+    "p95": 0.0029021382667186887,
+    "max": 0.002929821811704145
+  },
+  "world_position_range_m": [
+    1.8477439880371094e-06,
+    4.246830940246582e-06,
+    1.1965632438659668e-05
+  ],
+  "observed_net_displacement_m": [
+    7.748603820800781e-07,
+    3.8743019104003906e-07,
+    1.109391450881958e-05
+  ],
+  "integrated_reported_velocity_over_matching_intervals_m": [
+    0.1672083443999291,
+    0.10355922664701944,
+    -0.05449362256750471
+  ],
+  "relative_position_range_m": [
+    4.498277750801793e-06,
+    6.124467169204943e-07,
+    1.7559593392644807e-06
+  ],
+  "maximum_relative_position_drift_m": 4.466021673159265e-06,
+  "maximum_relative_rotation_drift_degrees": 0.0019203964945106807,
+  "right_bilateral_fraction": 1.0,
+  "left_contact_samples": 0,
+  "table_contact_samples": 0,
+  "maximum_pad_penetration_m": 0.0004896417958661914,
+  "original_speed_criterion_m_s": 0.03,
+  "original_speed_criterion_all_samples_pass": false,
+  "old_score_unchanged": true,
+  "conclusion": "Reported velocity fails the old criterion but does not demonstrate sustained sliding: pose differences and relative grip pose show retention. Solver velocity and integrated transform motion are distinct quantities. No new PASS replaces the historical score."
+}

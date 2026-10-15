@@ -1,0 +1,56 @@
+{
+  "sapien_version": "3.0.0b1",
+  "physx_version": "105.1-physx-5.3.1.patch0",
+  "scene": {
+    "gravity": [
+      0.0,
+      0.0,
+      -9.8100004196167
+    ],
+    "enable_tgs": true,
+    "enable_pcm": true,
+    "enable_friction_every_iteration": true,
+    "enable_ccd": false
+  },
+  "solver_iterations": {
+    "mode": "original",
+    "before": [
+      {
+        "position": 10,
+        "velocity": 1
+      },
+      {
+        "position": 10,
+        "velocity": 1
+      },
+      {
+        "position": 10,
+        "velocity": 1
+      }
+    ],
+    "after": [
+      {
+        "position": 10,
+        "velocity": 1
+      },
+      {
+        "position": 10,
+        "velocity": 1
+      },
+      {
+        "position": 10,
+        "velocity": 1
+      }
+    ]
+  },
+  "cube_COM_local_pose": [
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "sampling": "Original tick logs actor pose and COM velocity consecutively after each synchronous scene.step(), dt=0.004s. No intermediate step. COM offset checked above."
+}

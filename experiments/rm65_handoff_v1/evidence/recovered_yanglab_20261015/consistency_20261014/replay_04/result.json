@@ -1,0 +1,13 @@
+{
+  "status": "FAIL",
+  "model_calls": 0,
+  "controller": "original",
+  "public_executor": "closest IK + cubic interpolation; unchanged supplied goals",
+  "private_engineering_route": false,
+  "private_engineering_candidate": "negative Y rear-facing receiving; validated in candidates_PRIVATE.json",
+  "error": "RuntimeError('PUBLIC_NUMERIC_REJECTION:right:{\\'ok\\': False, \\'executed\\': False, \\'reason\\': \"IK_REJECTED_NO_VALID_SOLUTION:{\\'pure_clik_success\\': False, \\'within_joint_limits\\': False, \\'collision_pairs\\': [], \\'goal_unchanged\\': True}\"}')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/tongji/alex/rm65-handoff-consistency-20261014/experiments/rm65_handoff_v1/physical_replay.py\", line 38, in <module>\n    radius=(1-f)*r0+f*r1;theta=(1-f)*t0+f*t1;fp=np.r_[base+radius*np.array([np.cos(theta),np.sin(theta)]),.14];tcp=fp-R@local;arc.append(tcp.tolist());move('right',tcp,quat)\n  File \"/home/tongji/alex/rm65-handoff-consistency-20261014/experiments/rm65_handoff_v1/physical_replay.py\", line 17, in move\n    if not receipt['ok']:raise RuntimeError('PUBLIC_NUMERIC_REJECTION:'+side+':'+str(receipt))\nRuntimeError: PUBLIC_NUMERIC_REJECTION:right:{'ok': False, 'executed': False, 'reason': \"IK_REJECTED_NO_VALID_SOLUTION:{'pure_clik_success': False, 'within_joint_limits': False, 'collision_pairs': [], 'goal_unchanged': True}\"}\n",
+  "physics_steps": 10042,
+  "sim_time_s": 40.168,
+  "earliest_failed_phase": "right_to_place"
+}

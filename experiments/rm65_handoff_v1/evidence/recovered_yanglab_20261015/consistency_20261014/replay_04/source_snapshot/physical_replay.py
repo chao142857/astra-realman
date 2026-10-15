@@ -1,0 +1,46 @@
+"""Current frozen four-view layout, original controller, exact public numeric executor.
+Private engineering choices/witness stay in this script, never in model context.
+"""
+import argparse,json,traceback,numpy as np
+from pathlib import Path
+from dual_scene import DualScene
+from initial_v1 import prepare_left
+from gripper_centering import open_tcp_for_closed_center
+from private_safe_route import move as routed_move
+p=argparse.ArgumentParser();p.add_argument('--output',required=True);args=p.parse_args();w=None;r={'status':'RUNNING','model_calls':0,'controller':'original','public_executor':'closest IK + cubic interpolation; unchanged supplied goals','private_engineering_route':False,'private_engineering_candidate':'negative Y rear-facing receiving; validated in candidates_PRIVATE.json'}
+try:
+ w=DualScene(args.output);w.start_video();prepare_left(w)
+ def move(side,xyz,quat,segmented=False):
+  start=np.array(w.arms[side].state()['actual_grasp_center_world']);n=max(1,int(np.ceil(np.linalg.norm(np.array(xyz)-start)/.03))) if segmented else 1
+  for f in np.linspace(0,1,n+1)[1:]:
+   pose=[*((1-f)*start+f*np.array(xyz)),*quat];receipt=w.execute_group({side:{'pose':pose}})
+   if not receipt['ok']:raise RuntimeError('PUBLIC_NUMERIC_REJECTION:'+side+':'+str(receipt))
+ def grip(side,value,phase):
+  w.phase_context=phase;receipt=w.execute_group({side:{'opening':value}});w.phase_context=None
+  if not receipt['ok']:raise RuntimeError('PUBLIC_GRIPPER_REJECTION:'+str(receipt))
+ w.phase_context='left_to_handoff';move('left',[.36,-.20,.102],[0,1,0,0]);w.phase_context=None
+ center=w.cube.pose.p.copy();quat=[-.5,-.5,.5,-.5];right=w.arms['right'];tcp,delta=open_tcp_for_closed_center(right,center,quat,.05)
+ (w.output/'private_centering_NOT_MODEL_INPUT.json').write_text(json.dumps({'source':'robot URDF FK + measured current opening; desired center chosen privately from GT by engineer','local_open_to_closed_offset_m':delta.tolist(),'orientation_wxyz':quat,'open_tcp_unchanged_by_executor':tcp.tolist()},indent=2))
+ w.phase_context='right_approach';from scipy.spatial.transform import Rotation
+ direction=Rotation.from_quat(np.roll(quat,-1)).apply([0,0,1])
+ move('right',tcp-.07*direction,quat);move('right',tcp,quat,True);w.phase_context=None
+ grip('right',.45,'right_close');w.phase_name='both_grip_settle';w.tick(150)
+ if not right.bilateral_pad_contact():raise RuntimeError('RIGHT_NO_BILATERAL_CONTACT')
+ grip('left',1.,'left_release');w.phase_name='right_independent_hold';w.tick(1250);w.observe(w.output/'right_held')
+ if not right.bilateral_pad_contact():raise RuntimeError('RIGHT_CONTACT_LOST_DURING_HOLD')
+ now=np.array(right.state()['actual_grasp_center_world']);w.phase_context='right_exit';move('right',now-.08*direction,quat,True);w.phase_context=None
+ w.phase_context='left_retreat';move('left',[.22,-.18,.18],[0,1,0,0]);w.phase_context=None
+ # Explicit private engineering arc around the right base. No reorientation.
+ w.phase_context='right_to_place';state=right.state();tcp_now=np.array(state['actual_grasp_center_world']);move('right',[tcp_now[0],tcp_now[1],.14],quat,True)
+ flange=right.links['Link6'].get_pose().to_transformation_matrix();local=flange[:3,:3].T@(right.pads().mean(0)-flange[:3,3]);R=Rotation.from_quat(np.roll(quat,-1)).as_matrix();base=np.array(w.cfg['temporary_assembly']['base_world_xyz_m'][:2]);from dual_scene import LAYOUT
+ base=np.array(LAYOUT['right_base'][:2]);start_flange=right.links['Link6'].get_pose().p.copy();goal_tcp=np.array([.52,.16,.14]);goal_flange=goal_tcp-R@local;v0=start_flange[:2]-base;v1=goal_flange[:2]-base;r0,r1=np.linalg.norm(v0),np.linalg.norm(v1);t0,t1=np.arctan2(v0[1],v0[0]),np.arctan2(v1[1],v1[0]);arc=[]
+ for f in np.linspace(0,1,13)[1:]:
+  radius=(1-f)*r0+f*r1;theta=(1-f)*t0+f*t1;fp=np.r_[base+radius*np.array([np.cos(theta),np.sin(theta)]),.14];tcp=fp-R@local;arc.append(tcp.tolist());move('right',tcp,quat)
+ (w.output/'private_arc_NOT_MODEL_INPUT.json').write_text(json.dumps({'source':'explicit engineering TCP waypoints; avoids inward diagonal wrist route','tcp_waypoints':arc},indent=2))
+ move('right',[.52,.16,.055],quat,True);w.phase_context=None
+ grip('right',1.,'right_release');w.phase_name='right_release';w.tick(400);w.observe(w.output/'final')
+ r['status']='EXECUTION_COMPLETE_PENDING_INDEPENDENT_SCORE'
+except Exception as e:r.update(status='FAIL',error=repr(e),traceback=traceback.format_exc());traceback.print_exc()
+finally:
+ if w:r.update(physics_steps=w.steps,sim_time_s=w.steps*w.dt,earliest_failed_phase=(getattr(w,'phase_context',None) or w.phase_name) if r['status']=='FAIL' else None);w.close()
+ Path(args.output,'result.json').write_text(json.dumps(r,indent=2));print(json.dumps(r),flush=True)
