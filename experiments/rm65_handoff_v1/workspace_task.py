@@ -37,6 +37,9 @@ def validate_policy(value):
 
 def prepare_initial(world):
     from action_interface import execute_action
+    from dual_scene import CONTROLLER
+    if CONTROLLER != 'original' or world.solver_record['mode'] != 'original':
+        raise ValueError('WORKSPACE_ORIGINAL_PHYSICS_CONFIGURATION_REQUIRED')
     world.numeric_post_hold_steps = 125
     state = world.arms['right'].state()
     public = policy([*state['actual_grasp_center_world'], *state['flange_pose_world'][3:]])

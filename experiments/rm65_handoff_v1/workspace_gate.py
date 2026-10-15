@@ -18,8 +18,14 @@ def new_root(root):
 
 def hashes():
     result = original.hashes()
-    for n in ('workspace_task.py', 'workspace_criteria_v1.json', 'evaluate_workspace.py', 'workspace_gate.py', 'workspace_authorized_once.sh', 'diagnose_decision4.py'):
+    for n in ('workspace_task.py', 'workspace_criteria_v1.json', 'evaluate_workspace.py', 'workspace_gate.py', 'workspace_authorized_once.sh', 'diagnose_decision4.py', 'runtime.decision4.ubuntu-robot.sh'):
         result[n] = original.sha(ROOT/n)
+    repo=ROOT.parents[1]
+    for n in ('experiments/spatial_input_eval_v0/spatial_eval/adapter.py',
+              'experiments/spatial_input_eval_v0/spatial_eval/schema.py',
+              'astra_realman_harness/sim_skills/full_pnp/infer_process.py',
+              'experiments/rm65_handoff_v0/rm65_assets_frozen.tar.gz'):
+        result[n]=original.sha(repo/n)
     return result
 
 
