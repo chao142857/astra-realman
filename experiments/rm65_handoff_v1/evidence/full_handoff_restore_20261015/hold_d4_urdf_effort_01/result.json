@@ -1,0 +1,158 @@
+{
+  "case": "d4",
+  "controller": "urdf_effort_hold_v2",
+  "model_requests": 0,
+  "nominal_preload_gains_mass_friction_safety_unchanged": true,
+  "actual_drive_and_tendon_torque": "UNKNOWN",
+  "case_start_step": 3467,
+  "receipt": {
+    "ok": true,
+    "executed": true,
+    "mode": "sequential",
+    "receipts": [
+      {
+        "ok": true,
+        "executed": true,
+        "start_step": 3467,
+        "end_step": 4941,
+        "goal_residuals": {
+          "left": {
+            "position_error_m": 0.00036318659804315546,
+            "rotation_error_rad": 0.0018166242527035991
+          }
+        },
+        "actual_states": {
+          "left": {
+            "sim_step": 4941,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              -0.0001518445642432198,
+              -0.1896996647119522,
+              -2.0009562969207764,
+              -0.0016034956788644195,
+              0.09445010125637054,
+              0.0017342042410746217,
+              -0.42762407660484314,
+              -0.4273964762687683,
+              0.4276721477508545,
+              0.4279482960700989,
+              0.42751047015190125,
+              0.4278154671192169
+            ],
+            "flange_pose_world": [
+              0.15378151834011078,
+              -2.9121991246938705e-05,
+              0.3276907503604889,
+              -6.460805889219046e-05,
+              0.8664761781692505,
+              -8.530156628694385e-05,
+              0.49921873211860657
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.35256993234996364,
+                0.00019794590786950425,
+                0.24224926379085776
+              ],
+              [
+                0.32671637156539185,
+                -0.0002792085248004554,
+                0.19764279036232446
+              ]
+            ],
+            "actual_grasp_center_world": [
+              0.33964315195767775,
+              -4.063130846547557e-05,
+              0.2199460270765911
+            ],
+            "actual_pad_gap_m": 0.05155940024209565,
+            "gripper_master_rad": -0.42762407660484314
+          },
+          "right": {
+            "sim_step": 4941,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              -0.10000000149011612,
+              0.050001151859760284,
+              -1.5499999523162842,
+              3.3911977226352974e-08,
+              -1.6415926218032837,
+              -0.11999999731779099,
+              -2.4948136001512466e-08,
+              -2.2797199683566305e-09,
+              1.9379719162770925e-08,
+              -1.499515844827215e-09,
+              2.223364070630396e-08,
+              1.2195354059940655e-08
+            ],
+            "flange_pose_world": [
+              0.7143033146858215,
+              0.019634390249848366,
+              0.3970366418361664,
+              -4.52512176707387e-06,
+              -0.010001569986343384,
+              0.999950110912323,
+              -1.5174155123531818e-06
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.669392092574965,
+                0.018508511454953046,
+                0.1955764613905269
+              ],
+              [
+                0.7592102859150186,
+                0.020793371342323442,
+                0.1955756311559459
+              ]
+            ],
+            "actual_grasp_center_world": [
+              0.7143011892449918,
+              0.019650941398638246,
+              0.19557604627323638
+            ],
+            "actual_pad_gap_m": 0.08984725059936698,
+            "gripper_master_rad": -2.4948136001512466e-08
+          }
+        }
+      }
+    ]
+  },
+  "status": "COMPLETED",
+  "metrics": {
+    "observed_s": 7.896,
+    "max_relative_translation_mm": 18.761920847718088,
+    "max_relative_rotation_deg": 5.6393303955278276,
+    "max_pad_penetration_mm": 0.17574353842064738,
+    "left_bilateral_every_step": false
+  },
+  "last_step": 5441
+}

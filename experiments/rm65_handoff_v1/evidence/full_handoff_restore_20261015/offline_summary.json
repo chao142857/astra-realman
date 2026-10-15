@@ -1,0 +1,470 @@
+{
+  "model_generation_requests": 0,
+  "full_task_successes": 0,
+  "runs": [
+    {
+      "run": "full_numeric_01",
+      "status": "INCOMPLETE",
+      "stage": "left_to_handoff",
+      "error": "RuntimeError('LEFT_CARRY_CONTACT_LOST')",
+      "case": null,
+      "metrics": null,
+      "release_checks": null,
+      "integration_reported": null,
+      "actual_scene_creation_enable_tgs": null,
+      "full_process_pass": false,
+      "motion_evidence": {
+        "start_step": 2698,
+        "first_left_bilateral_absent_step": 2878,
+        "first_relative_displacement_over_2mm_step": 2828,
+        "first_pad_penetration_over_2mm_step": null,
+        "first_cube_table_contact_step": 2908,
+        "last_recorded_step": 4535,
+        "final_cube_xyz": [
+          0.09037955850362778,
+          0.0002060564875137061,
+          0.025000937283039093
+        ],
+        "final_left_tcp": [
+          0.359669376782769,
+          -5.909825555045792e-05,
+          0.22016415502007758
+        ],
+        "max_pad_penetration_mm": 0.012628105650946964,
+        "last_contacts": [
+          {
+            "names": [
+              "target_cube",
+              "table"
+            ],
+            "points": [
+              {
+                "p": [
+                  0.11631011962890625,
+                  0.024241574108600616,
+                  0.0
+                ],
+                "impulse": [
+                  0.0,
+                  0.0,
+                  0.00014026158896740526
+                ],
+                "separation": 9.98377799987793e-07
+              },
+              {
+                "p": [
+                  0.11441858112812042,
+                  -0.02572263404726982,
+                  0.0
+                ],
+                "impulse": [
+                  0.0,
+                  0.0,
+                  4.476182220969349e-05
+                ],
+                "separation": 1.4975666999816895e-06
+              },
+              {
+                "p": [
+                  0.06445479393005371,
+                  -0.02383110299706459,
+                  0.0
+                ],
+                "impulse": [
+                  0.0,
+                  0.0,
+                  0.00015377922682091594
+                ],
+                "separation": 4.76837158203125e-07
+              },
+              {
+                "p": [
+                  0.06634634733200073,
+                  0.026133105158805847,
+                  0.0
+                ],
+                "impulse": [
+                  0.0,
+                  0.0,
+                  5.152871017344296e-05
+                ],
+                "separation": -2.2351741790771484e-08
+              }
+            ]
+          }
+        ],
+        "note": "2mm displacement is descriptive, not a replacement score. Original protection remains 2mm penetration."
+      }
+    },
+    {
+      "run": "full_numeric_original_01",
+      "status": "INCOMPLETE",
+      "stage": "left_to_handoff",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "case": null,
+      "metrics": null,
+      "release_checks": null,
+      "integration_reported": null,
+      "actual_scene_creation_enable_tgs": null,
+      "full_process_pass": false,
+      "motion_evidence": {
+        "start_step": 2698,
+        "first_left_bilateral_absent_step": null,
+        "first_relative_displacement_over_2mm_step": null,
+        "first_pad_penetration_over_2mm_step": 3170,
+        "first_cube_table_contact_step": null,
+        "last_recorded_step": 3170,
+        "final_cube_xyz": [
+          0.1811913102865219,
+          -0.00016984748071990907,
+          0.1431347280740738
+        ],
+        "final_left_tcp": [
+          0.18148635759775192,
+          5.3700749063484624e-05,
+          0.1461173263451285
+        ],
+        "max_pad_penetration_mm": 2.5596774648875,
+        "last_contacts": [
+          {
+            "names": [
+              "L__ctag_Left_Support_Link",
+              "target_cube"
+            ],
+            "points": [
+              {
+                "p": [
+                  0.1953192800283432,
+                  0.011421826668083668,
+                  0.17496120929718018
+                ],
+                "impulse": [
+                  0.3252570331096649,
+                  -0.0009010615176521242,
+                  0.12146221101284027
+                ],
+                "separation": -0.00028143575764261186
+              },
+              {
+                "p": [
+                  0.20620295405387878,
+                  -0.009197721257805824,
+                  0.1458345502614975
+                ],
+                "impulse": [
+                  0.04794680327177048,
+                  -0.00013282732106745243,
+                  0.017904993146657944
+                ],
+                "separation": 0.00013715213572140783
+              },
+              {
+                "p": [
+                  0.1951592117547989,
+                  -0.011437133885920048,
+                  0.17585745453834534
+                ],
+                "impulse": [
+                  0.0088051687926054,
+                  -2.4393011699430645e-05,
+                  0.0032881542574614286
+                ],
+                "separation": 4.768112557940185e-05
+              },
+              {
+                "p": [
+                  0.20620909333229065,
+                  0.010589053854346275,
+                  0.14578616619110107
+                ],
+                "impulse": [
+                  0.0007982372771948576,
+                  -2.211361561421654e-06,
+                  0.0002980893768835813
+                ],
+                "separation": -1.0321899026166648e-05
+              }
+            ]
+          },
+          {
+            "names": [
+              "L__ctag_Right_Support_Link",
+              "target_cube"
+            ],
+            "points": [
+              {
+                "p": [
+                  0.15085342526435852,
+                  -0.011299537494778633,
+                  0.15876269340515137
+                ],
+                "impulse": [
+                  -0.32774367928504944,
+                  0.0010690257186070085,
+                  -0.11561406403779984
+                ],
+                "separation": -0.0025596774648875
+              },
+              {
+                "p": [
+                  0.1611832231283188,
+                  0.010644746012985706,
+                  0.12949183583259583
+                ],
+                "impulse": [
+                  -0.056678999215364456,
+                  0.00018487407942302525,
+                  -0.019993945956230164
+                ],
+                "separation": -0.002089693443849683
+              },
+              {
+                "p": [
+                  0.16121338307857513,
+                  -0.010458364151418209,
+                  0.12944191694259644
+                ],
+                "impulse": [
+                  -0.0006603025831282139,
+                  2.1537575776164886e-06,
+                  -0.00023292672995012254
+                ],
+                "separation": -0.0022584020625799894
+              }
+            ]
+          }
+        ],
+        "note": "2mm displacement is descriptive, not a replacement score. Original protection remains 2mm penetration."
+      }
+    },
+    {
+      "run": "full_numeric_pgs_diagnostic_01",
+      "status": "INCOMPLETE",
+      "stage": "left_to_handoff",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "case": null,
+      "metrics": null,
+      "release_checks": null,
+      "integration_reported": "PGS_DIAGNOSTIC",
+      "actual_scene_creation_enable_tgs": null,
+      "full_process_pass": false,
+      "motion_evidence": {
+        "start_step": 2698,
+        "first_left_bilateral_absent_step": null,
+        "first_relative_displacement_over_2mm_step": null,
+        "first_pad_penetration_over_2mm_step": 3170,
+        "first_cube_table_contact_step": null,
+        "last_recorded_step": 3170,
+        "final_cube_xyz": [
+          0.1811913102865219,
+          -0.00016984748071990907,
+          0.1431347280740738
+        ],
+        "final_left_tcp": [
+          0.18148635759775192,
+          5.3700749063484624e-05,
+          0.1461173263451285
+        ],
+        "max_pad_penetration_mm": 2.5596774648875,
+        "last_contacts": [
+          {
+            "names": [
+              "L__ctag_Left_Support_Link",
+              "target_cube"
+            ],
+            "points": [
+              {
+                "p": [
+                  0.1953192800283432,
+                  0.011421826668083668,
+                  0.17496120929718018
+                ],
+                "impulse": [
+                  0.3252570331096649,
+                  -0.0009010615176521242,
+                  0.12146221101284027
+                ],
+                "separation": -0.00028143575764261186
+              },
+              {
+                "p": [
+                  0.20620295405387878,
+                  -0.009197721257805824,
+                  0.1458345502614975
+                ],
+                "impulse": [
+                  0.04794680327177048,
+                  -0.00013282732106745243,
+                  0.017904993146657944
+                ],
+                "separation": 0.00013715213572140783
+              },
+              {
+                "p": [
+                  0.1951592117547989,
+                  -0.011437133885920048,
+                  0.17585745453834534
+                ],
+                "impulse": [
+                  0.0088051687926054,
+                  -2.4393011699430645e-05,
+                  0.0032881542574614286
+                ],
+                "separation": 4.768112557940185e-05
+              },
+              {
+                "p": [
+                  0.20620909333229065,
+                  0.010589053854346275,
+                  0.14578616619110107
+                ],
+                "impulse": [
+                  0.0007982372771948576,
+                  -2.211361561421654e-06,
+                  0.0002980893768835813
+                ],
+                "separation": -1.0321899026166648e-05
+              }
+            ]
+          },
+          {
+            "names": [
+              "L__ctag_Right_Support_Link",
+              "target_cube"
+            ],
+            "points": [
+              {
+                "p": [
+                  0.15085342526435852,
+                  -0.011299537494778633,
+                  0.15876269340515137
+                ],
+                "impulse": [
+                  -0.32774367928504944,
+                  0.0010690257186070085,
+                  -0.11561406403779984
+                ],
+                "separation": -0.0025596774648875
+              },
+              {
+                "p": [
+                  0.1611832231283188,
+                  0.010644746012985706,
+                  0.12949183583259583
+                ],
+                "impulse": [
+                  -0.056678999215364456,
+                  0.00018487407942302525,
+                  -0.019993945956230164
+                ],
+                "separation": -0.002089693443849683
+              },
+              {
+                "p": [
+                  0.16121338307857513,
+                  -0.010458364151418209,
+                  0.12944191694259644
+                ],
+                "impulse": [
+                  -0.0006603025831282139,
+                  2.1537575776164886e-06,
+                  -0.00023292672995012254
+                ],
+                "separation": -0.0022584020625799894
+              }
+            ]
+          }
+        ],
+        "note": "2mm displacement is descriptive, not a replacement score. Original protection remains 2mm penetration."
+      }
+    },
+    {
+      "run": "full_numeric_pgs_effective_02",
+      "status": "INCOMPLETE",
+      "stage": "left_pick_lift",
+      "error": "RuntimeError('LEFT_PICK_NOT_HOLDING')",
+      "case": null,
+      "metrics": null,
+      "release_checks": null,
+      "integration_reported": "PGS_DIAGNOSTIC",
+      "actual_scene_creation_enable_tgs": false,
+      "full_process_pass": false
+    },
+    {
+      "run": "hold_d4_urdf_effort_01",
+      "status": "COMPLETED",
+      "stage": null,
+      "error": null,
+      "case": "d4",
+      "metrics": {
+        "observed_s": 7.896,
+        "max_relative_translation_mm": 18.761920847718088,
+        "max_relative_rotation_deg": 5.6393303955278276,
+        "max_pad_penetration_mm": 0.17574353842064738,
+        "left_bilateral_every_step": false
+      },
+      "release_checks": null,
+      "integration_reported": null,
+      "actual_scene_creation_enable_tgs": null,
+      "full_process_pass": null
+    },
+    {
+      "run": "hold_heldout_urdf_effort_01",
+      "status": "STOPPED",
+      "stage": null,
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "case": "heldout",
+      "metrics": {
+        "observed_s": 1.6640000000000001,
+        "max_relative_translation_mm": 1.136794437228871,
+        "max_relative_rotation_deg": 0.6848192347540717,
+        "max_pad_penetration_mm": 2.093459479510784,
+        "left_bilateral_every_step": true
+      },
+      "release_checks": null,
+      "integration_reported": null,
+      "actual_scene_creation_enable_tgs": null,
+      "full_process_pass": null
+    },
+    {
+      "run": "hold_hold_urdf_effort_01",
+      "status": "COMPLETED",
+      "stage": null,
+      "error": null,
+      "case": "hold",
+      "metrics": {
+        "observed_s": 5.896,
+        "max_relative_translation_mm": 0.00029339666718588203,
+        "max_relative_rotation_deg": 0.00011992405026574516,
+        "max_pad_penetration_mm": 0.10185164865106344,
+        "left_bilateral_every_step": true
+      },
+      "release_checks": null,
+      "integration_reported": null,
+      "actual_scene_creation_enable_tgs": null,
+      "full_process_pass": null
+    },
+    {
+      "run": "hold_release_urdf_effort_01",
+      "status": "COMPLETED",
+      "stage": null,
+      "error": null,
+      "case": "release",
+      "metrics": {
+        "observed_s": 3.8000000000000003,
+        "max_relative_translation_mm": 166.65104195829173,
+        "max_relative_rotation_deg": 15.455369928349507,
+        "max_pad_penetration_mm": 0.10179527453146875,
+        "left_bilateral_every_step": false
+      },
+      "release_checks": {
+        "open_over_70mm": true,
+        "no_left_bilateral": true,
+        "table_support": true
+      },
+      "integration_reported": null,
+      "actual_scene_creation_enable_tgs": null,
+      "full_process_pass": null
+    }
+  ]
+}

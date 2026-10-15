@@ -1,0 +1,82 @@
+{
+  "all_model_requests": 0,
+  "all_engineering_full_process_pass": false,
+  "original_scores_preserved": true,
+  "references": [
+    {
+      "run": "full_numeric_01",
+      "status": "INCOMPLETE",
+      "recorded_attempted_stage": "left_to_handoff",
+      "error": "RuntimeError('LEFT_CARRY_CONTACT_LOST')",
+      "full_process_pass": false,
+      "independent_original_score_matches": true
+    },
+    {
+      "run": "full_numeric_fixed_orientation_02",
+      "status": "INCOMPLETE",
+      "recorded_attempted_stage": "left_to_handoff",
+      "error": "RuntimeError('NUMERIC_REJECTED:left_to_handoff:{\\'ok\\': False, \\'executed\\': False, \\'mode\\': \\'sequential\\', \\'receipts\\': [{\\'ok\\': False, \\'executed\\': False, \\'reason\\': \"IK_REJECTED_NO_VALID_SOLUTION:{\\'pure_clik_success\\': False, \\'within_joint_limits\\': False, \\'collision_pairs\\': [], \\'goal_unchanged\\': True}\"}]}')",
+      "full_process_pass": false,
+      "independent_original_score_matches": true
+    },
+    {
+      "run": "full_numeric_known_d3_reference_03",
+      "status": "INCOMPLETE",
+      "recorded_attempted_stage": "left_to_handoff",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "full_process_pass": false,
+      "independent_original_score_matches": true
+    },
+    {
+      "run": "full_numeric_known_d3_urdf_effort_04",
+      "status": "INCOMPLETE",
+      "recorded_attempted_stage": "left_release",
+      "error": "RuntimeError('RIGHT_INDEPENDENT_CONTACT_LOST')",
+      "full_process_pass": false,
+      "independent_original_score_matches": true
+    },
+    {
+      "run": "full_numeric_original_01",
+      "status": "INCOMPLETE",
+      "recorded_attempted_stage": "left_to_handoff",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "full_process_pass": false,
+      "independent_original_score_matches": true
+    },
+    {
+      "run": "full_numeric_pgs_diagnostic_01",
+      "status": "INCOMPLETE",
+      "recorded_attempted_stage": "left_to_handoff",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "full_process_pass": false,
+      "independent_original_score_matches": true
+    },
+    {
+      "run": "full_numeric_pgs_effective_02",
+      "status": "INCOMPLETE",
+      "recorded_attempted_stage": "left_pick_lift",
+      "error": "RuntimeError('LEFT_PICK_NOT_HOLDING')",
+      "full_process_pass": false,
+      "independent_original_score_matches": true
+    }
+  ],
+  "advanced_reference_release_evidence": {
+    "run": "full_numeric_known_d3_urdf_effort_04",
+    "release_command_start_step": 7018,
+    "first_left_gap_over_70mm_step": 7150,
+    "first_right_bilateral_absent_step_after_release_command": 7283,
+    "first_cube_table_contact_step_after_release_command": 7356,
+    "first_right_relative_displacement_over_2mm_step": 7316,
+    "right_independent_hold_old_score_s": 0.5320000000000004,
+    "final_cube_xyz": [
+      0.11994368582963943,
+      0.0001635762891964987,
+      0.025000708177685738
+    ],
+    "final_right_gap_mm": 51.495734220682614,
+    "max_pad_penetration_mm": 0.47647152678109705,
+    "dropped_and_table_supported_before_2s_hold_check": true,
+    "no_complete_handoff_or_placement_claim": true,
+    "model_generation_requests": 0
+  }
+}

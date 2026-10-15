@@ -16,7 +16,7 @@ def initial_arm_q(side):
  return LAYOUT['initial_arm_q_by_side'][side] if 'initial_arm_q_by_side' in LAYOUT else LAYOUT['initial_arm_q']
 from mimic_control import damped_mimic
 CONTROLLER=os.environ.get('RM65_CONTROLLER','original')
-if CONTROLLER not in ('original','damped_mimic_v1','light_latch_v1'):raise ValueError('UNKNOWN_CONTROLLER')
+if CONTROLLER not in ('original','damped_mimic_v1','light_latch_v1','urdf_effort_hold_v2'):raise ValueError('UNKNOWN_CONTROLLER')
 # New configuration only; original source/assets and V0 remain immutable.
 import shutil,rm65_scene as source_scene
 ORIGINAL_CONFIG=CONFIG
@@ -56,6 +56,16 @@ class Arm(RM65Scene):
   if CONTROLLER=='light_latch_v1':
    self.joints[self.master].set_drive_property(self.cfg['control']['gripper_stiffness'],self.cfg['control']['gripper_damping'],force_limit=.05)
    self.log('v1_contact_latch_force',{'force_limit_Nm':.05,'original_force_limit_Nm':.1,'preload_unchanged_rad':.005})
+  elif CONTROLLER=='urdf_effort_hold_v2':
+   # Independent actuator variant: retain the same contact target/preload and
+   # spring gains, but allow the URDF actuator authority in both directions.
+   # The old 0.1 Nm saturation also caps corrective OPENING torque when the
+   # measured master is already more closed than its fixed target.
+   master=self.joints[self.master]
+   effort=float(self.tree.find(f"joint[@name='{master.name}']/limit").get('effort'))
+   master.set_drive_property(self.cfg['control']['gripper_stiffness'],self.cfg['control']['gripper_damping'],force_limit=effort)
+   result=dict(result,controller_variant=CONTROLLER,force_limit_Nm=effort,nominal_preload_unchanged=True)
+   self.log('urdf_effort_contact_hold_v2',result)
   return result
  def tick(self,n):return self.world.tick(n)
  def monitor(self):
@@ -154,7 +164,7 @@ class DualScene:
   self.preview_camera=self.scene.add_camera('scene_preview_NOT_MODEL_INPUT',960,720,math.radians(55),.01,5)
   self.preview_camera.set_pose(camera_pose(LAYOUT['preview']['position'],LAYOUT['preview']['look_at']))
   self.logfile=(self.output/'physics.jsonl').open('x',buffering=1);self.group_count=0;self.tick(100)
-  write_json(self.output/'configuration.json',{'source':'two RM65 in one SAPIEN Scene','scene_identity':id(self.scene),'articulations':len(self.scene.get_all_articulations()),'world_frame':'SAPIEN world metres/wxyz','left_base':LAYOUT['left_base'],'right_base':LAYOUT['right_base'],'layout':LAYOUT,'target_xy':self.target_xy,'solver':self.solver_record,'dt':self.dt,'gripper_latched_force_limit_Nm':.05 if CONTROLLER=='light_latch_v1' else .1,'mimic_controller':CONTROLLER,'mimic_damping':5. if CONTROLLER=='damped_mimic_v1' else 0.,'original_config':self.cfg,'controller':'closest mplib IK + cubic joint interpolation + full shared-world FCL checks; no OMPL rerouting','physical_weld':False,'runtime_object_pose_writes':False})
+  write_json(self.output/'configuration.json',{'source':'two RM65 in one SAPIEN Scene','scene_identity':id(self.scene),'articulations':len(self.scene.get_all_articulations()),'world_frame':'SAPIEN world metres/wxyz','left_base':LAYOUT['left_base'],'right_base':LAYOUT['right_base'],'layout':LAYOUT,'target_xy':self.target_xy,'solver':self.solver_record,'dt':self.dt,'gripper_latched_force_limit_Nm':(.05 if CONTROLLER=='light_latch_v1' else (float(left.tree.find(f"joint[@name='{left.joints[left.master].name}']/limit").get('effort')) if CONTROLLER=='urdf_effort_hold_v2' else .1)),'mimic_controller':CONTROLLER,'mimic_damping':5. if CONTROLLER=='damped_mimic_v1' else 0.,'original_config':self.cfg,'controller':'closest mplib IK + cubic joint interpolation + full shared-world FCL checks; no OMPL rerouting','physical_weld':False,'runtime_object_pose_writes':False})
  def contacts(self):
   return [{'names':[b.entity.name for b in c.bodies],'points':[{'p':p.position.tolist(),'impulse':p.impulse.tolist(),'separation':float(p.separation)} for p in c.points if np.linalg.norm(p.impulse)>1e-7]} for c in self.scene.get_contacts() if any(np.linalg.norm(p.impulse)>1e-7 for p in c.points)]
  def tick(self,n):

@@ -1,0 +1,162 @@
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+{
+  "case": "release",
+  "controller": "urdf_effort_hold_v2",
+  "model_requests": 0,
+  "nominal_preload_gains_mass_friction_safety_unchanged": true,
+  "actual_drive_and_tendon_torque": "UNKNOWN",
+  "case_start_step": 3467,
+  "receipt": {
+    "ok": true,
+    "executed": true,
+    "mode": "sequential",
+    "receipts": [
+      {
+        "ok": true,
+        "executed": true,
+        "start_step": 3467,
+        "end_step": 3917,
+        "goal_residuals": {},
+        "actual_states": {
+          "left": {
+            "sim_step": 3917,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              2.3867793061072007e-05,
+              -0.414045512676239,
+              -0.9932324290275574,
+              2.279226464452222e-05,
+              -1.7356756925582886,
+              0.0006407443434000015,
+              -0.03252723067998886,
+              -0.032675571739673615,
+              0.032826296985149384,
+              0.03297749161720276,
+              0.0326300747692585,
+              0.03279517590999603
+            ],
+            "flange_pose_world": [
+              0.11999569088220596,
+              1.1787866242229939e-05,
+              0.3950563073158264,
+              -1.2969510862603784e-05,
+              0.9999998211860657,
+              -0.00030503657762892544,
+              -0.0006766951992176473
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.16341319984520936,
+                0.00021724050242570217,
+                0.19224135422776772
+              ],
+              [
+                0.07606155583266637,
+                -0.00021734262508207695,
+                0.19234928893386438
+              ]
+            ],
+            "actual_grasp_center_world": [
+              0.11973737783893787,
+              -5.106132818739136e-08,
+              0.19229532158081605
+            ],
+            "actual_pad_gap_m": 0.08735279173609468,
+            "gripper_master_rad": -0.03252723067998886
+          },
+          "right": {
+            "sim_step": 3917,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              -0.10000000149011612,
+              0.050001151859760284,
+              -1.5499999523162842,
+              3.384297642128331e-08,
+              -1.6415926218032837,
+              -0.11999999731779099,
+              -2.492484263427741e-08,
+              -2.2790711540210395e-09,
+              1.9398241235535352e-08,
+              -1.515093495108033e-09,
+              2.2208325844985666e-08,
+              1.2175267016800717e-08
+            ],
+            "flange_pose_world": [
+              0.7143033146858215,
+              0.019634390249848366,
+              0.3970366418361664,
+              -4.52512176707387e-06,
+              -0.010001569986343384,
+              0.999950110912323,
+              -1.5174155123531818e-06
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.669392092574965,
+                0.018508511454953046,
+                0.1955764613905269
+              ],
+              [
+                0.7592102859150186,
+                0.020793371342323442,
+                0.1955756311559459
+              ]
+            ],
+            "actual_grasp_center_world": [
+              0.7143011892449918,
+              0.019650941398638246,
+              0.19557604627323638
+            ],
+            "actual_pad_gap_m": 0.08984725059936698,
+            "gripper_master_rad": -2.492484263427741e-08
+          }
+        }
+      }
+    ]
+  },
+  "release_checks": {
+    "open_over_70mm": true,
+    "no_left_bilateral": true,
+    "table_support": true
+  },
+  "status": "COMPLETED",
+  "metrics": {
+    "observed_s": 3.8000000000000003,
+    "max_relative_translation_mm": 166.65104195829173,
+    "max_relative_rotation_deg": 15.455369928349507,
+    "max_pad_penetration_mm": 0.10179527453146875,
+    "left_bilateral_every_step": false
+  },
+  "last_step": 4417
+}

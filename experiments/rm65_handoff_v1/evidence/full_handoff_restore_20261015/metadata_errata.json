@@ -1,0 +1,27 @@
+{
+  "historical_raw_files_edited": false,
+  "notes": [
+    {
+      "runs": [
+        "full_numeric_pgs_diagnostic_01"
+      ],
+      "field": "integration_model",
+      "reported": "PGS_DIAGNOSTIC",
+      "actual": "ORIGINAL_TGS",
+      "reason": "Installed Engine.create_scene(config=SceneConfig()) resets global configuration. Initial global-only selection did not take effect; not a PGS comparison."
+    },
+    {
+      "runs": [
+        "hold_d4_urdf_effort_01",
+        "hold_hold_urdf_effort_01",
+        "hold_release_urdf_effort_01",
+        "hold_heldout_urdf_effort_01",
+        "full_numeric_01"
+      ],
+      "field": "configuration.json/gripper_latched_force_limit_Nm",
+      "reported": 0.1,
+      "requested_by_variant": 10.0,
+      "reason": "Legacy metadata ternary omitted new variant. Each run source_snapshot and urdf_effort_contact_hold_v2 events preserve requested 10Nm URDF setting. Actual drive/tendon force remains UNKNOWN; this is not measured torque."
+    }
+  ]
+}

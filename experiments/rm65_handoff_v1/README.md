@@ -1,6 +1,12 @@
-# RM65 dual handoff V1 — yanglab
+# RM65 dual handoff V1 — historical yanglab baseline
 
-**2026-10-15 新任务入口：** [1.1 m Ready Pose / handoff_transfer_only](TRANSFER_READY_20261015.md)。
+**当前主任务：ubuntu-robot 上完整的桌面抓取 → 双臂交接 → 右臂搬运与稳定放置。**
+当前入口 `run_episode.py --task handoff_place_full` 从抓取前接管，不执行专家预抓取。
+详见 [完整任务恢复记录](FULL_HANDOFF_RESTORE_20261015.md)。本轮真实生成请求为0；物理基线仍未完成，不能报告整任务成功。
+`5f7dcd3` 的所有真实 PASS 仅属于无持物工位轮换，旁支已结束，不计入物块交接任务。
+下文的 yanglab、transfer-only 与旧主入口描述是保留的历史记录，不是当前任务启动说明。
+
+**2026-10-15 历史任务入口：** [1.1 m Ready Pose / handoff_transfer_only](TRANSFER_READY_20261015.md)。
 左右独立初态、两次物理 reset/拾取、四视角与零生成 shadow/执行接口已通过。
 该子任务不以完整放置成功为前置；真实请求仍为 0，等待独立新授权。
 以下 V1 完整交接与放置的历史结论保留不变。

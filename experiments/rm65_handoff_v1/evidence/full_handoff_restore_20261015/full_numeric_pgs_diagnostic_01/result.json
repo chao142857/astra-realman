@@ -1,0 +1,105 @@
+{
+  "task": "full_table_pick_handoff_place",
+  "source": "PRIVATE_ENGINEERING_REFERENCE_NOT_ASTRA",
+  "controller": "original",
+  "model_requests": 0,
+  "integration_model": "PGS_DIAGNOSTIC",
+  "initialization": "table cube, both empty/open; NO expert pregrasp",
+  "executor": "action_interface.execute_action, original numeric IK/interpolation/precheck",
+  "status": "INCOMPLETE",
+  "stages": [
+    {
+      "stage": "left_pick_approach_0.2",
+      "start_step": 100,
+      "end_step": 367,
+      "ok": true,
+      "artifact": "reference_000"
+    },
+    {
+      "stage": "left_pick_approach_0.08",
+      "start_step": 367,
+      "end_step": 896,
+      "ok": true,
+      "artifact": "reference_001"
+    },
+    {
+      "stage": "left_pick_approach_0.04",
+      "start_step": 896,
+      "end_step": 1142,
+      "ok": true,
+      "artifact": "reference_002"
+    },
+    {
+      "stage": "left_pick_close",
+      "start_step": 1142,
+      "end_step": 1592,
+      "ok": true,
+      "artifact": "reference_003"
+    },
+    {
+      "stage": "left_pick_lift",
+      "start_step": 1592,
+      "end_step": 2198,
+      "ok": true,
+      "artifact": "reference_004"
+    }
+  ],
+  "attempted_stage": "left_to_handoff",
+  "error": "RuntimeError('PAD_PENETRATION')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/alex/astra_spatial_capability/rm65-full-handoff-restore-20261015/experiments/rm65_handoff_v1/full_handoff_reference.py\", line 107, in main\n    run_reference(w,report)\n  File \"/home/alex/astra_spatial_capability/rm65-full-handoff-restore-20261015/experiments/rm65_handoff_v1/full_handoff_reference.py\", line 47, in run_reference\n    move('left_to_handoff','left',[.36,0,.22,*left_q])\n  File \"/home/alex/astra_spatial_capability/rm65-full-handoff-restore-20261015/experiments/rm65_handoff_v1/full_handoff_reference.py\", line 31, in move\n    def move(name,side,pose):command(name,side,pose=pose)\n  File \"/home/alex/astra_spatial_capability/rm65-full-handoff-restore-20261015/experiments/rm65_handoff_v1/full_handoff_reference.py\", line 26, in command\n    before=w.steps;receipt=execute_action(w,action)\n  File \"/home/alex/astra_spatial_capability/rm65-full-handoff-restore-20261015/experiments/rm65_handoff_v1/action_interface.py\", line 116, in execute_action\n    receipt=world.execute_group(commands([a]));receipts.append(receipt)\n  File \"/home/alex/astra_spatial_capability/rm65-full-handoff-restore-20261015/experiments/rm65_handoff_v1/dual_scene.py\", line 255, in execute_group\n    self.tick(1)\n  File \"/home/alex/astra_spatial_capability/rm65-full-handoff-restore-20261015/experiments/rm65_handoff_v1/dual_scene.py\", line 187, in tick\n    if other=='target_cube' and own[0] in a.pad_vertices:raise RuntimeError('PAD_PENETRATION')\nRuntimeError: PAD_PENETRATION\n",
+  "last_step": 3170,
+  "sim_time_s": 12.68,
+  "historical_process_score_unchanged": {
+    "criteria": {
+      "version": "rm65_v1_process_1",
+      "released_gap_m": 0.07,
+      "left_continuous_hold_s": 0.5,
+      "right_continuous_independent_hold_s": 2.0,
+      "script_independent_hold_observation_s": 5.0,
+      "hold_min_center_z_m": 0.07,
+      "hold_max_speed_m_s": 0.03,
+      "stable_place_s": 1.0,
+      "place_max_speed_m_s": 0.01,
+      "cube_size_m": 0.05,
+      "target_half_size_m": 0.07,
+      "target_xy": [
+        0.52,
+        0.16
+      ],
+      "max_pad_penetration_m": 0.002,
+      "contact_impulse_threshold": 1e-07,
+      "no_interarm_contact": true,
+      "drop_definition": "table contact after first lift and before intentional right_release, or object center below 0.06m while either arm is commanded to hold; final controlled release is scored separately",
+      "note": "Frozen before full V1 script success. Raw durations always reported; old V0 evaluation remains unchanged."
+    },
+    "longest_continuous_s": {
+      "left_hold": 2.816000000000002,
+      "right_independent_hold": 0,
+      "stable_place": 0
+    },
+    "checks": {
+      "left_hold": true,
+      "right_independent_hold": false,
+      "stable_place": false,
+      "no_unintended_drop": true,
+      "no_interarm_contact": true,
+      "no_pad_penetration_abort": false
+    },
+    "full_process_pass": false,
+    "unintended_drop_steps": [],
+    "maximum_pad_penetration_m": 0.0025596774648875,
+    "interarm_steps": [],
+    "pad_penetrations": [
+      {
+        "step": 3170,
+        "pair": [
+          "L__ctag_Right_Support_Link",
+          "target_cube"
+        ],
+        "min_separation": -0.0025596774648875
+      }
+    ],
+    "physics_steps": 3170,
+    "model_calls": 0
+  }
+}

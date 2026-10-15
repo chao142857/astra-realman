@@ -1,0 +1,23 @@
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+{
+  "case": "heldout",
+  "controller": "urdf_effort_hold_v2",
+  "model_requests": 0,
+  "nominal_preload_gains_mass_friction_safety_unchanged": true,
+  "actual_drive_and_tendon_torque": "UNKNOWN",
+  "case_start_step": 3467,
+  "status": "STOPPED",
+  "error": "RuntimeError('PAD_PENETRATION')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/alex/astra_spatial_capability/rm65-full-handoff-restore-20261015/experiments/rm65_handoff_v1/full_hold_regression.py\", line 49, in main\n    report['receipt']=replay(w,value,data/'original_readback_01/heldout_trajectory_FROZEN.npz')\n  File \"/home/alex/astra_spatial_capability/rm65-full-handoff-restore-20261015/experiments/rm65_handoff_v1/gripper_fix_regression.py\", line 29, in replay\n    return execute_action(world, action)\n  File \"/home/alex/astra_spatial_capability/rm65-full-handoff-restore-20261015/experiments/rm65_handoff_v1/action_interface.py\", line 116, in execute_action\n    receipt=world.execute_group(commands([a]));receipts.append(receipt)\n  File \"/home/alex/astra_spatial_capability/rm65-full-handoff-restore-20261015/experiments/rm65_handoff_v1/dual_scene.py\", line 255, in execute_group\n    self.tick(1)\n  File \"/home/alex/astra_spatial_capability/rm65-full-handoff-restore-20261015/experiments/rm65_handoff_v1/dual_scene.py\", line 187, in tick\n    if other=='target_cube' and own[0] in a.pad_vertices:raise RuntimeError('PAD_PENETRATION')\nRuntimeError: PAD_PENETRATION\n",
+  "metrics": {
+    "observed_s": 1.6640000000000001,
+    "max_relative_translation_mm": 1.136794437228871,
+    "max_relative_rotation_deg": 0.6848192347540717,
+    "max_pad_penetration_mm": 2.093459479510784,
+    "left_bilateral_every_step": true
+  },
+  "last_step": 3883
+}
