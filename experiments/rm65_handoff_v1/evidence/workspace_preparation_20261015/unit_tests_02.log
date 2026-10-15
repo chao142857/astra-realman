@@ -1,0 +1,297 @@
+...........E..EE.E...EE..........
+======================================================================
+ERROR: test_auth_failure (offline_tests.Protocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 40, in test_auth_failure
+    self.token.write_text('wrong-synthetic-token-only');r=HandoffBridgeAdapter(self.config).infer(self.context,self.images,self.root/'bad_auth');self.assertEqual(r['error'],'MAC_BRIDGE_HTTP_403')
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_protocol_failures (offline_tests.Protocol) (mode='bad_json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 37, in test_protocol_failures
+    self.mode=mode;f=self.root/('run_'+mode);HandoffBridgeAdapter(self.config).infer(self.context,self.images,f)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_protocol_failures (offline_tests.Protocol) (mode='incomplete')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 37, in test_protocol_failures
+    self.mode=mode;f=self.root/('run_'+mode);HandoffBridgeAdapter(self.config).infer(self.context,self.images,f)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_protocol_failures (offline_tests.Protocol) (mode='reconnect')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 37, in test_protocol_failures
+    self.mode=mode;f=self.root/('run_'+mode);HandoffBridgeAdapter(self.config).infer(self.context,self.images,f)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_protocol_failures (offline_tests.Protocol) (mode='drift')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 37, in test_protocol_failures
+    self.mode=mode;f=self.root/('run_'+mode);HandoffBridgeAdapter(self.config).infer(self.context,self.images,f)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_protocol_failures (offline_tests.Protocol) (mode='403')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 37, in test_protocol_failures
+    self.mode=mode;f=self.root/('run_'+mode);HandoffBridgeAdapter(self.config).infer(self.context,self.images,f)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_protocol_failures (offline_tests.Protocol) (mode='409')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 37, in test_protocol_failures
+    self.mode=mode;f=self.root/('run_'+mode);HandoffBridgeAdapter(self.config).infer(self.context,self.images,f)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_success (offline_tests.Protocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 33, in test_success
+    def test_success(self):self.assertEqual(accept_result(self.infer()),STOP)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 32, in infer
+    f=self.root/'run';r=HandoffBridgeAdapter(self.config).infer(self.context,self.images,f);self.assertEqual(r['model_calls'],0);return f
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_timeout_cancel_no_retry (offline_tests.Protocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 60, in test_timeout_cancel_no_retry
+    adapter._post=post;r=adapter.infer(self.context,self.images,self.root/'timeout')
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_auth_failure (workspace_tests.WorkspaceProtocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 40, in test_auth_failure
+    self.token.write_text('wrong-synthetic-token-only');r=HandoffBridgeAdapter(self.config).infer(self.context,self.images,self.root/'bad_auth');self.assertEqual(r['error'],'MAC_BRIDGE_HTTP_403')
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_protocol_failures (workspace_tests.WorkspaceProtocol) (mode='bad_json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 37, in test_protocol_failures
+    self.mode=mode;f=self.root/('run_'+mode);HandoffBridgeAdapter(self.config).infer(self.context,self.images,f)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_protocol_failures (workspace_tests.WorkspaceProtocol) (mode='incomplete')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 37, in test_protocol_failures
+    self.mode=mode;f=self.root/('run_'+mode);HandoffBridgeAdapter(self.config).infer(self.context,self.images,f)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_protocol_failures (workspace_tests.WorkspaceProtocol) (mode='reconnect')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 37, in test_protocol_failures
+    self.mode=mode;f=self.root/('run_'+mode);HandoffBridgeAdapter(self.config).infer(self.context,self.images,f)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_protocol_failures (workspace_tests.WorkspaceProtocol) (mode='drift')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 37, in test_protocol_failures
+    self.mode=mode;f=self.root/('run_'+mode);HandoffBridgeAdapter(self.config).infer(self.context,self.images,f)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_protocol_failures (workspace_tests.WorkspaceProtocol) (mode='403')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 37, in test_protocol_failures
+    self.mode=mode;f=self.root/('run_'+mode);HandoffBridgeAdapter(self.config).infer(self.context,self.images,f)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_protocol_failures (workspace_tests.WorkspaceProtocol) (mode='409')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 37, in test_protocol_failures
+    self.mode=mode;f=self.root/('run_'+mode);HandoffBridgeAdapter(self.config).infer(self.context,self.images,f)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_success (workspace_tests.WorkspaceProtocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 33, in test_success
+    def test_success(self):self.assertEqual(accept_result(self.infer()),STOP)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 32, in infer
+    f=self.root/'run';r=HandoffBridgeAdapter(self.config).infer(self.context,self.images,f);self.assertEqual(r['model_calls'],0);return f
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+======================================================================
+ERROR: test_timeout_cancel_no_retry (workspace_tests.WorkspaceProtocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 60, in test_timeout_cancel_no_retry
+    adapter._post=post;r=adapter.infer(self.context,self.images,self.root/'timeout')
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 97, in infer
+    return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/mac_bridge.py", line 134, in infer
+    folder=Path(folder).resolve();payload=prepare(context,images,folder,real=True)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 95, in prepare
+    *_,compile_schema=production_imports();schema,_=compile_schema(authoritative)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/spatial_input_eval_v0/spatial_eval/adapter.py", line 30, in production_imports
+    from sim_skills.full_pnp.infer_process import InferConfig, sandbox_command, isolated_preflight
+ModuleNotFoundError: No module named 'sim_skills'
+
+----------------------------------------------------------------------
+Ran 35 tests in 7.981s
+
+FAILED (errors=18)

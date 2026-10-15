@@ -1,0 +1,171 @@
+..........EEEEEEEEEEEEEEE..........
+======================================================================
+ERROR: test_action_validation (offline_tests.Protocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_auth_failure (offline_tests.Protocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_gt_and_image_rejected (offline_tests.Protocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_no_real_dispatch (offline_tests.Protocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_protocol_failures (offline_tests.Protocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_success (offline_tests.Protocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_timeout_cancel_no_retry (offline_tests.Protocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_action_validation (workspace_tests.WorkspaceProtocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/workspace_tests.py", line 18, in setUp
+    super().setUp()
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_auth_failure (workspace_tests.WorkspaceProtocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/workspace_tests.py", line 18, in setUp
+    super().setUp()
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_gt_and_image_rejected (workspace_tests.WorkspaceProtocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/workspace_tests.py", line 18, in setUp
+    super().setUp()
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_no_real_dispatch (workspace_tests.WorkspaceProtocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/workspace_tests.py", line 18, in setUp
+    super().setUp()
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_policy_and_instruction_are_immutable (workspace_tests.WorkspaceProtocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/workspace_tests.py", line 18, in setUp
+    super().setUp()
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_protocol_failures (workspace_tests.WorkspaceProtocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/workspace_tests.py", line 18, in setUp
+    super().setUp()
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_success (workspace_tests.WorkspaceProtocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/workspace_tests.py", line 18, in setUp
+    super().setUp()
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+======================================================================
+ERROR: test_timeout_cancel_no_retry (workspace_tests.WorkspaceProtocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/workspace_tests.py", line 18, in setUp
+    super().setUp()
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/offline_tests.py", line 11, in setUp
+    folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/action_interface.py", line 46, in context_from_observation
+    context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+UnboundLocalError: local variable 'INSTRUCTION' referenced before assignment
+
+----------------------------------------------------------------------
+Ran 35 tests in 0.404s
+
+FAILED (errors=15)

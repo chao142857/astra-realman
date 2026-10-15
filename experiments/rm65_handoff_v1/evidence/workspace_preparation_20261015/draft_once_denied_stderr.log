@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/run_episode.py", line 30, in <module>
+    if __name__=='__main__':main()
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/run_episode.py", line 10, in main
+    return transfer_main()
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/transfer_episode.py", line 45, in main
+    gate=Gate(a.budget_root,a.authorization,a.preflight,a.bridge_config,a.mode)
+  File "/home/alex/astra_spatial_capability/rm65-workspace-astra-prep-20261015/experiments/rm65_handoff_v1/transfer_gate.py", line 76, in __init__
+    if grant.get('generation_authorized') is not True or type(grant.get('max_dispatches')) is not int or not 1<=grant['max_dispatches']<=self.max_total or not grant.get('user_authorization_statement','').strip():raise ValueError('NEW_TRANSFER_USER_AUTHORIZATION_REQUIRED')
+ValueError: NEW_TRANSFER_USER_AUTHORIZATION_REQUIRED

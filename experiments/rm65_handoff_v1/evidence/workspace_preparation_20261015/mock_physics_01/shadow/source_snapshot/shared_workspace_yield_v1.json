@@ -1,0 +1,17 @@
+{
+  "task_id": "shared_workspace_yield_v1",
+  "version": 1,
+  "layout": "scene_v4_ready_transfer_1100.json",
+  "shared_tcp_world_m": [0.36, 0, 0.22],
+  "left_goal_world_wxyz": [0.36, 0, 0.22, 0, 0.8660254037844386, 0, 0.5],
+  "right_goal_world_wxyz": [0.36, 0, 0.22, -0.5, 0, 0.8660254037844386, 0],
+  "dwell_s": 0.5,
+  "position_tolerance_m": 0.01,
+  "orientation_tolerance_rad": 0.05,
+  "initialization": "No object pickup. Original Ready reset, open grippers; left moves to its shared goal using original numeric executor. Right stays at its measured Ready TCP.",
+  "public_instruction": "无持物共享工位轮换。初态左臂占用共享工位。先让右臂 TCP 在给定的右臂共享目标位姿连续保持至少 0.5 秒，再让左臂 TCP 在给定的左臂共享目标位姿连续保持至少 0.5 秒；结束时右臂回到本回合初始 Ready TCP。双夹爪保持打开，不抓取物体。全程不得互臂接触或碰撞桌面。自主选择退让位置、数值动作、路径及顺序或并行；没有自动让行技能。",
+  "order_scoring": "Initial left occupancy is not credit. Right dwell must precede a later left dwell; both final left shared goal and right Ready are required.",
+  "coupling_check": "Attempt right shared goal while left occupies it: unchanged whole-path precheck must reject without execution. Then validate one sequential physical witness. Rejected proposal is a private engineering negative control, never model context.",
+  "new_model_requests": 0,
+  "not_measured": "CTAG grasping, object transfer, task optimality, Astra ability"
+}

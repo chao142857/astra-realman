@@ -1,0 +1,26 @@
+{
+  "pid": 6709,
+  "command": [
+    "ssh",
+    "-N",
+    "-T",
+    "-o",
+    "UserKnownHostsFile=/tmp/rm65-d4-ubuntu-robot-known_hosts",
+    "-o",
+    "StrictHostKeyChecking=yes",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ExitOnForwardFailure=yes",
+    "-o",
+    "ServerAliveInterval=15",
+    "-o",
+    "ServerAliveCountMax=2",
+    "-R",
+    "127.0.0.1:18766:127.0.0.1:18767",
+    "ubuntu-robot"
+  ],
+  "model_requests": 0
+}
