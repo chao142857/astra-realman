@@ -42,6 +42,21 @@ class Permission(unittest.TestCase):
         with self.assertRaises(ValueError):self.open()
         self.grant['batch_id']=self.s['batch_id'];self.check['checked_at']='2020-01-01T00:00:00+00:00'
         with self.assertRaisesRegex(ValueError,'PREFLIGHT_REQUIRED'):self.open()
+    def test_one_shadow_only_then_same_batch_execute(self):
+        gate=self.open();row=gate.reserve(self.root/'shadow/decision_000',{'fixture':True})
+        row['status']='VALID';gate.state['shadow_validated']=True;gate.flush()
+        with self.assertRaisesRegex(ValueError,'SHADOW_ALREADY_DISPATCHED'):
+            gate.reserve(self.root/'second_shadow/decision_000',{})
+        gate.close()
+        with self.assertRaisesRegex(ValueError,'SHADOW_ALREADY_DISPATCHED'):self.open('shadow')
+        with patch('transfer_gate.accept_result',return_value={'fixture_only':True}):
+            gate=self.open('execute')
+        row=gate.reserve(self.root/'execute/decision_000',{'fixture':True})
+        self.assertEqual(row['index'],2);self.assertEqual(gate.state['reserved_budget'],2);gate.close()
+    def test_boolean_alone_does_not_establish_valid_shadow(self):
+        state=json.loads((self.root/'ledger.json').read_text());state['shadow_validated']=True
+        g.save(self.root/'ledger.json',state)
+        with self.assertRaisesRegex(ValueError,'SHADOW_STATE_INCONSISTENT'):self.open('execute')
 
 
 def physics_fixture():

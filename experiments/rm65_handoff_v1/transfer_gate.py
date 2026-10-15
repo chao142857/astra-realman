@@ -77,7 +77,10 @@ class Gate:
                       'reasoning':'medium','non_generating_auth_and_tunnel_check':True}
             age=(datetime.now(timezone.utc)-datetime.fromisoformat(check['checked_at'])).total_seconds()
             if socket.gethostname()!='tongji-Precision-3680' or any(check.get(k)!=v for k,v in required.items()) or not 0<=age<=900:raise ValueError('FRESH_YANGLAB_PRODUCTION_PREFLIGHT_REQUIRED')
-            if stage=='execute' and not s['shadow_validated']:raise ValueError('VALID_SHADOW_REQUIRED_FIRST')
+            valid_shadows=[r for r in s['runs'] if r['stage']=='shadow' and r['status']=='VALID']
+            if len(valid_shadows)>1 or s['shadow_validated']!=(len(valid_shadows)==1):raise ValueError('SHADOW_STATE_INCONSISTENT')
+            if stage=='shadow' and valid_shadows:raise ValueError('SHADOW_ALREADY_DISPATCHED')
+            if stage=='execute' and len(valid_shadows)!=1:raise ValueError('VALID_SHADOW_REQUIRED_FIRST')
             for r in s['runs']:accept_result(self.root/r['artifact'])
             s.update(authorization=bound,status='READY');self.limit=grant['max_dispatches'];self.stage=stage;self.flush()
         except BaseException:self.handle.close();raise
@@ -90,6 +93,7 @@ class Gate:
             self.stop('SOURCE_CHANGED_BEFORE_DISPATCH');raise ValueError('TRANSFER_SOURCE_CHANGED')
         if s['status']!='READY' or s['reserved_budget']>=self.limit:raise ValueError('TRANSFER_BUDGET_EXHAUSTED')
         if any(r['status']!='VALID' for r in s['runs']):raise ValueError('SINGLE_OUTSTANDING_REQUEST_ONLY')
+        if self.stage=='shadow' and any(r['stage']=='shadow' for r in s['runs']):raise ValueError('SHADOW_ALREADY_DISPATCHED')
         folder=Path(folder).resolve()
         if not folder.is_relative_to(self.root) or folder.exists():raise ValueError('NEW_TRANSFER_ARTIFACT_REQUIRED')
         row={'index':len(s['runs'])+1,'stage':self.stage,'status':'RESERVED',
