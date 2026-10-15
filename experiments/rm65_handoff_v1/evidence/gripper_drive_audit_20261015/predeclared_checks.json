@@ -1,0 +1,36 @@
+{
+  "baseline": "a2a1474",
+  "new_model_requests": 0,
+  "old_ledger": "READ_ONLY_NO_RESUME",
+  "audit_first": true,
+  "no_parameter_sweep": true,
+  "heldout": {
+    "target_world_wxyz": [
+      0.16,
+      -0.035,
+      0.23,
+      0,
+      0.9659258262890683,
+      0,
+      0.25881904510252074
+    ],
+    "selection": "Single candidate selected from public numeric workspace and original pre-D4 start, before controller modification or physical heldout results. No alternate selected on rejection.",
+    "task": "Left holding object, spatial translation and 30-degree reorientation; retain for 2s after original executor.",
+    "plan": "Freeze once at original pre-D4 state; full normal collision precheck before physical execution."
+  },
+  "required_regressions": [
+    "original D4 target/1374-sample path/original speed, no IK",
+    "original 5.896s stationary hold",
+    "original physical pickup/lift and archived successful D3 motion",
+    "normal opening=1 release, natural gravity/table contact",
+    "single frozen heldout motion, never used for parameter selection"
+  ],
+  "forbidden": [
+    "qpos overwrite during physics",
+    "object attachment",
+    "collision disable",
+    "mass/friction changes",
+    "arbitrary torque increase"
+  ],
+  "torque_reporting": "native drive/tendon torque remains unknown; external qf is command only"
+}
