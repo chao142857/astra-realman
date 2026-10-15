@@ -20,7 +20,7 @@
     "production/structured_outputs.py": "5f15f1047df73f83cbfee1529b68ec2b157b0eeefcc6824e64dbe69edd6de207",
     "transport/mac_bridge.py": "480f7e3649bdb16c91e6a4992948d9e9f3c60935d6cd2ef59d7405a65c6b0d15"
   },
-  "status": "READY",
+  "status": "STOPPED",
   "authorization": {
     "sha256": "2baa66efe480c2f51e8f8c514cb4372c227ef3408648fa7c1b86d2dbe70160b1",
     "grant": {
@@ -59,7 +59,7 @@
       "automatic_retry": false
     }
   },
-  "reserved_budget": 1,
+  "reserved_budget": 5,
   "runs": [
     {
       "index": 1,
@@ -71,7 +71,52 @@
       "thread_id": "01a13d65-ec3a-7d93-aa7f-ca25948e5425",
       "request_id": "76df9972af53447798a8481e525efb1f",
       "finished_at": "2026-10-15T02:31:14.431331+00:00"
+    },
+    {
+      "index": 2,
+      "stage": "execute",
+      "status": "VALID",
+      "artifact": "execute_01/decision_000",
+      "reserved_at": "2026-10-15T02:33:05.397316+00:00",
+      "context_sha256": "0fc92ed307b592bcf0a77cdbd358ce7d73b84557888d2ea0baa03db6a6986909",
+      "thread_id": "01a13d68-0807-78f1-90af-bc20794a3a02",
+      "request_id": "8cc09869feff4724823453c01ed4163d",
+      "finished_at": "2026-10-15T02:33:27.168863+00:00"
+    },
+    {
+      "index": 3,
+      "stage": "execute",
+      "status": "VALID",
+      "artifact": "execute_01/decision_001",
+      "reserved_at": "2026-10-15T02:33:27.424434+00:00",
+      "context_sha256": "7b6f5731638d89ba8dbf126fb910f7fba849e7b3bdc431a06bf3d15c491377f9",
+      "thread_id": "01a13d68-5ef2-7650-bc2e-1b0af1e06ef2",
+      "request_id": "1452e590d8804fe9924542590ce3b51e",
+      "finished_at": "2026-10-15T02:33:44.044802+00:00"
+    },
+    {
+      "index": 4,
+      "stage": "execute",
+      "status": "VALID",
+      "artifact": "execute_01/decision_002",
+      "reserved_at": "2026-10-15T02:33:44.295509+00:00",
+      "context_sha256": "00788c58726ec1258b50ccbb73888259f53f482037383716cb44e13c4a607977",
+      "thread_id": "01a13d68-a12f-72f1-a1e4-c8e0bb66a410",
+      "request_id": "94bdc85e6d974dd08c28533c96b83974",
+      "finished_at": "2026-10-15T02:33:59.500480+00:00"
+    },
+    {
+      "index": 5,
+      "stage": "execute",
+      "status": "VALID",
+      "artifact": "execute_01/decision_003",
+      "reserved_at": "2026-10-15T02:34:01.206882+00:00",
+      "context_sha256": "bb71486a80d2b5afcdf5d0c307e3b6ddfbbe00006e56eede18bbbed3f3d0fa96",
+      "thread_id": "01a13d68-e21a-7ec3-8418-352472100016",
+      "request_id": "6a10d7c341874a99a1e9a0fd5d01b9fe",
+      "finished_at": "2026-10-15T02:34:25.159829+00:00"
     }
   ],
-  "shadow_validated": true
+  "shadow_validated": true,
+  "stop_reason": "PHYSICAL_EXECUTION_FAILURE"
 }

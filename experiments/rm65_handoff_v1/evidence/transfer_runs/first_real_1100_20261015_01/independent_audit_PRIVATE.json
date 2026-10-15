@@ -1,0 +1,748 @@
+{
+  "batch_id": "2860b79c46e649d2a4e597128186c76b",
+  "status": "STOPPED",
+  "client_dispatches": 5,
+  "upstream_generation_count": "UNKNOWN_NOT_CLIENT_CONTROLLABLE",
+  "decisions": [
+    {
+      "index": 1,
+      "stage": "shadow",
+      "status": "VALID",
+      "artifact": "shadow_01/decision_000",
+      "reserved_at": "2026-10-15T02:30:46.577958+00:00",
+      "context_sha256": "b3572cf56b8e4986865cb29e65a3e5ac738fdce0ab7b9500545bf6ec86c3e0d8",
+      "thread_id": "01a13d65-ec3a-7d93-aa7f-ca25948e5425",
+      "request_id": "76df9972af53447798a8481e525efb1f",
+      "finished_at": "2026-10-15T02:31:14.431331+00:00",
+      "proposal": {
+        "actions": [
+          {
+            "arm": "left",
+            "kind": "tcp",
+            "opening_fraction": null,
+            "pose_world_wxyz": [
+              0.34,
+              0,
+              0.25,
+              0,
+              1,
+              0,
+              0
+            ]
+          },
+          {
+            "arm": "right",
+            "kind": "tcp",
+            "opening_fraction": null,
+            "pose_world_wxyz": [
+              0.52,
+              0,
+              0.23,
+              0.5,
+              -0.5,
+              -0.5,
+              0.5
+            ]
+          }
+        ],
+        "done": false,
+        "execution": "parallel"
+      },
+      "usage": {
+        "input_tokens": 14080,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 366,
+        "reasoning_output_tokens": 260
+      },
+      "client_wall_s": 27.810132716986118,
+      "receipt": {
+        "ok": true,
+        "executed": false,
+        "reason": "SHADOW_ONLY_NO_ACTION_EXECUTED"
+      },
+      "timing": {
+        "inference_wall_s": 27.810132716986118,
+        "whole_step_wall_s": 27.869395036017522,
+        "inference_physics_steps": 0,
+        "execution_physics_steps": 0,
+        "usage": {
+          "input_tokens": 14080,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 366,
+          "reasoning_output_tokens": 260
+        },
+        "usage_kind": "CLI_REPORTED",
+        "cache": "Preserved verbatim in raw usage; absent means unavailable."
+      },
+      "native_item_warnings": [
+        {
+          "type": "item.completed",
+          "item": {
+            "id": "item_0",
+            "type": "error",
+            "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/tangchao/.codex/config.toml."
+          }
+        },
+        {
+          "type": "item.completed",
+          "item": {
+            "id": "item_1",
+            "type": "error",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "stage": "execute",
+      "status": "VALID",
+      "artifact": "execute_01/decision_000",
+      "reserved_at": "2026-10-15T02:33:05.397316+00:00",
+      "context_sha256": "0fc92ed307b592bcf0a77cdbd358ce7d73b84557888d2ea0baa03db6a6986909",
+      "thread_id": "01a13d68-0807-78f1-90af-bc20794a3a02",
+      "request_id": "8cc09869feff4724823453c01ed4163d",
+      "finished_at": "2026-10-15T02:33:27.168863+00:00",
+      "proposal": {
+        "actions": [
+          {
+            "arm": "left",
+            "kind": "tcp",
+            "opening_fraction": null,
+            "pose_world_wxyz": [
+              0.35,
+              0,
+              0.24,
+              0,
+              1,
+              0,
+              0
+            ]
+          },
+          {
+            "arm": "right",
+            "kind": "tcp",
+            "opening_fraction": null,
+            "pose_world_wxyz": [
+              0.53,
+              0,
+              0.24,
+              0.5,
+              -0.5,
+              -0.5,
+              0.5
+            ]
+          }
+        ],
+        "done": false,
+        "execution": "parallel"
+      },
+      "usage": {
+        "input_tokens": 14117,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 282,
+        "reasoning_output_tokens": 176
+      },
+      "client_wall_s": 21.716884409979684,
+      "receipt": {
+        "ok": false,
+        "executed": false,
+        "reason": "IK_REJECTED_NO_VALID_SOLUTION:{'pure_clik_success': False, 'within_joint_limits': False, 'collision_pairs': [], 'goal_unchanged': True}"
+      },
+      "timing": {
+        "inference_wall_s": 21.716884409979684,
+        "whole_step_wall_s": 21.842976687999908,
+        "inference_physics_steps": 0,
+        "execution_physics_steps": 0,
+        "usage": {
+          "input_tokens": 14117,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 282,
+          "reasoning_output_tokens": 176
+        },
+        "usage_kind": "CLI_REPORTED",
+        "cache": "Preserved verbatim in raw usage; absent means unavailable."
+      },
+      "native_item_warnings": [
+        {
+          "type": "item.completed",
+          "item": {
+            "id": "item_0",
+            "type": "error",
+            "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/tangchao/.codex/config.toml."
+          }
+        },
+        {
+          "type": "item.completed",
+          "item": {
+            "id": "item_1",
+            "type": "error",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "stage": "execute",
+      "status": "VALID",
+      "artifact": "execute_01/decision_001",
+      "reserved_at": "2026-10-15T02:33:27.424434+00:00",
+      "context_sha256": "7b6f5731638d89ba8dbf126fb910f7fba849e7b3bdc431a06bf3d15c491377f9",
+      "thread_id": "01a13d68-5ef2-7650-bc2e-1b0af1e06ef2",
+      "request_id": "1452e590d8804fe9924542590ce3b51e",
+      "finished_at": "2026-10-15T02:33:44.044802+00:00",
+      "proposal": {
+        "actions": [
+          {
+            "arm": "left",
+            "kind": "tcp",
+            "opening_fraction": null,
+            "pose_world_wxyz": [
+              0.28,
+              0,
+              0.18,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
+        ],
+        "done": false,
+        "execution": "sequential"
+      },
+      "usage": {
+        "input_tokens": 14266,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 106,
+        "reasoning_output_tokens": 44
+      },
+      "client_wall_s": 16.569351073005237,
+      "receipt": {
+        "ok": false,
+        "executed": false,
+        "mode": "sequential",
+        "receipts": [
+          {
+            "ok": false,
+            "executed": false,
+            "reason": "IK_REJECTED_NO_VALID_SOLUTION:{'pure_clik_success': False, 'within_joint_limits': False, 'collision_pairs': [], 'goal_unchanged': True}"
+          }
+        ]
+      },
+      "timing": {
+        "inference_wall_s": 16.569351073005237,
+        "whole_step_wall_s": 16.679995134996716,
+        "inference_physics_steps": 0,
+        "execution_physics_steps": 0,
+        "usage": {
+          "input_tokens": 14266,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 106,
+          "reasoning_output_tokens": 44
+        },
+        "usage_kind": "CLI_REPORTED",
+        "cache": "Preserved verbatim in raw usage; absent means unavailable."
+      },
+      "native_item_warnings": [
+        {
+          "type": "item.completed",
+          "item": {
+            "id": "item_0",
+            "type": "error",
+            "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/tangchao/.codex/config.toml."
+          }
+        },
+        {
+          "type": "item.completed",
+          "item": {
+            "id": "item_1",
+            "type": "error",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "stage": "execute",
+      "status": "VALID",
+      "artifact": "execute_01/decision_002",
+      "reserved_at": "2026-10-15T02:33:44.295509+00:00",
+      "context_sha256": "00788c58726ec1258b50ccbb73888259f53f482037383716cb44e13c4a607977",
+      "thread_id": "01a13d68-a12f-72f1-a1e4-c8e0bb66a410",
+      "request_id": "94bdc85e6d974dd08c28533c96b83974",
+      "finished_at": "2026-10-15T02:33:59.500480+00:00",
+      "proposal": {
+        "actions": [
+          {
+            "arm": "left",
+            "kind": "tcp",
+            "opening_fraction": null,
+            "pose_world_wxyz": [
+              0.12,
+              0,
+              0.18,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
+        ],
+        "done": false,
+        "execution": "sequential"
+      },
+      "usage": {
+        "input_tokens": 14423,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 106,
+        "reasoning_output_tokens": 44
+      },
+      "client_wall_s": 15.158082078007283,
+      "receipt": {
+        "ok": true,
+        "executed": true,
+        "mode": "sequential",
+        "receipts": [
+          {
+            "ok": true,
+            "executed": true,
+            "start_step": 3026,
+            "end_step": 3467,
+            "goal_residuals": {
+              "left": {
+                "position_error_m": 0.0007136565304867441,
+                "rotation_error_rad": 0.002428039831940918
+              }
+            },
+            "actual_states": {
+              "left": {
+                "sim_step": 3467,
+                "stopped": false,
+                "joint_names": [
+                  "joint1",
+                  "joint2",
+                  "joint3",
+                  "joint4",
+                  "joint5",
+                  "joint6",
+                  "ctag_Left_1_Joint",
+                  "ctag_Left_2_Joint",
+                  "ctag_Right_2_Joint",
+                  "ctag_Right_1_Joint",
+                  "ctag_Left_Support_Joint",
+                  "ctag_Right_Support_Joint"
+                ],
+                "qpos": [
+                  3.356448723934591e-05,
+                  -0.41261449456214905,
+                  -0.993938684463501,
+                  -2.711088654905325e-06,
+                  -1.732666015625,
+                  -0.0004397172015160322,
+                  -0.4429880976676941,
+                  -0.4431527256965637,
+                  0.44293537735939026,
+                  0.44304704666137695,
+                  0.4432617425918579,
+                  0.4433186948299408
+                ],
+                "flange_pose_world": [
+                  0.12017307430505753,
+                  1.1202733730897307e-05,
+                  0.39535385370254517,
+                  -4.6921195462346077e-07,
+                  0.9999994039535522,
+                  0.00023808320111129433,
+                  0.0011904453858733177
+                ],
+                "actual_pad_centers_world": [
+                  [
+                    0.1457105530953627,
+                    0.0002502040451737877,
+                    0.18025357654221133
+                  ],
+                  [
+                    0.09566327913385105,
+                    -0.0002617499390313843,
+                    0.18013330105126502
+                  ]
+                ],
+                "actual_grasp_center_world": [
+                  0.12068691611460688,
+                  -5.772946928798311e-06,
+                  0.18019343879673816
+                ],
+                "actual_pad_gap_m": 0.05005003690362545,
+                "gripper_master_rad": -0.4429880976676941
+              },
+              "right": {
+                "sim_step": 3467,
+                "stopped": false,
+                "joint_names": [
+                  "joint1",
+                  "joint2",
+                  "joint3",
+                  "joint4",
+                  "joint5",
+                  "joint6",
+                  "ctag_Left_1_Joint",
+                  "ctag_Left_2_Joint",
+                  "ctag_Right_2_Joint",
+                  "ctag_Right_1_Joint",
+                  "ctag_Left_Support_Joint",
+                  "ctag_Right_Support_Joint"
+                ],
+                "qpos": [
+                  -0.10000000149011612,
+                  0.050001151859760284,
+                  -1.5499999523162842,
+                  3.372903378817682e-08,
+                  -1.6415926218032837,
+                  -0.11999999731779099,
+                  -2.492979511714566e-08,
+                  -2.275305721610721e-09,
+                  1.938903437803674e-08,
+                  -1.503532409685704e-09,
+                  2.22128448967851e-08,
+                  1.2189345532931384e-08
+                ],
+                "flange_pose_world": [
+                  0.7143033146858215,
+                  0.019634390249848366,
+                  0.3970366418361664,
+                  -4.52512176707387e-06,
+                  -0.010001569986343384,
+                  0.999950110912323,
+                  -1.5174155123531818e-06
+                ],
+                "actual_pad_centers_world": [
+                  [
+                    0.669392092574965,
+                    0.018508511454953046,
+                    0.1955764613905269
+                  ],
+                  [
+                    0.7592102859150186,
+                    0.020793371342323442,
+                    0.1955756311559459
+                  ]
+                ],
+                "actual_grasp_center_world": [
+                  0.7143011892449918,
+                  0.019650941398638246,
+                  0.19557604627323638
+                ],
+                "actual_pad_gap_m": 0.08984725059936698,
+                "gripper_master_rad": -2.492979511714566e-08
+              }
+            }
+          }
+        ]
+      },
+      "timing": {
+        "inference_wall_s": 15.158082078007283,
+        "whole_step_wall_s": 16.76225846799207,
+        "inference_physics_steps": 0,
+        "execution_physics_steps": 441,
+        "usage": {
+          "input_tokens": 14423,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 106,
+          "reasoning_output_tokens": 44
+        },
+        "usage_kind": "CLI_REPORTED",
+        "cache": "Preserved verbatim in raw usage; absent means unavailable."
+      },
+      "native_item_warnings": [
+        {
+          "type": "item.completed",
+          "item": {
+            "id": "item_0",
+            "type": "error",
+            "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/tangchao/.codex/config.toml."
+          }
+        },
+        {
+          "type": "item.completed",
+          "item": {
+            "id": "item_1",
+            "type": "error",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "stage": "execute",
+      "status": "VALID",
+      "artifact": "execute_01/decision_003",
+      "reserved_at": "2026-10-15T02:34:01.206882+00:00",
+      "context_sha256": "bb71486a80d2b5afcdf5d0c307e3b6ddfbbe00006e56eede18bbbed3f3d0fa96",
+      "thread_id": "01a13d68-e21a-7ec3-8418-352472100016",
+      "request_id": "6a10d7c341874a99a1e9a0fd5d01b9fe",
+      "finished_at": "2026-10-15T02:34:25.159829+00:00",
+      "proposal": {
+        "actions": [
+          {
+            "arm": "left",
+            "kind": "tcp",
+            "opening_fraction": null,
+            "pose_world_wxyz": [
+              0.34,
+              0,
+              0.22,
+              0,
+              0.8660254,
+              0,
+              0.5
+            ]
+          }
+        ],
+        "done": false,
+        "execution": "sequential"
+      },
+      "usage": {
+        "input_tokens": 15292,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 364,
+        "reasoning_output_tokens": 296
+      },
+      "client_wall_s": 23.90574459702475,
+      "receipt": {
+        "ok": false,
+        "executed": "PARTIAL_OR_SAFETY_STOP",
+        "reason": "PAD_PENETRATION"
+      },
+      "timing": {
+        "inference_wall_s": 23.90574459702475,
+        "whole_step_wall_s": 25.538519736001035,
+        "inference_physics_steps": 0,
+        "execution_physics_steps": 377,
+        "usage": {
+          "input_tokens": 15292,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 364,
+          "reasoning_output_tokens": 296
+        },
+        "usage_kind": "CLI_REPORTED",
+        "cache": "Preserved verbatim in raw usage; absent means unavailable."
+      },
+      "native_item_warnings": [
+        {
+          "type": "item.completed",
+          "item": {
+            "id": "item_0",
+            "type": "error",
+            "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/tangchao/.codex/config.toml."
+          }
+        },
+        {
+          "type": "item.completed",
+          "item": {
+            "id": "item_1",
+            "type": "error",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+          }
+        }
+      ]
+    }
+  ],
+  "assessments": {
+    "shadow_01": {
+      "exact_independent_rescore_match": true,
+      "episode_status": "SHADOW_VALID_NO_EXECUTION",
+      "new_transfer_assessment": {
+        "criteria": {
+          "version": "rm65.transfer_only.physical.v1",
+          "independent_hold_s": 2.0,
+          "initial_left_hold_s": 2.0,
+          "relative_translation_drift_max_m": 0.002,
+          "relative_rotation_drift_max_deg": 5.0,
+          "exit_object_displacement_m": 0.08,
+          "exit_left_distance_increase_m": 0.04,
+          "released_left_gap_m": 0.07,
+          "minimum_object_center_z_m": 0.07,
+          "max_pad_penetration_m": 0.002,
+          "terminal_passive_hold_s": 2.0,
+          "original_velocity_criterion": "Reported separately under unchanged process_criteria_v1.json; not silently altered. New transfer retention uses measured object/TCP relative pose and bilateral physical support.",
+          "rationale": "2 s continuous physical support, no left/table support, 2 mm relative drift (4% of 50 mm cube width), <=5 deg relative rotation. Exit requires object displacement AND increasing separation from left TCP; no reference handoff coordinate/path. Original 2 mm physical penetration guard unchanged.",
+          "frozen_before_real_astra_calls": true
+        },
+        "checks": {
+          "initial_left_physical_hold": true,
+          "right_independent_hold": false,
+          "right_held_exit": false,
+          "no_drop": true,
+          "no_interarm_contact": true,
+          "original_penetration_limit": true
+        },
+        "transfer_only_pass": false,
+        "independent_segments": [],
+        "initial_left_hold_s": 3.000000000000002,
+        "initial_left_relative_drift_m": 3.4171013880354954e-07,
+        "initial_left_relative_rotation_deg": 7.712195265937135e-05,
+        "drop_steps": [],
+        "interarm_steps": [],
+        "maximum_pad_penetration_m": 0.00010901227506110445,
+        "reported_world_speed_max_m_s": 0.11772000789642334,
+        "source": "PRIVATE_PHYSICS_NOT_MODEL_INPUT"
+      },
+      "legacy_evaluator_unmodified_result": {
+        "criteria": {
+          "version": "rm65_v1_process_1",
+          "released_gap_m": 0.07,
+          "left_continuous_hold_s": 0.5,
+          "right_continuous_independent_hold_s": 2.0,
+          "script_independent_hold_observation_s": 5.0,
+          "hold_min_center_z_m": 0.07,
+          "hold_max_speed_m_s": 0.03,
+          "stable_place_s": 1.0,
+          "place_max_speed_m_s": 0.01,
+          "cube_size_m": 0.05,
+          "target_half_size_m": 0.07,
+          "target_xy": [
+            0.52,
+            0.16
+          ],
+          "max_pad_penetration_m": 0.002,
+          "contact_impulse_threshold": 1e-07,
+          "no_interarm_contact": true,
+          "drop_definition": "table contact after first lift and before intentional right_release, or object center below 0.06m while either arm is commanded to hold; final controlled release is scored separately",
+          "note": "Frozen before full V1 script success. Raw durations always reported; old V0 evaluation remains unchanged."
+        },
+        "longest_continuous_s": {
+          "left_hold": 3.5240000000000027,
+          "right_independent_hold": 0,
+          "stable_place": 0
+        },
+        "checks": {
+          "left_hold": true,
+          "right_independent_hold": false,
+          "stable_place": false,
+          "no_unintended_drop": true,
+          "no_interarm_contact": true,
+          "no_pad_penetration_abort": true
+        },
+        "full_process_pass": false,
+        "unintended_drop_steps": [],
+        "maximum_pad_penetration_m": 0.00010901227506110445,
+        "interarm_steps": [],
+        "pad_penetrations": [],
+        "physics_steps": 3026,
+        "model_calls": 0
+      },
+      "legacy_note": "Original velocity thresholds and placement checks are unchanged. Its hardcoded model_calls=0 is not request accounting; use this batch ledger. Placement is outside this task."
+    },
+    "execute_01": {
+      "exact_independent_rescore_match": true,
+      "episode_status": "PHYSICAL_EXECUTION_FAILURE",
+      "new_transfer_assessment": {
+        "criteria": {
+          "version": "rm65.transfer_only.physical.v1",
+          "independent_hold_s": 2.0,
+          "initial_left_hold_s": 2.0,
+          "relative_translation_drift_max_m": 0.002,
+          "relative_rotation_drift_max_deg": 5.0,
+          "exit_object_displacement_m": 0.08,
+          "exit_left_distance_increase_m": 0.04,
+          "released_left_gap_m": 0.07,
+          "minimum_object_center_z_m": 0.07,
+          "max_pad_penetration_m": 0.002,
+          "terminal_passive_hold_s": 2.0,
+          "original_velocity_criterion": "Reported separately under unchanged process_criteria_v1.json; not silently altered. New transfer retention uses measured object/TCP relative pose and bilateral physical support.",
+          "rationale": "2 s continuous physical support, no left/table support, 2 mm relative drift (4% of 50 mm cube width), <=5 deg relative rotation. Exit requires object displacement AND increasing separation from left TCP; no reference handoff coordinate/path. Original 2 mm physical penetration guard unchanged.",
+          "frozen_before_real_astra_calls": true
+        },
+        "checks": {
+          "initial_left_physical_hold": true,
+          "right_independent_hold": false,
+          "right_held_exit": false,
+          "no_drop": true,
+          "no_interarm_contact": true,
+          "original_penetration_limit": false
+        },
+        "transfer_only_pass": false,
+        "independent_segments": [],
+        "initial_left_hold_s": 3.000000000000002,
+        "initial_left_relative_drift_m": 3.4171013880354954e-07,
+        "initial_left_relative_rotation_deg": 7.712195265937135e-05,
+        "drop_steps": [],
+        "interarm_steps": [],
+        "maximum_pad_penetration_m": 0.002597680315375328,
+        "reported_world_speed_max_m_s": 0.20410310650862643,
+        "source": "PRIVATE_PHYSICS_NOT_MODEL_INPUT"
+      },
+      "legacy_evaluator_unmodified_result": {
+        "criteria": {
+          "version": "rm65_v1_process_1",
+          "released_gap_m": 0.07,
+          "left_continuous_hold_s": 0.5,
+          "right_continuous_independent_hold_s": 2.0,
+          "script_independent_hold_observation_s": 5.0,
+          "hold_min_center_z_m": 0.07,
+          "hold_max_speed_m_s": 0.03,
+          "stable_place_s": 1.0,
+          "place_max_speed_m_s": 0.01,
+          "cube_size_m": 0.05,
+          "target_half_size_m": 0.07,
+          "target_xy": [
+            0.52,
+            0.16
+          ],
+          "max_pad_penetration_m": 0.002,
+          "contact_impulse_threshold": 1e-07,
+          "no_interarm_contact": true,
+          "drop_definition": "table contact after first lift and before intentional right_release, or object center below 0.06m while either arm is commanded to hold; final controlled release is scored separately",
+          "note": "Frozen before full V1 script success. Raw durations always reported; old V0 evaluation remains unchanged."
+        },
+        "longest_continuous_s": {
+          "left_hold": 3.636000000000003,
+          "right_independent_hold": 0,
+          "stable_place": 0
+        },
+        "checks": {
+          "left_hold": true,
+          "right_independent_hold": false,
+          "stable_place": false,
+          "no_unintended_drop": true,
+          "no_interarm_contact": true,
+          "no_pad_penetration_abort": false
+        },
+        "full_process_pass": false,
+        "unintended_drop_steps": [],
+        "maximum_pad_penetration_m": 0.002597680315375328,
+        "interarm_steps": [],
+        "pad_penetrations": [
+          {
+            "step": 3844,
+            "pair": [
+              "L__ctag_Right_Support_Link",
+              "target_cube"
+            ],
+            "min_separation": -0.002597680315375328
+          }
+        ],
+        "physics_steps": 3844,
+        "model_calls": 0
+      },
+      "legacy_note": "Original velocity thresholds and placement checks are unchanged. Its hardcoded model_calls=0 is not request accounting; use this batch ledger. Placement is outside this task."
+    }
+  },
+  "shadow_not_in_execute_initial_history": true,
+  "client_latency_note": "Includes bridge/CLI/network overhead; not pure model compute time.",
+  "reported_token_note": "Reported reasoning tokens are supplementary, not exact internal computation."
+}

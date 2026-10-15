@@ -1,0 +1,15 @@
+# Historical commands only. This batch is STOPPED. Do not dispatch or resume it.
+cd /home/tongji/alex/rm65-transfer-first-real-yanglab-20261015/experiments/rm65_handoff_v1
+source runtime.sh
+B=evidence/transfer_runs/first_real_1100_20261015_01
+# Created a brand new DRAFT after gate code fix; old DRAFTs remained unchanged.
+"$RM65_PYTHON" run_episode.py --task handoff_transfer_only --prepare-budget "$B"
+# Explicit user grant was bound to new batch/source hashes in AUTHORIZED_GRANT.json.
+"$RM65_PYTHON" transfer_preflight.py --budget-root "$B" --bridge-config "$B/bridge_config.json" --mac-proof "$B/mac_readiness_before_shadow.json" --output "$B/production_preflight_before_shadow.json"
+"$RM65_PYTHON" run_episode.py --task handoff_transfer_only --real --mode shadow --budget-root "$B" --output "$B/shadow_01" --max-decisions 1 --authorization "$B/AUTHORIZED_GRANT.json" --preflight "$B/production_preflight_before_shadow.json" --bridge-config "$B/bridge_config.json" > "$B/shadow_01_stdout.log" 2>&1
+# Fresh Mac readiness proof and production preflight after valid shadow.
+"$RM65_PYTHON" transfer_preflight.py --budget-root "$B" --bridge-config "$B/bridge_config.json" --mac-proof "$B/mac_readiness_before_execute.json" --output "$B/production_preflight_before_execute.json"
+"$RM65_PYTHON" run_episode.py --task handoff_transfer_only --real --mode execute --budget-root "$B" --output "$B/execute_01" --max-decisions 15 --authorization "$B/AUTHORIZED_GRANT.json" --preflight "$B/production_preflight_before_execute.json" --bridge-config "$B/bridge_config.json" > "$B/execute_01_stdout.log" 2>&1
+# Actual guard stop after four execute requests. No restart, no retry.
+# Independent audit, no generation:
+"$RM65_PYTHON" evidence/first_real_preflight_20261015/audit_real_run_PRIVATE.py "$B"
