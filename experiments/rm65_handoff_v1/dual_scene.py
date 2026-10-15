@@ -24,6 +24,7 @@ for path in ORIGINAL_CONFIG.iterdir():
  if path.is_file():shutil.copy2(path,CONFIG/path.name)
 cfg=json.loads((CONFIG/'assembly.json').read_text())
 for key in ('table_center','table_half_size','cube_initial_xyz'):cfg['scene'][key]=LAYOUT[key]
+cfg['temporary_assembly']['base_world_xyz_m']=LAYOUT['left_base'][:3]
 cfg['scene']['place_zone_xy']=LAYOUT['target_xy'];cfg['control']['initial_arm_q']=LAYOUT['initial_arm_q']
 (CONFIG/'assembly.json').write_text(json.dumps(cfg,indent=2))
 source_scene.CONFIG=CONFIG
@@ -96,6 +97,10 @@ class DualScene:
   write_json(source/'sha256.json',{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in source.iterdir() if p.is_file()})
   # Original constructor creates the single shared table, object, first articulation.
   with damped_mimic(CONTROLLER=='damped_mimic_v1'):base=RM65Scene(self.output/'left',settle=False)
+  # Layout initialization, before any physics steps. The original constructor
+  # hard-codes the left stand at x=y=0 and supports only root translation.
+  base.robot.set_root_pose(sapien.Pose(LAYOUT['left_base'][:3],LAYOUT['left_base'][3:]))
+  base.stand.set_pose(sapien.Pose([*LAYOUT['left_base'][:2],.015]))
   self.scene=base.scene;self.cube=base.cube;self.cube_body=base.cube_body;self.table=base.table;self.cfg=base.cfg
   left=Arm.__new__(Arm);left.__dict__.update(base.__dict__);left.prefix='L__';left.side='left';left.world=self;left.robot.name='left_rm65'
   for link in left.robot.get_links():
