@@ -1,0 +1,44 @@
+{
+  "baseline": "f2d27bc",
+  "purpose": "Only diagnose real execute_01 decision_003; no model request, no ledger transition.",
+  "host_change": "User explicitly requested migration from unavailable yanglab to ubuntu-robot.",
+  "historical_ledger_read_only": true,
+  "new_model_requests": 0,
+  "variants": {
+    "A": {
+      "proposal": "unchanged decision_003",
+      "trajectory": "unchanged group_004/left_trajectory.npz",
+      "scale": 1,
+      "planned_motion_steps": 1374,
+      "original_post_motion_settle_steps": 100
+    },
+    "B": {
+      "proposal_executed": false,
+      "unchanged_drive_hold_steps": 1474,
+      "duration_s": 5.896,
+      "window_note": "Full original planned A motion plus 100-step settle; also report the original 1.508s failure window."
+    },
+    "C": {
+      "same_joint_geometric_polyline": true,
+      "new_ik": false,
+      "motion_steps": 2748,
+      "velocity_scale": 0.5,
+      "original_post_motion_settle_steps": 100,
+      "duration_s": 11.392,
+      "retiming": "Half-index linear interpolation through frozen knots, every original knot preserved at even indices; one final endpoint repetition, no alternate path."
+    }
+  },
+  "optional_orientation_control": "Not included; only the three requested finite controls.",
+  "prestate_comparability": {
+    "physical_initialization": "original contact pickup and 3s hold; original proposals 1,2 through original rejection checks, proposal3 via exact saved trajectory and original executor",
+    "q_rad_max": 0.0001,
+    "drive_target_rad_max": 1e-06,
+    "object_and_relative_position_m": 1e-05,
+    "object_and_relative_rotation_deg": 0.01,
+    "gap_m": 1e-05,
+    "pad_penetration_difference_m": 1e-05,
+    "object_contact_pairs_and_bilateral": "must match",
+    "on_mismatch": "stop as non-comparable; no qpos reset, object pose edit, controller tuning or repeat until passing"
+  },
+  "safety": "unchanged original 2mm guard, original solver/controllers/collision precheck/scorer; full outcome is diagnostic only."
+}
