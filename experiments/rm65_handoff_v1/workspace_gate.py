@@ -18,7 +18,7 @@ def new_root(root):
 
 def hashes():
     result = original.hashes()
-    for n in ('workspace_task.py', 'workspace_criteria_v1.json', 'evaluate_workspace.py', 'workspace_gate.py', 'workspace_authorized_once.sh'):
+    for n in ('workspace_task.py', 'workspace_criteria_v1.json', 'evaluate_workspace.py', 'workspace_gate.py', 'workspace_authorized_once.sh', 'diagnose_decision4.py'):
         result[n] = original.sha(ROOT/n)
     return result
 

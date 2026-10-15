@@ -50,7 +50,10 @@ def main():
     adapter=HandoffBridgeAdapter(config,offline_test=not a.real,task_id=a.task)
     root=Path(__file__).resolve().parent
     os.environ['RM65_LAYOUT']=str(root/'scene_v4_ready_transfer_1100.json')
-    from dual_scene import DualScene
+    from dual_scene import DualScene,CONFIG
+    if workspace:
+        from diagnose_decision4 import relocate_runtime_mesh_paths
+        relocate_runtime_mesh_paths(CONFIG)
     if workspace:
         from workspace_task import prepare_initial as prepare_left
         from evaluate_workspace import assess
