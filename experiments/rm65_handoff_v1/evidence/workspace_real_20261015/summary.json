@@ -1,0 +1,247 @@
+{
+  "batch_id": "8ab36cee132046909da2285fde4b4bc3",
+  "baseline": "2023f98",
+  "status": "FINISHED",
+  "budget": {
+    "authorized": 8,
+    "reserved": 5,
+    "shadow": 1,
+    "execute": 4,
+    "unused": 3,
+    "resumption_allowed": false
+  },
+  "independent_score_equal": true,
+  "pass": true,
+  "checks": {
+    "right_dwell_0_5s": true,
+    "subsequent_left_dwell_0_5s": true,
+    "no_interarm_contact": true,
+    "no_unexpected_arm_table_contact": true,
+    "grippers_remain_open": true,
+    "final_goals_continuous_2s": true,
+    "no_physical_protection_stop": true
+  },
+  "totals": {
+    "shadow": {
+      "input_tokens": 14346,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "reported_output_tokens": 132,
+      "reported_reasoning_output_tokens": 61,
+      "inference_wall_s": 28.21939667799961,
+      "mac_cli_subprocess_wall_s": 22.875517291016877,
+      "whole_step_wall_s": 28.292905049002,
+      "dispatches": 1
+    },
+    "execute": {
+      "input_tokens": 64242,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "reported_output_tokens": 463,
+      "reported_reasoning_output_tokens": 143,
+      "inference_wall_s": 92.05247981199864,
+      "mac_cli_subprocess_wall_s": 73.1774972928688,
+      "whole_step_wall_s": 107.43808151999838,
+      "dispatches": 4
+    },
+    "all": {
+      "input_tokens": 78588,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "reported_output_tokens": 595,
+      "reported_reasoning_output_tokens": 204,
+      "inference_wall_s": 120.27187648999825,
+      "mac_cli_subprocess_wall_s": 96.05301458388567,
+      "whole_step_wall_s": 135.73098656900038,
+      "dispatches": 5
+    }
+  },
+  "dispatches": [
+    {
+      "dispatch": 1,
+      "stage": "shadow",
+      "artifact": "shadow_01/decision_000",
+      "request_id": "fa5f3756a6d74af1ab5e0fd18aa1f434",
+      "thread_id": "01a13eb9-5e34-7d31-9f73-f3646faf0195",
+      "mac_job_id": "bfc8a76df9824e909a294361621e86ac",
+      "input_tokens": 14346,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "reported_output_tokens": 132,
+      "reported_reasoning_output_tokens": 61,
+      "inference_wall_s": 28.21939667799961,
+      "mac_cli_subprocess_wall_s": 22.875517291016877,
+      "whole_step_wall_s": 28.292905049002,
+      "execution_physics_steps": 0,
+      "execution_sim_s": 0.0,
+      "done": false,
+      "execution": "sequential",
+      "action_count": 1,
+      "receipt_ok": true,
+      "executed": false,
+      "proposal_modified": false,
+      "context_sha256": "e383fe06fadad8c51c4e0fc8b7f016b33e0aae43f2c5ff4fe8aa57efe8e04b5c"
+    },
+    {
+      "dispatch": 2,
+      "stage": "execute",
+      "artifact": "execute_01/decision_000",
+      "request_id": "594f132df6ff41e891fb00a920c9bcc5",
+      "thread_id": "01a13eb9-e2b2-7650-99cb-5ac097042d99",
+      "mac_job_id": "5d7aebff03dc4c08991bf2b0e621d8a1",
+      "input_tokens": 14385,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "reported_output_tokens": 127,
+      "reported_reasoning_output_tokens": 56,
+      "inference_wall_s": 24.02128888399966,
+      "mac_cli_subprocess_wall_s": 18.588979749940336,
+      "whole_step_wall_s": 26.795579329998873,
+      "execution_physics_steps": 837,
+      "execution_sim_s": 3.348,
+      "done": false,
+      "execution": "sequential",
+      "action_count": 1,
+      "receipt_ok": true,
+      "executed": true,
+      "proposal_modified": false,
+      "context_sha256": "fadf58dffecf2b4156179cbbf135d89b45ca882e41b278514ab7c80747289b27"
+    },
+    {
+      "dispatch": 3,
+      "stage": "execute",
+      "artifact": "execute_01/decision_001",
+      "request_id": "ec874bb800434cb982007f1d576da89a",
+      "thread_id": "01a13eba-477c-79b0-9e3d-4ff4d9d70c20",
+      "mac_job_id": "63c66a74a1c14bad8efec799dcb13f02",
+      "input_tokens": 15508,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "reported_output_tokens": 131,
+      "reported_reasoning_output_tokens": 60,
+      "inference_wall_s": 24.64107072799743,
+      "mac_cli_subprocess_wall_s": 20.47917858371511,
+      "whole_step_wall_s": 29.466614291999576,
+      "execution_physics_steps": 1425,
+      "execution_sim_s": 5.7,
+      "done": false,
+      "execution": "sequential",
+      "action_count": 1,
+      "receipt_ok": true,
+      "executed": true,
+      "proposal_modified": false,
+      "context_sha256": "3faedb5c348a55ea4941567e30e93bc798d43a9fb962f7025f8961022b48ef1a"
+    },
+    {
+      "dispatch": 4,
+      "stage": "execute",
+      "artifact": "execute_01/decision_002",
+      "request_id": "9aa1fe59ccef407cb1f694c3079131fe",
+      "thread_id": "01a13eba-bd54-7aa2-8f99-d69d27d3a7b3",
+      "mac_job_id": "76ab8394bc314b58bd0b3dac7731b4a7",
+      "input_tokens": 16621,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "reported_output_tokens": 182,
+      "reported_reasoning_output_tokens": 27,
+      "inference_wall_s": 23.524234322001575,
+      "mac_cli_subprocess_wall_s": 18.84335674997419,
+      "whole_step_wall_s": 31.234710302000167,
+      "execution_physics_steps": 2262,
+      "execution_sim_s": 9.048,
+      "done": false,
+      "execution": "sequential",
+      "action_count": 2,
+      "receipt_ok": true,
+      "executed": true,
+      "proposal_modified": false,
+      "context_sha256": "6baa1b5ee1be24430f7b7840df3a54880ec9fcddce176cd0906a86496badcba8"
+    },
+    {
+      "dispatch": 5,
+      "stage": "execute",
+      "artifact": "execute_01/decision_003",
+      "request_id": "547fb53cce974564840c00451a5a2ce8",
+      "thread_id": "01a13ebb-37b6-7e83-b307-0865ceca8499",
+      "mac_job_id": "baecfcbbafa542f59d78779917395bff",
+      "input_tokens": 17728,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "reported_output_tokens": 23,
+      "reported_reasoning_output_tokens": 0,
+      "inference_wall_s": 19.865885877999972,
+      "mac_cli_subprocess_wall_s": 15.265982209239155,
+      "whole_step_wall_s": 19.94117759599976,
+      "execution_physics_steps": 0,
+      "execution_sim_s": 0.0,
+      "done": true,
+      "execution": "sequential",
+      "action_count": 0,
+      "receipt_ok": true,
+      "executed": false,
+      "proposal_modified": false,
+      "context_sha256": "d94993354d7829061999a77e300a4554d88e4a1705c4e5698e5340a1ce82f4f1"
+    }
+  ],
+  "cli_item_warnings": [
+    {
+      "dispatch": 1,
+      "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/tangchao/.codex/config.toml."
+    },
+    {
+      "dispatch": 1,
+      "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+    },
+    {
+      "dispatch": 2,
+      "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/tangchao/.codex/config.toml."
+    },
+    {
+      "dispatch": 2,
+      "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+    },
+    {
+      "dispatch": 3,
+      "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/tangchao/.codex/config.toml."
+    },
+    {
+      "dispatch": 3,
+      "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+    },
+    {
+      "dispatch": 4,
+      "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/tangchao/.codex/config.toml."
+    },
+    {
+      "dispatch": 4,
+      "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+    },
+    {
+      "dispatch": 5,
+      "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/tangchao/.codex/config.toml."
+    },
+    {
+      "dispatch": 5,
+      "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+    }
+  ],
+  "preflight_age_at_dispatch_s": [
+    25.943934,
+    60.201665,
+    87.179078,
+    116.837563,
+    148.234254
+  ],
+  "shadow_not_executed": true,
+  "fresh_reset_same_initialization": true,
+  "execute_initial_history_empty": true,
+  "unique_ephemeral_threads": 5,
+  "matching_input_image_hashes": 20,
+  "old_ctag_ledger_sha256": "2304f4eb011e40a870c91c4420d22ce75d94346cdda6ec3ae799a825f50db8c1",
+  "final_hold_sim_s": 2,
+  "episode_sim_s_including_initialization": 26.496000000000002,
+  "task_sim_s": 20.096,
+  "observation_time_note": "Client and Mac subprocess times include waiting and overhead; neither is pure model compute time. Physics paused during each inference.",
+  "token_note": "CLI-reported usage retained by field; tokens are not precise internal computation measurements.",
+  "scope": "One fixed scene, sequential coordination. No parallel coordination, real-time reaction or general success-rate conclusion."
+}

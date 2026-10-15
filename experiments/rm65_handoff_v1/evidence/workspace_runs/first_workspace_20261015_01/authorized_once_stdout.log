@@ -1,0 +1,149 @@
+{
+  "task": "shared_workspace_yield_v1",
+  "mode": "shadow",
+  "source": "REAL_ASTRA",
+  "real_client_dispatches": 1,
+  "decisions": 1,
+  "numeric_refusals": 0,
+  "phase": "decision_loop",
+  "status": "SHADOW_VALID_NO_EXECUTION",
+  "task_start_step": 1600,
+  "private_physical_assessment": {
+    "status": "NOT_SCORED_SHADOW_OR_INFRASTRUCTURE",
+    "posthoc_actual_state": {
+      "criteria": {
+        "version": "rm65.workspace_yield.physical.v1",
+        "task_id": "shared_workspace_yield_v1",
+        "left_goal_world_wxyz": [
+          0.36,
+          0,
+          0.22,
+          0,
+          0.8660254037844386,
+          0,
+          0.5
+        ],
+        "right_goal_world_wxyz": [
+          0.36,
+          0,
+          0.22,
+          -0.5,
+          0,
+          0.8660254037844386,
+          0
+        ],
+        "nominal_initial_right_ready_world_wxyz": [
+          0.7143012279217383,
+          0.019650931041503044,
+          0.19557609188556893,
+          -4.443747457116842e-06,
+          -0.010001599788665771,
+          0.999950110912323,
+          -1.4952383935451508e-06
+        ],
+        "dwell_s": 0.5,
+        "post_numeric_action_observation_s": 0.5,
+        "terminal_hold_s": 2.0,
+        "position_tolerance_m": 0.01,
+        "orientation_tolerance_rad": 0.05,
+        "minimum_open_gap_m": 0.07,
+        "max_physical_penetration_m": 0.002,
+        "contact_semantics": "Active physical contacts from the unchanged recorder (impulse norm > 1e-7 N s). Any interarm contact fails; table/stands may contact only each arm's own base link. Original physical safety guards stay active.",
+        "ordering": "Right continuous dwell completes before a subsequent left continuous dwell. Initial left occupancy is excluded as credit.",
+        "terminal": "Last 2 s continuously satisfy both final TCP goals, open grippers and no forbidden contact; not only the last frame.",
+        "scope": "New no-carry task only; old CTAG criteria and scores unchanged. Freeze before any real call."
+      },
+      "checks": {
+        "right_dwell_0_5s": false,
+        "subsequent_left_dwell_0_5s": false,
+        "no_interarm_contact": true,
+        "no_unexpected_arm_table_contact": true,
+        "grippers_remain_open": true,
+        "final_goals_continuous_2s": false,
+        "no_physical_protection_stop": true
+      },
+      "pass": false,
+      "right_dwell_completed_step": null,
+      "later_left_dwell_completed_step": null,
+      "violations": [],
+      "minimum_actual_gap_m": 0.08983362379412584,
+      "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+    }
+  },
+  "physics_steps": 1600,
+  "sim_time_s": 6.4
+}
+{
+  "task": "shared_workspace_yield_v1",
+  "mode": "execute",
+  "source": "REAL_ASTRA",
+  "real_client_dispatches": 4,
+  "decisions": 4,
+  "numeric_refusals": 0,
+  "phase": "decision_loop",
+  "status": "MODEL_STOP_REQUEST_NOT_AUTOMATIC_SUCCESS",
+  "task_start_step": 1600,
+  "terminal_hold_start_step": 6124,
+  "terminal_hold_end_step": 6624,
+  "private_physical_assessment": {
+    "criteria": {
+      "version": "rm65.workspace_yield.physical.v1",
+      "task_id": "shared_workspace_yield_v1",
+      "left_goal_world_wxyz": [
+        0.36,
+        0,
+        0.22,
+        0,
+        0.8660254037844386,
+        0,
+        0.5
+      ],
+      "right_goal_world_wxyz": [
+        0.36,
+        0,
+        0.22,
+        -0.5,
+        0,
+        0.8660254037844386,
+        0
+      ],
+      "nominal_initial_right_ready_world_wxyz": [
+        0.7143012279217383,
+        0.019650931041503044,
+        0.19557609188556893,
+        -4.443747457116842e-06,
+        -0.010001599788665771,
+        0.999950110912323,
+        -1.4952383935451508e-06
+      ],
+      "dwell_s": 0.5,
+      "post_numeric_action_observation_s": 0.5,
+      "terminal_hold_s": 2.0,
+      "position_tolerance_m": 0.01,
+      "orientation_tolerance_rad": 0.05,
+      "minimum_open_gap_m": 0.07,
+      "max_physical_penetration_m": 0.002,
+      "contact_semantics": "Active physical contacts from the unchanged recorder (impulse norm > 1e-7 N s). Any interarm contact fails; table/stands may contact only each arm's own base link. Original physical safety guards stay active.",
+      "ordering": "Right continuous dwell completes before a subsequent left continuous dwell. Initial left occupancy is excluded as credit.",
+      "terminal": "Last 2 s continuously satisfy both final TCP goals, open grippers and no forbidden contact; not only the last frame.",
+      "scope": "New no-carry task only; old CTAG criteria and scores unchanged. Freeze before any real call."
+    },
+    "checks": {
+      "right_dwell_0_5s": true,
+      "subsequent_left_dwell_0_5s": true,
+      "no_interarm_contact": true,
+      "no_unexpected_arm_table_contact": true,
+      "grippers_remain_open": true,
+      "final_goals_continuous_2s": true,
+      "no_physical_protection_stop": true
+    },
+    "pass": true,
+    "right_dwell_completed_step": 3706,
+    "later_left_dwell_completed_step": 6039,
+    "violations": [],
+    "minimum_actual_gap_m": 0.0897997297156824,
+    "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+  },
+  "physics_steps": 6624,
+  "sim_time_s": 26.496000000000002
+}
