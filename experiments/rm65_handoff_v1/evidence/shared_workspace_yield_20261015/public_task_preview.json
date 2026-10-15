@@ -1,0 +1,37 @@
+{
+  "task_id": "shared_workspace_yield_v1",
+  "version": 1,
+  "public_instruction": "无持物共享工位轮换。初态左臂占用共享工位。先让右臂 TCP 在给定的右臂共享目标位姿连续保持至少 0.5 秒，再让左臂 TCP 在给定的左臂共享目标位姿连续保持至少 0.5 秒；结束时右臂回到本回合初始 Ready TCP。双夹爪保持打开，不抓取物体。全程不得互臂接触或碰撞桌面。自主选择退让位置、数值动作、路径及顺序或并行；没有自动让行技能。",
+  "left_goal_world_wxyz": [
+    0.36,
+    0,
+    0.22,
+    0,
+    0.8660254037844386,
+    0,
+    0.5
+  ],
+  "right_goal_world_wxyz": [
+    0.36,
+    0,
+    0.22,
+    -0.5,
+    0,
+    0.8660254037844386,
+    0
+  ],
+  "dwell_s": 0.5,
+  "position_tolerance_m": 0.01,
+  "orientation_tolerance_rad": 0.05,
+  "final_right_ready_world_wxyz": [
+    0.7143012279217383,
+    0.019650931041503044,
+    0.19557609188556893,
+    -4.443747457116842e-06,
+    -0.010001599788665771,
+    0.999950110912323,
+    -1.4952383935451508e-06
+  ],
+  "instruction_note": "No private witness, parking trajectory or collision-negative-control details are model input. Left yielding location is not prescribed.",
+  "real_dispatch_status": "ZERO_BUDGET_PREVIEW; new task binding and separate new authorization required; old transfer gate must not be reused."
+}

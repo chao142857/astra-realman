@@ -1,0 +1,1177 @@
+{
+  "status": "INITIALIZING",
+  "source": "PRIVATE_ENGINEERING_NOT_ASTRA",
+  "new_model_requests": 0,
+  "code_commit": "ddc46fd49268941db471befc4048a71a80dfc34b",
+  "spec": {
+    "task_id": "shared_workspace_yield_v1",
+    "version": 1,
+    "layout": "scene_v4_ready_transfer_1100.json",
+    "shared_tcp_world_m": [
+      0.36,
+      0,
+      0.22
+    ],
+    "left_goal_world_wxyz": [
+      0.36,
+      0,
+      0.22,
+      0,
+      0.8660254037844386,
+      0,
+      0.5
+    ],
+    "right_goal_world_wxyz": [
+      0.36,
+      0,
+      0.22,
+      -0.5,
+      0,
+      0.8660254037844386,
+      0
+    ],
+    "dwell_s": 0.5,
+    "position_tolerance_m": 0.01,
+    "orientation_tolerance_rad": 0.05,
+    "initialization": "No object pickup. Original Ready reset, open grippers; left moves to its shared goal using original numeric executor. Right stays at its measured Ready TCP.",
+    "public_instruction": "\u65e0\u6301\u7269\u5171\u4eab\u5de5\u4f4d\u8f6e\u6362\u3002\u521d\u6001\u5de6\u81c2\u5360\u7528\u5171\u4eab\u5de5\u4f4d\u3002\u5148\u8ba9\u53f3\u81c2 TCP \u5728\u7ed9\u5b9a\u7684\u53f3\u81c2\u5171\u4eab\u76ee\u6807\u4f4d\u59ff\u8fde\u7eed\u4fdd\u6301\u81f3\u5c11 0.5 \u79d2\uff0c\u518d\u8ba9\u5de6\u81c2 TCP \u5728\u7ed9\u5b9a\u7684\u5de6\u81c2\u5171\u4eab\u76ee\u6807\u4f4d\u59ff\u8fde\u7eed\u4fdd\u6301\u81f3\u5c11 0.5 \u79d2\uff1b\u7ed3\u675f\u65f6\u53f3\u81c2\u56de\u5230\u672c\u56de\u5408\u521d\u59cb Ready TCP\u3002\u53cc\u5939\u722a\u4fdd\u6301\u6253\u5f00\uff0c\u4e0d\u6293\u53d6\u7269\u4f53\u3002\u5168\u7a0b\u4e0d\u5f97\u4e92\u81c2\u63a5\u89e6\u6216\u78b0\u649e\u684c\u9762\u3002\u81ea\u4e3b\u9009\u62e9\u9000\u8ba9\u4f4d\u7f6e\u3001\u6570\u503c\u52a8\u4f5c\u3001\u8def\u5f84\u53ca\u987a\u5e8f\u6216\u5e76\u884c\uff1b\u6ca1\u6709\u81ea\u52a8\u8ba9\u884c\u6280\u80fd\u3002",
+    "order_scoring": "Initial left occupancy is not credit. Right dwell must precede a later left dwell; both final left shared goal and right Ready are required.",
+    "coupling_check": "Attempt right shared goal while left occupies it: unchanged whole-path precheck must reject without execution. Then validate one sequential physical witness. Rejected proposal is a private engineering negative control, never model context.",
+    "new_model_requests": 0,
+    "not_measured": "CTAG grasping, object transfer, task optimality, Astra ability"
+  },
+  "mesh_path_relocation": {
+    "assembly.urdf": {
+      "before_sha256": "5ad34fe9e7085402d90ada9ba297221d52bd3a9e225e061e5337ea0b1e6ae939",
+      "after_sha256": "162ea012acb2a06f452444b3b24c5879531444807ab980159bc9f133143e7c17",
+      "only_mesh_filename_prefix_changed": true,
+      "meshes_verified": [
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "sha256": "cab60b1d90f964f4fdb89e55809e5aae844ab3b7f585babc6aa232b080e2b445"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "sha256": "cab60b1d90f964f4fdb89e55809e5aae844ab3b7f585babc6aa232b080e2b445"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "sha256": "14756351009a3a6be8916068d67ff8b1ac0ed046ace47ceebe28ed8a8f2d7995"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "sha256": "14756351009a3a6be8916068d67ff8b1ac0ed046ace47ceebe28ed8a8f2d7995"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "sha256": "fe6457ac59723c6e35e0c12c809c171d21b9165bf2f1782ddc8998c492706383"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "sha256": "fe6457ac59723c6e35e0c12c809c171d21b9165bf2f1782ddc8998c492706383"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "sha256": "caa28db987ecec82f4b5584f53c0a4c10460177912bef8bdc70dff6f7e8e9219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "sha256": "caa28db987ecec82f4b5584f53c0a4c10460177912bef8bdc70dff6f7e8e9219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "sha256": "7fc66e41318399ee534fbfc59fd49b830a36ece4a558de133f31a7644bac0580"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "sha256": "7fc66e41318399ee534fbfc59fd49b830a36ece4a558de133f31a7644bac0580"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "sha256": "482832743269f83b98599dfbb3b3fb59c876df6ba61b7954c9a1e2928996d219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "sha256": "482832743269f83b98599dfbb3b3fb59c876df6ba61b7954c9a1e2928996d219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "sha256": "e1334db72ddbf360c16309350b76b5190b255c55cda24fcb6c8fadfa7f84474b"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "sha256": "e1334db72ddbf360c16309350b76b5190b255c55cda24fcb6c8fadfa7f84474b"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/base_link.STL",
+          "sha256": "dc86b6a32e9471c70a3d61c32647e94ef1757a49af21b81167c1723a8c95f9eb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/base_link.STL",
+          "sha256": "dc86b6a32e9471c70a3d61c32647e94ef1757a49af21b81167c1723a8c95f9eb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_1_Link.STL",
+          "sha256": "3da3d82555c1f56b038481f5bc6c6d2b4379a27dc4717a63ba57a39b7a26b76e"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_1_Link.STL",
+          "sha256": "3da3d82555c1f56b038481f5bc6c6d2b4379a27dc4717a63ba57a39b7a26b76e"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_Support_Link.STL",
+          "sha256": "a4c3248cf9f2c925d18aa9bb2e3659ef0d6a703252b006a3d9f1bc8ec2e917fb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_Support_Link.STL",
+          "sha256": "a4c3248cf9f2c925d18aa9bb2e3659ef0d6a703252b006a3d9f1bc8ec2e917fb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_2_Link.STL",
+          "sha256": "753902189a92f1f8c3b0027002439b4fd78df3da08ca697a65b5cf134415c692"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_2_Link.STL",
+          "sha256": "753902189a92f1f8c3b0027002439b4fd78df3da08ca697a65b5cf134415c692"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_2_Link.STL",
+          "sha256": "20770c538e80122778df0a01a2e700f505622df612e1eee1d02bfe1bc93c55f8"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_2_Link.STL",
+          "sha256": "20770c538e80122778df0a01a2e700f505622df612e1eee1d02bfe1bc93c55f8"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_1_Link.STL",
+          "sha256": "32bdad2620e3c36b10c629874af985048c91300705b6f6c9000665406c9cfdae"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_1_Link.STL",
+          "sha256": "32bdad2620e3c36b10c629874af985048c91300705b6f6c9000665406c9cfdae"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_Support_Link.STL",
+          "sha256": "136475599e901768a0195df51634cb3f007d0d5a0c647855056aac31dc62a73b"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_Support_Link.STL",
+          "sha256": "136475599e901768a0195df51634cb3f007d0d5a0c647855056aac31dc62a73b"
+        }
+      ]
+    },
+    "planning.urdf": {
+      "before_sha256": "09b961fb80534b2ca76e059c53b72a68729e4c1f7eb9ef37ee5d0e4975d3cc68",
+      "after_sha256": "7246c8a93a3b15422c62905fd766b1d5d4888ef77c5301f5b5949234475a4524",
+      "only_mesh_filename_prefix_changed": true,
+      "meshes_verified": [
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "sha256": "cab60b1d90f964f4fdb89e55809e5aae844ab3b7f585babc6aa232b080e2b445"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "sha256": "cab60b1d90f964f4fdb89e55809e5aae844ab3b7f585babc6aa232b080e2b445"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "sha256": "14756351009a3a6be8916068d67ff8b1ac0ed046ace47ceebe28ed8a8f2d7995"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "sha256": "14756351009a3a6be8916068d67ff8b1ac0ed046ace47ceebe28ed8a8f2d7995"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "sha256": "fe6457ac59723c6e35e0c12c809c171d21b9165bf2f1782ddc8998c492706383"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "sha256": "fe6457ac59723c6e35e0c12c809c171d21b9165bf2f1782ddc8998c492706383"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "sha256": "caa28db987ecec82f4b5584f53c0a4c10460177912bef8bdc70dff6f7e8e9219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "sha256": "caa28db987ecec82f4b5584f53c0a4c10460177912bef8bdc70dff6f7e8e9219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "sha256": "7fc66e41318399ee534fbfc59fd49b830a36ece4a558de133f31a7644bac0580"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "sha256": "7fc66e41318399ee534fbfc59fd49b830a36ece4a558de133f31a7644bac0580"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "sha256": "482832743269f83b98599dfbb3b3fb59c876df6ba61b7954c9a1e2928996d219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "sha256": "482832743269f83b98599dfbb3b3fb59c876df6ba61b7954c9a1e2928996d219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "sha256": "e1334db72ddbf360c16309350b76b5190b255c55cda24fcb6c8fadfa7f84474b"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "sha256": "e1334db72ddbf360c16309350b76b5190b255c55cda24fcb6c8fadfa7f84474b"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/base_link.STL",
+          "sha256": "dc86b6a32e9471c70a3d61c32647e94ef1757a49af21b81167c1723a8c95f9eb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/base_link.STL",
+          "sha256": "dc86b6a32e9471c70a3d61c32647e94ef1757a49af21b81167c1723a8c95f9eb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_1_Link.STL",
+          "sha256": "3da3d82555c1f56b038481f5bc6c6d2b4379a27dc4717a63ba57a39b7a26b76e"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_1_Link.STL",
+          "sha256": "3da3d82555c1f56b038481f5bc6c6d2b4379a27dc4717a63ba57a39b7a26b76e"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_Support_Link.STL",
+          "sha256": "a4c3248cf9f2c925d18aa9bb2e3659ef0d6a703252b006a3d9f1bc8ec2e917fb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_Support_Link.STL",
+          "sha256": "a4c3248cf9f2c925d18aa9bb2e3659ef0d6a703252b006a3d9f1bc8ec2e917fb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_2_Link.STL",
+          "sha256": "753902189a92f1f8c3b0027002439b4fd78df3da08ca697a65b5cf134415c692"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_2_Link.STL",
+          "sha256": "753902189a92f1f8c3b0027002439b4fd78df3da08ca697a65b5cf134415c692"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_2_Link.STL",
+          "sha256": "20770c538e80122778df0a01a2e700f505622df612e1eee1d02bfe1bc93c55f8"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_2_Link.STL",
+          "sha256": "20770c538e80122778df0a01a2e700f505622df612e1eee1d02bfe1bc93c55f8"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_1_Link.STL",
+          "sha256": "32bdad2620e3c36b10c629874af985048c91300705b6f6c9000665406c9cfdae"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_1_Link.STL",
+          "sha256": "32bdad2620e3c36b10c629874af985048c91300705b6f6c9000665406c9cfdae"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_Support_Link.STL",
+          "sha256": "136475599e901768a0195df51634cb3f007d0d5a0c647855056aac31dc62a73b"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_Support_Link.STL",
+          "sha256": "136475599e901768a0195df51634cb3f007d0d5a0c647855056aac31dc62a73b"
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "label": "private_initial_left_occupies_shared",
+      "proposal": {
+        "done": false,
+        "execution": "sequential",
+        "actions": [
+          {
+            "arm": "left",
+            "kind": "tcp",
+            "pose_world_wxyz": [
+              0.36,
+              0,
+              0.22,
+              0,
+              0.8660254037844386,
+              0,
+              0.5
+            ],
+            "opening_fraction": null
+          }
+        ]
+      },
+      "receipt": {
+        "ok": true,
+        "executed": true,
+        "mode": "sequential",
+        "receipts": [
+          {
+            "ok": true,
+            "executed": true,
+            "start_step": 100,
+            "end_step": 1575,
+            "goal_residuals": {
+              "left": {
+                "position_error_m": 0.00017815543506283018,
+                "rotation_error_rad": 0.0003412464129988857
+              }
+            },
+            "actual_states": {
+              "left": {
+                "sim_step": 1575,
+                "stopped": false,
+                "joint_names": [
+                  "joint1",
+                  "joint2",
+                  "joint3",
+                  "joint4",
+                  "joint5",
+                  "joint6",
+                  "ctag_Left_1_Joint",
+                  "ctag_Left_2_Joint",
+                  "ctag_Right_2_Joint",
+                  "ctag_Right_1_Joint",
+                  "ctag_Left_Support_Joint",
+                  "ctag_Right_Support_Joint"
+                ],
+                "qpos": [
+                  0.00027823090204037726,
+                  -0.31455567479133606,
+                  -1.8704197406768799,
+                  0.00015566544607281685,
+                  0.0903276726603508,
+                  2.7466760002425872e-05,
+                  -0.00021065579494461417,
+                  -4.974380863131955e-05,
+                  0.00029214631649665534,
+                  0.00023985712323337793,
+                  0.0002275834558531642,
+                  0.0001994236808968708
+                ],
+                "flange_pose_world": [
+                  0.18551667034626007,
+                  0.0001038750633597374,
+                  0.3208896219730377,
+                  -0.00011166217154823244,
+                  0.8660867214202881,
+                  4.034320591017604e-05,
+                  0.4998939037322998
+                ],
+                "actual_pad_centers_world": [
+                  [
+                    0.3824371579663936,
+                    0.0003758337156620633,
+                    0.25900500908366786
+                  ],
+                  [
+                    0.3375040225535151,
+                    -0.00010826892054534583,
+                    0.18122282152302416
+                  ]
+                ],
+                "actual_grasp_center_world": [
+                  0.35997059025995437,
+                  0.00013378239755835873,
+                  0.220113915303346
+                ],
+                "actual_pad_gap_m": 0.0898292252839443,
+                "gripper_master_rad": -0.00021065579494461417
+              },
+              "right": {
+                "sim_step": 1575,
+                "stopped": false,
+                "joint_names": [
+                  "joint1",
+                  "joint2",
+                  "joint3",
+                  "joint4",
+                  "joint5",
+                  "joint6",
+                  "ctag_Left_1_Joint",
+                  "ctag_Left_2_Joint",
+                  "ctag_Right_2_Joint",
+                  "ctag_Right_1_Joint",
+                  "ctag_Left_Support_Joint",
+                  "ctag_Right_Support_Joint"
+                ],
+                "qpos": [
+                  -0.10000000149011612,
+                  0.050001148134469986,
+                  -1.5499999523162842,
+                  3.3684095512853673e-08,
+                  -1.6415926218032837,
+                  -0.11999999731779099,
+                  -2.482224736866101e-08,
+                  -2.2476942529436883e-09,
+                  1.9456493305369804e-08,
+                  -1.528552062701749e-09,
+                  2.2110860697921453e-08,
+                  1.215390188491483e-08
+                ],
+                "flange_pose_world": [
+                  0.7143033146858215,
+                  0.019634390249848366,
+                  0.3970366418361664,
+                  -4.52512176707387e-06,
+                  -0.010001569986343384,
+                  0.999950110912323,
+                  -1.5174155123531818e-06
+                ],
+                "actual_pad_centers_world": [
+                  [
+                    0.669392092574965,
+                    0.018508511454953046,
+                    0.1955764613905269
+                  ],
+                  [
+                    0.7592102859150186,
+                    0.020793371342323442,
+                    0.1955756311559459
+                  ]
+                ],
+                "actual_grasp_center_world": [
+                  0.7143011892449918,
+                  0.019650941398638246,
+                  0.19557604627323638
+                ],
+                "actual_pad_gap_m": 0.08984725059936698,
+                "gripper_master_rad": -2.482224736866101e-08
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "negative_control_right_enters_occupied_shared",
+      "proposal": {
+        "done": false,
+        "execution": "sequential",
+        "actions": [
+          {
+            "arm": "right",
+            "kind": "tcp",
+            "pose_world_wxyz": [
+              0.36,
+              0,
+              0.22,
+              -0.5,
+              0,
+              0.8660254037844386,
+              0
+            ],
+            "opening_fraction": null
+          }
+        ]
+      },
+      "receipt": {
+        "ok": false,
+        "executed": false,
+        "mode": "sequential",
+        "receipts": [
+          {
+            "ok": false,
+            "executed": false,
+            "reason": "IK_REJECTED_COLLISION:{'pure_clik_success': True, 'within_joint_limits': True, 'collision_pairs': [('right_rm65_25', 'R__ctag_Left_2_Link', 'left_rm65_6', 'L__ctag_Left_2_Link'), ('right_rm65_25', 'R__ctag_Left_2_Link', 'left_rm65_6', 'L__ctag_Left_Support_Link'), ('right_rm65_25', 'R__ctag_Left_Support_Link', 'left_rm65_6', 'L__ctag_Left_2_Link'), ('right_rm65_25', 'R__ctag_Left_Support_Link', 'left_rm65_6', 'L__ctag_Left_Support_Link')], 'goal_unchanged': True}"
+          }
+        ]
+      }
+    },
+    {
+      "label": "left_yields_to_ready",
+      "proposal": {
+        "done": false,
+        "execution": "sequential",
+        "actions": [
+          {
+            "arm": "left",
+            "kind": "tcp",
+            "pose_world_wxyz": [
+              -0.009191693272374193,
+              0.01447982376295278,
+              0.21545517067657338,
+              -2.2741733118891716e-06,
+              1.0,
+              1.4905555190125597e-06,
+              3.965629730373621e-06
+            ],
+            "opening_fraction": null
+          }
+        ]
+      },
+      "receipt": {
+        "ok": true,
+        "executed": true,
+        "mode": "sequential",
+        "receipts": [
+          {
+            "ok": true,
+            "executed": true,
+            "start_step": 1700,
+            "end_step": 3174,
+            "goal_residuals": {
+              "left": {
+                "position_error_m": 0.00012919877753437485,
+                "rotation_error_rad": 0.0006071202647048627
+              }
+            },
+            "actual_states": {
+              "left": {
+                "sim_step": 3174,
+                "stopped": false,
+                "joint_names": [
+                  "joint1",
+                  "joint2",
+                  "joint3",
+                  "joint4",
+                  "joint5",
+                  "joint6",
+                  "ctag_Left_1_Joint",
+                  "ctag_Left_2_Joint",
+                  "ctag_Right_2_Joint",
+                  "ctag_Right_1_Joint",
+                  "ctag_Left_Support_Joint",
+                  "ctag_Right_Support_Joint"
+                ],
+                "qpos": [
+                  0.0799846276640892,
+                  0.09969166666269302,
+                  -1.49994957447052,
+                  3.1289528124034405e-05,
+                  -1.7419301271438599,
+                  0.08010150492191315,
+                  -0.0001976413477677852,
+                  -4.3371292122174054e-05,
+                  0.0002757945912890136,
+                  0.0002090064954245463,
+                  0.000207267512450926,
+                  0.0001994333870243281
+                ],
+                "flange_pose_world": [
+                  -0.009191300719976425,
+                  0.014498047530651093,
+                  0.41687020659446716,
+                  6.127258529886603e-06,
+                  1.0,
+                  -5.419307854026556e-05,
+                  -0.00029432534938678145
+                ],
+                "actual_pad_centers_world": [
+                  [
+                    0.035606226707336326,
+                    0.014717453344992285,
+                    0.21537500544467694
+                  ],
+                  [
+                    -0.054224606879364284,
+                    0.014239331977510854,
+                    0.2154279157083435
+                  ]
+                ],
+                "actual_grasp_center_world": [
+                  -0.009309190086013979,
+                  0.01447839266125157,
+                  0.21540146057651022
+                ],
+                "actual_pad_gap_m": 0.0898321215513668,
+                "gripper_master_rad": -0.0001976413477677852
+              },
+              "right": {
+                "sim_step": 3174,
+                "stopped": false,
+                "joint_names": [
+                  "joint1",
+                  "joint2",
+                  "joint3",
+                  "joint4",
+                  "joint5",
+                  "joint6",
+                  "ctag_Left_1_Joint",
+                  "ctag_Left_2_Joint",
+                  "ctag_Right_2_Joint",
+                  "ctag_Right_1_Joint",
+                  "ctag_Left_Support_Joint",
+                  "ctag_Right_Support_Joint"
+                ],
+                "qpos": [
+                  -0.10000000149011612,
+                  0.050001151859760284,
+                  -1.5499999523162842,
+                  3.384713309628751e-08,
+                  -1.6415926218032837,
+                  -0.11999999731779099,
+                  -2.4933921594083586e-08,
+                  -2.2690578305173403e-09,
+                  1.939291571773083e-08,
+                  -1.5156972343888242e-09,
+                  2.2221978923653296e-08,
+                  1.2175183528029265e-08
+                ],
+                "flange_pose_world": [
+                  0.7143033146858215,
+                  0.019634390249848366,
+                  0.3970366418361664,
+                  -4.52512176707387e-06,
+                  -0.010001569986343384,
+                  0.999950110912323,
+                  -1.5174155123531818e-06
+                ],
+                "actual_pad_centers_world": [
+                  [
+                    0.669392092574965,
+                    0.018508511454953046,
+                    0.1955764613905269
+                  ],
+                  [
+                    0.7592102859150186,
+                    0.020793371342323442,
+                    0.1955756311559459
+                  ]
+                ],
+                "actual_grasp_center_world": [
+                  0.7143011892449918,
+                  0.019650941398638246,
+                  0.19557604627323638
+                ],
+                "actual_pad_gap_m": 0.08984725059936698,
+                "gripper_master_rad": -2.4933921594083586e-08
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "right_visits_shared",
+      "proposal": {
+        "done": false,
+        "execution": "sequential",
+        "actions": [
+          {
+            "arm": "right",
+            "kind": "tcp",
+            "pose_world_wxyz": [
+              0.36,
+              0,
+              0.22,
+              -0.5,
+              0,
+              0.8660254037844386,
+              0
+            ],
+            "opening_fraction": null
+          }
+        ]
+      },
+      "receipt": {
+        "ok": true,
+        "executed": true,
+        "mode": "sequential",
+        "receipts": [
+          {
+            "ok": true,
+            "executed": true,
+            "start_step": 3299,
+            "end_step": 4699,
+            "goal_residuals": {
+              "right": {
+                "position_error_m": 0.0002151830097867423,
+                "rotation_error_rad": 0.0004917419042165733
+              }
+            },
+            "actual_states": {
+              "left": {
+                "sim_step": 4699,
+                "stopped": false,
+                "joint_names": [
+                  "joint1",
+                  "joint2",
+                  "joint3",
+                  "joint4",
+                  "joint5",
+                  "joint6",
+                  "ctag_Left_1_Joint",
+                  "ctag_Left_2_Joint",
+                  "ctag_Right_2_Joint",
+                  "ctag_Right_1_Joint",
+                  "ctag_Left_Support_Joint",
+                  "ctag_Right_Support_Joint"
+                ],
+                "qpos": [
+                  0.07998936623334885,
+                  0.09988389909267426,
+                  -1.4999231100082397,
+                  3.0671268177684397e-05,
+                  -1.7419637441635132,
+                  0.08010026812553406,
+                  -0.00019845846691168845,
+                  -4.412388079799712e-05,
+                  0.00027659485931508243,
+                  0.00020997120009269565,
+                  0.00020813329319935292,
+                  0.00019946413522120565
+                ],
+                "flange_pose_world": [
+                  -0.009221394546329975,
+                  0.014496437273919582,
+                  0.41691064834594727,
+                  -9.438081178814173e-07,
+                  1.0000001192092896,
+                  -5.1079543482046574e-05,
+                  -0.00020206294720992446
+                ],
+                "actual_pad_centers_world": [
+                  [
+                    0.035613275491738566,
+                    0.014718951889363266,
+                    0.21542366443883226
+                  ],
+                  [
+                    -0.0542174286385809,
+                    0.014240293914968737,
+                    0.21546004243290545
+                  ]
+                ],
+                "actual_grasp_center_world": [
+                  -0.009302076573421168,
+                  0.014479622902166003,
+                  0.21544185343586886
+                ],
+                "actual_pad_gap_m": 0.08983198673837677,
+                "gripper_master_rad": -0.00019845846691168845
+              },
+              "right": {
+                "sim_step": 4699,
+                "stopped": false,
+                "joint_names": [
+                  "joint1",
+                  "joint2",
+                  "joint3",
+                  "joint4",
+                  "joint5",
+                  "joint6",
+                  "ctag_Left_1_Joint",
+                  "ctag_Left_2_Joint",
+                  "ctag_Right_2_Joint",
+                  "ctag_Right_1_Joint",
+                  "ctag_Left_Support_Joint",
+                  "ctag_Right_Support_Joint"
+                ],
+                "qpos": [
+                  -0.00029489718144759536,
+                  -0.3145611882209778,
+                  -1.8704276084899902,
+                  0.0001726650953060016,
+                  0.09034490585327148,
+                  1.917451481858734e-05,
+                  -0.00022320869902614504,
+                  -6.783784920116886e-05,
+                  0.0002977157710120082,
+                  0.00021366419969126582,
+                  0.00023355765733867884,
+                  0.00021124201884958893
+                ],
+                "flange_pose_world": [
+                  0.5344833135604858,
+                  0.00011165952309966087,
+                  0.3208872973918915,
+                  -0.4998955726623535,
+                  0.00021210312843322754,
+                  0.8660857677459717,
+                  3.026425838470459e-05
+                ],
+                "actual_pad_centers_world": [
+                  [
+                    0.3375625423550047,
+                    -4.662319041647785e-05,
+                    0.25900261105806754
+                  ],
+                  [
+                    0.3824971722635338,
+                    0.0004109327330396109,
+                    0.181218584855751
+                  ]
+                ],
+                "actual_grasp_center_world": [
+                  0.3600298573092693,
+                  0.00018215477131156653,
+                  0.2201105979569093
+                ],
+                "actual_pad_gap_m": 0.08983142576338324,
+                "gripper_master_rad": -0.00022320869902614504
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "right_yields_to_ready",
+      "proposal": {
+        "done": false,
+        "execution": "sequential",
+        "actions": [
+          {
+            "arm": "right",
+            "kind": "tcp",
+            "pose_world_wxyz": [
+              0.7143012279217383,
+              0.019650931041503044,
+              0.19557609188556893,
+              -4.443747457116842e-06,
+              -0.010001599788665771,
+              0.999950110912323,
+              -1.4952383935451508e-06
+            ],
+            "opening_fraction": null
+          }
+        ]
+      },
+      "receipt": {
+        "ok": true,
+        "executed": true,
+        "mode": "sequential",
+        "receipts": [
+          {
+            "ok": true,
+            "executed": true,
+            "start_step": 4824,
+            "end_step": 6223,
+            "goal_residuals": {
+              "right": {
+                "position_error_m": 0.0001255526235520033,
+                "rotation_error_rad": 0.0005712804378471173
+              }
+            },
+            "actual_states": {
+              "left": {
+                "sim_step": 6223,
+                "stopped": false,
+                "joint_names": [
+                  "joint1",
+                  "joint2",
+                  "joint3",
+                  "joint4",
+                  "joint5",
+                  "joint6",
+                  "ctag_Left_1_Joint",
+                  "ctag_Left_2_Joint",
+                  "ctag_Right_2_Joint",
+                  "ctag_Right_1_Joint",
+                  "ctag_Left_Support_Joint",
+                  "ctag_Right_Support_Joint"
+                ],
+                "qpos": [
+                  0.07998936623334885,
+                  0.09988389909267426,
+                  -1.4999231100082397,
+                  3.067150100832805e-05,
+                  -1.7419637441635132,
+                  0.08010026812553406,
+                  -0.00019847687508445233,
+                  -4.41423399024643e-05,
+                  0.00027661348576657474,
+                  0.00020998988475184888,
+                  0.00020815186144318432,
+                  0.00019948270346503705
+                ],
+                "flange_pose_world": [
+                  -0.009221394546329975,
+                  0.014496437273919582,
+                  0.41691064834594727,
+                  -9.438081178814173e-07,
+                  1.0000001192092896,
+                  -5.1079543482046574e-05,
+                  -0.00020206294720992446
+                ],
+                "actual_pad_centers_world": [
+                  [
+                    0.035613275491738566,
+                    0.014718951889363266,
+                    0.21542366443883226
+                  ],
+                  [
+                    -0.0542174286385809,
+                    0.014240293914968737,
+                    0.21546004243290545
+                  ]
+                ],
+                "actual_grasp_center_world": [
+                  -0.009302076573421168,
+                  0.014479622902166003,
+                  0.21544185343586886
+                ],
+                "actual_pad_gap_m": 0.08983198673837677,
+                "gripper_master_rad": -0.00019847687508445233
+              },
+              "right": {
+                "sim_step": 6223,
+                "stopped": false,
+                "joint_names": [
+                  "joint1",
+                  "joint2",
+                  "joint3",
+                  "joint4",
+                  "joint5",
+                  "joint6",
+                  "ctag_Left_1_Joint",
+                  "ctag_Left_2_Joint",
+                  "ctag_Right_2_Joint",
+                  "ctag_Right_1_Joint",
+                  "ctag_Left_Support_Joint",
+                  "ctag_Right_Support_Joint"
+                ],
+                "qpos": [
+                  -0.09996011853218079,
+                  0.04969889298081398,
+                  -1.5499345064163208,
+                  -5.7488006859784946e-05,
+                  -1.6419174671173096,
+                  -0.11987566947937012,
+                  -0.00021003608708269894,
+                  -5.5974582210183144e-05,
+                  0.00028736074455082417,
+                  0.00021935970289632678,
+                  0.00021963712060824037,
+                  0.00021124053455423564
+                ],
+                "flange_pose_world": [
+                  0.7143034338951111,
+                  0.0196347925812006,
+                  0.3969908654689789,
+                  0.00027771451277658343,
+                  -0.009957194328308105,
+                  0.9999504089355469,
+                  -3.7624267861247063e-06
+                ],
+                "actual_pad_centers_world": [
+                  [
+                    0.6695131428673728,
+                    0.018513267997570502,
+                    0.19549666108545335
+                  ],
+                  [
+                    0.7593155863277924,
+                    0.020789819909833078,
+                    0.19554665252083994
+                  ]
+                ],
+                "actual_grasp_center_world": [
+                  0.7144143645975827,
+                  0.01965154395370179,
+                  0.19552165680314665
+                ],
+                "actual_pad_gap_m": 0.08983130879161612,
+                "gripper_master_rad": -0.00021003608708269894
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "left_returns_shared",
+      "proposal": {
+        "done": false,
+        "execution": "sequential",
+        "actions": [
+          {
+            "arm": "left",
+            "kind": "tcp",
+            "pose_world_wxyz": [
+              0.36,
+              0,
+              0.22,
+              0,
+              0.8660254037844386,
+              0,
+              0.5
+            ],
+            "opening_fraction": null
+          }
+        ]
+      },
+      "receipt": {
+        "ok": true,
+        "executed": true,
+        "mode": "sequential",
+        "receipts": [
+          {
+            "ok": true,
+            "executed": true,
+            "start_step": 6348,
+            "end_step": 7824,
+            "goal_residuals": {
+              "left": {
+                "position_error_m": 0.00018105881066129571,
+                "rotation_error_rad": 0.00031875846432213905
+              }
+            },
+            "actual_states": {
+              "left": {
+                "sim_step": 7824,
+                "stopped": false,
+                "joint_names": [
+                  "joint1",
+                  "joint2",
+                  "joint3",
+                  "joint4",
+                  "joint5",
+                  "joint6",
+                  "ctag_Left_1_Joint",
+                  "ctag_Left_2_Joint",
+                  "ctag_Right_2_Joint",
+                  "ctag_Right_1_Joint",
+                  "ctag_Left_Support_Joint",
+                  "ctag_Right_Support_Joint"
+                ],
+                "qpos": [
+                  0.000279634929029271,
+                  -0.31452471017837524,
+                  -1.870482325553894,
+                  0.0002087977627525106,
+                  0.09038936346769333,
+                  -1.6774554751464166e-05,
+                  -0.00022277235984802246,
+                  -7.299843855435029e-05,
+                  0.0002774417516775429,
+                  0.00019500321650411934,
+                  0.0002283005160279572,
+                  0.00021707738051190972
+                ],
+                "flange_pose_world": [
+                  0.18550749123096466,
+                  0.0001036166213452816,
+                  0.3208904564380646,
+                  -0.00011191540397703648,
+                  0.8660793304443359,
+                  3.598618786782026e-05,
+                  0.49990686774253845
+                ],
+                "actual_pad_centers_world": [
+                  [
+                    0.382429493294098,
+                    0.00037441647047758335,
+                    0.2590107702463841
+                  ],
+                  [
+                    0.33749636634222163,
+                    -0.00010897124274622584,
+                    0.1812241152772659
+                  ]
+                ],
+                "actual_grasp_center_world": [
+                  0.3599629298181598,
+                  0.00013272261386567877,
+                  0.220117442761825
+                ],
+                "actual_pad_gap_m": 0.08983308551218404,
+                "gripper_master_rad": -0.00022277235984802246
+              },
+              "right": {
+                "sim_step": 7824,
+                "stopped": false,
+                "joint_names": [
+                  "joint1",
+                  "joint2",
+                  "joint3",
+                  "joint4",
+                  "joint5",
+                  "joint6",
+                  "ctag_Left_1_Joint",
+                  "ctag_Left_2_Joint",
+                  "ctag_Right_2_Joint",
+                  "ctag_Right_1_Joint",
+                  "ctag_Left_Support_Joint",
+                  "ctag_Right_Support_Joint"
+                ],
+                "qpos": [
+                  -0.09996889531612396,
+                  0.049892254173755646,
+                  -1.5499118566513062,
+                  -5.569583663600497e-05,
+                  -1.641947865486145,
+                  -0.1198783740401268,
+                  -0.00021082611056044698,
+                  -5.6772980315145105e-05,
+                  0.0002877855731640011,
+                  0.00021977120195515454,
+                  0.00022038657334633172,
+                  0.00021124373597558588
+                ],
+                "flange_pose_world": [
+                  0.7143294215202332,
+                  0.019633622840046883,
+                  0.3970337212085724,
+                  0.00018547929357737303,
+                  -0.009954363107681274,
+                  0.9999504685401917,
+                  5.391018930822611e-06
+                ],
+                "actual_pad_centers_world": [
+                  [
+                    0.6695019923548704,
+                    0.0185156646202437,
+                    0.1955477444872109
+                  ],
+                  [
+                    0.7593044313636487,
+                    0.020791725367056164,
+                    0.19558122268290581
+                  ]
+                ],
+                "actual_grasp_center_world": [
+                  0.7144032118592596,
+                  0.019653694993649932,
+                  0.19556448358505835
+                ],
+                "actual_pad_gap_m": 0.08983128422347143,
+                "gripper_master_rad": -0.00021082611056044698
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "ready_tcp_world_wxyz": {
+    "left": [
+      -0.009191693272374193,
+      0.01447982376295278,
+      0.21545517067657338,
+      -2.2741733118891716e-06,
+      1.0,
+      1.4905555190125597e-06,
+      3.965629730373621e-06
+    ],
+    "right": [
+      0.7143012279217383,
+      0.019650931041503044,
+      0.19557609188556893,
+      -4.443747457116842e-06,
+      -0.010001599788665771,
+      0.999950110912323,
+      -1.4952383935451508e-06
+    ]
+  },
+  "task_start_step": 1700,
+  "negative_control": {
+    "receipt": {
+      "ok": false,
+      "executed": false,
+      "mode": "sequential",
+      "receipts": [
+        {
+          "ok": false,
+          "executed": false,
+          "reason": "IK_REJECTED_COLLISION:{'pure_clik_success': True, 'within_joint_limits': True, 'collision_pairs': [('right_rm65_25', 'R__ctag_Left_2_Link', 'left_rm65_6', 'L__ctag_Left_2_Link'), ('right_rm65_25', 'R__ctag_Left_2_Link', 'left_rm65_6', 'L__ctag_Left_Support_Link'), ('right_rm65_25', 'R__ctag_Left_Support_Link', 'left_rm65_6', 'L__ctag_Left_2_Link'), ('right_rm65_25', 'R__ctag_Left_Support_Link', 'left_rm65_6', 'L__ctag_Left_Support_Link')], 'goal_unchanged': True}"
+        }
+      ]
+    },
+    "physics_steps": 0,
+    "must_be_collision_rejection": true
+  }
+}
