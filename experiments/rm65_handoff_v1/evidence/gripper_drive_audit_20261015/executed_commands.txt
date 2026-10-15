@@ -1,0 +1,19 @@
+# All commands below were zero-generation simulation/analysis only.
+# Current host: Ubuntu-Robot. Original worktree and all old ledgers retained.
+# Original drive audit ran at 5a114eb, before the return-value fix:
+cd /home/alex/astra_spatial_capability/rm65-gripper-drive-audit-20261015/experiments/rm65_handoff_v1
+source runtime.decision4.ubuntu-robot.sh
+"$RM65_PYTHON" gripper_drive_audit.py --output evidence/gripper_drive_audit_20261015/original_readback_01 > evidence/gripper_drive_audit_20261015/original_readback_stdout.log 2>&1
+# Then code advanced to b7afbcb: only 2 added / 1 removed production lines.
+# All four fixed cases ran independently; no retries or alternative candidate.
+"$RM65_PYTHON" gripper_fix_regression.py --case d4 --output evidence/gripper_drive_audit_20261015/fixed_d4_01 > evidence/gripper_drive_audit_20261015/fixed_d4_stdout.log 2>&1
+"$RM65_PYTHON" gripper_fix_regression.py --case hold --output evidence/gripper_drive_audit_20261015/fixed_hold_01 > evidence/gripper_drive_audit_20261015/fixed_hold_stdout.log 2>&1
+"$RM65_PYTHON" gripper_fix_regression.py --case release --output evidence/gripper_drive_audit_20261015/fixed_release_01 > evidence/gripper_drive_audit_20261015/fixed_release_stdout.log 2>&1
+"$RM65_PYTHON" gripper_fix_regression.py --case heldout --output evidence/gripper_drive_audit_20261015/fixed_heldout_01 > evidence/gripper_drive_audit_20261015/fixed_heldout_stdout.log 2>&1
+# Each output must be new; existing paths are rejected.
+# Old unchanged-source provenance intentionally rejects running the original
+# audit under corrected code: use isolated commit 5a114eb for original behavior.
+# FK-only first loader attempt failed due mplib absolute-mesh path resolution.
+# Failure log retained. Second attempt uses only an FK-specific relative-path
+# URDF copy; physical runtime/frozen assets were not modified.
+"$RM65_PYTHON" evidence/gripper_drive_audit_20261015/robot_only_fk_PRIVATE.py > evidence/gripper_drive_audit_20261015/robot_only_fk_stdout_02.log 2>&1

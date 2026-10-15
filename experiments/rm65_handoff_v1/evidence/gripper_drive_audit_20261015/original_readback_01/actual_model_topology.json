@@ -1,0 +1,324 @@
+{
+  "left": {
+    "joint_names": [
+      "joint1",
+      "joint2",
+      "joint3",
+      "joint4",
+      "joint5",
+      "joint6",
+      "ctag_Left_1_Joint",
+      "ctag_Left_2_Joint",
+      "ctag_Right_2_Joint",
+      "ctag_Right_1_Joint",
+      "ctag_Left_Support_Joint",
+      "ctag_Right_Support_Joint"
+    ],
+    "master": "ctag_Left_1_Joint",
+    "mimics": {
+      "ctag_Left_Support_Joint": [
+        "ctag_Left_1_Joint",
+        -1.0,
+        0.0
+      ],
+      "ctag_Left_2_Joint": [
+        "ctag_Left_1_Joint",
+        1.0,
+        0.0
+      ],
+      "ctag_Right_2_Joint": [
+        "ctag_Left_1_Joint",
+        -1.0,
+        0.0
+      ],
+      "ctag_Right_1_Joint": [
+        "ctag_Left_1_Joint",
+        -1.0,
+        0.0
+      ],
+      "ctag_Right_Support_Joint": [
+        "ctag_Right_1_Joint",
+        1.0,
+        0.0
+      ]
+    },
+    "accepted_tendon_calls": [
+      {
+        "chain": [
+          "ctag_base_link",
+          "ctag_Left_1_Link",
+          "ctag_Left_Support_Link"
+        ],
+        "coefficients": [
+          0,
+          1.0,
+          1
+        ],
+        "reciprocal_coefficients": [
+          0,
+          1.0,
+          1
+        ],
+        "args": [],
+        "kwargs": {
+          "rest_length": 0.0,
+          "stiffness": 100000.0
+        },
+        "postconstruction_native_tendon_readback": "API_UNAVAILABLE"
+      },
+      {
+        "chain": [
+          "ctag_base_link",
+          "ctag_Left_2_Link",
+          "ctag_Left_1_Link"
+        ],
+        "coefficients": [
+          0,
+          -1.0,
+          1
+        ],
+        "reciprocal_coefficients": [
+          0,
+          -1.0,
+          1
+        ],
+        "args": [],
+        "kwargs": {
+          "rest_length": 0.0,
+          "stiffness": 100000.0
+        },
+        "postconstruction_native_tendon_readback": "API_UNAVAILABLE"
+      },
+      {
+        "chain": [
+          "ctag_base_link",
+          "ctag_Right_2_Link",
+          "ctag_Left_1_Link"
+        ],
+        "coefficients": [
+          0,
+          1.0,
+          1
+        ],
+        "reciprocal_coefficients": [
+          0,
+          1.0,
+          1
+        ],
+        "args": [],
+        "kwargs": {
+          "rest_length": 0.0,
+          "stiffness": 100000.0
+        },
+        "postconstruction_native_tendon_readback": "API_UNAVAILABLE"
+      },
+      {
+        "chain": [
+          "ctag_base_link",
+          "ctag_Right_1_Link",
+          "ctag_Left_1_Link"
+        ],
+        "coefficients": [
+          0,
+          1.0,
+          1
+        ],
+        "reciprocal_coefficients": [
+          0,
+          1.0,
+          1
+        ],
+        "args": [],
+        "kwargs": {
+          "rest_length": 0.0,
+          "stiffness": 100000.0
+        },
+        "postconstruction_native_tendon_readback": "API_UNAVAILABLE"
+      },
+      {
+        "chain": [
+          "ctag_base_link",
+          "ctag_Right_1_Link",
+          "ctag_Right_Support_Link"
+        ],
+        "coefficients": [
+          0,
+          -1.0,
+          1
+        ],
+        "reciprocal_coefficients": [
+          0,
+          -1.0,
+          1
+        ],
+        "args": [],
+        "kwargs": {
+          "rest_length": 0.0,
+          "stiffness": 100000.0
+        },
+        "postconstruction_native_tendon_readback": "API_UNAVAILABLE"
+      }
+    ]
+  },
+  "right": {
+    "joint_names": [
+      "joint1",
+      "joint2",
+      "joint3",
+      "joint4",
+      "joint5",
+      "joint6",
+      "ctag_Left_1_Joint",
+      "ctag_Left_2_Joint",
+      "ctag_Right_2_Joint",
+      "ctag_Right_1_Joint",
+      "ctag_Left_Support_Joint",
+      "ctag_Right_Support_Joint"
+    ],
+    "master": "ctag_Left_1_Joint",
+    "mimics": {
+      "ctag_Left_Support_Joint": [
+        "ctag_Left_1_Joint",
+        -1.0,
+        0.0
+      ],
+      "ctag_Left_2_Joint": [
+        "ctag_Left_1_Joint",
+        1.0,
+        0.0
+      ],
+      "ctag_Right_2_Joint": [
+        "ctag_Left_1_Joint",
+        -1.0,
+        0.0
+      ],
+      "ctag_Right_1_Joint": [
+        "ctag_Left_1_Joint",
+        -1.0,
+        0.0
+      ],
+      "ctag_Right_Support_Joint": [
+        "ctag_Right_1_Joint",
+        1.0,
+        0.0
+      ]
+    },
+    "accepted_tendon_calls": [
+      {
+        "chain": [
+          "ctag_base_link",
+          "ctag_Left_1_Link",
+          "ctag_Left_Support_Link"
+        ],
+        "coefficients": [
+          0,
+          1.0,
+          1
+        ],
+        "reciprocal_coefficients": [
+          0,
+          1.0,
+          1
+        ],
+        "args": [],
+        "kwargs": {
+          "rest_length": 0.0,
+          "stiffness": 100000.0
+        },
+        "postconstruction_native_tendon_readback": "API_UNAVAILABLE"
+      },
+      {
+        "chain": [
+          "ctag_base_link",
+          "ctag_Left_2_Link",
+          "ctag_Left_1_Link"
+        ],
+        "coefficients": [
+          0,
+          -1.0,
+          1
+        ],
+        "reciprocal_coefficients": [
+          0,
+          -1.0,
+          1
+        ],
+        "args": [],
+        "kwargs": {
+          "rest_length": 0.0,
+          "stiffness": 100000.0
+        },
+        "postconstruction_native_tendon_readback": "API_UNAVAILABLE"
+      },
+      {
+        "chain": [
+          "ctag_base_link",
+          "ctag_Right_2_Link",
+          "ctag_Left_1_Link"
+        ],
+        "coefficients": [
+          0,
+          1.0,
+          1
+        ],
+        "reciprocal_coefficients": [
+          0,
+          1.0,
+          1
+        ],
+        "args": [],
+        "kwargs": {
+          "rest_length": 0.0,
+          "stiffness": 100000.0
+        },
+        "postconstruction_native_tendon_readback": "API_UNAVAILABLE"
+      },
+      {
+        "chain": [
+          "ctag_base_link",
+          "ctag_Right_1_Link",
+          "ctag_Left_1_Link"
+        ],
+        "coefficients": [
+          0,
+          1.0,
+          1
+        ],
+        "reciprocal_coefficients": [
+          0,
+          1.0,
+          1
+        ],
+        "args": [],
+        "kwargs": {
+          "rest_length": 0.0,
+          "stiffness": 100000.0
+        },
+        "postconstruction_native_tendon_readback": "API_UNAVAILABLE"
+      },
+      {
+        "chain": [
+          "ctag_base_link",
+          "ctag_Right_1_Link",
+          "ctag_Right_Support_Link"
+        ],
+        "coefficients": [
+          0,
+          -1.0,
+          1
+        ],
+        "reciprocal_coefficients": [
+          0,
+          -1.0,
+          1
+        ],
+        "args": [],
+        "kwargs": {
+          "rest_length": 0.0,
+          "stiffness": 100000.0
+        },
+        "postconstruction_native_tendon_readback": "API_UNAVAILABLE"
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/alex/astra_spatial_capability/rm65-gripper-drive-audit-20261015/experiments/rm65_handoff_v1/evidence/gripper_drive_audit_20261015/robot_only_fk_PRIVATE.py", line 18, in <module>
+    model=mplib.Planner(urdf=str(ROOT/'runtime_config/planning.urdf'),srdf=str(ROOT/'runtime_config/assembly.srdf'),move_group='Link6',user_joint_names=names)
+  File "/home/alex/astra/.venv/lib/python3.10/site-packages/mplib/planner.py", line 77, in __init__
+    self.robot = ArticulatedModel(
+ValueError: Could not load resource /home/alex/astra_spatial_capability/rm65-gripper-drive-audit-20261015/experiments/rm65_handoff_v1/runtime_config/home/alex/astra_spatial_capability/rm65-d4-runtime-20261015/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL
+Unable to open file "/home/alex/astra_spatial_capability/rm65-gripper-drive-audit-20261015/experiments/rm65_handoff_v1/runtime_config/home/alex/astra_spatial_capability/rm65-d4-runtime-20261015/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL".
+Hint: the mesh directory may be wrong.

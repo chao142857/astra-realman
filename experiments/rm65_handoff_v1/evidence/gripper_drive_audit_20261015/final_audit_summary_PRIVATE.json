@@ -1,0 +1,229 @@
+{
+  "new_model_requests": 0,
+  "native_drive_torque": "UNKNOWN",
+  "native_tendon_force": "UNKNOWN",
+  "model": {
+    "left": {
+      "verified_relation_count": 5,
+      "actual_call_count": 5,
+      "unique_relations": [
+        "ctag_Left_Support_Joint",
+        "ctag_Left_2_Joint",
+        "ctag_Right_2_Joint",
+        "ctag_Right_1_Joint",
+        "ctag_Right_Support_Joint"
+      ],
+      "rank": 5,
+      "gripper_coordinates": 6,
+      "missing_or_duplicate_relation": false,
+      "coefficient_sign_ratio_offset_match": true,
+      "runtime_tendon_force_readback": "UNAVAILABLE",
+      "construction_parameters": "accepted stiffness 1e5, default damping 0; native readback unavailable"
+    },
+    "right": {
+      "verified_relation_count": 5,
+      "actual_call_count": 5,
+      "unique_relations": [
+        "ctag_Left_Support_Joint",
+        "ctag_Left_2_Joint",
+        "ctag_Right_2_Joint",
+        "ctag_Right_1_Joint",
+        "ctag_Right_Support_Joint"
+      ],
+      "rank": 5,
+      "gripper_coordinates": 6,
+      "missing_or_duplicate_relation": false,
+      "coefficient_sign_ratio_offset_match": true,
+      "runtime_tendon_force_readback": "UNAVAILABLE",
+      "construction_parameters": "accepted stiffness 1e5, default damping 0; native readback unavailable"
+    }
+  },
+  "regressions": {
+    "fixed_d4_01": {
+      "status": "STOPPED",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "initial_pickup_latch_calls": 1,
+      "initial_pickup_latch_returned_result": true,
+      "initial_left_bilateral": true,
+      "archived_successful_D3_replayed": true,
+      "case_start_step": 3467,
+      "last_step": 3788,
+      "case_metrics": {
+        "observed_s": 1.284,
+        "max_relative_translation_mm": 1.3207630105036263,
+        "max_relative_rotation_deg": 0.5619238579531125,
+        "max_pad_penetration_mm": 2.0753343123942614,
+        "left_bilateral_every_step": true
+      },
+      "release_checks": null,
+      "old_pre_D4_state_comparison_not_a_gate": {
+        "comparable": false,
+        "metrics": {
+          "step_difference": 0,
+          "object_position_error_m": 9.573661514613397e-07,
+          "object_rotation_error_deg": 0.0013287159416460164,
+          "object_relative_position_error_m": 7.477878497563192e-07,
+          "object_relative_rotation_error_deg": 0.0013556016743463818,
+          "left": {
+            "max_joint_error_rad": 3.427267074584961e-06,
+            "gap_error_m": 1.8699703964453196e-07,
+            "max_drive_target_error_rad": 2.0891427993774414e-05
+          },
+          "right": {
+            "max_joint_error_rad": 0.0,
+            "gap_error_m": 0.0,
+            "max_drive_target_error_rad": 0.0
+          },
+          "object_contact_pairs_match": true,
+          "bilateral_contact_match": true,
+          "max_pad_penetration_difference_mm": 0.0003530803951434791
+        },
+        "note": "Predeclared state-match tolerances only, not changed physical success criteria. Full contacts/state saved separately."
+      },
+      "frozen_initial_hold_check": true,
+      "position_velocity_target_identical_to_frozen": true
+    },
+    "fixed_hold_01": {
+      "status": "COMPLETED",
+      "error": null,
+      "initial_pickup_latch_calls": 1,
+      "initial_pickup_latch_returned_result": true,
+      "initial_left_bilateral": true,
+      "archived_successful_D3_replayed": true,
+      "case_start_step": 3467,
+      "last_step": 4941,
+      "case_metrics": {
+        "observed_s": 5.896,
+        "max_relative_translation_mm": 0.0003289093478866324,
+        "max_relative_rotation_deg": 0.00010875481174534322,
+        "max_pad_penetration_mm": 0.10172087058890611,
+        "left_bilateral_every_step": true
+      },
+      "release_checks": null,
+      "old_pre_D4_state_comparison_not_a_gate": {
+        "comparable": false,
+        "metrics": {
+          "step_difference": 0,
+          "object_position_error_m": 9.573661514613397e-07,
+          "object_rotation_error_deg": 0.0013287159416460164,
+          "object_relative_position_error_m": 7.477878497563192e-07,
+          "object_relative_rotation_error_deg": 0.0013556016743463818,
+          "left": {
+            "max_joint_error_rad": 3.427267074584961e-06,
+            "gap_error_m": 1.8699703964453196e-07,
+            "max_drive_target_error_rad": 2.0891427993774414e-05
+          },
+          "right": {
+            "max_joint_error_rad": 0.0,
+            "gap_error_m": 0.0,
+            "max_drive_target_error_rad": 0.0
+          },
+          "object_contact_pairs_match": true,
+          "bilateral_contact_match": true,
+          "max_pad_penetration_difference_mm": 0.0003530803951434791
+        },
+        "note": "Predeclared state-match tolerances only, not changed physical success criteria. Full contacts/state saved separately."
+      },
+      "frozen_initial_hold_check": true
+    },
+    "fixed_release_01": {
+      "status": "COMPLETED",
+      "error": null,
+      "initial_pickup_latch_calls": 1,
+      "initial_pickup_latch_returned_result": true,
+      "initial_left_bilateral": true,
+      "archived_successful_D3_replayed": true,
+      "case_start_step": 3467,
+      "last_step": 4417,
+      "case_metrics": {
+        "observed_s": 3.8000000000000003,
+        "max_relative_translation_mm": 166.65243126477884,
+        "max_relative_rotation_deg": 15.241765213119807,
+        "max_pad_penetration_mm": 0.10170580208068714,
+        "left_bilateral_every_step": false
+      },
+      "release_checks": {
+        "gap_over_70mm": true,
+        "left_bilateral_absent": true,
+        "object_table_contact": true
+      },
+      "old_pre_D4_state_comparison_not_a_gate": {
+        "comparable": false,
+        "metrics": {
+          "step_difference": 0,
+          "object_position_error_m": 9.573661514613397e-07,
+          "object_rotation_error_deg": 0.0013287159416460164,
+          "object_relative_position_error_m": 7.477878497563192e-07,
+          "object_relative_rotation_error_deg": 0.0013556016743463818,
+          "left": {
+            "max_joint_error_rad": 3.427267074584961e-06,
+            "gap_error_m": 1.8699703964453196e-07,
+            "max_drive_target_error_rad": 2.0891427993774414e-05
+          },
+          "right": {
+            "max_joint_error_rad": 0.0,
+            "gap_error_m": 0.0,
+            "max_drive_target_error_rad": 0.0
+          },
+          "object_contact_pairs_match": true,
+          "bilateral_contact_match": true,
+          "max_pad_penetration_difference_mm": 0.0003530803951434791
+        },
+        "note": "Predeclared state-match tolerances only, not changed physical success criteria. Full contacts/state saved separately."
+      },
+      "frozen_initial_hold_check": true
+    },
+    "fixed_heldout_01": {
+      "status": "STOPPED",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "initial_pickup_latch_calls": 1,
+      "initial_pickup_latch_returned_result": true,
+      "initial_left_bilateral": true,
+      "archived_successful_D3_replayed": true,
+      "case_start_step": 3467,
+      "last_step": 3668,
+      "case_metrics": {
+        "observed_s": 0.804,
+        "max_relative_translation_mm": 1.4254294615907412,
+        "max_relative_rotation_deg": 0.5669741175214137,
+        "max_pad_penetration_mm": 2.223805757239461,
+        "left_bilateral_every_step": true
+      },
+      "release_checks": null,
+      "old_pre_D4_state_comparison_not_a_gate": {
+        "comparable": false,
+        "metrics": {
+          "step_difference": 0,
+          "object_position_error_m": 9.573661514613397e-07,
+          "object_rotation_error_deg": 0.0013287159416460164,
+          "object_relative_position_error_m": 7.477878497563192e-07,
+          "object_relative_rotation_error_deg": 0.0013556016743463818,
+          "left": {
+            "max_joint_error_rad": 3.427267074584961e-06,
+            "gap_error_m": 1.8699703964453196e-07,
+            "max_drive_target_error_rad": 2.0891427993774414e-05
+          },
+          "right": {
+            "max_joint_error_rad": 0.0,
+            "gap_error_m": 0.0,
+            "max_drive_target_error_rad": 0.0
+          },
+          "object_contact_pairs_match": true,
+          "bilateral_contact_match": true,
+          "max_pad_penetration_difference_mm": 0.0003530803951434791
+        },
+        "note": "Predeclared state-match tolerances only, not changed physical success criteria. Full contacts/state saved separately."
+      },
+      "frozen_initial_hold_check": true,
+      "position_velocity_target_identical_to_frozen": true
+    }
+  },
+  "original_latch_calls": 90,
+  "release_post_observation": {
+    "final_actual_gap_m": 0.08832625673316045,
+    "table_contact_fraction_last_2s": 1.0,
+    "left_bilateral_fraction_last_2s": 0.0,
+    "final_object_z_m": 0.025000734254717827
+  },
+  "historical_ledger_unchanged": true
+}
