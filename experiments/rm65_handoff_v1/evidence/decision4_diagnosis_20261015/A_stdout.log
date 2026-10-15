@@ -1,0 +1,26 @@
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+[2026-10-15 11:55:15.507] [SAPIEN] [error] File not found: /home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL
+{
+  "historical_ledger_sha256": "2304f4eb011e40a870c91c4420d22ce75d94346cdda6ec3ae799a825f50db8c1",
+  "historical_batch_id": "2860b79c46e649d2a4e597128186c76b",
+  "historical_status": "STOPPED",
+  "historical_client_dispatches": 5,
+  "new_model_requests": 0,
+  "saved_d4_npz_sha256": "f96a07e070e34a2624f19f65cfd6b42125e920fab5557307451c5dfd2e8997c8",
+  "host": "Ubuntu-Robot",
+  "source_commit_baseline": "f2d27bc",
+  "diagnostic_source_sha256": "523fb5c5f8e1322249196bf49728302593d033917864587ecffc855134c49402",
+  "variant": "A",
+  "status": "STOPPED_DIAGNOSTIC",
+  "initialization_receipts": [],
+  "original_motion_samples": 1374,
+  "stationary_observation_steps": 1474,
+  "active_motion_scale": 1,
+  "retiming": "C: 2N ticks, half-index interpolation of archived joint polyline; final endpoint repeated once; velocity /2. No IK or path replacement.",
+  "instrument": "Read-only qvel/drive-velocity sampling after each original physical tick. No extra physical steps.",
+  "error": "RuntimeError('filesystem error: cannot make canonical path: No such file or directory [/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL]')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/alex/astra_spatial_capability/rm65-d4-physics-diagnosis-20261015/experiments/rm65_handoff_v1/diagnose_decision4.py\", line 103, in main\n    w = DualScene(output); w.start_video()\n  File \"/home/alex/astra_spatial_capability/rm65-d4-physics-diagnosis-20261015/experiments/rm65_handoff_v1/dual_scene.py\", line 101, in __init__\n    with damped_mimic(CONTROLLER=='damped_mimic_v1'):base=RM65Scene(self.output/'left',settle=False)\n  File \"/home/alex/astra_spatial_capability/rm65-d4-runtime-20261015/assets/scripts/rm65_scene.py\", line 55, in __init__\n    self.robot=loader.load(str(CONFIG/'assembly.urdf'),str(CONFIG/'assembly.srdf'))\n  File \"/home/alex/astra/.venv/lib/python3.10/site-packages/sapien/wrapper/urdf_loader.py\", line 749, in load\n    articulations.append(b.build())\n  File \"/home/alex/astra/.venv/lib/python3.10/site-packages/sapien/wrapper/articulation_builder.py\", line 132, in build\n    links = self.build_entities(fix_root_link=fix_root_link)\n  File \"/home/alex/astra/.venv/lib/python3.10/site-packages/sapien/wrapper/articulation_builder.py\", line 101, in build_entities\n    entity.add_component(b.build_render_component())\n  File \"/home/alex/astra/.venv/lib/python3.10/site-packages/sapien/wrapper/actor_builder.py\", line 150, in build_render_component\n    shape = sapien.render.RenderShapeTriangleMesh(\nRuntimeError: filesystem error: cannot make canonical path: No such file or directory [/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL]\n"
+}

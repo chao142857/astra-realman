@@ -1,0 +1,150 @@
+{
+  "version": "rm65_lab_layout_v3_ready_transfer_only",
+  "provenance": "Approximate spatial arrangement from supplied laboratory photo. Numeric dimensions are engineering choices constrained by RM65 URDF/workspace, NOT photogrammetric calibration.",
+  "world": {
+    "units": "m",
+    "axes": "+X from left base to right base; +Y toward rear; +Z up",
+    "quaternion": "wxyz"
+  },
+  "left_base": [
+    -0.288,
+    0,
+    0.03,
+    1,
+    0,
+    0,
+    0
+  ],
+  "right_base": [
+    1.008,
+    0,
+    0.03,
+    0,
+    0,
+    0,
+    1
+  ],
+  "table_center": [
+    0.36,
+    0,
+    -0.04
+  ],
+  "table_half_size": [
+    0.838,
+    0.45,
+    0.04
+  ],
+  "cube_initial_xyz": [
+    0.05,
+    0,
+    0.026
+  ],
+  "target_xy": [
+    0.52,
+    0.16
+  ],
+  "cameras": {
+    "overhead": {
+      "position": [
+        0.36,
+        -0.33493649053890334,
+        1.35
+      ],
+      "look_at": [
+        0.36,
+        0,
+        0.1
+      ],
+      "fovy_degrees": 58,
+      "view_direction_note": "From front (-Y), optical axis 75 degrees below horizontal toward shared center."
+    },
+    "tabletop_front": {
+      "position": [
+        0.36,
+        -0.46,
+        0.09
+      ],
+      "look_at": [
+        0.36,
+        0,
+        0.22
+      ],
+      "fovy_degrees": 72
+    },
+    "left_wrist": {
+      "parent": "left/ctag_base_link",
+      "position_parent": [
+        0,
+        -0.09,
+        0.045
+      ],
+      "look_at_parent": [
+        0,
+        0,
+        0.205
+      ],
+      "fovy_degrees": 50
+    },
+    "right_wrist": {
+      "parent": "right/ctag_base_link",
+      "position_parent": [
+        0,
+        -0.09,
+        0.045
+      ],
+      "look_at_parent": [
+        0,
+        0,
+        0.205
+      ],
+      "fovy_degrees": 50
+    }
+  },
+  "preview": {
+    "position": [
+      1.5,
+      -2.0,
+      1.45
+    ],
+    "look_at": [
+      0.36,
+      0,
+      0.3
+    ],
+    "model_input": false
+  },
+  "dimension_basis": "Same fixed v2 base and camera layout. Per-arm bent ready poses; only cube pickup initialization moved into left reachable workspace. Task begins after physical left pickup.",
+  "change_from_v1": {
+    "base_separation_multiplier": 1.8,
+    "base_separation_m": 1.296,
+    "overhead_optical_axis_degrees_below_horizontal": 75,
+    "unchanged": [
+      "base spacing 1.296 m",
+      "all four camera settings from v2",
+      "table",
+      "target marker",
+      "controller",
+      "2 mm safety threshold"
+    ],
+    "reachability_status": "NOT_REVALIDATED"
+  },
+  "initial_arm_q_by_side": {
+    "left": [
+      0.08,
+      0.1,
+      -1.5,
+      0,
+      -1.7415926535897932,
+      0.08
+    ],
+    "right": [
+      -0.1,
+      0.05,
+      -1.55,
+      0,
+      -1.641592653589793,
+      -0.12
+    ]
+  },
+  "initialization_note": "Transfer-only private pickup at left-reachable table position; original central-object layout and failed fixed IK goals retained unchanged. No expert handoff motion. Ready joint angles are engineering choices checked against actual URDF/FK/limits/contact, not estimated from photo."
+}

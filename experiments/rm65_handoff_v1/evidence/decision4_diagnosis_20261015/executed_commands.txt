@@ -1,0 +1,12 @@
+# Zero-generation finite physical controls; already executed, not a new model run.
+# Source commit for physical controls: 2e3980454df64fca9d1326cc795bacdae715aad3
+cd /home/alex/astra_spatial_capability/rm65-d4-physics-diagnosis-20261015/experiments/rm65_handoff_v1
+source runtime.decision4.ubuntu-robot.sh
+# Initial asset-loading failure preserved as A_original / A_stdout.log; no motion.
+# After filename-only runtime relocation, exactly three physical controls:
+"$RM65_PYTHON" diagnose_decision4.py --variant A --output evidence/decision4_diagnosis_20261015/A_physical_01 > evidence/decision4_diagnosis_20261015/A_physical_stdout.log 2>&1
+"$RM65_PYTHON" diagnose_decision4.py --variant B --output evidence/decision4_diagnosis_20261015/B_stationary_01 > evidence/decision4_diagnosis_20261015/B_stdout.log 2>&1
+"$RM65_PYTHON" diagnose_decision4.py --variant C --output evidence/decision4_diagnosis_20261015/C_twice_duration_01 > evidence/decision4_diagnosis_20261015/C_stdout.log 2>&1
+# Each output must be new; programs refuse existing directories.
+# Offline trace only, no actions/model requests (use a new analysis output path):
+"$RM65_PYTHON" decision4_trace.py --episode evidence/decision4_diagnosis_20261015/A_physical_01 --output /tmp/rm65_d4_A_trace_NEW

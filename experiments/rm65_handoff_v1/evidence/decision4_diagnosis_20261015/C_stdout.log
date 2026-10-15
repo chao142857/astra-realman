@@ -1,0 +1,510 @@
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+{
+  "historical_ledger_sha256": "2304f4eb011e40a870c91c4420d22ce75d94346cdda6ec3ae799a825f50db8c1",
+  "historical_batch_id": "2860b79c46e649d2a4e597128186c76b",
+  "historical_status": "STOPPED",
+  "historical_client_dispatches": 5,
+  "new_model_requests": 0,
+  "saved_d4_npz_sha256": "f96a07e070e34a2624f19f65cfd6b42125e920fab5557307451c5dfd2e8997c8",
+  "host": "Ubuntu-Robot",
+  "source_commit_baseline": "f2d27bc",
+  "diagnostic_source_sha256": "241970a52fd02541a57f2d9678c02dc0dcbb33244dd596abebb1407debe4e2de",
+  "variant": "C",
+  "status": "STOPPED_DIAGNOSTIC",
+  "initialization_receipts": [
+    {
+      "ok": false,
+      "executed": false,
+      "reason": "IK_REJECTED_NO_VALID_SOLUTION:{'pure_clik_success': False, 'within_joint_limits': False, 'collision_pairs': [], 'goal_unchanged': True}"
+    },
+    {
+      "ok": false,
+      "executed": false,
+      "mode": "sequential",
+      "receipts": [
+        {
+          "ok": false,
+          "executed": false,
+          "reason": "IK_REJECTED_NO_VALID_SOLUTION:{'pure_clik_success': False, 'within_joint_limits': False, 'collision_pairs': [], 'goal_unchanged': True}"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "executed": true,
+      "mode": "sequential",
+      "receipts": [
+        {
+          "ok": true,
+          "executed": true,
+          "start_step": 3026,
+          "end_step": 3467,
+          "goal_residuals": {
+            "left": {
+              "position_error_m": 0.0007136565304867441,
+              "rotation_error_rad": 0.002428039831940918
+            }
+          },
+          "actual_states": {
+            "left": {
+              "sim_step": 3467,
+              "stopped": false,
+              "joint_names": [
+                "joint1",
+                "joint2",
+                "joint3",
+                "joint4",
+                "joint5",
+                "joint6",
+                "ctag_Left_1_Joint",
+                "ctag_Left_2_Joint",
+                "ctag_Right_2_Joint",
+                "ctag_Right_1_Joint",
+                "ctag_Left_Support_Joint",
+                "ctag_Right_Support_Joint"
+              ],
+              "qpos": [
+                3.356448723934591e-05,
+                -0.41261449456214905,
+                -0.993938684463501,
+                -2.711088654905325e-06,
+                -1.732666015625,
+                -0.0004397172015160322,
+                -0.4429880976676941,
+                -0.4431527256965637,
+                0.44293537735939026,
+                0.44304704666137695,
+                0.4432617425918579,
+                0.4433186948299408
+              ],
+              "flange_pose_world": [
+                0.12017307430505753,
+                1.1202733730897307e-05,
+                0.39535385370254517,
+                -4.6921195462346077e-07,
+                0.9999994039535522,
+                0.00023808320111129433,
+                0.0011904453858733177
+              ],
+              "actual_pad_centers_world": [
+                [
+                  0.1457105530953627,
+                  0.0002502040451737877,
+                  0.18025357654221133
+                ],
+                [
+                  0.09566327913385105,
+                  -0.0002617499390313843,
+                  0.18013330105126502
+                ]
+              ],
+              "actual_grasp_center_world": [
+                0.12068691611460688,
+                -5.772946928798311e-06,
+                0.18019343879673816
+              ],
+              "actual_pad_gap_m": 0.05005003690362545,
+              "gripper_master_rad": -0.4429880976676941
+            },
+            "right": {
+              "sim_step": 3467,
+              "stopped": false,
+              "joint_names": [
+                "joint1",
+                "joint2",
+                "joint3",
+                "joint4",
+                "joint5",
+                "joint6",
+                "ctag_Left_1_Joint",
+                "ctag_Left_2_Joint",
+                "ctag_Right_2_Joint",
+                "ctag_Right_1_Joint",
+                "ctag_Left_Support_Joint",
+                "ctag_Right_Support_Joint"
+              ],
+              "qpos": [
+                -0.10000000149011612,
+                0.050001151859760284,
+                -1.5499999523162842,
+                3.372903378817682e-08,
+                -1.6415926218032837,
+                -0.11999999731779099,
+                -2.492979511714566e-08,
+                -2.275305721610721e-09,
+                1.938903437803674e-08,
+                -1.503532409685704e-09,
+                2.22128448967851e-08,
+                1.2189345532931384e-08
+              ],
+              "flange_pose_world": [
+                0.7143033146858215,
+                0.019634390249848366,
+                0.3970366418361664,
+                -4.52512176707387e-06,
+                -0.010001569986343384,
+                0.999950110912323,
+                -1.5174155123531818e-06
+              ],
+              "actual_pad_centers_world": [
+                [
+                  0.669392092574965,
+                  0.018508511454953046,
+                  0.1955764613905269
+                ],
+                [
+                  0.7592102859150186,
+                  0.020793371342323442,
+                  0.1955756311559459
+                ]
+              ],
+              "actual_grasp_center_world": [
+                0.7143011892449918,
+                0.019650941398638246,
+                0.19557604627323638
+              ],
+              "actual_pad_gap_m": 0.08984725059936698,
+              "gripper_master_rad": -2.492979511714566e-08
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "mesh_path_relocation": {
+    "assembly.urdf": {
+      "before_sha256": "5ad34fe9e7085402d90ada9ba297221d52bd3a9e225e061e5337ea0b1e6ae939",
+      "after_sha256": "162ea012acb2a06f452444b3b24c5879531444807ab980159bc9f133143e7c17",
+      "only_mesh_filename_prefix_changed": true,
+      "meshes_verified": [
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "sha256": "cab60b1d90f964f4fdb89e55809e5aae844ab3b7f585babc6aa232b080e2b445"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "sha256": "cab60b1d90f964f4fdb89e55809e5aae844ab3b7f585babc6aa232b080e2b445"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "sha256": "14756351009a3a6be8916068d67ff8b1ac0ed046ace47ceebe28ed8a8f2d7995"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "sha256": "14756351009a3a6be8916068d67ff8b1ac0ed046ace47ceebe28ed8a8f2d7995"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "sha256": "fe6457ac59723c6e35e0c12c809c171d21b9165bf2f1782ddc8998c492706383"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "sha256": "fe6457ac59723c6e35e0c12c809c171d21b9165bf2f1782ddc8998c492706383"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "sha256": "caa28db987ecec82f4b5584f53c0a4c10460177912bef8bdc70dff6f7e8e9219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "sha256": "caa28db987ecec82f4b5584f53c0a4c10460177912bef8bdc70dff6f7e8e9219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "sha256": "7fc66e41318399ee534fbfc59fd49b830a36ece4a558de133f31a7644bac0580"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "sha256": "7fc66e41318399ee534fbfc59fd49b830a36ece4a558de133f31a7644bac0580"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "sha256": "482832743269f83b98599dfbb3b3fb59c876df6ba61b7954c9a1e2928996d219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "sha256": "482832743269f83b98599dfbb3b3fb59c876df6ba61b7954c9a1e2928996d219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "sha256": "e1334db72ddbf360c16309350b76b5190b255c55cda24fcb6c8fadfa7f84474b"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "sha256": "e1334db72ddbf360c16309350b76b5190b255c55cda24fcb6c8fadfa7f84474b"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/base_link.STL",
+          "sha256": "dc86b6a32e9471c70a3d61c32647e94ef1757a49af21b81167c1723a8c95f9eb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/base_link.STL",
+          "sha256": "dc86b6a32e9471c70a3d61c32647e94ef1757a49af21b81167c1723a8c95f9eb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_1_Link.STL",
+          "sha256": "3da3d82555c1f56b038481f5bc6c6d2b4379a27dc4717a63ba57a39b7a26b76e"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_1_Link.STL",
+          "sha256": "3da3d82555c1f56b038481f5bc6c6d2b4379a27dc4717a63ba57a39b7a26b76e"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_Support_Link.STL",
+          "sha256": "a4c3248cf9f2c925d18aa9bb2e3659ef0d6a703252b006a3d9f1bc8ec2e917fb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_Support_Link.STL",
+          "sha256": "a4c3248cf9f2c925d18aa9bb2e3659ef0d6a703252b006a3d9f1bc8ec2e917fb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_2_Link.STL",
+          "sha256": "753902189a92f1f8c3b0027002439b4fd78df3da08ca697a65b5cf134415c692"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_2_Link.STL",
+          "sha256": "753902189a92f1f8c3b0027002439b4fd78df3da08ca697a65b5cf134415c692"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_2_Link.STL",
+          "sha256": "20770c538e80122778df0a01a2e700f505622df612e1eee1d02bfe1bc93c55f8"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_2_Link.STL",
+          "sha256": "20770c538e80122778df0a01a2e700f505622df612e1eee1d02bfe1bc93c55f8"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_1_Link.STL",
+          "sha256": "32bdad2620e3c36b10c629874af985048c91300705b6f6c9000665406c9cfdae"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_1_Link.STL",
+          "sha256": "32bdad2620e3c36b10c629874af985048c91300705b6f6c9000665406c9cfdae"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_Support_Link.STL",
+          "sha256": "136475599e901768a0195df51634cb3f007d0d5a0c647855056aac31dc62a73b"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_Support_Link.STL",
+          "sha256": "136475599e901768a0195df51634cb3f007d0d5a0c647855056aac31dc62a73b"
+        }
+      ]
+    },
+    "planning.urdf": {
+      "before_sha256": "09b961fb80534b2ca76e059c53b72a68729e4c1f7eb9ef37ee5d0e4975d3cc68",
+      "after_sha256": "7246c8a93a3b15422c62905fd766b1d5d4888ef77c5301f5b5949234475a4524",
+      "only_mesh_filename_prefix_changed": true,
+      "meshes_verified": [
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "sha256": "cab60b1d90f964f4fdb89e55809e5aae844ab3b7f585babc6aa232b080e2b445"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "sha256": "cab60b1d90f964f4fdb89e55809e5aae844ab3b7f585babc6aa232b080e2b445"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "sha256": "14756351009a3a6be8916068d67ff8b1ac0ed046ace47ceebe28ed8a8f2d7995"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "sha256": "14756351009a3a6be8916068d67ff8b1ac0ed046ace47ceebe28ed8a8f2d7995"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "sha256": "fe6457ac59723c6e35e0c12c809c171d21b9165bf2f1782ddc8998c492706383"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "sha256": "fe6457ac59723c6e35e0c12c809c171d21b9165bf2f1782ddc8998c492706383"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "sha256": "caa28db987ecec82f4b5584f53c0a4c10460177912bef8bdc70dff6f7e8e9219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "sha256": "caa28db987ecec82f4b5584f53c0a4c10460177912bef8bdc70dff6f7e8e9219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "sha256": "7fc66e41318399ee534fbfc59fd49b830a36ece4a558de133f31a7644bac0580"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "sha256": "7fc66e41318399ee534fbfc59fd49b830a36ece4a558de133f31a7644bac0580"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "sha256": "482832743269f83b98599dfbb3b3fb59c876df6ba61b7954c9a1e2928996d219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "sha256": "482832743269f83b98599dfbb3b3fb59c876df6ba61b7954c9a1e2928996d219"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "sha256": "e1334db72ddbf360c16309350b76b5190b255c55cda24fcb6c8fadfa7f84474b"
+        },
+        {
+          "relative": "vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "sha256": "e1334db72ddbf360c16309350b76b5190b255c55cda24fcb6c8fadfa7f84474b"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/base_link.STL",
+          "sha256": "dc86b6a32e9471c70a3d61c32647e94ef1757a49af21b81167c1723a8c95f9eb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/base_link.STL",
+          "sha256": "dc86b6a32e9471c70a3d61c32647e94ef1757a49af21b81167c1723a8c95f9eb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_1_Link.STL",
+          "sha256": "3da3d82555c1f56b038481f5bc6c6d2b4379a27dc4717a63ba57a39b7a26b76e"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_1_Link.STL",
+          "sha256": "3da3d82555c1f56b038481f5bc6c6d2b4379a27dc4717a63ba57a39b7a26b76e"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_Support_Link.STL",
+          "sha256": "a4c3248cf9f2c925d18aa9bb2e3659ef0d6a703252b006a3d9f1bc8ec2e917fb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_Support_Link.STL",
+          "sha256": "a4c3248cf9f2c925d18aa9bb2e3659ef0d6a703252b006a3d9f1bc8ec2e917fb"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_2_Link.STL",
+          "sha256": "753902189a92f1f8c3b0027002439b4fd78df3da08ca697a65b5cf134415c692"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_2_Link.STL",
+          "sha256": "753902189a92f1f8c3b0027002439b4fd78df3da08ca697a65b5cf134415c692"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_2_Link.STL",
+          "sha256": "20770c538e80122778df0a01a2e700f505622df612e1eee1d02bfe1bc93c55f8"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_2_Link.STL",
+          "sha256": "20770c538e80122778df0a01a2e700f505622df612e1eee1d02bfe1bc93c55f8"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_1_Link.STL",
+          "sha256": "32bdad2620e3c36b10c629874af985048c91300705b6f6c9000665406c9cfdae"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_1_Link.STL",
+          "sha256": "32bdad2620e3c36b10c629874af985048c91300705b6f6c9000665406c9cfdae"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_Support_Link.STL",
+          "sha256": "136475599e901768a0195df51634cb3f007d0d5a0c647855056aac31dc62a73b"
+        },
+        {
+          "relative": "vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_Support_Link.STL",
+          "sha256": "136475599e901768a0195df51634cb3f007d0d5a0c647855056aac31dc62a73b"
+        }
+      ]
+    }
+  },
+  "original_motion_samples": 1374,
+  "stationary_observation_steps": 1474,
+  "active_motion_scale": 2,
+  "retiming": "C: 2N ticks, half-index interpolation of archived joint polyline; final endpoint repeated once; velocity /2. No IK or path replacement.",
+  "instrument": "Read-only qvel/drive-velocity sampling after each original physical tick. No extra physical steps.",
+  "after_left_initialization_match": {
+    "comparable": true,
+    "metrics": {
+      "step_difference": 0,
+      "object_position_error_m": 0.0,
+      "object_rotation_error_deg": 0.0,
+      "object_relative_position_error_m": 0.0,
+      "object_relative_rotation_error_deg": 0.0,
+      "left": {
+        "max_joint_error_rad": 0.0,
+        "gap_error_m": 0.0,
+        "max_drive_target_error_rad": 0.0
+      },
+      "right": {
+        "max_joint_error_rad": 0.0,
+        "gap_error_m": 0.0,
+        "max_drive_target_error_rad": 0.0
+      },
+      "object_contact_pairs_match": true,
+      "bilateral_contact_match": true,
+      "max_pad_penetration_difference_mm": 0.0
+    },
+    "note": "Predeclared state-match tolerances only, not changed physical success criteria. Full contacts/state saved separately."
+  },
+  "pre_d4_state_match": {
+    "comparable": true,
+    "metrics": {
+      "step_difference": 0,
+      "object_position_error_m": 0.0,
+      "object_rotation_error_deg": 0.0,
+      "object_relative_position_error_m": 0.0,
+      "object_relative_rotation_error_deg": 0.0,
+      "left": {
+        "max_joint_error_rad": 0.0,
+        "gap_error_m": 0.0,
+        "max_drive_target_error_rad": 0.0
+      },
+      "right": {
+        "max_joint_error_rad": 0.0,
+        "gap_error_m": 0.0,
+        "max_drive_target_error_rad": 0.0
+      },
+      "object_contact_pairs_match": true,
+      "bilateral_contact_match": true,
+      "max_pad_penetration_difference_mm": 0.0
+    },
+    "note": "Predeclared state-match tolerances only, not changed physical success criteria. Full contacts/state saved separately."
+  },
+  "start_step": 3467,
+  "error": "RuntimeError('PAD_PENETRATION')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/alex/astra_spatial_capability/rm65-d4-physics-diagnosis-20261015/experiments/rm65_handoff_v1/diagnose_decision4.py\", line 167, in main\n    report['receipt'] = replay_saved(w, actions[3], 4, 2 if a.variant == 'C' else 1)\n  File \"/home/alex/astra_spatial_capability/rm65-d4-physics-diagnosis-20261015/experiments/rm65_handoff_v1/diagnose_decision4.py\", line 55, in replay_saved\n    return execute_action(world, action)\n  File \"/home/alex/astra_spatial_capability/rm65-d4-physics-diagnosis-20261015/experiments/rm65_handoff_v1/action_interface.py\", line 102, in execute_action\n    receipt=world.execute_group(commands([a]));receipts.append(receipt)\n  File \"/home/alex/astra_spatial_capability/rm65-d4-physics-diagnosis-20261015/experiments/rm65_handoff_v1/dual_scene.py\", line 244, in execute_group\n    self.tick(1)\n  File \"/home/alex/astra_spatial_capability/rm65-d4-physics-diagnosis-20261015/experiments/rm65_handoff_v1/diagnose_decision4.py\", line 135, in measured_tick\n    original_tick(1)\n  File \"/home/alex/astra_spatial_capability/rm65-d4-physics-diagnosis-20261015/experiments/rm65_handoff_v1/dual_scene.py\", line 176, in tick\n    if other=='target_cube' and own[0] in a.pad_vertices:raise RuntimeError('PAD_PENETRATION')\nRuntimeError: PAD_PENETRATION\n",
+  "last_step": 4095,
+  "private_assessment_unchanged_scorer": {
+    "criteria": {
+      "version": "rm65.transfer_only.physical.v1",
+      "independent_hold_s": 2.0,
+      "initial_left_hold_s": 2.0,
+      "relative_translation_drift_max_m": 0.002,
+      "relative_rotation_drift_max_deg": 5.0,
+      "exit_object_displacement_m": 0.08,
+      "exit_left_distance_increase_m": 0.04,
+      "released_left_gap_m": 0.07,
+      "minimum_object_center_z_m": 0.07,
+      "max_pad_penetration_m": 0.002,
+      "terminal_passive_hold_s": 2.0,
+      "original_velocity_criterion": "Reported separately under unchanged process_criteria_v1.json; not silently altered. New transfer retention uses measured object/TCP relative pose and bilateral physical support.",
+      "rationale": "2 s continuous physical support, no left/table support, 2 mm relative drift (4% of 50 mm cube width), <=5 deg relative rotation. Exit requires object displacement AND increasing separation from left TCP; no reference handoff coordinate/path. Original 2 mm physical penetration guard unchanged.",
+      "frozen_before_real_astra_calls": true
+    },
+    "checks": {
+      "initial_left_physical_hold": true,
+      "right_independent_hold": false,
+      "right_held_exit": false,
+      "no_drop": true,
+      "no_interarm_contact": true,
+      "original_penetration_limit": false
+    },
+    "transfer_only_pass": false,
+    "independent_segments": [],
+    "initial_left_hold_s": 3.000000000000002,
+    "initial_left_relative_drift_m": 3.4171013880354954e-07,
+    "initial_left_relative_rotation_deg": 7.712195265937135e-05,
+    "drop_steps": [],
+    "interarm_steps": [],
+    "maximum_pad_penetration_m": 0.0024639908224344254,
+    "reported_world_speed_max_m_s": 0.1757437419631383,
+    "source": "PRIVATE_PHYSICS_NOT_MODEL_INPUT"
+  }
+}
