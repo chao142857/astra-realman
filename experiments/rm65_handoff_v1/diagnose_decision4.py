@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 import socket
 import traceback
+import xml.etree.ElementTree as ET
 import numpy as np
 from decision4_trace import read_rows, compare_start, analyze
 
@@ -74,6 +75,29 @@ def provenance():
             'diagnostic_source_sha256': sha(__file__)}
 
 
+def relocate_runtime_mesh_paths(config):
+    """Relocate only absolute filenames in generated copies; frozen assets unchanged."""
+    old = '/home/tongji/alex/rm65-handoff-runtime-20261014/assets'
+    assets = Path(os.environ['RM65_ASSETS']).resolve()
+    manifest = json.loads((assets/'asset_manifest.json').read_text())['files']
+    result = {}
+    for name in ('assembly.urdf', 'planning.urdf'):
+        path = config/name; before = path.read_bytes()
+        assert hashlib.sha256(before).hexdigest() == manifest['configs/rm65_ctag_reference/'+name]['sha256']
+        after = before.replace(old.encode(), str(assets).encode())
+        files = []
+        for mesh in ET.fromstring(after).iter('mesh'):
+            f = Path(mesh.attrib['filename']); relative = str(f.relative_to(assets))
+            assert f.is_file() and sha(f) == manifest[relative]['sha256']
+            files.append({'relative': relative, 'sha256': sha(f)})
+        if after != before:
+            path.write_bytes(after)
+        result[name] = {'before_sha256': hashlib.sha256(before).hexdigest(),
+                        'after_sha256': hashlib.sha256(after).hexdigest(),
+                        'only_mesh_filename_prefix_changed': True, 'meshes_verified': files}
+    return result
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--variant', choices=['A', 'B', 'C'], required=True)
@@ -85,7 +109,8 @@ def main():
     os.environ['RM65_LAYOUT'] = str(ROOT/'scene_v4_ready_transfer_1100.json')
     assert os.environ.get('RM65_CONTROLLER', 'original') == 'original'
     assert os.environ.get('RM65_SOLVER', 'original') == 'original'
-    from dual_scene import DualScene
+    from dual_scene import DualScene, CONFIG
+    relocation = relocate_runtime_mesh_paths(CONFIG)
     from initial_transfer import prepare_left
     from action_interface import execute_action
     from evaluate_transfer import assess
@@ -93,7 +118,7 @@ def main():
     actions = [json.loads((EPISODE/f'decision_{i:03d}/proposal.json').read_text()) for i in range(4)]
     n = len(np.load(EPISODE/'group_004/left_trajectory.npz')['position'])
     # B covers full original planned motion + original 100-step settle, even if A aborts early.
-    report = dict(prov, variant=a.variant, status='INITIALIZING', initialization_receipts=[],
+    report = dict(prov, variant=a.variant, status='INITIALIZING', initialization_receipts=[], mesh_path_relocation=relocation,
                   original_motion_samples=n, stationary_observation_steps=n+100,
                   active_motion_scale=2 if a.variant == 'C' else 1,
                   retiming='C: 2N ticks, half-index interpolation of archived joint polyline; final endpoint repeated once; velocity /2. No IK or path replacement.',
