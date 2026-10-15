@@ -1,0 +1,18 @@
+{
+  "version": "rm65.workspace_yield.physical.v1",
+  "task_id": "shared_workspace_yield_v1",
+  "left_goal_world_wxyz": [0.36, 0, 0.22, 0, 0.8660254037844386, 0, 0.5],
+  "right_goal_world_wxyz": [0.36, 0, 0.22, -0.5, 0, 0.8660254037844386, 0],
+  "nominal_initial_right_ready_world_wxyz": [0.7143012279217383, 0.019650931041503044, 0.19557609188556893, -0.000004443747457116842, -0.010001599788665771, 0.999950110912323, -0.0000014952383935451508],
+  "dwell_s": 0.5,
+  "post_numeric_action_observation_s": 0.5,
+  "terminal_hold_s": 2.0,
+  "position_tolerance_m": 0.01,
+  "orientation_tolerance_rad": 0.05,
+  "minimum_open_gap_m": 0.07,
+  "max_physical_penetration_m": 0.002,
+  "contact_semantics": "Active physical contacts from the unchanged recorder (impulse norm > 1e-7 N s). Any interarm contact fails; table/stands may contact only each arm's own base link. Original physical safety guards stay active.",
+  "ordering": "Right continuous dwell completes before a subsequent left continuous dwell. Initial left occupancy is excluded as credit.",
+  "terminal": "Last 2 s continuously satisfy both final TCP goals, open grippers and no forbidden contact; not only the last frame.",
+  "scope": "New no-carry task only; old CTAG criteria and scores unchanged. Freeze before any real call."
+}

@@ -1,0 +1,297 @@
+{
+  "campaign_id": "713d185400ee40bd84c44a2c133a51d2",
+  "source": "MOCK_NOT_ASTRA",
+  "status": "STOPPED",
+  "reserved_budget": 6,
+  "elapsed_wall_s": 21.57353149499977,
+  "groups": {
+    "A_fixed": {
+      "counts": {
+        "SUCCESS": 1,
+        "TASK_FAILURE": 0,
+        "BUDGET_TRUNCATED": 0,
+        "INFRASTRUCTURE_FAILURE": 0,
+        "NOT_STARTED": 2
+      },
+      "planned_episodes": 3,
+      "started_episodes": 1,
+      "success_per_started": 1.0,
+      "success_per_uncensored_evaluable": 1.0,
+      "mean_decisions_per_started": 6.0,
+      "mean_client_dispatches_per_started": 6.0,
+      "mean_inference_wall_s": 0.05630964499869151,
+      "mean_sim_time_s": 31.804000000000002,
+      "mean_episode_wall_s": 25.682857159001287
+    },
+    "B_shift_y40": {
+      "counts": {
+        "SUCCESS": 0,
+        "TASK_FAILURE": 0,
+        "BUDGET_TRUNCATED": 0,
+        "INFRASTRUCTURE_FAILURE": 0,
+        "NOT_STARTED": 3
+      },
+      "planned_episodes": 3,
+      "started_episodes": 0,
+      "success_per_started": null,
+      "success_per_uncensored_evaluable": null,
+      "mean_decisions_per_started": null,
+      "mean_client_dispatches_per_started": null,
+      "mean_inference_wall_s": null,
+      "mean_sim_time_s": null,
+      "mean_episode_wall_s": null
+    },
+    "C_roles_swapped": {
+      "counts": {
+        "SUCCESS": 0,
+        "TASK_FAILURE": 0,
+        "BUDGET_TRUNCATED": 0,
+        "INFRASTRUCTURE_FAILURE": 0,
+        "NOT_STARTED": 3
+      },
+      "planned_episodes": 3,
+      "started_episodes": 0,
+      "success_per_started": null,
+      "success_per_uncensored_evaluable": null,
+      "mean_decisions_per_started": null,
+      "mean_client_dispatches_per_started": null,
+      "mean_inference_wall_s": null,
+      "mean_sim_time_s": null,
+      "mean_episode_wall_s": null
+    },
+    "ALL": {
+      "counts": {
+        "SUCCESS": 1,
+        "TASK_FAILURE": 0,
+        "BUDGET_TRUNCATED": 0,
+        "INFRASTRUCTURE_FAILURE": 0,
+        "NOT_STARTED": 8
+      },
+      "planned_episodes": 9,
+      "started_episodes": 1,
+      "success_per_started": 1.0,
+      "success_per_uncensored_evaluable": 1.0,
+      "mean_decisions_per_started": 6.0,
+      "mean_client_dispatches_per_started": 6.0,
+      "mean_inference_wall_s": 0.05630964499869151,
+      "mean_sim_time_s": 31.804000000000002,
+      "mean_episode_wall_s": 25.682857159001287
+    }
+  },
+  "episodes": [
+    {
+      "episode_id": "ep01",
+      "condition_id": "A_fixed",
+      "repeat": 1,
+      "status": "SUCCESS",
+      "decisions": 6,
+      "client_dispatches": 6,
+      "executed_action_groups": 4,
+      "numeric_refusals": 1,
+      "episode_wall_s": 25.682857159001287,
+      "sim_time_s": 31.804000000000002,
+      "inference_wall_s": 0.05630964499869151,
+      "usage": {},
+      "score": {
+        "version": "rm65.coordination.batch01.physical.v1",
+        "condition_id": "A_fixed",
+        "visit_order": [
+          "right",
+          "left"
+        ],
+        "pass": true,
+        "checks": {
+          "first_dwell_0_5s": true,
+          "subsequent_second_dwell_0_5s": true,
+          "no_interarm_contact": true,
+          "no_unexpected_arm_table_contact": true,
+          "grippers_remain_open": true,
+          "final_goals_continuous_2s": true,
+          "no_physical_protection_stop": true
+        },
+        "first_dwell_completed_step": 4369,
+        "second_dwell_completed_step": 7281,
+        "minimum_actual_gap_m": 0.089799721951534,
+        "violations": [],
+        "tolerances": {
+          "position_tolerance_m": 0.01,
+          "orientation_tolerance_rad": 0.05,
+          "max_physical_penetration_m": 0.002
+        },
+        "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+      },
+      "rejections": [
+        {
+          "decision": 1,
+          "category": "LIMIT_REJECTION",
+          "receipt": {
+            "ok": false,
+            "executed": false,
+            "mode": "sequential",
+            "receipts": [
+              {
+                "ok": false,
+                "executed": false,
+                "reason": "TCP_WORKSPACE"
+              }
+            ]
+          }
+        }
+      ],
+      "safety_stop": false,
+      "corrections_after_refusal": [
+        {
+          "decision": 2,
+          "changed_proposal": true,
+          "accepted": true,
+          "note": "Observed change/acceptance, not an inferred internal reasoning process."
+        }
+      ]
+    },
+    {
+      "episode_id": "ep02",
+      "condition_id": "B_shift_y40",
+      "repeat": 1,
+      "status": "NOT_STARTED",
+      "decisions": 0,
+      "client_dispatches": 0,
+      "executed_action_groups": 0,
+      "numeric_refusals": 0,
+      "episode_wall_s": null,
+      "sim_time_s": null,
+      "inference_wall_s": 0.0,
+      "usage": {},
+      "score": null,
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep03",
+      "condition_id": "C_roles_swapped",
+      "repeat": 1,
+      "status": "NOT_STARTED",
+      "decisions": 0,
+      "client_dispatches": 0,
+      "executed_action_groups": 0,
+      "numeric_refusals": 0,
+      "episode_wall_s": null,
+      "sim_time_s": null,
+      "inference_wall_s": 0.0,
+      "usage": {},
+      "score": null,
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep04",
+      "condition_id": "B_shift_y40",
+      "repeat": 2,
+      "status": "NOT_STARTED",
+      "decisions": 0,
+      "client_dispatches": 0,
+      "executed_action_groups": 0,
+      "numeric_refusals": 0,
+      "episode_wall_s": null,
+      "sim_time_s": null,
+      "inference_wall_s": 0.0,
+      "usage": {},
+      "score": null,
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep05",
+      "condition_id": "C_roles_swapped",
+      "repeat": 2,
+      "status": "NOT_STARTED",
+      "decisions": 0,
+      "client_dispatches": 0,
+      "executed_action_groups": 0,
+      "numeric_refusals": 0,
+      "episode_wall_s": null,
+      "sim_time_s": null,
+      "inference_wall_s": 0.0,
+      "usage": {},
+      "score": null,
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep06",
+      "condition_id": "A_fixed",
+      "repeat": 2,
+      "status": "NOT_STARTED",
+      "decisions": 0,
+      "client_dispatches": 0,
+      "executed_action_groups": 0,
+      "numeric_refusals": 0,
+      "episode_wall_s": null,
+      "sim_time_s": null,
+      "inference_wall_s": 0.0,
+      "usage": {},
+      "score": null,
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep07",
+      "condition_id": "C_roles_swapped",
+      "repeat": 3,
+      "status": "NOT_STARTED",
+      "decisions": 0,
+      "client_dispatches": 0,
+      "executed_action_groups": 0,
+      "numeric_refusals": 0,
+      "episode_wall_s": null,
+      "sim_time_s": null,
+      "inference_wall_s": 0.0,
+      "usage": {},
+      "score": null,
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep08",
+      "condition_id": "A_fixed",
+      "repeat": 3,
+      "status": "NOT_STARTED",
+      "decisions": 0,
+      "client_dispatches": 0,
+      "executed_action_groups": 0,
+      "numeric_refusals": 0,
+      "episode_wall_s": null,
+      "sim_time_s": null,
+      "inference_wall_s": 0.0,
+      "usage": {},
+      "score": null,
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    },
+    {
+      "episode_id": "ep09",
+      "condition_id": "B_shift_y40",
+      "repeat": 3,
+      "status": "NOT_STARTED",
+      "decisions": 0,
+      "client_dispatches": 0,
+      "executed_action_groups": 0,
+      "numeric_refusals": 0,
+      "episode_wall_s": null,
+      "sim_time_s": null,
+      "inference_wall_s": 0.0,
+      "usage": {},
+      "score": null,
+      "rejections": [],
+      "safety_stop": false,
+      "corrections_after_refusal": []
+    }
+  ],
+  "interpretation": "Descriptive fixed-scene results only. Budget/time truncation and infrastructure failures are separate; no replacement episodes."
+}

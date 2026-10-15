@@ -1,0 +1,20 @@
+{
+  "version": "rm65.coordination.batch01.order.v1",
+  "shadow_dispatches": 0,
+  "episodes_per_condition": 3,
+  "max_decisions_per_episode": 7,
+  "global_max_dispatches": 50,
+  "global_wall_limit_s": 3600,
+  "order": [
+    {"episode_id": "ep01", "condition_id": "A_fixed", "repeat": 1},
+    {"episode_id": "ep02", "condition_id": "B_shift_y40", "repeat": 1},
+    {"episode_id": "ep03", "condition_id": "C_roles_swapped", "repeat": 1},
+    {"episode_id": "ep04", "condition_id": "B_shift_y40", "repeat": 2},
+    {"episode_id": "ep05", "condition_id": "C_roles_swapped", "repeat": 2},
+    {"episode_id": "ep06", "condition_id": "A_fixed", "repeat": 2},
+    {"episode_id": "ep07", "condition_id": "C_roles_swapped", "repeat": 3},
+    {"episode_id": "ep08", "condition_id": "A_fixed", "repeat": 3},
+    {"episode_id": "ep09", "condition_id": "B_shift_y40", "repeat": 3}
+  ],
+  "censoring": "Nine planned episodes can require 63 requests. The global cap remains 50; stop at the first global request/time limit without replacement or added episodes. No real shadow is planned because the unchanged transport has already passed a real shadow."
+}

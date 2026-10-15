@@ -1,0 +1,612 @@
+{
+  "source": "two RM65 in one SAPIEN Scene",
+  "scene_identity": 137546163601792,
+  "articulations": 2,
+  "world_frame": "SAPIEN world metres/wxyz",
+  "left_base": [
+    -0.19,
+    0,
+    0.03,
+    1,
+    0,
+    0,
+    0
+  ],
+  "right_base": [
+    0.91,
+    0,
+    0.03,
+    0,
+    0,
+    0,
+    1
+  ],
+  "layout": {
+    "version": "rm65_lab_layout_v4_ready_transfer_1100",
+    "provenance": "Approximate spatial arrangement from supplied laboratory photo. Numeric dimensions are engineering choices constrained by RM65 URDF/workspace, NOT photogrammetric calibration.",
+    "world": {
+      "units": "m",
+      "axes": "+X from left base to right base; +Y toward rear; +Z up",
+      "quaternion": "wxyz"
+    },
+    "left_base": [
+      -0.19,
+      0,
+      0.03,
+      1,
+      0,
+      0,
+      0
+    ],
+    "right_base": [
+      0.91,
+      0,
+      0.03,
+      0,
+      0,
+      0,
+      1
+    ],
+    "table_center": [
+      0.36,
+      0,
+      -0.04
+    ],
+    "table_half_size": [
+      0.838,
+      0.45,
+      0.04
+    ],
+    "cube_initial_xyz": [
+      0.05,
+      0,
+      0.026
+    ],
+    "target_xy": [
+      0.52,
+      0.16
+    ],
+    "cameras": {
+      "overhead": {
+        "position": [
+          0.36,
+          -0.33493649053890334,
+          1.35
+        ],
+        "look_at": [
+          0.36,
+          0,
+          0.1
+        ],
+        "fovy_degrees": 58,
+        "view_direction_note": "From front (-Y), optical axis 75 degrees below horizontal toward shared center."
+      },
+      "tabletop_front": {
+        "position": [
+          0.36,
+          -0.46,
+          0.09
+        ],
+        "look_at": [
+          0.36,
+          0,
+          0.22
+        ],
+        "fovy_degrees": 72
+      },
+      "left_wrist": {
+        "parent": "left/ctag_base_link",
+        "position_parent": [
+          0,
+          -0.09,
+          0.045
+        ],
+        "look_at_parent": [
+          0,
+          0,
+          0.205
+        ],
+        "fovy_degrees": 50
+      },
+      "right_wrist": {
+        "parent": "right/ctag_base_link",
+        "position_parent": [
+          0,
+          -0.09,
+          0.045
+        ],
+        "look_at_parent": [
+          0,
+          0,
+          0.205
+        ],
+        "fovy_degrees": 50
+      }
+    },
+    "preview": {
+      "position": [
+        1.5,
+        -2.0,
+        1.45
+      ],
+      "look_at": [
+        0.36,
+        0,
+        0.3
+      ],
+      "model_input": false
+    },
+    "dimension_basis": "User corrected fixed base spacing to 1.100 m (2026-10-15). Symmetric about unchanged x=0.36 m. All four camera settings, per-arm Ready joints, table, cube pickup position, marker, controller and safety guards unchanged from v3. V2/V3 1.296 m configurations and evidence retained.",
+    "change_from_v1": {
+      "base_separation_multiplier": 1.527777777777778,
+      "base_separation_m": 1.1,
+      "overhead_optical_axis_degrees_below_horizontal": 75,
+      "unchanged": [
+        "all four camera settings from v3",
+        "per-arm Ready joint arrays",
+        "table",
+        "cube pickup position",
+        "target marker",
+        "controller",
+        "2 mm safety threshold"
+      ],
+      "reachability_status": "NOT_REVALIDATED"
+    },
+    "initial_arm_q_by_side": {
+      "left": [
+        0.08,
+        0.1,
+        -1.5,
+        0,
+        -1.7415926535897932,
+        0.08
+      ],
+      "right": [
+        -0.1,
+        0.05,
+        -1.55,
+        0,
+        -1.641592653589793,
+        -0.12
+      ]
+    },
+    "initialization_note": "Transfer-only private pickup at left-reachable table position; original central-object layout and failed fixed IK goals retained unchanged. No expert handoff motion. Ready joint angles are engineering choices checked against actual URDF/FK/limits/contact, not estimated from photo."
+  },
+  "target_xy": [
+    0.52,
+    0.16
+  ],
+  "solver": {
+    "mode": "original",
+    "before": [
+      {
+        "position": 10,
+        "velocity": 1
+      },
+      {
+        "position": 10,
+        "velocity": 1
+      },
+      {
+        "position": 10,
+        "velocity": 1
+      }
+    ],
+    "after": [
+      {
+        "position": 10,
+        "velocity": 1
+      },
+      {
+        "position": 10,
+        "velocity": 1
+      },
+      {
+        "position": 10,
+        "velocity": 1
+      }
+    ]
+  },
+  "dt": 0.004,
+  "gripper_latched_force_limit_Nm": 0.1,
+  "mimic_controller": "original",
+  "mimic_damping": 0.0,
+  "original_config": {
+    "reference_hardware": "RM65 standard flange / CTAG2F90-D user provisional model",
+    "physical_parameter_policy": "original URDF inertials retained; no grasp-driven mass/friction/gravity tuning",
+    "temporary_assembly": {
+      "flange_to_gripper_xyz_m": [
+        0,
+        0,
+        0.008
+      ],
+      "flange_to_gripper_rpy": [
+        0,
+        0,
+        0
+      ],
+      "wrist_camera_parent": "ctag_base_link",
+      "wrist_camera_xyz_m": [
+        0,
+        -0.09,
+        0.045
+      ],
+      "wrist_camera_look_at_parent_m": [
+        0,
+        0,
+        0.205
+      ],
+      "camera_housing_box_m": [
+        0.09,
+        0.025,
+        0.025
+      ],
+      "camera_housing_mass_kg": 0.072,
+      "fixed_camera_xyz_m": [
+        0.75,
+        -0.7,
+        0.38
+      ],
+      "fixed_camera_look_at_m": [
+        0.35,
+        0,
+        0.2
+      ],
+      "base_world_xyz_m": [
+        -0.19,
+        0,
+        0.03
+      ],
+      "table_surface_z_m": 0.0,
+      "base_height_note": "temporary 30mm mounting stand; not laboratory measurement"
+    },
+    "scene": {
+      "dt": 0.004,
+      "gravity": [
+        0,
+        0,
+        -9.81
+      ],
+      "friction": 0.5,
+      "restitution": 0.0,
+      "table_center": [
+        0.36,
+        0,
+        -0.04
+      ],
+      "table_half_size": [
+        0.838,
+        0.45,
+        0.04
+      ],
+      "cube_size_m": 0.05,
+      "cube_mass_kg": 0.01,
+      "cube_initial_xyz": [
+        0.05,
+        0,
+        0.026
+      ],
+      "place_zone_xy": [
+        0.52,
+        0.16
+      ],
+      "place_zone_radius_m": 0.07
+    },
+    "control": {
+      "contact_hold_torque_Nm": 0.1,
+      "contact_preload_rad": 0.005,
+      "arm_stiffness": 1500.0,
+      "arm_damping": 150.0,
+      "gripper_stiffness": 20.0,
+      "gripper_damping": 2.0,
+      "physics_timeout_s": 20.0,
+      "planner_timeout_s": 30.0,
+      "service_timeout_s": 1200.0,
+      "max_tracking_error_rad": 0.15,
+      "joint_limit_tolerance_rad": 0.002,
+      "observation_ttl_s": 180.0,
+      "initial_arm_q": [
+        0.08,
+        0.1,
+        -1.5,
+        0,
+        -1.7415926535897932,
+        0.08
+      ],
+      "planner": "mplib_existing",
+      "planner_note": "Use already-installed mplib/OMPL/FCL with actual SAPIEN collision geometry; cuRobo conservative sphere config preserved but blocked by kernel <1024 limit. No planner checks disabled."
+    },
+    "camera": {
+      "width": 640,
+      "height": 480,
+      "fovy_degrees": 50.0,
+      "ideal_rgbd_not_real_D435": true
+    },
+    "adaptations": [
+      {
+        "joint": "ctag_Left_Support_Joint",
+        "old_limits": {
+          "lower": "0",
+          "upper": "0",
+          "effort": "0",
+          "velocity": "0"
+        },
+        "new_limits": {
+          "lower": "0.0",
+          "upper": "0.91",
+          "effort": "10",
+          "velocity": "10"
+        },
+        "basis": "derive follower position range from manufacturer master range and mimic ratio; effort/velocity inherit master"
+      },
+      {
+        "joint": "ctag_Left_2_Joint",
+        "old_limits": {
+          "lower": "0",
+          "upper": "0",
+          "effort": "0",
+          "velocity": "0"
+        },
+        "new_limits": {
+          "lower": "-0.91",
+          "upper": "0.0",
+          "effort": "10",
+          "velocity": "10"
+        },
+        "basis": "derive follower position range from manufacturer master range and mimic ratio; effort/velocity inherit master"
+      },
+      {
+        "joint": "ctag_Right_2_Joint",
+        "old_limits": {
+          "lower": "0",
+          "upper": "0",
+          "effort": "0",
+          "velocity": "0"
+        },
+        "new_limits": {
+          "lower": "0.0",
+          "upper": "0.91",
+          "effort": "10",
+          "velocity": "10"
+        },
+        "basis": "derive follower position range from manufacturer master range and mimic ratio; effort/velocity inherit master"
+      },
+      {
+        "joint": "ctag_Right_1_Joint",
+        "old_limits": {
+          "lower": "0",
+          "upper": "0",
+          "effort": "0",
+          "velocity": "0"
+        },
+        "new_limits": {
+          "lower": "0.0",
+          "upper": "0.91",
+          "effort": "10",
+          "velocity": "10"
+        },
+        "basis": "derive follower position range from manufacturer master range and mimic ratio; effort/velocity inherit master"
+      },
+      {
+        "joint": "ctag_Right_Support_Joint",
+        "old_limits": {
+          "lower": "0",
+          "upper": "0",
+          "effort": "0",
+          "velocity": "0"
+        },
+        "new_limits": {
+          "lower": "0.0",
+          "upper": "0.91",
+          "effort": "10",
+          "velocity": "10"
+        },
+        "basis": "derive follower position range from manufacturer master range and mimic ratio; effort/velocity inherit master"
+      },
+      {
+        "joint": "ctag_Right_Support_Joint",
+        "change": "equivalent mimic: Right_Support = Right_1 = -Left_1",
+        "basis": "SAPIEN tendon builder supports parent-child mimic, not cross-branch grandchild mimic"
+      },
+      {
+        "change": "SRDF reason -> Default; source_reason retains original; pair set unchanged",
+        "basis": "installed SAPIEN parse_srdf only accepts literal Default"
+      },
+      {
+        "change": "planning.urdf omits mimic tags; all six gripper coordinates are locked at actual feedback before each arm plan",
+        "basis": "curobo locked mimic parser KeyError parent; physical URDF/tendons remain unchanged; no follower command exposed"
+      }
+    ],
+    "collision_bounds_m": {
+      "base_link": [
+        [
+          -0.054999902844429016,
+          -0.054999906569719315,
+          -1.4210486953825097e-10
+        ],
+        [
+          0.05926267430186272,
+          0.054999902844429016,
+          0.13850000500679016
+        ]
+      ],
+      "Link1": [
+        [
+          -0.04100004583597183,
+          -0.040999989956617355,
+          -0.10199999809265137
+        ],
+        [
+          0.041000042110681534,
+          0.06802824139595032,
+          0.040500082075595856
+        ]
+      ],
+      "Link2": [
+        [
+          -0.04049999639391899,
+          -0.04050002992153168,
+          -0.06700009852647781
+        ],
+        [
+          0.2900000810623169,
+          0.040500033646821976,
+          0.04699999839067459
+        ]
+      ],
+      "Link3": [
+        [
+          -0.03400464728474617,
+          -0.12849999964237213,
+          -0.029000094160437584
+        ],
+        [
+          0.033998362720012665,
+          0.03399999812245369,
+          0.044999994337558746
+        ]
+      ],
+      "Link4": [
+        [
+          -0.028999999165534973,
+          -0.05399995297193527,
+          -0.08149999380111694
+        ],
+        [
+          0.028999999165534973,
+          0.028999997302889824,
+          0.02850007824599743
+        ]
+      ],
+      "Link5": [
+        [
+          -0.028606584295630455,
+          -0.11499999463558197,
+          -0.02849993109703064
+        ],
+        [
+          0.028604766353964806,
+          0.02847488410770893,
+          0.03999999165534973
+        ]
+      ],
+      "Link6": [
+        [
+          -0.028982752934098244,
+          -0.036653194576501846,
+          -0.028999999165534973
+        ],
+        [
+          0.039007946848869324,
+          0.03663129359483719,
+          5.185639695426403e-10
+        ]
+      ],
+      "ctag_base_link": [
+        [
+          -0.03750000149011612,
+          -0.03750000149011612,
+          -3.3531466177901675e-14
+        ],
+        [
+          0.03750000149011612,
+          0.03750000149011612,
+          0.12700000405311584
+        ]
+      ],
+      "ctag_Left_1_Link": [
+        [
+          -0.004999897908419371,
+          -0.0049940538592636585,
+          -0.008999999612569809
+        ],
+        [
+          0.0453585721552372,
+          0.04235951229929924,
+          0.008999999612569809
+        ]
+      ],
+      "ctag_Left_Support_Link": [
+        [
+          -0.02565000019967556,
+          -0.004997180309146643,
+          -0.011534500867128372
+        ],
+        [
+          0.004999999888241291,
+          0.06350000202655792,
+          0.011465499177575111
+        ]
+      ],
+      "ctag_Left_2_Link": [
+        [
+          -0.004999897908419371,
+          -0.0049940538592636585,
+          -0.008999999612569809
+        ],
+        [
+          0.0453585721552372,
+          0.04235951229929924,
+          0.008999999612569809
+        ]
+      ],
+      "ctag_Right_2_Link": [
+        [
+          -0.004999897908419371,
+          -0.0049940538592636585,
+          -0.008999999612569809
+        ],
+        [
+          0.0453585721552372,
+          0.04235951229929924,
+          0.008999999612569809
+        ]
+      ],
+      "ctag_Right_1_Link": [
+        [
+          -0.004999897908419371,
+          -0.0049940538592636585,
+          -0.008999999612569809
+        ],
+        [
+          0.0453585721552372,
+          0.04235951229929924,
+          0.008999999612569809
+        ]
+      ],
+      "ctag_Right_Support_Link": [
+        [
+          -0.02565000019967556,
+          -0.004997180309146643,
+          -0.011500000022351742
+        ],
+        [
+          0.004999999888241291,
+          0.06350000202655792,
+          0.011500000022351742
+        ]
+      ],
+      "wrist_camera_mount": [
+        [
+          -0.045,
+          -0.0125,
+          -0.0125
+        ],
+        [
+          0.045,
+          0.0125,
+          0.0125
+        ]
+      ]
+    },
+    "collision_method": "SAPIEN convex hull per original collision mesh; cuRobo conservative voxel sphere cover; original RM SRDF plus mechanical adjacent pairs",
+    "gripper_master": "ctag_Left_1_Joint",
+    "open_angle_rad": 0.0,
+    "close_angle_rad": -0.91,
+    "pad_local_region": "manufacturer Support_Link mesh vertices local y > 0.04m; actual center depends on joint angle",
+    "not_lab_calibration": true
+  },
+  "controller": "closest mplib IK + cubic joint interpolation + full shared-world FCL checks; no OMPL rerouting",
+  "physical_weld": false,
+  "runtime_object_pose_writes": false
+}

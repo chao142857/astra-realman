@@ -1,0 +1,65 @@
+{
+  "episode_id": "ep01",
+  "condition_id": "A_fixed",
+  "repeat": 1,
+  "source": "MOCK_NOT_ASTRA",
+  "status": "INFRASTRUCTURE_FAILURE",
+  "decisions": 0,
+  "numeric_refusals": 0,
+  "executed_action_groups": 0,
+  "safety_stop": false,
+  "phase": "DECISION_LOOP",
+  "score": {
+    "status": "NOT_SCORED_INFRASTRUCTURE_OR_UNKNOWN"
+  },
+  "model_history_at_reset": [],
+  "started_at": "2026-10-15T10:55:33.924221+00:00",
+  "corrections_after_refusal": [],
+  "rejections": [],
+  "generated_runtime_config_hashes": {
+    "assembly.urdf": "162ea012acb2a06f452444b3b24c5879531444807ab980159bc9f133143e7c17",
+    "planning.urdf": "7246c8a93a3b15422c62905fd766b1d5d4888ef77c5301f5b5949234475a4524",
+    "assembly.json": "c0b2d6e96ead3c44eca33265ce40b449e7d7301c7edca085ec6a2f40ce5bae46"
+  },
+  "task_start_step": 1600,
+  "initialization_action_groups": 1,
+  "completion_unknown": true,
+  "error": "FileNotFoundError(2, 'No such file or directory')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/alex/astra_spatial_capability/rm65-coordination-batch01-prep-20261015/experiments/rm65_handoff_v1/coordination_batch01/run.py\", line 62, in episode\n    action=accept_result(decision);gate.complete(row,decision)\n  File \"/home/alex/astra_spatial_capability/rm65-coordination-batch01-prep-20261015/experiments/rm65_handoff_v1/action_interface.py\", line 100, in accept_result\n    p=Path(folder);r=json.loads((p/'response.json').read_text());t=json.loads((p/'transport.json').read_text());original=json.loads((p/'bridge_result.json').read_text())\n  File \"/usr/lib/python3.10/pathlib.py\", line 1134, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n  File \"/usr/lib/python3.10/pathlib.py\", line 1119, in open\n    return self._accessor.open(self, mode, buffering, encoding, errors,\nFileNotFoundError: [Errno 2] No such file or directory: '/home/alex/astra_spatial_capability/rm65-coordination-batch01-prep-20261015/experiments/rm65_handoff_v1/evidence/coordination_campaigns/MOCK_mock_stop403_01/ep01/decision_000/bridge_result.json'\n",
+  "posthoc_actual_state_score": {
+    "version": "rm65.coordination.batch01.physical.v1",
+    "condition_id": "A_fixed",
+    "visit_order": [
+      "right",
+      "left"
+    ],
+    "pass": false,
+    "checks": {
+      "first_dwell_0_5s": false,
+      "subsequent_second_dwell_0_5s": false,
+      "no_interarm_contact": true,
+      "no_unexpected_arm_table_contact": true,
+      "grippers_remain_open": true,
+      "final_goals_continuous_2s": false,
+      "no_physical_protection_stop": true
+    },
+    "first_dwell_completed_step": null,
+    "second_dwell_completed_step": null,
+    "minimum_actual_gap_m": 0.08983362379412584,
+    "violations": [],
+    "tolerances": {
+      "position_tolerance_m": 0.01,
+      "orientation_tolerance_rad": 0.05,
+      "max_physical_penetration_m": 0.002
+    },
+    "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+  },
+  "physics_steps": 1600,
+  "sim_time_s": 6.4,
+  "task_sim_time_s": 0.0,
+  "episode_wall_s": 4.6484871709981235,
+  "finished_at": "2026-10-15T10:55:38.572712+00:00",
+  "client_dispatches": 1,
+  "completed_action_groups": 0,
+  "partial_action_groups": 0
+}

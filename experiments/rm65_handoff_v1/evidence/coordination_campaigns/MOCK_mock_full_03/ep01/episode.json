@@ -1,0 +1,116 @@
+{
+  "episode_id": "ep01",
+  "condition_id": "A_fixed",
+  "repeat": 1,
+  "source": "MOCK_NOT_ASTRA",
+  "status": "SUCCESS",
+  "decisions": 6,
+  "numeric_refusals": 1,
+  "executed_action_groups": 4,
+  "safety_stop": false,
+  "phase": "DECISION_LOOP",
+  "score": {
+    "version": "rm65.coordination.batch01.physical.v1",
+    "condition_id": "A_fixed",
+    "visit_order": [
+      "right",
+      "left"
+    ],
+    "pass": true,
+    "checks": {
+      "first_dwell_0_5s": true,
+      "subsequent_second_dwell_0_5s": true,
+      "no_interarm_contact": true,
+      "no_unexpected_arm_table_contact": true,
+      "grippers_remain_open": true,
+      "final_goals_continuous_2s": true,
+      "no_physical_protection_stop": true
+    },
+    "first_dwell_completed_step": 4369,
+    "second_dwell_completed_step": 7281,
+    "minimum_actual_gap_m": 0.089799721951534,
+    "violations": [],
+    "tolerances": {
+      "position_tolerance_m": 0.01,
+      "orientation_tolerance_rad": 0.05,
+      "max_physical_penetration_m": 0.002
+    },
+    "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+  },
+  "model_history_at_reset": [],
+  "started_at": "2026-10-15T10:59:32.889144+00:00",
+  "corrections_after_refusal": [
+    {
+      "decision": 2,
+      "changed_proposal": true,
+      "accepted": true,
+      "note": "Observed change/acceptance, not an inferred internal reasoning process."
+    }
+  ],
+  "rejections": [
+    {
+      "decision": 1,
+      "category": "LIMIT_REJECTION",
+      "receipt": {
+        "ok": false,
+        "executed": false,
+        "mode": "sequential",
+        "receipts": [
+          {
+            "ok": false,
+            "executed": false,
+            "reason": "TCP_WORKSPACE"
+          }
+        ]
+      }
+    }
+  ],
+  "generated_runtime_config_hashes": {
+    "assembly.urdf": "162ea012acb2a06f452444b3b24c5879531444807ab980159bc9f133143e7c17",
+    "planning.urdf": "7246c8a93a3b15422c62905fd766b1d5d4888ef77c5301f5b5949234475a4524",
+    "assembly.json": "c0b2d6e96ead3c44eca33265ce40b449e7d7301c7edca085ec6a2f40ce5bae46"
+  },
+  "task_start_step": 1600,
+  "initialization_action_groups": 1,
+  "termination": "MODEL_STOP",
+  "terminal_hold_start_step": 7451,
+  "terminal_hold_end_step": 7951,
+  "posthoc_actual_state_score": {
+    "version": "rm65.coordination.batch01.physical.v1",
+    "condition_id": "A_fixed",
+    "visit_order": [
+      "right",
+      "left"
+    ],
+    "pass": true,
+    "checks": {
+      "first_dwell_0_5s": true,
+      "subsequent_second_dwell_0_5s": true,
+      "no_interarm_contact": true,
+      "no_unexpected_arm_table_contact": true,
+      "grippers_remain_open": true,
+      "final_goals_continuous_2s": true,
+      "no_physical_protection_stop": true
+    },
+    "first_dwell_completed_step": 4369,
+    "second_dwell_completed_step": 7281,
+    "minimum_actual_gap_m": 0.089799721951534,
+    "violations": [],
+    "tolerances": {
+      "position_tolerance_m": 0.01,
+      "orientation_tolerance_rad": 0.05,
+      "max_physical_penetration_m": 0.002
+    },
+    "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+  },
+  "physics_steps": 7951,
+  "sim_time_s": 31.804000000000002,
+  "task_sim_time_s": 25.404,
+  "episode_wall_s": 26.734199525002623,
+  "finished_at": "2026-10-15T10:59:59.623345+00:00",
+  "budget_reservations": 6,
+  "client_dispatches": 6,
+  "dispatch_status_unknown": false,
+  "completed_action_groups": 4,
+  "partial_action_groups": 0
+}

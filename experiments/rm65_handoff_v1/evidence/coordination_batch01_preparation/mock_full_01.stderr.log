@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/alex/astra_spatial_capability/rm65-coordination-batch01-prep-20261015/experiments/rm65_handoff_v1/coordination_batch01/mock_acceptance.py", line 96, in <module>
+    if __name__=='__main__':main()
+  File "/home/alex/astra_spatial_capability/rm65-coordination-batch01-prep-20261015/experiments/rm65_handoff_v1/coordination_batch01/mock_acceptance.py", line 73, in main
+    assert proc.returncode==0 and ledger['status']=='FINISHED',proc.stderr
+AssertionError: MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+MESA: warning: Driver does not support the 0x7d67 PCI ID.
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/alex/astra_spatial_capability/rm65-coordination-batch01-prep-20261015/experiments/rm65_handoff_v1/coordination_batch01/run.py", line 191, in <module>
+    if __name__=='__main__':main()
+  File "/home/alex/astra_spatial_capability/rm65-coordination-batch01-prep-20261015/experiments/rm65_handoff_v1/coordination_batch01/run.py", line 175, in main
+    stop=episode(gate,entry,adapter)
+  File "/home/alex/astra_spatial_capability/rm65-coordination-batch01-prep-20261015/experiments/rm65_handoff_v1/coordination_batch01/run.py", line 20, in episode
+    relocate_runtime_mesh_paths(CONFIG)
+  File "/home/alex/astra_spatial_capability/rm65-coordination-batch01-prep-20261015/experiments/rm65_handoff_v1/diagnose_decision4.py", line 86, in relocate_runtime_mesh_paths
+    assert hashlib.sha256(before).hexdigest() == manifest['configs/rm65_ctag_reference/'+name]['sha256']
+AssertionError
+

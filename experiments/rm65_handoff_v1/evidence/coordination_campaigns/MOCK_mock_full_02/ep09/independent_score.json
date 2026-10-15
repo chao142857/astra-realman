@@ -1,0 +1,28 @@
+{
+  "version": "rm65.coordination.batch01.physical.v1",
+  "condition_id": "B_shift_y40",
+  "visit_order": [
+    "right",
+    "left"
+  ],
+  "pass": true,
+  "checks": {
+    "first_dwell_0_5s": true,
+    "subsequent_second_dwell_0_5s": true,
+    "no_interarm_contact": true,
+    "no_unexpected_arm_table_contact": true,
+    "grippers_remain_open": true,
+    "final_goals_continuous_2s": true,
+    "no_physical_protection_stop": true
+  },
+  "first_dwell_completed_step": 4569,
+  "second_dwell_completed_step": 7592,
+  "minimum_actual_gap_m": 0.08979117033544896,
+  "violations": [],
+  "tolerances": {
+    "position_tolerance_m": 0.01,
+    "orientation_tolerance_rad": 0.05,
+    "max_physical_penetration_m": 0.002
+  },
+  "source": "PRIVATE_ACTUAL_PHYSICS_NOT_MODEL_CONTEXT"
+}

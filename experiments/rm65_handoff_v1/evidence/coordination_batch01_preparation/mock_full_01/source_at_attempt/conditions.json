@@ -1,0 +1,10 @@
+{
+  "version": "rm65.coordination.batch01.conditions.v1",
+  "task_id": "dual_arm_coordination_batch01",
+  "layout": "scene_v4_ready_transfer_1100.json",
+  "conditions": [
+    {"id": "A_fixed", "description": "Original fixed shared workspace", "initial_occupant": "left", "visit_order": ["right", "left"], "left_goal_world_wxyz": [0.36, 0, 0.22, 0, 0.8660254037844386, 0, 0.5], "right_goal_world_wxyz": [0.36, 0, 0.22, -0.5, 0, 0.8660254037844386, 0]},
+    {"id": "B_shift_y40", "description": "Shared goals translated +40 mm in world Y; original bases, Ready joints and cameras", "initial_occupant": "left", "visit_order": ["right", "left"], "left_goal_world_wxyz": [0.36, 0.04, 0.22, 0, 0.8660254037844386, 0, 0.5], "right_goal_world_wxyz": [0.36, 0.04, 0.22, -0.5, 0, 0.8660254037844386, 0]},
+    {"id": "C_roles_swapped", "description": "Right initially occupies shared workspace; left visits before right returns", "initial_occupant": "right", "visit_order": ["left", "right"], "left_goal_world_wxyz": [0.36, 0, 0.22, 0, 0.8660254037844386, 0, 0.5], "right_goal_world_wxyz": [0.36, 0, 0.22, -0.5, 0, 0.8660254037844386, 0]}
+  ]
+}
