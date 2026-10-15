@@ -1,0 +1,31 @@
+{
+  "baseline": "55395ef827baead3a6be2adb7419f5bdfb8a1c73",
+  "new_model_requests": 0,
+  "target_world_wxyz": [
+    0.34,
+    0,
+    0.22,
+    0,
+    1,
+    0,
+    0
+  ],
+  "target_source": "user engineering comparison; not original Astra D4",
+  "single_candidate": true,
+  "target_must_use_original_ik_and_collision_precheck": true,
+  "post_action_hold_steps": 500,
+  "dt_s": 0.004,
+  "no_controller_variants_or_alternate_targets": true,
+  "unchanged_source_sha256": {
+    "dual_scene.py": "807c9114b324c25b358061bf5849bc8efd88c6e94a6cf24412b8e0b223ada0ff",
+    "action_interface.py": "9f44ab5f2b88aa876beff67f4f17ae3105fb40f27b775927efbc350c1ba4abf7",
+    "carry_collision.py": "747ea790f316cd51562d5bd542716233fb90f22dbd787d46a93df03fe0f82bc2",
+    "initial_transfer.py": "013fb3d0a77c57d99d5acd15d5e21c0dec7116b886684dfec660b57924db815e",
+    "scene_v4_ready_transfer_1100.json": "9d6e05e060d9adc3a5ad756adbcbabc8f7e1669491eae2ff11f8c594ee32aed8",
+    "transfer_criteria_v1.json": "75e5f5a26a2b6acc5fae9740fab7d4780352270fefc422661c0dbb5548f33562",
+    "runtime.decision4.ubuntu-robot.sh": "e64568bc1f6d83564920aeaa67fab342c17f6e9d5eddcc528deb8cf44971d558"
+  },
+  "old_ledger_sha256": "2304f4eb011e40a870c91c4420d22ce75d94346cdda6ec3ae799a825f50db8c1",
+  "route_a": "only if complete motion and 2 s physical hold satisfy unchanged retention and safety thresholds",
+  "route_b": "pause CTAG carrying; demonstrate non-independent shared-workspace coordination before Astra"
+}
