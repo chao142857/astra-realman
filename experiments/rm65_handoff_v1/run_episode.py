@@ -1,4 +1,4 @@
-"""Runnable paused-time loop. This revision permits fake local Bridge ONLY."""
+"""Paused-time simulation; named tasks use their separately authorized gates."""
 import argparse,json,time,traceback
 from pathlib import Path
 from action_interface import HandoffBridgeAdapter,MacBridgeConfig,context_from_observation,accept_result,execute_action

@@ -53,18 +53,28 @@ def prepare(root):
 
 
 class Gate:
+    version=VERSION
+    task='handoff_transfer_only'
+    new_root=staticmethod(new_root)
+    hashes=staticmethod(hashes)
+    execution_hostname='tongji-Precision-3680'
+    max_total=16
+    max_execute=None
+    extra_grant_parameters={}
+
     def __init__(self,root,authorization,preflight,config,stage):
         import fcntl
-        self.root=new_root(root);self.handle=(self.root/'episode.lock').open('a')
+        if stage not in ('shadow','execute'):raise ValueError('UNKNOWN_STAGE')
+        self.root=self.new_root(root);self.handle=(self.root/'episode.lock').open('a')
         try:fcntl.flock(self.handle,fcntl.LOCK_EX|fcntl.LOCK_NB)
         except BlockingIOError:self.handle.close();raise ValueError('ANOTHER_TRANSFER_EPISODE_ACTIVE')
         try:
             self.state=json.loads((self.root/'ledger.json').read_text());s=self.state
             grant=json.loads(Path(authorization).read_text());check=json.loads(Path(preflight).read_text())
             expected={k:s[k] for k in ('version','batch_id','output_root','task','source_hashes')}
-            if any(grant.get(k)!=v for k,v in expected.items()) or s['version']!=VERSION or s['source_hashes']!=hashes() or s['output_root']!=str(self.root):raise ValueError('TRANSFER_SCOPE_CHANGED')
-            if grant.get('generation_authorized') is not True or type(grant.get('max_dispatches')) is not int or not 1<=grant['max_dispatches']<=16 or not grant.get('user_authorization_statement','').strip():raise ValueError('NEW_TRANSFER_USER_AUTHORIZATION_REQUIRED')
-            if any(grant.get(k)!=v for k,v in {'client_timeout_s':180,'server_timeout_s':190,'workers':1}.items()):raise ValueError('TRANSFER_PARAMETERS_CHANGED')
+            if any(grant.get(k)!=v for k,v in expected.items()) or s['version']!=self.version or s['task']!=self.task or s['source_hashes']!=self.hashes() or s['output_root']!=str(self.root):raise ValueError('TRANSFER_SCOPE_CHANGED')
+            if grant.get('generation_authorized') is not True or type(grant.get('max_dispatches')) is not int or not 1<=grant['max_dispatches']<=self.max_total or not grant.get('user_authorization_statement','').strip():raise ValueError('NEW_TRANSFER_USER_AUTHORIZATION_REQUIRED')
+            if any(grant.get(k)!=v for k,v in dict({'client_timeout_s':180,'server_timeout_s':190,'workers':1},**self.extra_grant_parameters).items()):raise ValueError('TRANSFER_PARAMETERS_CHANGED')
             if any(r['status']!='VALID' for r in s['runs']):
                 s.update(status='STOPPED',stop_reason='UNRESOLVED_PRIOR_RESERVATION');save(self.root/'ledger.json',s)
                 raise ValueError('STOPPED_OR_UNKNOWN_NO_RESUME')
@@ -76,7 +86,7 @@ class Gate:
                       'client_timeout_s':180,'server_timeout_s':190,'model':'gpt-6-astra',
                       'reasoning':'medium','non_generating_auth_and_tunnel_check':True}
             age=(datetime.now(timezone.utc)-datetime.fromisoformat(check['checked_at'])).total_seconds()
-            if socket.gethostname()!='tongji-Precision-3680' or any(check.get(k)!=v for k,v in required.items()) or not 0<=age<=900:raise ValueError('FRESH_YANGLAB_PRODUCTION_PREFLIGHT_REQUIRED')
+            if socket.gethostname()!=self.execution_hostname or any(check.get(k)!=v for k,v in required.items()) or not 0<=age<=900:raise ValueError('FRESH_HOST_PRODUCTION_PREFLIGHT_REQUIRED')
             valid_shadows=[r for r in s['runs'] if r['stage']=='shadow' and r['status']=='VALID']
             if len(valid_shadows)>1 or s['shadow_validated']!=(len(valid_shadows)==1):raise ValueError('SHADOW_STATE_INCONSISTENT')
             if stage=='shadow' and valid_shadows:raise ValueError('SHADOW_ALREADY_DISPATCHED')
@@ -89,11 +99,12 @@ class Gate:
 
     def reserve(self,folder,context):
         s=self.state
-        if hashes()!=s['source_hashes']:
+        if self.hashes()!=s['source_hashes']:
             self.stop('SOURCE_CHANGED_BEFORE_DISPATCH');raise ValueError('TRANSFER_SOURCE_CHANGED')
         if s['status']!='READY' or s['reserved_budget']>=self.limit:raise ValueError('TRANSFER_BUDGET_EXHAUSTED')
         if any(r['status']!='VALID' for r in s['runs']):raise ValueError('SINGLE_OUTSTANDING_REQUEST_ONLY')
         if self.stage=='shadow' and any(r['stage']=='shadow' for r in s['runs']):raise ValueError('SHADOW_ALREADY_DISPATCHED')
+        if self.stage=='execute' and self.max_execute is not None and sum(r['stage']=='execute' for r in s['runs'])>=self.max_execute:raise ValueError('EXECUTION_STAGE_BUDGET_EXHAUSTED')
         folder=Path(folder).resolve()
         if not folder.is_relative_to(self.root) or folder.exists():raise ValueError('NEW_TRANSFER_ARTIFACT_REQUIRED')
         row={'index':len(s['runs'])+1,'stage':self.stage,'status':'RESERVED',

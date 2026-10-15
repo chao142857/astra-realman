@@ -11,15 +11,23 @@ from action_interface import MacBridgeConfig
 from transfer_gate import hashes,sha,ROOT,now
 
 p=argparse.ArgumentParser(description=__doc__)
+p.add_argument('--task',choices=['handoff_transfer_only','shared_workspace_yield_v1'],default='handoff_transfer_only')
 p.add_argument('--budget-root',type=Path,required=True);p.add_argument('--bridge-config',type=Path,required=True)
 p.add_argument('--mac-proof',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
 a=p.parse_args();state=json.loads((a.budget_root/'ledger.json').read_text());mac=json.loads(a.mac_proof.read_text())
-assert socket.gethostname()=='tongji-Precision-3680','YANGLAB_ONLY'
+if a.task=='shared_workspace_yield_v1':
+    from workspace_gate import hashes
+    expected_host='Ubuntu-Robot'
+    assert state['task']==a.task and mac.get('batch_id')==state['batch_id'],'NEW_WORKSPACE_BATCH_BINDING_REQUIRED'
+else:expected_host='tongji-Precision-3680'
+assert socket.gethostname()==expected_host,'EXECUTION_HOST_MISMATCH'
 assert state['source_hashes']==hashes(),'SOURCE_CHANGED'
 age=(datetime.now(timezone.utc)-datetime.fromisoformat(mac['checked_at'])).total_seconds()
 source=ROOT.parents[1]/'astra_realman_harness/scripts/codex_astra_mac_bridge.py'
 assert 0<=age<=900 and mac['status']=='PASS' and mac['chatgpt_login'] and mac['server_timeout_s']==190 and mac['bridge_source_sha256']==sha(source),'FRESH_MAC_PROOF_REQUIRED'
-cfg=MacBridgeConfig.load(a.bridge_config);token=cfg.token_file.read_text().strip()
+cfg=MacBridgeConfig.load(a.bridge_config)
+assert cfg.endpoint=='http://127.0.0.1:18766','PRODUCTION_LOOPBACK_PORT_REQUIRED'
+token=cfg.token_file.read_text().strip()
 assert len(token)>=16 and '\n' not in token and '\r' not in token,'TOKEN_INVALID'
 statuses=[]
 for credential in (token,'deliberately-wrong-nonsecret-token'):

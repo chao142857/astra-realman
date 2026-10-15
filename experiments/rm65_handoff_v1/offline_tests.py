@@ -8,7 +8,7 @@ STOP={'done':True,'execution':'sequential','actions':[]}
 class Protocol(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name);self.token=self.root/'token';self.token.write_text('offline-synthetic-token-only')
-  obs=json.loads((D/'evidence/numeric_baseline_01/initial_observation/observation.json').read_text());self.context,self.images=context_from_observation(obs,[])
+  folder=D/'evidence/numeric_baseline_01/initial_observation';obs=json.loads((folder/'observation.json').read_text());obs['images']=[str(folder/(name+'.png')) for name in ('overhead','tabletop_front','left_wrist','right_wrist')];self.obs=obs;self.context,self.images=context_from_observation(obs,[])
   self.mode='ok';test=self
   class Handler(BaseHTTPRequestHandler):
    def log_message(self,*args):pass

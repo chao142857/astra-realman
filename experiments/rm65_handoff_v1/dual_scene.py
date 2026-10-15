@@ -249,13 +249,15 @@ class DualScene:
       if contact_steps[s]>=2:self.arms[s].latch_grasp_contact();latched.add(s)
    for s in plans:
     for i in self.arms[s].arm_indices:self.arms[s].joints[i].set_drive_velocity_target(0.)
-   self.tick(100)
+   post_hold_start=self.steps
+   self.tick(getattr(self,'numeric_post_hold_steps',100))
    residuals={}
    for s,plan in plans.items():
     if 'target_tcp' in plan:
      state=self.arms[s].state();target=np.array(plan['target_tcp']);actual=np.array(state['actual_grasp_center_world']);rotation=(Rotation.from_quat(np.roll(target[3:],-1)).inv()*Rotation.from_quat(np.roll(state['flange_pose_world'][3:],-1))).magnitude()
      residuals[s]={'position_error_m':float(np.linalg.norm(actual-target[:3])),'rotation_error_rad':float(rotation)}
    result={'ok':all(r['position_error_m']<.01 and r['rotation_error_rad']<.05 for r in residuals.values()),'executed':True,'start_step':start,'end_step':self.steps,'goal_residuals':residuals,'actual_states':{s:a.state() for s,a in self.arms.items()}}
+   if hasattr(self,'numeric_post_hold_steps'):result['post_numeric_observation']={'start_step':post_hold_start,'end_step':self.steps,'duration_s':(self.steps-post_hold_start)*self.dt,'movement_added':False}
   except BaseException as e:
    for a in self.arms.values():a.stopped.set();a.hold()
    write_json(folder/'receipt.json',{'ok':False,'executed':'PARTIAL','error':repr(e)});raise
