@@ -12,7 +12,7 @@ import numpy as np
 from scipy.spatial.transform import Rotation
 
 
-def run_reference(w, report, *, fixed_pickup_orientation=False):
+def run_reference(w, report, *, fixed_pickup_orientation=False, frozen_numeric_prefix=None):
     from action_interface import execute_action
     from gripper_centering import open_tcp_for_closed_center
     stages=[];report['stages']=stages
@@ -21,6 +21,12 @@ def run_reference(w, report, *, fixed_pickup_orientation=False):
         report['attempted_stage']=name;w.phase_context=name
         action={'done':False,'execution':'sequential','actions':[{'arm':side,'kind':'tcp' if pose is not None else 'gripper',
                 'pose_world_wxyz':None if pose is None else np.asarray(pose,float).tolist(),'opening_fraction':opening}]}
+        # Private replay only. Preserve already archived numeric prefix exactly
+        # when comparing integration models; never used by model execution.
+        if frozen_numeric_prefix is not None and len(stages)<len(frozen_numeric_prefix):
+            saved=frozen_numeric_prefix[len(stages)]
+            assert saved['actions'][0]['arm']==side and saved['actions'][0]['kind']==action['actions'][0]['kind']
+            action=saved
         index=len(stages);p=w.output/f'reference_{index:03d}';p.mkdir()
         (p/'proposal_PRIVATE.json').write_text(json.dumps(action,indent=2)+'\n')
         before=w.steps;receipt=execute_action(w,action)

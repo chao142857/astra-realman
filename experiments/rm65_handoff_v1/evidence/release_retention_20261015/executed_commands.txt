@@ -1,0 +1,12 @@
+# Actual offline runs, ubuntu-robot, 2026-10-16; 0 real Astra requests.
+cd /home/alex/astra_spatial_capability/rm65-release-retention-20261015/experiments/rm65_handoff_v1
+source runtime.decision4.ubuntu-robot.sh
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" release_retention_diagnostic.py --output evidence/release_retention_20261015/original_readback_01
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" release_retention_diagnostic.py --right-solver-control --output evidence/release_retention_20261015/right_solver_control_01
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" release_retention_diagnostic.py --pgs-controller-check --output evidence/release_retention_20261015/pgs_same_controller_01
+"$RM65_PYTHON" offline_tests.py
+"$RM65_PYTHON" full_handoff_offline_test.py --output evidence/release_retention_20261015/from_table_mock_01
+"$RM65_PYTHON" analyze_release_retention.py --original evidence/full_handoff_restore_20261015/full_numeric_known_d3_urdf_effort_04 --cases evidence/release_retention_20261015/original_readback_01 evidence/release_retention_20261015/right_solver_control_01 evidence/release_retention_20261015/pgs_same_controller_01 --output evidence/release_retention_20261015/analysis_03
+# analysis_01 stopped on an empty readback window for the immediate safety abort;
+# analysis_02 was a successful intermediate. Both are retained; analysis_03 is final.
+# Original simulation snapshots in each run record the actual source at dispatch.
