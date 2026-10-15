@@ -20,6 +20,7 @@ def vector(n):return {'type':'array','items':{'type':'number'},'minItems':n,'max
 ACTION=obj({'arm':{'type':'string','enum':['left','right']},'kind':{'type':'string','enum':['tcp','gripper']},'pose_world_wxyz':{'anyOf':[vector(7),{'type':'null'}]},'opening_fraction':{'anyOf':[{'type':'number','minimum':0,'maximum':1},{'type':'null'}]}})
 SCHEMA=obj({'done':{'type':'boolean'},'execution':{'type':'string','enum':['sequential','parallel']},'actions':{'type':'array','items':ACTION,'maxItems':2}})
 INSTRUCTION='把左臂持有的红色方块交给右臂，再由右臂放到蓝色目标区域。仅输出所给 schema 的 JSON。自主决定交接位置、接近方式和夹爪时机。未指定机械臂保持。done=true 只表示你决定停止，不代表评测成功。'
+TRANSFER_INSTRUCTION='任务 handoff_transfer_only：把左臂已经持有的红色方块交给右臂，左臂释放后由右臂独立持物，并将物体移出交接位置至少 0.08 米。不要求最终放置。你自主决定交接位置、数值 TCP、夹爪操作及顺序/并行关系。接取后的独立持物需持续至少 2 秒。仅输出所给 schema 的 JSON；未指定机械臂保持。done=true 仅表示停止，停止后会保持驱动目标推进 2 秒物理观察，并不等于成功。'
 CONVENTIONS={'position':'metres, shared SAPIEN world','quaternion':'unit quaternion [w,x,y,z], Link6 orientation in world','tcp':'mean of the actual two inner pad face centres; offset depends on measured gripper configuration','opening_fraction':'0 closed command, 1 open command; measured gap is actual_pad_gap_m, not this command','execution':'one tcp OR gripper operation per named arm. sequential follows list order. parallel overlaps both operations in shared physics steps. Omitted arm holds drive targets. No automatic obstacle rerouting or target correction.','time':'physics paused during inference; execution advances physics. Not real-time asynchronous control.'}
 
 def parse_action(raw):
@@ -35,9 +36,11 @@ def parse_action(raw):
   elif a['pose_world_wxyz'] is not None or a['opening_fraction'] is None:raise ValueError('GRIPPER_FIELDS')
  return value
 
-def context_from_observation(obs,history):
+def context_from_observation(obs,history,*,task_id='handoff_place_v1'):
  # Explicit allowlist; no Scene, cube pose, contact GT, witness or expert actions.
  context={'instruction':INSTRUCTION,'conventions':CONVENTIONS,'output_schema':SCHEMA,'observations':{k:copy.deepcopy(obs[k]) for k in ['calibration','arms','sim_time_s','base_transforms_world_wxyz']},'recent_history':copy.deepcopy(history[-2:]),'attachments':[]}
+ if task_id=='handoff_transfer_only':context['instruction']=TRANSFER_INSTRUCTION
+ elif task_id!='handoff_place_v1':raise ValueError('UNKNOWN_TASK')
  images=[Path(p) for p in obs['images']]
  for i,(camera,path) in enumerate(zip(['overhead','tabletop_front','left_wrist','right_wrist'],images)):
   context['attachments'].append({'camera_id':camera,'file':f'image-{i}.png','sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
@@ -45,7 +48,7 @@ def context_from_observation(obs,history):
 
 def validate_context(c,images):
  if set(c)!={'instruction','conventions','output_schema','observations','recent_history','attachments'}:raise ValueError('PUBLIC_FIELDS')
- if c['instruction']!=INSTRUCTION or c['conventions']!=CONVENTIONS or c['output_schema']!=SCHEMA:raise ValueError('CONTRACT_CHANGED')
+ if c['instruction'] not in (INSTRUCTION,TRANSFER_INSTRUCTION) or c['conventions']!=CONVENTIONS or c['output_schema']!=SCHEMA:raise ValueError('CONTRACT_CHANGED')
  if set(c['observations'])!={'calibration','arms','sim_time_s','base_transforms_world_wxyz'}:raise ValueError('OBSERVATION_FIELDS')
  if len(images)!=4 or len(c['attachments'])!=4:raise ValueError('FOUR_RGB_REQUIRED')
  if len(c['recent_history'])>2:raise ValueError('HISTORY_BOUND')
@@ -68,12 +71,16 @@ def validate_context(c,images):
 
 spec=importlib.util.spec_from_file_location('spatial_eval._rm65_transport',V0/'spatial_eval/mac_bridge.py');transport=importlib.util.module_from_spec(spec);spec.loader.exec_module(transport);transport.validate_context=validate_context;transport.parameter_audit=lambda result:full_command_audit(result.get("command"))
 class HandoffBridgeAdapter(transport.MacBridgeAdapter):
- def __init__(self,config,*,offline_test=True):
-  if not offline_test:raise ValueError('PHYSICAL_BASELINE_AND_NEW_AUTHORIZATION_REQUIRED')
-  super().__init__(config,offline_test=True,timeout_limit_s=180)
+ def __init__(self,config,*,offline_test=True,task_id='handoff_place_v1'):
+  if not offline_test and task_id!='handoff_transfer_only':raise ValueError('LEGACY_TASK_REAL_DISPATCH_FORBIDDEN')
+  self.task_id=task_id
+  super().__init__(config,offline_test=offline_test,timeout_limit_s=180)
  def infer(self,context,images,folder,*,real=False,timeout_s=180):
-  if real:raise ValueError('THIS_STAGE_GENERATION_BUDGET_ZERO')
-  return super().infer(context,images,folder,real=False,timeout_s=timeout_s)
+  if real:
+   if self.task_id!='handoff_transfer_only' or not getattr(self,'_reserved_dispatch',False):raise ValueError('NEW_TRANSFER_RESERVATION_REQUIRED')
+   if context['instruction']!=TRANSFER_INSTRUCTION or timeout_s!=180:raise ValueError('TRANSFER_CONTRACT_OR_DEADLINE')
+  self._reserved_dispatch=False
+  return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
 
 def accept_result(folder):
  p=Path(folder);r=json.loads((p/'response.json').read_text());t=json.loads((p/'transport.json').read_text());original=json.loads((p/'bridge_result.json').read_text())

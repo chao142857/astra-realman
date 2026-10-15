@@ -12,6 +12,8 @@ from rm65_scene import RM65Scene,camera_pose,CONFIG
 from run_expert import write_json
 
 LAYOUT=json.loads(Path(os.environ.get('RM65_LAYOUT',str(Path(__file__).parent/'scene_v1.json'))).read_text())
+def initial_arm_q(side):
+ return LAYOUT['initial_arm_q_by_side'][side] if 'initial_arm_q_by_side' in LAYOUT else LAYOUT['initial_arm_q']
 from mimic_control import damped_mimic
 CONTROLLER=os.environ.get('RM65_CONTROLLER','original')
 if CONTROLLER not in ('original','damped_mimic_v1','light_latch_v1'):raise ValueError('UNKNOWN_CONTROLLER')
@@ -25,7 +27,7 @@ for path in ORIGINAL_CONFIG.iterdir():
 cfg=json.loads((CONFIG/'assembly.json').read_text())
 for key in ('table_center','table_half_size','cube_initial_xyz'):cfg['scene'][key]=LAYOUT[key]
 cfg['temporary_assembly']['base_world_xyz_m']=LAYOUT['left_base'][:3]
-cfg['scene']['place_zone_xy']=LAYOUT['target_xy'];cfg['control']['initial_arm_q']=LAYOUT['initial_arm_q']
+cfg['scene']['place_zone_xy']=LAYOUT['target_xy'];cfg['control']['initial_arm_q']=initial_arm_q('left')
 (CONFIG/'assembly.json').write_text(json.dumps(cfg,indent=2))
 source_scene.CONFIG=CONFIG
 
@@ -114,7 +116,8 @@ class DualScene:
   right.joints=right.robot.get_active_joints();right.names=[j.name for j in right.joints];right.links={x.name:x for x in right.robot.get_links()};right.arm_indices=[right.names.index('joint'+str(i)) for i in range(1,7)];right.master=right.names.index(right.cfg['gripper_master'])
   for link in right.robot.get_links():
    name='R__'+link.name;link.name=name;link.entity.name=name
-  q=np.zeros(len(right.names));q[right.arm_indices]=LAYOUT['initial_arm_q'];right.arm_target=q[right.arm_indices].copy();right.robot.set_qpos(q)
+  right.cfg['control']['initial_arm_q']=initial_arm_q('right')
+  q=np.zeros(len(right.names));q[right.arm_indices]=initial_arm_q('right');right.arm_target=q[right.arm_indices].copy();right.robot.set_qpos(q)
   for i,j in enumerate(right.joints):
    limit=right.tree.find(f"joint[@name='{j.name}']/limit");c=right.cfg['control']
    if i in right.arm_indices:j.set_drive_property(c['arm_stiffness'],c['arm_damping'],force_limit=float(limit.get('effort')))

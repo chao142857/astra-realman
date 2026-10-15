@@ -1,0 +1,36 @@
+{
+  "criteria": {
+    "version": "rm65.transfer_only.physical.v1",
+    "independent_hold_s": 2.0,
+    "initial_left_hold_s": 2.0,
+    "relative_translation_drift_max_m": 0.002,
+    "relative_rotation_drift_max_deg": 5.0,
+    "exit_object_displacement_m": 0.08,
+    "exit_left_distance_increase_m": 0.04,
+    "released_left_gap_m": 0.07,
+    "minimum_object_center_z_m": 0.07,
+    "max_pad_penetration_m": 0.002,
+    "terminal_passive_hold_s": 2.0,
+    "original_velocity_criterion": "Reported separately under unchanged process_criteria_v1.json; not silently altered. New transfer retention uses measured object/TCP relative pose and bilateral physical support.",
+    "rationale": "2 s continuous physical support, no left/table support, 2 mm relative drift (4% of 50 mm cube width), <=5 deg relative rotation. Exit requires object displacement AND increasing separation from left TCP; no reference handoff coordinate/path. Original 2 mm physical penetration guard unchanged.",
+    "frozen_before_real_astra_calls": true
+  },
+  "checks": {
+    "initial_left_physical_hold": true,
+    "right_independent_hold": false,
+    "right_held_exit": false,
+    "no_drop": true,
+    "no_interarm_contact": true,
+    "original_penetration_limit": true
+  },
+  "transfer_only_pass": false,
+  "independent_segments": [],
+  "initial_left_hold_s": 3.000000000000002,
+  "initial_left_relative_drift_m": 2.4530428743567107e-07,
+  "initial_left_relative_rotation_deg": 8.412561419312796e-05,
+  "drop_steps": [],
+  "interarm_steps": [],
+  "maximum_pad_penetration_m": 4.3928594095632434e-05,
+  "reported_world_speed_max_m_s": 0.11772000789642334,
+  "source": "PRIVATE_PHYSICS_NOT_MODEL_INPUT"
+}

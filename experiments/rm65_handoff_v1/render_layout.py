@@ -21,9 +21,10 @@ def main():
     left, right = layout['left_base'], layout['right_base']
     overhead = layout['cameras']['overhead']
     separation = math.dist(left[:3], right[:3])
+    requested_distance = layout['change_from_v1']['base_separation_m']
     angle = angle_below_horizontal([b-a for a, b in zip(overhead['position'], overhead['look_at'])])
     checks = {
-        'requested_base_distance': math.isclose(separation, .72 * 1.8, abs_tol=1e-9),
+        'requested_base_distance': math.isclose(separation, requested_distance, abs_tol=1e-9),
         'unchanged_midpoint': math.isclose((left[0]+right[0])/2, .36, abs_tol=1e-9),
         'requested_camera_angle': math.isclose(angle, 75, abs_tol=1e-9),
         'four_roles': set(layout['cameras']) == {'overhead', 'tabletop_front', 'left_wrist', 'right_wrist'},

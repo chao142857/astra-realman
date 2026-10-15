@@ -1,0 +1,124 @@
+{
+  "version": "v0_layout_control_only",
+  "provenance": "Approximate spatial arrangement from supplied laboratory photo. Numeric dimensions are engineering choices constrained by RM65 URDF/workspace, NOT photogrammetric calibration.",
+  "world": {
+    "units": "m",
+    "axes": "+X from left base to right base; +Y toward rear; +Z up",
+    "quaternion": "wxyz"
+  },
+  "left_base": [
+    0,
+    0,
+    0.03,
+    1,
+    0,
+    0,
+    0
+  ],
+  "right_base": [
+    0.75,
+    -0.3,
+    0.03,
+    0,
+    0,
+    0,
+    1
+  ],
+  "initial_arm_q": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "table_center": [
+    0.25,
+    0,
+    -0.04
+  ],
+  "table_half_size": [
+    0.55,
+    0.45,
+    0.04
+  ],
+  "cube_initial_xyz": [
+    0.36,
+    -0.06,
+    0.026
+  ],
+  "target_xy": [
+    0.6,
+    0.16
+  ],
+  "cameras": {
+    "overhead": {
+      "position": [
+        0.36,
+        0,
+        1.35
+      ],
+      "look_at": [
+        0.36,
+        0,
+        0.1
+      ],
+      "fovy_degrees": 58
+    },
+    "tabletop_front": {
+      "position": [
+        0.36,
+        -0.46,
+        0.09
+      ],
+      "look_at": [
+        0.36,
+        0,
+        0.22
+      ],
+      "fovy_degrees": 72
+    },
+    "left_wrist": {
+      "parent": "left/ctag_base_link",
+      "position_parent": [
+        0,
+        -0.09,
+        0.045
+      ],
+      "look_at_parent": [
+        0,
+        0,
+        0.205
+      ],
+      "fovy_degrees": 50
+    },
+    "right_wrist": {
+      "parent": "right/ctag_base_link",
+      "position_parent": [
+        0,
+        -0.09,
+        0.045
+      ],
+      "look_at_parent": [
+        0,
+        0,
+        0.205
+      ],
+      "fovy_degrees": 50
+    }
+  },
+  "preview": {
+    "position": [
+      1.2,
+      -1.45,
+      1.15
+    ],
+    "look_at": [
+      0.36,
+      0,
+      0.3
+    ],
+    "model_input": false
+  },
+  "dimension_basis": "0.90m trial archived; center TCP z=0.18m rejected by original IK. 0.72m base separation uses the verified 0.36m per-arm radial workspace."
+}

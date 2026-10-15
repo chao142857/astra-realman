@@ -1,5 +1,10 @@
 # RM65 dual handoff V1 — yanglab
 
+**2026-10-15 新任务入口：** [1.1 m Ready Pose / handoff_transfer_only](TRANSFER_READY_20261015.md)。
+左右独立初态、两次物理 reset/拾取、四视角与零生成 shadow/执行接口已通过。
+该子任务不以完整放置成功为前置；真实请求仍为 0，等待独立新授权。
+以下 V1 完整交接与放置的历史结论保留不变。
+
 **Status: P0 layout PASS; P1 partial diagnosis, NOT repaired to the fixed stability criterion; P2 full handoff/place FAIL; P3 four-camera offline loop PASS. Astra generations = 0. Do not request/execute a real model episode yet.**
 
 Independent branch based on `b13164b`. All V0 code, assets, ledgers, failures and videos remain unchanged. Host: yanglab, never ubuntu-robot. No RoboTwin, hardware imports, bridge production requests, physical welds or post-initialization object pose writes.
