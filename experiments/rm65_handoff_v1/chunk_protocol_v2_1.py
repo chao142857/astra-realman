@@ -48,4 +48,3 @@ def stage_batches(world,stage,actual_pose,operation_nodes):
             side=action['arm'];start=actual_pose(world.arms[side])
             for i,node in enumerate(operation_nodes(action,start)):
                 yield {side:node},{side:index},{side:start} if i==0 else {}
-
