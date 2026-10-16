@@ -1,0 +1,145 @@
+{
+  "batch_id": "ba904d1bf5e441c3b5ec105fe5312147",
+  "execution_baseline": "d713a49a115937dcb3183c44bcfd82978d19e49b",
+  "task": "handoff_place_full",
+  "host": "yanglab",
+  "ledger_status": "STOPPED",
+  "actual_dispatches": 4,
+  "completed_cli_turns": 4,
+  "accepted_actions": 3,
+  "distinct_ephemeral_threads": 4,
+  "unused_budget_not_reusable": 12,
+  "model_takeover_step": 100,
+  "expert_initialization_actions": 0,
+  "first_execution_blocker": {
+    "decision": 1,
+    "stage_index_zero_based": 2,
+    "action": "gripper",
+    "requested_opening_fraction": 0.15,
+    "contact_mode": "bilateral_hold",
+    "reason": "INTERPOLATED_COLLISION:left:105:[('left_rm65_6', 'L__ctag_Left_Support_Link', 'table_2', 'table_2'), ('left_rm65_6', 'L__ctag_Right_Support_Link', 'table_2', 'table_2'), ('left_rm65_6', 'L__ctag_Right_2_Link', 'target_cube_4', 'target_cube_4')]",
+    "kind": "EXISTING_GEOMETRIC_PREFLIGHT_REJECTION_NOT_EXECUTED_COLLISION"
+  },
+  "stop_cause": {
+    "decision": 4,
+    "reason": "DUPLICATE_ARM_IN_STAGE",
+    "public_json_schema_valid": true,
+    "public_ordering_description": "Stages follow list order. sequential finishes each listed arm operation before the next. parallel advances one resampled node per TCP arm together in shared physics; a gripper operation runs with the first node. An arm finishing early holds. Arms omitted from a group hold drive targets.",
+    "classification": "PUBLIC_SCHEMA_LOCAL_VALIDATOR_CONSTRAINT_MISMATCH",
+    "not_a_demonstrated_spatial_reasoning_failure": true,
+    "no_schema_or_action_repair_performed": true
+  },
+  "model_completed_stages": {
+    "approach_and_height_adjustment_only": true,
+    "left_stable_grasp": false,
+    "handoff": false,
+    "right_independent_hold": false,
+    "right_transport": false,
+    "right_release_and_place": false
+  },
+  "full_task_success": false,
+  "frozen_process_score": {
+    "criteria": {
+      "version": "rm65_v1_process_1",
+      "released_gap_m": 0.07,
+      "left_continuous_hold_s": 0.5,
+      "right_continuous_independent_hold_s": 2.0,
+      "script_independent_hold_observation_s": 5.0,
+      "hold_min_center_z_m": 0.07,
+      "hold_max_speed_m_s": 0.03,
+      "stable_place_s": 1.0,
+      "place_max_speed_m_s": 0.01,
+      "cube_size_m": 0.05,
+      "target_half_size_m": 0.07,
+      "target_xy": [
+        0.52,
+        0.16
+      ],
+      "max_pad_penetration_m": 0.002,
+      "contact_impulse_threshold": 1e-07,
+      "no_interarm_contact": true,
+      "drop_definition": "table contact after first lift and before intentional right_release, or object center below 0.06m while either arm is commanded to hold; final controlled release is scored separately",
+      "note": "Frozen before full V1 script success. Raw durations always reported; old V0 evaluation remains unchanged."
+    },
+    "longest_continuous_s": {
+      "left_hold": 0,
+      "right_independent_hold": 0,
+      "stable_place": 0
+    },
+    "checks": {
+      "left_hold": false,
+      "right_independent_hold": false,
+      "stable_place": false,
+      "no_unintended_drop": true,
+      "no_interarm_contact": true,
+      "no_pad_penetration_abort": true
+    },
+    "full_process_pass": false,
+    "unintended_drop_steps": [],
+    "maximum_pad_penetration_m": 0.0,
+    "interarm_steps": [],
+    "pad_penetrations": [],
+    "physics_steps": 27325,
+    "model_calls": 0
+  },
+  "independent_rescore_matches": true,
+  "executed_gripper_commands": 0,
+  "numeric_groups": {
+    "attempted": 118,
+    "executed": 117,
+    "rejected_without_motion": 1
+  },
+  "actual_arm_traces": {
+    "left": {
+      "actual_tcp_z_range_m": [
+        0.027010362786042234,
+        0.21547162581706192
+      ],
+      "actual_pad_gap_range_mm": [
+        89.84360523333261,
+        89.84871134057803
+      ],
+      "bilateral_contact_ticks": 0
+    },
+    "right": {
+      "actual_tcp_z_range_m": [
+        0.19557582738941526,
+        0.19557611900546823
+      ],
+      "actual_pad_gap_range_mm": [
+        89.84719050639522,
+        89.84732625427179
+      ],
+      "bilateral_contact_ticks": 0
+    }
+  },
+  "cube_height_range_m": [
+    0.025000056251883507,
+    0.02584303542971611
+  ],
+  "final_cube_pose_PRIVATE": [
+    0.049998048692941666,
+    -1.2948644325661007e-06,
+    0.025000708177685738,
+    1.0,
+    2.815669404299115e-06,
+    -1.6587098798481748e-05,
+    1.6784240870038047e-05
+  ],
+  "physics_steps": 27325,
+  "sim_time_s": 109.3,
+  "episode_wall_s": 229.1219697559718,
+  "usage_and_time_totals": {
+    "input_tokens": 282707,
+    "cached_input_tokens": 0,
+    "output_tokens": 2563,
+    "reported_reasoning_tokens": 1066,
+    "inference_wall_s": 159.27213374502026,
+    "execution_physics_steps": 27225,
+    "other_output_tokens": 1497
+  },
+  "transport_or_cli_top_level_failures": 0,
+  "physical_protection_stops": 0,
+  "automatic_retries": 0,
+  "warning": "Single exploratory episode interrupted by an interface constraint mismatch. No population capability estimate; tokens are reported usage, wall time includes client/server and network overhead."
+}

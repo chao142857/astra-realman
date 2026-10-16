@@ -1,0 +1,69 @@
+{
+  "task": "handoff_place_full",
+  "source": "REAL_ASTRA_ATTEMPT",
+  "model_requests": 4,
+  "controller": "urdf_effort_hold_v2",
+  "action_interface": "chunk_v2",
+  "decisions": 3,
+  "expert_initialization_actions": 0,
+  "status": "STOPPED",
+  "batch_id": "ba904d1bf5e441c3b5ec105fe5312147",
+  "right_hold_control": {
+    "version": "right_contact_hold_master_damping0_v3",
+    "scope": "right master damping after ordinary bilateral contact latch only",
+    "opening": "existing opening operation restores original drive settings",
+    "target_or_planner_correction": false,
+    "left_arm_unchanged": true
+  },
+  "model_takeover_step": 100,
+  "error": "ValueError('DUPLICATE_ARM_IN_STAGE')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/tongji/alex/rm65-full-task-exploration-prep-20261016/experiments/rm65_handoff_v1/full_handoff_episode.py\", line 68, in main\n    if gate:gate.complete(row,d)\n  File \"/home/tongji/alex/rm65-full-task-exploration-prep-20261016/experiments/rm65_handoff_v1/transfer_gate.py\", line 120, in complete\n    self.accept(folder)\n  File \"/home/tongji/alex/rm65-full-task-exploration-prep-20261016/experiments/rm65_handoff_v1/full_task_gate.py\", line 52, in accept\n    return accept_result(folder)\n  File \"/home/tongji/alex/rm65-full-task-exploration-prep-20261016/experiments/rm65_handoff_v1/chunk_handoff_task.py\", line 70, in accept_result\n    def accept_result(folder):return original.accept_result(folder,parser=parse_chunk)\n  File \"/home/tongji/alex/rm65-full-task-exploration-prep-20261016/experiments/rm65_handoff_v1/action_interface.py\", line 107, in accept_result\n    return parser(r['raw'])\n  File \"/home/tongji/alex/rm65-full-task-exploration-prep-20261016/experiments/rm65_handoff_v1/numeric_action_chunk.py\", line 58, in parse_chunk\n    if len({a['arm'] for a in stage['actions']})!=len(stage['actions']):raise ValueError('DUPLICATE_ARM_IN_STAGE')\nValueError: DUPLICATE_ARM_IN_STAGE\n",
+  "physics_steps": 27325,
+  "sim_time_s": 109.3,
+  "historical_full_process_score_unchanged": {
+    "criteria": {
+      "version": "rm65_v1_process_1",
+      "released_gap_m": 0.07,
+      "left_continuous_hold_s": 0.5,
+      "right_continuous_independent_hold_s": 2.0,
+      "script_independent_hold_observation_s": 5.0,
+      "hold_min_center_z_m": 0.07,
+      "hold_max_speed_m_s": 0.03,
+      "stable_place_s": 1.0,
+      "place_max_speed_m_s": 0.01,
+      "cube_size_m": 0.05,
+      "target_half_size_m": 0.07,
+      "target_xy": [
+        0.52,
+        0.16
+      ],
+      "max_pad_penetration_m": 0.002,
+      "contact_impulse_threshold": 1e-07,
+      "no_interarm_contact": true,
+      "drop_definition": "table contact after first lift and before intentional right_release, or object center below 0.06m while either arm is commanded to hold; final controlled release is scored separately",
+      "note": "Frozen before full V1 script success. Raw durations always reported; old V0 evaluation remains unchanged."
+    },
+    "longest_continuous_s": {
+      "left_hold": 0,
+      "right_independent_hold": 0,
+      "stable_place": 0
+    },
+    "checks": {
+      "left_hold": false,
+      "right_independent_hold": false,
+      "stable_place": false,
+      "no_unintended_drop": true,
+      "no_interarm_contact": true,
+      "no_pad_penetration_abort": true
+    },
+    "full_process_pass": false,
+    "unintended_drop_steps": [],
+    "maximum_pad_penetration_m": 0.0,
+    "interarm_steps": [],
+    "pad_penetrations": [],
+    "physics_steps": 27325,
+    "model_calls": 0
+  },
+  "independent_rescore_matches": true,
+  "episode_wall_s": 229.1219697559718
+}

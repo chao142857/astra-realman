@@ -1,0 +1,30 @@
+{
+  "raw": "{\"done\":false,\"stages\":[{\"actions\":[{\"arm\":\"left\",\"kind\":\"tcp\",\"waypoints_world_wxyz\":[[0.05,0,0.215,0,1,0,0],[0.05,0,0.03,0,1,0,0]]}],\"mode\":\"sequential\",\"observe_s\":0.2},{\"actions\":[{\"arm\":\"left\",\"kind\":\"tcp\",\"waypoints_world_wxyz\":[[0.05,0,0.027,0,1,0,0]]}],\"mode\":\"sequential\",\"observe_s\":0.2},{\"actions\":[{\"arm\":\"left\",\"contact_mode\":\"bilateral_hold\",\"kind\":\"gripper\",\"opening_fraction\":0.15}],\"mode\":\"sequential\",\"observe_s\":0.4}]}",
+  "events": "{\"type\":\"thread.started\",\"thread_id\":\"01a1437e-a8ea-7ea3-b5fa-7c3240d1f3e3\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_0\",\"type\":\"error\",\"message\":\"Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/tangchao/.codex/config.toml.\"}}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_1\",\"type\":\"error\",\"message\":\"Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.\"}}\n{\"type\":\"turn.started\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_2\",\"type\":\"agent_message\",\"text\":\"{\\\"done\\\":false,\\\"stages\\\":[{\\\"actions\\\":[{\\\"arm\\\":\\\"left\\\",\\\"kind\\\":\\\"tcp\\\",\\\"waypoints_world_wxyz\\\":[[0.05,0,0.215,0,1,0,0],[0.05,0,0.03,0,1,0,0]]}],\\\"mode\\\":\\\"sequential\\\",\\\"observe_s\\\":0.2},{\\\"actions\\\":[{\\\"arm\\\":\\\"left\\\",\\\"kind\\\":\\\"tcp\\\",\\\"waypoints_world_wxyz\\\":[[0.05,0,0.027,0,1,0,0]]}],\\\"mode\\\":\\\"sequential\\\",\\\"observe_s\\\":0.2},{\\\"actions\\\":[{\\\"arm\\\":\\\"left\\\",\\\"contact_mode\\\":\\\"bilateral_hold\\\",\\\"kind\\\":\\\"gripper\\\",\\\"opening_fraction\\\":0.15}],\\\"mode\\\":\\\"sequential\\\",\\\"observe_s\\\":0.4}]}\"}}\n{\"type\":\"turn.completed\",\"usage\":{\"input_tokens\":15235,\"cached_input_tokens\":0,\"cache_write_input_tokens\":0,\"output_tokens\":663,\"reasoning_output_tokens\":484}}\n",
+  "stderr": "Reading prompt from stdin...\n",
+  "error": null,
+  "return_code": 0,
+  "usage": {
+    "input_tokens": 15235,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 663,
+    "reasoning_output_tokens": 484
+  },
+  "source": "REAL_ASTRA_ATTEMPT",
+  "model_calls": 1,
+  "usage_status": "CLI_REPORTED",
+  "usage_events": [
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 15235,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 663,
+        "reasoning_output_tokens": 484
+      }
+    }
+  ],
+  "wall_latency_s": 46.78195675800089
+}
