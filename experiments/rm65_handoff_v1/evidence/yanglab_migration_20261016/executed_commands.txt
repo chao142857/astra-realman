@@ -1,0 +1,8 @@
+# Actual zero-generation invocations on yanglab; every output directory unique.
+source runtime.action-chunk.yanglab.sh
+"$RM65_PYTHON" -m unittest numeric_chunk_tests offline_tests -v
+"$RM65_PYTHON" full_handoff_offline_test.py --action-interface chunk_v2 --right-hold-control master_damping0_v3 --output evidence/yanglab_migration_20261016/chunk_mock_01
+"$RM65_PYTHON" numeric_chunk_physics.py --fixed-orientation-regression --output evidence/yanglab_migration_20261016/fixed_orientation_01
+"$RM65_PYTHON" numeric_chunk_physics.py --output evidence/yanglab_migration_20261016/yaw_boundary_01
+# Last command retained exit status 1: original PAD_PENETRATION at step 28614.
+# No --real invocation, no production Bridge, and no ledger operation.

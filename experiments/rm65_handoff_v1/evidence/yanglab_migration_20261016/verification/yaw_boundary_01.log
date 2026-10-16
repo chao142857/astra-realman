@@ -1,0 +1,136 @@
+{
+  "source": "PRIVATE_ENGINEERING_NOT_ASTRA",
+  "real_requests": 0,
+  "bridge_connections": 0,
+  "not_a_full_task_trial": true,
+  "fixed_orientation_diagnostic": false,
+  "cases": [
+    {
+      "case": "single_long_segment",
+      "start_step": 11374,
+      "end_step": 28074,
+      "receipt_ok": true,
+      "reason": null,
+      "chunk": 2
+    }
+  ],
+  "status": "FAIL",
+  "initialization_proposals": [
+    {
+      "index": 0,
+      "sha256": "db76e52c3f0a348fe3d30d8109cd5faeb934c1c6d69d10e925f6554a3c553116"
+    },
+    {
+      "index": 1,
+      "sha256": "09341c19ae1b11ee64ba5039450efee60bfd387775b235049749ddb9757e176b"
+    },
+    {
+      "index": 2,
+      "sha256": "f10e7e671829f7e0c96e9546156691590caabfeebacf714ed8d7ba8744e95199"
+    },
+    {
+      "index": 3,
+      "sha256": "674a3a16878462dd3157b5b5b6edd782c98b22c012a18589f19621519b0d40f5"
+    },
+    {
+      "index": 4,
+      "sha256": "8bfb902b03870bb5fc1829218c4f3eaaaf25178a2c2f9f14bd7fca7c064c0fc1"
+    },
+    {
+      "index": 5,
+      "sha256": "06b46bf571ea0c902494578b5649dd64f174a9684f87bad306205a3ee4006dfa"
+    },
+    {
+      "index": 6,
+      "sha256": "3111dd938b3b56ec559802e75cee4987c2be6cfa6c44b72933911fe85eb0ff45"
+    },
+    {
+      "index": 7,
+      "sha256": "38db8376848264654472fafd9a3be7b25612f62a872e7351fe708074cc4e30d7"
+    },
+    {
+      "index": 8,
+      "sha256": "8af1dc11dbdd2e23baec10abac74e794e18348d4a48d8be2d8b5d6c7648237b2"
+    },
+    {
+      "index": 9,
+      "sha256": "be0657e95cd15865563d5780e4369356807e3496d2ba0f7313f77d02a68ba7ba"
+    },
+    {
+      "index": 10,
+      "sha256": "f589d1c1a53133d1d5bffd071661b4854379fa151cf32aaf41aba863cfe6e4ab"
+    },
+    {
+      "index": 11,
+      "sha256": "8d8ed3c3e939bc3899d82acad5005403afbca5b8a9e24e9e3381739164c11d18"
+    },
+    {
+      "index": 12,
+      "sha256": "f95dbe7c2a899b0617387753a6ff4d9c08cb91f56d9272eebac12db1587ac52b"
+    }
+  ],
+  "explicit_hold_7s": {
+    "version": "right_independent_hold_engineering_v1",
+    "pass": true,
+    "checks": {
+      "duration": true,
+      "continuous_bilateral": true,
+      "no_external_support": true,
+      "no_interarm_contact": true,
+      "relative_translation_at_most_2mm": true,
+      "relative_rotation_at_most_5deg": true,
+      "penetration_at_most_2mm": true,
+      "object_remains_above_table": true
+    },
+    "range_steps": [
+      7469,
+      9218
+    ],
+    "duration_s": 7.0,
+    "required_s": 7.0,
+    "max_relative_translation_mm": 0.00024549986817320476,
+    "max_relative_rotation_deg": 0.00014679843782625394,
+    "max_pad_penetration_mm": 0.26886333944275975,
+    "violations": {
+      "right_bilateral": [],
+      "left_or_table_support": [],
+      "interarm": []
+    },
+    "separate_from_historical_velocity_score": true
+  },
+  "current_case": "held_user_bend_and_yaw",
+  "long_segment_independent_hold": {
+    "version": "right_independent_hold_engineering_v1",
+    "pass": true,
+    "checks": {
+      "duration": true,
+      "continuous_bilateral": true,
+      "no_external_support": true,
+      "no_interarm_contact": true,
+      "relative_translation_at_most_2mm": true,
+      "relative_rotation_at_most_5deg": true,
+      "penetration_at_most_2mm": true,
+      "object_remains_above_table": true
+    },
+    "range_steps": [
+      11375,
+      28074
+    ],
+    "duration_s": 66.8,
+    "required_s": 66.8,
+    "max_relative_translation_mm": 0.0049580880520865645,
+    "max_relative_rotation_deg": 0.005707413005689434,
+    "max_pad_penetration_mm": 0.28875088901259005,
+    "violations": {
+      "right_bilateral": [],
+      "left_or_table_support": [],
+      "interarm": []
+    },
+    "separate_from_historical_velocity_score": true
+  },
+  "error": "RuntimeError('PAD_PENETRATION')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/tongji/alex/rm65-action-chunk-yanglab-20261016/experiments/rm65_handoff_v1/numeric_chunk_physics.py\", line 78, in main\n    run_case('held_user_bend_fixed_orientation' if a.fixed_orientation_regression else 'held_user_bend_and_yaw',\n  File \"/home/tongji/alex/rm65-action-chunk-yanglab-20261016/experiments/rm65_handoff_v1/numeric_chunk_physics.py\", line 36, in run_case\n    receipt=execute_chunk(w,proposal)\n  File \"/home/tongji/alex/rm65-action-chunk-yanglab-20261016/experiments/rm65_handoff_v1/numeric_action_chunk.py\", line 144, in execute_chunk\n    r=world.execute_group(commands);log['receipt']=r\n  File \"/home/tongji/alex/rm65-action-chunk-yanglab-20261016/experiments/rm65_handoff_v1/dual_scene.py\", line 258, in execute_group\n    self.tick(1)\n  File \"/home/tongji/alex/rm65-action-chunk-yanglab-20261016/experiments/rm65_handoff_v1/dual_scene.py\", line 187, in tick\n    if other=='target_cube' and own[0] in a.pad_vertices:raise RuntimeError('PAD_PENETRATION')\nRuntimeError: PAD_PENETRATION\n",
+  "physics_steps": 28614,
+  "physics_time_s": 114.456,
+  "wall_s": 69.65781861398136
+}

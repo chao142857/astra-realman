@@ -1,0 +1,193 @@
+{
+  "deployment": "PASS_WITH_UNCHANGED_KNOWN_YAW_PHYSICS_FAILURE",
+  "host": "yanglab",
+  "base_commit": "8cd224e89cac6e96c94b1550e1bff00504842485",
+  "real_astra_requests": 0,
+  "production_bridge_connections": 0,
+  "hardware_connections": 0,
+  "new_ledgers": 0,
+  "asset_hashes_verified": 56,
+  "old_worktrees_unchanged": {
+    "/home/tongji/alex/astra_onsite_1011": true,
+    "/home/tongji/alex/acve-p0-1011": true,
+    "/home/tongji/alex/rm65-dual-handoff-20261014": true,
+    "/home/tongji/alex/rm65-dual-handoff-v1-20261014": true,
+    "/home/tongji/alex/rm65-handoff-consistency-20261014": true,
+    "/home/tongji/alex/rm65-handoff-corrected-replay-20261015": true,
+    "/home/tongji/alex/rm65-transfer-first-real-yanglab-20261015": true,
+    "/home/tongji/alex/rm65-transfer-ready-yanglab-20261015": true,
+    "/home/tongji/alex/rm65-wide-layout-20261015": true,
+    "/home/tongji/alex/spatial-eval-lab-20261013": true,
+    "/home/tongji/alex/spatial-eval-mac-bridge-20261013": true,
+    "/home/tongji/alex/spatial-eval-pilot01-20261013": true,
+    "/home/tongji/alex/spatial-pilot02-offline-20261013": true
+  },
+  "old_stopped_ledger_sha256": "2304f4eb011e40a870c91c4420d22ce75d94346cdda6ec3ae799a825f50db8c1",
+  "physical_rechecks": {
+    "fixed_orientation_01": {
+      "status": "PASS_FINITE_ACTUATOR_CASES_NOT_MODEL_TASK_SUCCESS",
+      "error": null,
+      "steps": 33799,
+      "sim_time_s": 135.196,
+      "wall_s": 82.58079251099844,
+      "independent_scores_equal": {
+        "explicit_hold_7s": true,
+        "long_segment_independent_hold": true,
+        "bend_independent_hold": true
+      },
+      "physics_core_comparison_to_ubuntu": {
+        "samples": 33799,
+        "exactly_equal_samples": 33799,
+        "max_joint_difference_rad": 0.0,
+        "max_object_pose_component_difference": 0.0
+      },
+      "max_active_pad_penetration_mm": 0.4955687327310443,
+      "right_hold": {
+        "version": "right_independent_hold_engineering_v1",
+        "pass": true,
+        "checks": {
+          "duration": true,
+          "continuous_bilateral": true,
+          "no_external_support": true,
+          "no_interarm_contact": true,
+          "relative_translation_at_most_2mm": true,
+          "relative_rotation_at_most_5deg": true,
+          "penetration_at_most_2mm": true,
+          "object_remains_above_table": true
+        },
+        "range_steps": [
+          7469,
+          9218
+        ],
+        "duration_s": 7.0,
+        "required_s": 7.0,
+        "max_relative_translation_mm": 0.00024549986817320476,
+        "max_relative_rotation_deg": 0.00014679843782625394,
+        "max_pad_penetration_mm": 0.26886333944275975,
+        "violations": {
+          "right_bilateral": [],
+          "left_or_table_support": [],
+          "interarm": []
+        },
+        "separate_from_historical_velocity_score": true
+      },
+      "long_segment_hold": {
+        "version": "right_independent_hold_engineering_v1",
+        "pass": true,
+        "checks": {
+          "duration": true,
+          "continuous_bilateral": true,
+          "no_external_support": true,
+          "no_interarm_contact": true,
+          "relative_translation_at_most_2mm": true,
+          "relative_rotation_at_most_5deg": true,
+          "penetration_at_most_2mm": true,
+          "object_remains_above_table": true
+        },
+        "range_steps": [
+          11375,
+          28074
+        ],
+        "duration_s": 66.8,
+        "required_s": 66.8,
+        "max_relative_translation_mm": 0.0049580880520865645,
+        "max_relative_rotation_deg": 0.005707413005689434,
+        "max_pad_penetration_mm": 0.28875088901259005,
+        "violations": {
+          "right_bilateral": [],
+          "left_or_table_support": [],
+          "interarm": []
+        },
+        "separate_from_historical_velocity_score": true
+      },
+      "release": {
+        "actual_gap_m": 0.08863220631857699,
+        "bilateral": false,
+        "restored_damping": 2.0,
+        "servo_target_rad": -0.0,
+        "not_placement_success": true
+      },
+      "empty_close_negative": {
+        "ok": false,
+        "reason": "GRIPPER_BILATERAL_HOLD_NOT_ESTABLISHED",
+        "executed_steps": 450
+      }
+    },
+    "yaw_boundary_01": {
+      "status": "FAIL",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "steps": 28614,
+      "sim_time_s": 114.456,
+      "wall_s": 69.65781861398136,
+      "independent_scores_equal": {
+        "explicit_hold_7s": true,
+        "long_segment_independent_hold": true
+      },
+      "physics_core_comparison_to_ubuntu": {
+        "samples": 28614,
+        "exactly_equal_samples": 28614,
+        "max_joint_difference_rad": 0.0,
+        "max_object_pose_component_difference": 0.0
+      },
+      "max_active_pad_penetration_mm": 2.326671965420246,
+      "right_hold": {
+        "version": "right_independent_hold_engineering_v1",
+        "pass": true,
+        "checks": {
+          "duration": true,
+          "continuous_bilateral": true,
+          "no_external_support": true,
+          "no_interarm_contact": true,
+          "relative_translation_at_most_2mm": true,
+          "relative_rotation_at_most_5deg": true,
+          "penetration_at_most_2mm": true,
+          "object_remains_above_table": true
+        },
+        "range_steps": [
+          7469,
+          9218
+        ],
+        "duration_s": 7.0,
+        "required_s": 7.0,
+        "max_relative_translation_mm": 0.00024549986817320476,
+        "max_relative_rotation_deg": 0.00014679843782625394,
+        "max_pad_penetration_mm": 0.26886333944275975,
+        "violations": {
+          "right_bilateral": [],
+          "left_or_table_support": [],
+          "interarm": []
+        },
+        "separate_from_historical_velocity_score": true
+      },
+      "long_segment_hold": {
+        "version": "right_independent_hold_engineering_v1",
+        "pass": true,
+        "checks": {
+          "duration": true,
+          "continuous_bilateral": true,
+          "no_external_support": true,
+          "no_interarm_contact": true,
+          "relative_translation_at_most_2mm": true,
+          "relative_rotation_at_most_5deg": true,
+          "penetration_at_most_2mm": true,
+          "object_remains_above_table": true
+        },
+        "range_steps": [
+          11375,
+          28074
+        ],
+        "duration_s": 66.8,
+        "required_s": 66.8,
+        "max_relative_translation_mm": 0.0049580880520865645,
+        "max_relative_rotation_deg": 0.005707413005689434,
+        "max_pad_penetration_mm": 0.28875088901259005,
+        "violations": {
+          "right_bilateral": [],
+          "left_or_table_support": [],
+          "interarm": []
+        },
+        "separate_from_historical_velocity_score": true
+      }
+    }
+  }
+}

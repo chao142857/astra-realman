@@ -1,0 +1,53 @@
+{
+  "done": false,
+  "stages": [
+    {
+      "mode": "parallel",
+      "observe_s": 0.5,
+      "actions": [
+        {
+          "arm": "right",
+          "kind": "tcp",
+          "waypoints_world_wxyz": [
+            [
+              0.7143012279217383,
+              0.019650931041503044,
+              0.20057609188556894,
+              -4.443747457116842e-06,
+              -0.010001599788665771,
+              0.999950110912323,
+              -1.4952383935451508e-06
+            ],
+            [
+              0.7143012279217383,
+              0.019650931041503044,
+              0.20557609188556894,
+              -4.443747457116842e-06,
+              -0.010001599788665771,
+              0.999950110912323,
+              -1.4952383935451508e-06
+            ]
+          ]
+        },
+        {
+          "arm": "left",
+          "kind": "gripper",
+          "opening_fraction": 1.0,
+          "contact_mode": "position"
+        }
+      ]
+    },
+    {
+      "mode": "sequential",
+      "observe_s": 0.5,
+      "actions": [
+        {
+          "arm": "right",
+          "kind": "gripper",
+          "opening_fraction": 1.0,
+          "contact_mode": "position"
+        }
+      ]
+    }
+  ]
+}
