@@ -225,8 +225,16 @@ class DualScene:
       if c['contact_mode'] not in ('position','bilateral_hold'):raise ValueError('INVALID_CONTACT_MODE')
       plans[s].update(contact_mode=c['contact_mode'],requested_master_target=target)
 
+   from contact_preflight_v2 import deferred_closing
+   contact_deferred=deferred_closing(plans)
+   write_json(folder/'preflight_policy.json',{'version':'rm65.contact_dependent_preflight.v2',
+    'deferred_closing_sides':contact_deferred,'static_arm_and_other_motion_checked':True,
+    'closure_safety':'CONTACT_DEPENDENT_NOT_PROVEN_BY_EMPTY_SPACE_RAMP' if contact_deferred else 'FULL_DETERMINISTIC_TRAJECTORY',
+    'actual_scene_queries':'before/after every physics step and settling; original ACM only',
+    'native_2mm_monitor_unchanged':True})
    n=max(len(x['position']) for x in plans.values())
-   # Full shared world at each interpolated simultaneous configuration; reject all before execution.
+   # Deterministic arm/other motion preflight. Contact-dependent fingers remain
+   # measured here; their outcome is explicitly deferred to per-step guarding.
    for a in self.arms.values():
     if a.motion is None:a.init_planner()
     a.motion.update_from_simulation()
@@ -234,7 +242,7 @@ class DualScene:
     qs={s:a.robot.get_qpos().copy() for s,a in self.arms.items()}
     for s,plan in plans.items():
      a=self.arms[s];qs[s][a.arm_indices]=plan['position'][min(i,len(plan['position'])-1)]
-     if 'grip_targets' in plan:
+     if 'grip_targets' in plan and s not in contact_deferred:
       qs[s][a.master]=plan['grip_targets'][min(i,349)]
       for name,(parent,mult,off) in a.mimics.items():qs[s][a.names.index(name)]=qs[s][a.names.index(parent)]*mult+off
     for s,a in self.arms.items():
@@ -249,13 +257,19 @@ class DualScene:
   for s,plan in plans.items():
    if 'grip_targets' in plan:
     a=self.arms[s];master=a.joints[a.master];limit=float(a.tree.find(f"joint[@name='{master.name}']/limit").get('effort'));master.set_drive_property(a.cfg['control']['gripper_stiffness'],a.cfg['control']['gripper_damping'],force_limit=limit)
+  guard=None
+  if contact_deferred:
+   from contact_preflight_v2 import ContactGuard
+   guard=ContactGuard(self,folder,commands,contact_deferred)
   try:
    for i in range(n):
     for s,plan in plans.items():
      a=self.arms[s];idx=min(i,len(plan['position'])-1);p=plan['position'][idx];v=plan['velocity'][idx] if i<len(plan['position']) else np.zeros(6);a.arm_target=p.copy()
      for j,qi,vi in zip(a.arm_indices,p,v):a.joints[j].set_drive_target(float(qi));a.joints[j].set_drive_velocity_target(float(vi))
      if 'grip_targets' in plan and s not in latched:a.joints[a.master].set_drive_target(float(plan['grip_targets'][min(i,349)]))
+    if guard:guard.check('before_physics',i,latched)
     self.tick(1)
+    if guard:guard.check('after_physics',i,latched)
     for s,plan in plans.items():
      if 'grip_targets' in plan and plan['closing'] and plan.get('contact_mode')!='position' and s not in latched:
       contact_steps[s]=contact_steps[s]+1 if self.arms[s].bilateral_pad_contact() else 0
@@ -272,7 +286,10 @@ class DualScene:
    for s in plans:
     for i in self.arms[s].arm_indices:self.arms[s].joints[i].set_drive_velocity_target(0.)
    post_hold_start=self.steps
-   self.tick(getattr(self,'numeric_post_hold_steps',100))
+   if guard:
+    for settle_i in range(getattr(self,'numeric_post_hold_steps',100)):
+     self.tick(1);guard.check('settling',settle_i,latched)
+   else:self.tick(getattr(self,'numeric_post_hold_steps',100))
    residuals={}
    for s,plan in plans.items():
     if 'target_tcp' in plan:
@@ -294,8 +311,12 @@ class DualScene:
     result['gripper_execution']=grips;annotate(result)
    if hasattr(self,'numeric_post_hold_steps'):result['post_numeric_observation']={'start_step':post_hold_start,'end_step':self.steps,'duration_s':(self.steps-post_hold_start)*self.dt,'movement_added':False}
   except BaseException as e:
+   if guard:
+    guard.execution_abort=repr(e);guard.abort_physics_row=self.records[-1] if self.records else None
    for a in self.arms.values():a.stopped.set();a.hold()
    write_json(folder/'receipt.json',{'ok':False,'executed':'PARTIAL','error':repr(e)});raise
+  finally:
+   if guard:guard.close()
   write_json(folder/'receipt.json',result);return result
  def close(self):
   if self.writer is not None:self.writer.close()

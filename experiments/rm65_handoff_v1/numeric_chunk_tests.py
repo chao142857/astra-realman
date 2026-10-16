@@ -60,6 +60,31 @@ class Semantics(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             w=FakeWorld(d);execute_chunk(w,chunk([grip('left'),grip('right')]))
             self.assertEqual([list(c) for c in w.calls],[['left'],['right']])
+    def test_same_arm_sequential_rebases_from_measured_predecessor(self):
+        class OffsetWorld(FakeWorld):
+            def execute_group(self,commands):
+                r=super().execute_group(commands)
+                if len(self.calls)==2:
+                    self.arms['left'].pose=self.arms['left'].pose.copy()
+                    self.arms['left'].pose[0]+=.001
+                return r
+        with tempfile.TemporaryDirectory() as d:
+            w=OffsetWorld(d);value=chunk([tcp('left',[[.21,0,.2,0,1,0,0]]),tcp('left',[[.22,0,.2,0,1,0,0]])])
+            original=copy.deepcopy(value);r=execute_chunk(w,value);self.assertTrue(r['ok'],r)
+            starts=[g for g in r['groups'] if g['operation_start_measured_tcp']]
+            self.assertEqual([g['input_action_indices']['left'] for g in starts],[0,1])
+            self.assertAlmostEqual(starts[1]['operation_start_measured_tcp']['left'][0],.211)
+            self.assertEqual(w.calls[-1]['left']['pose'],[.22,0,.2,0,1,0,0]);self.assertEqual(value,original)
+    def test_same_arm_identical_operations_not_deduplicated(self):
+        with tempfile.TemporaryDirectory() as d:
+            w=FakeWorld(d);a=tcp('left',[[.2,0,.2,0,1,0,0]])
+            r=execute_chunk(w,chunk([a,copy.deepcopy(a)]));self.assertTrue(r['ok']);self.assertEqual(len(w.calls),2)
+            self.assertEqual([g['input_action_indices']['left'] for g in r['groups']],[0,1])
+    def test_same_arm_parallel_conflict_has_no_motion(self):
+        with tempfile.TemporaryDirectory() as d:
+            w=FakeWorld(d)
+            with self.assertRaisesRegex(ValueError,'PARALLEL'):execute_chunk(w,chunk([grip('left'),tcp('left',[[.21,0,.2,0,1,0,0]])],'parallel'))
+            self.assertEqual(w.calls,[]);self.assertEqual(w.steps,0)
     def test_user_waypoint_corner_is_preserved(self):
         a=[.21,0,.2,0,1,0,0];b=[.21,.01,.2,0,1,0,0]
         with tempfile.TemporaryDirectory() as d:
@@ -83,7 +108,7 @@ class Semantics(unittest.TestCase):
             w=FakeWorld(d);value=chunk([]);r=execute_chunk(w,value)
             self.assertTrue(r['ok']);self.assertEqual(w.calls,[]);self.assertEqual(w.steps,125)
     def test_invalid_contract_and_private_skill_are_rejected(self):
-        values=[{'done':True,'stages':[{}]},chunk([grip('left'),grip('left')]),
+        values=[{'done':True,'stages':[{}]},chunk([grip('left'),grip('left')],'parallel'),
             chunk([{'arm':'left','kind':'handoff'}]),chunk([tcp('left',[[.2,0,.2,0,2,0,0]])]),
             chunk([tcp('left',[[.2,0,0,0,1,0,0]])]),dict(chunk([grip('left')]),witness=[])]
         for v in values:
