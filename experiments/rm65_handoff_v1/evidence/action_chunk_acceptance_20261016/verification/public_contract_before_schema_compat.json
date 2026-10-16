@@ -1,0 +1,143 @@
+{
+  "schema": {
+    "type": "object",
+    "properties": {
+      "done": {
+        "type": "boolean"
+      },
+      "stages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "enum": [
+                "sequential",
+                "parallel"
+              ]
+            },
+            "actions": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "arm": {
+                        "enum": [
+                          "left",
+                          "right"
+                        ]
+                      },
+                      "kind": {
+                        "const": "tcp"
+                      },
+                      "waypoints_world_wxyz": {
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          },
+                          "minItems": 7,
+                          "maxItems": 7
+                        },
+                        "minItems": 1,
+                        "maxItems": 16
+                      }
+                    },
+                    "required": [
+                      "arm",
+                      "kind",
+                      "waypoints_world_wxyz"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "arm": {
+                        "enum": [
+                          "left",
+                          "right"
+                        ]
+                      },
+                      "kind": {
+                        "const": "gripper"
+                      },
+                      "opening_fraction": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "contact_mode": {
+                        "enum": [
+                          "position",
+                          "bilateral_hold"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "arm",
+                      "kind",
+                      "opening_fraction",
+                      "contact_mode"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "maxItems": 2
+            },
+            "observe_s": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5
+            }
+          },
+          "required": [
+            "mode",
+            "actions",
+            "observe_s"
+          ],
+          "additionalProperties": false
+        },
+        "maxItems": 8
+      }
+    },
+    "required": [
+      "done",
+      "stages"
+    ],
+    "additionalProperties": false
+  },
+  "conventions": {
+    "interface_version": "numeric_chunk_v2",
+    "position": "metres in shared SAPIEN world; quaternion [w,x,y,z] is Link6 world orientation",
+    "tcp": "mean of actual inner pad representative centres, not flange; changes with gripper geometry",
+    "authority": "You choose every target, intermediate waypoint, gripper command, order and release. No task skill or expert waypoint is inserted.",
+    "tcp_tracking": {
+      "translation_step_max_m": 0.005,
+      "rotation_step_max_rad": 0.017453292519943295,
+      "interpolation": "Straight position and shortest quaternion SLERP between your consecutive waypoints, including measured initial TCP. No detours, snapping or target edits.",
+      "low_level": "Every node uses closest IK and cubic JOINT interpolation, followed by 0.4 s settle. Minimum node movement duration 0.5 s; this is stop-and-settle tracking, not exact Cartesian interpolation or specified-speed motion.",
+      "acceptance": "Every physics sample is checked against its current specified TCP segment; >2 mm position or >1 degree orientation tracking discrepancy stops the chunk after the current numeric group. Endpoint uses the same bounds. Physical safety always stops immediately.",
+      "rejection": "Per-node full shared-scene collision preflight before movement. A later rejection can follow earlier executed nodes; receipts state partial execution. No alternate IK path search or automatic repair."
+    },
+    "gripper": {
+      "opening_fraction": "Empty-space command: master_target_rad = -0.91*(1-opening_fraction); 0 closed, 1 open. This is not measured millimetres. Reported pad-centre gap is not exact minimum contact gap.",
+      "position": "Follow the requested joint target without bilateral-contact latching; ordinary servo, no implicit grasp selection.",
+      "bilateral_hold": "While closing, after two successive bilateral contact samples, stop the ramp and hold the measured master angle minus the existing 0.005 rad preload. The held SERVO TARGET never requests further closure beyond your requested joint target; actual overshoot is possible and monitored. No bilateral contact at the end means explicit execution failure. Omitted gripper retains its last servo target.",
+      "controller": "Versioned right master damping=0 after contact latch, K and URDF effort limit unchanged. Left controller unchanged. A new opening command restores ordinary servo settings. No object binding or qpos overwrites."
+    },
+    "ordering": "Stages follow list order. sequential finishes each listed arm operation before the next. parallel advances one resampled node per TCP arm together in shared physics; a gripper operation runs with the first node. An arm finishing early holds. Arms omitted from a group hold drive targets.",
+    "time": "Physics paused during inference. Each stage ends with your observe_s passive physical hold. An empty actions list with observe_s>0 only observes while holding drive targets. No expert motion during a hold. done=true requires stages=[] and requests a terminal 2 s hold, not automatic task success.",
+    "bounds": {
+      "stages_max": 8,
+      "waypoints_per_arm_operation_max": 16,
+      "numeric_groups_per_chunk_max": 128,
+      "position_residual_m": 0.002,
+      "rotation_residual_rad": 0.017453292519943295
+    }
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "real_model_requests": 0,
+  "production_bridge_connections": 0,
+  "not_model_task_success": true,
+  "cases": {
+    "held_tracking_01": {
+      "reported_status": "FAIL",
+      "error": "RuntimeError(\"PRIVATE_INITIALIZATION_REJECTED:3:{'ok': False, 'executed': True, 'interface': 'numeric_chunk_v2', 'start_step': 1142, 'groups': [{'stage_index': 0, 'subgroup_index': 0, 'commands': {'left': {'opening': 0.45, 'contact_mode': 'bilateral_hold'}}, 'receipt': {'ok': False, 'executed': True, 'start_step': 1142, 'end_step': 1592, 'goal_residuals': {}, 'actual_states': {'left': {'sim_step': 1592, 'stopped': False, 'joint_names': ['joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6', 'ctag_Left_1_Joint', 'ctag_Left_2_Joint', 'ctag_Right_2_Joint', 'ctag_Right_1_Joint', 'ctag_Left_Support_Joint', 'ctag_Right_Support_Joint'], 'qpos': [3.2450434446218424e-06, -0.29588326811790466, -1.9412699937820435, 7.356476271525025e-05, -0.9017280340194702, -0.0008563309093005955, -0.4420225918292999, -0.44221067428588867, 0.4419179856777191, 0.44171521067619324, 0.44200727343559265, 0.44184640049934387], 'flange_pose_world': [0.05011383444070816, 1.0010728146880865e-05, 0.24157099425792694, -3.0297436751425266e-05, 0.9999991059303284, 0.00040869484655559063, 0.0013594187330454588], 'actual_pad_centers_world': [[0.07575810283846403, 0.00027054389354080687, 0.02650663976109401], [0.025616104296531682, -0.0002585412706169818, 0.026372835636401262]], 'actual_grasp_center_world': [0.05068710356749785, 6.001311461912548e-06, 0.026439737698747634], 'actual_pad_gap_m': 0.05014496836606702, 'gripper_master_rad': -0.4420225918292999}, 'right': {'sim_step': 1592, 'stopped': False, 'joint_names': ['joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6', 'ctag_Left_1_Joint', 'ctag_Left_2_Joint', 'ctag_Right_2_Joint', 'ctag_Right_1_Joint', 'ctag_Left_Support_Joint', 'ctag_Right_Support_Joint'], 'qpos': [-0.10000000149011612, 0.050001148134469986, -1.5499999523162842, 3.3620146666635264e-08, -1.6415926218032837, -0.11999999731779099, -2.4835980383386413e-08, -2.2599113691512684e-09, 1.9462127909264382e-08, -1.5252641372143216e-09, 2.2122721432538128e-08, 1.2164443674578251e-08], 'flange_pose_world': [0.7143033146858215, 0.019634390249848366, 0.3970366418361664, -4.52512176707387e-06, -0.010001569986343384, 0.999950110912323, -1.5174155123531818e-06], 'actual_pad_centers_world': [[0.669392092574965, 0.018508511454953046, 0.1955764613905269], [0.7592102859150186, 0.020793371342323442, 0.1955756311559459]], 'actual_grasp_center_world': [0.7143011892449918, 0.019650941398638246, 0.19557604627323638], 'actual_pad_gap_m': 0.08984725059936698, 'gripper_master_rad': -2.4835980383386413e-08}}, 'reason': 'GRIPPER_BILATERAL_HOLD_NOT_ESTABLISHED', 'gripper_execution': {'left': {'contact_mode': 'bilateral_hold', 'requested_opening_fraction': 0.45, 'requested_master_target_rad': -0.5005000000000001, 'actual_master_rad': -0.4420225918292999, 'servo_target_rad': -0.4471133053302765, 'actual_representative_pad_gap_m': 0.05014496836606702, 'latched': True, 'bilateral_contact_at_end': False, 'native_drive_torque': None}}}, 'tracking': {}}], 'input_unchanged': True, 'automatic_waypoint_selection': False, 'scope': 'per-node preflight; partial execution possible', 'reason': 'GRIPPER_BILATERAL_HOLD_NOT_ESTABLISHED', 'end_step': 1592, 'numeric_groups_attempted': 1, 'execution_status': 'PARTIAL_FAILED'}\")",
+      "last_step": 1592,
+      "max_reported_active_pad_penetration_mm": 0.04214524233248085,
+      "independent_scores_equal": {},
+      "tracking": {
+        "chunk_001": {
+          "ok": false,
+          "reason": "GRIPPER_BILATERAL_HOLD_NOT_ESTABLISHED",
+          "generated_groups_attempted": 1,
+          "max_cross_track_mm": 0,
+          "max_orientation_endpoint_distance_deg": 0.0,
+          "max_endpoint_position_error_mm": 0
+        }
+      },
+      "left_close_physics_identical_to_legacy_prefix": true,
+      "meaning": "Explicit end-contact contract rejected an unchanged legacy table-close state; not a controller physics regression."
+    },
+    "held_tracking_02": {
+      "reported_status": "FAIL",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "last_step": 28614,
+      "max_reported_active_pad_penetration_mm": 2.326671965420246,
+      "independent_scores_equal": {
+        "explicit_hold_7s": true,
+        "long_segment_independent_hold": true
+      },
+      "tracking": {
+        "chunk_001": {
+          "ok": true,
+          "reason": null,
+          "generated_groups_attempted": 1,
+          "max_cross_track_mm": 0,
+          "max_orientation_endpoint_distance_deg": 0.0,
+          "max_endpoint_position_error_mm": 0
+        },
+        "chunk_002": {
+          "ok": true,
+          "reason": null,
+          "generated_groups_attempted": 72,
+          "max_cross_track_mm": 1.7459486972016853,
+          "max_orientation_endpoint_distance_deg": 0.3193061489275869,
+          "max_endpoint_position_error_mm": 1.282918025411724
+        },
+        "chunk_003": {
+          "ok": false,
+          "reason": "PHYSICAL_OR_EXECUTOR_EXCEPTION",
+          "generated_groups_attempted": 3,
+          "max_cross_track_mm": 1.9145593116037831,
+          "max_orientation_endpoint_distance_deg": 0.30664495659626057,
+          "max_endpoint_position_error_mm": 1.411545128732816
+        }
+      },
+      "single_target_evidence": {
+        "caller_waypoints": 1,
+        "generated_nodes": 72,
+        "endpoint_exact_numeric_values_preserved": true,
+        "max_generated_node_line_error_m": 3.94435788428593e-17,
+        "max_generated_position_step_m": 0.004962418807973811,
+        "source_of_all_generated_positions": "uniform linear interpolation between measured TCP and the single supplied endpoint"
+      },
+      "first_physical_stop": {
+        "step": 28614,
+        "phase": "numeric_group_88",
+        "proposal": "held_user_bend_and_yaw_input.json",
+        "safety_threshold_unchanged_mm": 2
+      }
+    },
+    "fixed_orientation_release_03": {
+      "reported_status": "PASS_FINITE_ACTUATOR_CASES_NOT_MODEL_TASK_SUCCESS",
+      "error": null,
+      "last_step": 33799,
+      "max_reported_active_pad_penetration_mm": 0.4955687327310443,
+      "independent_scores_equal": {
+        "explicit_hold_7s": true,
+        "long_segment_independent_hold": true,
+        "bend_independent_hold": true
+      },
+      "tracking": {
+        "chunk_001": {
+          "ok": true,
+          "reason": null,
+          "generated_groups_attempted": 1,
+          "max_cross_track_mm": 0,
+          "max_orientation_endpoint_distance_deg": 0.0,
+          "max_endpoint_position_error_mm": 0
+        },
+        "chunk_002": {
+          "ok": true,
+          "reason": null,
+          "generated_groups_attempted": 72,
+          "max_cross_track_mm": 1.7459486972016853,
+          "max_orientation_endpoint_distance_deg": 0.3193061489275869,
+          "max_endpoint_position_error_mm": 1.282918025411724
+        },
+        "chunk_003": {
+          "ok": true,
+          "reason": null,
+          "generated_groups_attempted": 11,
+          "max_cross_track_mm": 1.9579646351604862,
+          "max_orientation_endpoint_distance_deg": 0.3654819899919068,
+          "max_endpoint_position_error_mm": 1.4243483071265983
+        },
+        "chunk_004": {
+          "ok": true,
+          "reason": null,
+          "generated_groups_attempted": 1,
+          "max_cross_track_mm": 0,
+          "max_orientation_endpoint_distance_deg": 0.0,
+          "max_endpoint_position_error_mm": 0
+        },
+        "chunk_005": {
+          "ok": false,
+          "reason": "GRIPPER_BILATERAL_HOLD_NOT_ESTABLISHED",
+          "generated_groups_attempted": 1,
+          "max_cross_track_mm": 0,
+          "max_orientation_endpoint_distance_deg": 0.0,
+          "max_endpoint_position_error_mm": 0
+        },
+        "chunk_006": {
+          "ok": true,
+          "reason": null,
+          "generated_groups_attempted": 1,
+          "max_cross_track_mm": 0,
+          "max_orientation_endpoint_distance_deg": 0.0,
+          "max_endpoint_position_error_mm": 0
+        },
+        "chunk_007": {
+          "ok": true,
+          "reason": null,
+          "generated_groups_attempted": 1,
+          "max_cross_track_mm": 0,
+          "max_orientation_endpoint_distance_deg": 0.0,
+          "max_endpoint_position_error_mm": 0
+        },
+        "chunk_008": {
+          "ok": true,
+          "reason": null,
+          "generated_groups_attempted": 1,
+          "max_cross_track_mm": 0,
+          "max_orientation_endpoint_distance_deg": 0.0,
+          "max_endpoint_position_error_mm": 0
+        }
+      },
+      "single_target_evidence": {
+        "caller_waypoints": 1,
+        "generated_nodes": 72,
+        "endpoint_exact_numeric_values_preserved": true,
+        "max_generated_node_line_error_m": 3.94435788428593e-17,
+        "max_generated_position_step_m": 0.004962418807973811,
+        "source_of_all_generated_positions": "uniform linear interpolation between measured TCP and the single supplied endpoint"
+      },
+      "normal_release": {
+        "actual_gap_m": 0.08863220631857699,
+        "bilateral": false,
+        "restored_damping": 2.0,
+        "servo_target_rad": -0.0,
+        "not_placement_success": true
+      },
+      "empty_close_negative": {
+        "ok": false,
+        "reason": "GRIPPER_BILATERAL_HOLD_NOT_ESTABLISHED",
+        "executed_steps": 450
+      }
+    }
+  },
+  "historical_integrity": {
+    "prior_archive_files_unchanged": 1931,
+    "protected_hashes": {
+      "carry_collision.py": "747ea790f316cd51562d5bd542716233fb90f22dbd787d46a93df03fe0f82bc2",
+      "evaluate_process.py": "7a4d39ba7786df831df987159adcf1e88d06b323601698d2cccb264419943dcf",
+      "evidence/coordination_campaigns/MOCK_mock_full_01/ledger.json": "cca0d98a0c2ededbb800663cc49b1e1761ea483d83405266bd62c590cc70c4b5",
+      "evidence/coordination_campaigns/MOCK_mock_full_02/ledger.json": "031f3c4e19971c5f9ce838adae2e8fde712b45bcc7eae02729b70b8a8e9c59d4",
+      "evidence/coordination_campaigns/MOCK_mock_full_03/ledger.json": "0de6b9a8019ab419bc8805b107ac8329dd85bd2834d7b9338ea1f115f6f1e1e1",
+      "evidence/coordination_campaigns/MOCK_mock_stop403_01/ledger.json": "218f80f704e7594b42db0e07264d6fe941149d53ee8741f5848ddce3c6ec8dd6",
+      "evidence/coordination_campaigns/MOCK_mock_stop403_02/ledger.json": "b8c89bb94fda300b1048e7c1ed2626b63bbcaff4d48c1f12cb1257dd628675f7",
+      "evidence/coordination_campaigns/REAL_batch01_20261015_01/ledger.json": "91e111ed4243abc6e81f0e3468497203dd22b623f9d11480c916e315b215dc93",
+      "evidence/coordination_campaigns/REAL_batch01_20261015_02/ledger.json": "567761d38e000d7ad5011c6222baf0074741a0f182a27d9e3ebf8fc5583b96ca",
+      "evidence/transfer_runs/first_real_1100_20261015_01/ledger.json": "2304f4eb011e40a870c91c4420d22ce75d94346cdda6ec3ae799a825f50db8c1",
+      "evidence/transfer_runs/first_transfer_1100_20261015/ledger.json": "047ca268ca4c1a3c72277f67eef761ade647442fc2e5d535fcb8979cdd2f5e42",
+      "evidence/transfer_runs/first_transfer_20261015/ledger.json": "b6c1ef46ce6b52d13bd375d9d7a52027d4854161250fe490e9fb235a791ee1bc",
+      "evidence/workspace_runs/first_workspace_20261015_01/ledger.json": "4742618f7bb63c5b66c5cf893a726eb6c0a69c9a07aea1e3e1c9213748fefdbc",
+      "process_criteria_v1.json": "59ce97227cca39033c3f4e4e302e6be9ed3057f316bd4b665f0476145546b318",
+      "scene_v4_ready_transfer_1100.json": "9d6e05e060d9adc3a5ad756adbcbabc8f7e1669491eae2ff11f8c594ee32aed8",
+      "transfer_criteria_v1.json": "75e5f5a26a2b6acc5fae9740fab7d4780352270fefc422661c0dbb5548f33562",
+      "workspace_criteria_v1.json": "4d3c23d08e1a009c847662d9cc4f017a1b2a468728631bbe75199ab60047589c"
+    }
+  }
+}

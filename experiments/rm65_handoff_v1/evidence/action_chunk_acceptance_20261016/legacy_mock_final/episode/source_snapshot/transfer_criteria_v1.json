@@ -1,0 +1,16 @@
+{
+  "version": "rm65.transfer_only.physical.v1",
+  "independent_hold_s": 2.0,
+  "initial_left_hold_s": 2.0,
+  "relative_translation_drift_max_m": 0.002,
+  "relative_rotation_drift_max_deg": 5.0,
+  "exit_object_displacement_m": 0.08,
+  "exit_left_distance_increase_m": 0.04,
+  "released_left_gap_m": 0.07,
+  "minimum_object_center_z_m": 0.07,
+  "max_pad_penetration_m": 0.002,
+  "terminal_passive_hold_s": 2.0,
+  "original_velocity_criterion": "Reported separately under unchanged process_criteria_v1.json; not silently altered. New transfer retention uses measured object/TCP relative pose and bilateral physical support.",
+  "rationale": "2 s continuous physical support, no left/table support, 2 mm relative drift (4% of 50 mm cube width), <=5 deg relative rotation. Exit requires object displacement AND increasing separation from left TCP; no reference handoff coordinate/path. Original 2 mm physical penetration guard unchanged.",
+  "frozen_before_real_astra_calls": true
+}

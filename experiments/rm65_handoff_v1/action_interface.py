@@ -96,7 +96,7 @@ class HandoffBridgeAdapter(transport.MacBridgeAdapter):
   self._reserved_dispatch=False
   return super().infer(context,images,folder,real=real,timeout_s=timeout_s)
 
-def accept_result(folder):
+def accept_result(folder,parser=parse_action):
  p=Path(folder);r=json.loads((p/'response.json').read_text());t=json.loads((p/'transport.json').read_text());original=json.loads((p/'bridge_result.json').read_text())
  if r['raw']!=original.get('raw') or r['events']!=original.get('events') or (p/'raw.txt').read_text()!=r['raw'] or (p/'events.jsonl').read_text()!=r['events']:raise ValueError('ARCHIVE_INCONSISTENT')
  if r['error'] is not None or r['return_code']!=0 or t.get('http_status')!=200 or t.get('cancel_attempts')!=0:raise ValueError('INFRASTRUCTURE_FAILURE')
@@ -104,7 +104,7 @@ def accept_result(folder):
  events=[strict_json(s) for s in r['events'].splitlines() if s.strip()]
  if sum(e.get('type')=='turn.completed' for e in events)!=1 or sum(e.get('type')=='thread.started' for e in events)!=1:raise ValueError('COMPLETION_UNKNOWN')
  if any(e.get('type') in ['error','turn.failed'] for e in events) or 'reconnect' in (r['events']+r['stderr']).lower():raise ValueError('CLI_ERROR_OR_RECONNECT')
- return parse_action(r['raw'])
+ return parser(r['raw'])
 
 def execute_action(world,value):
  value=parse_action(json.dumps(value,allow_nan=False))

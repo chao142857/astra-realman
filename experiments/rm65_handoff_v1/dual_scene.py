@@ -214,13 +214,16 @@ class DualScene:
   self.group_count+=1;folder=self.output/f'group_{self.group_count:03d}';folder.mkdir();write_json(folder/'proposal.json',commands);write_json(folder/'collision_representation_PRIVATE.json',collision_state);plans={}
   try:
    for s,c in commands.items():
-    if s not in self.arms or set(c) not in ({'pose'},{'opening'}):raise ValueError('NUMERIC_ACTION_ONLY')
+    if s not in self.arms or set(c) not in ({'pose'},{'opening'},{'opening','contact_mode'}):raise ValueError('NUMERIC_ACTION_ONLY')
     if 'pose' in c:plans[s]=self.arms[s].plan_tcp(c['pose'])
     else:
      a=self.arms[s];opening=c['opening']
      if isinstance(opening,bool) or not np.isfinite(opening) or not 0<=opening<=1:raise ValueError('INVALID_OPENING')
      q=a.robot.get_qpos().copy();target=-.91*(1-opening)
      plans[s]={'position':np.tile(q[a.arm_indices],(350,1)),'velocity':np.zeros((350,6)),'start_full':q,'grip_targets':np.r_[np.linspace(q[a.master],target,150),np.repeat(target,200)],'closing':target<q[a.master]}
+     if 'contact_mode' in c:
+      if c['contact_mode'] not in ('position','bilateral_hold'):raise ValueError('INVALID_CONTACT_MODE')
+      plans[s].update(contact_mode=c['contact_mode'],requested_master_target=target)
 
    n=max(len(x['position']) for x in plans.values())
    # Full shared world at each interpolated simultaneous configuration; reject all before execution.
@@ -254,9 +257,18 @@ class DualScene:
      if 'grip_targets' in plan and s not in latched:a.joints[a.master].set_drive_target(float(plan['grip_targets'][min(i,349)]))
     self.tick(1)
     for s,plan in plans.items():
-     if 'grip_targets' in plan and plan['closing'] and s not in latched:
+     if 'grip_targets' in plan and plan['closing'] and plan.get('contact_mode')!='position' and s not in latched:
       contact_steps[s]=contact_steps[s]+1 if self.arms[s].bilateral_pad_contact() else 0
-      if contact_steps[s]>=2:self.arms[s].latch_grasp_contact();latched.add(s)
+      if contact_steps[s]>=2:
+       a=self.arms[s];a.latch_grasp_contact();latched.add(s)
+       if 'contact_mode' in plan:
+        # V2 explicit hold: sensed bilateral contact, existing finite preload,
+        # bounded by the caller's empty-space closure target. No task/GT target.
+        j=a.joints[a.master];target=max(plan['requested_master_target'],float(j.get_drive_target()[0]))
+        j.set_drive_target(target)
+        a.log('explicit_contact_hold',{'requested_opening_fraction':commands[s]['opening'],
+         'requested_master_target':plan['requested_master_target'],'held_master_target':target,
+         'servo_target_within_requested_closure':True})
    for s in plans:
     for i in self.arms[s].arm_indices:self.arms[s].joints[i].set_drive_velocity_target(0.)
    post_hold_start=self.steps
@@ -267,6 +279,17 @@ class DualScene:
      state=self.arms[s].state();target=np.array(plan['target_tcp']);actual=np.array(state['actual_grasp_center_world']);rotation=(Rotation.from_quat(np.roll(target[3:],-1)).inv()*Rotation.from_quat(np.roll(state['flange_pose_world'][3:],-1))).magnitude()
      residuals[s]={'position_error_m':float(np.linalg.norm(actual-target[:3])),'rotation_error_rad':float(rotation)}
    result={'ok':all(r['position_error_m']<.01 and r['rotation_error_rad']<.05 for r in residuals.values()),'executed':True,'start_step':start,'end_step':self.steps,'goal_residuals':residuals,'actual_states':{s:a.state() for s,a in self.arms.items()}}
+   grips={}
+   for s,plan in plans.items():
+    if 'contact_mode' not in plan:continue
+    a=self.arms[s];j=a.joints[a.master];bilateral=a.bilateral_pad_contact()
+    grips[s]={'contact_mode':plan['contact_mode'],'requested_opening_fraction':commands[s]['opening'],
+     'requested_master_target_rad':plan['requested_master_target'],'actual_master_rad':float(a.robot.get_qpos()[a.master]),
+     'servo_target_rad':float(j.get_drive_target()[0]),'actual_representative_pad_gap_m':a.state()['actual_pad_gap_m'],
+     'latched':s in latched,'bilateral_contact_at_end':bilateral,'native_drive_torque':None}
+    if plan['contact_mode']=='bilateral_hold' and (s not in latched or not bilateral):
+     result.update(ok=False,reason='GRIPPER_BILATERAL_HOLD_NOT_ESTABLISHED')
+   if grips:result['gripper_execution']=grips
    if hasattr(self,'numeric_post_hold_steps'):result['post_numeric_observation']={'start_step':post_hold_start,'end_step':self.steps,'duration_s':(self.steps-post_hold_start)*self.dt,'movement_added':False}
   except BaseException as e:
    for a in self.arms.values():a.stopped.set();a.hold()

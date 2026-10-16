@@ -14,6 +14,7 @@ def main():
     p.add_argument('--mock-bridge-config',type=Path)
     p.add_argument('--max-decisions',type=int,default=16)
     p.add_argument('--right-hold-control',choices=['original','master_damping0_v3'],default='original')
+    p.add_argument('--action-interface',choices=['numeric_v1','chunk_v2'],default='numeric_v1')
     p.add_argument('--real',action='store_true')
     a=p.parse_args()
     if a.real:raise SystemExit('BLOCKED: no new full pick-handoff-place generation authorization; historical ledgers cannot be used.')
@@ -24,13 +25,18 @@ def main():
     from diagnose_decision4 import relocate_runtime_mesh_paths
     from action_interface import MacBridgeConfig,accept_result,execute_action
     from full_handoff_task import FullAdapter,context_from_observation
+    if a.action_interface=='chunk_v2':
+        from chunk_handoff_task import ChunkAdapter as FullAdapter,context_from_observation,accept_result
+        from numeric_action_chunk import execute_chunk as execute_action
     from evaluate_process import evaluate
     if a.right_hold_control!='original' and CONTROLLER!='urdf_effort_hold_v2':
         p.error('master_damping0_v3 was validated with explicit RM65_CONTROLLER=urdf_effort_hold_v2')
     relocate_runtime_mesh_paths(CONFIG)
     adapter=FullAdapter(MacBridgeConfig.load(a.mock_bridge_config))
     report={'task':'handoff_place_full','source':'MOCK_NOT_ASTRA','model_requests':0,
-            'controller':CONTROLLER,'decisions':0,'expert_initialization_actions':0,'status':'RUNNING'}
+            'controller':CONTROLLER,'action_interface':a.action_interface,'decisions':0,'expert_initialization_actions':0,'status':'RUNNING'}
+    if a.action_interface=='chunk_v2' and a.right_hold_control!='master_damping0_v3':
+        p.error('chunk_v2 declares the validated master_damping0_v3 controller; select it explicitly')
     w=None;history=[];started=time.monotonic()
     try:
         w=DualScene(a.output)
@@ -57,7 +63,12 @@ def main():
                 (d/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
                 (d/'timing.json').write_text(json.dumps({'inference_wall_s':response['wall_latency_s'],
                     'inference_physics_steps':0,'execution_physics_steps':w.steps-before},indent=2)+'\n')
-            history.append({'proposal':action,'receipt':receipt})
+            if a.action_interface=='chunk_v2':
+                from numeric_action_chunk import public_receipt
+                feedback=public_receipt(receipt)
+                (d/'public_feedback.json').write_text(json.dumps(feedback,indent=2)+'\n')
+            else:feedback=receipt
+            history.append({'proposal':action,'receipt':feedback})
             if action['done']:
                 report['status']='MODEL_STOP_NOT_AUTOMATIC_SUCCESS';break
             obs=w.observe(w.output/f'observation_{i+1:03d}')

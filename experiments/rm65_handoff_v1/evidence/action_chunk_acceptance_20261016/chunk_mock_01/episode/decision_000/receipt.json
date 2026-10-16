@@ -1,0 +1,836 @@
+{
+  "ok": true,
+  "executed": true,
+  "interface": "numeric_chunk_v2",
+  "start_step": 100,
+  "groups": [
+    {
+      "stage_index": 0,
+      "subgroup_index": 0,
+      "commands": {
+        "right": {
+          "pose": [
+            0.7143012279217383,
+            0.019650931041503044,
+            0.19807609188556893,
+            -4.443746887575433e-06,
+            -0.010001598506791567,
+            0.9999499827518006,
+            -1.4952382019050565e-06
+          ]
+        },
+        "left": {
+          "opening": 1.0,
+          "contact_mode": "position"
+        }
+      },
+      "receipt": {
+        "ok": true,
+        "executed": true,
+        "start_step": 100,
+        "end_step": 550,
+        "goal_residuals": {
+          "right": {
+            "position_error_m": 5.712046419907619e-05,
+            "rotation_error_rad": 0.00019788595476733813
+          }
+        },
+        "actual_states": {
+          "left": {
+            "sim_step": 550,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              0.07999999821186066,
+              0.1000029668211937,
+              -1.5,
+              -1.7147147701734866e-08,
+              -1.7415926456451416,
+              0.07999999821186066,
+              -1.7439978350353158e-08,
+              -7.037593841019429e-10,
+              2.8100508586703654e-08,
+              -3.6977851891606406e-09,
+              1.4836173178878198e-08,
+              5.453888896056469e-09
+            ],
+            "flange_pose_world": [
+              -0.0091936644166708,
+              0.014496106654405594,
+              0.41691628098487854,
+              -2.412038156762719e-06,
+              1.0,
+              1.5495729712711181e-06,
+              5.074602086097002e-06
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.0357313734391505,
+                0.014723940714461469,
+                0.21545613194471464
+              ],
+              [
+                -0.05411459236281653,
+                0.014235811289807358,
+                0.21545522220217192
+              ]
+            ],
+            "actual_grasp_center_world": [
+              -0.009191609461833016,
+              0.014479876002134413,
+              0.21545567707344326
+            ],
+            "actual_pad_gap_m": 0.08984729179029868,
+            "gripper_master_rad": -1.7439978350353158e-08
+          },
+          "right": {
+            "sim_step": 550,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              -0.10003628581762314,
+              0.04933991655707359,
+              -1.537610411643982,
+              5.053669883636758e-05,
+              -1.6531366109848022,
+              -0.12008298188447952,
+              -5.038443305238616e-06,
+              -0.0001587828155606985,
+              -2.7800163024949143e-06,
+              -1.1307275599392597e-05,
+              -1.391801788486191e-06,
+              1.2316283573454712e-05
+            ],
+            "flange_pose_world": [
+              0.7142964005470276,
+              0.019634976983070374,
+              0.3995007276535034,
+              -9.893521200865507e-05,
+              -0.01002684235572815,
+              0.9999498128890991,
+              -1.6455305740237236e-05
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.6693476769445997,
+                0.018500450774004376,
+                0.19804896569502073
+              ],
+              [
+                0.7591669342553341,
+                0.020789873877240336,
+                0.19803109875838285
+              ]
+            ],
+            "actual_grasp_center_world": [
+              0.7142573055999669,
+              0.019645162325622356,
+              0.1980400322267018
+            ],
+            "actual_pad_gap_m": 0.08984843215785662,
+            "gripper_master_rad": -5.038443305238616e-06
+          }
+        },
+        "gripper_execution": {
+          "left": {
+            "contact_mode": "position",
+            "requested_opening_fraction": 1.0,
+            "requested_master_target_rad": -0.0,
+            "actual_master_rad": -1.7439978350353158e-08,
+            "servo_target_rad": -0.0,
+            "actual_representative_pad_gap_m": 0.08984729179029868,
+            "latched": false,
+            "bilateral_contact_at_end": false,
+            "native_drive_torque": null
+          }
+        }
+      },
+      "tracking": {
+        "right": {
+          "user_waypoint_index": 0,
+          "samples": 450,
+          "max_position_cross_track_m": 5.086553138366153e-05,
+          "max_orientation_endpoint_distance_rad": 0.00019788595476733813,
+          "endpoint": {
+            "position_error_m": 5.712046419907619e-05,
+            "rotation_error_rad": 0.00019788595476733813
+          }
+        }
+      }
+    },
+    {
+      "stage_index": 0,
+      "subgroup_index": 1,
+      "commands": {
+        "right": {
+          "pose": [
+            0.7143012279217383,
+            0.019650931041503044,
+            0.20057609188556894,
+            -4.443747457116842e-06,
+            -0.010001599788665771,
+            0.999950110912323,
+            -1.4952383935451508e-06
+          ]
+        }
+      },
+      "receipt": {
+        "ok": true,
+        "executed": true,
+        "start_step": 550,
+        "end_step": 775,
+        "goal_residuals": {
+          "right": {
+            "position_error_m": 5.859158989814983e-05,
+            "rotation_error_rad": 0.00017889204904556155
+          }
+        },
+        "actual_states": {
+          "left": {
+            "sim_step": 775,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              0.07999999821186066,
+              0.1000029668211937,
+              -1.5,
+              -1.5179010048882446e-08,
+              -1.7415926456451416,
+              0.07999999821186066,
+              -1.598473353681129e-08,
+              -4.939551545568577e-10,
+              2.968690537841212e-08,
+              -4.064399483638681e-09,
+              1.3417222000100537e-08,
+              4.804519448953215e-09
+            ],
+            "flange_pose_world": [
+              -0.0091936644166708,
+              0.014496106654405594,
+              0.41691628098487854,
+              -2.412038156762719e-06,
+              1.0,
+              1.5495729712711181e-06,
+              5.074602086097002e-06
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.0357313734391505,
+                0.014723940714461469,
+                0.21545613194471464
+              ],
+              [
+                -0.05411459236281653,
+                0.014235811289807358,
+                0.21545522220217192
+              ]
+            ],
+            "actual_grasp_center_world": [
+              -0.009191609461833016,
+              0.014479876002134413,
+              0.21545567707344326
+            ],
+            "actual_pad_gap_m": 0.08984729179029868,
+            "gripper_master_rad": -1.598473353681129e-08
+          },
+          "right": {
+            "sim_step": 775,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              -0.10003552585840225,
+              0.048477400094270706,
+              -1.5248914957046509,
+              5.2871469961246476e-05,
+              -1.6650162935256958,
+              -0.12008827924728394,
+              -5.674247859133175e-06,
+              -0.00016000278992578387,
+              -3.186710046065855e-06,
+              -9.010088433569763e-06,
+              -1.3578047628470813e-06,
+              1.684951530478429e-05
+            ],
+            "flange_pose_world": [
+              0.7142991423606873,
+              0.0196341834962368,
+              0.4019915461540222,
+              -8.730666013434529e-05,
+              -0.010030478239059448,
+              0.9999497532844543,
+              -1.8822727724909782e-05
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.6693552427035396,
+                0.018498393521993884,
+                0.20053875104114688
+              ],
+              [
+                0.7591744559420922,
+                0.02078848262001607,
+                0.2005228032129373
+              ]
+            ],
+            "actual_grasp_center_world": [
+              0.7142648493228159,
+              0.01964343807100498,
+              0.2005307771270421
+            ],
+            "actual_pad_gap_m": 0.08984840471150661,
+            "gripper_master_rad": -5.674247859133175e-06
+          }
+        }
+      },
+      "tracking": {
+        "right": {
+          "user_waypoint_index": 0,
+          "samples": 225,
+          "max_position_cross_track_m": 6.010844424588361e-05,
+          "max_orientation_endpoint_distance_rad": 0.00022291288852450473,
+          "endpoint": {
+            "position_error_m": 5.859158989814983e-05,
+            "rotation_error_rad": 0.00017889204904556155
+          }
+        }
+      }
+    },
+    {
+      "stage_index": 0,
+      "subgroup_index": 2,
+      "commands": {
+        "right": {
+          "pose": [
+            0.7143012279217383,
+            0.019650931041503044,
+            0.20307609188556894,
+            -4.443746887575433e-06,
+            -0.010001598506791567,
+            0.9999499827518006,
+            -1.4952382019050565e-06
+          ]
+        }
+      },
+      "receipt": {
+        "ok": true,
+        "executed": true,
+        "start_step": 775,
+        "end_step": 1000,
+        "goal_residuals": {
+          "right": {
+            "position_error_m": 6.114112293494617e-05,
+            "rotation_error_rad": 0.00020202135599151137
+          }
+        },
+        "actual_states": {
+          "left": {
+            "sim_step": 1000,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              0.07999999821186066,
+              0.1000029668211937,
+              -1.5,
+              -1.5092318506049196e-08,
+              -1.7415926456451416,
+              0.07999999821186066,
+              -1.596986543006551e-08,
+              -4.888613958087262e-10,
+              2.9690475855659315e-08,
+              -4.06455002988082e-09,
+              1.3404436671748954e-08,
+              4.799948882805438e-09
+            ],
+            "flange_pose_world": [
+              -0.0091936644166708,
+              0.014496106654405594,
+              0.41691628098487854,
+              -2.412038156762719e-06,
+              1.0,
+              1.5495729712711181e-06,
+              5.074602086097002e-06
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.0357313734391505,
+                0.014723940714461469,
+                0.21545613194471464
+              ],
+              [
+                -0.05411459236281653,
+                0.014235811289807358,
+                0.21545522220217192
+              ]
+            ],
+            "actual_grasp_center_world": [
+              -0.009191609461833016,
+              0.014479876002134413,
+              0.21545567707344326
+            ],
+            "actual_pad_gap_m": 0.08984729179029868,
+            "gripper_master_rad": -1.596986543006551e-08
+          },
+          "right": {
+            "sim_step": 1000,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              -0.1000354215502739,
+              0.04750389978289604,
+              -1.512000322341919,
+              5.446489012683742e-05,
+              -1.6769107580184937,
+              -0.12009283900260925,
+              -6.19893671682803e-06,
+              -0.00016099173808470368,
+              -3.519637175486423e-06,
+              -7.1131908043753356e-06,
+              -1.325617859038175e-06,
+              2.037980993918609e-05
+            ],
+            "flange_pose_world": [
+              0.7142975926399231,
+              0.019634118303656578,
+              0.4044937193393707,
+              -9.896355913951993e-05,
+              -0.010033011436462402,
+              0.9999498128890991,
+              -1.8299557268619537e-05
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.6693490460267255,
+                0.018498292001872793,
+                0.20304198638682094
+              ],
+              [
+                0.7591681386978814,
+                0.020788837015807252,
+                0.20302379876900514
+              ]
+            ],
+            "actual_grasp_center_world": [
+              0.7142585923623035,
+              0.01964356450884002,
+              0.20303289257791304
+            ],
+            "actual_pad_gap_m": 0.08984829623047942,
+            "gripper_master_rad": -6.19893671682803e-06
+          }
+        }
+      },
+      "tracking": {
+        "right": {
+          "user_waypoint_index": 1,
+          "samples": 225,
+          "max_position_cross_track_m": 6.125252829236172e-05,
+          "max_orientation_endpoint_distance_rad": 0.00020995711668208138,
+          "endpoint": {
+            "position_error_m": 6.114112293494617e-05,
+            "rotation_error_rad": 0.00020202135599151137
+          }
+        }
+      }
+    },
+    {
+      "stage_index": 0,
+      "subgroup_index": 3,
+      "commands": {
+        "right": {
+          "pose": [
+            0.7143012279217383,
+            0.019650931041503044,
+            0.20557609188556894,
+            -4.443747457116842e-06,
+            -0.010001599788665771,
+            0.999950110912323,
+            -1.4952383935451508e-06
+          ]
+        }
+      },
+      "receipt": {
+        "ok": true,
+        "executed": true,
+        "start_step": 1000,
+        "end_step": 1225,
+        "goal_residuals": {
+          "right": {
+            "position_error_m": 6.36942214791003e-05,
+            "rotation_error_rad": 0.00022195803821730293
+          }
+        },
+        "actual_states": {
+          "left": {
+            "sim_step": 1225,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              0.07999999821186066,
+              0.1000029668211937,
+              -1.5,
+              -1.508872493616309e-08,
+              -1.7415926456451416,
+              0.07999999821186066,
+              -1.594990273190433e-08,
+              -4.911554496445092e-10,
+              2.9696405334789233e-08,
+              -4.059145908286155e-09,
+              1.338013078111544e-08,
+              4.803602404734875e-09
+            ],
+            "flange_pose_world": [
+              -0.0091936644166708,
+              0.014496106654405594,
+              0.41691628098487854,
+              -2.412038156762719e-06,
+              1.0,
+              1.5495729712711181e-06,
+              5.074602086097002e-06
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.0357313734391505,
+                0.014723940714461469,
+                0.21545613194471464
+              ],
+              [
+                -0.05411459236281653,
+                0.014235811289807358,
+                0.21545522220217192
+              ]
+            ],
+            "actual_grasp_center_world": [
+              -0.009191609461833016,
+              0.014479876002134413,
+              0.21545567707344326
+            ],
+            "actual_pad_gap_m": 0.08984729179029868,
+            "gripper_master_rad": -1.594990273190433e-08
+          },
+          "right": {
+            "sim_step": 1225,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              -0.10003531724214554,
+              0.04641382768750191,
+              -1.4989835023880005,
+              5.5726490245433524e-05,
+              -1.6888175010681152,
+              -0.12009605765342712,
+              -6.614329322474077e-06,
+              -0.00016177131328731775,
+              -3.777305437324685e-06,
+              -5.637143658532295e-06,
+              -1.2967582279088674e-06,
+              2.312454307684675e-05
+            ],
+            "flange_pose_world": [
+              0.7142964601516724,
+              0.019634060561656952,
+              0.4069955348968506,
+              -0.00010902731446549296,
+              -0.010035008192062378,
+              0.9999496936798096,
+              -1.769192749634385e-05
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.6693437919035972,
+                0.018498269437190996,
+                0.2055447228481575
+              ],
+              [
+                0.7591629362375291,
+                0.020789155778258413,
+                0.20552466237675432
+              ]
+            ],
+            "actual_grasp_center_world": [
+              0.7142533640705631,
+              0.019643712607724705,
+              0.2055346926124559
+            ],
+            "actual_pad_gap_m": 0.0898483569773532,
+            "gripper_master_rad": -6.614329322474077e-06
+          }
+        }
+      },
+      "tracking": {
+        "right": {
+          "user_waypoint_index": 1,
+          "samples": 225,
+          "max_position_cross_track_m": 6.462421396903484e-05,
+          "max_orientation_endpoint_distance_rad": 0.00023623508771104852,
+          "endpoint": {
+            "position_error_m": 6.36942214791003e-05,
+            "rotation_error_rad": 0.00022195803821730293
+          }
+        }
+      }
+    },
+    {
+      "stage_index": 1,
+      "subgroup_index": 0,
+      "commands": {
+        "right": {
+          "opening": 1.0,
+          "contact_mode": "position"
+        }
+      },
+      "receipt": {
+        "ok": true,
+        "executed": true,
+        "start_step": 1350,
+        "end_step": 1800,
+        "goal_residuals": {},
+        "actual_states": {
+          "left": {
+            "sim_step": 1800,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              0.07999999821186066,
+              0.1000029668211937,
+              -1.5,
+              -1.5101649708526566e-08,
+              -1.7415926456451416,
+              0.07999999821186066,
+              -1.598034948813165e-08,
+              -4.902919181759557e-10,
+              2.968796941615892e-08,
+              -4.064654834934345e-09,
+              1.3415045074793852e-08,
+              4.797285679813967e-09
+            ],
+            "flange_pose_world": [
+              -0.0091936644166708,
+              0.014496106654405594,
+              0.41691628098487854,
+              -2.412038156762719e-06,
+              1.0,
+              1.5495729712711181e-06,
+              5.074602086097002e-06
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.0357313734391505,
+                0.014723940714461469,
+                0.21545613194471464
+              ],
+              [
+                -0.05411459236281653,
+                0.014235811289807358,
+                0.21545522220217192
+              ]
+            ],
+            "actual_grasp_center_world": [
+              -0.009191609461833016,
+              0.014479876002134413,
+              0.21545567707344326
+            ],
+            "actual_pad_gap_m": 0.08984729179029868,
+            "gripper_master_rad": -1.598034948813165e-08
+          },
+          "right": {
+            "sim_step": 1800,
+            "stopped": false,
+            "joint_names": [
+              "joint1",
+              "joint2",
+              "joint3",
+              "joint4",
+              "joint5",
+              "joint6",
+              "ctag_Left_1_Joint",
+              "ctag_Left_2_Joint",
+              "ctag_Right_2_Joint",
+              "ctag_Right_1_Joint",
+              "ctag_Left_Support_Joint",
+              "ctag_Right_Support_Joint"
+            ],
+            "qpos": [
+              -0.10007141530513763,
+              0.04650786891579628,
+              -1.499112606048584,
+              0.00011345397069817409,
+              -1.688450813293457,
+              -0.12020169943571091,
+              -7.333352641580859e-06,
+              -0.00016311966464854777,
+              -4.263764822098892e-06,
+              -2.9009288482484408e-06,
+              -1.2664114592553233e-06,
+              2.795009277178906e-05
+            ],
+            "flange_pose_world": [
+              0.7142719626426697,
+              0.019635360687971115,
+              0.40698719024658203,
+              -0.0002769859856925905,
+              -0.010073244571685791,
+              0.9999492764472961,
+              -2.8110574930906296e-05
+            ],
+            "actual_pad_centers_world": [
+              [
+                0.6692518609066804,
+                0.01849121108582946,
+                0.20555150603031108
+              ],
+              [
+                0.7590707691963143,
+                0.020788982308882716,
+                0.20550104928577564
+              ]
+            ],
+            "actual_grasp_center_world": [
+              0.7141613150514974,
+              0.019640096697356085,
+              0.20552627765804338
+            ],
+            "actual_pad_gap_m": 0.08984830874767886,
+            "gripper_master_rad": -7.333352641580859e-06
+          }
+        },
+        "gripper_execution": {
+          "right": {
+            "contact_mode": "position",
+            "requested_opening_fraction": 1.0,
+            "requested_master_target_rad": -0.0,
+            "actual_master_rad": -7.333352641580859e-06,
+            "servo_target_rad": -0.0,
+            "actual_representative_pad_gap_m": 0.08984830874767886,
+            "latched": false,
+            "bilateral_contact_at_end": false,
+            "native_drive_torque": null
+          }
+        }
+      },
+      "tracking": {}
+    }
+  ],
+  "input_unchanged": true,
+  "automatic_waypoint_selection": false,
+  "scope": "per-node preflight; partial execution possible",
+  "end_step": 1925,
+  "numeric_groups_attempted": 5,
+  "execution_status": "COMPLETE"
+}

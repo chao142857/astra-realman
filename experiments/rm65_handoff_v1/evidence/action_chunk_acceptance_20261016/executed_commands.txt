@@ -1,0 +1,11 @@
+# Actual invocations; all real generation budgets = 0.
+source runtime.decision4.ubuntu-robot.sh
+"$RM65_PYTHON" -m unittest numeric_chunk_tests offline_tests -v
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" numeric_chunk_physics.py --output evidence/action_chunk_acceptance_20261016/held_tracking_01
+# First run's exact source snapshot is archived; its strict left-close rejection was retained.
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" numeric_chunk_physics.py --output evidence/action_chunk_acceptance_20261016/held_tracking_02
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" numeric_chunk_physics.py --fixed-orientation-regression --output evidence/action_chunk_acceptance_20261016/fixed_orientation_release_03
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" full_handoff_offline_test.py --action-interface chunk_v2 --right-hold-control master_damping0_v3 --output evidence/action_chunk_acceptance_20261016/chunk_mock_compat_final
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" full_handoff_offline_test.py --action-interface numeric_v1 --right-hold-control master_damping0_v3 --output evidence/action_chunk_acceptance_20261016/legacy_mock_final
+"$RM65_PYTHON" numeric_chunk_audit.py --evidence evidence/action_chunk_acceptance_20261016
+# All output directories are unique; reruns must use new paths. No ledger and no --real invocation.
