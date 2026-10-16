@@ -1,0 +1,15 @@
+{
+  "source": "PRIVATE_PREDECLARED_NEGATIVE_CONTROL_NOT_ASTRA_RESULT",
+  "original_raw_sha256": "4669d1897e400cc720d89def9c1043c685db99117be24db328c949245ab8e23c",
+  "control_change": "TCP world Y +0.12m; all other request fields unchanged",
+  "real_model_requests": 0,
+  "bridge_connections": 0,
+  "status": "PASS_TABLE_COLLISION_STOP",
+  "rendering": "OMITTED_NO_RGB_OR_VIDEO",
+  "error": "RuntimeError(\"CONTACT_GUARD_COLLISION:[('left_rm65_5', 'L__ctag_Right_Support_Link', 'table_1', 'table_1')]\")",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/alex/astra_spatial_capability/rm65-interface-repair-ubuntu-20261016/experiments/rm65_handoff_v1/interface_table_negative.py\", line 38, in main\n    report['receipt']=execute_chunk(w,value);report['status']='FAIL_NO_TABLE_STOP'\n  File \"/home/alex/astra_spatial_capability/rm65-interface-repair-ubuntu-20261016/experiments/rm65_handoff_v1/numeric_action_chunk.py\", line 130, in execute_chunk\n    r=world.execute_group(commands);log['receipt']=r\n  File \"/home/alex/astra_spatial_capability/rm65-interface-repair-ubuntu-20261016/experiments/rm65_handoff_v1/dual_scene.py\", line 272, in execute_group\n    if guard:guard.check('after_physics',i,latched)\n  File \"/home/alex/astra_spatial_capability/rm65-interface-repair-ubuntu-20261016/experiments/rm65_handoff_v1/contact_preflight_v2.py\", line 62, in check\n    raise RuntimeError('CONTACT_GUARD_COLLISION:'+str(pairs))\nRuntimeError: CONTACT_GUARD_COLLISION:[('left_rm65_5', 'L__ctag_Right_Support_Link', 'table_1', 'table_1')]\n",
+  "first_bilateral_step": {
+    "left": null
+  },
+  "physics_steps": 14542
+}

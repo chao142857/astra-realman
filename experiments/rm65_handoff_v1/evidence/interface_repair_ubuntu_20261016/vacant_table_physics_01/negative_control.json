@@ -1,0 +1,493 @@
+{
+  "source": "PRIVATE_PREDECLARED_NEGATIVE_CONTROL_NOT_ASTRA_RESULT",
+  "original_raw_sha256": "4669d1897e400cc720d89def9c1043c685db99117be24db328c949245ab8e23c",
+  "control_change": "TCP world Y +0.12m; all other request fields unchanged",
+  "real_model_requests": 0,
+  "bridge_connections": 0,
+  "status": "PASS_TABLE_COLLISION_STOP",
+  "rendering": "OMITTED_NO_RGB_OR_VIDEO",
+  "error": "RuntimeError(\"CONTACT_GUARD_COLLISION:[('left_rm65_5', 'L__ctag_Right_Support_Link', 'table_1', 'table_1')]\")",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/alex/astra_spatial_capability/rm65-interface-repair-ubuntu-20261016/experiments/rm65_handoff_v1/interface_table_negative.py\", line 38, in main\n    report['receipt']=execute_chunk(w,value);report['status']='FAIL_NO_TABLE_STOP'\n  File \"/home/alex/astra_spatial_capability/rm65-interface-repair-ubuntu-20261016/experiments/rm65_handoff_v1/numeric_action_chunk.py\", line 130, in execute_chunk\n    r=world.execute_group(commands);log['receipt']=r\n  File \"/home/alex/astra_spatial_capability/rm65-interface-repair-ubuntu-20261016/experiments/rm65_handoff_v1/dual_scene.py\", line 272, in execute_group\n    if guard:guard.check('after_physics',i,latched)\n  File \"/home/alex/astra_spatial_capability/rm65-interface-repair-ubuntu-20261016/experiments/rm65_handoff_v1/contact_preflight_v2.py\", line 62, in check\n    raise RuntimeError('CONTACT_GUARD_COLLISION:'+str(pairs))\nRuntimeError: CONTACT_GUARD_COLLISION:[('left_rm65_5', 'L__ctag_Right_Support_Link', 'table_1', 'table_1')]\n",
+  "first_table_danger": {
+    "step": 14542,
+    "phase": "after_physics",
+    "ramp_index": 166,
+    "latched_sides": [],
+    "bilateral": {
+      "left": false
+    },
+    "forbidden_fcl_pairs": [
+      [
+        "left_rm65_5",
+        "L__ctag_Right_Support_Link",
+        "table_1",
+        "table_1"
+      ]
+    ],
+    "native_contacts": [
+      {
+        "names": [
+          "target_cube",
+          "table"
+        ],
+        "points": [
+          {
+            "position": [
+              0.07500001788139343,
+              0.02500000037252903,
+              0.0
+            ],
+            "separation": 1.7173588275909424e-06,
+            "impulse": [
+              0.0,
+              0.0,
+              0.00011377922055544332
+            ],
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "position": [
+              0.07500001788139343,
+              -0.02500000037252903,
+              0.0
+            ],
+            "separation": 1.3187527656555176e-06,
+            "impulse": [
+              0.0,
+              0.0,
+              8.214559056796134e-05
+            ],
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "position": [
+              0.025000005960464478,
+              -0.02500000037252903,
+              0.0
+            ],
+            "separation": -3.7997961044311523e-07,
+            "impulse": [
+              0.0,
+              0.0,
+              0.00011441648530308157
+            ],
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "position": [
+              0.025000005960464478,
+              0.02500000037252903,
+              0.0
+            ],
+            "separation": 1.4901161193847656e-08,
+            "impulse": [
+              0.0,
+              0.0,
+              8.206806523958221e-05
+            ],
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        ]
+      },
+      {
+        "names": [
+          "L__ctag_Left_Support_Link",
+          "table"
+        ],
+        "points": [
+          {
+            "position": [
+              0.07474670559167862,
+              0.11951284855604172,
+              0.0007231160998344421
+            ],
+            "separation": 0.0007231233757920563,
+            "impulse": [
+              0.0,
+              -0.0,
+              0.0
+            ],
+            "normal": [
+              3.386521711945534e-05,
+              -4.138291842537001e-06,
+              1.0
+            ]
+          }
+        ]
+      },
+      {
+        "names": [
+          "L__ctag_Left_2_Link",
+          "L__ctag_Left_1_Link"
+        ],
+        "points": [
+          {
+            "position": [
+              0.08150697499513626,
+              0.1115180104970932,
+              0.1045176312327385
+            ],
+            "separation": 0.008300128392875195,
+            "impulse": [
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "normal": [
+              -0.9537264108657837,
+              -0.004529623780399561,
+              -0.30064159631729126
+            ]
+          },
+          {
+            "position": [
+              0.09459389001131058,
+              0.12922018766403198,
+              0.06273525208234787
+            ],
+            "separation": 0.008422976359724998,
+            "impulse": [
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "normal": [
+              -0.9537264108657837,
+              -0.004529623780399561,
+              -0.30064159631729126
+            ]
+          },
+          {
+            "position": [
+              0.08142408728599548,
+              0.12916553020477295,
+              0.10451467335224152
+            ],
+            "separation": 0.008375294506549835,
+            "impulse": [
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "normal": [
+              -0.9537264108657837,
+              -0.004529623780399561,
+              -0.30064159631729126
+            ]
+          },
+          {
+            "position": [
+              0.09468003362417221,
+              0.111536905169487,
+              0.06272843480110168
+            ],
+            "separation": 0.008322024717926979,
+            "impulse": [
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "normal": [
+              -0.9537264108657837,
+              -0.004529623780399561,
+              -0.30064159631729126
+            ]
+          }
+        ]
+      },
+      {
+        "names": [
+          "L__ctag_Right_1_Link",
+          "L__ctag_Right_2_Link"
+        ],
+        "points": [
+          {
+            "position": [
+              0.03219248354434967,
+              0.12867483496665955,
+              0.10124608874320984
+            ],
+            "separation": 0.008331147953867912,
+            "impulse": [
+              -0.0,
+              -0.0,
+              0.0
+            ],
+            "normal": [
+              -0.9625639915466309,
+              -0.0037697842344641685,
+              0.27102845907211304
+            ]
+          },
+          {
+            "position": [
+              0.02059922367334366,
+              0.11086346209049225,
+              0.05909818038344383
+            ],
+            "separation": 0.008528027683496475,
+            "impulse": [
+              -0.0,
+              -0.0,
+              0.0
+            ],
+            "normal": [
+              -0.9625639915466309,
+              -0.0037697842344641685,
+              0.27102845907211304
+            ]
+          },
+          {
+            "position": [
+              0.020417049527168274,
+              0.12854629755020142,
+              0.05906949192285538
+            ],
+            "separation": 0.008427109569311142,
+            "impulse": [
+              -0.0,
+              -0.0,
+              0.0
+            ],
+            "normal": [
+              -0.9625639915466309,
+              -0.0037697842344641685,
+              0.27102845907211304
+            ]
+          },
+          {
+            "position": [
+              0.032346926629543304,
+              0.11102768033742905,
+              0.10127179324626923
+            ],
+            "separation": 0.008406326174736023,
+            "impulse": [
+              -0.0,
+              -0.0,
+              0.0
+            ],
+            "normal": [
+              -0.9625639915466309,
+              -0.0037697842344641685,
+              0.27102845907211304
+            ]
+          }
+        ]
+      },
+      {
+        "names": [
+          "L__ctag_Right_Support_Link",
+          "table"
+        ],
+        "points": [
+          {
+            "position": [
+              0.034188322722911835,
+              0.1203414723277092,
+              3.3058226108551025e-05
+            ],
+            "separation": 3.305688369437121e-05,
+            "impulse": [
+              1.6879791076007677e-07,
+              -4.192688862758587e-08,
+              0.009635843336582184
+            ],
+            "normal": [
+              1.751771014824044e-05,
+              -4.351138613856165e-06,
+              1.0
+            ]
+          }
+        ]
+      },
+      {
+        "names": [
+          "R__ctag_Left_2_Link",
+          "R__ctag_Left_1_Link"
+        ],
+        "points": [
+          {
+            "position": [
+              0.6870042681694031,
+              0.027890030294656754,
+              0.280750572681427
+            ],
+            "separation": 0.011921491473913193,
+            "impulse": [
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "normal": [
+              0.6777653694152832,
+              0.009293854236602783,
+              -0.7352195382118225
+            ]
+          },
+          {
+            "position": [
+              0.6469953656196594,
+              0.009467873722314835,
+              0.24363531172275543
+            ],
+            "separation": 0.012111786752939224,
+            "impulse": [
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "normal": [
+              0.6777653694152832,
+              0.009293854236602783,
+              -0.7352195382118225
+            ]
+          },
+          {
+            "position": [
+              0.6873058080673218,
+              0.010274085216224194,
+              0.2808058559894562
+            ],
+            "separation": 0.011996563524007797,
+            "impulse": [
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "normal": [
+              0.6777653694152832,
+              0.009293854236602783,
+              -0.7352195382118225
+            ]
+          },
+          {
+            "position": [
+              0.6466854214668274,
+              0.027134712785482407,
+              0.2435729056596756
+            ],
+            "separation": 0.01200444158166647,
+            "impulse": [
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "normal": [
+              0.6777653694152832,
+              0.009293854236602783,
+              -0.7352195382118225
+            ]
+          }
+        ]
+      },
+      {
+        "names": [
+          "R__ctag_Right_1_Link",
+          "R__ctag_Right_2_Link"
+        ],
+        "points": [
+          {
+            "position": [
+              0.7335200309753418,
+              0.01126723550260067,
+              0.27198535203933716
+            ],
+            "separation": 0.011921499855816364,
+            "impulse": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal": [
+              0.6777787208557129,
+              0.009293332695960999,
+              0.735207200050354
+            ]
+          },
+          {
+            "position": [
+              0.7733994722366333,
+              0.029687009751796722,
+              0.2347293198108673
+            ],
+            "separation": 0.012111792340874672,
+            "impulse": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal": [
+              0.6777787208557129,
+              0.009293332695960999,
+              0.735207200050354
+            ]
+          },
+          {
+            "position": [
+              0.7737820744514465,
+              0.01202112715691328,
+              0.23474593460559845
+            ],
+            "separation": 0.012004444375634193,
+            "impulse": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal": [
+              0.6777787208557129,
+              0.009293332695960999,
+              0.735207200050354
+            ]
+          },
+          {
+            "position": [
+              0.7331677675247192,
+              0.028882378712296486,
+              0.27198538184165955
+            ],
+            "separation": 0.011996536515653133,
+            "impulse": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal": [
+              0.6777787208557129,
+              0.009293332695960999,
+              0.735207200050354
+            ]
+          }
+        ]
+      }
+    ],
+    "grippers": {
+      "left": {
+        "actual_master_rad": -0.5409163236618042,
+        "servo_target_rad": -0.7735000252723694,
+        "actual_pad_gap_m": 0.040034686291434404
+      }
+    }
+  },
+  "first_bilateral_step": {
+    "left": null
+  },
+  "physics_steps": 14542
+}

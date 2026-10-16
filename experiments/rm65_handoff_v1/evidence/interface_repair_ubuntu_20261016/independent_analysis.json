@@ -1,0 +1,944 @@
+{
+  "real_model_requests": 0,
+  "bridge_connections": 0,
+  "historical_ledgers_unchanged": true,
+  "archived_ledger_count": 12,
+  "asset_file_count": 56,
+  "native_physics_only_no_rgb_or_video": true,
+  "full_archived_state_contact_checks": {
+    "11675": {
+      "step": true,
+      "object_pose": true,
+      "object_velocity": true,
+      "drive_targets": true,
+      "bilateral_contact": true,
+      "contacts": true,
+      "arms": true
+    },
+    "27325": {
+      "step": true,
+      "object_pose": true,
+      "object_velocity": true,
+      "drive_targets": true,
+      "bilateral_contact": true,
+      "contacts": true,
+      "arms": true
+    }
+  },
+  "original_d1": {
+    "old_refusal": "INTERPOLATED_COLLISION:left:105",
+    "matched_before_closure": {
+      "step": true,
+      "object_pose": true,
+      "object_velocity": true,
+      "drive_targets": true,
+      "bilateral_contact": true,
+      "contacts": true,
+      "arms": true,
+      "left_qpos": true,
+      "right_qpos": true
+    },
+    "closure_start_step": 11675,
+    "first_bilateral_step": 11819,
+    "contact_latch_events": [
+      {
+        "event": "explicit_contact_hold",
+        "step": 11820,
+        "monotonic": 126060.054407326,
+        "data": {
+          "requested_opening_fraction": 0.15,
+          "requested_master_target": -0.7735,
+          "held_master_target": -0.4520326256752014,
+          "servo_target_within_requested_closure": true
+        }
+      }
+    ],
+    "stop_step": 11837,
+    "stop_reason": "RuntimeError('PAD_PENETRATION')",
+    "maximum_pad_penetration_m": 0.0021910557989031076,
+    "measured_forbidden_fcl_before_stop": null,
+    "table_or_nonpad_contacts_before_stop": [],
+    "requested_opening_fraction": 0.15,
+    "requested_empty_space_master_rad": -0.7735,
+    "actual_master_at_stop_rad": -0.46678540110588074,
+    "conclusion": "Empty-space precheck was not a valid prediction of the latched closure. Actual bilateral contact precedes a native 2mm pad penetration stop. The unchanged answer is not safe; old predicted table/nonpad collision was not observed before this stop."
+  },
+  "original_d4": {
+    "start_state_exact_checks": {
+      "step": true,
+      "object_pose": true,
+      "object_velocity": true,
+      "drive_targets": true,
+      "bilateral_contact": true,
+      "left_qpos": true,
+      "right_qpos": true
+    },
+    "numeric_groups": 38,
+    "start_step": 27325,
+    "end_step": 36150,
+    "duplicate_operations": [
+      {
+        "stage_index": 2,
+        "subgroup_index": 0,
+        "input_action_indices": {
+          "left": 0
+        },
+        "operation_start_measured_tcp": {
+          "left": [
+            0.05001680591509543,
+            7.899348715145884e-07,
+            0.03000983848263699,
+            -2.232496626675129e-06,
+            1.0,
+            -2.6948193863063352e-06,
+            3.4026685170829296e-05
+          ]
+        },
+        "commands": {
+          "left": {
+            "pose": [
+              0.05,
+              0.0,
+              0.03,
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "receipt": {
+          "ok": true,
+          "executed": true,
+          "start_step": 34425,
+          "end_step": 34650,
+          "goal_residuals": {
+            "left": {
+              "position_error_m": 2.3239001944935494e-05,
+              "rotation_error_rad": 2.5428740210545332e-05
+            }
+          },
+          "actual_states": {
+            "left": {
+              "sim_step": 34650,
+              "stopped": false,
+              "joint_names": [
+                "joint1",
+                "joint2",
+                "joint3",
+                "joint4",
+                "joint5",
+                "joint6",
+                "ctag_Left_1_Joint",
+                "ctag_Left_2_Joint",
+                "ctag_Right_2_Joint",
+                "ctag_Right_1_Joint",
+                "ctag_Left_Support_Joint",
+                "ctag_Right_Support_Joint"
+              ],
+              "qpos": [
+                6.672941526630893e-05,
+                -0.32395464181900024,
+                -1.9622611999511719,
+                1.8547955278336303e-06,
+                -0.8554081320762634,
+                7.658641698071733e-05,
+                -1.3286052308103535e-05,
+                -0.00016667076852172613,
+                -4.646656748263922e-08,
+                3.900641968357377e-05,
+                6.82538529872545e-06,
+                3.981720146839507e-05
+              ],
+              "flange_pose_world": [
+                0.04999791085720062,
+                1.709628850221634e-05,
+                0.23143930733203888,
+                -2.6019697543233633e-06,
+                1.0,
+                -3.92685751648969e-06,
+                -1.1809519492089748e-05
+              ],
+              "actual_pad_centers_world": [
+                [
+                  0.0949153096672472,
+                  0.00024452746550800765,
+                  0.0299772830890563
+                ],
+                [
+                  0.0050715799423500275,
+                  -0.00024262325044519076,
+                  0.029978166978574857
+                ]
+              ],
+              "actual_grasp_center_world": [
+                0.049993444804798615,
+                9.52107531408447e-07,
+                0.02997772503381558
+              ],
+              "actual_pad_gap_m": 0.08984505043396485,
+              "gripper_master_rad": -1.3286052308103535e-05
+            },
+            "right": {
+              "sim_step": 34650,
+              "stopped": false,
+              "joint_names": [
+                "joint1",
+                "joint2",
+                "joint3",
+                "joint4",
+                "joint5",
+                "joint6",
+                "ctag_Left_1_Joint",
+                "ctag_Left_2_Joint",
+                "ctag_Right_2_Joint",
+                "ctag_Right_1_Joint",
+                "ctag_Left_Support_Joint",
+                "ctag_Right_Support_Joint"
+              ],
+              "qpos": [
+                -0.10000000149011612,
+                0.050001151859760284,
+                -1.5499999523162842,
+                3.38668257882091e-08,
+                -1.6415926218032837,
+                -0.11999999731779099,
+                -2.491969297579999e-08,
+                -2.272008581272189e-09,
+                1.9409137408388233e-08,
+                -1.5150529719676342e-09,
+                2.2209221128832723e-08,
+                1.217273926101825e-08
+              ],
+              "flange_pose_world": [
+                0.7143033146858215,
+                0.019634390249848366,
+                0.3970366418361664,
+                -4.52512176707387e-06,
+                -0.010001569986343384,
+                0.999950110912323,
+                -1.5174155123531818e-06
+              ],
+              "actual_pad_centers_world": [
+                [
+                  0.669392092574965,
+                  0.018508511454953046,
+                  0.1955764613905269
+                ],
+                [
+                  0.7592102859150186,
+                  0.020793371342323442,
+                  0.1955756311559459
+                ]
+              ],
+              "actual_grasp_center_world": [
+                0.7143011892449918,
+                0.019650941398638246,
+                0.19557604627323638
+              ],
+              "actual_pad_gap_m": 0.08984725059936698,
+              "gripper_master_rad": -2.491969297579999e-08
+            }
+          }
+        },
+        "tracking": {
+          "left": {
+            "user_waypoint_index": 0,
+            "samples": 225,
+            "max_position_cross_track_m": 2.3239001944935494e-05,
+            "max_orientation_endpoint_distance_rad": 3.4941351760478353e-05,
+            "endpoint": {
+              "position_error_m": 2.3239001944935494e-05,
+              "rotation_error_rad": 2.5428740210545332e-05
+            }
+          }
+        }
+      },
+      {
+        "stage_index": 2,
+        "subgroup_index": 1,
+        "input_action_indices": {
+          "left": 1
+        },
+        "operation_start_measured_tcp": {
+          "left": [
+            0.049993444804798615,
+            9.52107531408447e-07,
+            0.02997772503381558,
+            -2.6019697543233633e-06,
+            1.0,
+            -3.92685751648969e-06,
+            -1.1809519492089748e-05
+          ]
+        },
+        "commands": {
+          "left": {
+            "pose": [
+              0.05,
+              0.0,
+              0.03,
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "receipt": {
+          "ok": true,
+          "executed": true,
+          "start_step": 34650,
+          "end_step": 34875,
+          "goal_residuals": {
+            "left": {
+              "position_error_m": 3.983698655079276e-05,
+              "rotation_error_rad": 6.562938547842445e-05
+            }
+          },
+          "actual_states": {
+            "left": {
+              "sim_step": 34875,
+              "stopped": false,
+              "joint_names": [
+                "joint1",
+                "joint2",
+                "joint3",
+                "joint4",
+                "joint5",
+                "joint6",
+                "ctag_Left_1_Joint",
+                "ctag_Left_2_Joint",
+                "ctag_Right_2_Joint",
+                "ctag_Right_1_Joint",
+                "ctag_Left_Support_Joint",
+                "ctag_Right_Support_Joint"
+              ],
+              "qpos": [
+                6.606883107451722e-05,
+                -0.32398849725723267,
+                -1.9622851610183716,
+                3.006128963534138e-06,
+                -0.8553912043571472,
+                7.692747021792457e-05,
+                -1.3138008398527745e-05,
+                -0.00016654508362989873,
+                -6.882671499397475e-08,
+                3.8762424082960933e-05,
+                6.647421287198085e-06,
+                3.981726331403479e-05
+              ],
+              "flange_pose_world": [
+                0.04999227076768875,
+                1.7101236153393984e-05,
+                0.231427401304245,
+                -3.055116394534707e-06,
+                1.0000001192092896,
+                -4.752741915581282e-06,
+                -3.2324634958058596e-05
+              ],
+              "actual_pad_centers_world": [
+                [
+                  0.0949014053322383,
+                  0.0002446410212187472,
+                  0.02996355715082686
+                ],
+                [
+                  0.005057652642983024,
+                  -0.00024235770713689733,
+                  0.029968131217121066
+                ]
+              ],
+              "actual_grasp_center_world": [
+                0.04997952898761066,
+                1.1416570409249443e-06,
+                0.029965844183973963
+              ],
+              "actual_pad_gap_m": 0.08984507268610542,
+              "gripper_master_rad": -1.3138008398527745e-05
+            },
+            "right": {
+              "sim_step": 34875,
+              "stopped": false,
+              "joint_names": [
+                "joint1",
+                "joint2",
+                "joint3",
+                "joint4",
+                "joint5",
+                "joint6",
+                "ctag_Left_1_Joint",
+                "ctag_Left_2_Joint",
+                "ctag_Right_2_Joint",
+                "ctag_Right_1_Joint",
+                "ctag_Left_Support_Joint",
+                "ctag_Right_Support_Joint"
+              ],
+              "qpos": [
+                -0.10000000149011612,
+                0.050001151859760284,
+                -1.5499999523162842,
+                3.3829014256525625e-08,
+                -1.6415926218032837,
+                -0.11999999731779099,
+                -2.4946810839310274e-08,
+                -2.2770985097508856e-09,
+                1.9376697579787105e-08,
+                -1.4991671237751802e-09,
+                2.2229098561865612e-08,
+                1.2199997456718847e-08
+              ],
+              "flange_pose_world": [
+                0.7143033146858215,
+                0.019634390249848366,
+                0.3970366418361664,
+                -4.52512176707387e-06,
+                -0.010001569986343384,
+                0.999950110912323,
+                -1.5174155123531818e-06
+              ],
+              "actual_pad_centers_world": [
+                [
+                  0.669392092574965,
+                  0.018508511454953046,
+                  0.1955764613905269
+                ],
+                [
+                  0.7592102859150186,
+                  0.020793371342323442,
+                  0.1955756311559459
+                ]
+              ],
+              "actual_grasp_center_world": [
+                0.7143011892449918,
+                0.019650941398638246,
+                0.19557604627323638
+              ],
+              "actual_pad_gap_m": 0.08984725059936698,
+              "gripper_master_rad": -2.4946810839310274e-08
+            }
+          }
+        },
+        "tracking": {
+          "left": {
+            "user_waypoint_index": 0,
+            "samples": 225,
+            "max_position_cross_track_m": 1.83188481202237e-05,
+            "max_orientation_endpoint_distance_rad": 4.1164118258512847e-05,
+            "endpoint": {
+              "position_error_m": 3.983698655079276e-05,
+              "rotation_error_rad": 6.562938547842445e-05
+            }
+          }
+        }
+      }
+    ],
+    "conclusion": "Both original repeated left operations executed separately in list order; second starts from measured predecessor state. All D4 groups completed; this answer contains no gripper command and does not establish a grasp."
+  },
+  "normal_grasp": {
+    "duration_s": 2.0,
+    "continuous_bilateral_without_other_support": true,
+    "relative_translation_drift_m": 2.401351865222179e-07,
+    "relative_rotation_drift_rad": 1.1640491747408502e-06,
+    "maximum_pad_penetration_m": 5.321561184246093e-05,
+    "stable_grasp_2s": true
+  },
+  "normal_release": {
+    "start_step": 8617,
+    "end_step": 9567,
+    "command_ok": true,
+    "final_master_rad": -0.019801460206508636,
+    "no_bilateral_in_last_2s": true,
+    "table_support_in_last_2s": true,
+    "object_position_range_last_2s_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "pass": true
+  },
+  "vacant_table_negative": {
+    "stop_step": 14542,
+    "first_danger": {
+      "step": 14542,
+      "phase": "after_physics",
+      "ramp_index": 166,
+      "latched_sides": [],
+      "bilateral": {
+        "left": false
+      },
+      "forbidden_fcl_pairs": [
+        [
+          "left_rm65_5",
+          "L__ctag_Right_Support_Link",
+          "table_1",
+          "table_1"
+        ]
+      ],
+      "native_contacts": [
+        {
+          "names": [
+            "target_cube",
+            "table"
+          ],
+          "points": [
+            {
+              "position": [
+                0.07500001788139343,
+                0.02500000037252903,
+                0.0
+              ],
+              "separation": 1.7173588275909424e-06,
+              "impulse": [
+                0.0,
+                0.0,
+                0.00011377922055544332
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "position": [
+                0.07500001788139343,
+                -0.02500000037252903,
+                0.0
+              ],
+              "separation": 1.3187527656555176e-06,
+              "impulse": [
+                0.0,
+                0.0,
+                8.214559056796134e-05
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "position": [
+                0.025000005960464478,
+                -0.02500000037252903,
+                0.0
+              ],
+              "separation": -3.7997961044311523e-07,
+              "impulse": [
+                0.0,
+                0.0,
+                0.00011441648530308157
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "position": [
+                0.025000005960464478,
+                0.02500000037252903,
+                0.0
+              ],
+              "separation": 1.4901161193847656e-08,
+              "impulse": [
+                0.0,
+                0.0,
+                8.206806523958221e-05
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            }
+          ]
+        },
+        {
+          "names": [
+            "L__ctag_Left_Support_Link",
+            "table"
+          ],
+          "points": [
+            {
+              "position": [
+                0.07474670559167862,
+                0.11951284855604172,
+                0.0007231160998344421
+              ],
+              "separation": 0.0007231233757920563,
+              "impulse": [
+                0.0,
+                -0.0,
+                0.0
+              ],
+              "normal": [
+                3.386521711945534e-05,
+                -4.138291842537001e-06,
+                1.0
+              ]
+            }
+          ]
+        },
+        {
+          "names": [
+            "L__ctag_Left_2_Link",
+            "L__ctag_Left_1_Link"
+          ],
+          "points": [
+            {
+              "position": [
+                0.08150697499513626,
+                0.1115180104970932,
+                0.1045176312327385
+              ],
+              "separation": 0.008300128392875195,
+              "impulse": [
+                -0.0,
+                -0.0,
+                -0.0
+              ],
+              "normal": [
+                -0.9537264108657837,
+                -0.004529623780399561,
+                -0.30064159631729126
+              ]
+            },
+            {
+              "position": [
+                0.09459389001131058,
+                0.12922018766403198,
+                0.06273525208234787
+              ],
+              "separation": 0.008422976359724998,
+              "impulse": [
+                -0.0,
+                -0.0,
+                -0.0
+              ],
+              "normal": [
+                -0.9537264108657837,
+                -0.004529623780399561,
+                -0.30064159631729126
+              ]
+            },
+            {
+              "position": [
+                0.08142408728599548,
+                0.12916553020477295,
+                0.10451467335224152
+              ],
+              "separation": 0.008375294506549835,
+              "impulse": [
+                -0.0,
+                -0.0,
+                -0.0
+              ],
+              "normal": [
+                -0.9537264108657837,
+                -0.004529623780399561,
+                -0.30064159631729126
+              ]
+            },
+            {
+              "position": [
+                0.09468003362417221,
+                0.111536905169487,
+                0.06272843480110168
+              ],
+              "separation": 0.008322024717926979,
+              "impulse": [
+                -0.0,
+                -0.0,
+                -0.0
+              ],
+              "normal": [
+                -0.9537264108657837,
+                -0.004529623780399561,
+                -0.30064159631729126
+              ]
+            }
+          ]
+        },
+        {
+          "names": [
+            "L__ctag_Right_1_Link",
+            "L__ctag_Right_2_Link"
+          ],
+          "points": [
+            {
+              "position": [
+                0.03219248354434967,
+                0.12867483496665955,
+                0.10124608874320984
+              ],
+              "separation": 0.008331147953867912,
+              "impulse": [
+                -0.0,
+                -0.0,
+                0.0
+              ],
+              "normal": [
+                -0.9625639915466309,
+                -0.0037697842344641685,
+                0.27102845907211304
+              ]
+            },
+            {
+              "position": [
+                0.02059922367334366,
+                0.11086346209049225,
+                0.05909818038344383
+              ],
+              "separation": 0.008528027683496475,
+              "impulse": [
+                -0.0,
+                -0.0,
+                0.0
+              ],
+              "normal": [
+                -0.9625639915466309,
+                -0.0037697842344641685,
+                0.27102845907211304
+              ]
+            },
+            {
+              "position": [
+                0.020417049527168274,
+                0.12854629755020142,
+                0.05906949192285538
+              ],
+              "separation": 0.008427109569311142,
+              "impulse": [
+                -0.0,
+                -0.0,
+                0.0
+              ],
+              "normal": [
+                -0.9625639915466309,
+                -0.0037697842344641685,
+                0.27102845907211304
+              ]
+            },
+            {
+              "position": [
+                0.032346926629543304,
+                0.11102768033742905,
+                0.10127179324626923
+              ],
+              "separation": 0.008406326174736023,
+              "impulse": [
+                -0.0,
+                -0.0,
+                0.0
+              ],
+              "normal": [
+                -0.9625639915466309,
+                -0.0037697842344641685,
+                0.27102845907211304
+              ]
+            }
+          ]
+        },
+        {
+          "names": [
+            "L__ctag_Right_Support_Link",
+            "table"
+          ],
+          "points": [
+            {
+              "position": [
+                0.034188322722911835,
+                0.1203414723277092,
+                3.3058226108551025e-05
+              ],
+              "separation": 3.305688369437121e-05,
+              "impulse": [
+                1.6879791076007677e-07,
+                -4.192688862758587e-08,
+                0.009635843336582184
+              ],
+              "normal": [
+                1.751771014824044e-05,
+                -4.351138613856165e-06,
+                1.0
+              ]
+            }
+          ]
+        },
+        {
+          "names": [
+            "R__ctag_Left_2_Link",
+            "R__ctag_Left_1_Link"
+          ],
+          "points": [
+            {
+              "position": [
+                0.6870042681694031,
+                0.027890030294656754,
+                0.280750572681427
+              ],
+              "separation": 0.011921491473913193,
+              "impulse": [
+                0.0,
+                0.0,
+                -0.0
+              ],
+              "normal": [
+                0.6777653694152832,
+                0.009293854236602783,
+                -0.7352195382118225
+              ]
+            },
+            {
+              "position": [
+                0.6469953656196594,
+                0.009467873722314835,
+                0.24363531172275543
+              ],
+              "separation": 0.012111786752939224,
+              "impulse": [
+                0.0,
+                0.0,
+                -0.0
+              ],
+              "normal": [
+                0.6777653694152832,
+                0.009293854236602783,
+                -0.7352195382118225
+              ]
+            },
+            {
+              "position": [
+                0.6873058080673218,
+                0.010274085216224194,
+                0.2808058559894562
+              ],
+              "separation": 0.011996563524007797,
+              "impulse": [
+                0.0,
+                0.0,
+                -0.0
+              ],
+              "normal": [
+                0.6777653694152832,
+                0.009293854236602783,
+                -0.7352195382118225
+              ]
+            },
+            {
+              "position": [
+                0.6466854214668274,
+                0.027134712785482407,
+                0.2435729056596756
+              ],
+              "separation": 0.01200444158166647,
+              "impulse": [
+                0.0,
+                0.0,
+                -0.0
+              ],
+              "normal": [
+                0.6777653694152832,
+                0.009293854236602783,
+                -0.7352195382118225
+              ]
+            }
+          ]
+        },
+        {
+          "names": [
+            "R__ctag_Right_1_Link",
+            "R__ctag_Right_2_Link"
+          ],
+          "points": [
+            {
+              "position": [
+                0.7335200309753418,
+                0.01126723550260067,
+                0.27198535203933716
+              ],
+              "separation": 0.011921499855816364,
+              "impulse": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "normal": [
+                0.6777787208557129,
+                0.009293332695960999,
+                0.735207200050354
+              ]
+            },
+            {
+              "position": [
+                0.7733994722366333,
+                0.029687009751796722,
+                0.2347293198108673
+              ],
+              "separation": 0.012111792340874672,
+              "impulse": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "normal": [
+                0.6777787208557129,
+                0.009293332695960999,
+                0.735207200050354
+              ]
+            },
+            {
+              "position": [
+                0.7737820744514465,
+                0.01202112715691328,
+                0.23474593460559845
+              ],
+              "separation": 0.012004444375634193,
+              "impulse": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "normal": [
+                0.6777787208557129,
+                0.009293332695960999,
+                0.735207200050354
+              ]
+            },
+            {
+              "position": [
+                0.7331677675247192,
+                0.028882378712296486,
+                0.27198538184165955
+              ],
+              "separation": 0.011996536515653133,
+              "impulse": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "normal": [
+                0.6777787208557129,
+                0.009293332695960999,
+                0.735207200050354
+              ]
+            }
+          ]
+        }
+      ],
+      "grippers": {
+        "left": {
+          "actual_master_rad": -0.5409163236618042,
+          "servo_target_rad": -0.7735000252723694,
+          "actual_pad_gap_m": 0.040034686291434404
+        }
+      }
+    },
+    "first_bilateral_step": {
+      "left": null
+    }
+  },
+  "full_pick_handoff_place": "NOT_VALIDATED_NOT_COMPLETED_BY_THESE_REPLAYS"
+}

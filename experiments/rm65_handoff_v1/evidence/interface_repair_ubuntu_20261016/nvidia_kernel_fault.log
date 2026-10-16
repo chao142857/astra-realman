@@ -1,0 +1,34 @@
+Oct 16 20:05:08 Ubuntu-Robot kernel: watchdog: BUG: soft lockup - CPU#14 stuck for 10666s! [nvidia-modeset/:934]
+Oct 16 20:05:08 Ubuntu-Robot kernel: Modules linked in: tls udp_diag xt_MASQUERADE xt_tcpudp nft_chain_nat nf_nat tcp_diag inet_diag exfat xt_mark xt_connmark xt_conntrack nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nft_compat ccm nf_tables libcrc32c nfnetlink nvidia_uvm(O) bnep snd_ctl_led xe snd_hda_codec_realtek snd_hda_codec_generic drm_gpuvm drm_exec gpu_sched drm_suballoc_helper drm_ttm_helper intel_uncore_frequency intel_uncore_frequency_common x86_pkg_temp_thermal intel_powerclamp snd_sof_pci_intel_mtl snd_sof_intel_hda_common soundwire_intel snd_sof_intel_hda_mlink soundwire_cadence snd_sof_intel_hda snd_sof_pci snd_sof_xtensa_dsp snd_sof snd_sof_utils snd_soc_hdac_hda snd_hda_ext_core snd_soc_acpi_intel_match snd_soc_acpi soundwire_generic_allocation soundwire_bus snd_soc_core snd_hda_codec_hdmi snd_compress ac97_bus snd_pcm_dmaengine coretemp snd_hda_intel snd_intel_dspcfg snd_intel_sdw_acpi kvm_intel snd_hda_codec mt7925e mt7925_common kvm snd_hda_core mt792x_lib snd_hwdep mt76_connac_lib i915 irqbypass btusb crct10dif_pclmul
+Oct 16 20:05:08 Ubuntu-Robot kernel:  uvcvideo snd_pcm mt76 polyval_clmulni btrtl polyval_generic videobuf2_vmalloc btintel ghash_clmulni_intel snd_seq_midi mac80211 uvc sha256_ssse3 btbcm mei_gsc_proxy videobuf2_memops snd_seq_midi_event drm_buddy processor_thermal_device_pci videobuf2_v4l2 sha1_ssse3 btmtk binfmt_misc intel_rapl_msr aesni_intel dell_wmi ttm snd_rawmidi processor_thermal_device videodev nvidia_drm(O) bluetooth crypto_simd processor_thermal_wt_hint dell_smbios cfg80211 drm_display_helper snd_seq nvidia_modeset(O) videobuf2_common processor_thermal_rfim mei_me cryptd dcdbas nls_iso8859_1 ecdh_generic input_leds mc cmdlinepart joydev nvidia(O) apple_mfi_fastcharge libarc4 spi_nor cec dell_wmi_sysman hid_multitouch mei snd_seq_device intel_cstate ledtrig_audio alienware_wmi processor_thermal_rapl dell_wmi_ddv serio_raw dell_wmi_descriptor dell_smm_hwmon mtd rc_core snd_timer intel_rapl_common nvidia_wmi_ec_backlight firmware_attributes_class wmi_bmof snd processor_thermal_wt_req i2c_algo_bit intel_vpu soundcore
+Oct 16 20:05:08 Ubuntu-Robot kernel:  processor_thermal_power_floor ecc mac_hid processor_thermal_mbox intel_pmc_core intel_vsec intel_hid pmt_telemetry int3400_thermal int3403_thermal acpi_thermal_rel acpi_tad int340x_thermal_zone pmt_class sparse_keymap acpi_pad sch_fq_codel msr parport_pc ppdev lp parport efi_pstore ip_tables x_tables autofs4 hid_apple usbhid uas usb_storage hid_generic video crc32_pclmul psmouse r8169 spi_intel_pci ucsi_acpi realtek spi_intel ahci typec_ucsi intel_lpss_pci thunderbolt i2c_i801 intel_lpss typec libahci i2c_smbus idma64 xhci_pci i2c_hid_acpi vmd xhci_pci_renesas i2c_hid hid wmi pinctrl_meteorlake pinctrl_meteorpoint
+Oct 16 20:05:08 Ubuntu-Robot kernel: CPU: 14 PID: 934 Comm: nvidia-modeset/ Tainted: G           O L     6.8.0-138-generic #138~22.04.1-Ubuntu
+Oct 16 20:05:08 Ubuntu-Robot kernel: Hardware name: Alienware Alienware 16X Aurora AC16251/06W9VX, BIOS 2.6.0 07/08/2026
+Oct 16 20:05:08 Ubuntu-Robot kernel: RIP: 0010:nvWriteGpEntry+0xb9/0x370 [nvidia_modeset]
+Oct 16 20:05:08 Ubuntu-Robot kernel: Code: d0 39 f2 7c 04 89 d6 89 c7 83 c1 01 44 39 c9 75 d0 39 fd 75 5e 44 0f b6 3b 41 83 e7 08 75 aa 48 8b 93 80 01 00 00 0f b7 42 0e <66> 83 f8 ff 75 99 8b 72 08 49 8b 94 24 48 01 00 00 48 89 df 48 8b
+Oct 16 20:05:08 Ubuntu-Robot kernel: RSP: 0018:ffffd42c00e1fd28 EFLAGS: 00000246
+Oct 16 20:05:08 Ubuntu-Robot kernel: RAX: 0000000000000000 RBX: ffff8c471879a830 RCX: ffffd42c04c153e8
+Oct 16 20:05:08 Ubuntu-Robot kernel: RDX: ffff8c471319d000 RSI: 00000000000003f4 RDI: 0000000000000006
+Oct 16 20:05:08 Ubuntu-Robot kernel: RBP: 0000000000000006 R08: 0000000000000000 R09: 0000000000000001
+Oct 16 20:05:08 Ubuntu-Robot kernel: R10: 0000000000000004 R11: 0000000000000010 R12: ffffd42c00c2b0d8
+Oct 16 20:05:08 Ubuntu-Robot kernel: R13: 00000000000003f4 R14: 0000000000000384 R15: 0000000000000000
+Oct 16 20:05:08 Ubuntu-Robot kernel: FS:  0000000000000000(0000) GS:ffff8c4e80100000(0000) knlGS:0000000000000000
+Oct 16 20:05:08 Ubuntu-Robot kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+Oct 16 20:05:08 Ubuntu-Robot kernel: CR2: 0000783f47cf3e70 CR3: 000000072443c003 CR4: 0000000000f70ef0
+Oct 16 20:05:08 Ubuntu-Robot kernel: PKRU: 55555554
+Oct 16 20:05:08 Ubuntu-Robot kernel: Call Trace:
+Oct 16 20:05:08 Ubuntu-Robot kernel:  <TASK>
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? nvPushKickoff+0x28/0x50 [nvidia_modeset]
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? PrefetchHelperSurfaceEvo+0x45c/0x650 [nvidia_modeset]
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? ___down_common+0x108/0x160
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? nvDIFRPrefetchSurfaces+0xb1/0x1f0 [nvidia_modeset]
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? DifrPrefetchEventDeferredWork+0x16/0x30 [nvidia_modeset]
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? nvkms_kthread_q_callback+0xb6/0x160 [nvidia_modeset]
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? _main_loop+0x7f/0x140 [nvidia_modeset]
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? __pfx__main_loop+0x10/0x10 [nvidia_modeset]
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? kthread+0xef/0x120
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? __pfx_kthread+0x10/0x10
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? ret_from_fork+0x44/0x70
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? __pfx_kthread+0x10/0x10
+Oct 16 20:05:08 Ubuntu-Robot kernel:  ? ret_from_fork_asm+0x1b/0x30
+Oct 16 20:05:08 Ubuntu-Robot kernel:  </TASK>

@@ -1,0 +1,68 @@
+{
+  "done": false,
+  "stages": [
+    {
+      "actions": [
+        {
+          "arm": "left",
+          "kind": "tcp",
+          "waypoints_world_wxyz": [
+            [
+              0.05,
+              0,
+              0.215,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              0.05,
+              0,
+              0.03,
+              0,
+              1,
+              0,
+              0
+            ]
+          ]
+        }
+      ],
+      "mode": "sequential",
+      "observe_s": 0.2
+    },
+    {
+      "actions": [
+        {
+          "arm": "left",
+          "kind": "tcp",
+          "waypoints_world_wxyz": [
+            [
+              0.05,
+              0,
+              0.027,
+              0,
+              1,
+              0,
+              0
+            ]
+          ]
+        }
+      ],
+      "mode": "sequential",
+      "observe_s": 0.2
+    },
+    {
+      "actions": [
+        {
+          "arm": "left",
+          "contact_mode": "bilateral_hold",
+          "kind": "gripper",
+          "opening_fraction": 0.15
+        }
+      ],
+      "mode": "sequential",
+      "observe_s": 0.4
+    }
+  ]
+}

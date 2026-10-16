@@ -1,0 +1,68 @@
+{
+  "real_requests": 0,
+  "bridge_connections": 0,
+  "source": "PRIVATE_ENGINEERING_INTERFACE_NOT_ASTRA",
+  "mode": "bilateral_hold",
+  "status": "PASS_INTERFACE_ONLY_NOT_FULL_TASK",
+  "rendering": "OMITTED_NO_RGB_OR_VIDEO",
+  "close_start_step": 1142,
+  "close_end_step": 1592,
+  "close_actual_tcp_z_range_m": [
+    0.026439737698747634,
+    0.04007456528621324
+  ],
+  "lift_start_step": 1592,
+  "post_lift_private_evidence": {
+    "duration_s": 2.0,
+    "continuous_bilateral_without_other_support": true,
+    "relative_translation_drift_m": 2.401351865222179e-07,
+    "relative_rotation_drift_rad": 1.1640491747408502e-06,
+    "maximum_pad_penetration_m": 5.321561184246093e-05,
+    "stable_grasp_2s": true
+  },
+  "physics_steps": 8617,
+  "historical_process_score_unchanged": {
+    "criteria": {
+      "version": "rm65_v1_process_1",
+      "released_gap_m": 0.07,
+      "left_continuous_hold_s": 0.5,
+      "right_continuous_independent_hold_s": 2.0,
+      "script_independent_hold_observation_s": 5.0,
+      "hold_min_center_z_m": 0.07,
+      "hold_max_speed_m_s": 0.03,
+      "stable_place_s": 1.0,
+      "place_max_speed_m_s": 0.01,
+      "cube_size_m": 0.05,
+      "target_half_size_m": 0.07,
+      "target_xy": [
+        0.52,
+        0.16
+      ],
+      "max_pad_penetration_m": 0.002,
+      "contact_impulse_threshold": 1e-07,
+      "no_interarm_contact": true,
+      "drop_definition": "table contact after first lift and before intentional right_release, or object center below 0.06m while either arm is commanded to hold; final controlled release is scored separately",
+      "note": "Frozen before full V1 script success. Raw durations always reported; old V0 evaluation remains unchanged."
+    },
+    "longest_continuous_s": {
+      "left_hold": 19.70399999999992,
+      "right_independent_hold": 0,
+      "stable_place": 0
+    },
+    "checks": {
+      "left_hold": true,
+      "right_independent_hold": false,
+      "stable_place": false,
+      "no_unintended_drop": true,
+      "no_interarm_contact": true,
+      "no_pad_penetration_abort": true
+    },
+    "full_process_pass": false,
+    "unintended_drop_steps": [],
+    "maximum_pad_penetration_m": 9.97249226202257e-05,
+    "interarm_steps": [],
+    "pad_penetrations": [],
+    "physics_steps": 8617,
+    "model_calls": 0
+  }
+}

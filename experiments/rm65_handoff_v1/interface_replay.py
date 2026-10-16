@@ -6,13 +6,20 @@ import numpy as np
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--case',choices=['legacy_d1','contact_d1','sequential_d4'],required=True)
+    p.add_argument('--physics-only',action='store_true',help='Real PhysX without RGB/video; archived exact-state checks still required')
     p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     root=Path(__file__).resolve().parent;os.environ['RM65_LAYOUT']=str(root/'scene_v4_ready_transfer_1100.json')
+    if a.physics_only:
+        from replay_without_rendering import install as omit_rendering
+        omit_rendering()
     import dual_scene
     from dual_scene import DualScene,CONFIG
     from diagnose_decision4 import relocate_runtime_mesh_paths
     from numeric_action_chunk import execute_chunk
     from right_hold_velocity_v3 import install
+    if a.physics_only:
+        from replay_without_rendering import omit_observations
+        omit_observations(DualScene)
     archived=root/'evidence/full_task_real_20261016/episode'
     snapshot=archived/'source_snapshot'
     spec=importlib.util.spec_from_file_location('_archived_chunk_replay',snapshot/'numeric_action_chunk.py')
@@ -23,7 +30,8 @@ def main():
     legacy_group=env['execute_group']
     relocate_runtime_mesh_paths(CONFIG);w=None
     report={'case':a.case,'real_requests':0,'bridge_connections':0,'source':'ARCHIVED_ASTRA_OFFLINE_REPLAY',
-        'altered_model_targets':False,'object_binding':False,'status':'RUNNING','source_answers':[]}
+        'altered_model_targets':False,'object_binding':False,'status':'RUNNING','source_answers':[],
+        'rendering':'OMITTED_NO_RGB_OR_VIDEO' if a.physics_only else 'ORIGINAL_FOUR_CAMERAS'}
     def proposal(i):
         path=archived/f'decision_{i:03d}/raw.txt';raw=path.read_text();report['source_answers'].append({'decision':i+1,'sha256':hashlib.sha256(raw.encode()).hexdigest()});return json.loads(raw)
     try:

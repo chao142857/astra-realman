@@ -1,0 +1,65 @@
+{
+  "purpose": "Response to automatic review: inspect and minimize actual public simulation evidence before publishing",
+  "public_files_audited": 1930,
+  "public_bytes_audited": 56654669,
+  "counts": {
+    "text_or_metadata": 20,
+    "json_documents": 1497,
+    "numeric_npz": 389,
+    "typed_jsonl_rows": 95058,
+    "jsonl_archives": 23,
+    "measured_data_plot": 1
+  },
+  "private_file_semantics": "PRIVATE marks simulator truth withheld from Astra, not authentication material",
+  "private_schema_keys": {
+    "collision_representation_PRIVATE.json": [
+      "actual_bilateral",
+      "holder",
+      "original_pad_exceptions_only",
+      "releasing_commands",
+      "representation"
+    ],
+    "contact_guard_PRIVATE.jsonl.gz": [
+      "bilateral",
+      "forbidden_fcl_pairs",
+      "grippers",
+      "latched_sides",
+      "native_contacts",
+      "phase",
+      "ramp_index",
+      "step"
+    ],
+    "contact_guard_summary_PRIVATE.json": [
+      "collision_exceptions_changed",
+      "deferred_closing_sides",
+      "empty_space_closure_is_not_safety_proof",
+      "execution_abort",
+      "first_bilateral_step",
+      "first_danger",
+      "last_physics_record_at_abort",
+      "model_target_changed",
+      "native_2mm_monitor_unchanged",
+      "samples",
+      "version"
+    ],
+    "separate_lift_input_PRIVATE.json": [
+      "numeric_7_element_tcp_pose"
+    ]
+  },
+  "npz_array_keys": [
+    "closing",
+    "contact_mode",
+    "grip_targets",
+    "position",
+    "requested_master_target",
+    "start_full",
+    "target_tcp",
+    "velocity"
+  ],
+  "credential_field_and_secret_pattern_findings": [],
+  "authorization_credentials_copied_this_run": false,
+  "bridge_connections": 0,
+  "excluded_redundant_source_snapshot_files": 723,
+  "complete_source_snapshots_and_raw_logs_retained_on_host": true,
+  "notes": "Every NPZ loaded with allow_pickle=False; all compressed contact/event/physics rows parsed as JSON objects. Only numeric poses, native contact/kinematic data and experiment metadata are published. Code copies excluded; source separately committed."
+}
