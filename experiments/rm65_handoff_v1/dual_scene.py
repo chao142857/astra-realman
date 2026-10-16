@@ -289,7 +289,9 @@ class DualScene:
      'latched':s in latched,'bilateral_contact_at_end':bilateral,'native_drive_torque':None}
     if plan['contact_mode']=='bilateral_hold' and (s not in latched or not bilateral):
      result.update(ok=False,reason='GRIPPER_BILATERAL_HOLD_NOT_ESTABLISHED')
-   if grips:result['gripper_execution']=grips
+   if grips:
+    from gripper_state_v3 import annotate
+    result['gripper_execution']=grips;annotate(result)
    if hasattr(self,'numeric_post_hold_steps'):result['post_numeric_observation']={'start_step':post_hold_start,'end_step':self.steps,'duration_s':(self.steps-post_hold_start)*self.dt,'movement_added':False}
   except BaseException as e:
    for a in self.arms.values():a.stopped.set();a.hold()

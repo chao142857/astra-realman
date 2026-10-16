@@ -41,7 +41,8 @@ CONVENTIONS={
         'rejection':'Per-node full shared-scene collision preflight before movement. A later rejection can follow earlier executed nodes; receipts state partial execution. No alternate IK path search or automatic repair.'},
     'gripper':{'opening_fraction':'Empty-space command: master_target_rad = -0.91*(1-opening_fraction); 0 closed, 1 open. This is not measured millimetres. Reported pad-centre gap is not exact minimum contact gap.',
         'position':'Follow the requested joint target without bilateral-contact latching; ordinary servo, no implicit grasp selection.',
-        'bilateral_hold':'While closing, after two successive bilateral contact samples, stop the ramp and hold the measured master angle minus the existing 0.005 rad preload. The held SERVO TARGET never requests further closure beyond your requested joint target; actual overshoot is possible and monitored. No bilateral contact at the end means explicit execution failure. Omitted gripper retains its last servo target.',
+        'bilateral_hold':'While closing, after two successive bilateral contact samples, stop the ramp and hold the measured master angle minus the existing 0.005 rad preload. The held SERVO TARGET never requests further closure beyond your requested joint target; actual overshoot is possible and monitored. No end contact means the requested contact-hold condition is NOT established, even though the close command executed. The chunk ends with recoverable feedback; this is not a whole-grasp verdict or a safety stop. You may instead choose position closure and independently command a lift. No lift, closure value or grasp location is inserted. Omitted gripper retains its last servo target.',
+        'state_semantics':'command_execution, contact_hold_state and stable_grasp are separate. Stable grasp is NOT_ASSESSED_BY_SERVO; neither successful closure nor a contact latch proves a stable lifted grasp. Contact hold status reports controller state, not object coordinates or expert advice.',
         'controller':'Versioned right master damping=0 after contact latch, K and URDF effort limit unchanged. Left controller unchanged. A new opening command restores ordinary servo settings. No object binding or qpos overwrites.'},
     'ordering':'Stages follow list order. sequential finishes each listed arm operation before the next. parallel advances one resampled node per TCP arm together in shared physics; a gripper operation runs with the first node. An arm finishing early holds. Arms omitted from a group hold drive targets.',
     'time':'Physics paused during inference. Each stage ends with your observe_s passive physical hold. An empty actions list with observe_s>0 only observes while holding drive targets. No expert motion during a hold. done=true requires stages=[] and requests a terminal 2 s hold, not automatic task success.',
@@ -153,7 +154,11 @@ def execute_chunk(world,value):
                         'max_orientation_endpoint_distance_rad':max((x[1] for x in errors),default=0.),'endpoint':goal}
                 log['tracking']=trace;receipt['groups'].append(log);in_flight=None;receipt['executed']=world.steps>receipt['start_step']
                 if not r['ok']:
-                    receipt.update(ok=False,reason=r.get('reason','NUMERIC_EXECUTION_FAILED'));break
+                    receipt.update(ok=False,reason=r.get('reason','NUMERIC_EXECUTION_FAILED'))
+                    if r.get('recoverable_action_feedback'):
+                        receipt.update(recoverable_action_feedback=True,failure_scope=r['failure_scope'],
+                            task_grasp_verdict='NOT_DETERMINED',requires_new_model_decision=True)
+                    break
                 if any(t['max_position_cross_track_m']>POSITION_TOLERANCE_M or t['max_orientation_endpoint_distance_rad']>ROTATION_TOLERANCE_RAD or t['endpoint'].get('position_error_m',0)>POSITION_TOLERANCE_M or t['endpoint'].get('rotation_error_rad',0)>ROTATION_TOLERANCE_RAD for t in trace.values()):
                     receipt.update(ok=False,reason='TRACKING_TOLERANCE_EXCEEDED');break
             if not receipt['ok']:break

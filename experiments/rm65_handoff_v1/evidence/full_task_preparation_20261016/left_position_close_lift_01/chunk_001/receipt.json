@@ -1,0 +1,34 @@
+{
+  "ok": false,
+  "executed": true,
+  "interface": "numeric_chunk_v2",
+  "start_step": 1142,
+  "groups": [
+    {
+      "stage_index": 0,
+      "subgroup_index": 0,
+      "commands": {
+        "left": {
+          "opening": 0.45,
+          "contact_mode": "position"
+        }
+      },
+      "receipt": {
+        "ok": false,
+        "executed": "PARTIAL",
+        "start_step": 1142,
+        "end_step": 1436,
+        "error": "RuntimeError('PAD_PENETRATION')"
+      }
+    }
+  ],
+  "input_unchanged": true,
+  "automatic_waypoint_selection": false,
+  "scope": "per-node preflight; partial execution possible",
+  "reason": "PHYSICAL_PROTECTION_STOP",
+  "error": "RuntimeError('PAD_PENETRATION')",
+  "safety_stop": true,
+  "end_step": 1436,
+  "numeric_groups_attempted": 1,
+  "execution_status": "PARTIAL_FAILED"
+}

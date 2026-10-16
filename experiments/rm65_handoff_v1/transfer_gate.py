@@ -61,6 +61,9 @@ class Gate:
     max_total=16
     max_execute=None
     extra_grant_parameters={}
+    requires_shadow=True
+
+    def accept(self,folder):return accept_result(folder)
 
     def __init__(self,root,authorization,preflight,config,stage):
         import fcntl
@@ -90,8 +93,8 @@ class Gate:
             valid_shadows=[r for r in s['runs'] if r['stage']=='shadow' and r['status']=='VALID']
             if len(valid_shadows)>1 or s['shadow_validated']!=(len(valid_shadows)==1):raise ValueError('SHADOW_STATE_INCONSISTENT')
             if stage=='shadow' and valid_shadows:raise ValueError('SHADOW_ALREADY_DISPATCHED')
-            if stage=='execute' and len(valid_shadows)!=1:raise ValueError('VALID_SHADOW_REQUIRED_FIRST')
-            for r in s['runs']:accept_result(self.root/r['artifact'])
+            if stage=='execute' and self.requires_shadow and len(valid_shadows)!=1:raise ValueError('VALID_SHADOW_REQUIRED_FIRST')
+            for r in s['runs']:self.accept(self.root/r['artifact'])
             s.update(authorization=bound,status='READY');self.limit=grant['max_dispatches'];self.stage=stage;self.flush()
         except BaseException:self.handle.close();raise
 
@@ -114,7 +117,7 @@ class Gate:
         return row
 
     def complete(self,row,folder):
-        accept_result(folder)
+        self.accept(folder)
         wire=json.loads((Path(folder)/'bridge_request.json').read_text())
         response=json.loads((Path(folder)/'response.json').read_text())
         if response['source']!='REAL_ASTRA_ATTEMPT':raise ValueError('REAL_SOURCE_REQUIRED')
