@@ -1,0 +1,104 @@
+"""Finite PRIVATE full-route controller repair trials; zero model/network calls.
+
+The numerical executor, IK, collision checks and proposals are not patched.
+Only the right actuator's contact-latched velocity feedback is versioned.
+"""
+import argparse, json, os, traceback
+from pathlib import Path
+import numpy as np
+
+
+CANDIDATES={
+ 'no_native_damping':'Only right contact-hold master damping 2 -> 0. K/target/preload/10 Nm unchanged; other finger damping unchanged.',
+ 'critical_native_damping':'Only right hold damping = 2 sqrt(K * effective mimic-coordinate inertia), derived at contact, not fitted to success.',
+ 'position_difference_feedback':'Original K/D/limit. Right hold velocity target = native qvel - position finite-difference velocity, bounded by URDF velocity limit. Experimental feedback-source compensation, not a measured torque.'}
+
+
+def main():
+    p=argparse.ArgumentParser();p.add_argument('--candidate',choices=CANDIDATES,required=True);p.add_argument('--output',type=Path,required=True)
+    a=p.parse_args();root=Path(__file__).resolve().parent
+    os.environ['RM65_LAYOUT']=str(root/'scene_v4_ready_transfer_1100.json')
+    assert os.environ['RM65_CONTROLLER']=='urdf_effort_hold_v2'
+    assert os.environ.get('RM65_SOLVER','original')=='original'
+    from dual_scene import DualScene,CONFIG
+    from diagnose_decision4 import relocate_runtime_mesh_paths
+    from full_handoff_reference import run_reference
+    from right_grip_hold_score import score
+    from evaluate_process import evaluate
+    relocate_runtime_mesh_paths(CONFIG)
+    report={'status':'RUNNING','candidate':a.candidate,'change':CANDIDATES[a.candidate],
+        'model_requests':0,'route':'full_numeric_known_d3_urdf_effort_04','expert_not_astra':True}
+    w=None;telemetry=None;hold={};control={'latched_target':None};previous=None
+    try:
+        w=DualScene(a.output);arm=w.arms['right'];master=arm.joints[arm.master]
+        original_latch=arm.latch_grasp_contact
+        def latch():
+            result=original_latch();K=master.get_stiffness();D=master.get_damping();cap=master.get_force_limit()
+            control.update(latched_target=float(master.get_drive_target()[0]),right_latch_step=w.steps)
+            record={'step':w.steps,'before':{'K':K,'D':D,'limit_Nm':cap,'target':control['latched_target']},'candidate':a.candidate}
+            if a.candidate=='no_native_damping':master.set_drive_property(K,0.,force_limit=cap)
+            elif a.candidate=='critical_native_damping':
+                M=arm.robot.compute_manipulator_inertia_matrix();s=np.zeros(len(arm.names));s[arm.master]=1
+                for name,(parent,m,offset) in arm.mimics.items():s[arm.names.index(name)]=s[arm.names.index(parent)]*m
+                inertia=float(s@M@s);damping=float(2*np.sqrt(K*inertia))
+                master.set_drive_property(K,damping,force_limit=cap);record.update(effective_inertia_kg_m2=inertia,derived_critical_damping=damping)
+            record['after']={'K':master.get_stiffness(),'D':master.get_damping(),'limit_Nm':master.get_force_limit(),'target':float(master.get_drive_target()[0])}
+            arm.log('right_hold_feedback_v3',record);report['controller_change']=record
+            return result
+        arm.latch_grasp_contact=latch
+        telemetry=(w.output/'right_native_readback.jsonl').open('x',buffering=1)
+        original_step=w.scene.step
+        def step():
+            nonlocal previous
+            q=float(arm.robot.get_qpos()[arm.master]);native=float(arm.robot.get_qvel()[arm.master]);fd=0. if previous is None else (q-previous)/w.dt
+            active=control['latched_target'] is not None and abs(float(master.get_drive_target()[0])-control['latched_target'])<1e-7
+            if a.candidate=='position_difference_feedback':
+                velocity=float(np.clip(native-fd,-10,10)) if active else 0.
+                master.set_drive_velocity_target(velocity)
+            previous=q
+            original_step()
+            if control['latched_target'] is not None:
+                contacts=[]
+                for c in w.scene.get_contacts():
+                    names=[b.entity.name for b in c.bodies]
+                    if 'target_cube' not in names:continue
+                    contacts.append({'names':names,'points':[{'position':pt.position.tolist(),'normal':pt.normal.tolist(),
+                        'impulse':pt.impulse.tolist(),'separation':float(pt.separation)} for pt in c.points]})
+                telemetry.write(json.dumps({'step':w.steps+1,'native_qvel_before':native,'fd_qvel_before':fd,
+                    'master_qpos_after':float(arm.robot.get_qpos()[arm.master]),'D':master.get_damping(),
+                    'position_target':float(master.get_drive_target()[0]),'velocity_target':float(master.get_drive_velocity_target()[0]),
+                    'force_limit':master.get_force_limit(),'native_actuator_torque':None,'contacts':contacts})+'\n')
+        w.scene.step=step
+        original_tick=w.tick
+        def tick(n):
+            if w.phase_name=='right_independent_hold' and n==500:
+                start=w.steps;reference=w.records[-1];original_tick(500)
+                hold['first_2s']=score([r for r in w.records if start<r['step']<=w.steps],reference=reference)
+                (w.output/'hold_checks.json').write_text(json.dumps(hold,indent=2)+'\n')
+                if not hold['first_2s']['pass']:raise RuntimeError('ENGINEERING_HOLD_2S_FAIL')
+                w.observe(w.output/'right_independent_2s')
+                second=w.steps;original_tick(1250)
+                hold['additional_5s']=score([r for r in w.records if second<r['step']<=w.steps],required_s=5.,reference=reference)
+                hold['combined_7s']=score([r for r in w.records if start<r['step']<=w.steps],required_s=7.,reference=reference)
+                (w.output/'hold_checks.json').write_text(json.dumps(hold,indent=2)+'\n')
+                if not hold['combined_7s']['pass']:raise RuntimeError('ENGINEERING_HOLD_7S_FAIL')
+            else:original_tick(n)
+        w.tick=tick
+        source=root/'evidence/full_handoff_restore_20261015/full_numeric_known_d3_urdf_effort_04'
+        prefix=[json.loads((source/f'reference_{i:03d}/proposal_PRIVATE.json').read_text()) for i in range(10)]
+        (w.output/'candidate_plan.json').write_text(json.dumps(CANDIDATES,indent=2)+'\n')
+        w.start_video();w.observe(w.output/'table_initial')
+        run_reference(w,report,fixed_pickup_orientation=True,frozen_numeric_prefix=prefix)
+    except Exception as exc:report.update(status='INCOMPLETE',error=repr(exc),traceback=traceback.format_exc())
+    finally:
+        if w:
+            report.update(last_step=w.steps,sim_time_s=w.steps*w.dt,engineering_hold=hold)
+            w.observe(w.output/'final_observation');w.close()
+            if telemetry:telemetry.close()
+            report['historical_process_score_unchanged']=evaluate(w.output)
+            (w.output/'result.json').write_text(json.dumps(report,indent=2)+'\n')
+    print(json.dumps(report,indent=2))
+    if report['status']=='INCOMPLETE':raise SystemExit(1)
+
+
+if __name__=='__main__':main()

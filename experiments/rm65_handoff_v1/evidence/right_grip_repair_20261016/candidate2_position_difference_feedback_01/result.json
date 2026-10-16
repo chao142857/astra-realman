@@ -1,0 +1,149 @@
+{
+  "status": "INCOMPLETE",
+  "candidate": "position_difference_feedback",
+  "change": "Original K/D/limit. Right hold velocity target = native qvel - position finite-difference velocity, bounded by URDF velocity limit. Experimental feedback-source compensation, not a measured torque.",
+  "model_requests": 0,
+  "route": "full_numeric_known_d3_urdf_effort_04",
+  "expert_not_astra": true,
+  "stages": [
+    {
+      "stage": "left_pick_approach_0.2",
+      "start_step": 100,
+      "end_step": 367,
+      "ok": true,
+      "artifact": "reference_000"
+    },
+    {
+      "stage": "left_pick_approach_0.08",
+      "start_step": 367,
+      "end_step": 896,
+      "ok": true,
+      "artifact": "reference_001"
+    },
+    {
+      "stage": "left_pick_approach_0.04",
+      "start_step": 896,
+      "end_step": 1142,
+      "ok": true,
+      "artifact": "reference_002"
+    },
+    {
+      "stage": "left_pick_close",
+      "start_step": 1142,
+      "end_step": 1592,
+      "ok": true,
+      "artifact": "reference_003"
+    },
+    {
+      "stage": "left_pick_lift",
+      "start_step": 1592,
+      "end_step": 2198,
+      "ok": true,
+      "artifact": "reference_004"
+    },
+    {
+      "stage": "left_to_handoff",
+      "start_step": 2698,
+      "end_step": 3138,
+      "ok": true,
+      "artifact": "reference_005"
+    },
+    {
+      "stage": "right_receive_approach",
+      "start_step": 3638,
+      "end_step": 5771,
+      "ok": true,
+      "artifact": "reference_006"
+    },
+    {
+      "stage": "right_receive_contact_pose",
+      "start_step": 5771,
+      "end_step": 6443,
+      "ok": true,
+      "artifact": "reference_007"
+    }
+  ],
+  "attempted_stage": "right_receive_close",
+  "controller_change": {
+    "step": 6698,
+    "before": {
+      "K": 20.0,
+      "D": 2.0,
+      "limit_Nm": 10.0,
+      "target": -0.4463183581829071
+    },
+    "candidate": "position_difference_feedback",
+    "after": {
+      "K": 20.0,
+      "D": 2.0,
+      "limit_Nm": 10.0,
+      "target": -0.4463183581829071
+    }
+  },
+  "error": "RuntimeError('PAD_PENETRATION')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/alex/astra_spatial_capability/rm65-right-grip-repair-20261016/experiments/rm65_handoff_v1/right_grip_repair.py\", line 91, in main\n    run_reference(w,report,fixed_pickup_orientation=True,frozen_numeric_prefix=prefix)\n  File \"/home/alex/astra_spatial_capability/rm65-right-grip-repair-20261016/experiments/rm65_handoff_v1/full_handoff_reference.py\", line 68, in run_reference\n    grip('right_receive_close','right',.45)\n  File \"/home/alex/astra_spatial_capability/rm65-right-grip-repair-20261016/experiments/rm65_handoff_v1/full_handoff_reference.py\", line 38, in grip\n    def grip(name,side,value):command(name,side,opening=value)\n  File \"/home/alex/astra_spatial_capability/rm65-right-grip-repair-20261016/experiments/rm65_handoff_v1/full_handoff_reference.py\", line 32, in command\n    before=w.steps;receipt=execute_action(w,action)\n  File \"/home/alex/astra_spatial_capability/rm65-right-grip-repair-20261016/experiments/rm65_handoff_v1/action_interface.py\", line 116, in execute_action\n    receipt=world.execute_group(commands([a]));receipts.append(receipt)\n  File \"/home/alex/astra_spatial_capability/rm65-right-grip-repair-20261016/experiments/rm65_handoff_v1/dual_scene.py\", line 255, in execute_group\n    self.tick(1)\n  File \"/home/alex/astra_spatial_capability/rm65-right-grip-repair-20261016/experiments/rm65_handoff_v1/right_grip_repair.py\", line 85, in tick\n    else:original_tick(n)\n  File \"/home/alex/astra_spatial_capability/rm65-right-grip-repair-20261016/experiments/rm65_handoff_v1/dual_scene.py\", line 187, in tick\n    if other=='target_cube' and own[0] in a.pad_vertices:raise RuntimeError('PAD_PENETRATION')\nRuntimeError: PAD_PENETRATION\n",
+  "last_step": 6751,
+  "sim_time_s": 27.004,
+  "engineering_hold": {},
+  "historical_process_score_unchanged": {
+    "criteria": {
+      "version": "rm65_v1_process_1",
+      "released_gap_m": 0.07,
+      "left_continuous_hold_s": 0.5,
+      "right_continuous_independent_hold_s": 2.0,
+      "script_independent_hold_observation_s": 5.0,
+      "hold_min_center_z_m": 0.07,
+      "hold_max_speed_m_s": 0.03,
+      "stable_place_s": 1.0,
+      "place_max_speed_m_s": 0.01,
+      "cube_size_m": 0.05,
+      "target_half_size_m": 0.07,
+      "target_xy": [
+        0.52,
+        0.16
+      ],
+      "max_pad_penetration_m": 0.002,
+      "contact_impulse_threshold": 1e-07,
+      "no_interarm_contact": true,
+      "drop_definition": "table contact after first lift and before intentional right_release, or object center below 0.06m while either arm is commanded to hold; final controlled release is scored separately",
+      "note": "Frozen before full V1 script success. Raw durations always reported; old V0 evaluation remains unchanged."
+    },
+    "longest_continuous_s": {
+      "left_hold": 14.799999999998814,
+      "right_independent_hold": 0,
+      "stable_place": 0
+    },
+    "checks": {
+      "left_hold": true,
+      "right_independent_hold": false,
+      "stable_place": false,
+      "no_unintended_drop": true,
+      "no_interarm_contact": true,
+      "no_pad_penetration_abort": false
+    },
+    "full_process_pass": false,
+    "unintended_drop_steps": [],
+    "maximum_pad_penetration_m": 0.0021384127903729677,
+    "interarm_steps": [],
+    "pad_penetrations": [
+      {
+        "step": 6751,
+        "pair": [
+          "L__ctag_Right_Support_Link",
+          "target_cube"
+        ],
+        "min_separation": -0.0021384127903729677
+      },
+      {
+        "step": 6751,
+        "pair": [
+          "R__ctag_Right_Support_Link",
+          "target_cube"
+        ],
+        "min_separation": -0.002053840784355998
+      }
+    ],
+    "physics_steps": 6751,
+    "model_calls": 0
+  }
+}

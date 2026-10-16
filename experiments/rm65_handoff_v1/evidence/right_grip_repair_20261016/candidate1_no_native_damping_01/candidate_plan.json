@@ -1,0 +1,5 @@
+{
+  "no_native_damping": "Only right contact-hold master damping 2 -> 0. K/target/preload/10 Nm unchanged; other finger damping unchanged.",
+  "critical_native_damping": "Only right hold damping = 2 sqrt(K * effective mimic-coordinate inertia), derived at contact, not fitted to success.",
+  "position_difference_feedback": "Original K/D/limit. Right hold velocity target = native qvel - position finite-difference velocity, bounded by URDF velocity limit. Experimental feedback-source compensation, not a measured torque."
+}

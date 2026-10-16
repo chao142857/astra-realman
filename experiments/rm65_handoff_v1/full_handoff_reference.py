@@ -12,7 +12,7 @@ import numpy as np
 from scipy.spatial.transform import Rotation
 
 
-def run_reference(w, report, *, fixed_pickup_orientation=False, frozen_numeric_prefix=None):
+def run_reference(w, report, *, fixed_pickup_orientation=False, frozen_numeric_prefix=None, fine_transport_reference=False):
     from action_interface import execute_action
     from gripper_centering import open_tcp_for_closed_center
     stages=[];report['stages']=stages
@@ -79,14 +79,22 @@ def run_reference(w, report, *, fixed_pickup_orientation=False, frozen_numeric_p
     move('left_return_ready','left',ready['left'])
     right=w.arms['right'];current=np.asarray(right.state()['actual_grasp_center_world'])
     move('right_exit','right',[*(current-.08*direction),*right_q])
-    move('right_to_place_above','right',[.52,.16,.15,*right_q])
+    def transport(name,target):
+        if not fine_transport_reference:return move(name,'right',target)
+        # PRIVATE engineering proposals, not executor subdivision of a model
+        # answer. Every explicit 5 mm target independently passes the identical
+        # public IK/collision/interpolation interface. End goal is unchanged.
+        start=np.asarray(right.state()['actual_grasp_center_world']);goal=np.asarray(target[:3])
+        count=int(np.ceil(np.linalg.norm(goal-start)/.005))
+        for i in range(1,count+1):move(name+'_explicit_'+str(i),'right',[*(start+(goal-start)*i/count),*target[3:]])
+    transport('right_to_place_above',[.52,.16,.15,*right_q])
     # Placement reference accounts for the actually held cube OBB and relative
     # offset. This calculation remains private to the engineering witness.
     obj=w.cube.get_pose();extent=abs(Rotation.from_quat(np.roll(obj.q,-1)).as_matrix())@np.repeat(.025,3)
     offset=obj.p-np.asarray(right.state()['actual_grasp_center_world'])
     desired=np.array([.52,.16,float(extent[2])+.003])-offset
     if fixed_pickup_orientation:desired[2]=max(float(desired[2]),.055)
-    move('right_lower_for_place','right',[*desired,*right_q])
+    transport('right_lower_for_place',[*desired,*right_q])
     grip('right_release','right',1.)
     w.phase_name='right_release';w.tick(500)
     w.observe(w.output/'after_place')

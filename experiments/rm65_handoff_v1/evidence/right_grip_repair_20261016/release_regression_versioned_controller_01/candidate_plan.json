@@ -1,0 +1,5 @@
+{
+  "no_native_damping": "Only right contact-hold master damping 2 -> 0. K/target/preload/10 Nm unchanged; other finger damping unchanged.",
+  "all_finger_native_damping_off": "Relative to candidate 1: also remove native velocity damping on the five right follower joints during hold; restore ordinary follower damping on opening. No stiffness/target/force/path changes.",
+  "position_difference_feedback": "Original K/D/limit. Right hold velocity target = native qvel - position finite-difference velocity, bounded by URDF velocity limit. Experimental feedback-source compensation, not a measured torque."
+}

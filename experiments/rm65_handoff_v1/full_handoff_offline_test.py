@@ -12,7 +12,8 @@ from pilot02_runtime import bridge_module
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--right-hold-control',choices=['original','master_damping0_v3'],default='original');a=p.parse_args()
     a.output.mkdir(parents=True,exist_ok=False);requests=[]
     class Handler(BaseHTTPRequestHandler):
         def log_message(self,*args):pass
@@ -40,7 +41,7 @@ def main():
         config=a.output/'MOCK_config.json';config.write_text(json.dumps({'endpoint':f'http://127.0.0.1:{server.server_port}',
             'token_file':str(token.resolve())}))
         command=[sys.executable,'run_episode.py','--task','handoff_place_full','--output',str(a.output/'episode'),
-            '--mock-bridge-config',str(config),'--max-decisions','2']
+            '--mock-bridge-config',str(config),'--max-decisions','2','--right-hold-control',a.right_hold_control]
         result=subprocess.run(command,capture_output=True,text=True)
         (a.output/'stdout.log').write_text(result.stdout);(a.output/'stderr.log').write_text(result.stderr)
         e=json.loads((a.output/'episode/episode.json').read_text())

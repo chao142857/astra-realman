@@ -1,0 +1,18 @@
+# ubuntu-robot, 2026-10-16. Actual offline operations. No real Astra requests.
+cd /home/alex/astra_spatial_capability/rm65-right-grip-repair-20261016/experiments/rm65_handoff_v1
+source runtime.decision4.ubuntu-robot.sh
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" calibrate_right_contact.py --output evidence/right_grip_repair_20261016/calibration_01
+# First calibration model/world interpretation invalid; original retained with ERRATA.
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" calibrate_right_contact.py --output evidence/right_grip_repair_20261016/calibration_world_verified_02
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" right_grip_repair.py --candidate no_native_damping --output evidence/right_grip_repair_20261016/candidate1_no_native_damping_01
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" right_grip_repair.py --candidate position_difference_feedback --output evidence/right_grip_repair_20261016/candidate2_position_difference_feedback_01
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" right_grip_repair.py --candidate all_finger_native_damping_off --output evidence/right_grip_repair_20261016/candidate3_all_finger_native_damping_off_01
+# No further controller candidates. Same candidate 1, explicit PRIVATE numeric path targets.
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" right_grip_repair.py --candidate no_native_damping --fine-transport-reference --output evidence/right_grip_repair_20261016/fixed_controller_fine_transport_01
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" right_grip_repair.py --candidate no_native_damping --release-regression --output evidence/right_grip_repair_20261016/release_regression_versioned_controller_01
+"$RM65_PYTHON" offline_tests.py
+RM65_CONTROLLER=urdf_effort_hold_v2 "$RM65_PYTHON" full_handoff_offline_test.py --right-hold-control master_damping0_v3 --output evidence/right_grip_repair_20261016/versioned_full_task_mock_01
+"$RM65_PYTHON" summarize_right_grip_repair.py --output evidence/right_grip_repair_20261016/independent_analysis_01
+# The first analysis command failed syntax checking before output directory creation;
+# command logs retain that failure and the corrected successful run separately.
+# Reproduction must use NEW output directories, not overwrite these artifacts.

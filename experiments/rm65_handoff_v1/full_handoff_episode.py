@@ -13,6 +13,7 @@ def main():
     p.add_argument('--output',required=True,type=Path)
     p.add_argument('--mock-bridge-config',type=Path)
     p.add_argument('--max-decisions',type=int,default=16)
+    p.add_argument('--right-hold-control',choices=['original','master_damping0_v3'],default='original')
     p.add_argument('--real',action='store_true')
     a=p.parse_args()
     if a.real:raise SystemExit('BLOCKED: no new full pick-handoff-place generation authorization; historical ledgers cannot be used.')
@@ -24,13 +25,19 @@ def main():
     from action_interface import MacBridgeConfig,accept_result,execute_action
     from full_handoff_task import FullAdapter,context_from_observation
     from evaluate_process import evaluate
+    if a.right_hold_control!='original' and CONTROLLER!='urdf_effort_hold_v2':
+        p.error('master_damping0_v3 was validated with explicit RM65_CONTROLLER=urdf_effort_hold_v2')
     relocate_runtime_mesh_paths(CONFIG)
     adapter=FullAdapter(MacBridgeConfig.load(a.mock_bridge_config))
     report={'task':'handoff_place_full','source':'MOCK_NOT_ASTRA','model_requests':0,
             'controller':CONTROLLER,'decisions':0,'expert_initialization_actions':0,'status':'RUNNING'}
     w=None;history=[];started=time.monotonic()
     try:
-        w=DualScene(a.output);w.start_video()
+        w=DualScene(a.output)
+        if a.right_hold_control=='master_damping0_v3':
+            from right_hold_velocity_v3 import install
+            report['right_hold_control']=install(w)
+        w.start_video()
         # Only the normal physical reset/settle has run. No prepare_left import.
         assert all(x.state()['actual_pad_gap_m']>.085 for x in w.arms.values())
         assert not any(x.bilateral_pad_contact() for x in w.arms.values())
