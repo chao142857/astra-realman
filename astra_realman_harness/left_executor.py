@@ -5,11 +5,12 @@ from io_utils import write_json
 from left_terminal import parse, command_plan, validate_state
 
 class RealArmExecutor:
-    def __init__(self, session, capture, stop, step, gripper_factory=None, timings=None, *, arm_id="left", allow_shared_session=True):
+    def __init__(self, session, capture, stop, step, gripper_factory=None, timings=None, *, arm_id="left", allow_shared_session=True, gripper_tolerance_raw=0):
         if arm_id not in ("left","right"):raise ValueError("ARM_ID")
         self.arm_id=arm_id;self.allow_shared_session=allow_shared_session;self.frames=None
         self.session,self.capture,self.stop,self.step=session,capture,stop,step
         self.gripper_factory=gripper_factory
+        self.gripper_tolerance_raw=gripper_tolerance_raw
         self.timings=timings
         self.used=False
         self.result={'status':'NOT_SENT','executed_action':{'arm':None,'gripper':None},
@@ -59,7 +60,13 @@ class RealArmExecutor:
                 self.guard(obs)
             if plan['gripper']:
                 target=plan['gripper']['wire_target'];g=obs['canonical_states'][self.arm_id]['gripper_state']
-                if not (g['position']==target and g['raw'].get('speed',[None])[0]==0):
+                from gripper_position_semantics import evaluation
+                ev=evaluation(g,target,self.gripper_tolerance_raw)
+                self.result['gripper_evaluation']=ev
+                skip=(ev['opening_reached'] if self.gripper_tolerance_raw else (g['position']==target and g['raw'].get('speed',[None])[0]==0))
+                self.result['gripper_skip_reason']='OPENING_WITHIN_TOLERANCE_STATIONARY' if skip else None
+                if not skip:
+                    self.result['gripper_command_tcp_xyz_m']=list(obs['canonical_states'][self.arm_id]['ee_pose']['xyz_m'])
                     factory=self.gripper_factory
                     if factory is None:
                         from lab_gripper_adapter import LabGripperAdapter

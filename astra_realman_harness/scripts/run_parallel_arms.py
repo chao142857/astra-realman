@@ -5,6 +5,7 @@ from contextlib import ExitStack
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from io_utils import ROOT,new_run,read_json,write_json
+from parallel_history import ParallelHistory,transition
 from arm_stack import model_input
 from arm_worker import ProcessArmWorker
 from parallel_arms import GroupCoordinator,group_schema,parse_group
@@ -32,7 +33,14 @@ def main():
     cams=config['cameras']
     if {c['role'] for c in cams}!={'left_wrist','right_wrist','tabletop','overhead'} or len(cams)!=4 or not all(c.get('role_confirmed') for c in cams):p.error('four confirmed camera roles required')
     context=multiprocessing.get_context('spawn');stop=context.Event()
-    signal.signal(signal.SIGINT,lambda *_:stop.set());signal.signal(signal.SIGTERM,lambda *_:stop.set())
+    # Signal handlers must not re-enter multiprocessing.Event's non-reentrant lock.
+    signal_stop=[False]
+    def request_stop(*_):signal_stop[0]=True
+    signal.signal(signal.SIGINT,request_stop);signal.signal(signal.SIGTERM,request_stop)
+    def relay_stop():
+        while not signal_stop[0]:time.sleep(.05)
+        stop.set()
+    threading.Thread(target=relay_stop,daemon=True).start()
     def stdin_stop():
         for line in sys.stdin:
             if line.strip().upper()=='STOP':stop.set();return
@@ -40,7 +48,7 @@ def main():
     run=new_run(ROOT/'logs'/('parallel-arms-'+time.strftime('%Y%m%dT%H%M%S')+'-'+uuid.uuid4().hex[:8]))
     def emit(name,value):print(name+' → '+(value if isinstance(value,str) else json.dumps(value,ensure_ascii=False)),flush=True)
     summary={'mode':'EXECUTE' if args.execute else 'SHADOW','model_calls':0,'steps':0,'status':'STARTED','log':str(run)}
-    write_json(run/'config.json',config);emit('RUN',summary);started=time.monotonic();previous=None
+    write_json(run/'config.json',config);emit('RUN',summary);started=time.monotonic();previous=None;history=ParallelHistory()
     try:
         with ExitStack() as stack:
             # Existing exclusive episode mechanism; fixed path also shared by right-mirror CLI below.
@@ -71,6 +79,8 @@ def main():
                 step=new_run(run/('step-%03d'%index));summary['steps']=index
                 obs=capture(step/'input');context_json=model_input(obs);schema=decision_schema(obs['canonical_states']);context_json['action_schema']=schema
                 context_json['public_summary_instruction']=PUBLIC_SUMMARY_INSTRUCTION
+                context_json['history']=history.context()
+                context_json['previous']=history.context()['transitions'][-1] if history.items else None
                 schema_path=step/'action_schema.json';write_json(schema_path,schema);write_json(step/'model_input.json',context_json);emit('MODEL INPUT',context_json)
                 decision=new_run(step/'decision');summary['model_calls']+=1
                 raw=call_astra(context_json,decision,backend,'gpt-6-astra',stop,emit,schema_path=schema_path,decoder=lambda raw:decode_decision(raw,obs['canonical_states']))
@@ -87,6 +97,8 @@ def main():
                 result=coordinator.run(group,step,execute=args.execute);emit('GROUP RESULT',result)
                 previous={'last_action':group,'last_result':result}
                 after=capture(step/'after');write_json(step/'after_state.json',after['canonical_states'])
+                t=transition(step.name,group,diagnostics,fresh['canonical_states'],after['canonical_states'],result)
+                write_json(step/'measured_transition.json',t);history.append(t)
                 if result['status']=='MODEL_DONE':summary['status']='MODEL_DONE';break
             else:summary['status']='MAX_STEPS'
     except Exception as exc:

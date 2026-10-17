@@ -43,11 +43,14 @@ def worker_main(arm,connection,stop,root):
                     elif kind=='execute':
                         if prepared is None or prepared['used']:raise RuntimeError('NO_PREPARED_ACTION_OR_ALREADY_USED')
                         prepared['used']=True;began=time.time()
-                        ex=RealArmExecutor(session,capture,stop,prepared['step'],arm_id=arm)
+                        ex=RealArmExecutor(session,capture,stop,prepared['step'],arm_id=arm,gripper_tolerance_raw=1)
                         try:
                             value=copy.deepcopy(ex.execute(prepared['action'],prepared['obs'],feasibility=prepared['check']))
                             after=capture(prepared['step']/'after');ex.guard(after)
                             value.update(after_state=after['canonical_states'][arm],started_at=began,finished_at=time.time())
+                            if value.get('gripper_evaluation'):
+                                from gripper_position_semantics import evaluation
+                                value['gripper_after_evaluation']=evaluation(after['canonical_states'][arm]['gripper_state'],value['gripper_evaluation']['target_raw'],1)
                             write_json(prepared['step']/'worker_result.json',value)
                         except Exception:
                             stop.set();raise
