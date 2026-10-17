@@ -28,6 +28,7 @@ def main():
     if not task.strip() or task.strip().upper()=='STOP':return
     config=read_json(args.config);backend=read_json(args.backend_config)
     if backend.get('backend')!='CodexAstraBackend':p.error('official existing CodexAstraBackend required')
+    backend=dict(backend,accept_completed_tls_recovery=True)
     cams=config['cameras']
     if {c['role'] for c in cams}!={'left_wrist','right_wrist','tabletop','overhead'} or len(cams)!=4 or not all(c.get('role_confirmed') for c in cams):p.error('four confirmed camera roles required')
     context=multiprocessing.get_context('spawn');stop=context.Event()

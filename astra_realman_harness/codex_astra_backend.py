@@ -88,7 +88,20 @@ class CodexAstraBackend:
                 if item.get('type')=='error' and item.get('message','').startswith('Under-development features enabled: skip_host_skill_discovery. '):
                     item['message']=item['message'].replace(old,'in /home/tongji/.codex/config.toml.')
                 events.append(json.dumps(event))
-            final=check_events('\n'.join(events))
+            if self.config.get('accept_completed_tls_recovery',False):
+                from recovered_transport import check_recovered_events
+                cmd=response.get('command',[])
+                if (not isinstance(cmd,list) or cmd.count('--model')!=1 or
+                    cmd[cmd.index('--model')+1:cmd.index('--model')+2]!=['gpt-6-astra'] or
+                    '--ephemeral' not in cmd or
+                    [x for x in cmd if isinstance(x,str) and x.startswith('model_reasoning_effort=')]!=['model_reasoning_effort="medium"']):
+                    raise BackendFailure('RECOVERY_MODEL_CONFIG_MISMATCH')
+                final,notices=check_recovered_events('\n'.join(events))
+                meta['transport_recovery_policy']='completed_tls_recovery_v1'
+                meta['transport_recovery_events']=notices
+                meta['transport_recovered']=bool(notices)
+                if notices:self.emit('TRANSPORT RECOVERED',{'notice_count':len(notices),'completed':True})
+            else:final=check_events('\n'.join(events))
             self.raw=response['raw']
             if len(self.raw)>65536 or self.raw.strip()!=final.strip():
                 raise BackendFailure('CODEX_ASTRA_OUTPUT_MISMATCH')
