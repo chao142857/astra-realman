@@ -47,7 +47,7 @@ def step_evidence(step):
     if (step/'migration.json').exists():
         from real_chunk_gui import chunk_evidence
         return chunk_evidence(step)
-    if (step/'parsed_group.json').exists() or 'actions' in load(step/'action_schema.json').get('properties',{}):
+    if (step/'parsed_group.json').exists() or 'actions' in load(step/'action_schema.json').get('properties',{}) or 'execution' in load(step/'action_schema.json').get('properties',{}).get('action',{}).get('properties',{}):
         from parallel_gui_evidence import group_evidence
         return group_evidence(step)
     observation=load(step/'input_observation.json') or load(step/'input/observation.json')

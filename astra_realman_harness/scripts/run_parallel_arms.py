@@ -8,6 +8,7 @@ from io_utils import ROOT,new_run,read_json,write_json
 from arm_stack import model_input
 from arm_worker import ProcessArmWorker
 from parallel_arms import GroupCoordinator,group_schema,parse_group
+from parallel_diagnostics import decision_schema,decode_decision,PUBLIC_SUMMARY_INSTRUCTION
 from left_terminal import call_astra,validate_state
 
 
@@ -67,15 +68,18 @@ def main():
                 if stop.is_set():summary['status']='STOPPED';break
                 if time.monotonic()-started>=args.time_budget_s:summary['status']='TIME_BUDGET';break
                 step=new_run(run/('step-%03d'%index));summary['steps']=index
-                obs=capture(step/'input');context_json=model_input(obs);schema=group_schema(obs['canonical_states']);context_json['action_schema']=schema
+                obs=capture(step/'input');context_json=model_input(obs);schema=decision_schema(obs['canonical_states']);context_json['action_schema']=schema
+                context_json['public_summary_instruction']=PUBLIC_SUMMARY_INSTRUCTION
                 schema_path=step/'action_schema.json';write_json(schema_path,schema);write_json(step/'model_input.json',context_json);emit('MODEL INPUT',context_json)
                 decision=new_run(step/'decision');summary['model_calls']+=1
-                raw=call_astra(context_json,decision,backend,'gpt-6-astra',stop,emit,schema_path=schema_path,decoder=lambda raw:parse_group(raw,obs['canonical_states']))
+                raw=call_astra(context_json,decision,backend,'gpt-6-astra',stop,emit,schema_path=schema_path,decoder=lambda raw:decode_decision(raw,obs['canonical_states']))
                 (step/'raw_proposal.txt').write_text(raw)
                 command=read_json(decision/'command.json')
                 if not any(isinstance(x,str) and x.startswith('model_reasoning_effort=') and x.split('=',1)[1].strip('\"')=='medium' for x in command):
                     raise RuntimeError('BRIDGE_MEDIUM_REQUIRED_NO_ACTION_SENT')
-                group=parse_group(raw,obs['canonical_states']);emit('ACTION GROUP',group)
+                diagnostics,group=decode_decision(raw,obs['canonical_states'])
+                write_json(step/'diagnostics.json',diagnostics);write_json(step/'parsed_group.json',group)
+                emit('PUBLIC SUMMARY',diagnostics);emit('ACTION GROUP',group)
                 if time.monotonic()-started>=args.time_budget_s:summary['status']='TIME_BUDGET';break
                 # Latest cameras/state before dispatch, after the possibly long model call.
                 fresh=capture(step/'pre-execution');parse_group(group,fresh['canonical_states'])

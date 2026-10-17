@@ -36,7 +36,7 @@ def group_evidence(step):
         'failure_reason':result.get('error') or backend.get('error'),'failure':load(step/'failure.json'),
         'dispatch_started':dispatch,'executed_command':{a:v['executed_command'] for a,v in arms.items()},
         'sdk_result':{a:v['sdk_result'] for a,v in arms.items()},'hardware_commands_sent':sent if result else None,
-        'feasibility':checks,'backend':backend,'diagnostics':{},'raw_proposal':raw,'model_output_valid':bool(group),
+        'feasibility':checks,'backend':backend,'diagnostics':load(step/'diagnostics.json'),'raw_proposal':raw,'model_output_valid':bool(group),
         'decision_cameras':obs.get('cameras',[]),'camera_streams':obs.get('camera_capture',{}),
         'observation_id':obs.get('observation_id'),'timing':{'execution_s':result.get('elapsed_s')}}
 
