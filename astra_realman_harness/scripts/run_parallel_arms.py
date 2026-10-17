@@ -78,7 +78,7 @@ def main():
                 if not any(isinstance(x,str) and x.startswith('model_reasoning_effort=') and x.split('=',1)[1].strip('\"')=='medium' for x in command):
                     raise RuntimeError('BRIDGE_MEDIUM_REQUIRED_NO_ACTION_SENT')
                 diagnostics,group=decode_decision(raw,obs['canonical_states'])
-                write_json(step/'diagnostics.json',diagnostics);write_json(step/'parsed_group.json',group)
+                write_json(step/'diagnostics.json',diagnostics);write_json(step/'proposed_group.json',group)
                 emit('PUBLIC SUMMARY',diagnostics);emit('ACTION GROUP',group)
                 if time.monotonic()-started>=args.time_budget_s:summary['status']='TIME_BUDGET';break
                 # Latest cameras/state before dispatch, after the possibly long model call.

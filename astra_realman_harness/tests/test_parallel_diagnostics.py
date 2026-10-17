@@ -26,3 +26,19 @@ class PublicSummary(unittest.TestCase):
             e=group_evidence(p)
             self.assertEqual(e['diagnostics'],x['diagnostics']);self.assertEqual(e['raw_proposal'],raw)
             self.assertIsNone(e['hardware_commands_sent']) # no execution receipt: preserve unknown
+
+    def test_proposal_and_coordinator_have_distinct_evidence_files(self):
+        import threading
+        from parallel_arms import GroupCoordinator
+        from test_parallel_arms import Worker
+        with tempfile.TemporaryDirectory(dir=ROOT/"logs") as d:
+            p=Path(d);x=self.sample();g=x['action']
+            write_json(p/'diagnostics.json',x['diagnostics'])
+            write_json(p/'proposed_group.json',g)
+            self.assertEqual(group_evidence(p)['action'],g)
+            workers={a:Worker(a,[]) for a in ('left','right')}
+            result=GroupCoordinator(workers,threading.Event()).run(g,p,execute=False)
+            self.assertEqual(result['status'],'SHADOW_ONLY')
+            self.assertTrue((p/'parsed_group.json').exists())
+            self.assertEqual(group_evidence(p)['diagnostics'],x['diagnostics'])
+            self.assertTrue(all(w.calls==0 for w in workers.values()))

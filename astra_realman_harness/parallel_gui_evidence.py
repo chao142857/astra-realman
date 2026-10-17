@@ -8,7 +8,7 @@ from io_utils import ROOT, new_run, write_json
 def group_evidence(step):
     from astra_gui import load, action_summary
     obs=load(step/'input/observation.json')
-    group=load(step/'parsed_group.json');result=load(step/'group_result.json')
+    group=load(step/'parsed_group.json') or load(step/'proposed_group.json');result=load(step/'group_result.json')
     checks=load(step/'group_preflight.json');backend=load(step/'decision/backend_result.json')
     before=load(step/'pre-execution/observation.json').get('canonical_states',obs.get('canonical_states',{}))
     after=load(step/'after_state.json');arms={};dispatch=False;sent=0
