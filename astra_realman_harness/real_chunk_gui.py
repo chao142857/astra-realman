@@ -34,8 +34,13 @@ def chunk_evidence(step):
 class OfflineChunkConsole(Console):
     """Inherits rendering/history only. Cannot start a live runner even by POST."""
     offline_chunk = True
-    def __init__(self):
+    def __init__(self, *, three_calibration=None, live_cameras=False):
         super().__init__(demo=True,demo_count=0)
+        self.three_calibration=three_calibration
+        self.live_cameras=live_cameras
+        if live_cameras:
+            from astra_gui import CameraHub
+            self.camera=CameraHub(self.camera.configs,False,4)
     def preflight(self, settings):
         raw=settings.get('raw_proposal',json.dumps(fixture()))
         parse_chunk(raw)
@@ -63,6 +68,10 @@ class OfflineChunkConsole(Console):
         raise ValueError('OFFLINE_FAKE_NOT_PHYSICAL_TASK_EVIDENCE')
     def state(self, selected=None):
         value=super().state(selected)
+        from real_calibration_status import inventory
+        value['calibration_inventory']=inventory(self.three_calibration)
+        value['live_readonly_cameras']=self.live_cameras
+        if self.live_cameras:value['demo']=False
         value.update(offline_chunk=True,real_execution_ready=False,real_blockers=BLOCKERS,
                      fixture_proposal=json.dumps(fixture(),ensure_ascii=False,indent=2))
         return value
