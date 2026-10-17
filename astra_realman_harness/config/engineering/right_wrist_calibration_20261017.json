@@ -1,0 +1,368 @@
+{
+  "version": "astra.onsite.right_wrist_calibration.v1",
+  "date": "2026-10-17",
+  "status": "ESTIMATED_HELDOUT_CHECKED_NOT_ABSOLUTE_ACCURACY_CERTIFIED",
+  "role": "right_wrist",
+  "serial": "348522072063",
+  "parent_frame": "realman:right:tool:Arm_Tip",
+  "binding": "conditional on recorded zero World and zero Arm_Tip; preserve SDK original UNKNOWN metadata; recalibrate if camera mount changes",
+  "matrix_convention": "T_destination_source; column homogeneous points; translation metres",
+  "T_parent_camera_optical": [
+    [
+      -0.0250505637448728,
+      0.984609206449159,
+      0.17296583428991852,
+      -0.08162187371547841
+    ],
+    [
+      -0.9996432741982506,
+      -0.023068600062815747,
+      -0.013459719199502729,
+      0.03902546190539924
+    ],
+    [
+      -0.00926248378435135,
+      -0.1732413064678493,
+      0.9848358523771603,
+      0.008242214571953729
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "camera_profile": {
+    "serial": "348522072063",
+    "role": "right_wrist",
+    "raw_depth_intrinsics": {
+      "matrix": [
+        [
+          391.66436767578125,
+          0,
+          314.72137451171875
+        ],
+        [
+          0,
+          391.66436767578125,
+          233.54161071777344
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "distortion_model": "distortion.brown_conrady",
+      "distortion_coefficients": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "raw_color_intrinsics": {
+      "matrix": [
+        [
+          608.447265625,
+          0,
+          336.0336608886719
+        ],
+        [
+          0,
+          608.3007202148438,
+          251.22093200683594
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "distortion_model": "distortion.inverse_brown_conrady",
+      "distortion_coefficients": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "depth_to_color": {
+      "rotation_column_major": [
+        0.999957263469696,
+        0.006456270813941956,
+        0.006621633656322956,
+        -0.00646855728700757,
+        0.9999774098396301,
+        0.0018357612425461411,
+        -0.006609631702303886,
+        -0.0018785152351483703,
+        0.999976396560669
+      ],
+      "translation_m": [
+        0.014284213073551655,
+        -0.0006174529553391039,
+        5.245858847047202e-05
+      ],
+      "semantics": "p_color = R_color_depth @ p_depth + t_color_depth",
+      "source": "installed device profile get_extrinsics_to(color)",
+      "world_or_hand_eye_calibration": false
+    },
+    "depth_scale_m_per_z16": 0.0010000000474974513,
+    "color_fps": 30,
+    "depth_fps": 15,
+    "device_name": "Intel RealSense D435",
+    "firmware": "5.13.0.55"
+  },
+  "work_frame": {
+    "id": "realman:right:work:World",
+    "name": "World",
+    "pose": {
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rpy_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": {
+        "xyz": "m",
+        "rpy": "rad"
+      },
+      "orientation_metadata": {
+        "representation": "roll-pitch-yaw",
+        "unit": "rad",
+        "array_order": [
+          "roll",
+          "pitch",
+          "yaw"
+        ],
+        "rotation_convention": "ZYX intrinsic",
+        "matrix": "Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+        "source": "user-confirmed; https://develop.realman-robotics.com/robot4th/FQA/sdk/"
+      },
+      "unit_conversion": "identity; SDK already returns m/rad",
+      "unit_scale_applied": 1
+    },
+    "definition_fingerprint": "5eb2b7dec61339bd9dffd69371bc53796702c56935fec3013477fb062df15a7b",
+    "read_status": "VERIFIED",
+    "relative_to": "controller_base",
+    "definition_status": "DOCUMENTED",
+    "physical_grasp_calibration": "UNCONFIRMED"
+  },
+  "tool_frame": {
+    "id": "realman:right:tool:Arm_Tip",
+    "name": "Arm_Tip",
+    "pose": {
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rpy_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": {
+        "xyz": "m",
+        "rpy": "rad"
+      },
+      "orientation_metadata": {
+        "representation": "roll-pitch-yaw",
+        "unit": "rad",
+        "array_order": [
+          "roll",
+          "pitch",
+          "yaw"
+        ],
+        "rotation_convention": "ZYX intrinsic",
+        "matrix": "Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+        "source": "user-confirmed; https://develop.realman-robotics.com/robot4th/FQA/sdk/"
+      },
+      "unit_conversion": "identity; SDK already returns m/rad",
+      "unit_scale_applied": 1
+    },
+    "definition_fingerprint": "96597c27c1da9c9743f5374b56f0a156394a5a8793821b5ae1c6b18bc8e3df77",
+    "read_status": "VERIFIED",
+    "relative_to": "controller_flange",
+    "definition_status": "DOCUMENTED",
+    "physical_grasp_calibration": "UNCONFIRMED"
+  },
+  "metrics": {
+    "selected_pose_count": 16,
+    "training_count": 11,
+    "holdout_count": 5,
+    "square_mm": 15.036721833010802,
+    "train": {
+      "rows": [
+        {
+          "index": 125,
+          "translation_mm": 1.2883306321845518,
+          "rotation_deg": 0.2643468491136214,
+          "corner_order": 0,
+          "pnp_rms_px": 0.15106502618852383,
+          "host_gap_s": 0.08350806399994326
+        },
+        {
+          "index": 152,
+          "translation_mm": 1.3670726796911343,
+          "rotation_deg": 0.6438075909029752,
+          "corner_order": 0,
+          "pnp_rms_px": 0.17627172000345726,
+          "host_gap_s": 0.08368592199985869
+        },
+        {
+          "index": 190,
+          "translation_mm": 1.2785397049790026,
+          "rotation_deg": 0.43102785372377045,
+          "corner_order": 0,
+          "pnp_rms_px": 0.1943029188310907,
+          "host_gap_s": 0.10005973500028631
+        },
+        {
+          "index": 198,
+          "translation_mm": 1.2988867954132841,
+          "rotation_deg": 0.28676324480933213,
+          "corner_order": 0,
+          "pnp_rms_px": 0.15090432695832082,
+          "host_gap_s": 0.10608170100022107
+        },
+        {
+          "index": 232,
+          "translation_mm": 0.6154662751010636,
+          "rotation_deg": 0.46292374684835697,
+          "corner_order": 0,
+          "pnp_rms_px": 0.1552454369507946,
+          "host_gap_s": 0.10013903800017943
+        },
+        {
+          "index": 251,
+          "translation_mm": 2.6870399566034084,
+          "rotation_deg": 0.26215899457882175,
+          "corner_order": 0,
+          "pnp_rms_px": 0.20665475029134328,
+          "host_gap_s": 0.08313956099982533
+        },
+        {
+          "index": 304,
+          "translation_mm": 1.0115393069766705,
+          "rotation_deg": 0.3988655068946898,
+          "corner_order": 0,
+          "pnp_rms_px": 0.222201514413687,
+          "host_gap_s": 0.10020176299985906
+        },
+        {
+          "index": 324,
+          "translation_mm": 1.4935158899716285,
+          "rotation_deg": 0.5683339840786804,
+          "corner_order": 0,
+          "pnp_rms_px": 0.21971436361053112,
+          "host_gap_s": 0.12128412499987462
+        },
+        {
+          "index": 372,
+          "translation_mm": 1.2954389045933001,
+          "rotation_deg": 0.1346559700140739,
+          "corner_order": 0,
+          "pnp_rms_px": 0.18523272995344406,
+          "host_gap_s": 0.10593998600006671
+        },
+        {
+          "index": 393,
+          "translation_mm": 3.737822231738644,
+          "rotation_deg": 0.7133133799995823,
+          "corner_order": 1,
+          "pnp_rms_px": 0.21997071687764183,
+          "host_gap_s": 0.08213574000001245
+        },
+        {
+          "index": 451,
+          "translation_mm": 3.3635564313027384,
+          "rotation_deg": 0.21228769419181795,
+          "corner_order": 0,
+          "pnp_rms_px": 0.0906660145070846,
+          "host_gap_s": 0.07800424400011252
+        }
+      ],
+      "translation_rms_mm": 2.015084636602549,
+      "rotation_rms_deg": 0.4358401351346231,
+      "translation_max_mm": 3.737822231738644
+    },
+    "heldout": {
+      "rows": [
+        {
+          "index": 168,
+          "translation_mm": 4.940887735611552,
+          "rotation_deg": 0.8621505655324107,
+          "corner_order": 0,
+          "pnp_rms_px": 0.1663321069937648,
+          "host_gap_s": 0.12496705200010183
+        },
+        {
+          "index": 214,
+          "translation_mm": 1.9456723240292901,
+          "rotation_deg": 0.4193388601469861,
+          "corner_order": 0,
+          "pnp_rms_px": 0.09908044310403077,
+          "host_gap_s": 0.08369487099980688
+        },
+        {
+          "index": 278,
+          "translation_mm": 1.3007318326468214,
+          "rotation_deg": 0.15703030451008598,
+          "corner_order": 0,
+          "pnp_rms_px": 0.16766769156983677,
+          "host_gap_s": 0.0997420769999735
+        },
+        {
+          "index": 348,
+          "translation_mm": 4.394083145336405,
+          "rotation_deg": 1.0483763302876552,
+          "corner_order": 0,
+          "pnp_rms_px": 0.29938546168532126,
+          "host_gap_s": 0.09937129499985531
+        },
+        {
+          "index": 425,
+          "translation_mm": 9.974998703257683,
+          "rotation_deg": 1.7292273580092314,
+          "corner_order": 1,
+          "pnp_rms_px": 0.23846501255328478,
+          "host_gap_s": 0.10718852100035292
+        }
+      ],
+      "translation_rms_mm": 5.453411437384728,
+      "rotation_rms_deg": 1.0033072689267986,
+      "translation_max_mm": 9.974998703257683
+    }
+  },
+  "physical_pad_TCP": "NOT_ESTIMATED_BY_HAND_EYE",
+  "left_right_base_transform": "NOT_SOLVED",
+  "execution_authorization": false,
+  "model_calls": 0,
+  "motion_commands": 0,
+  "gripper_commands": 0,
+  "sources": {
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/right-wrist-calibration-20261017-analysis1/result.json": "4ac5690813f5321790e9089f60888cd51e39d099f316cd6cf41895b27e7ed7e5",
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/right-wrist-calibration-20261017-analysis1/selection.json": "926f0b20ca2c49d47881ba721bd1bb66ffa7a5820e8a1b9b30340f285dcc2299",
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/right-wrist-calibration-20261017-analysis1/selection_policy.json": "61df40d23e8753bcdf3242503c25679b4fdc3805974abd3159098d9740787fd8",
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/right-wrist-calibration-20261017-session1/summary.json": "eb9ad6da34d944a167ae60d2101863cc0dfc972aff4d7e666a6fb1d7fb4f7512",
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/right-wrist-calibration-20261017-session1/operator_board_confirmation.json": "64d6cc30e117a8551f12d1958b7f28ddf6fd6ce056a3e02973aecc2fc20d849e",
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/right-wrist-calibration-20261017-session1/camera_profiles.json": "6fcfb5e447edd137a35518e49c03a1ed3becf8ac016fb14327058e5babb1759d"
+  }
+}
