@@ -1,88 +1,31 @@
 # Astra × RealMan
 
-[![English](https://img.shields.io/badge/Language-English-2ea44f)](README.md)
-[![简体中文](https://img.shields.io/badge/语言-简体中文-blue)](README_CN.md)
+[English](README.md) | [简体中文](README_CN.md)
 
-Experimental real-robot manipulation harness for running Astra-style vision-language decision loops on a RealMan platform.
+**Status: research paused · archival handoff, 2026-10-17**
 
-> **Status:** v0.1 — first public real-robot baseline snapshot (2026-10-05).  
-> This repository is under active development; later revisions and experiments will continue here.
+An experimental integration and evaluation stack for vision-language decision backends on RealMan robot arms, with simulation and real-robot engineering paths.
 
-## What this repository is
+**Developed by [@chao142857](https://github.com/chao142857).** Astra/model services, RealMan hardware/SDK, and other upstream systems are external dependencies; this repository does not implement their underlying models.
 
-This project is the integration and experimentation stack I built to connect a multimodal decision backend to a real RealMan robot, execute structured manipulation actions, and verify the resulting robot state in a closed loop.
+## Start here
 
-The repository contains the RealMan integration, camera/observation pipeline, decision backend adapters, action protocol, execution/safety checks, telemetry, replay tooling, tests, and experiment runners used in the first real-robot baseline.
+- [Research archive and milestone index](docs/RESEARCH_ARCHIVE_20261017.md) — chronological experimental snapshots, known outcomes, and limitations.
+- [Original branch-head manifest (63 refs)](docs/ARCHIVE_BRANCH_MANIFEST_20261017.tsv) — exact commit identifiers for every branch present when archival handoff began.
+- [Chinese overview](README_CN.md).
 
-**Implementation and experiment pipeline in this repository were developed by [@chao142857](https://github.com/chao142857).**  
-Astra/model backends, RealMan hardware, and the RealMan SDK are external dependencies; this repository is an independent research integration rather than an implementation of those upstream systems.
+**Important:** `main` retains the original 2026-10-05 real-robot baseline. It is not a unified or verified version of the later experiments. Later results live on separate immutable commit snapshots linked from the archive index. No stable, fully autonomous dual-arm grasp–handoff–placement real-robot baseline is claimed.
 
-## Current baseline
+## Scope
 
-The current snapshot captures the first end-to-end RealMan baseline used for real-robot manipulation experiments.
+The project covers multi-view observation, RealMan robot-state/frame integration, structured model proposals, execution and safety checks, telemetry, replay, simulation tools, persistent-world experiments, action-chunk evaluation, spatial-input pilot studies, and dual-arm engineering trials.
 
-Core components include:
-
-- multi-view RGB observation and persistent camera sessions;
-- RealMan robot-state / frame integration;
-- structured action proposals with explicit Cartesian deltas and gripper commands;
-- pluggable decision backends, including the current Codex/Astra experiment path;
-- frame, safety, feasibility, and execution checks;
-- supervised / step-wise real-robot execution utilities;
-- execution telemetry, verification, replay, and offline tests;
-- snapshot manifests for reproducibility.
-
-A simplified data flow is:
-
-```text
-multi-view RGB + robot state
-            ↓
-     decision backend
-            ↓
-   structured action proposal
-            ↓
- frame / safety / feasibility checks
-            ↓
-        robot executor
-            ↓
- telemetry + state verification
-            ↓
-      next observation
-```
+Some validation was performed using scripts or heuristic stubs; these results must **not** be interpreted as genuine Astra policy performance. Simulated successes are distinct from hardware success. Some raw experimental records and configuration remain outside GitHub.
 
 ## Repository layout
 
-```text
-astra_realman_harness/
-├── decision_backends.py        # backend abstraction / model integration
-├── codex_astra_backend.py      # current Astra/Codex backend path
-├── observation.py              # observation construction
-├── camera_session.py           # multi-camera capture/session handling
-├── realman_state.py            # RealMan state integration
-├── decision_protocol.py        # structured action protocol
-├── decision_safety.py          # safety / validity gates
-├── supervised_step.py          # supervised step execution
-├── supervised_live.py          # live supervised execution path
-├── execution_telemetry.py      # execution logging
-├── execution_verification.py   # post-action verification
-├── scripts/                    # experiment / replay runners
-├── config/                     # experiment configuration
-├── schema/                     # action schemas
-├── docs/                       # engineering notes / evidence
-└── tests/                      # offline tests
+The early public baseline in `main` is centered on `astra_realman_harness/`, which contains observation, decision-backend integration, command protocol, execution utilities, documentation, scripts, and tests. Later branches introduce additional `experiments/` directories and evaluation artifacts.
 
-SNAPSHOT.md
-SNAPSHOT_SHA256.json
-```
+## Research status
 
-## Notes
-
-This is an **experimental research harness**, not a production robot-control SDK or a safety-certified system.
-
-The codebase contains both earlier shadow / dry-run safety paths and later real-robot execution experiments. Some paths and configuration values in the archived snapshot are workstation-specific and will need adaptation on another machine.
-
-The first version is intentionally preserved as a baseline. Future work will iterate on the decision loop, execution reliability, latency, placement accuracy, and higher-level reasoning while keeping the earlier snapshot reproducible.
-
-## Development
-
-Current work is ongoing. This repository will be updated as the next RealMan experiments and system revisions are completed.
+The research direction has been paused; no further experiments or maintenance are currently planned. Existing code and reported outcomes are preserved for reference and possible reuse. This is experimental research software, **not** a production or safety-certified robot controller. Do not operate hardware using old scripts without independent validation of the current device and environment.
