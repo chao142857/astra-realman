@@ -44,6 +44,9 @@ def action_summary(action):
 
 
 def step_evidence(step):
+    if (step/'migration.json').exists():
+        from real_chunk_gui import chunk_evidence
+        return chunk_evidence(step)
     if (step/'parsed_group.json').exists() or 'actions' in load(step/'action_schema.json').get('properties',{}):
         from parallel_gui_evidence import group_evidence
         return group_evidence(step)
@@ -543,6 +546,9 @@ def make_server(console,port=8877):
                     return self.send(output.getvalue(),'application/zip')
                 if u.path=='/api/export':
                     run=console.resolve_run(q['run'][0]);from scripts.report_history_experiment import report
+                    if getattr(console, 'offline_chunk', False):
+                        state=console.state(run.name)
+                        return self.send({k:state[k] for k in ('summary','steps','real_blockers','selected_synthetic')})
                     return self.send(report(run))
                 self.send_error(404)
             except (ValueError,KeyError,OSError) as exc:self.send({'error':str(exc)},status=503 if '/camera/' in u.path else 400)
