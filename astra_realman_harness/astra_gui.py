@@ -594,6 +594,7 @@ def make_server(console,port=8877):
                     console.camera.demo_count=n;result={'count':n}
                 else:self.send_error(404);return
                 self.send(result)
+            except RuntimeError as exc:self.send({'error':str(exc),'request_accepted':False},status=409)
             except (ValueError,KeyError,TypeError,OSError) as exc:self.send({'error':str(exc)},status=400)
     server=ThreadingHTTPServer(('127.0.0.1',port),Handler);server.daemon_threads=True
     console.url='http://127.0.0.1:'+str(server.server_port)
