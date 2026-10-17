@@ -1,5 +1,6 @@
 import sys, threading, unittest, json
 from pathlib import Path
+from unittest.mock import patch
 from types import SimpleNamespace
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError
@@ -12,7 +13,8 @@ class PauseHTTP(unittest.TestCase):
   server=make_server(c,0);thread=threading.Thread(target=server.serve_forever);thread.start()
   try:
    req=Request(c.url+'/api/start',data=b'{}',headers={'X-Astra-Token':c.token,'Content-Type':'application/json'})
-   with self.assertRaises(HTTPError) as e:urlopen(req,timeout=3)
+   with patch('parallel_safety_pause.AUTOMATION_PAUSED',True):
+    with self.assertRaises(HTTPError) as e:urlopen(req,timeout=3)
    self.assertEqual(e.exception.code,409)
    body=json.load(e.exception);self.assertFalse(body['request_accepted'])
    self.assertIn('PARALLEL_AUTOMATION_PAUSED',body['error'])

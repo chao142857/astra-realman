@@ -5,6 +5,7 @@ from gripper_telemetry import telemetry
 from gripper_position_semantics import evaluation
 from parallel_history import compact, transition, ParallelHistory
 from parallel_safety_pause import require_automation_ready
+from unittest.mock import patch
 
 class TelemetryTests(unittest.TestCase):
  def sample(self):
@@ -37,4 +38,7 @@ class TelemetryTests(unittest.TestCase):
   t=model_input(o)['robot_states']['left']['gripper']['telemetry']
   self.assertEqual(t['dof_state'],3);self.assertEqual(t['current'],98)
  def test_incident_gate_has_no_ik_bypass(self):
-  with self.assertRaisesRegex(RuntimeError,'PARALLEL_AUTOMATION_PAUSED'):require_automation_ready()
+  with patch('parallel_safety_pause.AUTOMATION_PAUSED',True):
+   with self.assertRaisesRegex(RuntimeError,'PARALLEL_AUTOMATION_PAUSED'):require_automation_ready()
+ def test_operator_pause_lifted_does_not_dispatch(self):
+  self.assertIsNone(require_automation_ready())
