@@ -11,6 +11,9 @@ from experiment_launch import validate, runner_args
 def equivalent_command(settings, python=sys.executable, lock_path=None):
     args=[python,'-I','-B',str(ROOT/'scripts/run_experiment.py')]
     for key,value in validate(settings).items():
+        if key=='prompt_documents':
+            if value:args+=['--prompt-documents-json',json.dumps(value,ensure_ascii=False)]
+            continue
         args += ['--'+key.replace('_','-'),str(value)]
     args += ['--no-preview']
     if lock_path:args += ['--lock-path',str(lock_path)]

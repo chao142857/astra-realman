@@ -23,6 +23,7 @@ def main():
     p.add_argument('--profile',choices=ALL_PROFILES)
     p.add_argument('--mode',choices=['shadow','execute'])
     p.add_argument('--task')
+    p.add_argument('--prompt-documents-json',type=json.loads,dest='prompt_documents')
     p.add_argument('--max-steps',type=int)
     p.add_argument('--wall-budget-s',type=float)
     p.add_argument('--phase',choices=['placement','full-pick-place','diagnostic'])

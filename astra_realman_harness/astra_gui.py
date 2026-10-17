@@ -559,7 +559,7 @@ def make_server(console,port=8877):
                 self.send_error(403);return
             try:
                 size=int(self.headers.get('Content-Length','0'))
-                if not 0<size<=32768:raise ValueError('REQUEST_SIZE')
+                if not 0<size<=1048576:raise ValueError('REQUEST_SIZE')
                 body=json.loads(self.rfile.read(size));path=urlparse(self.path).path
                 if path=='/api/start':result=console.start(body)
                 elif path=='/api/preflight':result=console.preflight(body)

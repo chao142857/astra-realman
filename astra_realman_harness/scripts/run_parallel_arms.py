@@ -16,6 +16,7 @@ from left_terminal import call_astra,validate_state
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--live',action='store_true',required=True,help='Connect SDK read sessions and persistent cameras.')
+    p.add_argument('--prompt-documents-json',type=json.loads,default=[])
     p.add_argument('--execute',action='store_true',help='Send the checked action group; without this, shadow only.')
     p.add_argument('--task',help='Otherwise prompt for the task verbatim.')
     p.add_argument('--max-steps',type=int,default=100);p.add_argument('--time-budget-s',type=float,default=7200)
@@ -24,6 +25,8 @@ def main():
     p.add_argument('--no-preview',action='store_true',help='GUI compatibility; this runner owns no preview server.')
     p.add_argument('--lock-path',type=Path,help='Optional existing GUI/legacy episode lock, in addition to shared actuation lock.')
     args=p.parse_args()
+    from prompt_documents import snapshot_documents,attach_documents
+    documents=snapshot_documents(args.prompt_documents_json)
     from parallel_safety_pause import require_automation_ready
     require_automation_ready()
     if not 1<=args.max_steps<=100 or not 1<=args.time_budget_s<=86400:p.error('invalid episode budget')
@@ -48,6 +51,7 @@ def main():
             if line.strip().upper()=='STOP':stop.set();return
     threading.Thread(target=stdin_stop,daemon=True).start()
     run=new_run(ROOT/'logs'/('parallel-arms-'+time.strftime('%Y%m%dT%H%M%S')+'-'+uuid.uuid4().hex[:8]))
+    write_json(run/'prompt_documents.json',documents)
     def emit(name,value):print(name+' → '+(value if isinstance(value,str) else json.dumps(value,ensure_ascii=False)),flush=True)
     summary={'mode':'EXECUTE' if args.execute else 'SHADOW','model_calls':0,'steps':0,'status':'STARTED','log':str(run)}
     write_json(run/'config.json',config);emit('RUN',summary);started=time.monotonic();previous=None;history=ParallelHistory()
@@ -83,6 +87,7 @@ def main():
                 context_json['public_summary_instruction']=PUBLIC_SUMMARY_INSTRUCTION
                 context_json['history']=history.context()
                 context_json['previous']=history.context()['transitions'][-1] if history.items else None
+                attach_documents(context_json,documents)
                 schema_path=step/'action_schema.json';write_json(schema_path,schema);write_json(step/'model_input.json',context_json);emit('MODEL INPUT',context_json)
                 decision=new_run(step/'decision');summary['model_calls']+=1
                 raw=call_astra(context_json,decision,backend,'gpt-6-astra',stop,emit,schema_path=schema_path,decoder=lambda raw:decode_decision(raw,obs['canonical_states']))

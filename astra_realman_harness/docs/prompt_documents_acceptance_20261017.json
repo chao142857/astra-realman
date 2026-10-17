@@ -1,0 +1,36 @@
+{
+  "feature": "GUI supplementary text files on actual parallel chain",
+  "supported": [
+    ".json",
+    ".md",
+    ".markdown",
+    ".txt"
+  ],
+  "limits": {
+    "files": 8,
+    "per_file_utf8_bytes": 32768,
+    "total_utf8_bytes": 65536,
+    "encoded_argument_bytes": 98304
+  },
+  "scope": "parallel; other profiles reject nonempty attachments rather than silently dropping them",
+  "semantics": "Full immutable content and SHA256 attached to every model context outside bounded history; user material does not change action schema or physical protections",
+  "audit_files": [
+    "prompt_documents.json",
+    "step-*/model_input.json",
+    "step-*/decision/prompt.txt",
+    "launch_manifest.json"
+  ],
+  "offline_validation": {
+    "prompt_documents_tests": 6,
+    "parallel_regression_tests": 63,
+    "gui_tests": 14,
+    "bridge_transport_mock_tests": 7,
+    "frontend_file_validation_assertions": 6,
+    "decision_retention_assertions": 4,
+    "repeated_mock_requests": 12,
+    "actual_model_calls": 0,
+    "hardware_actions": 0
+  },
+  "deployment": "yanglab existing worktree; files backed up in /tmp/pre-prompt-documents-backup.tgz; GUI was not listening during deployment; no automatic restart",
+  "usage": "Start bash launch/hardware_gui.sh; beneath task choose supplement files, expand names to preview, start only when operator chooses. Attachments cannot be changed during active episode."
+}

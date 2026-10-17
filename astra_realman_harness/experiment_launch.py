@@ -9,7 +9,7 @@ from history_diagnostics import PROFILES
 
 ALL_PROFILES = (*PROFILES, 'legacy1', 'legacy5', 'legacy4', 'parallel')
 DEFAULTS = {'profile':'H5D0','mode':'shadow','task':'','max_steps':10,'wall_budget_s':480,
-            'phase':'placement','layout_id':'L1','trial_id':'trial-01','preview_port':8765}
+            'phase':'placement','layout_id':'L1','trial_id':'trial-01','preview_port':8765,'prompt_documents':[]}
 
 
 def validate(settings):
@@ -32,6 +32,9 @@ def validate(settings):
             raise ValueError(key+' 长度须为 1–128')
     if type(s['preview_port']) is not int or not 1024<=s['preview_port']<=65535:
         raise ValueError('preview_port 必须为 1024–65535')
+    from prompt_documents import validate_documents
+    s['prompt_documents']=validate_documents(s['prompt_documents'])
+    if s['prompt_documents'] and s['profile']!='parallel':raise ValueError('文件附件当前仅支持parallel真机链路，禁止静默忽略')
     return s
 
 
@@ -40,6 +43,7 @@ def runner_args(settings, *, no_preview=False, lock_path=None):
     if profile=='parallel':
         args=[str(ROOT/'scripts/run_parallel_arms.py'),'--live','--task',s['task'],
               '--max-steps',str(s['max_steps']),'--time-budget-s',str(s['wall_budget_s'])]
+        if s['prompt_documents']:args+=['--prompt-documents-json',json.dumps(s['prompt_documents'],ensure_ascii=False)]
         if s['mode']=='execute':args+=['--execute']
         if no_preview:args+=['--no-preview']
         if lock_path:args+=['--lock-path',str(lock_path)]

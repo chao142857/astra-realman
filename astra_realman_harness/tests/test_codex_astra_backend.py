@@ -43,6 +43,19 @@ class Tests(unittest.TestCase):
         before=copy.deepcopy(self.context);self.assertEqual(self.call(),self.action)
         self.assertEqual(self.context,before);self.assertEqual(self.payload['context'],before)
         self.assertEqual(self.backend.raw,self.raw);self.assertEqual((self.run/'astra_raw.txt').read_text(),self.raw)
+    def test_documents_repeated_in_actual_http_payload_after_history_rollover(self):
+        from prompt_documents import snapshot_documents,attach_documents
+        from parallel_history import ParallelHistory
+        docs=snapshot_documents([{'name':'约束.md','content':'# 每轮都保留\n$(not executed)'},{'name':'input.json','content':'{ "limit": 1 }'}]);history=ParallelHistory()
+        for index in range(12):
+            self.backend.run=self.run/('decision-'+str(index));self.backend.run.mkdir()
+            self.context['history']=history.context();attach_documents(self.context,docs)
+            self.call()
+            self.assertEqual(self.payload['context']['user_prompt_documents'],docs)
+            saved=json.loads((self.backend.run/'prompt.txt').read_text())
+            self.assertEqual(saved['user_prompt_documents'],docs)
+            history.append({'step':index})
+        self.assertEqual(self.context['history']['omitted_older_count'],3)
     def test_backend_failure_not_ik(self):
         self.response.update(return_code=1,error='HTTP failure')
         with self.assertRaises(BackendFailure) as got:self.call()
