@@ -46,9 +46,19 @@ function render(){const s=state;if(!initialized){if(s.active)applySettings(s.set
  const saved=s.auto_archive||{};text('archive-status',saved.status==='SAVED'?'采集快照已保存 · 证据状态 '+(saved.evidence_status||'旧版未分级')+'：'+saved.path+(saved.warnings?.length?' · 有缺项，请查看归档提示':''):saved.status==='FAILED'?'自动归档失败：'+saved.error+'；原始日志保留。':s.active?'回合结束后将自动归档。':'每轮结束后自动保存全部输入照片、公开诊断与动作决策。');$('download-episode').disabled=saved.status!=='SAVED';$('download-reviewed').disabled=saved.status!=='SAVED'||inProgress;
  text('stream-metrics',JSON.stringify({live_console:s.camera_streams,selected_step:activeStep()?.camera_streams||{},note:'model_input_serials 为本次请求集合；active_stream_serials 为实际已启动物理流；选择 H5D0/H5D1 不切换流。'},null,2));
  const err=s.error||(!inProgress&&s.summary.status==='STOPPED'?(s.summary.reason||s.summary.error):null);$('notice').hidden=!err;if(err)text('notice',err);renderStep();renderCameras();
+ if(s.hardware_gui){
+  if(!$('profile').dataset.hardwareBound){
+   $('profile').replaceChildren(new Option('原真机双臂 · 各臂独立坐标','parallel'));
+   if(!s.active){$('mode').value='shadow';$('max-steps').value='1';$('budget').value='240';$('task').value='';}
+   $('profile').dataset.hardwareBound='1';
+  }
+  $('profile').disabled=true;
+  text('environment-badge','真机链路 · '+($('mode').value==='execute'?'EXECUTE':'SHADOW'));
+  text('condition-description','原 parallel 数值增量协议 · 非 chunk_v2 · 无共同基座变换');
+ }
  if(s.calibration_inventory){
   const c=s.calibration_inventory;$('calibration-panel').hidden=false;
-  text('calibration-summary',`已加载 ${c.loaded_count}/4 路标定 · 真机动作未开放`);
+  text('calibration-summary',`已加载 ${c.loaded_count}/4 路标定 · ${s.hardware_gui?'原真机执行链路已连接，等待手动启动':'真机动作未开放'}`);
   const box=$('calibration-cameras');box.replaceChildren();
   for(const cam of c.cameras){const d=document.createElement('details'),h=document.createElement('summary'),p=document.createElement('pre');h.textContent=cam.role+' · '+cam.serial+' → '+cam.parent_frame;p.textContent=JSON.stringify(cam,null,2);p.style.whiteSpace='pre-wrap';d.append(h,p);box.append(d);}
   text('calibration-limitations',[...c.errors,...c.limitations].join('\n'));

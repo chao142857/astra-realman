@@ -14,6 +14,8 @@ from astra_gui import Console, make_server
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--port',type=int,default=8877)
+    p.add_argument('--hardware-console',action='store_true',help='Existing parallel real runner with calibration panel; starts no episode automatically.')
+    p.add_argument('--three-calibration',type=Path)
     p.add_argument('--demo',action='store_true',help='Synthetic offline GUI; no SDK, cameras or model calls.')
     p.add_argument('--demo-cameras',type=int,choices=range(5),default=4)
     p.add_argument('--cameras-only',action='store_true',help='Read-only 2x2 camera monitor; start endpoint disabled.')
@@ -22,7 +24,12 @@ def main():
     p.add_argument('--open-browser',action='store_true')
     a=p.parse_args()
     if not 0<=a.port<=65535:p.error('port must be 0..65535')
-    console=Console(demo=a.demo,cameras_only=a.cameras_only,demo_count=a.demo_cameras,python=a.python,lock_path=a.lock_path)
+    if a.hardware_console:
+        if a.demo or a.cameras_only:p.error('hardware-console cannot combine with demo/cameras-only')
+        from real_hardware_gui import HardwareConsole
+        factory=lambda **kw:HardwareConsole(three_calibration=a.three_calibration,**kw)
+    else:factory=Console
+    console=factory(demo=a.demo,cameras_only=a.cameras_only,demo_count=a.demo_cameras,python=a.python,lock_path=a.lock_path)
     server=make_server(console,a.port);server.timeout=.2
     console.camera.start()
     closing=threading.Event()
