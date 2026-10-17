@@ -1,0 +1,632 @@
+{
+  "host": "tongji-Precision-3680",
+  "real_requests": 0,
+  "bridge_connections": 0,
+  "historical_scores_changed": false,
+  "whole_task_success_claimed": false,
+  "cases": {
+    "contact_d1_original_01": {
+      "status": "PHYSICAL_OR_EXECUTION_STOP",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "physics_steps": 11837,
+      "sim_time_s": 47.348,
+      "first_left_bilateral_step": 11819,
+      "max_pad_penetration_m": 0.0021910557989031076,
+      "final_bilateral": {
+        "left": true,
+        "right": false
+      },
+      "exact_archived_state_checks": {
+        "11675": {
+          "arms": true,
+          "contacts": true,
+          "object_pose": true,
+          "object_velocity": true,
+          "drive_targets": true,
+          "bilateral_contact": true
+        }
+      },
+      "raw_report_sha256": "e11874b68a25bc69357f2913f2584420810d34a2aaf1cbca22632b9b2f106d3f",
+      "contact_guards": [
+        {
+          "group": "group_052",
+          "first_bilateral_step": {
+            "left": 11819
+          },
+          "first_danger": null,
+          "execution_abort": "RuntimeError('PAD_PENETRATION')"
+        }
+      ],
+      "source_answers": [
+        {
+          "decision": 1,
+          "sha256": "4669d1897e400cc720d89def9c1043c685db99117be24db328c949245ab8e23c"
+        }
+      ],
+      "latch_events": [
+        {
+          "event": "bilateral_contact_latch",
+          "step": 11820,
+          "monotonic": 271.616555393,
+          "data": {
+            "step": 11820,
+            "actual_rad": -0.447032630443573,
+            "target_rad": -0.452032630443573,
+            "force_limit_Nm": 0.1,
+            "preload_rad": 0.005
+          }
+        },
+        {
+          "event": "explicit_contact_hold",
+          "step": 11820,
+          "monotonic": 271.616590771,
+          "data": {
+            "requested_opening_fraction": 0.15,
+            "requested_master_target": -0.7735,
+            "held_master_target": -0.4520326256752014,
+            "servo_target_within_requested_closure": true
+          }
+        }
+      ],
+      "video": {
+        "path": "/home/tongji/alex/rm65-contact-servo-yanglab-20261017/experiments/rm65_handoff_v1/evidence/interface_repair_yanglab_20261017/contact_d1_original_01/execution.mp4",
+        "bytes": 557773,
+        "sha256": "86c8a42fe0b29802ef9f1a582c853e934b09f5af86bcf67e8063e1e1ee0fb113"
+      }
+    },
+    "contact_d1_readback_02": {
+      "status": "PHYSICAL_OR_EXECUTION_STOP",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "physics_steps": 11837,
+      "sim_time_s": 47.348,
+      "first_left_bilateral_step": 11819,
+      "max_pad_penetration_m": 0.0021910557989031076,
+      "final_bilateral": {
+        "left": true,
+        "right": false
+      },
+      "exact_archived_state_checks": {
+        "11675": {
+          "arms": true,
+          "contacts": true,
+          "object_pose": true,
+          "object_velocity": true,
+          "drive_targets": true,
+          "bilateral_contact": true
+        }
+      },
+      "raw_report_sha256": "81024e4e66fe1899993f038bb83996d5724dad870bf404edd51adb3466d6b6df",
+      "contact_guards": [
+        {
+          "group": "group_052",
+          "first_bilateral_step": {
+            "left": 11819
+          },
+          "first_danger": null,
+          "execution_abort": "RuntimeError('PAD_PENETRATION')"
+        }
+      ],
+      "source_answers": [
+        {
+          "decision": 1,
+          "sha256": "4669d1897e400cc720d89def9c1043c685db99117be24db328c949245ab8e23c"
+        }
+      ],
+      "latch_events": [
+        {
+          "event": "bilateral_contact_latch",
+          "step": 11820,
+          "monotonic": 345.699920687,
+          "data": {
+            "step": 11820,
+            "actual_rad": -0.447032630443573,
+            "target_rad": -0.452032630443573,
+            "force_limit_Nm": 0.1,
+            "preload_rad": 0.005
+          }
+        },
+        {
+          "event": "explicit_contact_hold",
+          "step": 11820,
+          "monotonic": 345.699956398,
+          "data": {
+            "requested_opening_fraction": 0.15,
+            "requested_master_target": -0.7735,
+            "held_master_target": -0.4520326256752014,
+            "servo_target_within_requested_closure": true
+          }
+        }
+      ],
+      "video": {
+        "path": "/home/tongji/alex/rm65-contact-servo-yanglab-20261017/experiments/rm65_handoff_v1/evidence/interface_repair_yanglab_20261017/contact_d1_readback_02/execution.mp4",
+        "bytes": 557773,
+        "sha256": "86c8a42fe0b29802ef9f1a582c853e934b09f5af86bcf67e8063e1e1ee0fb113"
+      }
+    },
+    "contact_d1_left_v4_01": {
+      "status": "PHYSICAL_OR_EXECUTION_STOP",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "physics_steps": 11829,
+      "sim_time_s": 47.316,
+      "first_left_bilateral_step": 11819,
+      "max_pad_penetration_m": 0.002371140057221055,
+      "final_bilateral": {
+        "left": true,
+        "right": false
+      },
+      "exact_archived_state_checks": {
+        "11675": {
+          "arms": true,
+          "contacts": true,
+          "object_pose": true,
+          "object_velocity": true,
+          "drive_targets": true,
+          "bilateral_contact": true
+        }
+      },
+      "raw_report_sha256": "86ad899bc2077bbae95fb4b0311b6d55d61e1c44cfc62ac84c20d74d079a6263",
+      "contact_guards": [
+        {
+          "group": "group_052",
+          "first_bilateral_step": {
+            "left": 11819
+          },
+          "first_danger": null,
+          "execution_abort": "RuntimeError('PAD_PENETRATION')"
+        }
+      ],
+      "source_answers": [
+        {
+          "decision": 1,
+          "sha256": "4669d1897e400cc720d89def9c1043c685db99117be24db328c949245ab8e23c"
+        }
+      ],
+      "latch_events": [
+        {
+          "event": "bilateral_contact_latch",
+          "step": 11820,
+          "monotonic": 398.798512991,
+          "data": {
+            "step": 11820,
+            "actual_rad": -0.447032630443573,
+            "target_rad": -0.452032630443573,
+            "force_limit_Nm": 0.1,
+            "preload_rad": 0.005
+          }
+        },
+        {
+          "event": "left_contact_hold_v4",
+          "step": 11820,
+          "monotonic": 398.798552366,
+          "data": {
+            "version": "left_contact_hold_native_damping0_v4",
+            "before": {
+              "stiffness": 20.0,
+              "damping": 2.0,
+              "force_limit": 10.0,
+              "target": -0.4520326256752014,
+              "velocity_target": 0.0
+            },
+            "after": {
+              "stiffness": 20.0,
+              "damping": 0.0,
+              "force_limit": 10.0,
+              "target": -0.4520326256752014,
+              "velocity_target": 0.0
+            },
+            "model_target_changed": false,
+            "native_drive_torque_Nm": null
+          }
+        },
+        {
+          "event": "explicit_contact_hold",
+          "step": 11820,
+          "monotonic": 398.79856153,
+          "data": {
+            "requested_opening_fraction": 0.15,
+            "requested_master_target": -0.7735,
+            "held_master_target": -0.4520326256752014,
+            "servo_target_within_requested_closure": true
+          }
+        }
+      ],
+      "video": {
+        "path": "/home/tongji/alex/rm65-contact-servo-yanglab-20261017/experiments/rm65_handoff_v1/evidence/interface_repair_yanglab_20261017/contact_d1_left_v4_01/execution.mp4",
+        "bytes": 558122,
+        "sha256": "fe15c664395c1778dd722cb89c6bdfa526c746218b4b46ef8a51ae1367b8f6ed"
+      }
+    },
+    "contact_d1_slow2_01": {
+      "status": "PHYSICAL_OR_EXECUTION_STOP",
+      "error": "RuntimeError('PAD_PENETRATION')",
+      "physics_steps": 12020,
+      "sim_time_s": 48.08,
+      "first_left_bilateral_step": 11915,
+      "max_pad_penetration_m": 0.0020453331526368856,
+      "final_bilateral": {
+        "left": true,
+        "right": false
+      },
+      "exact_archived_state_checks": {
+        "11675": {
+          "arms": true,
+          "contacts": true,
+          "object_pose": true,
+          "object_velocity": true,
+          "drive_targets": true,
+          "bilateral_contact": true
+        }
+      },
+      "raw_report_sha256": "d728577422b44a86226a7a31530244fbaddc61fbb98f3e5bb2454b8b6975d4c4",
+      "contact_guards": [
+        {
+          "group": "group_052",
+          "first_bilateral_step": {
+            "left": 11915
+          },
+          "first_danger": null,
+          "execution_abort": "RuntimeError('PAD_PENETRATION')"
+        }
+      ],
+      "source_answers": [
+        {
+          "decision": 1,
+          "sha256": "4669d1897e400cc720d89def9c1043c685db99117be24db328c949245ab8e23c"
+        }
+      ],
+      "latch_events": [
+        {
+          "event": "bilateral_contact_latch",
+          "step": 11916,
+          "monotonic": 492.904625047,
+          "data": {
+            "step": 11916,
+            "actual_rad": -0.4441753625869751,
+            "target_rad": -0.4491753625869751,
+            "force_limit_Nm": 0.1,
+            "preload_rad": 0.005
+          }
+        },
+        {
+          "event": "explicit_contact_hold",
+          "step": 11916,
+          "monotonic": 492.904661746,
+          "data": {
+            "requested_opening_fraction": 0.15,
+            "requested_master_target": -0.7735,
+            "held_master_target": -0.4491753578186035,
+            "servo_target_within_requested_closure": true
+          }
+        }
+      ],
+      "video": {
+        "path": "/home/tongji/alex/rm65-contact-servo-yanglab-20261017/experiments/rm65_handoff_v1/evidence/interface_repair_yanglab_20261017/contact_d1_slow2_01/execution.mp4",
+        "bytes": 569085,
+        "sha256": "cc5efb1cd3040cfb9fd489e43e660c46025c171928c4834a56f4d2ea26b931d7"
+      }
+    },
+    "sequential_d4_01": {
+      "status": "COMPLETED_NUMERIC_REPLAY",
+      "error": null,
+      "physics_steps": 36150,
+      "sim_time_s": 144.6,
+      "first_left_bilateral_step": null,
+      "max_pad_penetration_m": 0.0,
+      "final_bilateral": {
+        "left": false,
+        "right": false
+      },
+      "exact_archived_state_checks": {
+        "11675": {
+          "arms": true,
+          "contacts": true,
+          "object_pose": true,
+          "object_velocity": true,
+          "drive_targets": true,
+          "bilateral_contact": true
+        },
+        "27325": {
+          "arms": true,
+          "contacts": true,
+          "object_pose": true,
+          "object_velocity": true,
+          "drive_targets": true,
+          "bilateral_contact": true
+        }
+      },
+      "raw_report_sha256": "05495e5ca8ee7b7096483208d167e5157ed8969ff2a5978b24da6a20f8d5ce7d",
+      "contact_guards": [],
+      "source_answers": [
+        {
+          "decision": 1,
+          "sha256": "4669d1897e400cc720d89def9c1043c685db99117be24db328c949245ab8e23c"
+        },
+        {
+          "decision": 2,
+          "sha256": "bf45ad3667f9d70ec85b3469c7af58884fd2b6e2af127bffad9ad8bafb2eb3ae"
+        },
+        {
+          "decision": 3,
+          "sha256": "0ecd69698d44fac3bb175e9c2f554600f564aa9e09d772475fa8e5507e34014d"
+        },
+        {
+          "decision": 4,
+          "sha256": "9c149fc0c58f9f822794662bae983b544466eeb4f72ff63e6daa0fd2e8b72760"
+        }
+      ],
+      "executed_groups": 38,
+      "duplicate_stage": [
+        {
+          "stage_index": 2,
+          "input_action_indices": {
+            "left": 0
+          },
+          "operation_start_measured_tcp": {
+            "left": [
+              0.05001680591509543,
+              7.899348715145884e-07,
+              0.03000983848263699,
+              -2.232496626675129e-06,
+              1.0,
+              -2.6948193863063352e-06,
+              3.4026685170829296e-05
+            ]
+          },
+          "commands": {
+            "left": {
+              "pose": [
+                0.05,
+                0.0,
+                0.03,
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "start_step": 34425,
+          "end_step": 34650
+        },
+        {
+          "stage_index": 2,
+          "input_action_indices": {
+            "left": 1
+          },
+          "operation_start_measured_tcp": {
+            "left": [
+              0.049993444804798615,
+              9.52107531408447e-07,
+              0.02997772503381558,
+              -2.6019697543233633e-06,
+              1.0,
+              -3.92685751648969e-06,
+              -1.1809519492089748e-05
+            ]
+          },
+          "commands": {
+            "left": {
+              "pose": [
+                0.05,
+                0.0,
+                0.03,
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "start_step": 34650,
+          "end_step": 34875
+        }
+      ],
+      "video": {
+        "path": "/home/tongji/alex/rm65-contact-servo-yanglab-20261017/experiments/rm65_handoff_v1/evidence/interface_repair_yanglab_20261017/sequential_d4_01/execution.mp4",
+        "bytes": 1594393,
+        "sha256": "3543c732e38d78b2fce4d2cd2f00884dd10a14b4c0aacc76f7a2dd45b20bd2c8"
+      }
+    },
+    "vacant_table_01": {
+      "status": "PASS_TABLE_COLLISION_STOP",
+      "error": "RuntimeError(\"CONTACT_GUARD_COLLISION:[('left_rm65_6', 'L__ctag_Right_Support_Link', 'table_2', 'table_2')]\")",
+      "physics_steps": 14542,
+      "sim_time_s": 58.168,
+      "first_left_bilateral_step": null,
+      "max_pad_penetration_m": 0.0,
+      "final_bilateral": {
+        "left": false,
+        "right": false
+      },
+      "exact_archived_state_checks": {
+        "11675": {
+          "arms": false,
+          "contacts": false,
+          "object_pose": false,
+          "object_velocity": false,
+          "drive_targets": false,
+          "bilateral_contact": true
+        }
+      },
+      "raw_report_sha256": "ea7924077ec4807bd5c2f1879ea29d93185031cd0c8fcfe8b2ad0a33fd6b05b9",
+      "contact_guards": [
+        {
+          "group": "group_064",
+          "first_bilateral_step": {
+            "left": null
+          },
+          "first_danger": {
+            "step": 14542,
+            "forbidden_fcl_pairs": [
+              [
+                "left_rm65_6",
+                "L__ctag_Right_Support_Link",
+                "table_2",
+                "table_2"
+              ]
+            ],
+            "bilateral": {
+              "left": false
+            }
+          },
+          "execution_abort": "RuntimeError(\"CONTACT_GUARD_COLLISION:[('left_rm65_6', 'L__ctag_Right_Support_Link', 'table_2', 'table_2')]\")"
+        }
+      ],
+      "source_answers": [],
+      "video": {
+        "path": "/home/tongji/alex/rm65-contact-servo-yanglab-20261017/experiments/rm65_handoff_v1/evidence/interface_repair_yanglab_20261017/vacant_table_01/execution.mp4",
+        "bytes": 725525,
+        "sha256": "02c01413af7fe2c25b8f6a35ae21d9ad35b04a3e9770a40e30b189d43af8d8e2"
+      }
+    },
+    "grasp_release_01": {
+      "status": "PASS_INTERFACE_ONLY_NOT_FULL_TASK",
+      "error": null,
+      "physics_steps": 9567,
+      "sim_time_s": 38.268,
+      "first_left_bilateral_step": 1402,
+      "max_pad_penetration_m": 9.97249226202257e-05,
+      "final_bilateral": {
+        "left": false,
+        "right": false
+      },
+      "exact_archived_state_checks": {},
+      "raw_report_sha256": "3c7dff2415aae5e67aa2f64ff6eb9894e5944253faa9bd374b26d6fc6ac23b6e",
+      "contact_guards": [
+        {
+          "group": "group_004",
+          "first_bilateral_step": {
+            "left": 1402
+          },
+          "first_danger": null,
+          "execution_abort": null
+        }
+      ],
+      "source_answers": [],
+      "post_lift_private_evidence": {
+        "duration_s": 2.0,
+        "continuous_bilateral_without_other_support": true,
+        "relative_translation_drift_m": 2.401351865222179e-07,
+        "relative_rotation_drift_rad": 1.1640491747408502e-06,
+        "maximum_pad_penetration_m": 5.321561184246093e-05,
+        "stable_grasp_2s": true
+      },
+      "release_regression": {
+        "start_step": 8617,
+        "end_step": 9567,
+        "command_ok": true,
+        "final_master_rad": -0.019801460206508636,
+        "no_bilateral_in_last_2s": true,
+        "table_support_in_last_2s": true,
+        "object_position_range_last_2s_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pass": true
+      },
+      "video": {
+        "path": "/home/tongji/alex/rm65-contact-servo-yanglab-20261017/experiments/rm65_handoff_v1/evidence/interface_repair_yanglab_20261017/grasp_release_01/execution.mp4",
+        "bytes": 476744,
+        "sha256": "172ab8a96722b41cc6574220310bdb3742cae64ad5e8c64a406e45ae142e4f16"
+      }
+    }
+  },
+  "historical_tracked_ledgers": [
+    {
+      "path": "evidence/coordination_batch01_preparation/historical_ledger_sha256.json",
+      "unchanged": true,
+      "sha256": "6fc4421f4894091592a91a14109de5f7ee50f3d13142f688daf3b47320e61381"
+    },
+    {
+      "path": "evidence/coordination_batch01_real_20261015/run/ledger_DRAFT_readonly.json",
+      "unchanged": true,
+      "sha256": "567761d38e000d7ad5011c6222baf0074741a0f182a27d9e3ebf8fc5583b96ca"
+    },
+    {
+      "path": "evidence/coordination_batch01_real_20261015/run/ledger_PUBLIC_SANITIZED.json",
+      "unchanged": true,
+      "sha256": "a8395ce1123404ea618a1359516d7b86f55265889984fabca4fd44241dc884a8"
+    },
+    {
+      "path": "evidence/coordination_campaigns/MOCK_mock_full_01/ledger.json",
+      "unchanged": true,
+      "sha256": "cca0d98a0c2ededbb800663cc49b1e1761ea483d83405266bd62c590cc70c4b5"
+    },
+    {
+      "path": "evidence/coordination_campaigns/MOCK_mock_full_02/ledger.json",
+      "unchanged": true,
+      "sha256": "031f3c4e19971c5f9ce838adae2e8fde712b45bcc7eae02729b70b8a8e9c59d4"
+    },
+    {
+      "path": "evidence/coordination_campaigns/MOCK_mock_full_03/ledger.json",
+      "unchanged": true,
+      "sha256": "0de6b9a8019ab419bc8805b107ac8329dd85bd2834d7b9338ea1f115f6f1e1e1"
+    },
+    {
+      "path": "evidence/coordination_campaigns/MOCK_mock_stop403_01/ledger.json",
+      "unchanged": true,
+      "sha256": "218f80f704e7594b42db0e07264d6fe941149d53ee8741f5848ddce3c6ec8dd6"
+    },
+    {
+      "path": "evidence/coordination_campaigns/MOCK_mock_stop403_02/ledger.json",
+      "unchanged": true,
+      "sha256": "b8c89bb94fda300b1048e7c1ed2626b63bbcaff4d48c1f12cb1257dd628675f7"
+    },
+    {
+      "path": "evidence/coordination_campaigns/REAL_batch01_20261015_01/ledger.json",
+      "unchanged": true,
+      "sha256": "91e111ed4243abc6e81f0e3468497203dd22b623f9d11480c916e315b215dc93"
+    },
+    {
+      "path": "evidence/coordination_campaigns/REAL_batch01_20261015_01/ledger_DRAFT_readonly.json",
+      "unchanged": true,
+      "sha256": "91e111ed4243abc6e81f0e3468497203dd22b623f9d11480c916e315b215dc93"
+    },
+    {
+      "path": "evidence/coordination_campaigns/REAL_batch01_20261015_02/ledger.json",
+      "unchanged": true,
+      "sha256": "567761d38e000d7ad5011c6222baf0074741a0f182a27d9e3ebf8fc5583b96ca"
+    },
+    {
+      "path": "evidence/coordination_campaigns/REAL_batch01_20261015_02/ledger_DRAFT_readonly.json",
+      "unchanged": true,
+      "sha256": "567761d38e000d7ad5011c6222baf0074741a0f182a27d9e3ebf8fc5583b96ca"
+    },
+    {
+      "path": "evidence/full_task_real_20261016/final_ledger_PUBLIC_REDACTED.json",
+      "unchanged": true,
+      "sha256": "eb22c6426f9e946dd33ea8cb2f87ecf4666d6cab3e8f55eaa2dfb2212633ca2e"
+    },
+    {
+      "path": "evidence/full_task_runs/full_table_exploration_20261016_01/ledger.json",
+      "unchanged": true,
+      "sha256": "94974d39e8751cde5c4c0a4dbf93c7bcf0cc4620caad641718eaf30538d86bc4"
+    },
+    {
+      "path": "evidence/transfer_runs/first_real_1100_20261015_01/ledger.json",
+      "unchanged": true,
+      "sha256": "2304f4eb011e40a870c91c4420d22ce75d94346cdda6ec3ae799a825f50db8c1"
+    },
+    {
+      "path": "evidence/transfer_runs/first_transfer_1100_20261015/ledger.json",
+      "unchanged": true,
+      "sha256": "047ca268ca4c1a3c72277f67eef761ade647442fc2e5d535fcb8979cdd2f5e42"
+    },
+    {
+      "path": "evidence/transfer_runs/first_transfer_20261015/ledger.json",
+      "unchanged": true,
+      "sha256": "b6c1ef46ce6b52d13bd375d9d7a52027d4854161250fe490e9fb235a791ee1bc"
+    },
+    {
+      "path": "evidence/workspace_runs/first_workspace_20261015_01/ledger.json",
+      "unchanged": true,
+      "sha256": "4742618f7bb63c5b66c5cf893a726eb6c0a69c9a07aea1e3e1c9213748fefdbc"
+    },
+    {
+      "path": "evidence/workspace_runs/first_workspace_20261015_01/ledger_DRAFT_before_authorization.json",
+      "unchanged": true,
+      "sha256": "0bb5aebd2f94913c6829773c50ec152babe1181d306b790278fa06e075ed0906"
+    }
+  ]
+}

@@ -10,25 +10,15 @@ from pathlib import Path
 import numpy as np
 import jsonschema
 from scipy.spatial.transform import Rotation, Slerp
-from action_interface import obj, vector, strict_json
+from action_interface import strict_json
 
-VERSION='numeric_chunk_v2'
 PRIVATE_FEEDBACK_FIELDS={'bilateral_contact_at_end','latched'}
 MAX_TRANSLATION_M=.005
 MAX_ROTATION_RAD=math.radians(1)
 MAX_GROUPS=128
 POSITION_TOLERANCE_M=.002
 ROTATION_TOLERANCE_RAD=math.radians(1)
-# Same anyOf/typed-enum vocabulary as the already used V1 output schema.
-TCP=obj({'arm':{'type':'string','enum':['left','right']},'kind':{'type':'string','enum':['tcp']},
-    'waypoints_world_wxyz':{'type':'array','items':vector(7),'minItems':1,'maxItems':16}})
-GRIP=obj({'arm':{'type':'string','enum':['left','right']},'kind':{'type':'string','enum':['gripper']},
-    'opening_fraction':{'type':'number','minimum':0,'maximum':1},
-    'contact_mode':{'type':'string','enum':['position','bilateral_hold']}})
-STAGE=obj({'mode':{'type':'string','enum':['sequential','parallel']},
-    'actions':{'type':'array','items':{'anyOf':[TCP,GRIP]},'maxItems':2},
-    'observe_s':{'type':'number','minimum':0,'maximum':5}})
-SCHEMA=obj({'done':{'type':'boolean'},'stages':{'type':'array','items':STAGE,'maxItems':8}})
+from chunk_protocol_v2_1 import VERSION,SCHEMA,STAGE_RULES,stage_batches,validate_control_semantics
 CONVENTIONS={
     'interface_version':VERSION,
     'position':'metres in shared SAPIEN world; quaternion [w,x,y,z] is Link6 world orientation',
@@ -38,13 +28,14 @@ CONVENTIONS={
         'interpolation':'Straight position and shortest quaternion SLERP between your consecutive waypoints, including measured initial TCP. No detours, snapping or target edits.',
         'low_level':'Every node uses closest IK and cubic JOINT interpolation, followed by 0.4 s settle. Minimum node movement duration 0.5 s; this is stop-and-settle tracking, not exact Cartesian interpolation or specified-speed motion.',
         'acceptance':'Every physics sample is checked against its current specified TCP segment; >2 mm position or >1 degree orientation tracking discrepancy stops the chunk after the current numeric group. Endpoint uses the same bounds. Physical safety always stops immediately.',
-        'rejection':'Per-node full shared-scene collision preflight before movement. A later rejection can follow earlier executed nodes; receipts state partial execution. No alternate IK path search or automatic repair.'},
+        'rejection':'Per-node full shared-scene collision preflight before TCP movement. A later rejection can follow earlier executed nodes; receipts state partial execution. No alternate IK path search or automatic repair.'},
     'gripper':{'opening_fraction':'Empty-space command: master_target_rad = -0.91*(1-opening_fraction); 0 closed, 1 open. This is not measured millimetres. Reported pad-centre gap is not exact minimum contact gap.',
         'position':'Follow the requested joint target without bilateral-contact latching; ordinary servo, no implicit grasp selection.',
         'bilateral_hold':'While closing, after two successive bilateral contact samples, stop the ramp and hold the measured master angle minus the existing 0.005 rad preload. The held SERVO TARGET never requests further closure beyond your requested joint target; actual overshoot is possible and monitored. No end contact means the requested contact-hold condition is NOT established, even though the close command executed. The chunk ends with recoverable feedback; this is not a whole-grasp verdict or a safety stop. You may instead choose position closure and independently command a lift. No lift, closure value or grasp location is inserted. Omitted gripper retains its last servo target.',
         'state_semantics':'command_execution, contact_hold_state and stable_grasp are separate. Stable grasp is NOT_ASSESSED_BY_SERVO; neither successful closure nor a contact latch proves a stable lifted grasp. Contact hold status reports controller state, not object coordinates or expert advice.',
+        'safety':'bilateral_hold closure is contact dependent. Preflight checks the arm/other fixed motions with measured finger state, not an empty-space over-closing ramp. Original pad/object exceptions only; actual shared-scene FCL checks run before/after each 4 ms step and during settling, with native 2 mm penetration protection unchanged. Any forbidden measured collision stops physics. No contact stop can be guaranteed in advance.',
         'controller':'Versioned right master damping=0 after contact latch, K and URDF effort limit unchanged. Left controller unchanged. A new opening command restores ordinary servo settings. No object binding or qpos overwrites.'},
-    'ordering':'Stages follow list order. sequential finishes each listed arm operation before the next. parallel advances one resampled node per TCP arm together in shared physics; a gripper operation runs with the first node. An arm finishing early holds. Arms omitted from a group hold drive targets.',
+    'ordering':STAGE_RULES+' Stages follow list order. parallel advances one resampled node per TCP arm together; a gripper operation runs with the first node. An arm finishing early holds. Omitted arms hold drive targets.',
     'time':'Physics paused during inference. Each stage ends with your observe_s passive physical hold. An empty actions list with observe_s>0 only observes while holding drive targets. No expert motion during a hold. done=true requires stages=[] and requests a terminal 2 s hold, not automatic task success.',
     'bounds':{'stages_max':8,'waypoints_per_arm_operation_max':16,'numeric_groups_per_chunk_max':MAX_GROUPS,
         'position_residual_m':POSITION_TOLERANCE_M,'rotation_residual_rad':ROTATION_TOLERANCE_RAD}}
@@ -52,10 +43,8 @@ CONVENTIONS={
 
 def parse_chunk(raw):
     value=strict_json(raw);jsonschema.validate(value,SCHEMA)
-    if value['done'] != (len(value['stages'])==0):raise ValueError('DONE_OR_EMPTY_CHUNK')
+    validate_control_semantics(value)
     for stage in value['stages']:
-        if not stage['actions'] and stage['observe_s']<=0:raise ValueError('EMPTY_STAGE_WITHOUT_OBSERVATION')
-        if len({a['arm'] for a in stage['actions']})!=len(stage['actions']):raise ValueError('DUPLICATE_ARM_IN_STAGE')
         for action in stage['actions']:
             for pose in action.get('waypoints_world_wxyz',[]):
                 p=np.asarray(pose,float)
@@ -129,17 +118,13 @@ def execute_chunk(world,value):
     group_count=0;in_flight=None
     try:
         for si,stage in enumerate(value['stages']):
-            streams={a['arm']:operation_nodes(a,actual_pose(world.arms[a['arm']])) for a in stage['actions']}
-            if not streams:batches=[]
-            elif stage['mode']=='parallel':
-                batches=[{s:n[i] for s,n in streams.items() if i<len(n)} for i in range(max(map(len,streams.values())))]
-            else:batches=[{a['arm']:n} for a in stage['actions'] for n in streams[a['arm']]]
-            if group_count+len(batches)>MAX_GROUPS:
-                receipt.update(ok=False,reason='CHUNK_GROUP_LIMIT',rejected_stage=si);break
-            for bi,batch in enumerate(batches):
+            for bi,(batch,action_indices,operation_starts) in enumerate(stage_batches(world,stage,actual_pose,operation_nodes)):
+                if group_count>=MAX_GROUPS:
+                    receipt.update(ok=False,reason='CHUNK_GROUP_LIMIT',rejected_stage=si);break
                 group_count+=1
                 commands={s:({k:v for k,v in node.items() if k in ('pose','opening','contact_mode')}) for s,node in batch.items()}
-                before=world.steps;log={'stage_index':si,'subgroup_index':bi,'commands':copy.deepcopy(commands)}
+                before=world.steps;log={'stage_index':si,'subgroup_index':bi,'input_action_indices':action_indices,
+                    'operation_start_measured_tcp':operation_starts,'commands':copy.deepcopy(commands)}
                 in_flight=log
                 save('progress.json',dict(receipt,in_flight=log))
                 r=world.execute_group(commands);log['receipt']=r
