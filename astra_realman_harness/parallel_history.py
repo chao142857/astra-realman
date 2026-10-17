@@ -1,6 +1,7 @@
 """Bounded measured transitions and separately labelled model judgments. No policy."""
 import copy
 from collections import deque
+from gripper_telemetry import telemetry
 
 RULES = ('History is oldest first, at most 8 completed transitions. Only CURRENT RGB images are attached; '
  'historical images are not supplied. measured contains controller readbacks, not object tracking. '
@@ -10,13 +11,15 @@ RULES = ('History is oldest first, at most 8 completed transitions. Only CURRENT
  'Each per-arm action executes TCP motion first, then gripper opening, with state readback between; '
  'to close before lifting, issue separate decisions. Sequential lists arms in order; parallel overlaps '
  'independent arms. Omitted arm holds. Position tolerance is 1 raw count out of 1000, not force control. '
+ 'dof_state=3 is force-control reached stop, not object grasp or device fault. A previous gripper target may remain active during arm motion even without a new gripper command. Missing telemetry is unknown. '
  'All targets and recovery choices remain yours; no automatic lift, route or grip target selection.')
 
 
 def compact(s):
     return {k:copy.deepcopy(s.get(k)) for k in ('ee_pose','joint_deg','timestamp','system_error')} | {
         'opening_raw':s.get('gripper_state',{}).get('position'),
-        'opening_speed_raw':s.get('gripper_state',{}).get('raw',{}).get('speed',[None])[0]}
+        'opening_speed_raw':telemetry(s.get('gripper_state',{}))['speed'],
+        'gripper_telemetry':telemetry(s.get('gripper_state',{}))}
 
 
 def transition(step, group, diagnostics, before, after, result):
@@ -30,6 +33,7 @@ def transition(step, group, diagnostics, before, after, result):
             'tcp_delta_m':[y-x for x,y in zip(xyz0,xyz1)] if xyz0 and xyz1 else None,
             'executed_commands':copy.deepcopy(executed),'status':receipt.get('status',result.get('status')),
             'error':receipt.get('error'),'gripper_after_evaluation':copy.deepcopy(receipt.get('gripper_after_evaluation')),'gripper_evaluation':copy.deepcopy(receipt.get('gripper_evaluation')),
+            'between_channels':copy.deepcopy(receipt.get('between_channels')),
             'closure_tcp_xyz_m':copy.deepcopy(receipt.get('gripper_command_tcp_xyz_m')),
             'closure_position_note':'exact command-time readback when present; do not infer from proposal',
             'grasp_confirmed':'UNKNOWN','object_motion':'UNKNOWN'}

@@ -57,6 +57,8 @@ class RealArmExecutor:
                 if type(ret) is not int or ret!=0:raise RuntimeError('ARM_COMMAND_RETURN:'+str(ret))
                 # Actual feedback and healthy controller mandatory before a second channel.
                 obs=self.capture(self.step/'between-channels')
+                from parallel_history import compact
+                self.result['between_channels']=compact(obs['canonical_states'][self.arm_id])
                 self.guard(obs)
             if plan['gripper']:
                 target=plan['gripper']['wire_target'];g=obs['canonical_states'][self.arm_id]['gripper_state']

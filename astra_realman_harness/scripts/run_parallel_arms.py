@@ -24,6 +24,8 @@ def main():
     p.add_argument('--no-preview',action='store_true',help='GUI compatibility; this runner owns no preview server.')
     p.add_argument('--lock-path',type=Path,help='Optional existing GUI/legacy episode lock, in addition to shared actuation lock.')
     args=p.parse_args()
+    from parallel_safety_pause import require_automation_ready
+    require_automation_ready()
     if not 1<=args.max_steps<=100 or not 1<=args.time_budget_s<=86400:p.error('invalid episode budget')
     task=args.task if args.task is not None else input('Task (STOP cancels): ')
     if not task.strip() or task.strip().upper()=='STOP':return

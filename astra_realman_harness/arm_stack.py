@@ -1,4 +1,5 @@
 """Symmetric facade over the existing state, exact IK, executor and lab gripper paths."""
+from gripper_telemetry import telemetry
 import copy
 import hashlib
 import json
@@ -27,7 +28,7 @@ def capture_states(session, path, *, task='', previous=None, streams=None):
         if not isinstance(raw,(tuple,list)) or len(raw)!=2 or type(raw[0]) is not int or raw[0]!=0:
             raise RuntimeError(arm+':GRIPPER_READ_FAILED:'+str(raw))
         g=raw[1]
-        state['gripper_state']={'position':g['pos'][0],'position_range':[0,1000],'raw':g}
+        state['gripper_state']={'position':g['pos'][0],'position_range':[0,1000],'raw':g,'captured_at':time.time(),'sdk_return_code':raw[0]}
         states[arm]=state
     if not states:raise RuntimeError('NO_CONNECTED_ARMS')
     images,failures,metrics=streams.snapshot(path) if streams else ([],[],{'capture_span_ms':0})
@@ -65,7 +66,7 @@ def model_input(obs):
         robots[arm]['ee_pose']={k:copy.deepcopy(s['ee_pose'][k]) for k in ('xyz_m','rpy_rad','units')}
         g=s.get('gripper_state',{})
         robots[arm]['gripper']={'opening_feedback':g.get('position')/1000 if number(g.get('position')) else None,
-                               'range':[0,1],'zero':'fully closed','one':'fully open','quantity':'opening, not force'}
+                               'telemetry':telemetry(g),'range':[0,1],'zero':'fully closed','one':'fully open','quantity':'opening, not force'}
         works[arm]={k:copy.deepcopy(s['work_frame'][k]) for k in ('id','name','pose')}
         tools[arm]={k:copy.deepcopy(s['tool_frame'][k]) for k in ('id','name','pose')}
     return {'task':obs['task'],'observation_id':obs['observation_id'],'images_in_attachment_order':images,

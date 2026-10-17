@@ -41,6 +41,8 @@ def worker_main(arm,connection,stop,root):
                         write_json(p/'check.json',check);prepared.update(obs=obs,check=check)
                         value=check
                     elif kind=='execute':
+                        from parallel_safety_pause import require_automation_ready
+                        require_automation_ready()
                         if prepared is None or prepared['used']:raise RuntimeError('NO_PREPARED_ACTION_OR_ALREADY_USED')
                         prepared['used']=True;began=time.time()
                         ex=RealArmExecutor(session,capture,stop,prepared['step'],arm_id=arm,gripper_tolerance_raw=1)

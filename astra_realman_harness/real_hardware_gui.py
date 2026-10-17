@@ -17,6 +17,8 @@ class HardwareConsole(Console):
         return settings
 
     def start(self, settings):
+        from parallel_safety_pause import require_automation_ready
+        require_automation_ready()
         return super().start(self.checked(settings))
 
     def preflight(self, settings):

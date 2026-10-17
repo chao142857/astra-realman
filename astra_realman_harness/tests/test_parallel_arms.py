@@ -40,7 +40,7 @@ class Tests(unittest.TestCase):
         a=action('right');a['gripper_opening']=1
         requests=iter([{'kind':'prepare','action':a,'step':str(self.root/'command')},{'kind':'execute'},{'kind':'execute'},{'kind':'close'}]);responses=[]
         conn=NS(recv=lambda:next(requests),send=lambda value:responses.append(copy.deepcopy(value)),close=lambda:None)
-        with patch.dict(sys.modules,{'realman_api2_readonly':NS(SDKReadOnly=Session)}):worker_main('right',conn,self.stop,self.root/'worker')
+        with patch('parallel_safety_pause.require_automation_ready'), patch.dict(sys.modules,{'realman_api2_readonly':NS(SDKReadOnly=Session)}):worker_main('right',conn,self.stop,self.root/'worker')
         self.assertEqual(connections,[('right','192.168.1.18',8080),'closed']);self.assertEqual(len(robot.moves),1)
         self.assertEqual(responses[1]['value']['status'],'PASS_IK');self.assertEqual(responses[2]['value']['status'],'EXECUTED')
         self.assertFalse(responses[3]['ok']);self.assertIn('ALREADY_USED',responses[3]['error'])
