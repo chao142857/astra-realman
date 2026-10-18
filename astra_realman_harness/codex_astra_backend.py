@@ -97,7 +97,7 @@ class CodexAstraBackend:
                     [x for x in cmd if isinstance(x,str) and x.startswith('model_reasoning_effort=')]!=['model_reasoning_effort="medium"']):
                     raise BackendFailure('RECOVERY_MODEL_CONFIG_MISMATCH')
                 final,notices=check_recovered_events('\n'.join(events))
-                meta['transport_recovery_policy']='completed_tls_recovery_v1'
+                meta['transport_recovery_policy']='completed_transport_recovery_v2'
                 meta['transport_recovery_events']=notices
                 meta['transport_recovered']=bool(notices)
                 if notices:self.emit('TRANSPORT RECOVERED',{'notice_count':len(notices),'completed':True})

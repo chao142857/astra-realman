@@ -16,3 +16,28 @@ class Recovery(unittest.TestCase):
         changed=self.events();changed[2]['message']='authentication failed';cases.append(changed)
         for c in cases:
             with self.subTest(c=c),self.assertRaises(BackendFailure):check_recovered_events(self.encode(c))
+
+    def test_new_exact_recovery_notices(self):
+        from recovered_transport import RECOVERABLE_REASONS
+        for reason in RECOVERABLE_REASONS:
+            e=self.events();e[2]['message']='Reconnecting... 2/5 ('+reason+')'
+            with self.subTest(reason=reason):
+                self.assertEqual(check_recovered_events(self.encode(e))[0],'{}')
+                with self.assertRaises(BackendFailure):check_events(self.encode(e))
+
+    def test_recovery_does_not_hide_failure_or_late_errors(self):
+        from recovered_transport import RECOVERABLE_REASONS
+        for reason in RECOVERABLE_REASONS:
+            e=self.events();e[2]['message']='Reconnecting... 2/5 ('+reason+')'
+            cases=[e[:-1], e[:4]+[{'type':'turn.failed'}]+e[4:],
+                   e[:4]+[e[4]]+e[4:], e[:2]+e[3:5]+[e[2]]+e[5:]]
+            for case in cases:
+                with self.subTest(reason=reason,case=case),self.assertRaises(BackendFailure):
+                    check_recovered_events(self.encode(case))
+
+    def test_unknown_reconnect_reason_rejected(self):
+        for reason in ['HTTP 403','request timed out','workspace routing discovery failed: unauthorized',
+                       'stream disconnected before completion: Connection reset by peer (os error 99)']:
+            e=self.events();e[2]['message']='Reconnecting... 2/5 ('+reason+')'
+            with self.subTest(reason=reason),self.assertRaises(BackendFailure):
+                check_recovered_events(self.encode(e))
