@@ -1,0 +1,896 @@
+{
+  "mode": "REPLAY_METADATA_ONLY",
+  "observation_id": "30b1190243bd457e88ea1abdbcec7800",
+  "captured_at": 1792304893.283723,
+  "canonical_states": {
+    "left": {
+      "arm": "left",
+      "joint_deg": [
+        -6.51200008392334,
+        21.43400001525879,
+        64.24600219726562,
+        1.0429999828338623,
+        93.44499969482422,
+        -5.705999851226807
+      ],
+      "ee_pose": {
+        "xyz_m": [
+          -0.304164,
+          0.031352,
+          0.310661
+        ],
+        "rpy_rad": [
+          3.125,
+          0.016,
+          -0.012
+        ],
+        "units": {
+          "xyz": "m",
+          "rpy": "rad"
+        },
+        "orientation_metadata": {
+          "representation": "roll-pitch-yaw",
+          "unit": "rad",
+          "array_order": [
+            "roll",
+            "pitch",
+            "yaw"
+          ],
+          "rotation_convention": "ZYX intrinsic",
+          "matrix": "Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+          "source": "user-confirmed; https://develop.realman-robotics.com/robot4th/FQA/sdk/"
+        },
+        "unit_conversion": "identity; SDK already returns m/rad",
+        "unit_scale_applied": 1,
+        "reference_frame": null,
+        "target_frame": null,
+        "reference_frame_id": null,
+        "target_frame_id": null,
+        "active_work_frame_id": "realman:left:work:World",
+        "active_tool_frame_id": "realman:left:tool:Arm_Tip",
+        "frame_semantics_status": "UNKNOWN",
+        "reported_active_work_frame": "World",
+        "reported_active_tool_frame": "Arm_Tip",
+        "evidence": "/home/tongji/alex/astra_realman_harness/docs/api2_frame_evidence.json",
+        "note": "Local current-state definition does not specify reference/target frames. Do not bind by name or zero offsets."
+      },
+      "work_frame": {
+        "id": "realman:left:work:World",
+        "name": "World",
+        "pose": {
+          "xyz_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "units": {
+            "xyz": "m",
+            "rpy": "rad"
+          },
+          "orientation_metadata": {
+            "representation": "roll-pitch-yaw",
+            "unit": "rad",
+            "array_order": [
+              "roll",
+              "pitch",
+              "yaw"
+            ],
+            "rotation_convention": "ZYX intrinsic",
+            "matrix": "Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+            "source": "user-confirmed; https://develop.realman-robotics.com/robot4th/FQA/sdk/"
+          },
+          "unit_conversion": "identity; SDK already returns m/rad",
+          "unit_scale_applied": 1
+        },
+        "definition_fingerprint": "5eb2b7dec61339bd9dffd69371bc53796702c56935fec3013477fb062df15a7b",
+        "read_status": "VERIFIED",
+        "relative_to": "controller_base",
+        "definition_status": "DOCUMENTED",
+        "physical_grasp_calibration": "UNCONFIRMED"
+      },
+      "tool_frame": {
+        "id": "realman:left:tool:Arm_Tip",
+        "name": "Arm_Tip",
+        "pose": {
+          "xyz_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "units": {
+            "xyz": "m",
+            "rpy": "rad"
+          },
+          "orientation_metadata": {
+            "representation": "roll-pitch-yaw",
+            "unit": "rad",
+            "array_order": [
+              "roll",
+              "pitch",
+              "yaw"
+            ],
+            "rotation_convention": "ZYX intrinsic",
+            "matrix": "Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+            "source": "user-confirmed; https://develop.realman-robotics.com/robot4th/FQA/sdk/"
+          },
+          "unit_conversion": "identity; SDK already returns m/rad",
+          "unit_scale_applied": 1
+        },
+        "definition_fingerprint": "96597c27c1da9c9743f5374b56f0a156394a5a8793821b5ae1c6b18bc8e3df77",
+        "read_status": "VERIFIED",
+        "relative_to": "controller_flange",
+        "definition_status": "DOCUMENTED",
+        "physical_grasp_calibration": "UNCONFIRMED"
+      },
+      "system_error": {
+        "codes": [
+          0
+        ],
+        "has_error": false,
+        "raw": {
+          "err_len": 1,
+          "err": [
+            "0"
+          ]
+        }
+      },
+      "timestamp": 1792304893.283723,
+      "frame_snapshot_stable": true,
+      "snapshot_atomic": false,
+      "gripper_state": {
+        "position": 999,
+        "position_range": [
+          0,
+          1000
+        ],
+        "raw": {
+          "sys_state": 0,
+          "dof_state": [
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "dof_err": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pos": [
+            999,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "speed": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "angle": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "current": [
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "normal_force": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "tangential_force": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "tangential_force_dir": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "tsa": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "tma": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "touch_data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "force": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "captured_at": 1792304893.3098216,
+        "sdk_return_code": 0
+      }
+    },
+    "right": {
+      "arm": "right",
+      "joint_deg": [
+        11.354999542236328,
+        20.655000686645508,
+        50.71099853515625,
+        -2.197000026702881,
+        104.05400085449219,
+        3.0769999027252197
+      ],
+      "ee_pose": {
+        "xyz_m": [
+          -0.297394,
+          -0.05361,
+          0.386562
+        ],
+        "rpy_rad": [
+          -3.109,
+          0.081,
+          0.134
+        ],
+        "units": {
+          "xyz": "m",
+          "rpy": "rad"
+        },
+        "orientation_metadata": {
+          "representation": "roll-pitch-yaw",
+          "unit": "rad",
+          "array_order": [
+            "roll",
+            "pitch",
+            "yaw"
+          ],
+          "rotation_convention": "ZYX intrinsic",
+          "matrix": "Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+          "source": "user-confirmed; https://develop.realman-robotics.com/robot4th/FQA/sdk/"
+        },
+        "unit_conversion": "identity; SDK already returns m/rad",
+        "unit_scale_applied": 1,
+        "reference_frame": null,
+        "target_frame": null,
+        "reference_frame_id": null,
+        "target_frame_id": null,
+        "active_work_frame_id": "realman:right:work:World",
+        "active_tool_frame_id": "realman:right:tool:Arm_Tip",
+        "frame_semantics_status": "UNKNOWN",
+        "reported_active_work_frame": "World",
+        "reported_active_tool_frame": "Arm_Tip",
+        "evidence": "/home/tongji/alex/astra_realman_harness/docs/api2_frame_evidence.json",
+        "note": "Local current-state definition does not specify reference/target frames. Do not bind by name or zero offsets."
+      },
+      "work_frame": {
+        "id": "realman:right:work:World",
+        "name": "World",
+        "pose": {
+          "xyz_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "units": {
+            "xyz": "m",
+            "rpy": "rad"
+          },
+          "orientation_metadata": {
+            "representation": "roll-pitch-yaw",
+            "unit": "rad",
+            "array_order": [
+              "roll",
+              "pitch",
+              "yaw"
+            ],
+            "rotation_convention": "ZYX intrinsic",
+            "matrix": "Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+            "source": "user-confirmed; https://develop.realman-robotics.com/robot4th/FQA/sdk/"
+          },
+          "unit_conversion": "identity; SDK already returns m/rad",
+          "unit_scale_applied": 1
+        },
+        "definition_fingerprint": "5eb2b7dec61339bd9dffd69371bc53796702c56935fec3013477fb062df15a7b",
+        "read_status": "VERIFIED",
+        "relative_to": "controller_base",
+        "definition_status": "DOCUMENTED",
+        "physical_grasp_calibration": "UNCONFIRMED"
+      },
+      "tool_frame": {
+        "id": "realman:right:tool:Arm_Tip",
+        "name": "Arm_Tip",
+        "pose": {
+          "xyz_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "units": {
+            "xyz": "m",
+            "rpy": "rad"
+          },
+          "orientation_metadata": {
+            "representation": "roll-pitch-yaw",
+            "unit": "rad",
+            "array_order": [
+              "roll",
+              "pitch",
+              "yaw"
+            ],
+            "rotation_convention": "ZYX intrinsic",
+            "matrix": "Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+            "source": "user-confirmed; https://develop.realman-robotics.com/robot4th/FQA/sdk/"
+          },
+          "unit_conversion": "identity; SDK already returns m/rad",
+          "unit_scale_applied": 1
+        },
+        "definition_fingerprint": "96597c27c1da9c9743f5374b56f0a156394a5a8793821b5ae1c6b18bc8e3df77",
+        "read_status": "VERIFIED",
+        "relative_to": "controller_flange",
+        "definition_status": "DOCUMENTED",
+        "physical_grasp_calibration": "UNCONFIRMED"
+      },
+      "system_error": {
+        "codes": [
+          0
+        ],
+        "has_error": false,
+        "raw": {
+          "err_len": 1,
+          "err": [
+            "0"
+          ]
+        }
+      },
+      "timestamp": 1792304893.3278239,
+      "frame_snapshot_stable": true,
+      "snapshot_atomic": false,
+      "gripper_state": {
+        "position": 43,
+        "position_range": [
+          0,
+          1000
+        ],
+        "raw": {
+          "sys_state": 0,
+          "dof_state": [
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "dof_err": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pos": [
+            43,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "speed": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "angle": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "current": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "normal_force": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "tangential_force": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "tangential_force_dir": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "tsa": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "tma": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "touch_data": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "force": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "captured_at": 1792304893.3540368,
+        "sdk_return_code": 0
+      }
+    }
+  },
+  "cameras": [
+    {
+      "serial": "254522073676",
+      "role": "left_wrist",
+      "role_confirmed": true,
+      "host_received_at": 1792304893.3537562,
+      "host_received_monotonic": 108746.713292163,
+      "device_timestamp_ms": 1792304893320.8408,
+      "device_timestamp_domain": "timestamp_domain.global_time",
+      "frame_number": 112862,
+      "sequence": 112862,
+      "encoding": "RGB8",
+      "shape": [
+        480,
+        640,
+        3
+      ],
+      "intrinsics": {
+        "source": "device_factory_color_intrinsics",
+        "fx": 605.02587890625,
+        "fy": 604.9320678710938,
+        "cx": 326.8487243652344,
+        "cy": 255.3502197265625,
+        "distortion_model": "distortion.inverse_brown_conrady",
+        "coeffs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "extrinsics": null,
+      "optical_frame_convention": "x right, y down, z forward",
+      "base_transform_status": "UNCONFIRMED",
+      "captured_at": 1792304893.3208408,
+      "timestamp_basis": "sdk_host_time",
+      "sha256": "5428f220dead20a826bc61e447041abba4541cc6dd849210af8ecd2a5dc746f8",
+      "image_path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T142729-853ffbe2/step-001/after/camera-254522073676.png"
+    },
+    {
+      "serial": "346222072496",
+      "role": "tabletop",
+      "role_confirmed": true,
+      "host_received_at": 1792304893.3552709,
+      "host_received_monotonic": 108746.714806675,
+      "device_timestamp_ms": 1792304893322.147,
+      "device_timestamp_domain": "timestamp_domain.global_time",
+      "frame_number": 112861,
+      "sequence": 112861,
+      "encoding": "RGB8",
+      "shape": [
+        480,
+        640,
+        3
+      ],
+      "intrinsics": {
+        "source": "device_factory_color_intrinsics",
+        "fx": 603.4666137695312,
+        "fy": 604.0645141601562,
+        "cx": 324.2921142578125,
+        "cy": 259.0480041503906,
+        "distortion_model": "distortion.inverse_brown_conrady",
+        "coeffs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "extrinsics": null,
+      "optical_frame_convention": "x right, y down, z forward",
+      "base_transform_status": "UNCONFIRMED",
+      "captured_at": 1792304893.322147,
+      "timestamp_basis": "sdk_host_time",
+      "sha256": "ac018c65e4ad791695c3a1d60b9733d5b0cad2cc73fe83a022d42d06b90772fc",
+      "image_path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T142729-853ffbe2/step-001/after/camera-346222072496.png"
+    },
+    {
+      "serial": "344422071480",
+      "role": "overhead",
+      "role_confirmed": true,
+      "host_received_at": 1792304893.3485622,
+      "host_received_monotonic": 108746.708098219,
+      "device_timestamp_ms": 1792304893315.495,
+      "device_timestamp_domain": "timestamp_domain.global_time",
+      "frame_number": 112860,
+      "sequence": 112860,
+      "encoding": "RGB8",
+      "shape": [
+        480,
+        640,
+        3
+      ],
+      "intrinsics": {
+        "source": "device_factory_color_intrinsics",
+        "fx": 603.3287353515625,
+        "fy": 602.867919921875,
+        "cx": 325.5810241699219,
+        "cy": 244.9207000732422,
+        "distortion_model": "distortion.inverse_brown_conrady",
+        "coeffs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "extrinsics": null,
+      "optical_frame_convention": "x right, y down, z forward",
+      "base_transform_status": "UNCONFIRMED",
+      "captured_at": 1792304893.315495,
+      "timestamp_basis": "sdk_host_time",
+      "sha256": "471e91b5ce2e4449e5ae83ad41aadbcf66167fa0fd754a02243084537b3e5cb3",
+      "image_path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T142729-853ffbe2/step-001/after/camera-344422071480.png"
+    },
+    {
+      "serial": "348522072063",
+      "role": "right_wrist",
+      "role_confirmed": true,
+      "host_received_at": 1792304893.337469,
+      "host_received_monotonic": 108746.69700438,
+      "device_timestamp_ms": 1792304893304.688,
+      "device_timestamp_domain": "timestamp_domain.global_time",
+      "frame_number": 112859,
+      "sequence": 112859,
+      "encoding": "RGB8",
+      "shape": [
+        480,
+        640,
+        3
+      ],
+      "intrinsics": {
+        "source": "device_factory_color_intrinsics",
+        "fx": 608.447265625,
+        "fy": 608.3007202148438,
+        "cx": 336.0336608886719,
+        "cy": 251.22093200683594,
+        "distortion_model": "distortion.inverse_brown_conrady",
+        "coeffs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "extrinsics": null,
+      "optical_frame_convention": "x right, y down, z forward",
+      "base_transform_status": "UNCONFIRMED",
+      "captured_at": 1792304893.304688,
+      "timestamp_basis": "sdk_host_time",
+      "sha256": "88d00959d7bc005b406e8c7791aed039cbfdc4108780c732a2844b0b4c5eb7e5",
+      "image_path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T142729-853ffbe2/step-001/after/camera-348522072063.png"
+    }
+  ],
+  "provenance": {
+    "source_path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T142729-853ffbe2/step-001/after/observation.json",
+    "raw_file_sha256": "69687dc4ee2059a73868a66c3bd1c2623c147a647d5b2b20dc1e39df6ac94360",
+    "kind": "field projection of one recorded AFTER observation; no assets copied; not a complete raw log"
+  }
+}

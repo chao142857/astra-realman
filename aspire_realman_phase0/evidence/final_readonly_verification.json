@@ -1,0 +1,60 @@
+{
+  "timestamp": "2026-10-20T00:08:26.040417+08:00",
+  "no_hardware_connection_in_audit": true,
+  "service_pids": {
+    "1268122": {
+      "exists": true,
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness"
+    },
+    "26282": {
+      "exists": true,
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness"
+    },
+    "32647": {
+      "exists": true,
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness"
+    },
+    "110607": {
+      "exists": true,
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/partial-export-1792204820"
+    }
+  },
+  "v17_manifest_vs_current_sources": {
+    "manifest_path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T142729-853ffbe2/launch_manifest.json",
+    "count": 371,
+    "same_count": 371,
+    "different": [],
+    "missing": []
+  },
+  "source_hashes": {
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/arm_stack.py": "b1206688f9de53fdbdb6a2eb75fc0f53fe6ea7e52e0dcedadec3fa46748415f9",
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/arm_worker.py": "d7c06bef3bb1cdf2edce531b129f986ae35aa2709992cfb3f20185bdc8aae716",
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/left_executor.py": "a161bc8de918feb349ddaa4e4795127723c4a1d5b25c5daa61b2485db969a78f",
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/realman_api2_readonly.py": "b690a92982b0a111f60b193ad34b67ccc60ea26ebe31eb88f59d663fc9e0aef7",
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/astra_gui.py": "0a29d2addafb009660640eefca9717ae839e616fcf5668686d0f30602b6b41a1",
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/camera_session.py": "3da5809f9eb4a7eeab702a7677ee38209fc19655ec5a3ced73cc0605918c8c96",
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/shared_cameras.py": "1e8651c99c48be3d2f0cd8c91932d3f46f5995fc03b5fe9c67fa9ae790730c03",
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/exact_target_feasibility.py": "008fcd734ba165e044fd1248d979c0182f4a4c41897cf6db7119d08e3da24a9b"
+  },
+  "configs": {
+    "/home/tongji/aloha/RealMan_Control/config/rm_left_arm.yaml": {
+      "sha256": "0414fd5adb680864bdd2aa66320d3cf14e866bf89cb5f1bfaf045f3635e0970c",
+      "bytes": 122,
+      "text": "arm_ip: \"192.168.1.19\"\narm_port: 8080\narm_axis: 6\n# arm_ki: [7, 7, 7, 3, 3, 3, 3] # rm75\narm_ki: [7, 7, 7, 3, 3, 3] # rm65"
+    },
+    "/home/tongji/aloha/RealMan_Control/config/rm_right_arm.yaml": {
+      "sha256": "467b39fed294ff1e337dc404b91797f8016fb1fd63029234018b2e27282b4047",
+      "bytes": 122,
+      "text": "arm_ip: \"192.168.1.18\"\narm_port: 8080\narm_axis: 6\n# arm_ki: [7, 7, 7, 3, 3, 3, 3] # rm75\narm_ki: [7, 7, 7, 3, 3, 3] # rm65"
+    }
+  },
+  "gpu": "name, driver_version, memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 3060, 535.230.02, 12288 MiB, 451 MiB\n",
+  "nvcc": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2023 NVIDIA Corporation\nBuilt on Mon_Apr__3_17:16:06_PDT_2023\nCuda compilation tools, release 12.1, V12.1.105\nBuild cuda_12.1.r12.1/compiler.32688072_0\n",
+  "usb_serials": [
+    {
+      "serial": "027223021284",
+      "product": "Intel(R) RealSense(TM) Depth Camera 435"
+    }
+  ],
+  "video_owners": "1268122 1268122"
+}

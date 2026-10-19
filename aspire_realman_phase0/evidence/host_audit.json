@@ -1,0 +1,400 @@
+{
+  "timestamp": "2026-10-20T00:01:04.013908+08:00",
+  "hostname": {
+    "returncode": 0,
+    "stdout": "tongji-Precision-3680\n",
+    "stderr": ""
+  },
+  "method": "filesystem/proc/sysfs/git/nvidia-smi only; no SDK/camera/model initialization",
+  "repos": {
+    "/home/tongji/alex/astra_onsite_1011": {
+      "head": {
+        "returncode": 0,
+        "stdout": "431f112c80f13a997a8ac1df81cbc3644c1d30ae\n",
+        "stderr": ""
+      },
+      "status": {
+        "returncode": 0,
+        "stdout": "## codex/realman-onsite-1011...origin/codex/realman-onsite-1011\n?? astra_realman_harness/config/engineering/onsite_board_20261011.json\n?? astra_realman_harness/config/engineering/onsite_board_dfvision_image_verified_20261011.json\n?? astra_realman_harness/config/engineering/onsite_board_dfvision_q12_200_15.json\n?? astra_realman_harness/config/engineering/three_camera_calibration_20261011.json\n?? astra_realman_harness/config/engineering/three_camera_mount_confirmation_20261011.json\n?? astra_realman_harness/docs/engineering/CALIBRATION_HANDOFF_1011.md\n?? astra_realman_harness/docs/engineering/ONSITE_1011_MANIFEST.json\n?? astra_realman_harness/docs/engineering/ONSITE_1011_RESULT.md\n?? astra_realman_harness/docs/engineering/ONSITE_COLLECTION_1011.md\n?? astra_realman_harness/docs/engineering/THREE_CAMERA_CALIBRATION_20261011.md\n?? astra_realman_harness/onsite_action_query.py\n?? astra_realman_harness/onsite_public_store.py\n?? astra_realman_harness/onsite_sequence.py\n?? astra_realman_harness/scripts/calibrate_onsite_camera_pair.py\n?? astra_realman_harness/scripts/capture_onsite_rgbd.py\n?? astra_realman_harness/scripts/inspect_onsite_controller_geometry.py\n?? astra_realman_harness/scripts/inspect_onsite_fixed_extrinsic.py\n?? astra_realman_harness/scripts/inspect_onsite_handeye.py\n?? astra_realman_harness/scripts/inspect_onsite_table_plane.py\n?? astra_realman_harness/scripts/onsite_mac_broker_worker.py\n?? astra_realman_harness/scripts/preview_onsite_sequence.py\n?? astra_realman_harness/scripts/project_onsite_queries.py\n?? astra_realman_harness/scripts/record_onsite_sequence.py\n?? astra_realman_harness/scripts/run_onsite_shadow.py\n?? astra_realman_harness/scripts/validate_onsite_camera_transforms.py\n?? astra_realman_harness/scripts/verify_onsite_fk.py\n?? astra_realman_harness/tests/test_onsite_action_query.py\n?? astra_realman_harness/tests/test_onsite_camera_pair.py\n?? astra_realman_harness/tests/test_onsite_handeye.py\n?? astra_realman_harness/tests/test_onsite_ingest.py\n?? astra_realman_harness/tests/test_onsite_table_plane.py\n",
+        "stderr": ""
+      },
+      "remote": {
+        "returncode": 0,
+        "stdout": "origin\thttps://github.com/chao142857/astra-realman.git (fetch)\norigin\thttps://github.com/chao142857/astra-realman.git (push)\n",
+        "stderr": ""
+      }
+    },
+    "/home/tongji/alex/realman-chunk-gui-migration-20261017": {
+      "head": {
+        "returncode": 0,
+        "stdout": "0ec0472687e7c7c6500d1cfa0c76a67b1d57871b\n",
+        "stderr": ""
+      },
+      "status": {
+        "returncode": 0,
+        "stdout": "## codex/realman-chunk-gui-migration-20261017\n M astra_realman_harness/arm_stack.py\n M astra_realman_harness/arm_worker.py\n M astra_realman_harness/astra_gui.py\n M astra_realman_harness/codex_astra_backend.py\n M astra_realman_harness/experiment_launch.py\n M astra_realman_harness/gui/app.js\n M astra_realman_harness/gui/index.html\n M astra_realman_harness/launch_provenance.py\n M astra_realman_harness/left_executor.py\n M astra_realman_harness/parallel_gui_evidence.py\n M astra_realman_harness/real_chunk_gui.py\n M astra_realman_harness/scripts/run_astra_gui.py\n M astra_realman_harness/scripts/run_experiment.py\n M astra_realman_harness/scripts/run_parallel_arms.py\n M astra_realman_harness/scripts/run_real_chunk_offline.py\n M astra_realman_harness/tests/test_codex_astra_backend.py\n M astra_realman_harness/tests/test_parallel_arms.py\n?? astra_realman_harness/._arm_stack.py\n?? astra_realman_harness/._arm_worker.py\n?? astra_realman_harness/._gripper_position_semantics.py\n?? astra_realman_harness/._gripper_telemetry.py\n?? astra_realman_harness/._left_executor.py\n?? astra_realman_harness/._onsite_sequence.py\n?? astra_realman_harness/._parallel_history.py\n?? astra_realman_harness/._parallel_safety_pause.py\n?? astra_realman_harness/._real_hardware_gui.py\n?? astra_realman_harness/config/engineering/._onsite_board_dfvision_image_verified_20261011.json\n?? astra_realman_harness/gripper_position_semantics.py\n?? astra_realman_harness/gripper_telemetry.py\n?? astra_realman_harness/launch/hardware_gui.sh\n?? astra_realman_harness/parallel_diagnostics.py\n?? astra_realman_harness/parallel_history.py\n?? astra_realman_harness/parallel_safety_pause.py\n?? astra_realman_harness/prompt_documents.py\n?? astra_realman_harness/real_calibration_status.py\n?? astra_realman_harness/real_hardware_gui.py\n?? astra_realman_harness/recovered_transport.py\n?? astra_realman_harness/reports/\n?? astra_realman_harness/scripts/._capture_onsite_rgbd.py\n?? astra_realman_harness/scripts/._preview_onsite_sequence.py\n?? astra_realman_harness/scripts/._record_onsite_sequence.py\n?? astra_realman_harness/scripts/._run_parallel_arms.py\n?? astra_realman_harness/scripts/replay_parallel_history.py\n?? astra_realman_harness/scripts/replay_parallel_telemetry.py\n?? astra_realman_harness/tests/test_parallel_diagnostics.py\n?? astra_realman_harness/tests/test_parallel_gripper_execution.py\n?? astra_realman_harness/tests/test_parallel_history.py\n?? astra_realman_harness/tests/test_parallel_pause_http.py\n?? astra_realman_harness/tests/test_parallel_telemetry.py\n?? astra_realman_harness/tests/test_prompt_documents.py\n?? astra_realman_harness/tests/test_prompt_documents_gui.js\n?? astra_realman_harness/tests/test_prompt_file_selection.js\n?? astra_realman_harness/tests/test_real_calibration_status.py\n?? astra_realman_harness/tests/test_real_hardware_gui.py\n?? astra_realman_harness/tests/test_recovered_transport.py\n",
+        "stderr": ""
+      },
+      "remote": {
+        "returncode": 0,
+        "stdout": "origin\thttps://github.com/chao142857/astra-realman.git (fetch)\norigin\thttps://github.com/chao142857/astra-realman.git (push)\n",
+        "stderr": ""
+      }
+    }
+  },
+  "processes": [
+    {
+      "pid": 26282,
+      "argv": [
+        "/home/tongji/miniconda3/envs/aloha/bin/python",
+        "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/scripts/run_real_chunk_offline.py",
+        "--port",
+        "8886"
+      ],
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness",
+      "device_fds": []
+    },
+    {
+      "pid": 32647,
+      "argv": [
+        "/home/tongji/miniconda3/envs/dp/bin/python",
+        "-u",
+        "-B",
+        "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/scripts/preview_onsite_sequence.py",
+        "--arm",
+        "right",
+        "--sequence",
+        "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/right-wrist-calibration-20261017-session1",
+        "--port",
+        "8771"
+      ],
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness",
+      "device_fds": []
+    },
+    {
+      "pid": 110606,
+      "argv": [
+        "bash",
+        "<arguments omitted>"
+      ],
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/partial-export-1792204820",
+      "device_fds": []
+    },
+    {
+      "pid": 110607,
+      "argv": [
+        "python3",
+        "-m",
+        "http.server",
+        "8890",
+        "--bind",
+        "127.0.0.1"
+      ],
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/partial-export-1792204820",
+      "device_fds": []
+    },
+    {
+      "pid": 1268122,
+      "argv": [
+        "/home/tongji/miniconda3/envs/dp/bin/python",
+        "-I",
+        "-B",
+        "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/scripts/run_astra_gui.py",
+        "--hardware-console",
+        "--three-calibration",
+        "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/config/engineering/three_camera_calibration_20261011.json",
+        "--lock-path",
+        "/tmp/astra-realman-gui-episode.lock",
+        "--port",
+        "8888"
+      ],
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness",
+      "device_fds": [
+        "/dev/video4",
+        "/dev/video5"
+      ]
+    }
+  ],
+  "cameras_sysfs": [
+    {
+      "device": "/dev/video0",
+      "name": "Intel(R) RealSense(TM) Depth Ca",
+      "sysfs": "/sys/devices/pci0000:00/0000:00:14.0/usb2/2-1/2-1:1.0/video4linux/video0"
+    },
+    {
+      "device": "/dev/video1",
+      "name": "Intel(R) RealSense(TM) Depth Ca",
+      "sysfs": "/sys/devices/pci0000:00/0000:00:14.0/usb2/2-1/2-1:1.0/video4linux/video1"
+    },
+    {
+      "device": "/dev/video2",
+      "name": "Intel(R) RealSense(TM) Depth Ca",
+      "sysfs": "/sys/devices/pci0000:00/0000:00:14.0/usb2/2-1/2-1:1.0/video4linux/video2"
+    },
+    {
+      "device": "/dev/video3",
+      "name": "Intel(R) RealSense(TM) Depth Ca",
+      "sysfs": "/sys/devices/pci0000:00/0000:00:14.0/usb2/2-1/2-1:1.0/video4linux/video3"
+    },
+    {
+      "device": "/dev/video4",
+      "name": "Intel(R) RealSense(TM) Depth Ca",
+      "sysfs": "/sys/devices/pci0000:00/0000:00:14.0/usb2/2-1/2-1:1.3/video4linux/video4"
+    },
+    {
+      "device": "/dev/video5",
+      "name": "Intel(R) RealSense(TM) Depth Ca",
+      "sysfs": "/sys/devices/pci0000:00/0000:00:14.0/usb2/2-1/2-1:1.3/video4linux/video5"
+    }
+  ],
+  "python_environments": {
+    "/usr/bin/python3": {
+      "returncode": 0,
+      "stdout": "{\"python\": \"3.8.10 (default, Mar 18 2025, 20:04:55) \\n[GCC 9.4.0]\", \"executable\": \"/usr/bin/python3\", \"packages\": {\"torch\": null, \"numpy\": \"1.17.4\", \"scipy\": null, \"opencv-python\": null, \"pyrealsense2\": null, \"mcp\": null, \"curobo\": null, \"sam3\": null, \"mujoco\": null, \"fastapi\": null, \"uvicorn\": null, \"pydantic\": null}}\n",
+      "stderr": ""
+    },
+    "/home/tongji/miniconda3/bin/python": {
+      "returncode": 0,
+      "stdout": "{\"python\": \"3.13.13 | packaged by conda-forge | (main, Apr  8 2026, 02:00:33) [GCC 14.3.0]\", \"executable\": \"/home/tongji/miniconda3/bin/python\", \"packages\": {\"torch\": \"2.7.1+cu118\", \"numpy\": \"2.5.1\", \"scipy\": \"1.18.0\", \"opencv-python\": \"5.0.0.93\", \"pyrealsense2\": null, \"mcp\": null, \"curobo\": null, \"sam3\": null, \"mujoco\": null, \"fastapi\": null, \"uvicorn\": null, \"pydantic\": \"2.13.2\"}}\n",
+      "stderr": ""
+    },
+    "/home/tongji/miniconda3/envs/dp/bin/python": {
+      "returncode": 0,
+      "stdout": "{\"python\": \"3.9.18 | packaged by conda-forge | (main, Aug 30 2023, 03:49:32) \\n[GCC 12.3.0]\", \"executable\": \"/home/tongji/miniconda3/envs/dp/bin/python\", \"packages\": {\"torch\": \"2.1.0+cu121\", \"numpy\": \"1.24.4\", \"scipy\": \"1.13.1\", \"opencv-python\": \"4.6.0\", \"pyrealsense2\": \"2.56.5.9235\", \"mcp\": null, \"curobo\": null, \"sam3\": null, \"mujoco\": null, \"fastapi\": null, \"uvicorn\": null, \"pydantic\": \"2.13.4\"}}\n",
+      "stderr": ""
+    },
+    "/home/tongji/miniconda3/envs/xr_pico/bin/python": {
+      "returncode": 0,
+      "stdout": "{\"python\": \"3.10.19 (main, Jun 17 2026, 19:53:31) [GCC 14.3.0]\", \"executable\": \"/home/tongji/miniconda3/envs/xr_pico/bin/python\", \"packages\": {\"torch\": \"2.12.1\", \"numpy\": \"2.2.6\", \"scipy\": \"1.15.3\", \"opencv-python\": null, \"pyrealsense2\": \"2.58.2.10647\", \"mcp\": null, \"curobo\": null, \"sam3\": null, \"mujoco\": \"3.10.0\", \"fastapi\": null, \"uvicorn\": null, \"pydantic\": null}}\n",
+      "stderr": ""
+    },
+    "/home/tongji/miniconda3/envs/aloha/bin/python": {
+      "returncode": 0,
+      "stdout": "{\"python\": \"3.9.18 | packaged by conda-forge | (main, Aug 30 2023, 03:49:32) \\n[GCC 12.3.0]\", \"executable\": \"/home/tongji/miniconda3/envs/aloha/bin/python\", \"packages\": {\"torch\": null, \"numpy\": \"1.24.4\", \"scipy\": \"1.9.1\", \"opencv-python\": \"4.6.0\", \"pyrealsense2\": \"2.56.5.9235\", \"mcp\": null, \"curobo\": null, \"sam3\": null, \"mujoco\": null, \"fastapi\": null, \"uvicorn\": null, \"pydantic\": null}}\n",
+      "stderr": ""
+    },
+    "/home/tongji/miniconda3/envs/lerobot/bin/python": {
+      "returncode": 0,
+      "stdout": "{\"python\": \"3.12.13 | packaged by conda-forge | (main, Mar  5 2026, 16:50:00) [GCC 14.3.0]\", \"executable\": \"/home/tongji/miniconda3/envs/lerobot/bin/python\", \"packages\": {\"torch\": \"2.7.1+cu118\", \"numpy\": \"2.2.6\", \"scipy\": \"1.18.0\", \"opencv-python\": null, \"pyrealsense2\": \"2.56.5.9235\", \"mcp\": null, \"curobo\": null, \"sam3\": null, \"mujoco\": null, \"fastapi\": null, \"uvicorn\": null, \"pydantic\": \"2.13.4\"}}\n",
+      "stderr": ""
+    }
+  },
+  "usb_camera_devices": [
+    {
+      "idVendor": "8086",
+      "idProduct": "0b07",
+      "serial": "027223021284",
+      "product": "Intel(R) RealSense(TM) Depth Camera 435"
+    }
+  ],
+  "gpu": {
+    "returncode": 0,
+    "stdout": "name, driver_version, memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 3060, 535.230.02, 12288 MiB, 451 MiB\n",
+    "stderr": ""
+  },
+  "cuda": {
+    "returncode": 0,
+    "stdout": "Tue Oct 20 00:01:04 2026       \n+---------------------------------------------------------------------------------------+\n| NVIDIA-SMI 535.230.02             Driver Version: 535.230.02   CUDA Version: 12.2     |\n|-----------------------------------------+----------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |\n|                                         |                      |               MIG M. |\n|=========================================+======================+======================|\n|   0  NVIDIA GeForce RTX 3060        Off | 00000000:01:00.0 Off |                  N/A |\n| 33%   29C    P8              13W / 170W |    451MiB / 12288MiB |      3%      Default |\n|                                         |                      |                  N/A |\n+-----------------------------------------+----------------------+----------------------+\n                                                                                         \n+---------------------------------------------------------------------------------------+\n| Processes:                                                                            |\n|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |\n|        ID   ID                                                             Usage      |\n|=======================================================================================|\n|    0   N/A  N/A      1776      G   /usr/lib/xorg/Xorg                           35MiB |\n|    0   N/A  N/A     20160      G   /usr/lib/xorg/Xorg                          156MiB |\n|    0   N/A  N/A     20414      G   /usr/bin/gnome-shell                         19MiB |\n|    0   N/A  N/A    458401      G   ...gnu/webkit2gtk-4.0/WebKitWebProcess       21MiB |\n|    0   N/A  N/A   1268249      G   /usr/lib/firefox/firefox                    198MiB |\n+---------------------------------------------------------------------------------------+\n",
+    "stderr": ""
+  },
+  "listeners": {
+    "returncode": 0,
+    "stdout": "State  Recv-Q Send-Q                          Local Address:Port   Peer Address:Port                 Process                                                    \nLISTEN 0      4096                                127.0.0.1:7897        0.0.0.0:*                     users:((\"verge-mihomo\",pid=458416,fd=7))                  \nLISTEN 0      128                                 127.0.0.1:33331       0.0.0.0:*                     users:((\"clash-verge\",pid=458303,fd=20))                  \nLISTEN 0      5                                   127.0.0.1:631         0.0.0.0:*                                                                               \nLISTEN 0      128                                   0.0.0.0:22          0.0.0.0:*                                                                               \nLISTEN 0      4096                            127.0.0.53%lo:53          0.0.0.0:*                                                                               \nLISTEN 0      4096                                127.0.0.1:46437       0.0.0.0:*                                                                               \nLISTEN 0      5                                   127.0.0.1:8771        0.0.0.0:*                     users:((\"python\",pid=32647,fd=4))                         \nLISTEN 0      5                                   127.0.0.1:8886        0.0.0.0:*                     users:((\"python\",pid=26282,fd=4))                         \nLISTEN 0      5                                   127.0.0.1:8888        0.0.0.0:*                     users:((\"python\",pid=1268122,fd=4))                       \nLISTEN 0      5                                   127.0.0.1:8890        0.0.0.0:*                     users:((\"python3\",pid=110607,fd=3))                       \nLISTEN 0      4096                                127.0.0.1:9097        0.0.0.0:*                     users:((\"verge-mihomo\",pid=458416,fd=3))                  \nLISTEN 0      4096                  100.69.48.93%tailscale0:36227       0.0.0.0:*                                                                               \nLISTEN 0      128                                         *:21118             *:*                     users:((\"rustdesk\",pid=2902740,fd=34))                    \nLISTEN 0      4096   [fd7a:115c:a1e0::943b:305e]%tailscale0:39267          [::]:*                                                                               \nLISTEN 0      128                                      [::]:22             [::]:*                                                                               \nLISTEN 0      5                                       [::1]:631            [::]:*                                                                               \n",
+    "stderr": ""
+  },
+  "video_owners": {
+    "returncode": 0,
+    "stdout": " 1268122 1268122",
+    "stderr": "/dev/video5:        \n/dev/video4:        \n"
+  },
+  "cuda_toolkits": [
+    "/usr/local/cuda-12.1",
+    "/usr/local/cuda",
+    "/usr/local/cuda-12"
+  ],
+  "source_fingerprints": [
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/realman_api2_readonly.py",
+      "bytes": 11515,
+      "sha256": "b690a92982b0a111f60b193ad34b67ccc60ea26ebe31eb88f59d663fc9e0aef7"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/arm_stack.py",
+      "bytes": 9759,
+      "sha256": "35c8100018fd3075c6426b0e74bd9f348284dc1d4f900d34d37c24b1ed4bcaa5"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/arm_worker.py",
+      "bytes": 5300,
+      "sha256": "ca281f500131ac35b7f6f849e3ee8a6cbf9ff35b6e5fea4bf9b015ac4e1da335"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/left_executor.py",
+      "bytes": 6850,
+      "sha256": "1f1dc24603f02993d8f580e9573d4f7c1b14a9e2f5ae503fbff978da19f46f06"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/lab_gripper_adapter.py",
+      "bytes": 4064,
+      "sha256": "07d88e61f4e1d7040cbc282569ed449e8a2213fedd46217f3e3ce7c653674f50"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/onsite_sequence.py",
+      "bytes": 12006,
+      "sha256": "de127a23e25f4c8f752f1d52f444ae195a65c7a55a3e79670996fadfc8a85e1e"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/config/lab.json",
+      "bytes": 4055,
+      "sha256": "2a1be983f59b91a172e0d09116b31e4622ed41efe5439aff0b7fb2613d3cf0fe"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/scripts/capture_onsite_rgbd.py",
+      "bytes": 9784,
+      "sha256": "ab8ad3174a68ec8843d7ae256f6b6109746dd8b03582ed6f48afeecff1f6849a"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/scripts/record_onsite_sequence.py",
+      "bytes": 13133,
+      "sha256": "948f6123643cf49f96a53152b94ad66b579b72687dcbf03ef74e23aab6da1951"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/realman_api2_readonly.py",
+      "bytes": 11515,
+      "sha256": "b690a92982b0a111f60b193ad34b67ccc60ea26ebe31eb88f59d663fc9e0aef7"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/arm_stack.py",
+      "bytes": 9875,
+      "sha256": "b1206688f9de53fdbdb6a2eb75fc0f53fe6ea7e52e0dcedadec3fa46748415f9"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/arm_worker.py",
+      "bytes": 5774,
+      "sha256": "d7c06bef3bb1cdf2edce531b129f986ae35aa2709992cfb3f20185bdc8aae716"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/left_executor.py",
+      "bytes": 7581,
+      "sha256": "a161bc8de918feb349ddaa4e4795127723c4a1d5b25c5daa61b2485db969a78f"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/lab_gripper_adapter.py",
+      "bytes": 4064,
+      "sha256": "07d88e61f4e1d7040cbc282569ed449e8a2213fedd46217f3e3ce7c653674f50"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/gripper_telemetry.py",
+      "bytes": 1090,
+      "sha256": "3c7a4d2e1f5574ad3a42c2bf8bfcfa8ae28426dd8b9d4fd23b51f9c6074f3ddd"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/onsite_sequence.py",
+      "bytes": 12343,
+      "sha256": "0afe85c1553493401ed72fd36b0b1a76946a632046436ff1804f4bd4f3571721"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/real_calibration_status.py",
+      "bytes": 1879,
+      "sha256": "04789cd66c31807d0ee84afcc11227f248a37165e9f2ebeeb2f990e7c1a34109"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/config/lab.json",
+      "bytes": 4055,
+      "sha256": "2a1be983f59b91a172e0d09116b31e4622ed41efe5439aff0b7fb2613d3cf0fe"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/scripts/capture_onsite_rgbd.py",
+      "bytes": 9784,
+      "sha256": "ab8ad3174a68ec8843d7ae256f6b6109746dd8b03582ed6f48afeecff1f6849a"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/scripts/record_onsite_sequence.py",
+      "bytes": 13473,
+      "sha256": "38411b58f8c76eaace965a9bc63c4696b0d0382c3e93c8db270f6d3038423073"
+    }
+  ],
+  "calibration_files": [
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/config/engineering/three_camera_calibration_20261011.json",
+      "bytes": 12322,
+      "sha256": "820ea57e341733561768d3a181a4290b71891b358b921fc4de7a68916d5b5264"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/config/engineering/three_camera_mount_confirmation_20261011.json",
+      "bytes": 807,
+      "sha256": "85c5177bf620b3465d93199884672f9c42b87c66783e2054af686e78acd8cdcf"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/config/engineering/layouts_v1.json",
+      "bytes": 822,
+      "sha256": "9fc793df16886f31911212082443a9314f1e73d839f5a9555e517d71a5298abc"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/config/engineering/realman_readonly_template.json",
+      "bytes": 800,
+      "sha256": "511469a968251b3cf978b9aa5cd5051631c0bf51404bbdc31faaa6ad251b68fe"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/config/engineering/onsite_board_dfvision_image_verified_20261011.json",
+      "bytes": 948,
+      "sha256": "cbafa2439791c779645f638a39a9acff426cc2f9fe60fcc2a0a8024e3cb7d37d"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/config/engineering/onsite_board_dfvision_q12_200_15.json",
+      "bytes": 836,
+      "sha256": "ba62bfa88710a4d3bb2f4a8b2b07d8ce0d62ebd0de0f088b01bfa3fce2a39fcd"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/config/engineering/onsite_board_20261011.json",
+      "bytes": 316,
+      "sha256": "925019e5da62e802d81212da652a7d932ff70da5a0e33a3d358e0616a64c445c"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/logs/calibration_handoff_1011.json",
+      "bytes": 11608,
+      "sha256": "d43c177e2a14ba84b40acac174b544da5dda03fd3a07871fa68068c273ae3767"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/logs/controller_geometry_readback_20261011.json",
+      "bytes": 43568,
+      "sha256": "8352315fb9d6aa82b1aeffb45fe0116452f88805b6506e4988c4ba4b33eaf058"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/logs/wrist_handeye_candidate_20261011.json",
+      "bytes": 32791,
+      "sha256": "d717b313e7dff23bf6297b1cecec0fced3c655d11f217550dea5fac7b1073ef3"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/logs/overhead_extrinsic_validation_20261011.json",
+      "bytes": 15050,
+      "sha256": "47643c8a2c31aa231b70aa8ea283a0eae52241b345383779f950ccba298ea890"
+    },
+    {
+      "path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/logs/tabletop_pair_calibration_20261011-session2.json",
+      "bytes": 13794,
+      "sha256": "ca58dd738fda61c6565f6bbc199e6e7134d7b69012e7d0fc99131fe25141cf82"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/config/engineering/layouts_v1.json",
+      "bytes": 822,
+      "sha256": "9fc793df16886f31911212082443a9314f1e73d839f5a9555e517d71a5298abc"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/config/engineering/right_wrist_calibration_20261017.json",
+      "bytes": 11127,
+      "sha256": "bdbd490b6aad8bfd2a42fdd0f6215df4c5820ed2aee928da546b74b63405aad9"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/config/engineering/realman_readonly_template.json",
+      "bytes": 800,
+      "sha256": "511469a968251b3cf978b9aa5cd5051631c0bf51404bbdc31faaa6ad251b68fe"
+    },
+    {
+      "path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/config/engineering/onsite_board_dfvision_image_verified_20261011.json",
+      "bytes": 948,
+      "sha256": "cbafa2439791c779645f638a39a9acff426cc2f9fe60fcc2a0a8024e3cb7d37d"
+    }
+  ],
+  "sdk_candidates": []
+}

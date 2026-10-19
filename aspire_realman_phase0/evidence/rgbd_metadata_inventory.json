@@ -1,0 +1,357 @@
+{
+  "source_path": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/logs/onsite-sequence-20261011T091810Z-b9a1cecf/observations/000003/observation.json",
+  "sha256": "329c8623424d4ab62e7ac57e6cda1ebd4410ebf7c9d7a747ab3c7aec9645622d",
+  "schema": "astra.onsite.observation.rgbd.v1",
+  "exposure_synchronization": "UNKNOWN; host read completion span is not exposure skew",
+  "pixel_arrays_copied": false,
+  "depth": [
+    {
+      "camera": "wrist",
+      "serial": "254522073676",
+      "color_intrinsics": {
+        "matrix": [
+          [
+            605.02587890625,
+            0,
+            326.8487243652344
+          ],
+          [
+            0,
+            604.9320678710938,
+            255.3502197265625
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "distortion_model": "distortion.inverse_brown_conrady",
+        "distortion_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "aligned_depth_intrinsics": {
+        "matrix": [
+          [
+            605.02587890625,
+            0,
+            326.8487243652344
+          ],
+          [
+            0,
+            604.9320678710938,
+            255.3502197265625
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "distortion_model": "distortion.inverse_brown_conrady",
+        "distortion_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "captured_monotonic": 89774.16778881,
+      "captured_at": 1791710293.5482051,
+      "capture_interval_monotonic": [
+        89774.141035637,
+        89774.16778881
+      ],
+      "host_wall_read_interval": [
+        1791710293.521452,
+        1791710293.5482051
+      ],
+      "color_timestamp_ms": 1791710293515.9495,
+      "depth_timestamp_ms": 1791710293513.4602,
+      "color_timestamp_domain": "timestamp_domain.global_time",
+      "depth_timestamp_domain": "timestamp_domain.global_time",
+      "color_frame_number": 62,
+      "depth_frame_number": 35,
+      "raw_frame_metadata": {
+        "color": {
+          "raw_values": {
+            "frame_timestamp": 1252652223,
+            "backend_timestamp": 1791710293511,
+            "time_of_arrival": 1791710293542
+          },
+          "units": "SDK field-specific raw units; not cross-device synchronization evidence"
+        },
+        "depth": {
+          "raw_values": {
+            "frame_timestamp": 1252649707,
+            "backend_timestamp": 1791710293509,
+            "time_of_arrival": 1791710293516
+          },
+          "units": "SDK field-specific raw units; not cross-device synchronization evidence"
+        }
+      },
+      "depth_scale_m_per_z16": 0.0010000000474974513,
+      "depth_path": "wrist-depth-m.npy",
+      "depth_sha256": "c06f135a391584148922b9a4f30cd5aade374148753687a5dcd353b0f87b55e3",
+      "raw_z16_path": "wrist-z16.npy",
+      "raw_z16_sha256": "01a98650ed160c10490bc19272f596f1470d16b1c8b2b61484417e83058e22b4",
+      "validity_path": "wrist-valid.png",
+      "validity_sha256": "b2f1615cdb0e7373cb437eb1928903d78280cea7105f2cfe77f63a206a6a7038",
+      "unit": "m",
+      "dtype": "float32",
+      "depth_convention": "opencv_optical_z",
+      "validity_policy": "positive raw Z16 excluding untrusted storage ceiling 65535; no accuracy/confidence claim",
+      "raw_storage_ceiling_pixels": 0,
+      "alignment": "lab driver rs.align(color); no World transform",
+      "valid_fraction": 0.8035904947916667
+    },
+    {
+      "camera": "fixed",
+      "serial": "346222072496",
+      "color_intrinsics": {
+        "matrix": [
+          [
+            603.4666137695312,
+            0,
+            324.2921142578125
+          ],
+          [
+            0,
+            604.0645141601562,
+            259.0480041503906
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "distortion_model": "distortion.inverse_brown_conrady",
+        "distortion_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "aligned_depth_intrinsics": {
+        "matrix": [
+          [
+            603.4666137695312,
+            0,
+            324.2921142578125
+          ],
+          [
+            0,
+            604.0645141601562,
+            259.0480041503906
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "distortion_model": "distortion.inverse_brown_conrady",
+        "distortion_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "captured_monotonic": 89774.165834625,
+      "captured_at": 1791710293.5462508,
+      "capture_interval_monotonic": [
+        89774.140670524,
+        89774.165834625
+      ],
+      "host_wall_read_interval": [
+        1791710293.5210867,
+        1791710293.5462508
+      ],
+      "color_timestamp_ms": 1791710293505.931,
+      "depth_timestamp_ms": 1791710293503.4507,
+      "color_timestamp_domain": "timestamp_domain.global_time",
+      "depth_timestamp_domain": "timestamp_domain.global_time",
+      "color_frame_number": 60,
+      "depth_frame_number": 34,
+      "raw_frame_metadata": {
+        "color": {
+          "raw_values": {
+            "frame_timestamp": 3639255629,
+            "backend_timestamp": 1791710293506,
+            "time_of_arrival": 1791710293537
+          },
+          "units": "SDK field-specific raw units; not cross-device synchronization evidence"
+        },
+        "depth": {
+          "raw_values": {
+            "frame_timestamp": 3639253123,
+            "backend_timestamp": 1791710293504,
+            "time_of_arrival": 1791710293511
+          },
+          "units": "SDK field-specific raw units; not cross-device synchronization evidence"
+        }
+      },
+      "depth_scale_m_per_z16": 0.0010000000474974513,
+      "depth_path": "fixed-depth-m.npy",
+      "depth_sha256": "66521701ec7957b206ec4a53a36a3d4d5e691fa0eecccdbe5bd250a93258533a",
+      "raw_z16_path": "fixed-z16.npy",
+      "raw_z16_sha256": "eb9a41e93c1860565b95d271a4e3f2de3b24cff54558398f4367a9cb24c7bd73",
+      "validity_path": "fixed-valid.png",
+      "validity_sha256": "5ef9142bf78788d92f0c7ed0e41d3ed2b55a38342aba4c3b2430e9da1ef0e4b6",
+      "unit": "m",
+      "dtype": "float32",
+      "depth_convention": "opencv_optical_z",
+      "validity_policy": "positive raw Z16 excluding untrusted storage ceiling 65535; no accuracy/confidence claim",
+      "raw_storage_ceiling_pixels": 0,
+      "alignment": "lab driver rs.align(color); no World transform",
+      "valid_fraction": 0.46752604166666667
+    },
+    {
+      "camera": "assembly",
+      "serial": "344422071480",
+      "color_intrinsics": {
+        "matrix": [
+          [
+            603.3287353515625,
+            0,
+            325.5810241699219
+          ],
+          [
+            0,
+            602.867919921875,
+            244.9207000732422
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "distortion_model": "distortion.inverse_brown_conrady",
+        "distortion_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "aligned_depth_intrinsics": {
+        "matrix": [
+          [
+            603.3287353515625,
+            0,
+            325.5810241699219
+          ],
+          [
+            0,
+            602.867919921875,
+            244.9207000732422
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "resolution": [
+          640,
+          480
+        ],
+        "distortion_model": "distortion.inverse_brown_conrady",
+        "distortion_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "captured_monotonic": 89774.179368402,
+      "captured_at": 1791710293.559785,
+      "capture_interval_monotonic": [
+        89774.151053063,
+        89774.179368402
+      ],
+      "host_wall_read_interval": [
+        1791710293.5314693,
+        1791710293.559785
+      ],
+      "color_timestamp_ms": 1791710293526.3335,
+      "depth_timestamp_ms": 1791710293523.6406,
+      "color_timestamp_domain": "timestamp_domain.global_time",
+      "depth_timestamp_domain": "timestamp_domain.global_time",
+      "color_frame_number": 58,
+      "depth_frame_number": 33,
+      "raw_frame_metadata": {
+        "color": {
+          "raw_values": {
+            "frame_timestamp": 1262237525,
+            "backend_timestamp": 1791710293523,
+            "time_of_arrival": 1791710293554
+          },
+          "units": "SDK field-specific raw units; not cross-device synchronization evidence"
+        },
+        "depth": {
+          "raw_values": {
+            "frame_timestamp": 1262234773,
+            "backend_timestamp": 1791710293519,
+            "time_of_arrival": 1791710293527
+          },
+          "units": "SDK field-specific raw units; not cross-device synchronization evidence"
+        }
+      },
+      "depth_scale_m_per_z16": 0.0010000000474974513,
+      "depth_path": "assembly-depth-m.npy",
+      "depth_sha256": "526d6750827b0999ab6ba334964a1f2d9945838aed2f3237702482d29522b9ef",
+      "raw_z16_path": "assembly-z16.npy",
+      "raw_z16_sha256": "d802936733ef85c33b02fd39d9695eb349666b63af6a859ef34318c41d0bb9d3",
+      "validity_path": "assembly-valid.png",
+      "validity_sha256": "e5ea2e5bf9130d1453736dc29987cd6eb2b22a77201550c4ec3f1865d0557ae2",
+      "unit": "m",
+      "dtype": "float32",
+      "depth_convention": "opencv_optical_z",
+      "validity_policy": "positive raw Z16 excluding untrusted storage ceiling 65535; no accuracy/confidence claim",
+      "raw_storage_ceiling_pixels": 0,
+      "alignment": "lab driver rs.align(color); no World transform",
+      "valid_fraction": 0.9034440104166667
+    }
+  ],
+  "state_fields": [
+    "canonical_states",
+    "actual_grasp_center_world",
+    "flange_pose_world"
+  ],
+  "source": "REAL_RGBD_AND_REALMAN_READ_ONLY"
+}
