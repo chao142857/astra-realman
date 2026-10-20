@@ -1,0 +1,1229 @@
+{
+  "status": "FIXED_REGION_CROSS_OBSERVATION_CHECK_NOT_TARGET_OR_INDEPENDENT_SCENE_VALIDATION",
+  "fixed_parameters": {
+    "xyz_radius_m": [
+      0.005,
+      0.01,
+      0.02
+    ],
+    "sor_k": 16,
+    "sor_std": [
+      1,
+      2,
+      3
+    ],
+    "sor_ddof": 0
+  },
+  "selection": "none; original per-frame target masks absent; final Mask is ONLY fixed image support",
+  "source_hashes_unchanged": true,
+  "sam3_calls": 0,
+  "hardware_connections": 0,
+  "world_pose": null,
+  "accuracy_qualified": false,
+  "full_report": {
+    "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/cross-observations-fixed-01/cross-observation.json",
+    "sha256": "4e472e8bc1882b4d28266adb2b885a418c250c33c92006129b07ccf0d7d96d3e",
+    "bytes": 718521
+  },
+  "inventory": [
+    {
+      "snapshot": {
+        "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/first/snapshot.json",
+        "bytes": 3039,
+        "sha256": "f84a93b749d4ee1622cdea54fb45e789e919e9f3d58366ddd0ae0559d13a9a60"
+      },
+      "rgb_sha256": "570f1501bcff04ef0d15ff2f9ee22733450b62f368e574942496161565544f50",
+      "depth_sha256": "1aee8a99cd603333e4ca4f2dfbc70eef12ee8f0199cbe9b59eae1349635a1017",
+      "color_frame_number": 9,
+      "depth_frame_number": 8,
+      "host_receipt_epoch_s": 1792458598.0122316,
+      "role": "tabletop",
+      "serial": "346222072496",
+      "independent_scene_verified": false,
+      "matching_per_observation_target_mask_available": false,
+      "support_mask_sha256": "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81",
+      "valid_region_points": 3491,
+      "support_pixels": 6817,
+      "valid_region_fraction": 0.5121020976969342,
+      "region_pixel_bounds_xyxy": [
+        84,
+        244,
+        261,
+        290
+      ],
+      "region_depth": {
+        "count": 3491,
+        "percentile_levels": [
+          0,
+          1,
+          5,
+          25,
+          50,
+          75,
+          95,
+          99,
+          100
+        ],
+        "percentiles_m": [
+          0.44700002670288086,
+          0.453000009059906,
+          0.4610000252723694,
+          0.4780000150203705,
+          0.49900001287460327,
+          0.5080000162124634,
+          1.9510000944137573,
+          1.963600063323974,
+          1.9940000772476196
+        ],
+        "largest_adjacent_gaps_m": [
+          {
+            "lower_m": 0.51500004529953,
+            "upper_m": 1.8860000371932983,
+            "gap_m": 1.3709999918937683
+          },
+          {
+            "lower_m": 1.9750001430511475,
+            "upper_m": 1.9820001125335693,
+            "gap_m": 0.006999969482421875
+          },
+          {
+            "lower_m": 1.8860000371932983,
+            "upper_m": 1.8920000791549683,
+            "gap_m": 0.006000041961669922
+          },
+          {
+            "lower_m": 1.8970000743865967,
+            "upper_m": 1.9030001163482666,
+            "gap_m": 0.006000041961669922
+          },
+          {
+            "lower_m": 1.909000039100647,
+            "upper_m": 1.915000081062317,
+            "gap_m": 0.006000041961669922
+          }
+        ]
+      },
+      "elapsed_ms": 468.4447729960084,
+      "methods": [
+        {
+          "method": "xyz_cc_5mm",
+          "retained": 3491,
+          "excluded": 0,
+          "candidate_count": 65,
+          "obb_failures": 61
+        },
+        {
+          "method": "xyz_cc_10mm",
+          "retained": 3491,
+          "excluded": 0,
+          "candidate_count": 6,
+          "obb_failures": 3
+        },
+        {
+          "method": "xyz_cc_20mm",
+          "retained": 3491,
+          "excluded": 0,
+          "candidate_count": 3,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std1",
+          "retained": 2840,
+          "excluded": 651,
+          "candidate_count": 1,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std2",
+          "retained": 3363,
+          "excluded": 128,
+          "candidate_count": 1,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std3",
+          "retained": 3461,
+          "excluded": 30,
+          "candidate_count": 1,
+          "obb_failures": 0
+        }
+      ]
+    },
+    {
+      "snapshot": {
+        "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+        "bytes": 3039,
+        "sha256": "efc847e81402cbaf61018e14e42b1484f51d566da089821bae6a8561caafa479"
+      },
+      "rgb_sha256": "c2ccf81636335f706a417884da866404bd3275bc51b2bae8b307511c650cd253",
+      "depth_sha256": "e16fbdb5c9bd5489876447b3ad386931579bc0863497f2db4eb2d97fad4e0521",
+      "color_frame_number": 172,
+      "depth_frame_number": 90,
+      "host_receipt_epoch_s": 1792458603.448735,
+      "role": "tabletop",
+      "serial": "346222072496",
+      "independent_scene_verified": false,
+      "matching_per_observation_target_mask_available": false,
+      "support_mask_sha256": "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81",
+      "valid_region_points": 4623,
+      "support_pixels": 6817,
+      "valid_region_fraction": 0.6781575473082001,
+      "region_pixel_bounds_xyxy": [
+        82,
+        244,
+        261,
+        290
+      ],
+      "region_depth": {
+        "count": 4623,
+        "percentile_levels": [
+          0,
+          1,
+          5,
+          25,
+          50,
+          75,
+          95,
+          99,
+          100
+        ],
+        "percentiles_m": [
+          0.44300001859664917,
+          0.445000022649765,
+          0.45500001311302185,
+          0.4690000116825104,
+          0.4880000352859497,
+          0.5040000081062317,
+          0.5110000371932983,
+          1.933000087738037,
+          1.939000129699707
+        ],
+        "largest_adjacent_gaps_m": [
+          {
+            "lower_m": 0.51500004529953,
+            "upper_m": 1.933000087738037,
+            "gap_m": 1.418000042438507
+          },
+          {
+            "lower_m": 1.933000087738037,
+            "upper_m": 1.939000129699707,
+            "gap_m": 0.006000041961669922
+          },
+          {
+            "lower_m": 0.5,
+            "upper_m": 0.5010000467300415,
+            "gap_m": 0.001000046730041504
+          },
+          {
+            "lower_m": 0.5049999952316284,
+            "upper_m": 0.5060000419616699,
+            "gap_m": 0.001000046730041504
+          },
+          {
+            "lower_m": 0.5090000033378601,
+            "upper_m": 0.5100000500679016,
+            "gap_m": 0.001000046730041504
+          }
+        ]
+      },
+      "elapsed_ms": 775.1986449584365,
+      "methods": [
+        {
+          "method": "xyz_cc_5mm",
+          "retained": 4623,
+          "excluded": 0,
+          "candidate_count": 5,
+          "obb_failures": 4
+        },
+        {
+          "method": "xyz_cc_10mm",
+          "retained": 4623,
+          "excluded": 0,
+          "candidate_count": 4,
+          "obb_failures": 2
+        },
+        {
+          "method": "xyz_cc_20mm",
+          "retained": 4623,
+          "excluded": 0,
+          "candidate_count": 4,
+          "obb_failures": 2
+        },
+        {
+          "method": "sor_k16_std1",
+          "retained": 4558,
+          "excluded": 65,
+          "candidate_count": 1,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std2",
+          "retained": 4572,
+          "excluded": 51,
+          "candidate_count": 1,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std3",
+          "retained": 4572,
+          "excluded": 51,
+          "candidate_count": 1,
+          "obb_failures": 0
+        }
+      ]
+    },
+    {
+      "snapshot": {
+        "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+        "bytes": 3039,
+        "sha256": "3a4e295e07eac682f3b7685e2e3b8bd492821db8dfea2d4b7ca28051a8ed2642"
+      },
+      "rgb_sha256": "56372bf77a26fe9b6b63c8a1bbca4fce250dcc1f4b3c58013457e4e2aff9596b",
+      "depth_sha256": "87ba0979f9425ef32b8fe03bb08fdbb0ad7347933041b11296be7f49b29784fe",
+      "color_frame_number": 9,
+      "depth_frame_number": 8,
+      "host_receipt_epoch_s": 1792458699.0941634,
+      "role": "tabletop",
+      "serial": "346222072496",
+      "independent_scene_verified": false,
+      "matching_per_observation_target_mask_available": false,
+      "support_mask_sha256": "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81",
+      "valid_region_points": 3479,
+      "support_pixels": 6817,
+      "valid_region_fraction": 0.5103417925773801,
+      "region_pixel_bounds_xyxy": [
+        84,
+        244,
+        261,
+        290
+      ],
+      "region_depth": {
+        "count": 3479,
+        "percentile_levels": [
+          0,
+          1,
+          5,
+          25,
+          50,
+          75,
+          95,
+          99,
+          100
+        ],
+        "percentiles_m": [
+          0.44700002670288086,
+          0.4520000219345093,
+          0.46000000834465027,
+          0.4750000238418579,
+          0.4960000216960907,
+          0.5070000290870667,
+          1.9630000591278076,
+          1.9893200445175159,
+          2.007000207901001
+        ],
+        "largest_adjacent_gaps_m": [
+          {
+            "lower_m": 0.5139999985694885,
+            "upper_m": 1.8970000743865967,
+            "gap_m": 1.3830000758171082
+          },
+          {
+            "lower_m": 1.9940000772476196,
+            "upper_m": 2.001000165939331,
+            "gap_m": 0.007000088691711426
+          },
+          {
+            "lower_m": 1.9750001430511475,
+            "upper_m": 1.9820001125335693,
+            "gap_m": 0.006999969482421875
+          },
+          {
+            "lower_m": 1.8970000743865967,
+            "upper_m": 1.9030001163482666,
+            "gap_m": 0.006000041961669922
+          },
+          {
+            "lower_m": 1.909000039100647,
+            "upper_m": 1.915000081062317,
+            "gap_m": 0.006000041961669922
+          }
+        ]
+      },
+      "elapsed_ms": 440.56819600518793,
+      "methods": [
+        {
+          "method": "xyz_cc_5mm",
+          "retained": 3479,
+          "excluded": 0,
+          "candidate_count": 82,
+          "obb_failures": 80
+        },
+        {
+          "method": "xyz_cc_10mm",
+          "retained": 3479,
+          "excluded": 0,
+          "candidate_count": 10,
+          "obb_failures": 7
+        },
+        {
+          "method": "xyz_cc_20mm",
+          "retained": 3479,
+          "excluded": 0,
+          "candidate_count": 3,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std1",
+          "retained": 2936,
+          "excluded": 543,
+          "candidate_count": 1,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std2",
+          "retained": 3403,
+          "excluded": 76,
+          "candidate_count": 1,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std3",
+          "retained": 3464,
+          "excluded": 15,
+          "candidate_count": 1,
+          "obb_failures": 0
+        }
+      ]
+    },
+    {
+      "snapshot": {
+        "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+        "bytes": 3038,
+        "sha256": "65359897dfe0097e73b31460311dafedf08c73c897de8b3a868fe64dad14e20e"
+      },
+      "rgb_sha256": "c43d87bee611e24cb6ca5d37c08d4c6acbe4e2e44c9021b95ba5e23d5bbf2b80",
+      "depth_sha256": "eeffdde3cb5804868d67ed4da7aa1bd01f08f4c68243408f48cecf671a4826dc",
+      "color_frame_number": 172,
+      "depth_frame_number": 90,
+      "host_receipt_epoch_s": 1792458704.5314693,
+      "role": "tabletop",
+      "serial": "346222072496",
+      "independent_scene_verified": false,
+      "matching_per_observation_target_mask_available": false,
+      "support_mask_sha256": "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81",
+      "valid_region_points": 4848,
+      "support_pixels": 6817,
+      "valid_region_fraction": 0.7111632682998387,
+      "region_pixel_bounds_xyxy": [
+        82,
+        244,
+        261,
+        290
+      ],
+      "region_depth": {
+        "count": 4848,
+        "percentile_levels": [
+          0,
+          1,
+          5,
+          25,
+          50,
+          75,
+          95,
+          99,
+          100
+        ],
+        "percentiles_m": [
+          0.44200003147125244,
+          0.4440000355243683,
+          0.45600003004074097,
+          0.46800002455711365,
+          0.492000013589859,
+          0.5040000081062317,
+          1.933000087738037,
+          1.9450000524520874,
+          1.9510000944137573
+        ],
+        "largest_adjacent_gaps_m": [
+          {
+            "lower_m": 0.5139999985694885,
+            "upper_m": 1.9210001230239868,
+            "gap_m": 1.4070001244544983
+          },
+          {
+            "lower_m": 1.9270000457763672,
+            "upper_m": 1.933000087738037,
+            "gap_m": 0.006000041961669922
+          },
+          {
+            "lower_m": 1.933000087738037,
+            "upper_m": 1.939000129699707,
+            "gap_m": 0.006000041961669922
+          },
+          {
+            "lower_m": 1.9450000524520874,
+            "upper_m": 1.9510000944137573,
+            "gap_m": 0.006000041961669922
+          },
+          {
+            "lower_m": 1.9210001230239868,
+            "upper_m": 1.9270000457763672,
+            "gap_m": 0.005999922752380371
+          }
+        ]
+      },
+      "elapsed_ms": 915.1879900018685,
+      "methods": [
+        {
+          "method": "xyz_cc_5mm",
+          "retained": 4848,
+          "excluded": 0,
+          "candidate_count": 18,
+          "obb_failures": 17
+        },
+        {
+          "method": "xyz_cc_10mm",
+          "retained": 4848,
+          "excluded": 0,
+          "candidate_count": 3,
+          "obb_failures": 1
+        },
+        {
+          "method": "xyz_cc_20mm",
+          "retained": 4848,
+          "excluded": 0,
+          "candidate_count": 3,
+          "obb_failures": 1
+        },
+        {
+          "method": "sor_k16_std1",
+          "retained": 4559,
+          "excluded": 289,
+          "candidate_count": 1,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std2",
+          "retained": 4606,
+          "excluded": 242,
+          "candidate_count": 1,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std3",
+          "retained": 4771,
+          "excluded": 77,
+          "candidate_count": 1,
+          "obb_failures": 0
+        }
+      ]
+    },
+    {
+      "snapshot": {
+        "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/first/snapshot.json",
+        "bytes": 3049,
+        "sha256": "0e0b84a3b8e871b4ba116492461882f00d6fc52386d42d54f93d85c08a88ad3b"
+      },
+      "rgb_sha256": "1ab030fb5597b058b3f01cced6b550ff2c815af047c4575a8e9867c156eac72c",
+      "depth_sha256": "9921adfeedf43bf05cc4fc253e9b200bca92422796222ab2c00c6fb0a1270e27",
+      "color_frame_number": 9,
+      "depth_frame_number": 8,
+      "host_receipt_epoch_s": 1792458919.1842785,
+      "role": "tabletop",
+      "serial": "346222072496",
+      "independent_scene_verified": false,
+      "matching_per_observation_target_mask_available": false,
+      "support_mask_sha256": "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81",
+      "valid_region_points": 4256,
+      "support_pixels": 6817,
+      "valid_region_fraction": 0.6243215490685052,
+      "region_pixel_bounds_xyxy": [
+        83,
+        244,
+        261,
+        290
+      ],
+      "region_depth": {
+        "count": 4256,
+        "percentile_levels": [
+          0,
+          1,
+          5,
+          25,
+          50,
+          75,
+          95,
+          99,
+          100
+        ],
+        "percentiles_m": [
+          0.44200003147125244,
+          0.44300001859664917,
+          0.45600003004074097,
+          0.46800002455711365,
+          0.4880000352859497,
+          0.5049999952316284,
+          0.5120000243186951,
+          1.939000129699707,
+          1.9510000944137573
+        ],
+        "largest_adjacent_gaps_m": [
+          {
+            "lower_m": 0.51500004529953,
+            "upper_m": 1.933000087738037,
+            "gap_m": 1.418000042438507
+          },
+          {
+            "lower_m": 1.933000087738037,
+            "upper_m": 1.939000129699707,
+            "gap_m": 0.006000041961669922
+          },
+          {
+            "lower_m": 1.9450000524520874,
+            "upper_m": 1.9510000944137573,
+            "gap_m": 0.006000041961669922
+          },
+          {
+            "lower_m": 1.939000129699707,
+            "upper_m": 1.9450000524520874,
+            "gap_m": 0.005999922752380371
+          },
+          {
+            "lower_m": 0.5,
+            "upper_m": 0.5010000467300415,
+            "gap_m": 0.001000046730041504
+          }
+        ]
+      },
+      "elapsed_ms": 634.0226199827157,
+      "methods": [
+        {
+          "method": "xyz_cc_5mm",
+          "retained": 4256,
+          "excluded": 0,
+          "candidate_count": 10,
+          "obb_failures": 9
+        },
+        {
+          "method": "xyz_cc_10mm",
+          "retained": 4256,
+          "excluded": 0,
+          "candidate_count": 6,
+          "obb_failures": 3
+        },
+        {
+          "method": "xyz_cc_20mm",
+          "retained": 4256,
+          "excluded": 0,
+          "candidate_count": 3,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std1",
+          "retained": 4144,
+          "excluded": 112,
+          "candidate_count": 1,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std2",
+          "retained": 4158,
+          "excluded": 98,
+          "candidate_count": 1,
+          "obb_failures": 0
+        },
+        {
+          "method": "sor_k16_std3",
+          "retained": 4158,
+          "excluded": 98,
+          "candidate_count": 1,
+          "obb_failures": 0
+        }
+      ]
+    },
+    {
+      "snapshot": {
+        "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/snapshot.json",
+        "bytes": 3048,
+        "sha256": "c92d988da2817d17a56eba2a82cafb26f12fddedb7c8385d27293568942d3c33"
+      },
+      "rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+      "depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+      "color_frame_number": 174,
+      "depth_frame_number": 91,
+      "host_receipt_epoch_s": 1792458924.6879988,
+      "role": "tabletop",
+      "serial": "346222072496",
+      "independent_scene_verified": false,
+      "matching_per_observation_target_mask_available": false,
+      "support_mask_sha256": "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81",
+      "skipped": "ORIGINAL_FINAL_FRAME_NOT_REPROCESSED",
+      "methods": []
+    }
+  ],
+  "comparison_summary": [
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/first/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+      "method": "xyz_cc_5mm",
+      "split_candidates_by_pixel_overlap": [
+        10,
+        11,
+        34,
+        41,
+        55,
+        59,
+        62,
+        64
+      ],
+      "merge_candidates_by_pixel_overlap": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 35,
+      "center_displacement_m_range": [
+        0.010152277450856704,
+        0.07445329231223705
+      ],
+      "corresponding_axis_angle_deg_range": [
+        2.7030915336529944,
+        81.50275758599398
+      ],
+      "axis_ambiguity_edge_count": 32
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/first/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+      "method": "xyz_cc_10mm",
+      "split_candidates_by_pixel_overlap": [
+        2
+      ],
+      "merge_candidates_by_pixel_overlap": [
+        1
+      ],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 8,
+      "center_displacement_m_range": [
+        0.017688951729472928,
+        1.4605271620627343
+      ],
+      "corresponding_axis_angle_deg_range": [
+        3.8000022780372222,
+        89.75212088413792
+      ],
+      "axis_ambiguity_edge_count": 8
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/first/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+      "method": "xyz_cc_20mm",
+      "split_candidates_by_pixel_overlap": [
+        1
+      ],
+      "merge_candidates_by_pixel_overlap": [
+        1
+      ],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 6,
+      "center_displacement_m_range": [
+        0.017688951729472928,
+        1.472679586718687
+      ],
+      "corresponding_axis_angle_deg_range": [
+        3.8000022780372222,
+        87.56700907572451
+      ],
+      "axis_ambiguity_edge_count": 6
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/first/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+      "method": "sor_k16_std1",
+      "split_candidates_by_pixel_overlap": [],
+      "merge_candidates_by_pixel_overlap": [],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 1,
+      "center_displacement_m_range": [
+        0.7090384283748578,
+        0.7090384283748578
+      ],
+      "corresponding_axis_angle_deg_range": [
+        58.74532589079208,
+        89.55182911563526
+      ],
+      "axis_ambiguity_edge_count": 1
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/first/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+      "method": "sor_k16_std2",
+      "split_candidates_by_pixel_overlap": [],
+      "merge_candidates_by_pixel_overlap": [],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 1,
+      "center_displacement_m_range": [
+        0.7199194297321491,
+        0.7199194297321491
+      ],
+      "corresponding_axis_angle_deg_range": [
+        60.04637873041237,
+        87.06071266641221
+      ],
+      "axis_ambiguity_edge_count": 1
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/first/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+      "method": "sor_k16_std3",
+      "split_candidates_by_pixel_overlap": [],
+      "merge_candidates_by_pixel_overlap": [],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 1,
+      "center_displacement_m_range": [
+        0.7261688371659465,
+        0.7261688371659465
+      ],
+      "corresponding_axis_angle_deg_range": [
+        59.96181200228637,
+        86.50063549662588
+      ],
+      "axis_ambiguity_edge_count": 1
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+      "method": "xyz_cc_5mm",
+      "split_candidates_by_pixel_overlap": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "merge_candidates_by_pixel_overlap": [
+        12,
+        13,
+        15,
+        70,
+        71,
+        78,
+        81
+      ],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 42,
+      "center_displacement_m_range": [
+        0.017244695773514757,
+        0.07236083512725307
+      ],
+      "corresponding_axis_angle_deg_range": [
+        3.9895829526760482,
+        22.97241592771465
+      ],
+      "axis_ambiguity_edge_count": 40
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+      "method": "xyz_cc_10mm",
+      "split_candidates_by_pixel_overlap": [
+        1
+      ],
+      "merge_candidates_by_pixel_overlap": [
+        8
+      ],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 6,
+      "center_displacement_m_range": [
+        0.017244695773514757,
+        1.4681881512920367
+      ],
+      "corresponding_axis_angle_deg_range": [
+        3.9895829526760482,
+        69.8561531098411
+      ],
+      "axis_ambiguity_edge_count": 6
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+      "method": "xyz_cc_20mm",
+      "split_candidates_by_pixel_overlap": [
+        1
+      ],
+      "merge_candidates_by_pixel_overlap": [
+        1
+      ],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 6,
+      "center_displacement_m_range": [
+        0.017244695773514757,
+        1.4623282155866835
+      ],
+      "corresponding_axis_angle_deg_range": [
+        3.9895829526760482,
+        69.34053952237558
+      ],
+      "axis_ambiguity_edge_count": 6
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+      "method": "sor_k16_std1",
+      "split_candidates_by_pixel_overlap": [],
+      "merge_candidates_by_pixel_overlap": [],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 1,
+      "center_displacement_m_range": [
+        0.7193088252893954,
+        0.7193088252893954
+      ],
+      "corresponding_axis_angle_deg_range": [
+        60.2445397792895,
+        88.54305962745684
+      ],
+      "axis_ambiguity_edge_count": 1
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+      "method": "sor_k16_std2",
+      "split_candidates_by_pixel_overlap": [],
+      "merge_candidates_by_pixel_overlap": [],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 1,
+      "center_displacement_m_range": [
+        0.7440781374407291,
+        0.7440781374407291
+      ],
+      "corresponding_axis_angle_deg_range": [
+        59.976457980460225,
+        86.53117999927727
+      ],
+      "axis_ambiguity_edge_count": 1
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-01/last/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+      "method": "sor_k16_std3",
+      "split_candidates_by_pixel_overlap": [],
+      "merge_candidates_by_pixel_overlap": [],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 1,
+      "center_displacement_m_range": [
+        0.7441514086195669,
+        0.7441514086195669
+      ],
+      "corresponding_axis_angle_deg_range": [
+        59.903670575057426,
+        86.24529598029648
+      ],
+      "axis_ambiguity_edge_count": 1
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+      "method": "xyz_cc_5mm",
+      "split_candidates_by_pixel_overlap": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21,
+        22,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        33,
+        35,
+        36,
+        42,
+        43,
+        44,
+        46,
+        48,
+        50,
+        55,
+        56,
+        58,
+        71,
+        78,
+        81
+      ],
+      "merge_candidates_by_pixel_overlap": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 120,
+      "center_displacement_m_range": [
+        0.017421126992574157,
+        0.07218937713086741
+      ],
+      "corresponding_axis_angle_deg_range": [
+        3.5489085993364022,
+        22.049398148870193
+      ],
+      "axis_ambiguity_edge_count": 72
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+      "method": "xyz_cc_10mm",
+      "split_candidates_by_pixel_overlap": [
+        8
+      ],
+      "merge_candidates_by_pixel_overlap": [
+        1,
+        2
+      ],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 6,
+      "center_displacement_m_range": [
+        0.017421126992574157,
+        1.4671232926045563
+      ],
+      "corresponding_axis_angle_deg_range": [
+        3.5489085993364022,
+        78.06584353873292
+      ],
+      "axis_ambiguity_edge_count": 5
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+      "method": "xyz_cc_20mm",
+      "split_candidates_by_pixel_overlap": [
+        1
+      ],
+      "merge_candidates_by_pixel_overlap": [
+        2
+      ],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 5,
+      "center_displacement_m_range": [
+        0.017421126992574157,
+        1.4612665809964187
+      ],
+      "corresponding_axis_angle_deg_range": [
+        3.5489085993364022,
+        78.85383754358539
+      ],
+      "axis_ambiguity_edge_count": 4
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+      "method": "sor_k16_std1",
+      "split_candidates_by_pixel_overlap": [],
+      "merge_candidates_by_pixel_overlap": [],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 1,
+      "center_displacement_m_range": [
+        0.7182335074988767,
+        0.7182335074988767
+      ],
+      "corresponding_axis_angle_deg_range": [
+        60.081155287332244,
+        85.7564571319724
+      ],
+      "axis_ambiguity_edge_count": 1
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+      "method": "sor_k16_std2",
+      "split_candidates_by_pixel_overlap": [],
+      "merge_candidates_by_pixel_overlap": [],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 1,
+      "center_displacement_m_range": [
+        0.04018192647798477,
+        0.04018192647798477
+      ],
+      "corresponding_axis_angle_deg_range": [
+        2.190208937542893,
+        8.75515051430242
+      ],
+      "axis_ambiguity_edge_count": 1
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/first/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+      "method": "sor_k16_std3",
+      "split_candidates_by_pixel_overlap": [],
+      "merge_candidates_by_pixel_overlap": [],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 1,
+      "center_displacement_m_range": [
+        0.035727430311747244,
+        0.035727430311747244
+      ],
+      "corresponding_axis_angle_deg_range": [
+        0.803750596267021,
+        8.454589533085086
+      ],
+      "axis_ambiguity_edge_count": 1
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/first/snapshot.json",
+      "method": "xyz_cc_5mm",
+      "split_candidates_by_pixel_overlap": [
+        2,
+        7,
+        8,
+        13,
+        17,
+        18
+      ],
+      "merge_candidates_by_pixel_overlap": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        10
+      ],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 21,
+      "center_displacement_m_range": [
+        0.0014210095076647555,
+        0.0014210095076647555
+      ],
+      "corresponding_axis_angle_deg_range": [
+        0.39837284847353427,
+        0.6305342268000003
+      ],
+      "axis_ambiguity_edge_count": 13
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/first/snapshot.json",
+      "method": "xyz_cc_10mm",
+      "split_candidates_by_pixel_overlap": [
+        2,
+        3
+      ],
+      "merge_candidates_by_pixel_overlap": [
+        1,
+        5,
+        6
+      ],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 9,
+      "center_displacement_m_range": [
+        0.0014210095076647555,
+        1.4527494993600456
+      ],
+      "corresponding_axis_angle_deg_range": [
+        0.39837284847353427,
+        85.01419587568539
+      ],
+      "axis_ambiguity_edge_count": 5
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/first/snapshot.json",
+      "method": "xyz_cc_20mm",
+      "split_candidates_by_pixel_overlap": [
+        2,
+        3
+      ],
+      "merge_candidates_by_pixel_overlap": [
+        1,
+        3
+      ],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 5,
+      "center_displacement_m_range": [
+        0.0014210095076647555,
+        1.4527494993600456
+      ],
+      "corresponding_axis_angle_deg_range": [
+        0.39837284847353427,
+        59.66642701397445
+      ],
+      "axis_ambiguity_edge_count": 4
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/first/snapshot.json",
+      "method": "sor_k16_std1",
+      "split_candidates_by_pixel_overlap": [],
+      "merge_candidates_by_pixel_overlap": [],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 1,
+      "center_displacement_m_range": [
+        0.001465040241305951,
+        0.001465040241305951
+      ],
+      "corresponding_axis_angle_deg_range": [
+        0.3785881432951397,
+        0.6399293991869487
+      ],
+      "axis_ambiguity_edge_count": 1
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/first/snapshot.json",
+      "method": "sor_k16_std2",
+      "split_candidates_by_pixel_overlap": [],
+      "merge_candidates_by_pixel_overlap": [],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 1,
+      "center_displacement_m_range": [
+        0.708717307430755,
+        0.708717307430755
+      ],
+      "corresponding_axis_angle_deg_range": [
+        57.50473069134907,
+        89.19803520977116
+      ],
+      "axis_ambiguity_edge_count": 1
+    },
+    {
+      "from": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-02/last/snapshot.json",
+      "to": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/first/snapshot.json",
+      "method": "sor_k16_std3",
+      "split_candidates_by_pixel_overlap": [],
+      "merge_candidates_by_pixel_overlap": [],
+      "object_correspondence_verified": false,
+      "overlap_edge_count": 1,
+      "center_displacement_m_range": [
+        0.7104263457829249,
+        0.7104263457829249
+      ],
+      "corresponding_axis_angle_deg_range": [
+        59.099229573414334,
+        88.8251813853614
+      ],
+      "axis_ambiguity_edge_count": 1
+    }
+  ]
+}

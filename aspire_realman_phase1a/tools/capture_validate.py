@@ -10,11 +10,15 @@ import sys
 import time
 import uuid
 ROOT = Path(__file__).resolve().parents[2]
+bootstrap = argparse.ArgumentParser(add_help=False)
+bootstrap.add_argument('--aspire-source',type=Path,default=ROOT/'.cache/ASPIRE')
+bootstrap_args,_ = bootstrap.parse_known_args()
+ASPIRE = bootstrap_args.aspire_source
 sys.path[:0] = [str(ROOT/'aspire_realman_phase1a/src'),str(ROOT/'aspire_realman_phase05/src'),
-               str(ROOT/'.cache/ASPIRE/src'),str(ROOT/'aspire_realman_phase05/tests')]
+               str(ASPIRE/'src'),str(ROOT/'aspire_realman_phase05/tests')]
 lock=json.loads((ROOT/'aspire_realman_phase05/upstream.lock.json').read_text())
 for name,expected in lock['runtime_source_sha256'].items():
-    if hashlib.sha256((ROOT/'.cache/ASPIRE'/name).read_bytes()).hexdigest()!=expected:
+    if hashlib.sha256((ASPIRE/name).read_bytes()).hexdigest()!=expected:
         raise SystemExit('PINNED_ASPIRE_HASH_MISMATCH:'+name)
 from aspire_realman_live import LiveSource,build_live_runtime
 from aspire_realman_live.owner import LabRGBDOwner,device_users
@@ -91,12 +95,17 @@ def save_sample(output,label,sample):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--aspire-source',type=Path,default=ASPIRE)
     p.add_argument('--capture-tabletop',action='store_true',help='Explicit opt-in; requires prior operator authorization and no other owner')
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--seconds',type=float,default=4)
+    p.add_argument('--save-raw-streams',action='store_true',help='Future onsite: retain actual pre-align RGB/Z16 plus aligned data in same owner')
+    p.add_argument('--reference-description',help='Physical known-scale reference and placement; operator description, not software certification')
     a = p.parse_args()
     if not a.capture_tabletop or not 1<=a.seconds<=15:
         p.error('capture requires explicit --capture-tabletop and 1..15 seconds')
+    if a.save_raw_streams and not a.reference_description:
+        p.error('--save-raw-streams requires actual onsite --reference-description')
     output = a.output.resolve()
     output.relative_to(ROOT.resolve())  # output restricted to this new isolated workspace
     output.mkdir(parents=True,exist_ok=False)
@@ -104,7 +113,8 @@ def main():
     result = {'status':'STARTED','output':str(output),'arm_sdk_connections':0,'physical_commands_sent':0,
               'robot_state_source':'UNAVAILABLE_ARMS_POWERED_OFF','raw_assets_transferred':False}
     result['software_sha256'] = {str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((ROOT/'aspire_realman_phase1a').rglob('*.py')) if not p.name.startswith('._')}
-    owner = LabRGBDOwner(source)
+    owner = LabRGBDOwner(source,raw_archive=output/'raw-frames' if a.save_raw_streams else None,
+                         reference_description=a.reference_description)
     try:
         with owner:
             runtime = build_live_runtime(source)
@@ -124,6 +134,7 @@ def main():
         result.update(status='CAPTURED',profile=owner.profile,enumeration=owner.enumeration,preflight=owner.preflight,
             samples=owner.rows,skipped_duplicate_pairs=owner.skipped_duplicate_pairs,
             first=save_sample(output,'first',owner.first),last=save_sample(output,'last',owner.last),owner_error=owner.error)
+        result['same_owner_raw_bundles'] = owner.raw_bundles
         frozen = source.read()
         from aspire_realman_live.quality import camera_quality
         result['after_owner_closed'] = camera_quality(frozen['cameras'][0],frozen)

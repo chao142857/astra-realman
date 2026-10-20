@@ -9,6 +9,7 @@ import fcntl
 import hashlib
 import importlib.util
 import os
+import json
 from pathlib import Path
 import subprocess
 import sys
@@ -36,6 +37,36 @@ def metadata(frame, rs):
     return result
 
 
+def save_raw_bundle(folder, raw_rgb, raw_z16, aligned_rgb, aligned_z16, depth_m, camera, profile):
+    """One owner's SAME frameset, pre-align pixels copied before rs.align.
+
+    No reconstruction of historical raw depth, sensor writes or new pipeline.
+    Called only by the explicitly authorized live capture path below.
+    """
+    from PIL import Image
+    if (raw_rgb.dtype != np.uint8 or raw_rgb.ndim != 3 or raw_rgb.shape[2] != 3
+            or raw_z16.dtype != np.uint16 or raw_z16.ndim != 2
+            or aligned_rgb.dtype != np.uint8 or aligned_rgb.ndim != 3 or aligned_rgb.shape[2] != 3
+            or aligned_z16.dtype != np.uint16 or depth_m.dtype != np.float32
+            or aligned_z16.shape != depth_m.shape or depth_m.shape != aligned_rgb.shape[:2]):
+        raise ValueError('RAW_AND_ALIGNED_STREAM_SHAPE_DTYPE_REQUIRED')
+    folder = Path(folder)
+    folder.mkdir(parents=True, exist_ok=False)
+    Image.fromarray(raw_rgb).save(folder/'raw-rgb.png')
+    Image.fromarray(aligned_rgb).save(folder/'aligned-rgb.png')
+    np.save(folder/'raw-depth-z16.npy', raw_z16, allow_pickle=False)
+    np.save(folder/'aligned-depth-z16.npy', aligned_z16, allow_pickle=False)
+    np.save(folder/'aligned-depth-m.npy', depth_m, allow_pickle=False)
+    record = {k:v for k,v in camera.items() if k not in ('rgb','depth_m')}
+    record.update(profile=profile, raw_depth_pixels_saved=True, raw_rgb_saved=True,
+        same_owner_same_frameset=True, measurement_accuracy_qualified=False,
+        host_saved_epoch_s=time.time(), assets={p.name:{'bytes':p.stat().st_size,
+            'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(folder.iterdir())})
+    with (folder/'snapshot.json').open('x') as stream:
+        json.dump(record, stream, indent=2, allow_nan=False)
+    return {'folder':str(folder),'snapshot_sha256':hashlib.sha256((folder/'snapshot.json').read_bytes()).hexdigest()}
+
+
 def device_users():
     devices = sorted(str(p) for p in Path('/dev').glob('video*'))
     if not devices:
@@ -49,7 +80,7 @@ def device_users():
 
 
 class LabRGBDOwner:
-    def __init__(self, source):
+    def __init__(self, source, *, raw_archive=None, reference_description=None, archive_limit=60):
         self.source = source
         self.camera = None
         self.lock = None
@@ -61,6 +92,12 @@ class LabRGBDOwner:
         self.profile = {}
         self.first = None
         self.last = None
+        self.raw_archive = None if raw_archive is None else Path(raw_archive)
+        self.reference_description = reference_description
+        self.archive_limit = archive_limit
+        self.raw_bundles = []
+        if raw_archive is not None and (not reference_description or not 1 <= archive_limit <= 300):
+            raise ValueError('RAW_CAPTURE_REQUIRES_REFERENCE_DESCRIPTION_AND_BOUNDED_FRAME_COUNT')
 
     def __enter__(self):
         self.lock = open('/tmp/aspire-realsense-346222072496.lock','a')
@@ -91,6 +128,10 @@ class LabRGBDOwner:
                 'color_fps':cp.fps(),'depth_fps':dp.fps(),
                 'depth_scale_m_per_z16':profile.get_device().first_depth_sensor().get_depth_scale(),
                 'factory_depth_to_color':{'rotation_column_major':list(transform.rotation),'translation_m':list(transform.translation)},
+                'stream_profiles':{'color':{'format':str(cp.format()),'stream_index':cp.stream_index(),'unique_id':cp.unique_id()},
+                                   'raw_depth':{'format':str(dp.format()),'stream_index':dp.stream_index(),'unique_id':dp.unique_id()}},
+                'known_scale_reference_description':self.reference_description,
+                'known_scale_reference_measured_by_software':False,
                 'world_transform':None,'sensor_options_written':False,'reset_attempted':False}
             for _ in range(8):
                 self.camera._pipeline.wait_for_frames(5000)
@@ -122,6 +163,11 @@ class LabRGBDOwner:
                 if last_numbers is not None and any(a <= b for a,b in zip(numbers,last_numbers)):
                     self.skipped_duplicate_pairs += 1
                     continue
+                save_raw = self.raw_archive is not None and len(self.raw_bundles) < self.archive_limit
+                if save_raw:
+                    # Must precede align; an aligned Z16 cannot be substituted.
+                    raw_rgb = np.asanyarray(raw_color.get_data()).copy()
+                    raw_z16 = np.asanyarray(raw_depth.get_data()).copy()
                 aligned = self.camera._align.process(raw)
                 color,depth = aligned.get_color_frame(),aligned.get_depth_frame()
                 if not color or not depth:
@@ -144,8 +190,15 @@ class LabRGBDOwner:
                     'depth_timestamp_domain':str(raw_depth.get_frame_timestamp_domain()),
                     'color_frame_number':numbers[0],'depth_frame_number':numbers[1],
                     'raw_color_frame_metadata':metadata(raw_color,self.rs),'raw_depth_frame_metadata':metadata(raw_depth,self.rs),
+                    'raw_stream_intrinsics':{'color':intrinsics(raw_color.profile),'depth':intrinsics(raw_depth.profile)},
+                    'aligned_frame_numbers':{'color':color.get_frame_number(),'depth':depth.get_frame_number()},
+                    'aligned_timestamp_ms':{'color':color.get_timestamp(),'depth':depth.get_timestamp()},
+                    'aligned_timestamp_domains':{'color':str(color.get_frame_timestamp_domain()),'depth':str(depth.get_frame_timestamp_domain())},
                     'calibration_status':'HISTORICAL_EXTRINSIC_NOT_REVALIDATED','world_transform':None}
                 self.source.publish(c,owner_id=self.source.owner_id)
+                if save_raw:
+                    self.raw_bundles.append(save_raw_bundle(self.raw_archive/f'{len(self.raw_bundles)+1:06d}',
+                        raw_rgb,raw_z16,c['rgb'],z16,z,c,self.profile))
                 from .quality import camera_quality
                 snapshot = self.source.read()
                 row = camera_quality(c,snapshot)

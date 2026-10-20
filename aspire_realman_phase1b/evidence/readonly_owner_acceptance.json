@@ -1,0 +1,191 @@
+{
+  "timestamp_utc": "2026-10-20T06:57:30.975677+00:00",
+  "base_commit": "5dd2c4b0f1254b879868cc65e64187558b0bc968",
+  "status": "AUDITED_READER_AND_NATIVE_MCP_OFFLINE_PASS_NOT_HARDWARE_ACCEPTANCE",
+  "scope": "software entry + audited reader + native CAP/MCP; physical SDK acceptance pending",
+  "validation_full_report": {
+    "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/readonly-entry-final/validation.json",
+    "bytes": 25045,
+    "sha256": "fbc54dc98d8dda389837cd6d967da8fea49f16cee8297d91836e7d133126069e"
+  },
+  "plan_only": {
+    "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/readonly-entry-final/plan-only.json",
+    "bytes": 1254,
+    "sha256": "6b362628ccbaf12a4054ac12bf594e486093c21dea24cb1737da9adad7e48849"
+  },
+  "mcp": [
+    {
+      "event": "tools/list",
+      "names": [
+        "cap_get_robot_state",
+        "cap_move_synchronized",
+        "cap_move_to_joints",
+        "cap_program_go_home",
+        "cap_program_observe",
+        "cap_program_readonly_state",
+        "cap_set_gripper",
+        "get_capability_graph",
+        "get_job",
+        "observe",
+        "read_operator_messages"
+      ]
+    },
+    {
+      "event": "readonly_state",
+      "source": {
+        "arm_scope": [
+          "left"
+        ],
+        "kind": "OFFLINE_SDK_TRANSPORT_FIXTURE",
+        "owner_id": "offline-sdk-entry",
+        "sequence": 1
+      },
+      "endpoint": {
+        "xyz_m": [
+          -0.304164,
+          0.031352,
+          0.310661
+        ],
+        "rpy_rad": [
+          3.125,
+          0.016,
+          -0.012
+        ],
+        "reference_frame": null,
+        "target_frame": null,
+        "semantics_status": "UNKNOWN",
+        "is_actual_grasp_center": false
+      },
+      "timestamps": {
+        "source_epoch_s": 1792479033.0778697,
+        "domain": "host_epoch_from_SDKReadOnly_state_finished_at",
+        "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+        "read_interval_monotonic_s": [
+          282886.437088397,
+          282886.437763891
+        ],
+        "device_timestamp": null
+      },
+      "quality": {
+        "owner_running": true,
+        "clock_match": true,
+        "source_epoch_age_s": 0.0756993293762207,
+        "host_read_duration_ms": 0.675494025927037,
+        "host_receipt_age_bounds_s": [
+          0.07533930096542463,
+          0.07601479499135166
+        ],
+        "source_epoch_fresh": true,
+        "host_receipt_fresh": true,
+        "live_host_time_eligible": false,
+        "device_measurement_freshness_verified": false,
+        "controller_timestamp_or_latency_bound_available": false,
+        "endpoint_semantics": "UNKNOWN",
+        "velocity_available": false,
+        "native_robot_state_available": false,
+        "reason": "READONLY_DIAGNOSTIC_NO_COMPLETE_NATIVE_BINDING; no zero velocity/TCP/World fallback"
+      },
+      "missing_native_fields": [
+        "measured_joint_velocity",
+        "measured_gripper",
+        "current_endpoint_frame_binding"
+      ],
+      "velocity": null,
+      "gripper": null,
+      "actual_grasp_tcp": null,
+      "world_transform": null
+    },
+    {
+      "event": "observe",
+      "isError": false
+    },
+    {
+      "event": "cap_get_robot_state",
+      "isError": true
+    },
+    {
+      "event": "cap_set_gripper",
+      "isError": true
+    },
+    {
+      "event": "cap_move_to_joints",
+      "isError": true
+    },
+    {
+      "event": "cap_move_synchronized",
+      "isError": true
+    },
+    {
+      "event": "cap_program_go_home",
+      "isError": true
+    },
+    {
+      "event": "capabilities"
+    },
+    {
+      "event": "changed_work_frame_mcp_failure",
+      "isError": true
+    }
+  ],
+  "injected_sdk_calls": [
+    "rm_init",
+    "rm_create_robot_arm",
+    "rm_get_current_work_frame",
+    "rm_get_current_tool_frame",
+    "rm_get_current_arm_state",
+    "rm_get_current_work_frame",
+    "rm_get_current_tool_frame",
+    "rm_get_current_work_frame",
+    "rm_get_current_tool_frame",
+    "rm_get_current_arm_state",
+    "rm_get_current_work_frame",
+    "rm_get_current_tool_frame",
+    "rm_delete_robot_arm",
+    "rm_destroy"
+  ],
+  "five_read_order_unchanged": true,
+  "changed_work_frame_rejected_by_actual_canonical_logic": true,
+  "shutdown_owner_closed": true,
+  "latest_unhealthy_after_failure_and_close": true,
+  "missing_onsite_cli_rejected_before_output_creation": true,
+  "raw_capture_cli_help_checked_without_device": true,
+  "raw_serialization_check_not_real_capture": {
+    "folder": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/readonly-entry-final/serialization-only",
+    "snapshot_sha256": "9acda465a12ce185864b4d0f19801e2462133aea85f4086ee752a23eb50ef9ad"
+  },
+  "upstream_source_hashes_verified": 71,
+  "original_geometry_and_sam3_inputs_unchanged": true,
+  "original_evidence_artifacts_sha_checked": 62,
+  "frozen_geometry_report": {
+    "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/geometry-diagnostics-final/geometry-diagnostics.json",
+    "bytes": 369787,
+    "sha256": "3f9060be210397ac5f4e981cebd7adfd6006d04934c7bb782bcdfabfbb14557a"
+  },
+  "software_sha256": {
+    "aspire_realman_phase1a/src/aspire_realman_live/sdk_state.py": "6d2854244c0dc2d064676ae7a7d6abc5b180f2ebec62f4d3c8283b846990c396",
+    "aspire_realman_phase1a/src/aspire_realman_live/state_runtime.py": "596ce47dc1e6e4eff27101a57463d20e00863c5ae72932c58430c371d53f0bc5",
+    "aspire_realman_phase1a/src/aspire_realman_live/state_owner.py": "551de2d23d5d780a50442749d36cd5511615b92bb3f985952c8ce9e19c1f65d4",
+    "aspire_realman_phase1a/src/aspire_realman_live/runtime.py": "c6ac8a1f31d935169f567d1bba2793d5ea7e77194e0c0c657c7e624424085a78",
+    "aspire_realman_phase1a/src/aspire_realman_live/owner.py": "ee262c0c6bb0fcace7646b70009771fca46ee816bb128eaff8261d63eb76a5a2",
+    "aspire_realman_phase1a/tools/serve_readonly_state.py": "2038b806285be92d0eba45fc920f6e370d29c7904364b4f92fb5f799b63d4a20",
+    "aspire_realman_phase1a/tools/validate_readonly_state.py": "9815bf2efff4c5697247ba06cf43d812e83d49d03ffefa4cccb649d38ccde099",
+    "aspire_realman_phase1a/tools/capture_validate.py": "a829fbf56a297f4ff2f9fdbae578e2a7175b27ab9ebd9b9c9a6a1ef261932348",
+    "aspire_realman_phase1b/tools/check_other_observations.py": "6cafcb7678b1c29c92bb3d52539c36808fb9aa35af509743b469da2f163e1fe7"
+  },
+  "existing_camera_quality_regressions": {
+    "passed": 6,
+    "location": "Mac existing Phase05 independent .venv",
+    "real_evidence": false
+  },
+  "real_sdk_imports": [],
+  "robot_connections": 0,
+  "camera_opens": 0,
+  "sam3_calls": 0,
+  "motion_dispatches": 0,
+  "native_robot_state_available": false,
+  "full_cap_observation_available": false,
+  "resolved_environment_issues": [
+    "Phase1B isolation initially lacked unchanged Phase1A package files; synced only Python sources",
+    "SAM3 venv lacks httpx; reused existing Phase1A .venv without installing dependencies"
+  ]
+}

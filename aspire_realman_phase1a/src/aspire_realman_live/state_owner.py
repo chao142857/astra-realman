@@ -11,7 +11,7 @@ import time
 
 
 READ_LABELS = ("work_before", "tool_before", "state", "work_after", "tool_after")
-SOURCE_KINDS = {"LIVE_SDK_READ_ONLY", "HISTORICAL_REPLAY"}
+SOURCE_KINDS = {"LIVE_SDK_READ_ONLY", "HISTORICAL_REPLAY", "OFFLINE_SDK_TRANSPORT_FIXTURE"}
 
 
 def vector(value, size):
@@ -112,7 +112,7 @@ class SingleArmStateOwner:
             "endpoint_semantics": result["canonical_state"]["ee_pose"].get("frame_semantics_status", "UNKNOWN"),
             "velocity_available": result["joint_velocity_deg_s"] is not None,
             "native_robot_state_available": False,
-            "reason": "PREPARATION_ONLY_NO_NATIVE_BINDING; no zero velocity/TCP/World fallback"}
+            "reason": "READONLY_DIAGNOSTIC_NO_COMPLETE_NATIVE_BINDING; no zero velocity/TCP/World fallback"}
         return result
 
     def as_native_state(self):

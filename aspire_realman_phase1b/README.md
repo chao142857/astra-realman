@@ -1,3 +1,5 @@
+[单臂只读实际入口与现场步骤](READONLY_OWNER.md) · [下一次原始RGB-D短采集](RAW_CAPTURE_NEXT.md) · [几何诊断冻结与跨观测复核](GEOMETRY_FREEZE.md)
+
 # ASPIRE → RealMan Phase 1B：远程感知与模型准备
 
 **121631d9后的独立标准预处理诊断**见[GEOMETRY_DIAGNOSTICS.md](GEOMETRY_DIAGNOSTICS.md)：同一封存Mask/深度比较13个独立变体，保留全部78个候选和52次原生OBB失败；没有重跑SAM3、改写基准或选择最近/最大群当目标。非原始变体仅标记“ASPIRE + 标准预处理（诊断）”。[单臂只读owner准备](STATE_OWNER_PREPARATION.md)新增无硬件连接能力的接收缓存与边界检查，当前未接入live CAP，运动仍拒绝。

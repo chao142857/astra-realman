@@ -20,10 +20,14 @@ class ObservationOnlyCapApi(CapApi):
                 'mock_planner_available':False, 'physical_motion_available':False}
 
 
-def build_live_runtime(source):
+def build_live_runtime(source, *, state_owner=None):
     if JOINT_DIMENSIONS.get('realman') != 6:
         raise RuntimeError('PINNED_ASPIRE_REALMAN_CONTRACT_PATCH_REQUIRED')
-    adapter = LiveRealManAdapter(source)
+    if state_owner is None:
+        adapter = LiveRealManAdapter(source)
+    else:
+        from .state_runtime import SingleArmReadOnlyAdapter
+        adapter = SingleArmReadOnlyAdapter(state_owner, camera_source=source)
     # No Mock IK/Planner, no model client, no inferred Home. The configured
     # provider graph truthfully reports segmentation=false and empty planners.
     api = ObservationOnlyCapApi(adapter, home_joint_positions={}, default_camera='tabletop')
@@ -41,8 +45,17 @@ def build_live_runtime(source):
         return refuse
     for name in MOTION_ENTRIES:
         setattr(api,name,refusal_entry(name))
-    registry = api.register_tools(ToolRegistry())
+    if state_owner is None:
+        registry = api.register_tools(ToolRegistry())
+    else:
+        from cap_harness.registry import SHARED_PUBLIC_TOOL_NAMES
+        registry = api.register_tools(ToolRegistry(shared_public_names=SHARED_PUBLIC_TOOL_NAMES | {'get_readonly_state_snapshot'}))
+        registry.register(adapter.get_readonly_state_snapshot, name='get_readonly_state_snapshot',
+                          layer='shared_atomic', capability='metadata', public=True)
     runtime = EmbeddedAgentRuntime(api, registry)
+    if state_owner is not None:
+        from .state_runtime import ReadOnlyStatePrograms
+        runtime.session.program_catalog = ReadOnlyStatePrograms()
     try:
         app = create_app(runtime.session)
         return RealManRuntime(adapter, api, runtime, app)
