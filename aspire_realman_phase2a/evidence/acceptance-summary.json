@@ -1,0 +1,1475 @@
+{
+  "scope": "SYNTHETIC_OFFLINE_ONLY",
+  "baseline_realman": "24e71b77fb4686bed526ec04b0b1ea5014d5a50a",
+  "aspire_commit": "fa00f0ef2bc1d91d594b9aa502c22133c9f538f7",
+  "curobo_commit": "a35a708ecfbb26eb9ab2d7ef22c65919c4fae4a9",
+  "cases": {
+    "gpu-original-01": {
+      "ok": false,
+      "stages": {},
+      "environment": {
+        "torch": "2.7.1+cu126",
+        "cuda_runtime": "12.6",
+        "gpu": "NVIDIA GeForce RTX 3060",
+        "capability": [
+          8,
+          6
+        ]
+      },
+      "elapsed_s": 1.389933904982172,
+      "peak_allocated_bytes": 0,
+      "peak_reserved_bytes": 0,
+      "error": {
+        "type": "ModuleNotFoundError",
+        "message": "No module named 'six'"
+      },
+      "raw": {
+        "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/gpu-original-01/result.json",
+        "bytes": 2094,
+        "sha256": "0f7dd97799386b429187e0b9c5b93fafa80a52880cac6489840cee5d6486d04f"
+      }
+    },
+    "gpu-original-02": {
+      "ok": false,
+      "stages": {
+        "actual_gpu_fk": {
+          "ok": true,
+          "elapsed_s": 30.153498124040198,
+          "joint_names": [
+            "left_joint_1",
+            "left_joint_2",
+            "left_joint_3",
+            "left_joint_4",
+            "left_joint_5",
+            "left_joint_6",
+            "right_joint_1",
+            "right_joint_2",
+            "right_joint_3",
+            "right_joint_4",
+            "right_joint_5",
+            "right_joint_6"
+          ],
+          "pose_comparison": {
+            "left": {
+              "position_m": 8.050021753556505e-08,
+              "quaternion_abs_dot": 0.9999999829941696
+            },
+            "right": {
+              "position_m": 8.050021753556505e-08,
+              "quaternion_abs_dot": 0.9999999829941696
+            }
+          },
+          "poses": {
+            "left": {
+              "position": [
+                -0.7532615065574646,
+                -3.79293624064303e-07,
+                0.7475168704986572
+              ],
+              "quaternion_wxyz": [
+                7.312502248169039e-07,
+                0.47942879796028137,
+                -7.312528396141715e-07,
+                -0.8775807619094849
+              ]
+            },
+            "right": {
+              "position": [
+                0.7532615065574646,
+                3.79293624064303e-07,
+                0.7475168704986572
+              ],
+              "quaternion_wxyz": [
+                0.8775807619094849,
+                7.312528396141715e-07,
+                0.47942879796028137,
+                7.312502248169039e-07
+              ]
+            }
+          },
+          "collision_spheres_shape": [
+            1,
+            1,
+            2958,
+            4
+          ]
+        }
+      },
+      "environment": {
+        "torch": "2.7.1+cu126",
+        "cuda_runtime": "12.6",
+        "gpu": "NVIDIA GeForce RTX 3060",
+        "capability": [
+          8,
+          6
+        ]
+      },
+      "elapsed_s": 31.593744021025486,
+      "peak_allocated_bytes": 71399936,
+      "peak_reserved_bytes": 96468992,
+      "error": {
+        "type": "HTTPException",
+        "message": "500: cuRobo initialization failed: func() got an unexpected keyword argument 'module'"
+      },
+      "raw": {
+        "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/gpu-original-02/result.json",
+        "bytes": 4527,
+        "sha256": "e6d36a48e74776d800a1032dc292101a60a7775172429cb345fe4cf89b7218e1"
+      }
+    },
+    "gpu-original-03": {
+      "ok": false,
+      "stages": {
+        "actual_gpu_fk": {
+          "ok": true,
+          "elapsed_s": 29.42798734101234,
+          "joint_names": [
+            "left_joint_1",
+            "left_joint_2",
+            "left_joint_3",
+            "left_joint_4",
+            "left_joint_5",
+            "left_joint_6",
+            "right_joint_1",
+            "right_joint_2",
+            "right_joint_3",
+            "right_joint_4",
+            "right_joint_5",
+            "right_joint_6"
+          ],
+          "pose_comparison": {
+            "left": {
+              "position_m": 8.050021753556505e-08,
+              "quaternion_abs_dot": 0.9999999829941696
+            },
+            "right": {
+              "position_m": 8.050021753556505e-08,
+              "quaternion_abs_dot": 0.9999999829941696
+            }
+          },
+          "poses": {
+            "left": {
+              "position": [
+                -0.7532615065574646,
+                -3.79293624064303e-07,
+                0.7475168704986572
+              ],
+              "quaternion_wxyz": [
+                7.312502248169039e-07,
+                0.47942879796028137,
+                -7.312528396141715e-07,
+                -0.8775807619094849
+              ]
+            },
+            "right": {
+              "position": [
+                0.7532615065574646,
+                3.79293624064303e-07,
+                0.7475168704986572
+              ],
+              "quaternion_wxyz": [
+                0.8775807619094849,
+                7.312528396141715e-07,
+                0.47942879796028137,
+                7.312502248169039e-07
+              ]
+            }
+          },
+          "collision_spheres_shape": [
+            1,
+            1,
+            2958,
+            4
+          ]
+        },
+        "actual_gpu_planner": {
+          "ok": false,
+          "expected_feasible": true,
+          "elapsed_s": 42.65181835799012,
+          "joint_names": [
+            "left_joint_1",
+            "left_joint_2",
+            "left_joint_3",
+            "left_joint_4",
+            "left_joint_5",
+            "left_joint_6",
+            "right_joint_1",
+            "right_joint_2",
+            "right_joint_3",
+            "right_joint_4",
+            "right_joint_5",
+            "right_joint_6"
+          ],
+          "default_state_feasible": false,
+          "self_collision_check": true,
+          "cross_arm_ignored_pairs": 0
+        }
+      },
+      "environment": {
+        "torch": "2.7.1+cu126",
+        "cuda_runtime": "12.6",
+        "gpu": "NVIDIA GeForce RTX 3060",
+        "capability": [
+          8,
+          6
+        ]
+      },
+      "elapsed_s": 73.50670809199801,
+      "peak_allocated_bytes": 1202427904,
+      "peak_reserved_bytes": 1363148800,
+      "raw": {
+        "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/gpu-original-03/result.json",
+        "bytes": 2486,
+        "sha256": "6618711311c0a2aeccf6eca495f81ad7172ad467ec252a88c0a05f8fd47ca986"
+      }
+    },
+    "gpu-original-diagnosis": {
+      "ok": false,
+      "stages": {
+        "actual_gpu_fk": {
+          "ok": true,
+          "elapsed_s": 29.780690521991346,
+          "joint_names": [
+            "left_joint_1",
+            "left_joint_2",
+            "left_joint_3",
+            "left_joint_4",
+            "left_joint_5",
+            "left_joint_6",
+            "right_joint_1",
+            "right_joint_2",
+            "right_joint_3",
+            "right_joint_4",
+            "right_joint_5",
+            "right_joint_6"
+          ],
+          "pose_comparison": {
+            "left": {
+              "position_m": 8.050021753556505e-08,
+              "quaternion_abs_dot": 0.9999999829941696
+            },
+            "right": {
+              "position_m": 8.050021753556505e-08,
+              "quaternion_abs_dot": 0.9999999829941696
+            }
+          },
+          "poses": {
+            "left": {
+              "position": [
+                -0.7532615065574646,
+                -3.79293624064303e-07,
+                0.7475168704986572
+              ],
+              "quaternion_wxyz": [
+                7.312502248169039e-07,
+                0.47942879796028137,
+                -7.312528396141715e-07,
+                -0.8775807619094849
+              ]
+            },
+            "right": {
+              "position": [
+                0.7532615065574646,
+                3.79293624064303e-07,
+                0.7475168704986572
+              ],
+              "quaternion_wxyz": [
+                0.8775807619094849,
+                7.312528396141715e-07,
+                0.47942879796028137,
+                7.312502248169039e-07
+              ]
+            }
+          },
+          "collision_spheres_shape": [
+            1,
+            1,
+            2958,
+            4
+          ]
+        },
+        "actual_gpu_planner": {
+          "ok": false,
+          "expected_feasible": true,
+          "elapsed_s": 33.31751865299884,
+          "joint_names": [
+            "left_joint_1",
+            "left_joint_2",
+            "left_joint_3",
+            "left_joint_4",
+            "left_joint_5",
+            "left_joint_6",
+            "right_joint_1",
+            "right_joint_2",
+            "right_joint_3",
+            "right_joint_4",
+            "right_joint_5",
+            "right_joint_6"
+          ],
+          "default_state_feasible": false,
+          "self_collision_check": true,
+          "cross_arm_ignored_pairs": 0
+        }
+      },
+      "environment": {
+        "torch": "2.7.1+cu126",
+        "cuda_runtime": "12.6",
+        "gpu": "NVIDIA GeForce RTX 3060",
+        "capability": [
+          8,
+          6
+        ],
+        "warp": "1.9.1"
+      },
+      "default_constraint_detail": {
+        "constraint:cspace": {
+          "maximum": 0.0,
+          "sum": 0.0
+        },
+        "constraint:self_collision": {
+          "maximum": 2.0,
+          "sum": 2.0
+        },
+        "constraint:scene_collision": {
+          "maximum": 0.0,
+          "sum": 0.0
+        },
+        "sum_constraint": 2.0
+      },
+      "default_sphere_overlap_groups": {
+        "left_Link5 / left_ctag_base_link": {
+          "sphere_pairs": 65,
+          "max_penetration_m": 0.005042906850576401
+        },
+        "left_ctag_Left_1_Link / left_ctag_Left_2_Link": {
+          "sphere_pairs": 128,
+          "max_penetration_m": 0.015483083203434944
+        },
+        "left_ctag_Right_2_Link / left_ctag_Right_1_Link": {
+          "sphere_pairs": 128,
+          "max_penetration_m": 0.015483102761209011
+        },
+        "right_Link5 / right_ctag_base_link": {
+          "sphere_pairs": 65,
+          "max_penetration_m": 0.005042906850576401
+        },
+        "right_ctag_Left_1_Link / right_ctag_Left_2_Link": {
+          "sphere_pairs": 128,
+          "max_penetration_m": 0.015483083203434944
+        },
+        "right_ctag_Right_2_Link / right_ctag_Right_1_Link": {
+          "sphere_pairs": 128,
+          "max_penetration_m": 0.015483102761209011
+        }
+      },
+      "active_cross_arm_sphere_pairs": 2187441,
+      "bounded_gpu_feasibility_search": {
+        "seed": 20261020,
+        "samples": 256,
+        "feasible_count": 0
+      },
+      "warp_registration_overload_count": {
+        "is_obs_enabled": 3,
+        "load_obstacle_transform": 3,
+        "compute_local_sdf_with_grad": 3
+      },
+      "elapsed_s": 69.49770385201555,
+      "peak_allocated_bytes": 1202427904,
+      "peak_reserved_bytes": 1363148800,
+      "raw": {
+        "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/gpu-original-diagnosis/result.json",
+        "bytes": 3947,
+        "sha256": "f2c5f531c8f30e09e1ce7ac1fc2f636c03db95fa64350465440f8b931aa99633"
+      }
+    },
+    "gpu-midpoint-diagnosis": {
+      "ok": false,
+      "stages": {
+        "actual_gpu_fk": {
+          "ok": true,
+          "elapsed_s": 29.74824265803909,
+          "joint_names": [
+            "left_joint_1",
+            "left_joint_2",
+            "left_joint_3",
+            "left_joint_4",
+            "left_joint_5",
+            "left_joint_6",
+            "right_joint_1",
+            "right_joint_2",
+            "right_joint_3",
+            "right_joint_4",
+            "right_joint_5",
+            "right_joint_6"
+          ],
+          "pose_comparison": {
+            "left": {
+              "position_m": 8.050021753556505e-08,
+              "quaternion_abs_dot": 0.9999999829941696
+            },
+            "right": {
+              "position_m": 8.050021753556505e-08,
+              "quaternion_abs_dot": 0.9999999829941696
+            }
+          },
+          "poses": {
+            "left": {
+              "position": [
+                -0.7532615065574646,
+                -3.79293624064303e-07,
+                0.7475168704986572
+              ],
+              "quaternion_wxyz": [
+                7.312502248169039e-07,
+                0.47942879796028137,
+                -7.312528396141715e-07,
+                -0.8775807619094849
+              ]
+            },
+            "right": {
+              "position": [
+                0.7532615065574646,
+                3.79293624064303e-07,
+                0.7475168704986572
+              ],
+              "quaternion_wxyz": [
+                0.8775807619094849,
+                7.312528396141715e-07,
+                0.47942879796028137,
+                7.312502248169039e-07
+              ]
+            }
+          },
+          "collision_spheres_shape": [
+            1,
+            1,
+            2958,
+            4
+          ]
+        },
+        "actual_gpu_planner": {
+          "ok": false,
+          "expected_feasible": true,
+          "elapsed_s": 33.52163070597453,
+          "joint_names": [
+            "left_joint_1",
+            "left_joint_2",
+            "left_joint_3",
+            "left_joint_4",
+            "left_joint_5",
+            "left_joint_6",
+            "right_joint_1",
+            "right_joint_2",
+            "right_joint_3",
+            "right_joint_4",
+            "right_joint_5",
+            "right_joint_6"
+          ],
+          "default_state_feasible": false,
+          "self_collision_check": true,
+          "cross_arm_ignored_pairs": 0
+        }
+      },
+      "environment": {
+        "torch": "2.7.1+cu126",
+        "cuda_runtime": "12.6",
+        "gpu": "NVIDIA GeForce RTX 3060",
+        "capability": [
+          8,
+          6
+        ],
+        "warp": "1.9.1"
+      },
+      "default_constraint_detail": {
+        "constraint:cspace": {
+          "maximum": 0.0,
+          "sum": 0.0
+        },
+        "constraint:self_collision": {
+          "maximum": 1.9922937154769897,
+          "sum": 1.9922937154769897
+        },
+        "constraint:scene_collision": {
+          "maximum": 0.0,
+          "sum": 0.0
+        },
+        "sum_constraint": 1.9922937154769897
+      },
+      "default_sphere_overlap_groups": {
+        "left_Link5 / left_ctag_base_link": {
+          "sphere_pairs": 65,
+          "max_penetration_m": 0.005042906850576401
+        },
+        "left_ctag_Left_1_Link / left_ctag_Left_2_Link": {
+          "sphere_pairs": 140,
+          "max_penetration_m": 0.014861442148685455
+        },
+        "left_ctag_Right_2_Link / left_ctag_Right_1_Link": {
+          "sphere_pairs": 140,
+          "max_penetration_m": 0.014861561357975006
+        },
+        "right_Link5 / right_ctag_base_link": {
+          "sphere_pairs": 65,
+          "max_penetration_m": 0.005042906850576401
+        },
+        "right_ctag_Left_1_Link / right_ctag_Left_2_Link": {
+          "sphere_pairs": 140,
+          "max_penetration_m": 0.014861442148685455
+        },
+        "right_ctag_Right_2_Link / right_ctag_Right_1_Link": {
+          "sphere_pairs": 140,
+          "max_penetration_m": 0.014861561357975006
+        }
+      },
+      "active_cross_arm_sphere_pairs": 2187441,
+      "bounded_gpu_feasibility_search": {
+        "seed": 20261020,
+        "samples": 256,
+        "feasible_count": 0
+      },
+      "warp_registration_overload_count": {
+        "is_obs_enabled": 3,
+        "load_obstacle_transform": 3,
+        "compute_local_sdf_with_grad": 3
+      },
+      "elapsed_s": 69.6288979590172,
+      "peak_allocated_bytes": 1202427904,
+      "peak_reserved_bytes": 1363148800,
+      "raw": {
+        "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/gpu-midpoint-diagnosis/result.json",
+        "bytes": 3997,
+        "sha256": "58621d5092fdaba46ed7a3d8d07f80227aa017ac1cda922837bd915c30e280c8"
+      }
+    },
+    "gpu-coincident-negative": {
+      "ok": true,
+      "stages": {
+        "actual_gpu_fk": {
+          "ok": true,
+          "elapsed_s": 29.185389741964173,
+          "joint_names": [
+            "left_joint_1",
+            "left_joint_2",
+            "left_joint_3",
+            "left_joint_4",
+            "left_joint_5",
+            "left_joint_6",
+            "right_joint_1",
+            "right_joint_2",
+            "right_joint_3",
+            "right_joint_4",
+            "right_joint_5",
+            "right_joint_6"
+          ],
+          "pose_comparison": {
+            "left": {
+              "position_m": 8.050021753556505e-08,
+              "quaternion_abs_dot": 0.9999999829941696
+            },
+            "right": {
+              "position_m": 8.050021753556505e-08,
+              "quaternion_abs_dot": 0.9999999829941696
+            }
+          },
+          "poses": {
+            "left": {
+              "position": [
+                -0.7532615065574646,
+                -3.79293624064303e-07,
+                0.7475168704986572
+              ],
+              "quaternion_wxyz": [
+                7.312502248169039e-07,
+                0.47942879796028137,
+                -7.312528396141715e-07,
+                -0.8775807619094849
+              ]
+            },
+            "right": {
+              "position": [
+                -0.7532615065574646,
+                -3.79293624064303e-07,
+                0.7475168704986572
+              ],
+              "quaternion_wxyz": [
+                7.312502248169039e-07,
+                0.47942879796028137,
+                -7.312528396141715e-07,
+                -0.8775807619094849
+              ]
+            }
+          },
+          "collision_spheres_shape": [
+            1,
+            1,
+            2958,
+            4
+          ]
+        },
+        "actual_gpu_planner": {
+          "ok": true,
+          "expected_feasible": false,
+          "elapsed_s": 33.09057096397737,
+          "joint_names": [
+            "left_joint_1",
+            "left_joint_2",
+            "left_joint_3",
+            "left_joint_4",
+            "left_joint_5",
+            "left_joint_6",
+            "right_joint_1",
+            "right_joint_2",
+            "right_joint_3",
+            "right_joint_4",
+            "right_joint_5",
+            "right_joint_6"
+          ],
+          "default_state_feasible": false,
+          "self_collision_check": true,
+          "cross_arm_ignored_pairs": 0
+        }
+      },
+      "environment": {
+        "torch": "2.7.1+cu126",
+        "cuda_runtime": "12.6",
+        "gpu": "NVIDIA GeForce RTX 3060",
+        "capability": [
+          8,
+          6
+        ],
+        "warp": "1.9.1"
+      },
+      "default_constraint_detail": {
+        "constraint:cspace": {
+          "maximum": 0.0,
+          "sum": 0.0
+        },
+        "constraint:self_collision": {
+          "maximum": 2.0,
+          "sum": 2.0
+        },
+        "constraint:scene_collision": {
+          "maximum": 0.0,
+          "sum": 0.0
+        },
+        "sum_constraint": 2.0
+      },
+      "default_sphere_overlap_groups": {
+        "left_base_link / right_base_link": {
+          "sphere_pairs": 2537,
+          "max_penetration_m": 0.04330126941204071
+        },
+        "left_base_link / right_Link1": {
+          "sphere_pairs": 483,
+          "max_penetration_m": 0.03380127251148224
+        },
+        "left_base_link / right_Link2": {
+          "sphere_pairs": 4,
+          "max_penetration_m": 0.00840809941291809
+        },
+        "left_Link1 / right_base_link": {
+          "sphere_pairs": 483,
+          "max_penetration_m": 0.03380127251148224
+        },
+        "left_Link1 / right_Link1": {
+          "sphere_pairs": 2318,
+          "max_penetration_m": 0.04330126941204071
+        },
+        "left_Link1 / right_Link2": {
+          "sphere_pairs": 785,
+          "max_penetration_m": 0.04330126941204071
+        },
+        "left_Link2 / right_base_link": {
+          "sphere_pairs": 4,
+          "max_penetration_m": 0.00840809941291809
+        },
+        "left_Link2 / right_Link1": {
+          "sphere_pairs": 785,
+          "max_penetration_m": 0.04330126941204071
+        },
+        "left_Link2 / right_Link2": {
+          "sphere_pairs": 2998,
+          "max_penetration_m": 0.04330126941204071
+        },
+        "left_Link2 / right_Link3": {
+          "sphere_pairs": 398,
+          "max_penetration_m": 0.03891918435692787
+        },
+        "left_Link3 / right_Link3": {
+          "sphere_pairs": 896,
+          "max_penetration_m": 0.04330126941204071
+        },
+        "left_Link3 / right_Link4": {
+          "sphere_pairs": 118,
+          "max_penetration_m": 0.03330139070749283
+        },
+        "left_Link3 / right_Link2": {
+          "sphere_pairs": 398,
+          "max_penetration_m": 0.03891918435692787
+        },
+        "left_Link4 / right_Link3": {
+          "sphere_pairs": 118,
+          "max_penetration_m": 0.03330139070749283
+        },
+        "left_Link4 / right_Link4": {
+          "sphere_pairs": 763,
+          "max_penetration_m": 0.04330126941204071
+        },
+        "left_Link4 / right_Link5": {
+          "sphere_pairs": 325,
+          "max_penetration_m": 0.04330126941204071
+        },
+        "left_Link5 / left_ctag_base_link": {
+          "sphere_pairs": 65,
+          "max_penetration_m": 0.005042906850576401
+        },
+        "left_Link5 / right_Link5": {
+          "sphere_pairs": 768,
+          "max_penetration_m": 0.04330126941204071
+        },
+        "left_Link5 / right_Link6": {
+          "sphere_pairs": 156,
+          "max_penetration_m": 0.037301383912563324
+        },
+        "left_Link5 / right_ctag_base_link": {
+          "sphere_pairs": 65,
+          "max_penetration_m": 0.005042906850576401
+        },
+        "left_Link5 / right_Link4": {
+          "sphere_pairs": 325,
+          "max_penetration_m": 0.04330126941204071
+        },
+        "left_Link6 / right_Link5": {
+          "sphere_pairs": 156,
+          "max_penetration_m": 0.037301383912563324
+        },
+        "left_Link6 / right_Link6": {
+          "sphere_pairs": 200,
+          "max_penetration_m": 0.04330126941204071
+        },
+        "left_Link6 / right_ctag_base_link": {
+          "sphere_pairs": 270,
+          "max_penetration_m": 0.024042941629886627
+        },
+        "left_ctag_base_link / right_Link5": {
+          "sphere_pairs": 65,
+          "max_penetration_m": 0.005042906850576401
+        },
+        "left_ctag_base_link / right_Link6": {
+          "sphere_pairs": 270,
+          "max_penetration_m": 0.024042941629886627
+        },
+        "left_ctag_base_link / right_ctag_base_link": {
+          "sphere_pairs": 8308,
+          "max_penetration_m": 0.020784609019756317
+        },
+        "left_ctag_base_link / right_ctag_Right_1_Link": {
+          "sphere_pairs": 129,
+          "max_penetration_m": 0.013773875311017036
+        },
+        "left_ctag_base_link / right_ctag_Right_2_Link": {
+          "sphere_pairs": 213,
+          "max_penetration_m": 0.016661547124385834
+        },
+        "left_ctag_base_link / right_ctag_Left_2_Link": {
+          "sphere_pairs": 213,
+          "max_penetration_m": 0.016661588102579117
+        },
+        "left_ctag_base_link / right_ctag_Left_1_Link": {
+          "sphere_pairs": 129,
+          "max_penetration_m": 0.01377389021217823
+        },
+        "left_ctag_Left_1_Link / left_ctag_Left_2_Link": {
+          "sphere_pairs": 128,
+          "max_penetration_m": 0.015483083203434944
+        },
+        "left_ctag_Left_1_Link / right_ctag_base_link": {
+          "sphere_pairs": 129,
+          "max_penetration_m": 0.01377389021217823
+        },
+        "left_ctag_Left_1_Link / right_ctag_Left_1_Link": {
+          "sphere_pairs": 406,
+          "max_penetration_m": 0.020784609019756317
+        },
+        "left_ctag_Left_1_Link / right_ctag_Left_2_Link": {
+          "sphere_pairs": 128,
+          "max_penetration_m": 0.015483083203434944
+        },
+        "left_ctag_Left_1_Link / right_ctag_Left_Support_Link": {
+          "sphere_pairs": 119,
+          "max_penetration_m": 0.016216926276683807
+        },
+        "left_ctag_Left_Support_Link / right_ctag_Left_1_Link": {
+          "sphere_pairs": 119,
+          "max_penetration_m": 0.016216926276683807
+        },
+        "left_ctag_Left_Support_Link / right_ctag_Left_Support_Link": {
+          "sphere_pairs": 508,
+          "max_penetration_m": 0.020784609019756317
+        },
+        "left_ctag_Left_Support_Link / right_ctag_Left_2_Link": {
+          "sphere_pairs": 194,
+          "max_penetration_m": 0.01427345909178257
+        },
+        "left_ctag_Left_2_Link / right_ctag_base_link": {
+          "sphere_pairs": 213,
+          "max_penetration_m": 0.016661588102579117
+        },
+        "left_ctag_Left_2_Link / right_ctag_Left_1_Link": {
+          "sphere_pairs": 128,
+          "max_penetration_m": 0.015483083203434944
+        },
+        "left_ctag_Left_2_Link / right_ctag_Left_2_Link": {
+          "sphere_pairs": 408,
+          "max_penetration_m": 0.020784609019756317
+        },
+        "left_ctag_Left_2_Link / right_ctag_Left_Support_Link": {
+          "sphere_pairs": 194,
+          "max_penetration_m": 0.01427345909178257
+        },
+        "left_ctag_Right_2_Link / left_ctag_Right_1_Link": {
+          "sphere_pairs": 128,
+          "max_penetration_m": 0.015483102761209011
+        },
+        "left_ctag_Right_2_Link / right_ctag_base_link": {
+          "sphere_pairs": 213,
+          "max_penetration_m": 0.016661547124385834
+        },
+        "left_ctag_Right_2_Link / right_ctag_Right_2_Link": {
+          "sphere_pairs": 388,
+          "max_penetration_m": 0.020784609019756317
+        },
+        "left_ctag_Right_2_Link / right_ctag_Right_1_Link": {
+          "sphere_pairs": 128,
+          "max_penetration_m": 0.015483102761209011
+        },
+        "left_ctag_Right_2_Link / right_ctag_Right_Support_Link": {
+          "sphere_pairs": 194,
+          "max_penetration_m": 0.014273280277848244
+        },
+        "left_ctag_Right_1_Link / right_ctag_base_link": {
+          "sphere_pairs": 129,
+          "max_penetration_m": 0.013773875311017036
+        },
+        "left_ctag_Right_1_Link / right_ctag_Right_2_Link": {
+          "sphere_pairs": 128,
+          "max_penetration_m": 0.015483102761209011
+        },
+        "left_ctag_Right_1_Link / right_ctag_Right_1_Link": {
+          "sphere_pairs": 388,
+          "max_penetration_m": 0.020784609019756317
+        },
+        "left_ctag_Right_1_Link / right_ctag_Right_Support_Link": {
+          "sphere_pairs": 119,
+          "max_penetration_m": 0.01621696911752224
+        },
+        "left_ctag_Right_Support_Link / right_ctag_Right_2_Link": {
+          "sphere_pairs": 194,
+          "max_penetration_m": 0.014273280277848244
+        },
+        "left_ctag_Right_Support_Link / right_ctag_Right_1_Link": {
+          "sphere_pairs": 119,
+          "max_penetration_m": 0.01621696911752224
+        },
+        "left_ctag_Right_Support_Link / right_ctag_Right_Support_Link": {
+          "sphere_pairs": 488,
+          "max_penetration_m": 0.020784609019756317
+        },
+        "left_wrist_camera_mount / right_wrist_camera_mount": {
+          "sphere_pairs": 1133,
+          "max_penetration_m": 0.020784609019756317
+        },
+        "right_Link5 / right_ctag_base_link": {
+          "sphere_pairs": 65,
+          "max_penetration_m": 0.005042906850576401
+        },
+        "right_ctag_Left_1_Link / right_ctag_Left_2_Link": {
+          "sphere_pairs": 128,
+          "max_penetration_m": 0.015483083203434944
+        },
+        "right_ctag_Right_2_Link / right_ctag_Right_1_Link": {
+          "sphere_pairs": 128,
+          "max_penetration_m": 0.015483102761209011
+        }
+      },
+      "active_cross_arm_sphere_pairs": 2187441,
+      "actual_gpu_pair_diagnostics": {
+        "native_raw_cost": 0.0009374999790452421,
+        "native_metric": "squared sphere overlap, NOT meters",
+        "cross_arm_pairs_evaluated": 2187441,
+        "cross_arm_positive_pairs": 30875,
+        "cross_arm_max_native_metric": 0.0018749999580904841,
+        "same_arm_positive_pairs": 642,
+        "original_pairs_unchanged": true
+      },
+      "native_cap_gpu_execution_gate": {
+        "ok": true,
+        "execution_ok": false,
+        "error": {
+          "code": "planning_failed",
+          "message": "GPU_POST_RESAMPLE_COLLISION_OR_BOUNDS"
+        },
+        "gpu_checks": [
+          {
+            "ok": false,
+            "backend": "ACTUAL_CUROBO_GPU",
+            "checks": [
+              "joint_limits",
+              "velocity_limits",
+              "self_collision_including_cross_arm",
+              "scene_collision"
+            ],
+            "waypoints": 2,
+            "feasible": [
+              false,
+              false
+            ],
+            "synthetic_layout": true,
+            "physical_execution": false
+          }
+        ],
+        "stub_ticks": 0,
+        "hardware_commands_sent": 0
+      },
+      "warp_registration_overload_count": {
+        "is_obs_enabled": 3,
+        "load_obstacle_transform": 3,
+        "compute_local_sdf_with_grad": 3
+      },
+      "elapsed_s": 69.40670605597552,
+      "peak_allocated_bytes": 1216460288,
+      "peak_reserved_bytes": 1388314624,
+      "raw": {
+        "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/gpu-coincident-negative/result.json",
+        "bytes": 11751,
+        "sha256": "1e65e91bdb6ad1e73780386ce01a50fc67c4684a35ee482773a008dec5291da0"
+      }
+    }
+  },
+  "native_mcp": {
+    "scope": "SYNTHETIC_OFFLINE_ONLY",
+    "hardware_commands_sent": 0,
+    "tests": {
+      "discovery": {
+        "ok": true,
+        "category": "NATIVE_MCP_PROTOCOL"
+      },
+      "cap_get_robot_state": {
+        "ok": true,
+        "category": "STUB_FEEDBACK_NATIVE_MCP",
+        "elapsed_s": 0.05165417003445327,
+        "result": {
+          "joint_positions": {
+            "left": [
+              0.0,
+              -0.4,
+              0.8,
+              0.0,
+              0.6,
+              0.0
+            ],
+            "right": [
+              0.0,
+              -0.4,
+              0.8,
+              0.0,
+              0.6,
+              0.0
+            ]
+          },
+          "joint_velocities": {
+            "left": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "end_effector_poses": {
+            "left": {
+              "position": [
+                -0.753261,
+                -0.0,
+                0.747517
+              ],
+              "quaternion_wxyz": [
+                1e-06,
+                0.479429,
+                -1e-06,
+                -0.877581
+              ],
+              "frame": "synthetic:realman_rm65_world"
+            },
+            "right": {
+              "position": [
+                0.753261,
+                0.0,
+                0.747517
+              ],
+              "quaternion_wxyz": [
+                0.877581,
+                1e-06,
+                0.479429,
+                1e-06
+              ],
+              "frame": "synthetic:realman_rm65_world"
+            }
+          },
+          "gripper_positions": {
+            "left": 0.432,
+            "right": 1.0
+          },
+          "base_frame": "synthetic:realman_rm65_world",
+          "joint_names": {
+            "left": [
+              "left_joint_1",
+              "left_joint_2",
+              "left_joint_3",
+              "left_joint_4",
+              "left_joint_5",
+              "left_joint_6"
+            ],
+            "right": [
+              "right_joint_1",
+              "right_joint_2",
+              "right_joint_3",
+              "right_joint_4",
+              "right_joint_5",
+              "right_joint_6"
+            ]
+          },
+          "timestamp_s": 1792511850.2171752,
+          "embodiment": "realman",
+          "metadata": {
+            "source_kind": "SYNTHETIC_OFFLINE",
+            "controller_feedback": "STUB_ONLY",
+            "actual_grasp_tcp": null,
+            "physical_motion_permitted": false,
+            "model": "realman_rm65_dual",
+            "pose_endpoint": "nominal Link6 flange; NOT actual grasp TCP"
+          }
+        }
+      },
+      "observe": {
+        "ok": true,
+        "category": "SYNTHETIC_IMAGE_NATIVE_MCP",
+        "elapsed_s": 0.06259402801515535,
+        "result": {}
+      },
+      "native_cap_ik": {
+        "ok": false,
+        "category": "ACTUAL_CUROBO_GPU_IK_NATIVE_CAP",
+        "elapsed_s": 41.69848755502608,
+        "joint_positions": null,
+        "error": {
+          "code": "ik_failed",
+          "message": "cuRobo IK target is unreachable",
+          "details": {
+            "url": "http://127.0.0.1:36047/ik",
+            "status_code": 422,
+            "response": "{\"detail\":\"cuRobo IK target is unreachable\"}",
+            "attempt": 1,
+            "http_error_code": "invalid_request"
+          }
+        }
+      },
+      "cap_move_to_joints": {
+        "ok": false,
+        "category": "ACTUAL_CUROBO_GPU_THEN_STUB",
+        "elapsed_s": 31.20590366097167,
+        "result": {
+          "ok": false,
+          "status": "planner_failed",
+          "postcondition_satisfied": false,
+          "steps_executed": 0,
+          "terminated": false,
+          "truncated": false,
+          "final_errors": {},
+          "diagnostics": {},
+          "error": {
+            "code": "planning_failed",
+            "message": "cuRobo refused the request",
+            "recoverable": true,
+            "details": {
+              "url": "http://127.0.0.1:36047/plan",
+              "status_code": 422,
+              "response": "{\"detail\":{\"message\":\"cuRobo start state infeasible (self_collision)\",\"constraints_start\":{\"constraint:cspace\":{\"maximum\":0.0,\"sum\":0.0},\"constraint:self_collision\":{\"maximum\":2.0,\"sum\":2.0},\"constraint:scene_collision\":{\"maximum\":0.0,\"sum\":0.0},\"sum_constraint\":2.0},\"start_state_feasible\":false,\"constraints_goal\":{\"constraint:cspace\":{\"maximum\":0.0,\"sum\":0.0},\"constraint:self_collision\":{\"maximum\":2.0,\"sum\":2.0},\"constraint:scene_collision\":{\"maximum\":0.0,\"sum\":0.0},\"sum_constraint\":2.0},\"goal_state_feasib",
+              "attempt": 1,
+              "http_error_code": "invalid_request"
+            }
+          },
+          "terminal_state": null,
+          "terminal_observation_timestamp_s": null,
+          "state_refresh_required": true
+        }
+      },
+      "cap_move_to_pose": {
+        "ok": false,
+        "category": "ACTUAL_CUROBO_GPU_THEN_STUB",
+        "elapsed_s": 4.017818456981331,
+        "result": {
+          "ok": false,
+          "status": "planner_failed",
+          "postcondition_satisfied": false,
+          "steps_executed": 0,
+          "terminated": false,
+          "truncated": false,
+          "final_errors": {},
+          "diagnostics": {},
+          "error": {
+            "code": "planning_failed",
+            "message": "cuRobo start state infeasible (self_collision)",
+            "recoverable": true,
+            "details": {
+              "url": "http://127.0.0.1:36047/plan",
+              "status_code": 422,
+              "response": "{\"detail\":{\"message\":\"cuRobo start state infeasible (self_collision)\",\"constraints_start\":{\"constraint:cspace\":{\"maximum\":0.0,\"sum\":0.0},\"constraint:self_collision\":{\"maximum\":2.0,\"sum\":2.0},\"constraint:scene_collision\":{\"maximum\":0.0,\"sum\":0.0},\"sum_constraint\":2.0},\"start_state_feasible\":false,\"failure_kind\":\"start_self_collision\"}}",
+              "attempt": 1,
+              "http_error_code": "invalid_request"
+            }
+          },
+          "terminal_state": null,
+          "terminal_observation_timestamp_s": null,
+          "state_refresh_required": true
+        }
+      },
+      "cap_move_synchronized": {
+        "ok": false,
+        "category": "ACTUAL_CUROBO_GPU_THEN_STUB",
+        "elapsed_s": 34.171962821041234,
+        "result": {
+          "ok": false,
+          "status": "planner_failed",
+          "postcondition_satisfied": false,
+          "steps_executed": 0,
+          "terminated": false,
+          "truncated": false,
+          "final_errors": {},
+          "diagnostics": {},
+          "error": {
+            "code": "planning_failed",
+            "message": "cuRobo start state infeasible (self_collision)",
+            "recoverable": true,
+            "details": {
+              "url": "http://127.0.0.1:36047/plan_synchronized",
+              "status_code": 422,
+              "response": "{\"detail\":{\"message\":\"cuRobo start state infeasible (self_collision)\",\"constraints_start\":{\"constraint:cspace\":{\"maximum\":0.0,\"sum\":0.0},\"constraint:self_collision\":{\"maximum\":2.0,\"sum\":2.0},\"constraint:scene_collision\":{\"maximum\":0.0,\"sum\":0.0},\"sum_constraint\":2.0},\"start_state_feasible\":false,\"failure_kind\":\"start_self_collision\"}}",
+              "attempt": 1,
+              "http_error_code": "invalid_request"
+            }
+          },
+          "terminal_state": null,
+          "terminal_observation_timestamp_s": null,
+          "state_refresh_required": true
+        }
+      },
+      "cap_set_gripper": {
+        "ok": true,
+        "category": "STUB_V17_GRIPPER_CONTRACT_ONLY",
+        "elapsed_s": 0.05969429697142914,
+        "result": {
+          "ok": true,
+          "status": "success",
+          "postcondition_satisfied": true,
+          "steps_executed": 1,
+          "terminated": false,
+          "truncated": false,
+          "final_errors": {},
+          "diagnostics": {
+            "execution_source": "STUB_ONLY",
+            "contract": {
+              "arm": "left",
+              "opening_requested": 0.4329,
+              "wire_target": 432,
+              "v17_wire": {
+                "command": "hand_follow_pos",
+                "hand_pos": [
+                  432
+                ]
+              },
+              "required_ack": {
+                "command": "hand_follow_pos",
+                "set_state": true
+              },
+              "retries": 0,
+              "grasp_confirmed": "UNKNOWN"
+            },
+            "hardware_commands_sent": 0,
+            "grasp_confirmed": "UNKNOWN"
+          },
+          "error": null,
+          "terminal_state": {
+            "base_frame": "synthetic:realman_rm65_world",
+            "embodiment": "realman",
+            "joint_positions": {
+              "left": [
+                0.0,
+                -0.4,
+                0.8,
+                0.0,
+                0.6,
+                0.0
+              ],
+              "right": [
+                0.0,
+                -0.4,
+                0.8,
+                0.0,
+                0.6,
+                0.0
+              ]
+            },
+            "joint_velocities": {
+              "left": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "right": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "gripper_positions": {
+              "left": 0.432,
+              "right": 1.0
+            },
+            "end_effector_poses": {
+              "left": {
+                "position": [
+                  -0.753261,
+                  -0.0,
+                  0.747517
+                ],
+                "quaternion_wxyz": [
+                  1e-06,
+                  0.479429,
+                  -1e-06,
+                  -0.877581
+                ],
+                "frame": "synthetic:realman_rm65_world"
+              },
+              "right": {
+                "position": [
+                  0.753261,
+                  0.0,
+                  0.747517
+                ],
+                "quaternion_wxyz": [
+                  0.877581,
+                  1e-06,
+                  0.479429,
+                  1e-06
+                ],
+                "frame": "synthetic:realman_rm65_world"
+              }
+            },
+            "timestamp_s": 1792511850.158702,
+            "metadata": {
+              "source_kind": "SYNTHETIC_OFFLINE",
+              "controller_feedback": "STUB_ONLY",
+              "actual_grasp_tcp": null,
+              "physical_motion_permitted": false,
+              "model": "realman_rm65_dual",
+              "pose_endpoint": "nominal Link6 flange; NOT actual grasp TCP"
+            }
+          },
+          "terminal_observation_timestamp_s": 1792511850.158702,
+          "state_refresh_required": false
+        }
+      },
+      "reject_limit": {
+        "ok": true,
+        "category": "NATIVE_PROVIDER_VALIDATION",
+        "status": 400,
+        "body": "{\"detail\":\"RM65_JOINT_LIMIT_VIOLATION_NO_CLIPPING\"}"
+      },
+      "reject_joint_order": {
+        "ok": true,
+        "category": "NATIVE_PROVIDER_VALIDATION",
+        "status": 400,
+        "body": "{\"detail\":\"RM65_EXACT_JOINT_ORDER_AND_FLANGE_LINK_REQUIRED\"}"
+      },
+      "reject_unverified_world": {
+        "ok": true,
+        "category": "NATIVE_PROVIDER_VALIDATION",
+        "status": 400,
+        "body": "{\"detail\":\"RM65_EXPLICIT_SYNTHETIC_FRAME_AND_BOTH_ARMS_REQUIRED\"}"
+      },
+      "scene_collision_negative": {
+        "ok": true,
+        "category": "ACTUAL_CUROBO_GPU_SCENE_TERM",
+        "feasible": [
+          false
+        ],
+        "constraint_detail": {
+          "constraint:cspace": {
+            "maximum": 0.0,
+            "sum": 0.0
+          },
+          "constraint:self_collision": {
+            "maximum": 2.0,
+            "sum": 2.0
+          },
+          "constraint:scene_collision": {
+            "maximum": 7557.50830078125,
+            "sum": 18869910.825195312
+          },
+          "sum_constraint": 18869912.0
+        },
+        "note": "Scene term must be positive; false feasibility alone is confounded by any model self-collision."
+      }
+    },
+    "ok": false,
+    "environment": {
+      "torch": "2.7.1+cu126",
+      "cuda_runtime": "12.6",
+      "gpu": "NVIDIA GeForce RTX 3060",
+      "warp": "1.9.1",
+      "cuda_home": "/usr/local/cuda-12.1",
+      "curobo_commit": "a35a708ecfbb26eb9ab2d7ef22c65919c4fae4a9"
+    },
+    "mcp": {
+      "protocol_version": "2025-11-25",
+      "tools": [
+        "cap_get_robot_state",
+        "cap_move_synchronized",
+        "cap_move_to_joints",
+        "cap_move_to_pose",
+        "cap_program_go_home",
+        "cap_program_observe",
+        "cap_set_gripper",
+        "get_capability_graph",
+        "get_job",
+        "observe",
+        "read_operator_messages"
+      ]
+    },
+    "post_resample_gpu_checks": [],
+    "stub_feedback_events": 1,
+    "loaded_hardware_modules": [],
+    "peak_allocated_bytes": 2606070784,
+    "peak_reserved_bytes": 2971664384
+  },
+  "native_raw": {
+    "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/native-original-01/summary.json",
+    "bytes": 12615,
+    "sha256": "2123e8fe59cf11ebdd893ac10407f4be83f8d91b40c946f1eadc56906b0a4508"
+  },
+  "environment": {
+    "python": "3.12.13 | packaged by conda-forge | (main, Mar  5 2026, 16:50:00) [GCC 14.3.0]",
+    "executable": "/home/tongji/alex/aspire_realman_phase2a_20261020/.venv/bin/python",
+    "packages": {
+      "torch": "2.7.1+cu126",
+      "numpy": "1.26.4",
+      "warp-lang": "1.9.1",
+      "cuda-core": "1.2.2",
+      "cuda-bindings": "12.9.4",
+      "cuda-pathfinder": "1.4.2",
+      "scipy": "1.15.3",
+      "trimesh": "4.7.4",
+      "yourdfpy": "0.0.58",
+      "lxml": "5.3.2",
+      "six": "1.17.0",
+      "ninja": "1.11.1.4",
+      "setuptools-scm": "8.3.1",
+      "mcp": "1.26.0",
+      "fastapi": "0.150.0",
+      "uvicorn": "0.54.0",
+      "httpx": "0.28.1",
+      "requests": "2.34.2",
+      "PyYAML": "6.0.3"
+    },
+    "gpu": "NVIDIA GeForce RTX 3060, 535.230.02, 12288 MiB"
+  },
+  "downloads": {
+    "verified_wheels": [
+      {
+        "name": "warp_lang-1.9.1-py3-none-manylinux_2_28_x86_64.whl",
+        "artifact_bytes": 132023480,
+        "reused_partial_bytes": 74711040,
+        "downloaded_bytes": 57312440,
+        "sha256": "2211e0cd9332ca44193801285cd1293c0b7580932da8da32e18d70b832adac12"
+      },
+      {
+        "name": "scipy-1.15.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "artifact_bytes": 37309455,
+        "reused_partial_bytes": 0,
+        "downloaded_bytes": 37309455,
+        "sha256": "271e3713e645149ea5ea3e97b57fdab61ce61333f97cfae392c28ba786f9bb49"
+      },
+      {
+        "name": "trimesh-4.7.4-py3-none-any.whl",
+        "artifact_bytes": 709841,
+        "reused_partial_bytes": 0,
+        "downloaded_bytes": 709841,
+        "sha256": "47af90235f7006316c37584b43d5f6c109a5069b252d7ab2bf8e6ed7c9fd953b"
+      },
+      {
+        "name": "yourdfpy-0.0.58-py3-none-any.whl",
+        "artifact_bytes": 22176,
+        "reused_partial_bytes": 0,
+        "downloaded_bytes": 22176,
+        "sha256": "9e1b00ef0d33256d8d0f3a48e34ebf28a05181cee7f6c44a32c704a0261aa9c0"
+      },
+      {
+        "name": "lxml-5.3.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "artifact_bytes": 4961795,
+        "reused_partial_bytes": 0,
+        "downloaded_bytes": 4961795,
+        "sha256": "e70ad4c9658beeff99856926fd3ee5fde8b519b92c693f856007177c36eb2e30"
+      },
+      {
+        "name": "ninja-1.11.1.4-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.whl",
+        "artifact_bytes": 422814,
+        "reused_partial_bytes": 0,
+        "downloaded_bytes": 422814,
+        "sha256": "096487995473320de7f65d622c3f1d16c3ad174797602218ca8c967f51ec38a0"
+      },
+      {
+        "name": "setuptools_scm-8.3.1-py3-none-any.whl",
+        "artifact_bytes": 43935,
+        "reused_partial_bytes": 0,
+        "downloaded_bytes": 43935,
+        "sha256": "332ca0d43791b818b841213e76b1971b7711a960761c5bea5fc5cdb5196fbce3"
+      }
+    ],
+    "conservative_file_bytes_upper_bound_including_cuda_and_probes_and_sources": 201775675,
+    "authorized_cap_bytes": 250000000,
+    "not_a_vps_billing_measurement": true
+  },
+  "final_stub_log": {
+    "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/stub-tests-final.log",
+    "bytes": 1383,
+    "sha256": "c5bbe421aed840f425394d4f5d43941c952f01d5abac8e3ac219a144d0f1fe15"
+  },
+  "classification": {
+    "actual_gpu_fk": "PASS_NOMINAL_KINEMATICS_CONSISTENCY",
+    "actual_gpu_planner_initialization": "PASS",
+    "full_model_successful_ik_or_trajectory": "BLOCKED_SELF_COLLISION",
+    "actual_gpu_cross_arm_and_scene_checks": "PASS_NEGATIVE_EVIDENCE",
+    "native_cap_gpu_execution_gate": "PASS_REJECTION_ZERO_STUB_TICKS",
+    "stub_execution_contracts": "PASS_OFFLINE_ONLY",
+    "native_mcp_motion_success": "BLOCKED_NOT_PASS",
+    "physical_execution": "HARD_DISABLED",
+    "physical_world_tcp_geometry": "NOT_VERIFIED"
+  },
+  "collision_policy_proposal": "NOT_APPLIED_NOT_RUN_WAITING_USER_DECISION"
+}

@@ -1,0 +1,197 @@
+{
+  "status": "PROPOSAL_ONLY_NOT_APPLIED_NOT_RUN",
+  "per_arm_pairs": [
+    [
+      "Link6",
+      "ctag_Left_1_Link"
+    ],
+    [
+      "Link6",
+      "ctag_Left_Support_Link"
+    ],
+    [
+      "Link6",
+      "ctag_Left_2_Link"
+    ],
+    [
+      "Link6",
+      "ctag_Right_2_Link"
+    ],
+    [
+      "Link6",
+      "ctag_Right_1_Link"
+    ],
+    [
+      "Link6",
+      "ctag_Right_Support_Link"
+    ],
+    [
+      "Link6",
+      "wrist_camera_mount"
+    ],
+    [
+      "ctag_base_link",
+      "ctag_Left_Support_Link"
+    ],
+    [
+      "ctag_base_link",
+      "ctag_Right_Support_Link"
+    ],
+    [
+      "ctag_Left_1_Link",
+      "ctag_Left_2_Link"
+    ],
+    [
+      "ctag_Left_1_Link",
+      "ctag_Right_2_Link"
+    ],
+    [
+      "ctag_Left_1_Link",
+      "ctag_Right_1_Link"
+    ],
+    [
+      "ctag_Left_1_Link",
+      "ctag_Right_Support_Link"
+    ],
+    [
+      "ctag_Left_1_Link",
+      "wrist_camera_mount"
+    ],
+    [
+      "ctag_Left_Support_Link",
+      "ctag_Right_2_Link"
+    ],
+    [
+      "ctag_Left_Support_Link",
+      "ctag_Right_1_Link"
+    ],
+    [
+      "ctag_Left_Support_Link",
+      "ctag_Right_Support_Link"
+    ],
+    [
+      "ctag_Left_Support_Link",
+      "wrist_camera_mount"
+    ],
+    [
+      "ctag_Left_2_Link",
+      "ctag_Right_2_Link"
+    ],
+    [
+      "ctag_Left_2_Link",
+      "ctag_Right_1_Link"
+    ],
+    [
+      "ctag_Left_2_Link",
+      "ctag_Right_Support_Link"
+    ],
+    [
+      "ctag_Left_2_Link",
+      "wrist_camera_mount"
+    ],
+    [
+      "ctag_Right_2_Link",
+      "ctag_Right_1_Link"
+    ],
+    [
+      "ctag_Right_2_Link",
+      "wrist_camera_mount"
+    ],
+    [
+      "ctag_Right_1_Link",
+      "wrist_camera_mount"
+    ],
+    [
+      "ctag_Right_Support_Link",
+      "wrist_camera_mount"
+    ]
+  ],
+  "connectivity_proof": [
+    {
+      "joint": "ctag_base_link_Joint",
+      "type": "fixed",
+      "locked_value": null,
+      "links": [
+        "ctag_base",
+        "ctag_base_link"
+      ]
+    },
+    {
+      "joint": "ctag_Left_1_Joint",
+      "type": "revolute",
+      "locked_value": 0.0,
+      "links": [
+        "ctag_base_link",
+        "ctag_Left_1_Link"
+      ]
+    },
+    {
+      "joint": "ctag_Left_Support_Joint",
+      "type": "revolute",
+      "locked_value": 0.0,
+      "links": [
+        "ctag_Left_1_Link",
+        "ctag_Left_Support_Link"
+      ]
+    },
+    {
+      "joint": "ctag_Left_2_Joint",
+      "type": "revolute",
+      "locked_value": 0.0,
+      "links": [
+        "ctag_base_link",
+        "ctag_Left_2_Link"
+      ]
+    },
+    {
+      "joint": "ctag_Right_2_Joint",
+      "type": "revolute",
+      "locked_value": 0.0,
+      "links": [
+        "ctag_base_link",
+        "ctag_Right_2_Link"
+      ]
+    },
+    {
+      "joint": "ctag_Right_1_Joint",
+      "type": "revolute",
+      "locked_value": 0.0,
+      "links": [
+        "ctag_base_link",
+        "ctag_Right_1_Link"
+      ]
+    },
+    {
+      "joint": "ctag_Right_Support_Joint",
+      "type": "revolute",
+      "locked_value": 0.0,
+      "links": [
+        "ctag_Right_1_Link",
+        "ctag_Right_Support_Link"
+      ]
+    },
+    {
+      "joint": "temporary_flange_adapter",
+      "type": "fixed",
+      "locked_value": null,
+      "links": [
+        "Link6",
+        "ctag_base"
+      ]
+    },
+    {
+      "joint": "temporary_wrist_camera_mount",
+      "type": "fixed",
+      "locked_value": null,
+      "links": [
+        "ctag_base_link",
+        "wrist_camera_mount"
+      ]
+    }
+  ],
+  "active_joint_pairs_changed": 0,
+  "cross_arm_pairs_changed": 0,
+  "Link5_ctag_base_link_still_checked": true,
+  "real_hardware_commands": 0,
+  "risk": "Would change self-collision contact policy. Does not resolve active-joint wrist/gripper intersections or certify physical geometry."
+}

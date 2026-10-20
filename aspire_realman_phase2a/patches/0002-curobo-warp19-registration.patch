@@ -1,0 +1,50 @@
+--- a/curobo/_src/geom/collision/wp_collision_kernel.py
++++ b/curobo/_src/geom/collision/wp_collision_kernel.py
+@@ -35,6 +35,8 @@
+ 
+ # Third Party
+ import warp as wp
++# ASPIRE_PHASE2A_WARP19_COMPAT: registration only; SDF/gradients unchanged
++from aspire_realman_phase2a.compat import warp_func
+ 
+ from curobo._src.geom.collision.wp_collision_common import (
+     accumulate_collision,
+@@ -55,9 +57,9 @@
+     _sdf_fn = getattr(_data_module, "compute_local_sdf_with_grad")
+ 
+     # Register with wp.func - adds overloads on subsequent iterations
+-    is_obs_enabled = wp.func(_obs_fn, module=__name__)
+-    load_obstacle_transform = wp.func(_transform_fn, module=__name__)
+-    compute_local_sdf_with_grad = wp.func(_sdf_fn, module=__name__)
++    is_obs_enabled = warp_func(_obs_fn, module=__name__, scope=locals())
++    load_obstacle_transform = warp_func(_transform_fn, module=__name__, scope=locals())
++    compute_local_sdf_with_grad = warp_func(_sdf_fn, module=__name__, scope=locals())
+ 
+ del _module_path, _data_module, _obs_fn, _transform_fn, _sdf_fn
+ 
+--- a/curobo/_src/geom/collision/wp_sweep_collision_kernel.py
++++ b/curobo/_src/geom/collision/wp_sweep_collision_kernel.py
+@@ -41,6 +41,8 @@
+ 
+ # Third Party
+ import warp as wp
++# ASPIRE_PHASE2A_WARP19_COMPAT: registration only; SDF/gradients unchanged
++from aspire_realman_phase2a.compat import warp_func
+ 
+ from curobo._src.geom.collision.wp_collision_common import (
+     accumulate_collision,
+@@ -64,10 +66,10 @@
+     _sdf_fn = getattr(_data_module, "compute_local_sdf_with_grad")
+ 
+     # Register with wp.func - adds overloads on subsequent iterations
+-    is_obs_enabled = wp.func(_obs_fn, module=__name__)
+-    load_obstacle_transform = wp.func(_transform_fn, module=__name__)
+-    compute_local_sdf = wp.func(_sdf_only_fn, module=__name__)
+-    compute_local_sdf_with_grad = wp.func(_sdf_fn, module=__name__)
++    is_obs_enabled = warp_func(_obs_fn, module=__name__, scope=locals())
++    load_obstacle_transform = warp_func(_transform_fn, module=__name__, scope=locals())
++    compute_local_sdf = warp_func(_sdf_only_fn, module=__name__, scope=locals())
++    compute_local_sdf_with_grad = warp_func(_sdf_fn, module=__name__, scope=locals())
+ 
+ del _module_path, _data_module, _obs_fn, _transform_fn, _sdf_fn
+ 

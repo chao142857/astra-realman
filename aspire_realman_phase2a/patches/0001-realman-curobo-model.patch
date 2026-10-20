@@ -1,0 +1,96 @@
+--- a/src/cap_harness/providers/curobo/service.py
++++ b/src/cap_harness/providers/curobo/service.py
+@@ -22,6 +22,8 @@
+ 
+ from ..wire import decode_numpy, encode_numpy
+ from .dual import build_dual_panda_config
++# ASPIRE_PHASE2A_REALMAN_REGISTRATION: model/service only, Agent untouched
++from aspire_realman_phase2a import provider as rm65
+ from .wire import IK_PATH, PLAN_PATH, PLAN_SYNCHRONIZED_PATH
+ 
+ app = FastAPI(title="cap-harness cuRobo V2 provider")
+@@ -44,6 +46,8 @@
+     use so a blind plan cannot be mistaken for a checked one in a recorded run.
+     """
+     override = os.environ.get("CAP_HARNESS_CUROBO_DISABLE_COLLISION")
++    if model == rm65.MODEL and override not in (None, "0"):
++        raise HTTPException(400, "RM65_COLLISION_DISABLING_FORBIDDEN")
+     return override is not None and override != "0"
+ 
+ 
+@@ -65,7 +69,7 @@
+ 
+ class BaseRequest(BaseModel):
+     base_frame: str
+-    model: Literal["panda", "dual_panda", "yam_real"]
++    model: Literal["panda", "dual_panda", "yam_real", "realman_rm65_dual"]
+     joint_positions: dict[str, list[float]]
+     joint_names: dict[str, list[str]]
+     base_transforms: dict[str, list[list[float]]]
+@@ -264,6 +268,8 @@
+ 
+ 
+ def _robot_config(request: BaseRequest) -> str:
++    if request.model == rm65.MODEL:
++        return rm65.config_for(request)
+     if request.model == "panda":
+         return os.environ.get("CAP_HARNESS_CUROBO_PANDA_CONFIG", "franka.yml")
+     if request.model == "yam_real":
+@@ -614,7 +620,9 @@
+ 
+ def _validate(request: BaseRequest) -> tuple[str, ...]:
+     arms = tuple(request.joint_positions)
+-    joint_dimension = JOINT_DIMENSIONS["yam_real" if request.model == "yam_real" else "robosuite"]
++    if request.model == rm65.MODEL:
++        rm65.validate_request(request)
++    joint_dimension = JOINT_DIMENSIONS["realman" if request.model == rm65.MODEL else "yam_real" if request.model == "yam_real" else "robosuite"]
+     if not arms or set(request.joint_names) != set(arms):
+         raise HTTPException(status_code=400, detail="joint mappings must share non-empty arms")
+     if set(request.end_effector_links) != set(arms) or set(request.base_transforms) != set(arms):
+@@ -702,6 +710,9 @@
+     positions = np.concatenate([request.joint_positions[arm] for arm in ordered_arms])
+     names = [name for arm in ordered_arms for name in request.joint_names[arm]]
+     expected = list(planner.joint_names)
++    if request.model == rm65.MODEL:
++        names = expected
++        positions = rm65.ordered_state(request, expected)
+     if set(names) != set(expected):
+         if len(ordered_arms) == 1 and len(expected) == 7:
+             names = expected
+@@ -711,7 +722,7 @@
+                 detail=f"request joint names do not match cuRobo model: {names} != {expected}",
+             )
+     reorder = [names.index(name) for name in expected]
+-    positions = _clip_joint_positions(positions[reorder], planner)
++    positions = rm65.ordered_state(request, expected) if request.model == rm65.MODEL else _clip_joint_positions(positions[reorder], planner)
+     return JointState.from_position(
+         torch.as_tensor(positions, device="cuda", dtype=torch.float32).reshape(1, -1),
+         joint_names=expected,
+@@ -744,7 +755,7 @@
+     if request.target.type != "joints" or request.target.joint_positions is None:
+         raise HTTPException(status_code=400, detail="joint target is required")
+     target = np.asarray(request.target.joint_positions, dtype=np.float64)
+-    joint_dimension = JOINT_DIMENSIONS["yam_real" if request.model == "yam_real" else "robosuite"]
++    joint_dimension = JOINT_DIMENSIONS["realman" if request.model == rm65.MODEL else "yam_real" if request.model == "yam_real" else "robosuite"]
+     if target.shape != (joint_dimension,) or not np.all(np.isfinite(target)):
+         raise HTTPException(
+             status_code=400,
+@@ -763,7 +774,7 @@
+         dtype=torch.long,
+     )
+     positions[:, indices] = torch.as_tensor(target, device=positions.device, dtype=positions.dtype)
+-    clipped = _clip_joint_positions(
++    clipped = positions.detach().cpu().numpy().reshape(-1) if request.model == rm65.MODEL else _clip_joint_positions(
+         positions.detach().cpu().numpy().reshape(-1),
+         planner,
+     )
+@@ -1127,5 +1138,9 @@
+     uvicorn.run(app, host=args.host, port=args.port)
+ 
+ 
++import sys as _sys
++rm65.install_validation_routes(_sys.modules[__name__])
++
++
+ if __name__ == "__main__":
+     main()
