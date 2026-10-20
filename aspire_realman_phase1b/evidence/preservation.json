@@ -1,0 +1,81 @@
+{
+  "timestamp": "2026-10-20T10:50:27.396415+08:00",
+  "archives": [
+    {
+      "manifest": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T142729-853ffbe2/launch_manifest.json",
+      "manifest_sha256": "80236eb9e11823cacba7819ab229802f8f408189d2412c1b06b58b62e6910639",
+      "manifest_matches_phase0": true,
+      "source_count": 371,
+      "same_count": 371,
+      "different": [],
+      "missing": []
+    },
+    {
+      "manifest": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T145818-fd3d3371/launch_manifest.json",
+      "manifest_sha256": "9295bed9feb243e1ee84d6f46f97f48773e95bc9a151ef0e4222cbfaadb9437f",
+      "manifest_matches_phase0": true,
+      "source_count": 371,
+      "same_count": 371,
+      "different": [],
+      "missing": []
+    },
+    {
+      "manifest": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T153025-8a4d5e3b/launch_manifest.json",
+      "manifest_sha256": "a50a4f05eb45f338ae2f8b2e4fc13401838b72cfea4a1fb9c2e13b87bd1607e2",
+      "manifest_matches_phase0": true,
+      "source_count": 371,
+      "same_count": 371,
+      "different": [],
+      "missing": []
+    }
+  ],
+  "scope": "Original manifest bytes and all named deployed source files; not exhaustive image/log payload hashes",
+  "sealed_rgbd_assets": [
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/rgb.png",
+      "sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+      "matches_sealed": true
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/aligned-depth-m.npy",
+      "sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+      "matches_sealed": true
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/aligned-z16.npy",
+      "sha256": "db312b6af968a6bec4abf1668491dc3d24894b6d8c3cc6a45e73972a6b4c7f69",
+      "matches_sealed": true
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/snapshot.json",
+      "sha256": "c92d988da2817d17a56eba2a82cafb26f12fddedb7c8385d27293568942d3c33",
+      "matches_sealed": true
+    }
+  ],
+  "native_commit": "fa00f0ef2bc1d91d594b9aa502c22133c9f538f7",
+  "native_source_checks": {
+    "count": 71,
+    "mismatches": []
+  },
+  "original_phase1a_sam3_script_sha256": "9a055d981cf7fdf46c7abe6a279bebb4f9b16293f5cb77ffe1aceaf7739a0b25",
+  "original_phase1a_script_matches_base": true,
+  "video_occupancy": {
+    "devices": [
+      "/dev/video0",
+      "/dev/video1",
+      "/dev/video2",
+      "/dev/video3",
+      "/dev/video4",
+      "/dev/video5"
+    ],
+    "fuser_exit_code": 1,
+    "stdout": "",
+    "stderr": "",
+    "scope": "Current user visibility; no camera opened"
+  },
+  "writes_to_original_deployment": 0,
+  "camera_pipelines_opened_this_phase": 0,
+  "realman_sdk_connections_this_phase": 0,
+  "motion_dispatches": 0,
+  "check_repair_note": "Initial checks stopped before output due to system Python lacking file_digest, then a missing lock copy in new directory. Final check uses existing isolated Python and reads the original lock; neither environment changed."
+}

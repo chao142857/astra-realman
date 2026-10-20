@@ -1,0 +1,226 @@
+{
+  "status": "MANUAL_MASK_PIPELINE_VALIDATED_NOT_SAM3_BASELINE",
+  "provenance": {
+    "snapshot": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/snapshot.json",
+    "snapshot_sha256": "c92d988da2817d17a56eba2a82cafb26f12fddedb7c8385d27293568942d3c33",
+    "rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+    "depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+    "rgb_pixel_sha256": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c",
+    "serial": "346222072496",
+    "color_frame_number": 174,
+    "depth_frame_number": 91,
+    "color_depth_skew_ms": 5.1513671875,
+    "frame": "realsense:346222072496:color_optical",
+    "depth_scale_m_per_z16": 0.0010000000474974513,
+    "z16_scale_max_residual_m": 0.0,
+    "mode": "SEALED_REAL_RGBD_NOT_LIVE",
+    "world_transform": null,
+    "current_robot_state": null
+  },
+  "annotation": {
+    "schema": "manual-image-polygon.v1",
+    "label": "banana",
+    "mask_source": "MANUAL_VISUAL_POLYGON_NOT_SAM3",
+    "annotator": "Assistant manually traced visible contour from the sealed RGB and 4x nearest scene crop; no segmentation model",
+    "rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+    "image_resolution_wh": [
+      640,
+      480
+    ],
+    "polygon_xy_pixels": [
+      [
+        80,
+        273
+      ],
+      [
+        83,
+        264
+      ],
+      [
+        89,
+        258
+      ],
+      [
+        100,
+        255
+      ],
+      [
+        125,
+        252
+      ],
+      [
+        150,
+        249
+      ],
+      [
+        182,
+        245
+      ],
+      [
+        215,
+        243
+      ],
+      [
+        236,
+        245
+      ],
+      [
+        249,
+        251
+      ],
+      [
+        258,
+        261
+      ],
+      [
+        262,
+        272
+      ],
+      [
+        260,
+        279
+      ],
+      [
+        253,
+        284
+      ],
+      [
+        240,
+        288
+      ],
+      [
+        220,
+        290
+      ],
+      [
+        195,
+        290
+      ],
+      [
+        164,
+        289
+      ],
+      [
+        132,
+        287
+      ],
+      [
+        107,
+        285
+      ],
+      [
+        93,
+        283
+      ],
+      [
+        84,
+        279
+      ]
+    ],
+    "boundary_uncertainty": "Approximate manual contour, about 1-3 pixels; not independent human ground-truth segmentation",
+    "include_dark_tip": true,
+    "exclude_table_and_cast_shadow": true,
+    "sam3_baseline": false,
+    "world_transform": null
+  },
+  "annotation_file": {
+    "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/aspire_realman_phase1b/manual_annotation.json",
+    "bytes": 850,
+    "sha256": "e00aa0932a12261eef04a3ce323783aa9afce75e5194e1cdf3438dde6fb7bff3"
+  },
+  "mask": {
+    "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/manual-mask/manual-mask.png",
+    "bytes": 714,
+    "sha256": "3d1bdb5ff5e4604e658a9ac626578d8198ddb0004a2d54ccf4103d709081f14f"
+  },
+  "geometry": {
+    "pixels": 6809,
+    "valid_pixels": 4767,
+    "valid_fraction": 0.7001028051108826,
+    "positive_depth_p0_p1_p25_p50_p75_p99_p100_m": [
+      0.44300001859664917,
+      0.445000022649765,
+      0.4690000116825104,
+      0.4910000264644623,
+      0.5049999952316284,
+      1.939000129699707,
+      1.9510000944137573
+    ],
+    "depth_band_valid_fractions": {
+      "0_to_1m": 0.9557373610237047,
+      "1_to_1.5m": 0.0,
+      "1.5_to_2.3m": 0.044262638976295364,
+      "2.3m_and_above": 0.0
+    },
+    "frame": "realsense:346222072496:color_optical",
+    "world_pose": null,
+    "scope": "visible depth returns only; not complete object shape or certified accuracy",
+    "point_count": 4767,
+    "obb": {
+      "method": "unchanged ASPIRE PCA estimate_geometry",
+      "center_m": [
+        -0.20243458147622287,
+        0.014742912453978883,
+        1.1946844179942717
+      ],
+      "quaternion_wxyz": [
+        0.48582473138508936,
+        -0.46409067202189047,
+        -0.5323177541694941,
+        -0.5150067835600053
+      ],
+      "extents_m": [
+        1.5234577896424943,
+        0.1570352244842917,
+        0.11720543991632909
+      ],
+      "frame": "realsense:346222072496:color_optical",
+      "point_count": 4767,
+      "is_complete_object_obb": false,
+      "world_transform_applied": false
+    },
+    "cloud": {
+      "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/manual-mask/manual-banana-visible-cloud.ply",
+      "bytes": 71683,
+      "sha256": "e1f53aff04e9772699ac766a6d23121b27497925b9f5a21b0eb64168077064b0"
+    },
+    "point_xyz_min_max_m": [
+      [
+        -0.3522534024479244,
+        -0.05167224391198959,
+        0.44300001859664917
+      ],
+      [
+        -0.05218633542697304,
+        0.07068224018800422,
+        1.9510000944137573
+      ]
+    ]
+  },
+  "coordinate_checks": {
+    "deprojection_reprojection_max_error_px": 2.842170943040401e-14,
+    "roundtrip_is_not_external_accuracy_test": true,
+    "all_points_positive_optical_z": true,
+    "axes": "+X right, +Y down, +Z forward",
+    "alignment": "depth_to_color",
+    "obb_rotation_determinant": 1.000000000000001,
+    "obb_encloses_all_valid_points": true
+  },
+  "sam3_inference_completed": false,
+  "world_pose": null,
+  "robot_state": null,
+  "geometry_accuracy_qualified": false,
+  "objects_depth_ground_truth": null,
+  "visualizations": {
+    "manual-mask-geometry-preview.jpg": {
+      "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/manual-mask/manual-mask-geometry-preview.jpg",
+      "bytes": 93923,
+      "sha256": "73703e2c432a6f84e7766d7046cc7cc56f1625d209c9e2142b5d57f127988e61"
+    },
+    "manual-cloud-xz-preview.png": {
+      "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/manual-mask/manual-cloud-xz-preview.png",
+      "bytes": 12377,
+      "sha256": "b544755eb9049a2d6db4a5f74019a3cbeea83fc4fe30db54556c441b76e7d448"
+    }
+  }
+}

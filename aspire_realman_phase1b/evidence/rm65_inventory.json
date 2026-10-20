@@ -1,0 +1,1326 @@
+{
+  "status": "TWO_SEPARATE_NOMINAL_ARMS_PREPARED_NOT_REGISTERED",
+  "inventory": {
+    "nominal_vendor_arm": {
+      "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/urdf/rm_65.urdf",
+      "bytes": 9163,
+      "sha256": "ed8800aef0cce10f20ce5e1bf4091b4e1d9dd3275b8e662fd44dde2e5dba6418",
+      "robot_name": "rm_65_description",
+      "root_links": [
+        "base_link"
+      ],
+      "links": [
+        "base_link",
+        "Link1",
+        "Link2",
+        "Link3",
+        "Link4",
+        "Link5",
+        "Link6"
+      ],
+      "joints": [
+        {
+          "name": "joint1",
+          "type": "revolute",
+          "parent": {
+            "link": "base_link"
+          },
+          "child": {
+            "link": "Link1"
+          },
+          "origin": {
+            "xyz": "0 0 0.2405",
+            "rpy": "0 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-3.1",
+            "upper": "3.1",
+            "effort": "60",
+            "velocity": "3.14"
+          }
+        },
+        {
+          "name": "joint2",
+          "type": "revolute",
+          "parent": {
+            "link": "Link1"
+          },
+          "child": {
+            "link": "Link2"
+          },
+          "origin": {
+            "xyz": "0 0 0",
+            "rpy": "1.5708 -1.5708 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-2.268",
+            "upper": "2.268",
+            "effort": "60",
+            "velocity": "3.14"
+          }
+        },
+        {
+          "name": "joint3",
+          "type": "revolute",
+          "parent": {
+            "link": "Link2"
+          },
+          "child": {
+            "link": "Link3"
+          },
+          "origin": {
+            "xyz": "0.256 0 0",
+            "rpy": "0 0 1.5708"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-2.355",
+            "upper": "2.355",
+            "effort": "30",
+            "velocity": "3.92"
+          }
+        },
+        {
+          "name": "joint4",
+          "type": "revolute",
+          "parent": {
+            "link": "Link3"
+          },
+          "child": {
+            "link": "Link4"
+          },
+          "origin": {
+            "xyz": "0 -0.21 0",
+            "rpy": "1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-3.1",
+            "upper": "3.1",
+            "effort": "10",
+            "velocity": "3.92"
+          }
+        },
+        {
+          "name": "joint5",
+          "type": "revolute",
+          "parent": {
+            "link": "Link4"
+          },
+          "child": {
+            "link": "Link5"
+          },
+          "origin": {
+            "xyz": "0 0 0",
+            "rpy": "-1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-2.233",
+            "upper": "2.233",
+            "effort": "10",
+            "velocity": "3.92"
+          }
+        },
+        {
+          "name": "joint6",
+          "type": "revolute",
+          "parent": {
+            "link": "Link5"
+          },
+          "child": {
+            "link": "Link6"
+          },
+          "origin": {
+            "xyz": "0 -0.144 0",
+            "rpy": "1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-6.28",
+            "upper": "6.28",
+            "effort": "10",
+            "velocity": "3.92"
+          }
+        }
+      ],
+      "meshes": [
+        {
+          "uri": "package://rm_description/meshes/rm_65_arm/base_link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "bytes": 389684,
+          "sha256": "cab60b1d90f964f4fdb89e55809e5aae844ab3b7f585babc6aa232b080e2b445"
+        },
+        {
+          "uri": "package://rm_description/meshes/rm_65_arm/link1.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "bytes": 266184,
+          "sha256": "14756351009a3a6be8916068d67ff8b1ac0ed046ace47ceebe28ed8a8f2d7995"
+        },
+        {
+          "uri": "package://rm_description/meshes/rm_65_arm/link2.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "bytes": 495684,
+          "sha256": "fe6457ac59723c6e35e0c12c809c171d21b9165bf2f1782ddc8998c492706383"
+        },
+        {
+          "uri": "package://rm_description/meshes/rm_65_arm/link3.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "bytes": 268884,
+          "sha256": "caa28db987ecec82f4b5584f53c0a4c10460177912bef8bdc70dff6f7e8e9219"
+        },
+        {
+          "uri": "package://rm_description/meshes/rm_65_arm/link4.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "bytes": 250284,
+          "sha256": "7fc66e41318399ee534fbfc59fd49b830a36ece4a558de133f31a7644bac0580"
+        },
+        {
+          "uri": "package://rm_description/meshes/rm_65_arm/link5.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "bytes": 267784,
+          "sha256": "482832743269f83b98599dfbb3b3fb59c876df6ba61b7954c9a1e2928996d219"
+        },
+        {
+          "uri": "package://rm_description/meshes/rm_65_arm/link6.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "bytes": 219084,
+          "sha256": "e1334db72ddbf360c16309350b76b5190b255c55cda24fcb6c8fadfa7f84474b"
+        }
+      ]
+    },
+    "historical_planning_arm_and_gripper": {
+      "path": "/home/tongji/alex/rm65-contact-servo-yanglab-20261017/experiments/rm65_handoff_v1/runtime_config/planning.urdf",
+      "bytes": 18712,
+      "sha256": "09b961fb80534b2ca76e059c53b72a68729e4c1f7eb9ef37ee5d0e4975d3cc68",
+      "robot_name": "rm65_ctag2f90d_reference",
+      "root_links": [
+        "base_link"
+      ],
+      "links": [
+        "base_link",
+        "Link1",
+        "Link2",
+        "Link3",
+        "Link4",
+        "Link5",
+        "Link6",
+        "ctag_base",
+        "ctag_base_link",
+        "ctag_Left_1_Link",
+        "ctag_Left_Support_Link",
+        "ctag_Left_2_Link",
+        "ctag_Right_2_Link",
+        "ctag_Right_1_Link",
+        "ctag_Right_Support_Link",
+        "wrist_camera_mount"
+      ],
+      "joints": [
+        {
+          "name": "joint1",
+          "type": "revolute",
+          "parent": {
+            "link": "base_link"
+          },
+          "child": {
+            "link": "Link1"
+          },
+          "origin": {
+            "xyz": "0 0 0.2405",
+            "rpy": "0 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-3.1",
+            "upper": "3.1",
+            "effort": "60",
+            "velocity": "3.14"
+          }
+        },
+        {
+          "name": "joint2",
+          "type": "revolute",
+          "parent": {
+            "link": "Link1"
+          },
+          "child": {
+            "link": "Link2"
+          },
+          "origin": {
+            "xyz": "0 0 0",
+            "rpy": "1.5708 -1.5708 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-2.268",
+            "upper": "2.268",
+            "effort": "60",
+            "velocity": "3.14"
+          }
+        },
+        {
+          "name": "joint3",
+          "type": "revolute",
+          "parent": {
+            "link": "Link2"
+          },
+          "child": {
+            "link": "Link3"
+          },
+          "origin": {
+            "xyz": "0.256 0 0",
+            "rpy": "0 0 1.5708"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-2.355",
+            "upper": "2.355",
+            "effort": "30",
+            "velocity": "3.92"
+          }
+        },
+        {
+          "name": "joint4",
+          "type": "revolute",
+          "parent": {
+            "link": "Link3"
+          },
+          "child": {
+            "link": "Link4"
+          },
+          "origin": {
+            "xyz": "0 -0.21 0",
+            "rpy": "1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-3.1",
+            "upper": "3.1",
+            "effort": "10",
+            "velocity": "3.92"
+          }
+        },
+        {
+          "name": "joint5",
+          "type": "revolute",
+          "parent": {
+            "link": "Link4"
+          },
+          "child": {
+            "link": "Link5"
+          },
+          "origin": {
+            "xyz": "0 0 0",
+            "rpy": "-1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-2.233",
+            "upper": "2.233",
+            "effort": "10",
+            "velocity": "3.92"
+          }
+        },
+        {
+          "name": "joint6",
+          "type": "revolute",
+          "parent": {
+            "link": "Link5"
+          },
+          "child": {
+            "link": "Link6"
+          },
+          "origin": {
+            "xyz": "0 -0.144 0",
+            "rpy": "1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-6.28",
+            "upper": "6.28",
+            "effort": "10",
+            "velocity": "3.92"
+          }
+        },
+        {
+          "name": "ctag_base_link_Joint",
+          "type": "fixed",
+          "parent": {
+            "link": "ctag_base"
+          },
+          "child": {
+            "link": "ctag_base_link"
+          },
+          "origin": {
+            "xyz": "0 0 0",
+            "rpy": "0 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 0"
+          }
+        },
+        {
+          "name": "ctag_Left_1_Joint",
+          "type": "revolute",
+          "parent": {
+            "link": "ctag_base_link"
+          },
+          "child": {
+            "link": "ctag_Left_1_Link"
+          },
+          "origin": {
+            "xyz": "0.030141 0 0.10415",
+            "rpy": "1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 -1"
+          },
+          "limit": {
+            "lower": "-0.91",
+            "upper": "0",
+            "effort": "10",
+            "velocity": "10"
+          }
+        },
+        {
+          "name": "ctag_Left_Support_Joint",
+          "type": "revolute",
+          "parent": {
+            "link": "ctag_Left_1_Link"
+          },
+          "child": {
+            "link": "ctag_Left_Support_Link"
+          },
+          "origin": {
+            "xyz": "0.040359 0.037365 0",
+            "rpy": "0 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 -1"
+          },
+          "limit": {
+            "lower": "0.0",
+            "upper": "0.91",
+            "effort": "10",
+            "velocity": "10"
+          }
+        },
+        {
+          "name": "ctag_Left_2_Joint",
+          "type": "revolute",
+          "parent": {
+            "link": "ctag_base_link"
+          },
+          "child": {
+            "link": "ctag_Left_2_Link"
+          },
+          "origin": {
+            "xyz": "0.016 0 0.121",
+            "rpy": "1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 -1"
+          },
+          "limit": {
+            "lower": "-0.91",
+            "upper": "0.0",
+            "effort": "10",
+            "velocity": "10"
+          }
+        },
+        {
+          "name": "ctag_Right_2_Joint",
+          "type": "revolute",
+          "parent": {
+            "link": "ctag_base_link"
+          },
+          "child": {
+            "link": "ctag_Right_2_Link"
+          },
+          "origin": {
+            "xyz": "-0.016 0 0.121",
+            "rpy": "1.5708 0 3.1416"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "0.0",
+            "upper": "0.91",
+            "effort": "10",
+            "velocity": "10"
+          }
+        },
+        {
+          "name": "ctag_Right_1_Joint",
+          "type": "revolute",
+          "parent": {
+            "link": "ctag_base_link"
+          },
+          "child": {
+            "link": "ctag_Right_1_Link"
+          },
+          "origin": {
+            "xyz": "-0.030141 0 0.10415",
+            "rpy": "1.5708 0 3.1416"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "0.0",
+            "upper": "0.91",
+            "effort": "10",
+            "velocity": "10"
+          }
+        },
+        {
+          "name": "ctag_Right_Support_Joint",
+          "type": "revolute",
+          "parent": {
+            "link": "ctag_Right_1_Link"
+          },
+          "child": {
+            "link": "ctag_Right_Support_Link"
+          },
+          "origin": {
+            "xyz": "0.040359 0.037365 0",
+            "rpy": "0 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 -1"
+          },
+          "limit": {
+            "lower": "0.0",
+            "upper": "0.91",
+            "effort": "10",
+            "velocity": "10"
+          }
+        },
+        {
+          "name": "temporary_flange_adapter",
+          "type": "fixed",
+          "parent": {
+            "link": "Link6"
+          },
+          "child": {
+            "link": "ctag_base"
+          },
+          "origin": {
+            "xyz": "0 0 0.008",
+            "rpy": "0 0 0"
+          }
+        },
+        {
+          "name": "temporary_wrist_camera_mount",
+          "type": "fixed",
+          "parent": {
+            "link": "ctag_base_link"
+          },
+          "child": {
+            "link": "wrist_camera_mount"
+          },
+          "origin": {
+            "xyz": "0 -0.09 0.045",
+            "rpy": "0 0 0"
+          }
+        }
+      ],
+      "meshes": [
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_1_Link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_1_Link.STL",
+          "bytes": 156284,
+          "sha256": "3da3d82555c1f56b038481f5bc6c6d2b4379a27dc4717a63ba57a39b7a26b76e"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_2_Link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_2_Link.STL",
+          "bytes": 156284,
+          "sha256": "753902189a92f1f8c3b0027002439b4fd78df3da08ca697a65b5cf134415c692"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_Support_Link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_Support_Link.STL",
+          "bytes": 653284,
+          "sha256": "a4c3248cf9f2c925d18aa9bb2e3659ef0d6a703252b006a3d9f1bc8ec2e917fb"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_1_Link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_1_Link.STL",
+          "bytes": 156284,
+          "sha256": "32bdad2620e3c36b10c629874af985048c91300705b6f6c9000665406c9cfdae"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_2_Link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_2_Link.STL",
+          "bytes": 156284,
+          "sha256": "20770c538e80122778df0a01a2e700f505622df612e1eee1d02bfe1bc93c55f8"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_Support_Link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_Support_Link.STL",
+          "bytes": 653284,
+          "sha256": "136475599e901768a0195df51634cb3f007d0d5a0c647855056aac31dc62a73b"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/base_link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/base_link.STL",
+          "bytes": 849934,
+          "sha256": "dc86b6a32e9471c70a3d61c32647e94ef1757a49af21b81167c1723a8c95f9eb"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "bytes": 389684,
+          "sha256": "cab60b1d90f964f4fdb89e55809e5aae844ab3b7f585babc6aa232b080e2b445"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "bytes": 266184,
+          "sha256": "14756351009a3a6be8916068d67ff8b1ac0ed046ace47ceebe28ed8a8f2d7995"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "bytes": 495684,
+          "sha256": "fe6457ac59723c6e35e0c12c809c171d21b9165bf2f1782ddc8998c492706383"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "bytes": 268884,
+          "sha256": "caa28db987ecec82f4b5584f53c0a4c10460177912bef8bdc70dff6f7e8e9219"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "bytes": 250284,
+          "sha256": "7fc66e41318399ee534fbfc59fd49b830a36ece4a558de133f31a7644bac0580"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "bytes": 267784,
+          "sha256": "482832743269f83b98599dfbb3b3fb59c876df6ba61b7954c9a1e2928996d219"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "bytes": 219084,
+          "sha256": "e1334db72ddbf360c16309350b76b5190b255c55cda24fcb6c8fadfa7f84474b"
+        }
+      ]
+    },
+    "historical_assembly_arm_and_gripper": {
+      "path": "/home/tongji/alex/rm65-contact-servo-yanglab-20261017/experiments/rm65_handoff_v1/runtime_config/assembly.urdf",
+      "bytes": 19036,
+      "sha256": "5ad34fe9e7085402d90ada9ba297221d52bd3a9e225e061e5337ea0b1e6ae939",
+      "robot_name": "rm65_ctag2f90d_reference",
+      "root_links": [
+        "base_link"
+      ],
+      "links": [
+        "base_link",
+        "Link1",
+        "Link2",
+        "Link3",
+        "Link4",
+        "Link5",
+        "Link6",
+        "ctag_base",
+        "ctag_base_link",
+        "ctag_Left_1_Link",
+        "ctag_Left_Support_Link",
+        "ctag_Left_2_Link",
+        "ctag_Right_2_Link",
+        "ctag_Right_1_Link",
+        "ctag_Right_Support_Link",
+        "wrist_camera_mount"
+      ],
+      "joints": [
+        {
+          "name": "joint1",
+          "type": "revolute",
+          "parent": {
+            "link": "base_link"
+          },
+          "child": {
+            "link": "Link1"
+          },
+          "origin": {
+            "xyz": "0 0 0.2405",
+            "rpy": "0 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-3.1",
+            "upper": "3.1",
+            "effort": "60",
+            "velocity": "3.14"
+          }
+        },
+        {
+          "name": "joint2",
+          "type": "revolute",
+          "parent": {
+            "link": "Link1"
+          },
+          "child": {
+            "link": "Link2"
+          },
+          "origin": {
+            "xyz": "0 0 0",
+            "rpy": "1.5708 -1.5708 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-2.268",
+            "upper": "2.268",
+            "effort": "60",
+            "velocity": "3.14"
+          }
+        },
+        {
+          "name": "joint3",
+          "type": "revolute",
+          "parent": {
+            "link": "Link2"
+          },
+          "child": {
+            "link": "Link3"
+          },
+          "origin": {
+            "xyz": "0.256 0 0",
+            "rpy": "0 0 1.5708"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-2.355",
+            "upper": "2.355",
+            "effort": "30",
+            "velocity": "3.92"
+          }
+        },
+        {
+          "name": "joint4",
+          "type": "revolute",
+          "parent": {
+            "link": "Link3"
+          },
+          "child": {
+            "link": "Link4"
+          },
+          "origin": {
+            "xyz": "0 -0.21 0",
+            "rpy": "1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-3.1",
+            "upper": "3.1",
+            "effort": "10",
+            "velocity": "3.92"
+          }
+        },
+        {
+          "name": "joint5",
+          "type": "revolute",
+          "parent": {
+            "link": "Link4"
+          },
+          "child": {
+            "link": "Link5"
+          },
+          "origin": {
+            "xyz": "0 0 0",
+            "rpy": "-1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-2.233",
+            "upper": "2.233",
+            "effort": "10",
+            "velocity": "3.92"
+          }
+        },
+        {
+          "name": "joint6",
+          "type": "revolute",
+          "parent": {
+            "link": "Link5"
+          },
+          "child": {
+            "link": "Link6"
+          },
+          "origin": {
+            "xyz": "0 -0.144 0",
+            "rpy": "1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "-6.28",
+            "upper": "6.28",
+            "effort": "10",
+            "velocity": "3.92"
+          }
+        },
+        {
+          "name": "ctag_base_link_Joint",
+          "type": "fixed",
+          "parent": {
+            "link": "ctag_base"
+          },
+          "child": {
+            "link": "ctag_base_link"
+          },
+          "origin": {
+            "xyz": "0 0 0",
+            "rpy": "0 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 0"
+          }
+        },
+        {
+          "name": "ctag_Left_1_Joint",
+          "type": "revolute",
+          "parent": {
+            "link": "ctag_base_link"
+          },
+          "child": {
+            "link": "ctag_Left_1_Link"
+          },
+          "origin": {
+            "xyz": "0.030141 0 0.10415",
+            "rpy": "1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 -1"
+          },
+          "limit": {
+            "lower": "-0.91",
+            "upper": "0",
+            "effort": "10",
+            "velocity": "10"
+          }
+        },
+        {
+          "name": "ctag_Left_Support_Joint",
+          "type": "revolute",
+          "parent": {
+            "link": "ctag_Left_1_Link"
+          },
+          "child": {
+            "link": "ctag_Left_Support_Link"
+          },
+          "origin": {
+            "xyz": "0.040359 0.037365 0",
+            "rpy": "0 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 -1"
+          },
+          "limit": {
+            "lower": "0.0",
+            "upper": "0.91",
+            "effort": "10",
+            "velocity": "10"
+          },
+          "mimic": {
+            "joint": "ctag_Left_1_Joint",
+            "multiplier": "-1",
+            "offset": "0"
+          }
+        },
+        {
+          "name": "ctag_Left_2_Joint",
+          "type": "revolute",
+          "parent": {
+            "link": "ctag_base_link"
+          },
+          "child": {
+            "link": "ctag_Left_2_Link"
+          },
+          "origin": {
+            "xyz": "0.016 0 0.121",
+            "rpy": "1.5708 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 -1"
+          },
+          "limit": {
+            "lower": "-0.91",
+            "upper": "0.0",
+            "effort": "10",
+            "velocity": "10"
+          },
+          "mimic": {
+            "joint": "ctag_Left_1_Joint",
+            "multiplier": "1",
+            "offset": "0"
+          }
+        },
+        {
+          "name": "ctag_Right_2_Joint",
+          "type": "revolute",
+          "parent": {
+            "link": "ctag_base_link"
+          },
+          "child": {
+            "link": "ctag_Right_2_Link"
+          },
+          "origin": {
+            "xyz": "-0.016 0 0.121",
+            "rpy": "1.5708 0 3.1416"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "0.0",
+            "upper": "0.91",
+            "effort": "10",
+            "velocity": "10"
+          },
+          "mimic": {
+            "joint": "ctag_Left_1_Joint",
+            "multiplier": "-1",
+            "offset": "0"
+          }
+        },
+        {
+          "name": "ctag_Right_1_Joint",
+          "type": "revolute",
+          "parent": {
+            "link": "ctag_base_link"
+          },
+          "child": {
+            "link": "ctag_Right_1_Link"
+          },
+          "origin": {
+            "xyz": "-0.030141 0 0.10415",
+            "rpy": "1.5708 0 3.1416"
+          },
+          "axis": {
+            "xyz": "0 0 1"
+          },
+          "limit": {
+            "lower": "0.0",
+            "upper": "0.91",
+            "effort": "10",
+            "velocity": "10"
+          },
+          "mimic": {
+            "joint": "ctag_Left_1_Joint",
+            "multiplier": "-1",
+            "offset": "0"
+          }
+        },
+        {
+          "name": "ctag_Right_Support_Joint",
+          "type": "revolute",
+          "parent": {
+            "link": "ctag_Right_1_Link"
+          },
+          "child": {
+            "link": "ctag_Right_Support_Link"
+          },
+          "origin": {
+            "xyz": "0.040359 0.037365 0",
+            "rpy": "0 0 0"
+          },
+          "axis": {
+            "xyz": "0 0 -1"
+          },
+          "limit": {
+            "lower": "0.0",
+            "upper": "0.91",
+            "effort": "10",
+            "velocity": "10"
+          },
+          "mimic": {
+            "joint": "ctag_Right_1_Joint",
+            "multiplier": "1",
+            "offset": "0"
+          }
+        },
+        {
+          "name": "temporary_flange_adapter",
+          "type": "fixed",
+          "parent": {
+            "link": "Link6"
+          },
+          "child": {
+            "link": "ctag_base"
+          },
+          "origin": {
+            "xyz": "0 0 0.008",
+            "rpy": "0 0 0"
+          }
+        },
+        {
+          "name": "temporary_wrist_camera_mount",
+          "type": "fixed",
+          "parent": {
+            "link": "ctag_base_link"
+          },
+          "child": {
+            "link": "wrist_camera_mount"
+          },
+          "origin": {
+            "xyz": "0 -0.09 0.045",
+            "rpy": "0 0 0"
+          }
+        }
+      ],
+      "meshes": [
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_1_Link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_1_Link.STL",
+          "bytes": 156284,
+          "sha256": "3da3d82555c1f56b038481f5bc6c6d2b4379a27dc4717a63ba57a39b7a26b76e"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_2_Link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_2_Link.STL",
+          "bytes": 156284,
+          "sha256": "753902189a92f1f8c3b0027002439b4fd78df3da08ca697a65b5cf134415c692"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_Support_Link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Left_Support_Link.STL",
+          "bytes": 653284,
+          "sha256": "a4c3248cf9f2c925d18aa9bb2e3659ef0d6a703252b006a3d9f1bc8ec2e917fb"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_1_Link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_1_Link.STL",
+          "bytes": 156284,
+          "sha256": "32bdad2620e3c36b10c629874af985048c91300705b6f6c9000665406c9cfdae"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_2_Link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_2_Link.STL",
+          "bytes": 156284,
+          "sha256": "20770c538e80122778df0a01a2e700f505622df612e1eee1d02bfe1bc93c55f8"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_Support_Link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/Right_Support_Link.STL",
+          "bytes": 653284,
+          "sha256": "136475599e901768a0195df51634cb3f007d0d5a0c647855056aac31dc62a73b"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/base_link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/meshes/base_link.STL",
+          "bytes": 849934,
+          "sha256": "dc86b6a32e9471c70a3d61c32647e94ef1757a49af21b81167c1723a8c95f9eb"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/base_link.STL",
+          "bytes": 389684,
+          "sha256": "cab60b1d90f964f4fdb89e55809e5aae844ab3b7f585babc6aa232b080e2b445"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link1.STL",
+          "bytes": 266184,
+          "sha256": "14756351009a3a6be8916068d67ff8b1ac0ed046ace47ceebe28ed8a8f2d7995"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link2.STL",
+          "bytes": 495684,
+          "sha256": "fe6457ac59723c6e35e0c12c809c171d21b9165bf2f1782ddc8998c492706383"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link3.STL",
+          "bytes": 268884,
+          "sha256": "caa28db987ecec82f4b5584f53c0a4c10460177912bef8bdc70dff6f7e8e9219"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link4.STL",
+          "bytes": 250284,
+          "sha256": "7fc66e41318399ee534fbfc59fd49b830a36ece4a558de133f31a7644bac0580"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link5.STL",
+          "bytes": 267784,
+          "sha256": "482832743269f83b98599dfbb3b3fb59c876df6ba61b7954c9a1e2928996d219"
+        },
+        {
+          "uri": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "exists": true,
+          "path": "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/rm_description/meshes/rm_65_arm/link6.STL",
+          "bytes": 219084,
+          "sha256": "e1334db72ddbf360c16309350b76b5190b255c55cda24fcb6c8fadfa7f84474b"
+        }
+      ]
+    }
+  },
+  "historical_curobo": {
+    "config": {
+      "path": "/home/tongji/alex/rm65-contact-servo-yanglab-20261017/experiments/rm65_handoff_v1/runtime_config/curobo.yml",
+      "bytes": 176220,
+      "sha256": "4418162bef748f1428e0e18dc2dedf0179c31df1136788aba1b1d06c4cd600f1"
+    },
+    "base_link": "base_link",
+    "ee_link": "Link6",
+    "urdf_path": "/home/alex/astra/configs/rm65_ctag_reference/planning.urdf",
+    "configured_urdf_path_exists": false,
+    "cspace": {
+      "joint_names": [
+        "joint1",
+        "joint2",
+        "joint3",
+        "joint4",
+        "joint5",
+        "joint6"
+      ],
+      "retract_config": [
+        0.0,
+        -0.4,
+        0.8,
+        0.0,
+        0.6,
+        0.0
+      ],
+      "null_space_weight": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "cspace_distance_weight": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "max_jerk": 100.0,
+      "max_acceleration": 2.0
+    },
+    "lock_joints": {
+      "ctag_Left_1_Joint": 0.0,
+      "ctag_Left_Support_Joint": 0.0,
+      "ctag_Left_2_Joint": 0.0,
+      "ctag_Right_2_Joint": 0.0,
+      "ctag_Right_1_Joint": 0.0,
+      "ctag_Right_Support_Joint": 0.0
+    },
+    "collision_sphere_count": 1479,
+    "collision_spheres_per_link": {
+      "base_link": 157,
+      "Link1": 144,
+      "Link2": 202,
+      "Link3": 68,
+      "Link4": 57,
+      "Link5": 60,
+      "Link6": 20,
+      "ctag_base_link": 466,
+      "ctag_Left_1_Link": 36,
+      "ctag_Left_Support_Link": 40,
+      "ctag_Left_2_Link": 36,
+      "ctag_Right_2_Link": 36,
+      "ctag_Right_1_Link": 36,
+      "ctag_Right_Support_Link": 40,
+      "wrist_camera_mount": 81
+    },
+    "historical_controller_planner_note": "Use already-installed mplib/OMPL/FCL with actual SAPIEN collision geometry; cuRobo conservative sphere config preserved but blocked by kernel <1024 limit. No planner checks disabled.",
+    "temporary_simulation_assembly": {
+      "flange_to_gripper_xyz_m": [
+        0,
+        0,
+        0.008
+      ],
+      "flange_to_gripper_rpy": [
+        0,
+        0,
+        0
+      ],
+      "wrist_camera_parent": "ctag_base_link",
+      "wrist_camera_xyz_m": [
+        0,
+        -0.09,
+        0.045
+      ],
+      "wrist_camera_look_at_parent_m": [
+        0,
+        0,
+        0.205
+      ],
+      "camera_housing_box_m": [
+        0.09,
+        0.025,
+        0.025
+      ],
+      "camera_housing_mass_kg": 0.072,
+      "fixed_camera_xyz_m": [
+        0.75,
+        -0.7,
+        0.38
+      ],
+      "fixed_camera_look_at_m": [
+        0.35,
+        0,
+        0.2
+      ],
+      "base_world_xyz_m": [
+        -0.19,
+        0,
+        0.03
+      ],
+      "table_surface_z_m": 0.0,
+      "base_height_note": "temporary 30mm mounting stand; not laboratory measurement"
+    },
+    "temporary_values_not_adopted_as_real_transforms": true
+  },
+  "candidate_models": {
+    "left": {
+      "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/rm65-candidates/left_rm65_nominal.urdf",
+      "bytes": 8569,
+      "sha256": "fb3a0d2a3c4fce68d48136aa7c1fffeca4ff09a81b6c2fc67e5545445c263d39"
+    },
+    "right": {
+      "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/rm65-candidates/right_rm65_nominal.urdf",
+      "bytes": 8595,
+      "sha256": "5736cf1bc7eeb91991aa021e10a7a16ec86c5744cecfa6c33af12817845f553b"
+    }
+  },
+  "proposed_joint_names": {
+    "left": [
+      "left_joint_1",
+      "left_joint_2",
+      "left_joint_3",
+      "left_joint_4",
+      "left_joint_5",
+      "left_joint_6"
+    ],
+    "right": [
+      "right_joint_1",
+      "right_joint_2",
+      "right_joint_3",
+      "right_joint_4",
+      "right_joint_5",
+      "right_joint_6"
+    ]
+  },
+  "proposed_order_12": [
+    "left_joint_1",
+    "left_joint_2",
+    "left_joint_3",
+    "left_joint_4",
+    "left_joint_5",
+    "left_joint_6",
+    "right_joint_1",
+    "right_joint_2",
+    "right_joint_3",
+    "right_joint_4",
+    "right_joint_5",
+    "right_joint_6"
+  ],
+  "model_local_flange_links": {
+    "left": "left_Link6",
+    "right": "right_Link6"
+  },
+  "physical_sdk_joint_order_sign_offsets_verified": false,
+  "physical_model_variant_and_fk_verified": false,
+  "common_world": null,
+  "base_transforms": {
+    "left": null,
+    "right": null
+  },
+  "actual_tcp": {
+    "left": null,
+    "right": null
+  },
+  "gripper_and_wrist_collision_geometry_verified": false,
+  "ready_for_native_planning_context": false,
+  "curobo_registered": false,
+  "planner_started": false,
+  "hardware_commands_sent": 0,
+  "nominal_urdf_units": "joint angles radians; translations metres; limits from archived URDF, not current controller readback",
+  "candidate_scope": "No gripper/TCP/camera/world link; independent arm base roots. Physical dual assembly intentionally not constructed."
+}

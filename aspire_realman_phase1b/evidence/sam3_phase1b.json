@@ -1,0 +1,104 @@
+{
+  "status": "BLOCKED",
+  "official_source_commit": "7f473cfd983d5eb43040ff608f66bff0d7bdcb53",
+  "provenance": {
+    "snapshot": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/snapshot.json",
+    "snapshot_sha256": "c92d988da2817d17a56eba2a82cafb26f12fddedb7c8385d27293568942d3c33",
+    "rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+    "depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+    "rgb_pixel_sha256": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c",
+    "serial": "346222072496",
+    "color_frame_number": 174,
+    "depth_frame_number": 91,
+    "color_depth_skew_ms": 5.1513671875,
+    "frame": "realsense:346222072496:color_optical",
+    "depth_scale_m_per_z16": 0.0010000000474974513,
+    "z16_scale_max_residual_m": 0.0,
+    "mode": "SEALED_REAL_RGBD_NOT_LIVE",
+    "world_transform": null,
+    "current_robot_state": null
+  },
+  "prompt": "banana",
+  "prompt_evidence": "Visible yellow banana on left desk; manually inspected sealed RGB preview",
+  "score_threshold": 0.5,
+  "inference_completed": false,
+  "mask_count": null,
+  "target_candidates_present": false,
+  "target_identification_success": false,
+  "visual_validation": "NOT_RUN",
+  "model_loaded": false,
+  "model_load_time_s": null,
+  "runs": [],
+  "peak_vram_allocated_bytes": null,
+  "peak_vram_reserved_bytes": null,
+  "world_pose": null,
+  "hardware_actions": 0,
+  "blockers": [
+    "AUTHORIZED_OFFICIAL_CHECKPOINT_PATH_UNAVAILABLE"
+  ],
+  "official_source_files_verified": 153,
+  "environment": {
+    "sam3": "0.1.0",
+    "torch": "2.7.1+cu126",
+    "torchvision": "0.22.1+cu126",
+    "numpy": "1.26.4"
+  },
+  "official_import_ok": true,
+  "cuda_available": true,
+  "torch_cuda_runtime": "12.6",
+  "gpu_name": "NVIDIA GeForce RTX 3060",
+  "gpu_total_memory_bytes": 12620922880,
+  "native_http": {
+    "scope": "native ASPIRE service + typed Sam3Provider over actual loopback HTTP",
+    "native_service_sha256": "2b92c1a964e197d40bb653ac8725086d64cbbcd155913ae17bb9b81def605920",
+    "model_initialized": false,
+    "calls": [
+      {
+        "ok": false,
+        "elapsed_s": 0.06963909300975502,
+        "error": {
+          "code": "provider_unavailable",
+          "message": "Provider unavailable after 1 attempts: http://127.0.0.1:40787/segment",
+          "details": {
+            "url": "http://127.0.0.1:40787/segment",
+            "attempts": 1,
+            "error": "transient HTTP 503"
+          }
+        }
+      }
+    ],
+    "world_transform": null,
+    "full_cap_observation_constructed": false,
+    "process_health": true,
+    "empty_prompt_error": {
+      "ok": false,
+      "code": "invalid_request",
+      "http_requests_sent": 0
+    },
+    "request_trace": [
+      {
+        "method": "GET",
+        "path": "openapi.json",
+        "http_status": 200,
+        "elapsed_s": 0.00923309603240341
+      },
+      {
+        "method": "POST",
+        "path": "segment",
+        "encoded_png_sha256": "3c1eccb4269aa9b606ef3978ae745f02efe535a76cb9a38714666b9874144885",
+        "decoded_rgb_pixel_sha256": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c",
+        "http_status": 503,
+        "elapsed_s": 0.045399810012895614,
+        "error_body": {
+          "detail": "Model not initialized"
+        }
+      }
+    ],
+    "server_decoded_inputs": [],
+    "expected_rgb_pixel_sha256": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c",
+    "outgoing_pixel_identity_verified": true,
+    "server_pixel_identity_verified": false,
+    "file_png_sha_note": "Native client re-encodes PNG, so encoded-file SHA may differ; decoded RGB pixel hash must agree.",
+    "status": "BLOCKED_CHECKPOINT_MODEL_UNINITIALIZED"
+  }
+}
