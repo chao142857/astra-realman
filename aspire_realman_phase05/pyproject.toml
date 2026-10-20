@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aspire-realman-phase05"
+version = "0.5.0"
+requires-python = ">=3.10,<3.13"
+description = "Motion-disabled native CAP adapter, codec and MCP runtime for RealMan"
+dependencies = ["numpy>=1.26,<3", "mcp==1.26.0", "fastapi>=0.115", "uvicorn>=0.34", "jsonschema>=4", "pillow>=10"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

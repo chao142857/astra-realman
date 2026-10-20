@@ -1,0 +1,108 @@
+{
+  "timestamp": "2026-10-20T08:19:01.337795+08:00",
+  "workspace": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness",
+  "processes": [
+    {
+      "pid": 26282,
+      "ppid": 1,
+      "state": "S",
+      "start_ticks": 225180,
+      "argv": [
+        "/home/tongji/miniconda3/envs/aloha/bin/python",
+        "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/scripts/run_real_chunk_offline.py",
+        "--port",
+        "8886"
+      ],
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness",
+      "device_fds": []
+    },
+    {
+      "pid": 32647,
+      "ppid": 1,
+      "state": "S",
+      "start_ticks": 299199,
+      "argv": [
+        "/home/tongji/miniconda3/envs/dp/bin/python",
+        "-u",
+        "-B",
+        "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/scripts/preview_onsite_sequence.py",
+        "--arm",
+        "right",
+        "--sequence",
+        "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/right-wrist-calibration-20261017-session1",
+        "--port",
+        "8771"
+      ],
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness",
+      "device_fds": []
+    },
+    {
+      "pid": 110606,
+      "ppid": 1,
+      "state": "S",
+      "start_ticks": 874052,
+      "argv": [
+        "bash",
+        "-c",
+        "cd /home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/partial-export-1792204820 && nohup python3 -m http.server 8890 --bind 127.0.0.1 >/tmp/astra-partial-export-http.log 2>&1 < /dev/null &"
+      ],
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/partial-export-1792204820",
+      "device_fds": []
+    },
+    {
+      "pid": 110607,
+      "ppid": 110606,
+      "state": "S",
+      "start_ticks": 874052,
+      "argv": [
+        "python3",
+        "-m",
+        "http.server",
+        "8890",
+        "--bind",
+        "127.0.0.1"
+      ],
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/partial-export-1792204820",
+      "device_fds": []
+    },
+    {
+      "pid": 1268122,
+      "ppid": 609314,
+      "state": "S",
+      "start_ticks": 10498096,
+      "argv": [
+        "/home/tongji/miniconda3/envs/dp/bin/python",
+        "-I",
+        "-B",
+        "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/scripts/run_astra_gui.py",
+        "--hardware-console",
+        "--three-calibration",
+        "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/config/engineering/three_camera_calibration_20261011.json",
+        "--lock-path",
+        "/tmp/astra-realman-gui-episode.lock",
+        "--port",
+        "8888"
+      ],
+      "cwd": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness",
+      "device_fds": [
+        "/dev/video4",
+        "/dev/video5"
+      ]
+    }
+  ],
+  "listeners": "State  Recv-Q Send-Q                          Local Address:Port   Peer Address:Port                 Process                                                    \nLISTEN 0      4096                                127.0.0.1:7897        0.0.0.0:*                     users:((\"verge-mihomo\",pid=458416,fd=7))                  \nLISTEN 0      128                                 127.0.0.1:33331       0.0.0.0:*                     users:((\"clash-verge\",pid=458303,fd=20))                  \nLISTEN 0      5                                   127.0.0.1:631         0.0.0.0:*                                                                               \nLISTEN 0      128                                   0.0.0.0:22          0.0.0.0:*                                                                               \nLISTEN 0      4096                            127.0.0.53%lo:53          0.0.0.0:*                                                                               \nLISTEN 0      4096                                127.0.0.1:46437       0.0.0.0:*                                                                               \nLISTEN 0      5                                   127.0.0.1:8771        0.0.0.0:*                     users:((\"python\",pid=32647,fd=4))                         \nLISTEN 0      5                                   127.0.0.1:8886        0.0.0.0:*                     users:((\"python\",pid=26282,fd=4))                         \nLISTEN 0      5                                   127.0.0.1:8888        0.0.0.0:*                     users:((\"python\",pid=1268122,fd=4))                       \nLISTEN 0      5                                   127.0.0.1:8890        0.0.0.0:*                     users:((\"python3\",pid=110607,fd=3))                       \nLISTEN 0      4096                                127.0.0.1:9097        0.0.0.0:*                     users:((\"verge-mihomo\",pid=458416,fd=3))                  \nLISTEN 0      4096                  100.69.48.93%tailscale0:36227       0.0.0.0:*                                                                               \nLISTEN 0      128                                         *:21118             *:*                     users:((\"rustdesk\",pid=3283856,fd=21))                    \nLISTEN 0      4096   [fd7a:115c:a1e0::943b:305e]%tailscale0:39267          [::]:*                                                                               \nLISTEN 0      128                                      [::]:22             [::]:*                                                                               \nLISTEN 0      5                                       [::1]:631            [::]:*                                                                               \n",
+  "robot_endpoint_existing_sockets": [],
+  "video_owners": {
+    "stdout": "1268122 1268122",
+    "stderr": "/dev/video5:        \n/dev/video4:",
+    "returncode": 0
+  },
+  "usb": [
+    {
+      "idVendor": "8086",
+      "idProduct": "0b07",
+      "product": "Intel(R) RealSense(TM) Depth Camera 435",
+      "serial": "027223021284"
+    }
+  ]
+}

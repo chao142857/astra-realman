@@ -1,0 +1,131 @@
+{
+  "timestamp": "2026-10-20T08:35:58.876082+08:00",
+  "mode": "HISTORICAL_REPLAY_IN_PLACE",
+  "observation_path": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T142729-853ffbe2/step-001/after/observation.json",
+  "observation_sha256": "69687dc4ee2059a73868a66c3bd1c2623c147a647d5b2b20dc1e39df6ac94360",
+  "binding_evidence": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/logs/controller_geometry_readback_20261011.json",
+  "binding_evidence_sha256": "8352315fb9d6aa82b1aeffb45fe0116452f88805b6506e4988c4ba4b33eaf058",
+  "images": [
+    {
+      "serial": "254522073676",
+      "role": "left_wrist",
+      "sha256": "5428f220dead20a826bc61e447041abba4541cc6dd849210af8ecd2a5dc746f8",
+      "shape": [
+        480,
+        640,
+        3
+      ]
+    },
+    {
+      "serial": "346222072496",
+      "role": "tabletop",
+      "sha256": "ac018c65e4ad791695c3a1d60b9733d5b0cad2cc73fe83a022d42d06b90772fc",
+      "shape": [
+        480,
+        640,
+        3
+      ]
+    },
+    {
+      "serial": "344422071480",
+      "role": "overhead",
+      "sha256": "471e91b5ce2e4449e5ae83ad41aadbcf66167fa0fd754a02243084537b3e5cb3",
+      "shape": [
+        480,
+        640,
+        3
+      ]
+    },
+    {
+      "serial": "348522072063",
+      "role": "right_wrist",
+      "sha256": "88d00959d7bc005b406e8c7791aed039cbfdc4108780c732a2844b0b4c5eb7e5",
+      "shape": [
+        480,
+        640,
+        3
+      ]
+    }
+  ],
+  "events": [
+    {
+      "tool": "observe",
+      "isError": false,
+      "image_count": 4,
+      "stale": true
+    },
+    {
+      "tool": "cap_get_robot_state",
+      "isError": false,
+      "image_count": 0,
+      "base_frame": "realman:left:work:World",
+      "metadata": {
+        "source_kind": "HISTORICAL_REPLAY",
+        "joint_velocity_quality": {
+          "left": "UNMEASURED_NUMERIC_PLACEHOLDER"
+        },
+        "pose_endpoint": {
+          "left": {
+            "frame": "realman:left:tool:Arm_Tip",
+            "actual_grasp_TCP": null,
+            "raw_frame_semantics": "UNKNOWN",
+            "numeric_binding_evidence": "/home/tongji/alex/astra_onsite_1011/astra_realman_harness/logs/controller_geometry_readback_20261011.json:sha256:8352315fb9d6aa82b1aeffb45fe0116452f88805b6506e4988c4ba4b33eaf058:historical zero work/tool numeric binding only"
+          }
+        },
+        "motion_permitted": false,
+        "per_arm_timestamp_s": {
+          "left": 1792304893.283723
+        },
+        "state_sample_skew_s": 0.0,
+        "sensor_snapshot_atomic": {
+          "left": false
+        },
+        "controller_errors": {
+          "left": {
+            "codes": [
+              0
+            ],
+            "has_error": false,
+            "raw": {
+              "err_len": 1,
+              "err": [
+                "<str>"
+              ]
+            }
+          }
+        },
+        "grasp_confirmed": "UNKNOWN",
+        "common_world_measured": false,
+        "physical_calibration_certified": false
+      }
+    },
+    {
+      "tool": "cap_localize_object",
+      "isError": true,
+      "image_count": 0
+    },
+    {
+      "tool": "cap_set_gripper",
+      "isError": true,
+      "image_count": 4
+    }
+  ],
+  "tool_names": [
+    "get_capability_graph",
+    "observe",
+    "get_job",
+    "read_operator_messages",
+    "cap_get_robot_state",
+    "cap_localize_object",
+    "cap_move_synchronized",
+    "cap_move_to_joints",
+    "cap_move_to_pose",
+    "cap_set_gripper",
+    "cap_program_observe",
+    "cap_program_go_home"
+  ],
+  "ok": true,
+  "physical_commands_sent": 0,
+  "camera_pipelines_opened": 0,
+  "model_requests": 0
+}

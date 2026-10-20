@@ -1,0 +1,1140 @@
+{
+  "timestamp": "2026-10-20T08:35:58.475129+08:00",
+  "tests_run": 28,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "ok": true,
+  "python": "3.12.13 | packaged by conda-forge | (main, Mar  5 2026, 16:50:00) [GCC 14.3.0]",
+  "executable": "/home/tongji/alex/aspire_realman_phase05_20261020/.venv/bin/python",
+  "upstream_commit": "fa00f0ef2bc1d91d594b9aa502c22133c9f538f7",
+  "environment": {
+    "numpy": "2.3.5",
+    "mcp": "1.26.0",
+    "fastapi": "0.150.0",
+    "uvicorn": "0.54.0",
+    "httpx": "0.28.1",
+    "jsonschema": "4.26.0",
+    "pillow": "13.0.0"
+  },
+  "hardware_modules_loaded": [],
+  "physical_commands_sent": 0,
+  "camera_pipelines_opened_by_native_tests": 0,
+  "model_requests": 0,
+  "network_policy": "test interpreter rejects non-loopback socket connections",
+  "mcp_wire": [
+    {
+      "event": "initialize",
+      "protocol_version": "2025-11-25",
+      "server": {
+        "name": "cap",
+        "title": null,
+        "version": "0.1.0",
+        "websiteUrl": null,
+        "icons": null
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "cap_get_robot_state",
+      "isError": false,
+      "image_count": 0,
+      "structuredContent": {
+        "ok": true,
+        "result": {
+          "joint_positions": {
+            "left": [
+              -0.113656,
+              0.374094,
+              1.121304,
+              0.018204,
+              1.630923,
+              -0.099588
+            ]
+          },
+          "joint_velocities": {
+            "left": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "end_effector_poses": {
+            "left": {
+              "position": [
+                -0.304164,
+                0.031352,
+                0.310661
+              ],
+              "quaternion_wxyz": [
+                0.008248,
+                0.999916,
+                -0.005933,
+                -0.008049
+              ],
+              "frame": "realman:left:work:World"
+            }
+          },
+          "gripper_positions": {
+            "left": 0.999
+          },
+          "base_frame": "realman:left:work:World",
+          "joint_names": {
+            "left": [
+              "left_joint_1",
+              "left_joint_2",
+              "left_joint_3",
+              "left_joint_4",
+              "left_joint_5",
+              "left_joint_6"
+            ]
+          },
+          "timestamp_s": 1792304893.283723,
+          "embodiment": "realman",
+          "metadata": {
+            "source_kind": "HISTORICAL_REPLAY",
+            "joint_velocity_quality": {
+              "left": "UNMEASURED_NUMERIC_PLACEHOLDER"
+            },
+            "pose_endpoint": {
+              "left": {
+                "frame": "realman:left:tool:Arm_Tip",
+                "actual_grasp_TCP": null,
+                "raw_frame_semantics": "UNKNOWN",
+                "numeric_binding_evidence": "ARCHIVED_ZERO_WORK_TOOL_NUMERIC_BINDING; see Phase0 calibration_handoff_1011 / right_wrist_calibration_20261017"
+              }
+            },
+            "motion_permitted": false,
+            "per_arm_timestamp_s": {
+              "left": 1792304893.283723
+            },
+            "state_sample_skew_s": 0.0,
+            "sensor_snapshot_atomic": {
+              "left": false
+            },
+            "controller_errors": {
+              "left": {
+                "codes": [
+                  0
+                ],
+                "has_error": false,
+                "raw": {
+                  "err_len": 1,
+                  "err": [
+                    "<str>"
+                  ]
+                }
+              }
+            },
+            "grasp_confirmed": "UNKNOWN",
+            "common_world_measured": false,
+            "physical_calibration_certified": false
+          }
+        }
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "observe",
+      "isError": true,
+      "image_count": 0,
+      "structuredContent": {
+        "ok": false,
+        "error": "ValueError: camera 'left_wrist' is unavailable"
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "cap_set_gripper",
+      "isError": true,
+      "image_count": 0,
+      "structuredContent": {
+        "ok": false,
+        "image_cameras": [],
+        "job": {
+          "kind": "tool",
+          "label": "set_gripper",
+          "active": false,
+          "error": null,
+          "result": {
+            "ok": false,
+            "status": "failed",
+            "postcondition_satisfied": false,
+            "steps_executed": 0,
+            "terminated": false,
+            "truncated": false,
+            "final_errors": {},
+            "diagnostics": {
+              "hardware_commands_sent": 0,
+              "dispatch_attempted": false,
+              "physical_postcondition": "NOT_ATTEMPTED"
+            },
+            "error": {
+              "code": "safety_interlock",
+              "message": "Phase0.5 observation-only adapter has no physical command transport",
+              "recoverable": false,
+              "details": {
+                "operation": "set_gripper",
+                "hardware_commands_sent": 0,
+                "dispatch_attempted": false
+              }
+            },
+            "terminal_state": null,
+            "terminal_observation_timestamp_s": null,
+            "state_refresh_required": true
+          }
+        },
+        "observation": {
+          "stale": true,
+          "monitor_error": null,
+          "camera_metadata": {
+            "left_wrist": {
+              "serial": "254522073676",
+              "source_kind": "HISTORICAL_REPLAY",
+              "timestamp_s": 1792304893.3208408,
+              "age_ms": 151663020.4892703,
+              "stale": true,
+              "missing": true,
+              "geometry_eligible": false,
+              "calibration_status": "UNKNOWN",
+              "exposure_synchronized": "UNKNOWN",
+              "stale_after_ms": 1000,
+              "frame_hash": null
+            },
+            "tabletop": {
+              "serial": "346222072496",
+              "source_kind": "HISTORICAL_REPLAY",
+              "timestamp_s": 1792304893.322147,
+              "age_ms": 151663019.18321332,
+              "stale": true,
+              "missing": true,
+              "geometry_eligible": false,
+              "calibration_status": "UNKNOWN",
+              "exposure_synchronized": "UNKNOWN",
+              "stale_after_ms": 1000,
+              "frame_hash": null
+            },
+            "overhead": {
+              "serial": "344422071480",
+              "source_kind": "HISTORICAL_REPLAY",
+              "timestamp_s": 1792304893.315495,
+              "age_ms": 151663025.83509168,
+              "stale": true,
+              "missing": true,
+              "geometry_eligible": false,
+              "calibration_status": "UNKNOWN",
+              "exposure_synchronized": "UNKNOWN",
+              "stale_after_ms": 1000,
+              "frame_hash": null
+            },
+            "right_wrist": {
+              "serial": "348522072063",
+              "source_kind": "HISTORICAL_REPLAY",
+              "timestamp_s": 1792304893.304688,
+              "age_ms": 151663036.64212903,
+              "stale": true,
+              "missing": true,
+              "geometry_eligible": false,
+              "calibration_status": "UNKNOWN",
+              "exposure_synchronized": "UNKNOWN",
+              "stale_after_ms": 1000,
+              "frame_hash": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "event": "initialize",
+      "protocol_version": "2025-11-25",
+      "server": {
+        "name": "cap",
+        "title": null,
+        "version": "0.1.0",
+        "websiteUrl": null,
+        "icons": null
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "cap_set_gripper",
+      "isError": true,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": false,
+        "image_cameras": [
+          "synthetic_overhead"
+        ],
+        "job": {
+          "kind": "tool",
+          "label": "set_gripper",
+          "active": false,
+          "error": null,
+          "result": {
+            "ok": false,
+            "status": "failed",
+            "postcondition_satisfied": false,
+            "steps_executed": 0,
+            "terminated": false,
+            "truncated": false,
+            "final_errors": {},
+            "diagnostics": {
+              "hardware_commands_sent": 0,
+              "dispatch_attempted": false,
+              "physical_postcondition": "NOT_ATTEMPTED"
+            },
+            "error": {
+              "code": "safety_interlock",
+              "message": "Phase0.5 observation-only adapter has no physical command transport",
+              "recoverable": false,
+              "details": {
+                "operation": "set_gripper",
+                "hardware_commands_sent": 0,
+                "dispatch_attempted": false
+              }
+            },
+            "terminal_state": null,
+            "terminal_observation_timestamp_s": null,
+            "state_refresh_required": true
+          }
+        },
+        "observation": {
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "synthetic_overhead": {
+              "serial": "SYNTHETIC-ONLY",
+              "source_kind": "SYNTHETIC",
+              "timestamp_s": 1792456556.5477808,
+              "age_ms": 104.39678418333642,
+              "stale": false,
+              "missing": false,
+              "geometry_eligible": true,
+              "calibration_status": "SYNTHETIC",
+              "exposure_synchronized": "UNKNOWN",
+              "stale_after_ms": 1000,
+              "frame_hash": "9947b6df28eb4d5f3c088aadefc7d539931278c6365dcbc4ad1d7663fe0c31b2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "cap_move_to_joints",
+      "isError": true,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": false,
+        "image_cameras": [
+          "synthetic_overhead"
+        ],
+        "job": {
+          "kind": "tool",
+          "label": "move_to_joints",
+          "active": false,
+          "error": null,
+          "result": {
+            "ok": false,
+            "status": "failed",
+            "postcondition_satisfied": false,
+            "steps_executed": 0,
+            "terminated": false,
+            "truncated": false,
+            "final_errors": {},
+            "diagnostics": {},
+            "error": {
+              "code": "safety_interlock",
+              "message": "Phase0.5 observation-only adapter has no physical command transport",
+              "recoverable": false,
+              "details": {
+                "operation": "step",
+                "hardware_commands_sent": 0,
+                "dispatch_attempted": false
+              }
+            },
+            "terminal_state": null,
+            "terminal_observation_timestamp_s": null,
+            "state_refresh_required": true
+          }
+        },
+        "observation": {
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "synthetic_overhead": {
+              "serial": "SYNTHETIC-ONLY",
+              "source_kind": "SYNTHETIC",
+              "timestamp_s": 1792456556.5477808,
+              "age_ms": 125.03816589014605,
+              "stale": false,
+              "missing": false,
+              "geometry_eligible": true,
+              "calibration_status": "SYNTHETIC",
+              "exposure_synchronized": "UNKNOWN",
+              "stale_after_ms": 1000,
+              "frame_hash": "9947b6df28eb4d5f3c088aadefc7d539931278c6365dcbc4ad1d7663fe0c31b2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "cap_move_to_pose",
+      "isError": true,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": false,
+        "image_cameras": [
+          "synthetic_overhead"
+        ],
+        "job": {
+          "kind": "tool",
+          "label": "move_to_pose",
+          "active": false,
+          "error": null,
+          "result": {
+            "ok": false,
+            "status": "failed",
+            "postcondition_satisfied": false,
+            "steps_executed": 0,
+            "terminated": false,
+            "truncated": false,
+            "final_errors": {},
+            "diagnostics": {},
+            "error": {
+              "code": "safety_interlock",
+              "message": "Offline runtime: IK/physical dispatch disabled",
+              "recoverable": true,
+              "details": {}
+            },
+            "terminal_state": null,
+            "terminal_observation_timestamp_s": null,
+            "state_refresh_required": true
+          }
+        },
+        "observation": {
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "synthetic_overhead": {
+              "serial": "SYNTHETIC-ONLY",
+              "source_kind": "SYNTHETIC",
+              "timestamp_s": 1792456556.5477808,
+              "age_ms": 194.89554385654628,
+              "stale": false,
+              "missing": false,
+              "geometry_eligible": true,
+              "calibration_status": "SYNTHETIC",
+              "exposure_synchronized": "UNKNOWN",
+              "stale_after_ms": 1000,
+              "frame_hash": "9947b6df28eb4d5f3c088aadefc7d539931278c6365dcbc4ad1d7663fe0c31b2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "cap_move_synchronized",
+      "isError": true,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": false,
+        "image_cameras": [
+          "synthetic_overhead"
+        ],
+        "job": {
+          "kind": "tool",
+          "label": "move_synchronized",
+          "active": false,
+          "error": null,
+          "result": {
+            "ok": false,
+            "status": "unsupported",
+            "postcondition_satisfied": false,
+            "steps_executed": 0,
+            "terminated": false,
+            "truncated": false,
+            "final_errors": {},
+            "diagnostics": {},
+            "error": {
+              "code": "unsupported",
+              "message": "integrated pose planner 'composed' is not configured",
+              "recoverable": true,
+              "details": {}
+            },
+            "terminal_state": null,
+            "terminal_observation_timestamp_s": null,
+            "state_refresh_required": true
+          }
+        },
+        "observation": {
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "synthetic_overhead": {
+              "serial": "SYNTHETIC-ONLY",
+              "source_kind": "SYNTHETIC",
+              "timestamp_s": 1792456556.5477808,
+              "age_ms": 266.273585089948,
+              "stale": false,
+              "missing": false,
+              "geometry_eligible": true,
+              "calibration_status": "SYNTHETIC",
+              "exposure_synchronized": "UNKNOWN",
+              "stale_after_ms": 1000,
+              "frame_hash": "9947b6df28eb4d5f3c088aadefc7d539931278c6365dcbc4ad1d7663fe0c31b2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "cap_program_go_home",
+      "isError": true,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": false,
+        "image_cameras": [
+          "synthetic_overhead"
+        ],
+        "job": {
+          "kind": "program",
+          "label": "CaP program: go_home",
+          "active": false,
+          "error": null,
+          "result": {
+            "ok": false,
+            "result": {
+              "ok": false,
+              "status": "failed",
+              "postcondition_satisfied": false,
+              "steps_executed": 0,
+              "terminated": false,
+              "truncated": false,
+              "final_errors": {},
+              "diagnostics": {
+                "hardware_commands_sent": 0,
+                "dispatch_attempted": false,
+                "physical_postcondition": "NOT_ATTEMPTED"
+              },
+              "error": {
+                "code": "safety_interlock",
+                "message": "Phase0.5 observation-only adapter has no physical command transport",
+                "recoverable": false,
+                "details": {
+                  "operation": "set_gripper",
+                  "hardware_commands_sent": 0,
+                  "dispatch_attempted": false
+                }
+              },
+              "terminal_state": null,
+              "terminal_observation_timestamp_s": null,
+              "state_refresh_required": true
+            },
+            "error": null,
+            "verification": {
+              "program": "go_home",
+              "ok": false
+            },
+            "evidence_images": [
+              "after.synthetic_overhead",
+              "before.synthetic_overhead"
+            ],
+            "terminal_state": {
+              "base_frame": "synthetic:work",
+              "embodiment": "realman",
+              "joint_positions": {
+                "left": [
+                  0.0,
+                  0.174533,
+                  0.349066,
+                  0.523599,
+                  0.698132,
+                  0.872665
+                ],
+                "right": [
+                  0.0,
+                  0.174533,
+                  0.349066,
+                  0.523599,
+                  0.698132,
+                  0.872665
+                ]
+              },
+              "joint_velocities": {
+                "left": [
+                  0.017453,
+                  0.034907,
+                  0.05236,
+                  0.069813,
+                  0.087266,
+                  0.10472
+                ],
+                "right": [
+                  0.017453,
+                  0.034907,
+                  0.05236,
+                  0.069813,
+                  0.087266,
+                  0.10472
+                ]
+              },
+              "gripper_positions": {
+                "left": 0.5,
+                "right": 0.5
+              },
+              "end_effector_poses": {
+                "left": {
+                  "position": [
+                    0.3,
+                    0.1,
+                    0.8
+                  ],
+                  "quaternion_wxyz": [
+                    0.707107,
+                    0.0,
+                    0.0,
+                    0.707107
+                  ],
+                  "frame": "synthetic:work"
+                },
+                "right": {
+                  "position": [
+                    -0.3,
+                    0.5,
+                    0.5
+                  ],
+                  "quaternion_wxyz": [
+                    0.707107,
+                    0.0,
+                    0.0,
+                    0.707107
+                  ],
+                  "frame": "synthetic:work"
+                }
+              },
+              "timestamp_s": 1792456556.5477808,
+              "metadata": {
+                "source_kind": "SYNTHETIC",
+                "joint_velocity_quality": {
+                  "left": "SOURCE_REPORTED",
+                  "right": "SOURCE_REPORTED"
+                },
+                "pose_endpoint": {
+                  "left": {
+                    "frame": "synthetic:left:Arm_Tip",
+                    "actual_grasp_TCP": null,
+                    "raw_frame_semantics": "SYNTHETIC",
+                    "numeric_binding_evidence": "SYNTHETIC_FIXTURE"
+                  },
+                  "right": {
+                    "frame": "synthetic:right:Arm_Tip",
+                    "actual_grasp_TCP": null,
+                    "raw_frame_semantics": "SYNTHETIC",
+                    "numeric_binding_evidence": "SYNTHETIC_FIXTURE"
+                  }
+                },
+                "motion_permitted": false,
+                "per_arm_timestamp_s": {
+                  "left": 1792456556.5477808,
+                  "right": 1792456556.5477808
+                },
+                "state_sample_skew_s": 0.0,
+                "sensor_snapshot_atomic": {
+                  "left": false,
+                  "right": false
+                },
+                "controller_errors": {
+                  "left": null,
+                  "right": null
+                },
+                "grasp_confirmed": "UNKNOWN",
+                "common_world_measured": false,
+                "physical_calibration_certified": false
+              }
+            },
+            "state_refresh_required": false
+          }
+        },
+        "observation": {
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "synthetic_overhead": {
+              "serial": "SYNTHETIC-ONLY",
+              "source_kind": "SYNTHETIC",
+              "timestamp_s": 1792456556.5477808,
+              "age_ms": 325.3974623803515,
+              "stale": false,
+              "missing": false,
+              "geometry_eligible": true,
+              "calibration_status": "SYNTHETIC",
+              "exposure_synchronized": "UNKNOWN",
+              "stale_after_ms": 1000,
+              "frame_hash": "9947b6df28eb4d5f3c088aadefc7d539931278c6365dcbc4ad1d7663fe0c31b2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "event": "initialize",
+      "protocol_version": "2025-11-25",
+      "server": {
+        "name": "cap",
+        "title": null,
+        "version": "0.1.0",
+        "websiteUrl": null,
+        "icons": null
+      }
+    },
+    {
+      "event": "tools/list",
+      "names": [
+        "cap_get_robot_state",
+        "cap_localize_object",
+        "cap_move_synchronized",
+        "cap_move_to_joints",
+        "cap_move_to_pose",
+        "cap_program_go_home",
+        "cap_program_observe",
+        "cap_set_gripper",
+        "get_capability_graph",
+        "get_job",
+        "observe",
+        "read_operator_messages"
+      ]
+    },
+    {
+      "event": "tools/call",
+      "name": "get_capability_graph",
+      "isError": false,
+      "image_count": 0,
+      "structuredContent": {
+        "ok": true,
+        "tool_names": [
+          "get_capability_graph",
+          "observe",
+          "get_job",
+          "read_operator_messages",
+          "cap_get_robot_state",
+          "cap_localize_object",
+          "cap_move_synchronized",
+          "cap_move_to_joints",
+          "cap_move_to_pose",
+          "cap_set_gripper",
+          "cap_program_observe",
+          "cap_program_go_home"
+        ]
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "observe",
+      "isError": false,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": true,
+        "image_cameras": [
+          "synthetic_overhead"
+        ],
+        "observation": {
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "synthetic_overhead": {
+              "serial": "SYNTHETIC-ONLY",
+              "source_kind": "SYNTHETIC",
+              "timestamp_s": 1792456557.0750985,
+              "age_ms": 156.55196088482626,
+              "stale": false,
+              "missing": false,
+              "geometry_eligible": true,
+              "calibration_status": "SYNTHETIC",
+              "exposure_synchronized": "UNKNOWN",
+              "stale_after_ms": 1000,
+              "frame_hash": "9947b6df28eb4d5f3c088aadefc7d539931278c6365dcbc4ad1d7663fe0c31b2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "cap_get_robot_state",
+      "isError": false,
+      "image_count": 0,
+      "structuredContent": {
+        "ok": true,
+        "result": {
+          "joint_positions": {
+            "left": [
+              0.0,
+              0.174533,
+              0.349066,
+              0.523599,
+              0.698132,
+              0.872665
+            ],
+            "right": [
+              0.0,
+              0.174533,
+              0.349066,
+              0.523599,
+              0.698132,
+              0.872665
+            ]
+          },
+          "joint_velocities": {
+            "left": [
+              0.017453,
+              0.034907,
+              0.05236,
+              0.069813,
+              0.087266,
+              0.10472
+            ],
+            "right": [
+              0.017453,
+              0.034907,
+              0.05236,
+              0.069813,
+              0.087266,
+              0.10472
+            ]
+          },
+          "end_effector_poses": {
+            "left": {
+              "position": [
+                0.3,
+                0.1,
+                0.8
+              ],
+              "quaternion_wxyz": [
+                0.707107,
+                0.0,
+                0.0,
+                0.707107
+              ],
+              "frame": "synthetic:work"
+            },
+            "right": {
+              "position": [
+                -0.3,
+                0.5,
+                0.5
+              ],
+              "quaternion_wxyz": [
+                0.707107,
+                0.0,
+                0.0,
+                0.707107
+              ],
+              "frame": "synthetic:work"
+            }
+          },
+          "gripper_positions": {
+            "left": 0.5,
+            "right": 0.5
+          },
+          "base_frame": "synthetic:work",
+          "joint_names": {
+            "left": [
+              "left_joint_1",
+              "left_joint_2",
+              "left_joint_3",
+              "left_joint_4",
+              "left_joint_5",
+              "left_joint_6"
+            ],
+            "right": [
+              "right_joint_1",
+              "right_joint_2",
+              "right_joint_3",
+              "right_joint_4",
+              "right_joint_5",
+              "right_joint_6"
+            ]
+          },
+          "timestamp_s": 1792456557.0750985,
+          "embodiment": "realman",
+          "metadata": {
+            "source_kind": "SYNTHETIC",
+            "joint_velocity_quality": {
+              "left": "SOURCE_REPORTED",
+              "right": "SOURCE_REPORTED"
+            },
+            "pose_endpoint": {
+              "left": {
+                "frame": "synthetic:left:Arm_Tip",
+                "actual_grasp_TCP": null,
+                "raw_frame_semantics": "SYNTHETIC",
+                "numeric_binding_evidence": "SYNTHETIC_FIXTURE"
+              },
+              "right": {
+                "frame": "synthetic:right:Arm_Tip",
+                "actual_grasp_TCP": null,
+                "raw_frame_semantics": "SYNTHETIC",
+                "numeric_binding_evidence": "SYNTHETIC_FIXTURE"
+              }
+            },
+            "motion_permitted": false,
+            "per_arm_timestamp_s": {
+              "left": 1792456557.0750985,
+              "right": 1792456557.0750985
+            },
+            "state_sample_skew_s": 0.0,
+            "sensor_snapshot_atomic": {
+              "left": false,
+              "right": false
+            },
+            "controller_errors": {
+              "left": null,
+              "right": null
+            },
+            "grasp_confirmed": "UNKNOWN",
+            "common_world_measured": false,
+            "physical_calibration_certified": false
+          }
+        }
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "cap_localize_object",
+      "isError": false,
+      "image_count": 0,
+      "structuredContent": {
+        "ok": true,
+        "result": {
+          "ok": true,
+          "geometry": {
+            "pose": {
+              "position": [
+                0.138385,
+                -0.210389,
+                1.115643
+              ],
+              "quaternion_wxyz": [
+                0.866955,
+                0.196774,
+                -0.421263,
+                0.179461
+              ],
+              "frame": "synthetic:work"
+            },
+            "extents": [
+              0.150794,
+              0.065668,
+              0.008911
+            ],
+            "point_count": 96
+          },
+          "segmentation": {
+            "mask": {
+              "type": "ndarray",
+              "shape": [
+                12,
+                16
+              ],
+              "dtype": "bool"
+            },
+            "label": "generic synthetic object",
+            "score": 1.0,
+            "camera_name": "synthetic_overhead",
+            "frame": "synthetic:camera_optical",
+            "box_xyxy": null
+          },
+          "point_cloud": {
+            "points": {
+              "type": "ndarray",
+              "shape": [
+                96,
+                3
+              ],
+              "dtype": "float64"
+            },
+            "frame": "synthetic:work",
+            "colors": {
+              "type": "ndarray",
+              "shape": [
+                96,
+                3
+              ],
+              "dtype": "uint8"
+            }
+          },
+          "error": null,
+          "diagnostics": {}
+        }
+      }
+    },
+    {
+      "event": "initialize",
+      "protocol_version": "2025-11-25",
+      "server": {
+        "name": "cap",
+        "title": null,
+        "version": "0.1.0",
+        "websiteUrl": null,
+        "icons": null
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "cap_move_to_pose",
+      "isError": true,
+      "image_count": 0,
+      "structuredContent": {
+        "ok": false,
+        "error": "ValueError: quaternion_wxyz must be normalized to unit length"
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "observe",
+      "isError": true,
+      "image_count": 0,
+      "structuredContent": {
+        "ok": false,
+        "error": "ValueError: camera 'does_not_exist' is unavailable"
+      }
+    },
+    {
+      "event": "initialize",
+      "protocol_version": "2025-11-25",
+      "server": {
+        "name": "cap",
+        "title": null,
+        "version": "0.1.0",
+        "websiteUrl": null,
+        "icons": null
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "read_operator_messages",
+      "isError": false,
+      "image_count": 0,
+      "structuredContent": {
+        "ok": true,
+        "messages": [
+          "Remain observation only."
+        ]
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "cap_set_gripper",
+      "isError": true,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": false,
+        "image_cameras": [
+          "synthetic_overhead"
+        ],
+        "job": {
+          "kind": "tool",
+          "label": "set_gripper",
+          "active": false,
+          "error": null,
+          "result": {
+            "ok": false,
+            "status": "failed",
+            "postcondition_satisfied": false,
+            "steps_executed": 0,
+            "terminated": false,
+            "truncated": false,
+            "final_errors": {},
+            "diagnostics": {
+              "hardware_commands_sent": 0,
+              "dispatch_attempted": false,
+              "physical_postcondition": "NOT_ATTEMPTED"
+            },
+            "error": {
+              "code": "safety_interlock",
+              "message": "Phase0.5 observation-only adapter has no physical command transport",
+              "recoverable": false,
+              "details": {
+                "operation": "set_gripper",
+                "hardware_commands_sent": 0,
+                "dispatch_attempted": false
+              }
+            },
+            "terminal_state": null,
+            "terminal_observation_timestamp_s": null,
+            "state_refresh_required": true
+          }
+        },
+        "observation": {
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "synthetic_overhead": {
+              "serial": "SYNTHETIC-ONLY",
+              "source_kind": "SYNTHETIC",
+              "timestamp_s": 1792456557.908155,
+              "age_ms": 243.28033154597506,
+              "stale": false,
+              "missing": false,
+              "geometry_eligible": true,
+              "calibration_status": "SYNTHETIC",
+              "exposure_synchronized": "UNKNOWN",
+              "stale_after_ms": 1000,
+              "frame_hash": "9947b6df28eb4d5f3c088aadefc7d539931278c6365dcbc4ad1d7663fe0c31b2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "event": "tools/call",
+      "name": "get_job",
+      "isError": false,
+      "image_count": 0,
+      "structuredContent": {
+        "ok": true,
+        "job": {
+          "kind": "tool",
+          "label": "set_gripper",
+          "active": false,
+          "error": null,
+          "result": {
+            "ok": false,
+            "status": "failed",
+            "postcondition_satisfied": false,
+            "steps_executed": 0,
+            "terminated": false,
+            "truncated": false,
+            "final_errors": {},
+            "diagnostics": {
+              "hardware_commands_sent": 0,
+              "dispatch_attempted": false,
+              "physical_postcondition": "NOT_ATTEMPTED"
+            },
+            "error": {
+              "code": "safety_interlock",
+              "message": "Phase0.5 observation-only adapter has no physical command transport",
+              "recoverable": false,
+              "details": {
+                "operation": "set_gripper",
+                "hardware_commands_sent": 0,
+                "dispatch_attempted": false
+              }
+            },
+            "terminal_state": null,
+            "terminal_observation_timestamp_s": null,
+            "state_refresh_required": true
+          }
+        }
+      }
+    }
+  ]
+}

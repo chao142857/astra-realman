@@ -1,0 +1,22 @@
+diff --git a/src/cap_harness/agent/session.py b/src/cap_harness/agent/session.py
+index 22285af..6088e86 100644
+--- a/src/cap_harness/agent/session.py
++++ b/src/cap_harness/agent/session.py
+@@ -117,0 +118 @@ def _compact_robot_state(value: Any) -> dict[str, Any] | None:
++        "metadata": _summary(getattr(value, "metadata", {})),
+diff --git a/src/cap_harness/api.py b/src/cap_harness/api.py
+index 0b74fe3..a318d60 100644
+--- a/src/cap_harness/api.py
++++ b/src/cap_harness/api.py
+@@ -1926,0 +1927 @@ class CapApi:
++            metadata=state.metadata,
+diff --git a/src/cap_harness/contracts.py b/src/cap_harness/contracts.py
+index 06d454d..61fce56 100644
+--- a/src/cap_harness/contracts.py
++++ b/src/cap_harness/contracts.py
+@@ -20,0 +21 @@ JOINT_DIMENSIONS: Mapping[str, int] = MappingProxyType(
++        "realman": 6,
+@@ -346,0 +348 @@ class RobotState:
++    metadata: Mapping[str, object] = field(default_factory=dict)
+@@ -416,0 +419 @@ class RobotState:
++        object.__setattr__(self, "metadata", _mapping(self.metadata, "metadata"))
