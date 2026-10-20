@@ -49,9 +49,11 @@ ASPIRE 固定 `fa00f0ef2bc1d91d594b9aa502c22133c9f538f7`，其 cuRobo gitlink �
 
 自动审批拒绝过“排除固定/锁定为同一刚体的内部接触对”的运行，因为可能违反不得削弱
 碰撞检查的约束。该运行未执行，代码已撤回。
-`evidence/proposed-rigid-contacts.json` 仅是**未应用、未运行**的可审阅提案；每臂 26 对，
-即使获准也不能消除活动关节两侧的 `Link5 / ctag_base_link` 问题。
-没有把提案加入任何实际模型或复现命令。
+2026-10-21（Asia/Shanghai），用户明确选择“保持策略，按模型阻塞交付”。
+`evidence/proposed-rigid-contacts.json` 作为**未应用、未运行、已关闭**的历史提案保留；
+每臂 26 对，且不能消除活动关节两侧的 `Link5 / ctag_base_link` 问题。
+保留全部原始碰撞检查，交付状态为 `BLOCKED_SELF_COLLISION`。
+没有把提案加入任何实际模型或复现命令；本次决定不触发进一步提案测试、GPU 重跑或硬件操作。
 
 ## 已实现的软件
 
