@@ -1,0 +1,107 @@
+{
+  "timestamp": "2026-10-20T13:21:16.058157+08:00",
+  "status": "REAL_SAM3_AND_NATIVE_HTTP_PASS_CAMERA_GEOMETRY_UNQUALIFIED",
+  "full_report": {
+    "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real.json",
+    "bytes": 163719,
+    "sha256": "c89e11f8deaa9dcd3a5706533ed78cab164e9cd7b229a5ba3860b57176718df4"
+  },
+  "checkpoint_sha256_rechecked": "9999e2341ceef5e136daa386eecb55cb414446a00ac2b55eb2dfd2f7c3cf8c9e",
+  "official_source_files_verified": 153,
+  "native_source_count": 71,
+  "native_source_mismatches": [],
+  "original_phase1a_entry_unchanged": true,
+  "sealed_assets": [
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/aligned-z16.npy",
+      "sha256": "db312b6af968a6bec4abf1668491dc3d24894b6d8c3cc6a45e73972a6b4c7f69",
+      "matches": true
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/rgb.png",
+      "sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+      "matches": true
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/aligned-depth-m.npy",
+      "sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+      "matches": true
+    }
+  ],
+  "archives": [
+    {
+      "manifest": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T142729-853ffbe2/launch_manifest.json",
+      "manifest_unchanged": true,
+      "source_count": 371,
+      "mismatches": []
+    },
+    {
+      "manifest": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T145818-fd3d3371/launch_manifest.json",
+      "manifest_unchanged": true,
+      "source_count": 371,
+      "mismatches": []
+    },
+    {
+      "manifest": "/home/tongji/alex/realman-chunk-gui-migration-20261017/astra_realman_harness/logs/parallel-arms-20261018T153025-8a4d5e3b/launch_manifest.json",
+      "manifest_unchanged": true,
+      "source_count": 371,
+      "mismatches": []
+    }
+  ],
+  "three_official_calls_completed": true,
+  "three_native_http_calls_ok": true,
+  "official_target_mask_sha256_three_runs": [
+    "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81",
+    "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81",
+    "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81"
+  ],
+  "native_top5_iou_with_official": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "server_rgb_pixel_identity_verified": true,
+  "visual_review": {
+    "reviewer": "Assistant inspected generated RGB/Mask overlay and target crop",
+    "status": "VISIBLE_BANANA_MASK_SANITY_PASS",
+    "is_independent_human_ground_truth": false,
+    "target_recognition_visual_sanity": true,
+    "raw_inference_report_kept_candidates_unverified": true,
+    "boundary_and_metric_accuracy_certified": false,
+    "scope": "Preparation for visual inspection, not independent ground truth",
+    "actual_mask_pixels": 6817,
+    "valid_depth_points": 4727,
+    "distant_depth_points": 233,
+    "manual_contour_iou_not_ground_truth": 0.9105440269209198,
+    "geometry_accuracy_qualified": false,
+    "world_pose": null,
+    "preview": {
+      "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real-review/sam3-real-preview.jpg",
+      "bytes": 142245,
+      "sha256": "616c6ebc8a619df8d6612a3ce89bc3184ee500b873a89bcd2a04f337228924b0"
+    }
+  },
+  "geometry_accuracy_qualified": false,
+  "common_world": null,
+  "actual_tcp": {
+    "left": null,
+    "right": null
+  },
+  "real_robot_state": null,
+  "complete_cap_observation_available": false,
+  "live_source_and_cap_mcp_runtime_changed": false,
+  "camera_pipelines_opened_this_run": 0,
+  "realman_sdk_connections": 0,
+  "motion_dispatches": 0,
+  "video_fuser": {
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "",
+    "scope": "Current user visibility only"
+  },
+  "temporary_download_proxy_port_released": true,
+  "download_interrupted_report_explanation": "First proxy stream was deliberately Ctrl+C interrupted after 2345664512 bytes to switch to twice-probed direct official CDN; resumed without repeating the prefix. Not spontaneous model/network failure.",
+  "model_and_protocol_scope": "Official SAM3 image text prompt plus unchanged ASPIRE service/client over loopback; not video, point prompts, all CUDA operators, cuRobo, live CAP Observation or robot execution."
+}

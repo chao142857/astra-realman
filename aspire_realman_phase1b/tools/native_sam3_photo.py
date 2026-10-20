@@ -50,7 +50,10 @@ def probe_native(model,processor,rgb,z,meta,out,prompt,threshold):
     session=TracingSession();session.trust_env=False
     result={'scope':'native ASPIRE service + typed Sam3Provider over actual loopback HTTP',
         'native_service_sha256':native_sha,'model_initialized':model is not None,'calls':[],
-        'world_transform':None,'full_cap_observation_constructed':False}
+        'world_transform':None,'full_cap_observation_constructed':False,
+        'peak_vram_allocated_bytes':None,'peak_vram_reserved_bytes':None}
+    if model is not None and service.torch.cuda.is_available():
+        service.torch.cuda.reset_peak_memory_stats()
     try:
         with loopback_server(service.app) as base:
             provider=Sam3Provider(base_url=base,session=session,timeout_s=120,max_retries=0)
@@ -75,6 +78,9 @@ def probe_native(model,processor,rgb,z,meta,out,prompt,threshold):
             result['empty_prompt_error']={'ok':invalid.ok,'code':invalid.error.code.value,'http_requests_sent':len(requests_trace)-before}
     finally:
         session.close();service._decode_image=original_decode;service._MODEL=None;service._PROCESSOR=None
+        if model is not None and service.torch.cuda.is_available():
+            result['peak_vram_allocated_bytes']=service.torch.cuda.max_memory_allocated()
+            result['peak_vram_reserved_bytes']=service.torch.cuda.max_memory_reserved()
     pixel_sha=hashlib.sha256(rgb.tobytes()).hexdigest()
     result.update(request_trace=requests_trace,server_decoded_inputs=incoming,
         expected_rgb_pixel_sha256=pixel_sha,

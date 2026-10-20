@@ -80,6 +80,9 @@ try:
                 rgb,z,meta,assets,f'official-run{i+1}',a.score_threshold,geometry=i==2)
             row.update(run=i+1,kind='cold_first_call' if i==0 else 'warm_call',inference_latency_s=elapsed)
             result['runs'].append(row)
+            # Saved predictions are CPU data. Do not retain an old image feature
+            # state while encoding the next image or entering the native service.
+            del state,output
         result.update({k:result['runs'][-1][k] for k in ['status','inference_completed','mask_count','target_candidates_present','target_identification_success','visual_validation']})
 except Exception as exc:
     result['status']='FAILED_REAL_RUNTIME' if result['model_load_time_s'] is not None else 'BLOCKED'
@@ -89,6 +92,8 @@ finally:
         try:
             result['peak_vram_allocated_bytes']=torch.cuda.max_memory_allocated()
             result['peak_vram_reserved_bytes']=torch.cuda.max_memory_reserved()
+            result['official_peak_vram_allocated_bytes']=result['peak_vram_allocated_bytes']
+            result['official_peak_vram_reserved_bytes']=result['peak_vram_reserved_bytes']
         except Exception as exc:result['vram_query_error']=str(exc)
 if a.native_http and result['status']=='FAILED_REAL_RUNTIME':
     result['native_http']={'status':'SKIPPED_AFTER_REAL_RUNTIME_FAILURE',
@@ -97,6 +102,9 @@ elif a.native_http:
     try:
         from native_sam3_photo import probe_native
         result['native_http']=probe_native(model,processor,rgb,z,meta,assets,a.prompt,a.score_threshold)
+        for field in ['peak_vram_allocated_bytes','peak_vram_reserved_bytes']:
+            native_peak=result['native_http'].get(field)
+            if native_peak is not None:result[field]=max(result[field] or 0,native_peak)
         if result['runs'] and result['native_http']['calls'][-1].get('predictions'):
             direct=result['runs'][-1]['predictions'];native=result['native_http']['calls'][-1]['predictions']
             from PIL import Image

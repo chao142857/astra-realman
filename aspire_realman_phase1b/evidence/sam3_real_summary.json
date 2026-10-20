@@ -1,0 +1,1058 @@
+{
+  "status": "INFERENCE_COMPLETED_CANDIDATES_UNVERIFIED",
+  "official_source_commit": "7f473cfd983d5eb43040ff608f66bff0d7bdcb53",
+  "provenance": {
+    "snapshot": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/snapshot.json",
+    "snapshot_sha256": "c92d988da2817d17a56eba2a82cafb26f12fddedb7c8385d27293568942d3c33",
+    "rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+    "depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+    "rgb_pixel_sha256": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c",
+    "serial": "346222072496",
+    "color_frame_number": 174,
+    "depth_frame_number": 91,
+    "color_depth_skew_ms": 5.1513671875,
+    "frame": "realsense:346222072496:color_optical",
+    "depth_scale_m_per_z16": 0.0010000000474974513,
+    "z16_scale_max_residual_m": 0.0,
+    "mode": "SEALED_REAL_RGBD_NOT_LIVE",
+    "world_transform": null,
+    "current_robot_state": null
+  },
+  "prompt": "banana",
+  "prompt_evidence": "Visible yellow banana on left desk in manually inspected sealed RGB; no task execution",
+  "score_threshold": 0.5,
+  "inference_completed": true,
+  "mask_count": 200,
+  "target_candidates_present": true,
+  "target_identification_success": null,
+  "visual_validation": "PENDING_VISUAL_REVIEW",
+  "model_loaded": true,
+  "model_load_time_s": 5.5295190459582955,
+  "runs": [
+    {
+      "inference_completed": true,
+      "mask_count": 200,
+      "accepted_candidate_count": 1,
+      "target_candidates_present": true,
+      "target_identification_success": null,
+      "visual_validation": "PENDING_VISUAL_REVIEW",
+      "status": "INFERENCE_COMPLETED_CANDIDATES_UNVERIFIED",
+      "score_threshold": 0.5,
+      "box_units": "source RGB pixels",
+      "retention": "Top 5 by score saved, matching native Provider result limit; all counts/scores/boxes retained",
+      "predictions": [
+        {
+          "rank": 0,
+          "model_index": 104,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.921875,
+          "box_xyxy_pixels": [
+            81.26040649414062,
+            243.2361297607422,
+            261.3438415527344,
+            289.69232177734375
+          ],
+          "mask_pixel_count": 6817,
+          "accepted_by_score_and_nonempty": true,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run1-mask-0.png",
+            "bytes": 690,
+            "sha256": "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81"
+          },
+          "mask_bool_sha256": "cc8ae43ed208496cfd1e0d4c9b796e80766900a4ac2770f4f18fc88171503fb3"
+        },
+        {
+          "rank": 1,
+          "model_index": 92,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.09130859375,
+          "box_xyxy_pixels": [
+            81.53028869628906,
+            243.254150390625,
+            260.9281311035156,
+            289.7127685546875
+          ],
+          "mask_pixel_count": 6742,
+          "accepted_by_score_and_nonempty": false,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run1-mask-1.png",
+            "bytes": 697,
+            "sha256": "d69f541333869e4406e9950bfca16ea262be6ed435860fe7d51ec0fb2ac997df"
+          },
+          "mask_bool_sha256": "a2c899ead5c4b60017ff740100891d581cff3799424fb39bb8f88a28b96bcba8"
+        },
+        {
+          "rank": 2,
+          "model_index": 70,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.053466796875,
+          "box_xyxy_pixels": [
+            -0.08861631155014038,
+            157.5602264404297,
+            9.225154876708984,
+            249.50526428222656
+          ],
+          "mask_pixel_count": 1253,
+          "accepted_by_score_and_nonempty": false,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run1-mask-2.png",
+            "bytes": 863,
+            "sha256": "7ce24a002e5f0bd8a78f647e8ac75f208ad5a32f0424cc5be72b45a0cd860705"
+          },
+          "mask_bool_sha256": "3822908a422d8f423167a0697acfdb2aa394dca32cc4cfc87a9c732d362244d2"
+        },
+        {
+          "rank": 3,
+          "model_index": 140,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.04736328125,
+          "box_xyxy_pixels": [
+            504.24554443359375,
+            250.04908752441406,
+            644.06494140625,
+            286.6552429199219
+          ],
+          "mask_pixel_count": 4694,
+          "accepted_by_score_and_nonempty": false,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run1-mask-3.png",
+            "bytes": 627,
+            "sha256": "eb948060c6fad0e055f517b9acec0183cb3f8cd6984c2ffa400595e578cb1c86"
+          },
+          "mask_bool_sha256": "1329d550b7c1bedf6cd436122892933677a0544ddc272a03a2a471750105d392"
+        },
+        {
+          "rank": 4,
+          "model_index": 43,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.04541015625,
+          "box_xyxy_pixels": [
+            94.5737533569336,
+            1.9494438171386719,
+            161.23428344726562,
+            138.7604522705078
+          ],
+          "mask_pixel_count": 7447,
+          "accepted_by_score_and_nonempty": false,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run1-mask-4.png",
+            "bytes": 2015,
+            "sha256": "b5abff7258b288d49b0c99f79e56f617e6a51fd50d837e96c109a4d110bd757b"
+          },
+          "mask_bool_sha256": "f42ecf55b3428934fa46071ce7be0063a76908e20a8e790c97a210f8188f42cb"
+        }
+      ],
+      "overlay": {
+        "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run1-actual-mask-overlay.png",
+        "bytes": 335182,
+        "sha256": "cba7cae1963ef80ee9c1fc5b88a12e1dc846075b19c6eba2f27abb487db363ed"
+      },
+      "overlay_note": "No overlay generated when no actual masks were returned",
+      "run": 1,
+      "kind": "cold_first_call",
+      "inference_latency_s": 0.9828880610293709
+    },
+    {
+      "inference_completed": true,
+      "mask_count": 200,
+      "accepted_candidate_count": 1,
+      "target_candidates_present": true,
+      "target_identification_success": null,
+      "visual_validation": "PENDING_VISUAL_REVIEW",
+      "status": "INFERENCE_COMPLETED_CANDIDATES_UNVERIFIED",
+      "score_threshold": 0.5,
+      "box_units": "source RGB pixels",
+      "retention": "Top 5 by score saved, matching native Provider result limit; all counts/scores/boxes retained",
+      "predictions": [
+        {
+          "rank": 0,
+          "model_index": 104,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.921875,
+          "box_xyxy_pixels": [
+            81.26040649414062,
+            243.2361297607422,
+            261.3438415527344,
+            289.69232177734375
+          ],
+          "mask_pixel_count": 6817,
+          "accepted_by_score_and_nonempty": true,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run2-mask-0.png",
+            "bytes": 690,
+            "sha256": "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81"
+          },
+          "mask_bool_sha256": "cc8ae43ed208496cfd1e0d4c9b796e80766900a4ac2770f4f18fc88171503fb3"
+        },
+        {
+          "rank": 1,
+          "model_index": 92,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.09130859375,
+          "box_xyxy_pixels": [
+            81.53028869628906,
+            243.254150390625,
+            260.9281311035156,
+            289.7127685546875
+          ],
+          "mask_pixel_count": 6742,
+          "accepted_by_score_and_nonempty": false,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run2-mask-1.png",
+            "bytes": 697,
+            "sha256": "d69f541333869e4406e9950bfca16ea262be6ed435860fe7d51ec0fb2ac997df"
+          },
+          "mask_bool_sha256": "a2c899ead5c4b60017ff740100891d581cff3799424fb39bb8f88a28b96bcba8"
+        },
+        {
+          "rank": 2,
+          "model_index": 70,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.053466796875,
+          "box_xyxy_pixels": [
+            -0.08861631155014038,
+            157.5602264404297,
+            9.225154876708984,
+            249.50526428222656
+          ],
+          "mask_pixel_count": 1253,
+          "accepted_by_score_and_nonempty": false,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run2-mask-2.png",
+            "bytes": 863,
+            "sha256": "7ce24a002e5f0bd8a78f647e8ac75f208ad5a32f0424cc5be72b45a0cd860705"
+          },
+          "mask_bool_sha256": "3822908a422d8f423167a0697acfdb2aa394dca32cc4cfc87a9c732d362244d2"
+        },
+        {
+          "rank": 3,
+          "model_index": 140,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.04736328125,
+          "box_xyxy_pixels": [
+            504.24554443359375,
+            250.04908752441406,
+            644.06494140625,
+            286.6552429199219
+          ],
+          "mask_pixel_count": 4694,
+          "accepted_by_score_and_nonempty": false,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run2-mask-3.png",
+            "bytes": 627,
+            "sha256": "eb948060c6fad0e055f517b9acec0183cb3f8cd6984c2ffa400595e578cb1c86"
+          },
+          "mask_bool_sha256": "1329d550b7c1bedf6cd436122892933677a0544ddc272a03a2a471750105d392"
+        },
+        {
+          "rank": 4,
+          "model_index": 43,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.04541015625,
+          "box_xyxy_pixels": [
+            94.5737533569336,
+            1.9494438171386719,
+            161.23428344726562,
+            138.7604522705078
+          ],
+          "mask_pixel_count": 7447,
+          "accepted_by_score_and_nonempty": false,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run2-mask-4.png",
+            "bytes": 2015,
+            "sha256": "b5abff7258b288d49b0c99f79e56f617e6a51fd50d837e96c109a4d110bd757b"
+          },
+          "mask_bool_sha256": "f42ecf55b3428934fa46071ce7be0063a76908e20a8e790c97a210f8188f42cb"
+        }
+      ],
+      "overlay": {
+        "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run2-actual-mask-overlay.png",
+        "bytes": 335182,
+        "sha256": "cba7cae1963ef80ee9c1fc5b88a12e1dc846075b19c6eba2f27abb487db363ed"
+      },
+      "overlay_note": "No overlay generated when no actual masks were returned",
+      "run": 2,
+      "kind": "warm_call",
+      "inference_latency_s": 0.3753094269777648
+    },
+    {
+      "inference_completed": true,
+      "mask_count": 200,
+      "accepted_candidate_count": 1,
+      "target_candidates_present": true,
+      "target_identification_success": null,
+      "visual_validation": "PENDING_VISUAL_REVIEW",
+      "status": "INFERENCE_COMPLETED_CANDIDATES_UNVERIFIED",
+      "score_threshold": 0.5,
+      "box_units": "source RGB pixels",
+      "retention": "Top 5 by score saved, matching native Provider result limit; all counts/scores/boxes retained",
+      "predictions": [
+        {
+          "rank": 0,
+          "model_index": 104,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.921875,
+          "box_xyxy_pixels": [
+            81.26040649414062,
+            243.2361297607422,
+            261.3438415527344,
+            289.69232177734375
+          ],
+          "mask_pixel_count": 6817,
+          "accepted_by_score_and_nonempty": true,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run3-mask-0.png",
+            "bytes": 690,
+            "sha256": "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81"
+          },
+          "mask_bool_sha256": "cc8ae43ed208496cfd1e0d4c9b796e80766900a4ac2770f4f18fc88171503fb3",
+          "camera_geometry": {
+            "pixels": 6817,
+            "valid_pixels": 4727,
+            "valid_fraction": 0.693413525011002,
+            "positive_depth_p0_p1_p25_p50_p75_p99_p100_m": [
+              0.44300001859664917,
+              0.445000022649765,
+              0.4690000116825104,
+              0.4930000305175781,
+              0.5049999952316284,
+              1.939000129699707,
+              1.9510000944137573
+            ],
+            "depth_band_valid_fractions": {
+              "0_to_1m": 0.9507086947323884,
+              "1_to_1.5m": 0.0,
+              "1.5_to_2.3m": 0.04929130526761159,
+              "2.3m_and_above": 0.0
+            },
+            "frame": "realsense:346222072496:color_optical",
+            "world_pose": null,
+            "scope": "visible depth returns only; not complete object shape or certified accuracy",
+            "point_count": 4727,
+            "obb": {
+              "method": "unchanged ASPIRE PCA estimate_geometry",
+              "center_m": [
+                -0.20073162630663793,
+                0.020825852230370846,
+                1.1923788616184399
+              ],
+              "quaternion_wxyz": [
+                0.4832162705401217,
+                -0.4650000788433955,
+                -0.5264011174124177,
+                -0.5226651185490477
+              ],
+              "extents_m": [
+                1.5185050315502622,
+                0.14894485414842507,
+                0.11451110229425293
+              ],
+              "frame": "realsense:346222072496:color_optical",
+              "point_count": 4727,
+              "is_complete_object_obb": false,
+              "world_transform_applied": false
+            },
+            "cloud": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run3-0-visible-cloud.ply",
+              "bytes": 71083,
+              "sha256": "015d57f8ab322b5a6790d7b77f201b3fa6101322e765b6cfa088688cfaa78a82"
+            },
+            "point_xyz_min_max_m": [
+              [
+                -0.32445484353223814,
+                -0.0483029234715038,
+                0.44300001859664917
+              ],
+              [
+                -0.05218633542697304,
+                0.06746238534326754,
+                1.9510000944137573
+              ]
+            ]
+          }
+        },
+        {
+          "rank": 1,
+          "model_index": 92,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.09130859375,
+          "box_xyxy_pixels": [
+            81.53028869628906,
+            243.254150390625,
+            260.9281311035156,
+            289.7127685546875
+          ],
+          "mask_pixel_count": 6742,
+          "accepted_by_score_and_nonempty": false,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run3-mask-1.png",
+            "bytes": 697,
+            "sha256": "d69f541333869e4406e9950bfca16ea262be6ed435860fe7d51ec0fb2ac997df"
+          },
+          "mask_bool_sha256": "a2c899ead5c4b60017ff740100891d581cff3799424fb39bb8f88a28b96bcba8"
+        },
+        {
+          "rank": 2,
+          "model_index": 70,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.053466796875,
+          "box_xyxy_pixels": [
+            -0.08861631155014038,
+            157.5602264404297,
+            9.225154876708984,
+            249.50526428222656
+          ],
+          "mask_pixel_count": 1253,
+          "accepted_by_score_and_nonempty": false,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run3-mask-2.png",
+            "bytes": 863,
+            "sha256": "7ce24a002e5f0bd8a78f647e8ac75f208ad5a32f0424cc5be72b45a0cd860705"
+          },
+          "mask_bool_sha256": "3822908a422d8f423167a0697acfdb2aa394dca32cc4cfc87a9c732d362244d2"
+        },
+        {
+          "rank": 3,
+          "model_index": 140,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.04736328125,
+          "box_xyxy_pixels": [
+            504.24554443359375,
+            250.04908752441406,
+            644.06494140625,
+            286.6552429199219
+          ],
+          "mask_pixel_count": 4694,
+          "accepted_by_score_and_nonempty": false,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run3-mask-3.png",
+            "bytes": 627,
+            "sha256": "eb948060c6fad0e055f517b9acec0183cb3f8cd6984c2ffa400595e578cb1c86"
+          },
+          "mask_bool_sha256": "1329d550b7c1bedf6cd436122892933677a0544ddc272a03a2a471750105d392"
+        },
+        {
+          "rank": 4,
+          "model_index": 43,
+          "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+          "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+          "score": 0.04541015625,
+          "box_xyxy_pixels": [
+            94.5737533569336,
+            1.9494438171386719,
+            161.23428344726562,
+            138.7604522705078
+          ],
+          "mask_pixel_count": 7447,
+          "accepted_by_score_and_nonempty": false,
+          "mask": {
+            "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run3-mask-4.png",
+            "bytes": 2015,
+            "sha256": "b5abff7258b288d49b0c99f79e56f617e6a51fd50d837e96c109a4d110bd757b"
+          },
+          "mask_bool_sha256": "f42ecf55b3428934fa46071ce7be0063a76908e20a8e790c97a210f8188f42cb"
+        }
+      ],
+      "overlay": {
+        "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/official-run3-actual-mask-overlay.png",
+        "bytes": 335182,
+        "sha256": "cba7cae1963ef80ee9c1fc5b88a12e1dc846075b19c6eba2f27abb487db363ed"
+      },
+      "overlay_note": "No overlay generated when no actual masks were returned",
+      "run": 3,
+      "kind": "warm_call",
+      "inference_latency_s": 0.37428212800296023
+    }
+  ],
+  "peak_vram_allocated_bytes": 5793146880,
+  "peak_vram_reserved_bytes": 6366953472,
+  "world_pose": null,
+  "hardware_actions": 0,
+  "blockers": [],
+  "checkpoint": {
+    "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/.cache/weights/sam3.pt",
+    "sha256": "9999e2341ceef5e136daa386eecb55cb414446a00ac2b55eb2dfd2f7c3cf8c9e"
+  },
+  "official_source_files_verified": 153,
+  "environment": {
+    "sam3": "0.1.0",
+    "torch": "2.7.1+cu126",
+    "torchvision": "0.22.1+cu126",
+    "numpy": "1.26.4"
+  },
+  "official_import_ok": true,
+  "cuda_available": true,
+  "torch_cuda_runtime": "12.6",
+  "gpu_name": "NVIDIA GeForce RTX 3060",
+  "gpu_total_memory_bytes": 12620922880,
+  "official_peak_vram_allocated_bytes": 5784627200,
+  "official_peak_vram_reserved_bytes": 6341787648,
+  "native_http": {
+    "scope": "native ASPIRE service + typed Sam3Provider over actual loopback HTTP",
+    "native_service_sha256": "2b92c1a964e197d40bb653ac8725086d64cbbcd155913ae17bb9b81def605920",
+    "model_initialized": true,
+    "calls": [
+      {
+        "ok": true,
+        "elapsed_s": 0.5699096570024267,
+        "error": null,
+        "inference_completed": true,
+        "mask_count": 5,
+        "accepted_candidate_count": 1,
+        "target_candidates_present": true,
+        "target_identification_success": null,
+        "visual_validation": "PENDING_VISUAL_REVIEW",
+        "status": "INFERENCE_COMPLETED_CANDIDATES_UNVERIFIED",
+        "score_threshold": 0.5,
+        "box_units": "source RGB pixels",
+        "retention": "Top 5 by score saved, matching native Provider result limit; all counts/scores/boxes retained",
+        "predictions": [
+          {
+            "rank": 0,
+            "model_index": 0,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.921875,
+            "box_xyxy_pixels": [
+              81.26040649414062,
+              243.2361297607422,
+              261.3438415527344,
+              289.69232177734375
+            ],
+            "mask_pixel_count": 6817,
+            "accepted_by_score_and_nonempty": true,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run1-mask-0.png",
+              "bytes": 690,
+              "sha256": "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81"
+            },
+            "mask_bool_sha256": "cc8ae43ed208496cfd1e0d4c9b796e80766900a4ac2770f4f18fc88171503fb3"
+          },
+          {
+            "rank": 1,
+            "model_index": 1,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.09130859375,
+            "box_xyxy_pixels": [
+              81.53028869628906,
+              243.254150390625,
+              260.9281311035156,
+              289.7127685546875
+            ],
+            "mask_pixel_count": 6742,
+            "accepted_by_score_and_nonempty": false,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run1-mask-1.png",
+              "bytes": 697,
+              "sha256": "d69f541333869e4406e9950bfca16ea262be6ed435860fe7d51ec0fb2ac997df"
+            },
+            "mask_bool_sha256": "a2c899ead5c4b60017ff740100891d581cff3799424fb39bb8f88a28b96bcba8"
+          },
+          {
+            "rank": 2,
+            "model_index": 2,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.053466796875,
+            "box_xyxy_pixels": [
+              -0.08861631155014038,
+              157.5602264404297,
+              9.225154876708984,
+              249.50526428222656
+            ],
+            "mask_pixel_count": 1253,
+            "accepted_by_score_and_nonempty": false,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run1-mask-2.png",
+              "bytes": 863,
+              "sha256": "7ce24a002e5f0bd8a78f647e8ac75f208ad5a32f0424cc5be72b45a0cd860705"
+            },
+            "mask_bool_sha256": "3822908a422d8f423167a0697acfdb2aa394dca32cc4cfc87a9c732d362244d2"
+          },
+          {
+            "rank": 3,
+            "model_index": 3,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.04736328125,
+            "box_xyxy_pixels": [
+              504.24554443359375,
+              250.04908752441406,
+              644.06494140625,
+              286.6552429199219
+            ],
+            "mask_pixel_count": 4694,
+            "accepted_by_score_and_nonempty": false,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run1-mask-3.png",
+              "bytes": 627,
+              "sha256": "eb948060c6fad0e055f517b9acec0183cb3f8cd6984c2ffa400595e578cb1c86"
+            },
+            "mask_bool_sha256": "1329d550b7c1bedf6cd436122892933677a0544ddc272a03a2a471750105d392"
+          },
+          {
+            "rank": 4,
+            "model_index": 4,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.04541015625,
+            "box_xyxy_pixels": [
+              94.5737533569336,
+              1.9494438171386719,
+              161.23428344726562,
+              138.7604522705078
+            ],
+            "mask_pixel_count": 7447,
+            "accepted_by_score_and_nonempty": false,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run1-mask-4.png",
+              "bytes": 2015,
+              "sha256": "b5abff7258b288d49b0c99f79e56f617e6a51fd50d837e96c109a4d110bd757b"
+            },
+            "mask_bool_sha256": "f42ecf55b3428934fa46071ce7be0063a76908e20a8e790c97a210f8188f42cb"
+          }
+        ],
+        "overlay": {
+          "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run1-actual-mask-overlay.png",
+          "bytes": 335182,
+          "sha256": "cba7cae1963ef80ee9c1fc5b88a12e1dc846075b19c6eba2f27abb487db363ed"
+        },
+        "overlay_note": "No overlay generated when no actual masks were returned"
+      },
+      {
+        "ok": true,
+        "elapsed_s": 0.5684958130004816,
+        "error": null,
+        "inference_completed": true,
+        "mask_count": 5,
+        "accepted_candidate_count": 1,
+        "target_candidates_present": true,
+        "target_identification_success": null,
+        "visual_validation": "PENDING_VISUAL_REVIEW",
+        "status": "INFERENCE_COMPLETED_CANDIDATES_UNVERIFIED",
+        "score_threshold": 0.5,
+        "box_units": "source RGB pixels",
+        "retention": "Top 5 by score saved, matching native Provider result limit; all counts/scores/boxes retained",
+        "predictions": [
+          {
+            "rank": 0,
+            "model_index": 0,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.921875,
+            "box_xyxy_pixels": [
+              81.26040649414062,
+              243.2361297607422,
+              261.3438415527344,
+              289.69232177734375
+            ],
+            "mask_pixel_count": 6817,
+            "accepted_by_score_and_nonempty": true,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run2-mask-0.png",
+              "bytes": 690,
+              "sha256": "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81"
+            },
+            "mask_bool_sha256": "cc8ae43ed208496cfd1e0d4c9b796e80766900a4ac2770f4f18fc88171503fb3"
+          },
+          {
+            "rank": 1,
+            "model_index": 1,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.09130859375,
+            "box_xyxy_pixels": [
+              81.53028869628906,
+              243.254150390625,
+              260.9281311035156,
+              289.7127685546875
+            ],
+            "mask_pixel_count": 6742,
+            "accepted_by_score_and_nonempty": false,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run2-mask-1.png",
+              "bytes": 697,
+              "sha256": "d69f541333869e4406e9950bfca16ea262be6ed435860fe7d51ec0fb2ac997df"
+            },
+            "mask_bool_sha256": "a2c899ead5c4b60017ff740100891d581cff3799424fb39bb8f88a28b96bcba8"
+          },
+          {
+            "rank": 2,
+            "model_index": 2,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.053466796875,
+            "box_xyxy_pixels": [
+              -0.08861631155014038,
+              157.5602264404297,
+              9.225154876708984,
+              249.50526428222656
+            ],
+            "mask_pixel_count": 1253,
+            "accepted_by_score_and_nonempty": false,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run2-mask-2.png",
+              "bytes": 863,
+              "sha256": "7ce24a002e5f0bd8a78f647e8ac75f208ad5a32f0424cc5be72b45a0cd860705"
+            },
+            "mask_bool_sha256": "3822908a422d8f423167a0697acfdb2aa394dca32cc4cfc87a9c732d362244d2"
+          },
+          {
+            "rank": 3,
+            "model_index": 3,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.04736328125,
+            "box_xyxy_pixels": [
+              504.24554443359375,
+              250.04908752441406,
+              644.06494140625,
+              286.6552429199219
+            ],
+            "mask_pixel_count": 4694,
+            "accepted_by_score_and_nonempty": false,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run2-mask-3.png",
+              "bytes": 627,
+              "sha256": "eb948060c6fad0e055f517b9acec0183cb3f8cd6984c2ffa400595e578cb1c86"
+            },
+            "mask_bool_sha256": "1329d550b7c1bedf6cd436122892933677a0544ddc272a03a2a471750105d392"
+          },
+          {
+            "rank": 4,
+            "model_index": 4,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.04541015625,
+            "box_xyxy_pixels": [
+              94.5737533569336,
+              1.9494438171386719,
+              161.23428344726562,
+              138.7604522705078
+            ],
+            "mask_pixel_count": 7447,
+            "accepted_by_score_and_nonempty": false,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run2-mask-4.png",
+              "bytes": 2015,
+              "sha256": "b5abff7258b288d49b0c99f79e56f617e6a51fd50d837e96c109a4d110bd757b"
+            },
+            "mask_bool_sha256": "f42ecf55b3428934fa46071ce7be0063a76908e20a8e790c97a210f8188f42cb"
+          }
+        ],
+        "overlay": {
+          "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run2-actual-mask-overlay.png",
+          "bytes": 335182,
+          "sha256": "cba7cae1963ef80ee9c1fc5b88a12e1dc846075b19c6eba2f27abb487db363ed"
+        },
+        "overlay_note": "No overlay generated when no actual masks were returned"
+      },
+      {
+        "ok": true,
+        "elapsed_s": 0.5627634430420585,
+        "error": null,
+        "inference_completed": true,
+        "mask_count": 5,
+        "accepted_candidate_count": 1,
+        "target_candidates_present": true,
+        "target_identification_success": null,
+        "visual_validation": "PENDING_VISUAL_REVIEW",
+        "status": "INFERENCE_COMPLETED_CANDIDATES_UNVERIFIED",
+        "score_threshold": 0.5,
+        "box_units": "source RGB pixels",
+        "retention": "Top 5 by score saved, matching native Provider result limit; all counts/scores/boxes retained",
+        "predictions": [
+          {
+            "rank": 0,
+            "model_index": 0,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.921875,
+            "box_xyxy_pixels": [
+              81.26040649414062,
+              243.2361297607422,
+              261.3438415527344,
+              289.69232177734375
+            ],
+            "mask_pixel_count": 6817,
+            "accepted_by_score_and_nonempty": true,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run3-mask-0.png",
+              "bytes": 690,
+              "sha256": "3cfb957f039dea3e293dde598220628702e0bb335e8f3d2b4f78cccfae89ee81"
+            },
+            "mask_bool_sha256": "cc8ae43ed208496cfd1e0d4c9b796e80766900a4ac2770f4f18fc88171503fb3",
+            "camera_geometry": {
+              "pixels": 6817,
+              "valid_pixels": 4727,
+              "valid_fraction": 0.693413525011002,
+              "positive_depth_p0_p1_p25_p50_p75_p99_p100_m": [
+                0.44300001859664917,
+                0.445000022649765,
+                0.4690000116825104,
+                0.4930000305175781,
+                0.5049999952316284,
+                1.939000129699707,
+                1.9510000944137573
+              ],
+              "depth_band_valid_fractions": {
+                "0_to_1m": 0.9507086947323884,
+                "1_to_1.5m": 0.0,
+                "1.5_to_2.3m": 0.04929130526761159,
+                "2.3m_and_above": 0.0
+              },
+              "frame": "realsense:346222072496:color_optical",
+              "world_pose": null,
+              "scope": "visible depth returns only; not complete object shape or certified accuracy",
+              "point_count": 4727,
+              "obb": {
+                "method": "unchanged ASPIRE PCA estimate_geometry",
+                "center_m": [
+                  -0.20073162630663793,
+                  0.020825852230370846,
+                  1.1923788616184399
+                ],
+                "quaternion_wxyz": [
+                  0.4832162705401217,
+                  -0.4650000788433955,
+                  -0.5264011174124177,
+                  -0.5226651185490477
+                ],
+                "extents_m": [
+                  1.5185050315502622,
+                  0.14894485414842507,
+                  0.11451110229425293
+                ],
+                "frame": "realsense:346222072496:color_optical",
+                "point_count": 4727,
+                "is_complete_object_obb": false,
+                "world_transform_applied": false
+              },
+              "cloud": {
+                "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run3-0-visible-cloud.ply",
+                "bytes": 71083,
+                "sha256": "015d57f8ab322b5a6790d7b77f201b3fa6101322e765b6cfa088688cfaa78a82"
+              },
+              "point_xyz_min_max_m": [
+                [
+                  -0.32445484353223814,
+                  -0.0483029234715038,
+                  0.44300001859664917
+                ],
+                [
+                  -0.05218633542697304,
+                  0.06746238534326754,
+                  1.9510000944137573
+                ]
+              ]
+            }
+          },
+          {
+            "rank": 1,
+            "model_index": 1,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.09130859375,
+            "box_xyxy_pixels": [
+              81.53028869628906,
+              243.254150390625,
+              260.9281311035156,
+              289.7127685546875
+            ],
+            "mask_pixel_count": 6742,
+            "accepted_by_score_and_nonempty": false,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run3-mask-1.png",
+              "bytes": 697,
+              "sha256": "d69f541333869e4406e9950bfca16ea262be6ed435860fe7d51ec0fb2ac997df"
+            },
+            "mask_bool_sha256": "a2c899ead5c4b60017ff740100891d581cff3799424fb39bb8f88a28b96bcba8"
+          },
+          {
+            "rank": 2,
+            "model_index": 2,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.053466796875,
+            "box_xyxy_pixels": [
+              -0.08861631155014038,
+              157.5602264404297,
+              9.225154876708984,
+              249.50526428222656
+            ],
+            "mask_pixel_count": 1253,
+            "accepted_by_score_and_nonempty": false,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run3-mask-2.png",
+              "bytes": 863,
+              "sha256": "7ce24a002e5f0bd8a78f647e8ac75f208ad5a32f0424cc5be72b45a0cd860705"
+            },
+            "mask_bool_sha256": "3822908a422d8f423167a0697acfdb2aa394dca32cc4cfc87a9c732d362244d2"
+          },
+          {
+            "rank": 3,
+            "model_index": 3,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.04736328125,
+            "box_xyxy_pixels": [
+              504.24554443359375,
+              250.04908752441406,
+              644.06494140625,
+              286.6552429199219
+            ],
+            "mask_pixel_count": 4694,
+            "accepted_by_score_and_nonempty": false,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run3-mask-3.png",
+              "bytes": 627,
+              "sha256": "eb948060c6fad0e055f517b9acec0183cb3f8cd6984c2ffa400595e578cb1c86"
+            },
+            "mask_bool_sha256": "1329d550b7c1bedf6cd436122892933677a0544ddc272a03a2a471750105d392"
+          },
+          {
+            "rank": 4,
+            "model_index": 4,
+            "source_rgb_sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06",
+            "source_depth_sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c",
+            "score": 0.04541015625,
+            "box_xyxy_pixels": [
+              94.5737533569336,
+              1.9494438171386719,
+              161.23428344726562,
+              138.7604522705078
+            ],
+            "mask_pixel_count": 7447,
+            "accepted_by_score_and_nonempty": false,
+            "mask": {
+              "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run3-mask-4.png",
+              "bytes": 2015,
+              "sha256": "b5abff7258b288d49b0c99f79e56f617e6a51fd50d837e96c109a4d110bd757b"
+            },
+            "mask_bool_sha256": "f42ecf55b3428934fa46071ce7be0063a76908e20a8e790c97a210f8188f42cb"
+          }
+        ],
+        "overlay": {
+          "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real/native-run3-actual-mask-overlay.png",
+          "bytes": 335182,
+          "sha256": "cba7cae1963ef80ee9c1fc5b88a12e1dc846075b19c6eba2f27abb487db363ed"
+        },
+        "overlay_note": "No overlay generated when no actual masks were returned"
+      }
+    ],
+    "world_transform": null,
+    "full_cap_observation_constructed": false,
+    "peak_vram_allocated_bytes": 5793146880,
+    "peak_vram_reserved_bytes": 6366953472,
+    "process_health": true,
+    "empty_prompt_error": {
+      "ok": false,
+      "code": "invalid_request",
+      "http_requests_sent": 0
+    },
+    "request_trace": [
+      {
+        "method": "GET",
+        "path": "openapi.json",
+        "http_status": 200,
+        "elapsed_s": 0.010171585949137807
+      },
+      {
+        "method": "POST",
+        "path": "segment",
+        "encoded_png_sha256": "3c1eccb4269aa9b606ef3978ae745f02efe535a76cb9a38714666b9874144885",
+        "decoded_rgb_pixel_sha256": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c",
+        "http_status": 200,
+        "elapsed_s": 0.5388349230051972
+      },
+      {
+        "method": "POST",
+        "path": "segment",
+        "encoded_png_sha256": "3c1eccb4269aa9b606ef3978ae745f02efe535a76cb9a38714666b9874144885",
+        "decoded_rgb_pixel_sha256": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c",
+        "http_status": 200,
+        "elapsed_s": 0.5436862890492193
+      },
+      {
+        "method": "POST",
+        "path": "segment",
+        "encoded_png_sha256": "3c1eccb4269aa9b606ef3978ae745f02efe535a76cb9a38714666b9874144885",
+        "decoded_rgb_pixel_sha256": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c",
+        "http_status": 200,
+        "elapsed_s": 0.5379454040084966
+      }
+    ],
+    "server_decoded_inputs": [
+      {
+        "encoded_png_sha256": "3c1eccb4269aa9b606ef3978ae745f02efe535a76cb9a38714666b9874144885",
+        "decoded_rgb_pixel_sha256": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c"
+      },
+      {
+        "encoded_png_sha256": "3c1eccb4269aa9b606ef3978ae745f02efe535a76cb9a38714666b9874144885",
+        "decoded_rgb_pixel_sha256": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c"
+      },
+      {
+        "encoded_png_sha256": "3c1eccb4269aa9b606ef3978ae745f02efe535a76cb9a38714666b9874144885",
+        "decoded_rgb_pixel_sha256": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c"
+      }
+    ],
+    "expected_rgb_pixel_sha256": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c",
+    "outgoing_pixel_identity_verified": true,
+    "server_pixel_identity_verified": true,
+    "file_png_sha_note": "Native client re-encodes PNG, so encoded-file SHA may differ; decoded RGB pixel hash must agree.",
+    "status": "NATIVE_INFERENCE_ATTEMPTED"
+  },
+  "official_vs_native_top5_comparison": [
+    {
+      "direct_rank": 0,
+      "native_rank": 0,
+      "iou": 1.0,
+      "score_abs_diff": 0.0
+    },
+    {
+      "direct_rank": 1,
+      "native_rank": 1,
+      "iou": 1.0,
+      "score_abs_diff": 0.0
+    },
+    {
+      "direct_rank": 2,
+      "native_rank": 2,
+      "iou": 1.0,
+      "score_abs_diff": 0.0
+    },
+    {
+      "direct_rank": 3,
+      "native_rank": 3,
+      "iou": 1.0,
+      "score_abs_diff": 0.0
+    },
+    {
+      "direct_rank": 4,
+      "native_rank": 4,
+      "iou": 1.0,
+      "score_abs_diff": 0.0
+    }
+  ],
+  "full_raw_report_reference": {
+    "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/evidence/sam3-real.json",
+    "bytes": 163719,
+    "sha256": "c89e11f8deaa9dcd3a5706533ed78cab164e9cd7b229a5ba3860b57176718df4"
+  },
+  "summary_scope": "All timings/counts plus actual top-five Mask/Box/Score artifacts; primary target geometry retained. Full 200-candidate scores/boxes and lower-score geometry remain in the original remote report, identified by SHA."
+}

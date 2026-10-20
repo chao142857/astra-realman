@@ -1,5 +1,7 @@
 # 同一封存帧上的几何检查
 
+本页保留手工Mask阶段的真实诊断；后续真实SAM3 Mask及原生HTTP已运行，新增结果见`SAM3_REAL.md`。真实SAM3二维分割通过后，Mask内远点与不合格OBB问题仍存在，未改变本页的空间精度结论。
+
 输入固定RGB SHA `cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06`，aligned depth SHA `6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c`。640×480，color #174/depth #91，SDK global_time差5.15ms。文件哈希、尺寸、color/aligned-depth K一致、Z16×工厂scale与float32米制depth一致（本帧最大残差0）均已核对。不是新的live采集。
 
 | 手工视觉选区（像素xyxy，右下不含） | 有效深度比例 | 有效Z中位数 | 解释边界 |
