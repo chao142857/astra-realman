@@ -1,8 +1,8 @@
-"""Single-arm SDKReadOnly.snapshot inbox preparation; no SDK or transport.
+"""Single-arm SDKReadOnly.snapshot inbox; no SDK or transport.
 
-Future sole SDK owner may publish one already-acquired five-read sample with its
-host receipt interval. This module cannot connect/poll, construct RobotState,
-start an arm, or dispatch motion. Existing LiveSource/CAP runtime stays unbound.
+The sole SDK owner publishes already-acquired five-read samples and host receipt
+intervals. Query success, host-current live data, and controller measurement
+freshness are separate. This cache cannot connect, poll or dispatch motion.
 """
 import copy
 import math
@@ -101,12 +101,20 @@ class SingleArmStateOwner:
         source_age = now_wall-result["canonical_state"]["timestamp"] if clock_match else None
         source_fresh = source_age is not None and -.05 <= source_age <= max_age_s
         receipt_fresh = clock_match and -.001 <= now_mono-interval[1] and now_mono-interval[0] <= max_age_s
+        live_current = running and self.source_kind == "LIVE_SDK_READ_ONLY" and receipt_fresh and source_fresh
+        # Retrieving a validated last sample succeeds even if it is historical,
+        # stale, or retained after owner failure/close. None of these make it live.
+        result.update(query_ok=True, live_current=live_current,
+            controller_measurement_freshness="UNVERIFIED")
         result["quality"] = {"owner_running": running, "clock_match": clock_match,
             "source_epoch_age_s": source_age, "host_read_duration_ms": (interval[1]-interval[0])*1000,
             "host_receipt_age_bounds_s": [now_mono-interval[1], now_mono-interval[0]] if clock_match else None,
             "source_epoch_fresh": source_fresh,
             "host_receipt_fresh": receipt_fresh,
-            "live_host_time_eligible": running and self.source_kind == "LIVE_SDK_READ_ONLY" and receipt_fresh and source_fresh,
+            "live_current": live_current,
+            "live_host_time_eligible": live_current,  # compatibility alias, host time only
+            "live_current_basis": "OWNER_RUNNING_LIVE_SOURCE_AND_HOST_RECEIPT_SDK_RETURN_AGE",
+            "controller_measurement_freshness": "UNVERIFIED",
             "device_measurement_freshness_verified": False,
             "controller_timestamp_or_latency_bound_available": False,
             "endpoint_semantics": result["canonical_state"]["ee_pose"].get("frame_semantics_status", "UNKNOWN"),

@@ -1,0 +1,56 @@
+{
+  "status": "OFFLINE_METADATA_SEMANTICS_PASS_ONSITE_NOT_AUTHORIZED_NOT_RUN",
+  "base_commit": "a2cc90d15feca8a489e0c5202ef1477965dd8d79",
+  "timestamp": "2026-10-20T22:34:19.167081+08:00",
+  "execution_location": "Mac existing Phase05 independent Python 3.12 venv",
+  "semantics": {
+    "ok": "query_ok alias only",
+    "query_ok": "validated last-cache retrieval, including stale/history/failure retention",
+    "live_current": "LIVE source + running owner + same-host SDK-return and receipt-age gates only",
+    "controller_measurement_freshness": "UNVERIFIED; no controller timestamp or independent latency bound"
+  },
+  "focused_new_test_methods": 2,
+  "existing_quality_test_methods": 6,
+  "test_runner_result": {
+    "ok": true,
+    "tests": 8,
+    "upstream_runtime_hashes_verified": 71,
+    "unit_fixture_is_not_live_evidence": true,
+    "hardware_imported": false
+  },
+  "covered_cases": [
+    "no cache native MCP error",
+    "injected LIVE host-current positive branch, not real evidence",
+    "old receipt",
+    "old SDK return timestamp",
+    "foreign host clock",
+    "historical replay",
+    "offline transport fixture",
+    "normally closed owner",
+    "failed owner with last-good cache",
+    "native HTTP serialization and monitor stale"
+  ],
+  "unit_input_kind": "SYNTHETIC_CLOCK_AND_RETURN_CODES_WITH_ARCHIVED_VALUES_NOT_REAL_TELEMETRY",
+  "test_log": {
+    "path": "/Users/tangchao/Desktop/资料/P7/aspire-realman-phase1b-20261020/.cache/metadata-semantics-tests-final.txt",
+    "bytes": 1540,
+    "sha256": "9a4925fe7e75f737d87f66b8f77d52674eee24910908e93c14f3abe349704399"
+  },
+  "source_sha256": {
+    "aspire_realman_phase1a/src/aspire_realman_live/state_owner.py": "260a8c72e983ca61e6dfeeec3906ce387dc6dcfe81757737da6b2d42f9ae7374",
+    "aspire_realman_phase1a/src/aspire_realman_live/state_runtime.py": "c4b05e0021302d7ba644e91be9a7da9a4e8754531087e3c5498fd4cfabdefb69",
+    "aspire_realman_phase1a/tools/validate_readonly_state.py": "716a091c51505f2fbfc4a1516db7e8f152eee42a1d24fb0d9acc69044764316e",
+    "aspire_realman_phase1a/tests/test_state_metadata.py": "a593397bf9c8a6239ddc2b5130c8d7d39a6cb8ccc59293436958926caf77c99c"
+  },
+  "onsite_record_template_state": "PREPARED_NOT_AUTHORIZED_NOT_RUN",
+  "onsite_client_syntax_checked_not_executed": true,
+  "resolved_execution_constraint": "Mac sandbox denied localhost bind; rerun with localhost permission and non-loopback audit guard passed",
+  "robot_connections": 0,
+  "camera_opens": 0,
+  "vendor_sdk_imports": 0,
+  "task_model_runs": 0,
+  "motion_dispatches": 0,
+  "geometry_or_sam3_reprocessing": 0,
+  "site_authorization_received": false,
+  "onsite_acceptance_passed": false
+}

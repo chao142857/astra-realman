@@ -15,6 +15,8 @@
 
 ## 语义及CAP/MCP
 
+本节metadata已在`a2cc90d1`之后修正：`ok`仅是`query_ok`兼容别名，表示成功取到缓存，不表示数据实时、控制器测量新鲜或机器人健康。`live_current`单独检查LIVE来源、owner运行及同host源时间/接收时间；控制器测量时间或延迟上界未提供，因此`controller_measurement_freshness=UNVERIFIED`。历史、过期、失败/关闭后的最后样本可查询为`query_ok=true/live_current=false`，保留owner_error；无缓存或查询异常仍由原生MCP返回isError。完整RobotState、动作边界不变。现场流程和待填模板见`ONSITE_READONLY_ACCEPTANCE.md`及`onsite_readonly_record.template.json`。
+
 SDK关节角单位deg，展示同时提供rad；端点xyz单位m，RPY单位rad，不重复按原始TCP整数协议缩放。host source timestamp是SDKReadOnly内state调用的finished_at，非控制器采样时刻；设备时钟及测量延迟上界仍未知。重复源时间、过期、跨boot域和失败owner不能变成当前状态。相机订阅可用时只报告同host接收区间差界，不宣称曝光/控制器同步。
 
 | 字段 | 现有证据与展示 | 仍需现场确认 |

@@ -102,6 +102,8 @@ def main():
                     assert payload['frames']['active_tool']['name']==canonical['tool_frame']['name']
                     assert payload['actual_grasp_tcp'] is None and payload['world_transform'] is None
                     assert not payload['quality']['live_host_time_eligible']
+                    assert payload['query_ok'] and payload['ok'] and not payload['live_current']
+                    assert payload['controller_measurement_freshness']=='UNVERIFIED'
                     assert not payload['native_robot_state_available']
                     evidence.append({'event':'readonly_state','result':value.structuredContent})
                     for name,args in [('observe',{'cameras':[]}),('cap_get_robot_state',{}),
@@ -139,8 +141,13 @@ def main():
             assert not owner.read(host_clock_id=host_clock_id())['quality']['owner_running']
             from cap_harness.agent.mcp import CapMcpBridge
             failed=CapMcpBridge(runtime.runtime.session).call('cap_program_readonly_state',{})
-            assert failed.isError
-            evidence.append({'event':'changed_work_frame_mcp_failure','isError':True,'result':failed.structuredContent})
+            assert not failed.isError  # Query retrieves the last diagnostic sample.
+            diagnostic=failed.structuredContent['job']['result']['result']
+            assert diagnostic['query_ok'] and not diagnostic['live_current']
+            assert diagnostic['owner_error'] and not diagnostic['quality']['owner_running']
+            assert diagnostic['controller_measurement_freshness']=='UNVERIFIED'
+            assert runtime.runtime.session.visual_snapshot()['stale']
+            evidence.append({'event':'changed_work_frame_cached_diagnostic_not_live','isError':False,'result':failed.structuredContent})
         finally:runtime.close()
     assert calls[-2:]==['rm_delete_robot_arm','rm_destroy']
     assert all(name in reader.module.ALLOWED for name in calls)

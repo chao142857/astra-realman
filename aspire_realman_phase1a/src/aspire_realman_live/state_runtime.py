@@ -54,12 +54,14 @@ class SingleArmReadOnlyAdapter(LiveRealManAdapter):
             raise RuntimeError('ADAPTER_CLOSED')
         view = self.state_owner.read(host_clock_id=current_clock_id())
         raw, quality = view['canonical_state'], view['quality']
-        if not quality['owner_running']:
-            raise ObservationUnavailable('STATE_OWNER_FAILED_OR_CLOSED: '+str(view.get('owner_error')))
         pose = raw['ee_pose']
         # Flatten only presentation. Source sample and all five returns remain
         # in sdk-sample-N.json. Unknown endpoint frames stay explicitly null.
-        return {'ok': quality['owner_running'], 'observation_kind': 'SINGLE_ARM_READONLY_DIAGNOSTIC_NOT_NATIVE_ROBOTSTATE',
+        return {'ok': view['query_ok'], 'query_ok': view['query_ok'],
+            'ok_semantics': 'QUERY_SUCCESS_ONLY_NOT_LIVE_OR_CONTROLLER_MEASUREMENT_FRESHNESS',
+            'live_current': view['live_current'],
+            'controller_measurement_freshness': view['controller_measurement_freshness'],
+            'observation_kind': 'SINGLE_ARM_READONLY_DIAGNOSTIC_NOT_NATIVE_ROBOTSTATE',
             'source': {'arm_scope': view['arm_scope'], 'kind': view['source_kind'],
                 'owner_id': view['owner_id'], 'sequence': view['sequence']},
             'telemetry': {'joint_positions_rad': np.deg2rad(raw['joint_deg']).tolist(),
@@ -92,7 +94,7 @@ class SingleArmReadOnlyAdapter(LiveRealManAdapter):
 
     def monitor_snapshot(self):
         view = self.state_owner.read(host_clock_id=current_clock_id())
-        if not view['quality']['live_host_time_eligible']:
+        if not view['live_current']:
             raise ObservationUnavailable('STATE_NOT_CURRENT: '+str(view['quality']))
         raw = view['canonical_state']
         cameras, metadata = {}, {}

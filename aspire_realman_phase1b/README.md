@@ -1,3 +1,5 @@
+[只读metadata语义与现场验收流程](ONSITE_READONLY_ACCEPTANCE.md) · [待现场填写的记录模板](onsite_readonly_record.template.json)
+
 [单臂只读实际入口与现场步骤](READONLY_OWNER.md) · [下一次原始RGB-D短采集](RAW_CAPTURE_NEXT.md) · [几何诊断冻结与跨观测复核](GEOMETRY_FREEZE.md)
 
 # ASPIRE → RealMan Phase 1B：远程感知与模型准备
