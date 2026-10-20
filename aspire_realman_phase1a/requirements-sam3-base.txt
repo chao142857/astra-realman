@@ -1,0 +1,14 @@
+# Install torch==2.7.1 and torchvision==0.22.1 first from the official cu126 index.
+# Then install the locked official source with these constraints. Final freeze
+# is saved separately after successful resolution; no weight is a pip dependency.
+numpy==1.26.4
+setuptools<81
+einops==0.8.2
+decord==0.6.0
+pycocotools>=2.0
+pillow==13.0.0
+opencv-python-headless==4.11.0.86
+psutil
+fastapi==0.150.0
+uvicorn==0.54.0
+requests==2.34.2

@@ -1,0 +1,1691 @@
+{
+  "status": "CAPTURED",
+  "output": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final",
+  "arm_sdk_connections": 0,
+  "physical_commands_sent": 0,
+  "robot_state_source": "UNAVAILABLE_ARMS_POWERED_OFF",
+  "raw_assets_transferred": false,
+  "software_sha256": {
+    "aspire_realman_phase1a/src/aspire_realman_live/__init__.py": "25bbe0ff46532829f44952070f7dc90600a7d1389fac8ae6715573d81b8aec41",
+    "aspire_realman_phase1a/src/aspire_realman_live/adapter.py": "6963d7067721983d23ce1fa8afb31f2cdee97c8c2c64fa2cafde7898b131fb40",
+    "aspire_realman_phase1a/src/aspire_realman_live/owner.py": "a70010340e10363763e9253c960b6284fa68f406afba777f9cca0c4585cd55f1",
+    "aspire_realman_phase1a/src/aspire_realman_live/quality.py": "913bbc2efd673322818f98e443573bc7d45384b0617d4188eac1042e360ffbba",
+    "aspire_realman_phase1a/src/aspire_realman_live/runtime.py": "ce4b9c2a3224748acc04335b92feee9ccb3f275ac247cea88cedd9fd0dc17d0f",
+    "aspire_realman_phase1a/src/aspire_realman_live/source.py": "e35ef56c0827b00311e05e419d7510ba3984552e12e46c591c70ad43904af7c5",
+    "aspire_realman_phase1a/tests/test_quality.py": "a8f8edc3057aff75b0f2ae9b08b47ecce03ab9695e8329c064c7c559591ab51f",
+    "aspire_realman_phase1a/tools/capture_validate.py": "406809875ce686c2e26d9ebcae6a9f1b230e5c4a4fd85e3e3b6d200cc721369a",
+    "aspire_realman_phase1a/tools/run_quality_tests.py": "b2be347436aada9ad645db4e23f772e008698a1a07beb850cd9dc4f2867e9edb",
+    "aspire_realman_phase1a/tools/sam3_real_photo.py": "d0b45f1f7bf369c67e0841379ff140df51f474b378b284cf8848c826cb9b57b1",
+    "aspire_realman_phase1a/tools/summarize_capture.py": "309087001702f8e01c38f64de5e52b557ae8fe944ce1720f5a7ed94f3a6f4de5"
+  },
+  "full_cap_observation_error": "REAL_ROBOT_STATE_UNAVAILABLE_ARMS_POWERED_OFF; no SDK connection or synthetic fallback",
+  "mcp": [
+    {
+      "event": "initialize",
+      "protocol": "2025-11-25"
+    },
+    {
+      "event": "tools/list",
+      "names": [
+        "cap_get_robot_state",
+        "cap_move_synchronized",
+        "cap_move_to_joints",
+        "cap_program_go_home",
+        "cap_program_observe",
+        "cap_set_gripper",
+        "get_capability_graph",
+        "get_job",
+        "observe",
+        "read_operator_messages"
+      ]
+    },
+    {
+      "event": "capabilities",
+      "isError": false,
+      "image_count": 0,
+      "structuredContent": {
+        "ok": true,
+        "tools": [
+          {
+            "name": "get_capability_graph",
+            "description": "Read available tools and program provenance."
+          },
+          {
+            "name": "observe",
+            "description": "Read fresh station state and camera images during any job."
+          },
+          {
+            "name": "get_job",
+            "description": "Read job status and terminal state. Cameras are omitted unless requested."
+          },
+          {
+            "name": "read_operator_messages",
+            "description": "Drain pending operator instructions."
+          },
+          {
+            "name": "cap_get_robot_state",
+            "description": "get_robot_state() -> 'RobotState'"
+          },
+          {
+            "name": "cap_move_synchronized",
+            "description": "move_synchronized(targets: 'Mapping[str, Pose | np.ndarray]', tolerance: 'float' = 0.01, max_steps: 'int' = 120, strategy: 'MotionStrategy | None' = None) -> 'ExecutionResult'"
+          },
+          {
+            "name": "cap_move_to_joints",
+            "description": "move_to_joints(target: 'np.ndarray', tolerance: 'float' = 0.01, max_steps: 'int' = 120, *, arm: 'str' = 'primary') -> 'ExecutionResult'"
+          },
+          {
+            "name": "cap_set_gripper",
+            "description": "set_gripper(position: 'float', *, arm: 'str' = 'primary') -> 'ExecutionResult'"
+          },
+          {
+            "name": "cap_program_observe",
+            "description": "Read the current robot state."
+          },
+          {
+            "name": "cap_program_go_home",
+            "description": "Open both grippers, return both arms to their calibrated home pose, and report measured joint residuals."
+          }
+        ],
+        "programs": [
+          {
+            "name": "observe",
+            "summary": "Read the current robot state.",
+            "moves_robot": false,
+            "sha256": "1ab24dcca7c17e74d5caefa8a6a431985942e582c439596fd93eba6b3c3831cb"
+          },
+          {
+            "name": "go_home",
+            "summary": "Open both grippers, return both arms to their calibrated home pose, and report measured joint residuals.",
+            "moves_robot": true,
+            "sha256": "25ff463c6952091a387279f0b01581bd09a7bad2c595c5980b9d3dacde6dbb5e"
+          }
+        ],
+        "configured_providers": {
+          "segmentation": false,
+          "ik": [],
+          "trajectory_planning": [],
+          "pose_planning": [],
+          "mock_ik_available": false,
+          "mock_planner_available": false,
+          "physical_motion_available": false
+        }
+      }
+    },
+    {
+      "event": "live_observe",
+      "isError": false,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": true,
+        "observation": {
+          "observation_seq": 3,
+          "timestamp_s": 1792458919.2839532,
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "tabletop": {
+              "role": "tabletop",
+              "serial": "346222072496",
+              "source_kind": "LIVE",
+              "sequence": 3,
+              "owner_id": "phase1a:9b0a762d36e947eab2a0270b4c263367",
+              "owner_running": true,
+              "owner_error": null,
+              "timestamp_s": 1792458919.2839532,
+              "age_ms": 98.09446096187457,
+              "stale_after_ms": 1000.0,
+              "stale": false,
+              "missing": false,
+              "role_serial_verified": true,
+              "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+              "freshness_basis": "HOST_RECEIPT_AND_DEVICE_GLOBAL_TIME",
+              "device_timestamp_domains": [
+                "timestamp_domain.global_time",
+                "timestamp_domain.global_time"
+              ],
+              "device_exposure_age_ms": [
+                96.35019302368164,
+                98.0839729309082
+              ],
+              "device_color_depth_skew_ms": 1.73388671875,
+              "color_depth_temporally_eligible": true,
+              "exposure_freshness_verified": true,
+              "exposure_synchronized": "UNKNOWN",
+              "color_frame_number": 12,
+              "depth_frame_number": 10,
+              "rgb_shape": [
+                480,
+                640,
+                3
+              ],
+              "aligned_depth_shape": [
+                480,
+                640
+              ],
+              "depth_unit": "m",
+              "depth_valid_fraction": 0.432080078125,
+              "nonfinite_depth_fraction": 0.0,
+              "positive_depth_percentiles_m": [
+                0.4520000219345093,
+                1.909000039100647,
+                3.6500000953674316
+              ],
+              "depth_usable_for_optical_inspection": true,
+              "geometry_eligible": false,
+              "calibration_status": "HISTORICAL_EXTRINSIC_NOT_REVALIDATED",
+              "world_transform": null,
+              "actual_grasp_tcp": null,
+              "observation_kind": "CAMERA_MONITOR_ONLY",
+              "missing_physical_camera_roles": {
+                "left_wrist": "254522073676",
+                "overhead": "344422071480",
+                "right_wrist": "348522072063"
+              },
+              "timestamp_s_semantics": "host receipt epoch seconds; device global_time retained separately",
+              "depth_quality_policy": "valid fraction >=0.10 is only a data-availability gate, not an accuracy certificate",
+              "robot_state_available": false,
+              "robot_state_source": "UNAVAILABLE_ARMS_POWERED_OFF",
+              "arm_timestamps_s": {
+                "left": null,
+                "right": null
+              },
+              "camera_arm_skew_ms": {
+                "left": null,
+                "right": null
+              },
+              "full_cap_observation_available": false,
+              "full_cap_observation_reason": "REAL_ROBOT_STATE_UNAVAILABLE_ARMS_POWERED_OFF",
+              "frame_hash": "df2473a346abd45472b9a6deb7fb21eca17a0759389bd39eeaa1574063656f51",
+              "depth_hash": "9c5e0ceb56043a9026f47ea7463f6fffdeb47fb7d5b7406b7b2ddf827476b431"
+            }
+          },
+          "state": {}
+        },
+        "image_cameras": [
+          "tabletop"
+        ]
+      }
+    },
+    {
+      "event": "live_observe",
+      "isError": false,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": true,
+        "observation": {
+          "observation_seq": 8,
+          "timestamp_s": 1792458919.618145,
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "tabletop": {
+              "role": "tabletop",
+              "serial": "346222072496",
+              "source_kind": "LIVE",
+              "sequence": 8,
+              "owner_id": "phase1a:9b0a762d36e947eab2a0270b4c263367",
+              "owner_running": true,
+              "owner_error": null,
+              "timestamp_s": 1792458919.618145,
+              "age_ms": 45.124817348551005,
+              "stale_after_ms": 1000.0,
+              "stale": false,
+              "missing": false,
+              "role_serial_verified": true,
+              "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+              "freshness_basis": "HOST_RECEIPT_AND_DEVICE_GLOBAL_TIME",
+              "device_timestamp_domains": [
+                "timestamp_domain.global_time",
+                "timestamp_domain.global_time"
+              ],
+              "device_exposure_age_ms": [
+                43.19334030151367,
+                45.12143135070801
+              ],
+              "device_color_depth_skew_ms": 1.927978515625,
+              "color_depth_temporally_eligible": true,
+              "exposure_freshness_verified": true,
+              "exposure_synchronized": "UNKNOWN",
+              "color_frame_number": 22,
+              "depth_frame_number": 15,
+              "rgb_shape": [
+                480,
+                640,
+                3
+              ],
+              "aligned_depth_shape": [
+                480,
+                640
+              ],
+              "depth_unit": "m",
+              "depth_valid_fraction": 0.46684895833333334,
+              "nonfinite_depth_fraction": 0.0,
+              "positive_depth_percentiles_m": [
+                0.4520000219345093,
+                1.909000039100647,
+                3.830000162124634
+              ],
+              "depth_usable_for_optical_inspection": true,
+              "geometry_eligible": false,
+              "calibration_status": "HISTORICAL_EXTRINSIC_NOT_REVALIDATED",
+              "world_transform": null,
+              "actual_grasp_tcp": null,
+              "observation_kind": "CAMERA_MONITOR_ONLY",
+              "missing_physical_camera_roles": {
+                "left_wrist": "254522073676",
+                "overhead": "344422071480",
+                "right_wrist": "348522072063"
+              },
+              "timestamp_s_semantics": "host receipt epoch seconds; device global_time retained separately",
+              "depth_quality_policy": "valid fraction >=0.10 is only a data-availability gate, not an accuracy certificate",
+              "robot_state_available": false,
+              "robot_state_source": "UNAVAILABLE_ARMS_POWERED_OFF",
+              "arm_timestamps_s": {
+                "left": null,
+                "right": null
+              },
+              "camera_arm_skew_ms": {
+                "left": null,
+                "right": null
+              },
+              "full_cap_observation_available": false,
+              "full_cap_observation_reason": "REAL_ROBOT_STATE_UNAVAILABLE_ARMS_POWERED_OFF",
+              "frame_hash": "748a6f4e2b5ca8ae03d7e395ecbd4104c305a59f1db5b7139514f8dad40cc073",
+              "depth_hash": "88cbf05b794da62fc7d1b888e21158c577f08316d9b0cfc5cfa917ab65f7db05"
+            }
+          },
+          "state": {}
+        },
+        "image_cameras": [
+          "tabletop"
+        ]
+      }
+    },
+    {
+      "event": "live_observe",
+      "isError": false,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": true,
+        "observation": {
+          "observation_seq": 12,
+          "timestamp_s": 1792458919.8848135,
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "tabletop": {
+              "role": "tabletop",
+              "serial": "346222072496",
+              "source_kind": "LIVE",
+              "sequence": 12,
+              "owner_id": "phase1a:9b0a762d36e947eab2a0270b4c263367",
+              "owner_running": true,
+              "owner_error": null,
+              "timestamp_s": 1792458919.8848135,
+              "age_ms": 42.63444693060592,
+              "stale_after_ms": 1000.0,
+              "stale": false,
+              "missing": false,
+              "role_serial_verified": true,
+              "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+              "freshness_basis": "HOST_RECEIPT_AND_DEVICE_GLOBAL_TIME",
+              "device_timestamp_domains": [
+                "timestamp_domain.global_time",
+                "timestamp_domain.global_time"
+              ],
+              "device_exposure_age_ms": [
+                40.53640365600586,
+                42.626380920410156
+              ],
+              "device_color_depth_skew_ms": 2.08984375,
+              "color_depth_temporally_eligible": true,
+              "exposure_freshness_verified": true,
+              "exposure_synchronized": "UNKNOWN",
+              "color_frame_number": 30,
+              "depth_frame_number": 19,
+              "rgb_shape": [
+                480,
+                640,
+                3
+              ],
+              "aligned_depth_shape": [
+                480,
+                640
+              ],
+              "depth_unit": "m",
+              "depth_valid_fraction": 0.457802734375,
+              "nonfinite_depth_fraction": 0.0,
+              "positive_depth_percentiles_m": [
+                0.45100003480911255,
+                1.915000081062317,
+                3.806000232696533
+              ],
+              "depth_usable_for_optical_inspection": true,
+              "geometry_eligible": false,
+              "calibration_status": "HISTORICAL_EXTRINSIC_NOT_REVALIDATED",
+              "world_transform": null,
+              "actual_grasp_tcp": null,
+              "observation_kind": "CAMERA_MONITOR_ONLY",
+              "missing_physical_camera_roles": {
+                "left_wrist": "254522073676",
+                "overhead": "344422071480",
+                "right_wrist": "348522072063"
+              },
+              "timestamp_s_semantics": "host receipt epoch seconds; device global_time retained separately",
+              "depth_quality_policy": "valid fraction >=0.10 is only a data-availability gate, not an accuracy certificate",
+              "robot_state_available": false,
+              "robot_state_source": "UNAVAILABLE_ARMS_POWERED_OFF",
+              "arm_timestamps_s": {
+                "left": null,
+                "right": null
+              },
+              "camera_arm_skew_ms": {
+                "left": null,
+                "right": null
+              },
+              "full_cap_observation_available": false,
+              "full_cap_observation_reason": "REAL_ROBOT_STATE_UNAVAILABLE_ARMS_POWERED_OFF",
+              "frame_hash": "458f073f67d349e8c6b646f9152a5a26a1415d2ee82c84f4b72951c4badb6f72",
+              "depth_hash": "7cd7b1263910e536465c83f2f806df619c1a6fd7f9811bfd59a5e4d77e0dbf75"
+            }
+          },
+          "state": {}
+        },
+        "image_cameras": [
+          "tabletop"
+        ]
+      }
+    },
+    {
+      "event": "cap_get_robot_state",
+      "isError": true,
+      "image_count": 0,
+      "structuredContent": {
+        "ok": false,
+        "error": "ObservationUnavailable: REAL_ROBOT_STATE_UNAVAILABLE_ARMS_POWERED_OFF; no SDK connection or synthetic fallback"
+      }
+    },
+    {
+      "event": "cap_set_gripper",
+      "isError": true,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": false,
+        "job": {
+          "id": "a0637dee8bef",
+          "kind": "tool",
+          "label": "set_gripper",
+          "phase": "act",
+          "active": false,
+          "elapsed_s": 0.001,
+          "error": null,
+          "result": {
+            "ok": false,
+            "status": "failed",
+            "postcondition_satisfied": false,
+            "steps_executed": 0,
+            "terminated": false,
+            "truncated": false,
+            "final_errors": {},
+            "diagnostics": {
+              "hardware_commands_sent": 0,
+              "dispatch_attempted": false,
+              "physical_postcondition": "NOT_ATTEMPTED"
+            },
+            "error": {
+              "code": "safety_interlock",
+              "message": "Phase0.5 observation-only adapter has no physical command transport",
+              "recoverable": false,
+              "details": {
+                "operation": "cap.set_gripper",
+                "hardware_commands_sent": 0,
+                "dispatch_attempted": false
+              }
+            },
+            "terminal_state": null,
+            "terminal_observation_timestamp_s": null,
+            "state_refresh_required": true
+          },
+          "terminal_state": null
+        },
+        "observation": {
+          "observation_seq": 16,
+          "timestamp_s": 1792458920.1517231,
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "tabletop": {
+              "role": "tabletop",
+              "serial": "346222072496",
+              "source_kind": "LIVE",
+              "sequence": 16,
+              "owner_id": "phase1a:9b0a762d36e947eab2a0270b4c263367",
+              "owner_running": true,
+              "owner_error": null,
+              "timestamp_s": 1792458920.1517231,
+              "age_ms": 70.57404005900025,
+              "stale_after_ms": 1000.0,
+              "stale": false,
+              "missing": false,
+              "role_serial_verified": true,
+              "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+              "freshness_basis": "HOST_RECEIPT_AND_DEVICE_GLOBAL_TIME",
+              "device_timestamp_domains": [
+                "timestamp_domain.global_time",
+                "timestamp_domain.global_time"
+              ],
+              "device_exposure_age_ms": [
+                68.32289695739746,
+                70.56999206542969
+              ],
+              "device_color_depth_skew_ms": 2.2470703125,
+              "color_depth_temporally_eligible": true,
+              "exposure_freshness_verified": true,
+              "exposure_synchronized": "UNKNOWN",
+              "color_frame_number": 38,
+              "depth_frame_number": 23,
+              "rgb_shape": [
+                480,
+                640,
+                3
+              ],
+              "aligned_depth_shape": [
+                480,
+                640
+              ],
+              "depth_unit": "m",
+              "depth_valid_fraction": 0.462255859375,
+              "nonfinite_depth_fraction": 0.0,
+              "positive_depth_percentiles_m": [
+                0.4520400214195251,
+                1.909000039100647,
+                3.830000162124634
+              ],
+              "depth_usable_for_optical_inspection": true,
+              "geometry_eligible": false,
+              "calibration_status": "HISTORICAL_EXTRINSIC_NOT_REVALIDATED",
+              "world_transform": null,
+              "actual_grasp_tcp": null,
+              "observation_kind": "CAMERA_MONITOR_ONLY",
+              "missing_physical_camera_roles": {
+                "left_wrist": "254522073676",
+                "overhead": "344422071480",
+                "right_wrist": "348522072063"
+              },
+              "timestamp_s_semantics": "host receipt epoch seconds; device global_time retained separately",
+              "depth_quality_policy": "valid fraction >=0.10 is only a data-availability gate, not an accuracy certificate",
+              "robot_state_available": false,
+              "robot_state_source": "UNAVAILABLE_ARMS_POWERED_OFF",
+              "arm_timestamps_s": {
+                "left": null,
+                "right": null
+              },
+              "camera_arm_skew_ms": {
+                "left": null,
+                "right": null
+              },
+              "full_cap_observation_available": false,
+              "full_cap_observation_reason": "REAL_ROBOT_STATE_UNAVAILABLE_ARMS_POWERED_OFF",
+              "frame_hash": "0277f0168ce07a6d2ce91f901f4088cbf39b76854a064c0de6b289f8d14fc380",
+              "depth_hash": "3460abaa171cf313379f88c498bedc76787d7f93e20e4b605da163d00a916807"
+            }
+          },
+          "state": {}
+        },
+        "image_cameras": [
+          "tabletop"
+        ]
+      }
+    },
+    {
+      "event": "cap_move_to_joints",
+      "isError": true,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": false,
+        "job": {
+          "id": "f2856209775d",
+          "kind": "tool",
+          "label": "move_to_joints",
+          "phase": "act",
+          "active": false,
+          "elapsed_s": 0.0,
+          "error": null,
+          "result": {
+            "ok": false,
+            "status": "failed",
+            "postcondition_satisfied": false,
+            "steps_executed": 0,
+            "terminated": false,
+            "truncated": false,
+            "final_errors": {},
+            "diagnostics": {
+              "hardware_commands_sent": 0,
+              "dispatch_attempted": false,
+              "physical_postcondition": "NOT_ATTEMPTED"
+            },
+            "error": {
+              "code": "safety_interlock",
+              "message": "Phase0.5 observation-only adapter has no physical command transport",
+              "recoverable": false,
+              "details": {
+                "operation": "cap.move_to_joints",
+                "hardware_commands_sent": 0,
+                "dispatch_attempted": false
+              }
+            },
+            "terminal_state": null,
+            "terminal_observation_timestamp_s": null,
+            "state_refresh_required": true
+          },
+          "terminal_state": null
+        },
+        "observation": {
+          "observation_seq": 17,
+          "timestamp_s": 1792458920.2179556,
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "tabletop": {
+              "role": "tabletop",
+              "serial": "346222072496",
+              "source_kind": "LIVE",
+              "sequence": 17,
+              "owner_id": "phase1a:9b0a762d36e947eab2a0270b4c263367",
+              "owner_running": true,
+              "owner_error": null,
+              "timestamp_s": 1792458920.2179556,
+              "age_ms": 72.40429113153368,
+              "stale_after_ms": 1000.0,
+              "stale": false,
+              "missing": false,
+              "role_serial_verified": true,
+              "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+              "freshness_basis": "HOST_RECEIPT_AND_DEVICE_GLOBAL_TIME",
+              "device_timestamp_domains": [
+                "timestamp_domain.global_time",
+                "timestamp_domain.global_time"
+              ],
+              "device_exposure_age_ms": [
+                70.1136589050293,
+                72.40009307861328
+              ],
+              "device_color_depth_skew_ms": 2.286376953125,
+              "color_depth_temporally_eligible": true,
+              "exposure_freshness_verified": true,
+              "exposure_synchronized": "UNKNOWN",
+              "color_frame_number": 40,
+              "depth_frame_number": 24,
+              "rgb_shape": [
+                480,
+                640,
+                3
+              ],
+              "aligned_depth_shape": [
+                480,
+                640
+              ],
+              "depth_unit": "m",
+              "depth_valid_fraction": 0.465263671875,
+              "nonfinite_depth_fraction": 0.0,
+              "positive_depth_percentiles_m": [
+                0.4520000219345093,
+                1.915000081062317,
+                3.507000207901001
+              ],
+              "depth_usable_for_optical_inspection": true,
+              "geometry_eligible": false,
+              "calibration_status": "HISTORICAL_EXTRINSIC_NOT_REVALIDATED",
+              "world_transform": null,
+              "actual_grasp_tcp": null,
+              "observation_kind": "CAMERA_MONITOR_ONLY",
+              "missing_physical_camera_roles": {
+                "left_wrist": "254522073676",
+                "overhead": "344422071480",
+                "right_wrist": "348522072063"
+              },
+              "timestamp_s_semantics": "host receipt epoch seconds; device global_time retained separately",
+              "depth_quality_policy": "valid fraction >=0.10 is only a data-availability gate, not an accuracy certificate",
+              "robot_state_available": false,
+              "robot_state_source": "UNAVAILABLE_ARMS_POWERED_OFF",
+              "arm_timestamps_s": {
+                "left": null,
+                "right": null
+              },
+              "camera_arm_skew_ms": {
+                "left": null,
+                "right": null
+              },
+              "full_cap_observation_available": false,
+              "full_cap_observation_reason": "REAL_ROBOT_STATE_UNAVAILABLE_ARMS_POWERED_OFF",
+              "frame_hash": "9de841bc72b97885b8eb1eb80df40061421c3418ce7300fdeaf8e83307e8976a",
+              "depth_hash": "e5f0679553c9f030b8f2f34c54122612efe6a24bf25953ea0e48e5d2a963a21a"
+            }
+          },
+          "state": {}
+        },
+        "image_cameras": [
+          "tabletop"
+        ]
+      }
+    },
+    {
+      "event": "cap_move_synchronized",
+      "isError": true,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": false,
+        "job": {
+          "id": "6cd1fe211852",
+          "kind": "tool",
+          "label": "move_synchronized",
+          "phase": "act",
+          "active": false,
+          "elapsed_s": 0.0,
+          "error": null,
+          "result": {
+            "ok": false,
+            "status": "failed",
+            "postcondition_satisfied": false,
+            "steps_executed": 0,
+            "terminated": false,
+            "truncated": false,
+            "final_errors": {},
+            "diagnostics": {
+              "hardware_commands_sent": 0,
+              "dispatch_attempted": false,
+              "physical_postcondition": "NOT_ATTEMPTED"
+            },
+            "error": {
+              "code": "safety_interlock",
+              "message": "Phase0.5 observation-only adapter has no physical command transport",
+              "recoverable": false,
+              "details": {
+                "operation": "cap.move_synchronized",
+                "hardware_commands_sent": 0,
+                "dispatch_attempted": false
+              }
+            },
+            "terminal_state": null,
+            "terminal_observation_timestamp_s": null,
+            "state_refresh_required": true
+          },
+          "terminal_state": null
+        },
+        "observation": {
+          "observation_seq": 18,
+          "timestamp_s": 1792458920.2848089,
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "tabletop": {
+              "role": "tabletop",
+              "serial": "346222072496",
+              "source_kind": "LIVE",
+              "sequence": 18,
+              "owner_id": "phase1a:9b0a762d36e947eab2a0270b4c263367",
+              "owner_running": true,
+              "owner_error": null,
+              "timestamp_s": 1792458920.2848089,
+              "age_ms": 106.59152327571064,
+              "stale_after_ms": 1000.0,
+              "stale": false,
+              "missing": false,
+              "role_serial_verified": true,
+              "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+              "freshness_basis": "HOST_RECEIPT_AND_DEVICE_GLOBAL_TIME",
+              "device_timestamp_domains": [
+                "timestamp_domain.global_time",
+                "timestamp_domain.global_time"
+              ],
+              "device_exposure_age_ms": [
+                104.2640209197998,
+                106.58812522888184
+              ],
+              "device_color_depth_skew_ms": 2.32421875,
+              "color_depth_temporally_eligible": true,
+              "exposure_freshness_verified": true,
+              "exposure_synchronized": "UNKNOWN",
+              "color_frame_number": 42,
+              "depth_frame_number": 25,
+              "rgb_shape": [
+                480,
+                640,
+                3
+              ],
+              "aligned_depth_shape": [
+                480,
+                640
+              ],
+              "depth_unit": "m",
+              "depth_valid_fraction": 0.4630208333333333,
+              "nonfinite_depth_fraction": 0.0,
+              "positive_depth_percentiles_m": [
+                0.4520000219345093,
+                1.909000039100647,
+                3.6634201407429483
+              ],
+              "depth_usable_for_optical_inspection": true,
+              "geometry_eligible": false,
+              "calibration_status": "HISTORICAL_EXTRINSIC_NOT_REVALIDATED",
+              "world_transform": null,
+              "actual_grasp_tcp": null,
+              "observation_kind": "CAMERA_MONITOR_ONLY",
+              "missing_physical_camera_roles": {
+                "left_wrist": "254522073676",
+                "overhead": "344422071480",
+                "right_wrist": "348522072063"
+              },
+              "timestamp_s_semantics": "host receipt epoch seconds; device global_time retained separately",
+              "depth_quality_policy": "valid fraction >=0.10 is only a data-availability gate, not an accuracy certificate",
+              "robot_state_available": false,
+              "robot_state_source": "UNAVAILABLE_ARMS_POWERED_OFF",
+              "arm_timestamps_s": {
+                "left": null,
+                "right": null
+              },
+              "camera_arm_skew_ms": {
+                "left": null,
+                "right": null
+              },
+              "full_cap_observation_available": false,
+              "full_cap_observation_reason": "REAL_ROBOT_STATE_UNAVAILABLE_ARMS_POWERED_OFF",
+              "frame_hash": "07dddb1e90cf9856e395011678c7f946618bc1d812df5b2aaf0ca4dd5dfba35e",
+              "depth_hash": "7a57f1e5483c83d2115211ea5fdbdd263416eb347f800ee84a6c777c614356c0"
+            }
+          },
+          "state": {}
+        },
+        "image_cameras": [
+          "tabletop"
+        ]
+      }
+    },
+    {
+      "event": "cap_program_go_home",
+      "isError": true,
+      "image_count": 1,
+      "structuredContent": {
+        "ok": false,
+        "job": {
+          "id": "44b22d816237",
+          "kind": "program",
+          "label": "CaP program: go_home",
+          "phase": "act",
+          "active": false,
+          "elapsed_s": 0.017,
+          "error": null,
+          "result": {
+            "ok": false,
+            "result": {
+              "ok": false,
+              "status": "failed",
+              "postcondition_satisfied": false,
+              "steps_executed": 0,
+              "terminated": false,
+              "truncated": false,
+              "final_errors": {},
+              "diagnostics": {
+                "hardware_commands_sent": 0,
+                "dispatch_attempted": false,
+                "physical_postcondition": "NOT_ATTEMPTED"
+              },
+              "error": {
+                "code": "safety_interlock",
+                "message": "Phase0.5 observation-only adapter has no physical command transport",
+                "recoverable": false,
+                "details": {
+                  "operation": "cap.set_gripper",
+                  "hardware_commands_sent": 0,
+                  "dispatch_attempted": false
+                }
+              },
+              "terminal_state": null,
+              "terminal_observation_timestamp_s": null,
+              "state_refresh_required": true
+            },
+            "error": null,
+            "verification": {
+              "program": "go_home",
+              "ok": false
+            },
+            "evidence_images": [
+              "after.tabletop",
+              "before.tabletop"
+            ],
+            "terminal_state": null,
+            "state_refresh_required": true
+          },
+          "terminal_state": null
+        },
+        "observation": {
+          "observation_seq": 20,
+          "timestamp_s": 1792458920.4184675,
+          "stale": false,
+          "monitor_error": null,
+          "camera_metadata": {
+            "tabletop": {
+              "role": "tabletop",
+              "serial": "346222072496",
+              "source_kind": "LIVE",
+              "sequence": 20,
+              "owner_id": "phase1a:9b0a762d36e947eab2a0270b4c263367",
+              "owner_running": true,
+              "owner_error": null,
+              "timestamp_s": 1792458920.4184675,
+              "age_ms": 60.15862291678786,
+              "stale_after_ms": 1000.0,
+              "stale": false,
+              "missing": false,
+              "role_serial_verified": true,
+              "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+              "freshness_basis": "HOST_RECEIPT_AND_DEVICE_GLOBAL_TIME",
+              "device_timestamp_domains": [
+                "timestamp_domain.global_time",
+                "timestamp_domain.global_time"
+              ],
+              "device_exposure_age_ms": [
+                57.74950981140137,
+                60.1503849029541
+              ],
+              "device_color_depth_skew_ms": 2.40087890625,
+              "color_depth_temporally_eligible": true,
+              "exposure_freshness_verified": true,
+              "exposure_synchronized": "UNKNOWN",
+              "color_frame_number": 46,
+              "depth_frame_number": 27,
+              "rgb_shape": [
+                480,
+                640,
+                3
+              ],
+              "aligned_depth_shape": [
+                480,
+                640
+              ],
+              "depth_unit": "m",
+              "depth_valid_fraction": 0.45618815104166666,
+              "nonfinite_depth_fraction": 0.0,
+              "positive_depth_percentiles_m": [
+                0.453000009059906,
+                1.915000081062317,
+                3.8530001640319824
+              ],
+              "depth_usable_for_optical_inspection": true,
+              "geometry_eligible": false,
+              "calibration_status": "HISTORICAL_EXTRINSIC_NOT_REVALIDATED",
+              "world_transform": null,
+              "actual_grasp_tcp": null,
+              "observation_kind": "CAMERA_MONITOR_ONLY",
+              "missing_physical_camera_roles": {
+                "left_wrist": "254522073676",
+                "overhead": "344422071480",
+                "right_wrist": "348522072063"
+              },
+              "timestamp_s_semantics": "host receipt epoch seconds; device global_time retained separately",
+              "depth_quality_policy": "valid fraction >=0.10 is only a data-availability gate, not an accuracy certificate",
+              "robot_state_available": false,
+              "robot_state_source": "UNAVAILABLE_ARMS_POWERED_OFF",
+              "arm_timestamps_s": {
+                "left": null,
+                "right": null
+              },
+              "camera_arm_skew_ms": {
+                "left": null,
+                "right": null
+              },
+              "full_cap_observation_available": false,
+              "full_cap_observation_reason": "REAL_ROBOT_STATE_UNAVAILABLE_ARMS_POWERED_OFF",
+              "frame_hash": "a6483ed57ab48cc445b9e8b95bff93b0bb91ce1d2d4ef06d2bdf249bfe8d3c14",
+              "depth_hash": "472ac01766eed06ff130c0defc3fbe61a4e76717d5039e1bfd3657460994b9bc"
+            }
+          },
+          "state": {}
+        },
+        "image_cameras": [
+          "tabletop"
+        ]
+      }
+    }
+  ],
+  "refusals": [
+    {
+      "operation": "cap.set_gripper",
+      "timestamp_s": 1792458920.1991367,
+      "hardware_commands_sent": 0
+    },
+    {
+      "operation": "cap.move_to_joints",
+      "timestamp_s": 1792458920.268121,
+      "hardware_commands_sent": 0
+    },
+    {
+      "operation": "cap.move_synchronized",
+      "timestamp_s": 1792458920.3678718,
+      "hardware_commands_sent": 0
+    },
+    {
+      "operation": "cap.set_gripper",
+      "timestamp_s": 1792458920.4454503,
+      "hardware_commands_sent": 0
+    }
+  ],
+  "hardware_commands_sent": 0,
+  "profile": {
+    "driver": "/home/tongji/aloha/RealMan_Control/realsense.py",
+    "driver_sha256": "de3f7697b99f15e0c2567ea2104fe304022b602196aa74bc206fb5e797a457b4",
+    "owner_id": "phase1a:9b0a762d36e947eab2a0270b4c263367",
+    "pid": 3340091,
+    "clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+    "color": {
+      "matrix": [
+        [
+          603.4666137695312,
+          0,
+          324.2921142578125
+        ],
+        [
+          0,
+          604.0645141601562,
+          259.0480041503906
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "distortion_model": "distortion.inverse_brown_conrady",
+      "distortion_coefficients": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "raw_depth": {
+      "matrix": [
+        [
+          391.23150634765625,
+          0,
+          317.69366455078125
+        ],
+        [
+          0,
+          391.23150634765625,
+          243.13314819335938
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "distortion_model": "distortion.brown_conrady",
+      "distortion_coefficients": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "color_fps": 30,
+    "depth_fps": 15,
+    "depth_scale_m_per_z16": 0.0010000000474974513,
+    "factory_depth_to_color": {
+      "rotation_column_major": [
+        0.9997755289077759,
+        0.02053600549697876,
+        0.005214719567447901,
+        -0.020571045577526093,
+        0.9997655749320984,
+        0.006757189054042101,
+        -0.005074731074273586,
+        -0.0068629439920187,
+        0.9999635815620422
+      ],
+      "translation_m": [
+        0.015032028779387474,
+        0.0002473929198458791,
+        0.0008837981731630862
+      ]
+    },
+    "world_transform": null,
+    "sensor_options_written": false,
+    "reset_attempted": false
+  },
+  "enumeration": [
+    {
+      "camera_info.name": "Intel RealSense D435",
+      "camera_info.serial_number": "346222072496",
+      "camera_info.firmware_version": "5.16.0.1",
+      "camera_info.physical_port": "/sys/devices/pci0000:00/0000:00:14.0/usb2/2-1/2-1:1.0/video4linux/video0",
+      "camera_info.usb_type_descriptor": "3.2"
+    }
+  ],
+  "preflight": {
+    "devices": [
+      "/dev/video0",
+      "/dev/video1",
+      "/dev/video2",
+      "/dev/video3",
+      "/dev/video4",
+      "/dev/video5"
+    ],
+    "fuser_returncode": 1,
+    "pids": ""
+  },
+  "skipped_duplicate_pairs": 83,
+  "owner_error": null,
+  "after_owner_closed": {
+    "role": "tabletop",
+    "serial": "346222072496",
+    "source_kind": "LIVE",
+    "sequence": 84,
+    "owner_id": "phase1a:9b0a762d36e947eab2a0270b4c263367",
+    "owner_running": false,
+    "owner_error": null,
+    "timestamp_s": 1792458924.6879988,
+    "age_ms": 466.7794704437256,
+    "stale_after_ms": -1,
+    "stale": true,
+    "missing": false,
+    "role_serial_verified": true,
+    "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+    "freshness_basis": "HOST_RECEIPT_AND_DEVICE_GLOBAL_TIME",
+    "device_timestamp_domains": [
+      "timestamp_domain.global_time",
+      "timestamp_domain.global_time"
+    ],
+    "device_exposure_age_ms": [
+      461.6281986236572,
+      466.7794704437256
+    ],
+    "device_color_depth_skew_ms": 5.1513671875,
+    "color_depth_temporally_eligible": true,
+    "exposure_freshness_verified": true,
+    "exposure_synchronized": "UNKNOWN",
+    "color_frame_number": 174,
+    "depth_frame_number": 91,
+    "rgb_shape": [
+      480,
+      640,
+      3
+    ],
+    "aligned_depth_shape": [
+      480,
+      640
+    ],
+    "depth_unit": "m",
+    "depth_valid_fraction": 0.46006184895833335,
+    "nonfinite_depth_fraction": 0.0,
+    "positive_depth_percentiles_m": [
+      0.45100003480911255,
+      1.915000081062317,
+      3.806000232696533
+    ],
+    "depth_usable_for_optical_inspection": true,
+    "geometry_eligible": false,
+    "calibration_status": "HISTORICAL_EXTRINSIC_NOT_REVALIDATED",
+    "world_transform": null,
+    "actual_grasp_tcp": null,
+    "observation_kind": "CAMERA_MONITOR_ONLY",
+    "missing_physical_camera_roles": {
+      "left_wrist": "254522073676",
+      "overhead": "344422071480",
+      "right_wrist": "348522072063"
+    },
+    "timestamp_s_semantics": "host receipt epoch seconds; device global_time retained separately",
+    "depth_quality_policy": "valid fraction >=0.10 is only a data-availability gate, not an accuracy certificate",
+    "robot_state_available": false,
+    "robot_state_source": "UNAVAILABLE_ARMS_POWERED_OFF",
+    "arm_timestamps_s": {
+      "left": null,
+      "right": null
+    },
+    "camera_arm_skew_ms": {
+      "left": null,
+      "right": null
+    },
+    "full_cap_observation_available": false,
+    "full_cap_observation_reason": "REAL_ROBOT_STATE_UNAVAILABLE_ARMS_POWERED_OFF",
+    "frame_hash": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c",
+    "depth_hash": "b0b3332b3dd19d135757fd7c9331118fa57b47ab1e846f70b06ce3c458cd4fbb"
+  },
+  "postflight": {
+    "devices": [
+      "/dev/video0",
+      "/dev/video1",
+      "/dev/video2",
+      "/dev/video3",
+      "/dev/video4",
+      "/dev/video5"
+    ],
+    "fuser_returncode": 1,
+    "pids": ""
+  },
+  "hardware_modules": [],
+  "raw_report": {
+    "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/report.json",
+    "bytes": 319327,
+    "sha256": "beb8027365a8b9da0bbe5f8b6a7df2f4e5fad925d1696cacf888525935a58907"
+  },
+  "evidence_scope": "Derived statistics and selected native MCP results; not the complete per-frame/raw asset archive",
+  "frame_count": 84,
+  "first_quality": {
+    "role": "tabletop",
+    "serial": "346222072496",
+    "source_kind": "LIVE",
+    "sequence": 1,
+    "owner_id": "phase1a:9b0a762d36e947eab2a0270b4c263367",
+    "owner_running": true,
+    "owner_error": null,
+    "timestamp_s": 1792458919.1842785,
+    "age_ms": 70.86539268493652,
+    "stale_after_ms": 1000.0,
+    "stale": false,
+    "missing": false,
+    "role_serial_verified": true,
+    "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+    "freshness_basis": "HOST_RECEIPT_AND_DEVICE_GLOBAL_TIME",
+    "device_timestamp_domains": [
+      "timestamp_domain.global_time",
+      "timestamp_domain.global_time"
+    ],
+    "device_exposure_age_ms": [
+      35.22515296936035,
+      70.86539268493652
+    ],
+    "device_color_depth_skew_ms": 35.640380859375,
+    "color_depth_temporally_eligible": true,
+    "exposure_freshness_verified": true,
+    "exposure_synchronized": "UNKNOWN",
+    "color_frame_number": 9,
+    "depth_frame_number": 8,
+    "rgb_shape": [
+      480,
+      640,
+      3
+    ],
+    "aligned_depth_shape": [
+      480,
+      640
+    ],
+    "depth_unit": "m",
+    "depth_valid_fraction": 0.43857747395833335,
+    "nonfinite_depth_fraction": 0.0,
+    "positive_depth_percentiles_m": [
+      0.4520000219345093,
+      1.909000039100647,
+      3.8530001640319824
+    ],
+    "depth_usable_for_optical_inspection": true,
+    "geometry_eligible": false,
+    "calibration_status": "HISTORICAL_EXTRINSIC_NOT_REVALIDATED",
+    "world_transform": null,
+    "actual_grasp_tcp": null,
+    "observation_kind": "CAMERA_MONITOR_ONLY",
+    "missing_physical_camera_roles": {
+      "left_wrist": "254522073676",
+      "overhead": "344422071480",
+      "right_wrist": "348522072063"
+    },
+    "timestamp_s_semantics": "host receipt epoch seconds; device global_time retained separately",
+    "depth_quality_policy": "valid fraction >=0.10 is only a data-availability gate, not an accuracy certificate",
+    "robot_state_available": false,
+    "robot_state_source": "UNAVAILABLE_ARMS_POWERED_OFF",
+    "arm_timestamps_s": {
+      "left": null,
+      "right": null
+    },
+    "camera_arm_skew_ms": {
+      "left": null,
+      "right": null
+    },
+    "full_cap_observation_available": false,
+    "full_cap_observation_reason": "REAL_ROBOT_STATE_UNAVAILABLE_ARMS_POWERED_OFF",
+    "frame_hash": "160e425e620ca947d8eecdc32315487bf6c8d0ca5c5cee6ba9f0568f443b8139",
+    "depth_hash": "22ccf0bf3a8bd5b967271aa8f848f3e7f3795045657e2b4d421f71075d332f71",
+    "received_monotonic_s": 262772.543811079,
+    "color_timestamp_ms": 1792458919161.6768,
+    "depth_timestamp_ms": 1792458919126.0364,
+    "capture_wait_interval_monotonic_s": [
+      262772.510747554,
+      262772.543811079
+    ],
+    "raw_color_frame_metadata": {
+      "frame_timestamp": 2237391356,
+      "backend_timestamp": 1792458919152,
+      "time_of_arrival": 1792458919183
+    },
+    "raw_depth_frame_metadata": {
+      "frame_timestamp": 2237356371,
+      "backend_timestamp": 1792458919116,
+      "time_of_arrival": 1792458919124
+    }
+  },
+  "last_quality": {
+    "role": "tabletop",
+    "serial": "346222072496",
+    "source_kind": "LIVE",
+    "sequence": 84,
+    "owner_id": "phase1a:9b0a762d36e947eab2a0270b4c263367",
+    "owner_running": true,
+    "owner_error": null,
+    "timestamp_s": 1792458924.6879988,
+    "age_ms": 48.902273178100586,
+    "stale_after_ms": 1000.0,
+    "stale": false,
+    "missing": false,
+    "role_serial_verified": true,
+    "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+    "freshness_basis": "HOST_RECEIPT_AND_DEVICE_GLOBAL_TIME",
+    "device_timestamp_domains": [
+      "timestamp_domain.global_time",
+      "timestamp_domain.global_time"
+    ],
+    "device_exposure_age_ms": [
+      43.75100135803223,
+      48.902273178100586
+    ],
+    "device_color_depth_skew_ms": 5.1513671875,
+    "color_depth_temporally_eligible": true,
+    "exposure_freshness_verified": true,
+    "exposure_synchronized": "UNKNOWN",
+    "color_frame_number": 174,
+    "depth_frame_number": 91,
+    "rgb_shape": [
+      480,
+      640,
+      3
+    ],
+    "aligned_depth_shape": [
+      480,
+      640
+    ],
+    "depth_unit": "m",
+    "depth_valid_fraction": 0.46006184895833335,
+    "nonfinite_depth_fraction": 0.0,
+    "positive_depth_percentiles_m": [
+      0.45100003480911255,
+      1.915000081062317,
+      3.806000232696533
+    ],
+    "depth_usable_for_optical_inspection": true,
+    "geometry_eligible": false,
+    "calibration_status": "HISTORICAL_EXTRINSIC_NOT_REVALIDATED",
+    "world_transform": null,
+    "actual_grasp_tcp": null,
+    "observation_kind": "CAMERA_MONITOR_ONLY",
+    "missing_physical_camera_roles": {
+      "left_wrist": "254522073676",
+      "overhead": "344422071480",
+      "right_wrist": "348522072063"
+    },
+    "timestamp_s_semantics": "host receipt epoch seconds; device global_time retained separately",
+    "depth_quality_policy": "valid fraction >=0.10 is only a data-availability gate, not an accuracy certificate",
+    "robot_state_available": false,
+    "robot_state_source": "UNAVAILABLE_ARMS_POWERED_OFF",
+    "arm_timestamps_s": {
+      "left": null,
+      "right": null
+    },
+    "camera_arm_skew_ms": {
+      "left": null,
+      "right": null
+    },
+    "full_cap_observation_available": false,
+    "full_cap_observation_reason": "REAL_ROBOT_STATE_UNAVAILABLE_ARMS_POWERED_OFF",
+    "frame_hash": "9d8a454410a13e082be01d16b480cdbfdee13e0e824615cc3853f51cef9d516c",
+    "depth_hash": "b0b3332b3dd19d135757fd7c9331118fa57b47ab1e846f70b06ce3c458cd4fbb",
+    "received_monotonic_s": 262778.047532014,
+    "color_timestamp_ms": 1792458924652.6184,
+    "depth_timestamp_ms": 1792458924647.467,
+    "capture_wait_interval_monotonic_s": [
+      262778.014270397,
+      262778.047532014
+    ],
+    "raw_color_frame_metadata": {
+      "frame_timestamp": 2242895756,
+      "backend_timestamp": 1792458924657,
+      "time_of_arrival": 1792458924687
+    },
+    "raw_depth_frame_metadata": {
+      "frame_timestamp": 2242890605,
+      "backend_timestamp": 1792458924651,
+      "time_of_arrival": 1792458924658
+    }
+  },
+  "capture_span_s": 5.503720935026649,
+  "fresh_frame_count": 84,
+  "exposed_global_time_verified_count": 84,
+  "invalid_or_unmeasured_robot_state_count": 84,
+  "depth_valid_fraction": {
+    "min": 0.432080078125,
+    "p50": 0.46027180989583333,
+    "p95": 0.46516650390625,
+    "max": 0.46684895833333334
+  },
+  "oldest_device_frame_or_receipt_age_at_quality_eval_ms": {
+    "min": 22.301197052001953,
+    "p50": 44.68584060668945,
+    "p95": 50.11786222457886,
+    "max": 70.86539268493652
+  },
+  "color_depth_skew_ms": {
+    "min": 1.697509765625,
+    "p50": 3.4248046875,
+    "p95": 5.01661376953125,
+    "max": 35.640380859375
+  },
+  "delivered_interval_ms": {
+    "min": 38.08638599002734,
+    "p50": 66.71027897391468,
+    "p95": 67.13303402066231,
+    "max": 71.91840297309682
+  },
+  "device_color_frame_range": [
+    9,
+    174
+  ],
+  "device_depth_frame_range": [
+    8,
+    91
+  ],
+  "first_assets": {
+    "role": "tabletop",
+    "serial": "346222072496",
+    "intrinsics": [
+      [
+        603.4666137695312,
+        0,
+        324.2921142578125
+      ],
+      [
+        0,
+        604.0645141601562,
+        259.0480041503906
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "intrinsics_detail": {
+      "matrix": [
+        [
+          603.4666137695312,
+          0,
+          324.2921142578125
+        ],
+        [
+          0,
+          604.0645141601562,
+          259.0480041503906
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "distortion_model": "distortion.inverse_brown_conrady",
+      "distortion_coefficients": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "aligned_depth_intrinsics": {
+      "matrix": [
+        [
+          603.4666137695312,
+          0,
+          324.2921142578125
+        ],
+        [
+          0,
+          604.0645141601562,
+          259.0480041503906
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "distortion_model": "distortion.inverse_brown_conrady",
+      "distortion_coefficients": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "intrinsics_source": "current device aligned frame profile",
+    "alignment": "depth_to_color",
+    "depth_unit": "m",
+    "depth_convention": "optical_z",
+    "optical_frame": "realsense:346222072496:color_optical",
+    "captured_at": 1792458919.1842785,
+    "received_monotonic_s": 262772.543811079,
+    "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+    "capture_wait_interval_monotonic_s": [
+      262772.510747554,
+      262772.543811079
+    ],
+    "color_timestamp_ms": 1792458919161.6768,
+    "depth_timestamp_ms": 1792458919126.0364,
+    "color_timestamp_domain": "timestamp_domain.global_time",
+    "depth_timestamp_domain": "timestamp_domain.global_time",
+    "color_frame_number": 9,
+    "depth_frame_number": 8,
+    "raw_color_frame_metadata": {
+      "frame_timestamp": 2237391356,
+      "backend_timestamp": 1792458919152,
+      "time_of_arrival": 1792458919183
+    },
+    "raw_depth_frame_metadata": {
+      "frame_timestamp": 2237356371,
+      "backend_timestamp": 1792458919116,
+      "time_of_arrival": 1792458919124
+    },
+    "calibration_status": "HISTORICAL_EXTRINSIC_NOT_REVALIDATED",
+    "world_transform": null,
+    "assets": {
+      "aligned-z16.npy": {
+        "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/first/aligned-z16.npy",
+        "bytes": 614528,
+        "sha256": "b257a30e5502aeed76b44b548028a2f915a41bd21dff4e83f17324cbfcd00b7c"
+      },
+      "rgb.png": {
+        "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/first/rgb.png",
+        "bytes": 224826,
+        "sha256": "1ab030fb5597b058b3f01cced6b550ff2c815af047c4575a8e9867c156eac72c"
+      },
+      "aligned-depth-m.npy": {
+        "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/first/aligned-depth-m.npy",
+        "bytes": 1228928,
+        "sha256": "9921adfeedf43bf05cc4fc253e9b200bca92422796222ab2c00c6fb0a1270e27"
+      }
+    }
+  },
+  "last_assets": {
+    "role": "tabletop",
+    "serial": "346222072496",
+    "intrinsics": [
+      [
+        603.4666137695312,
+        0,
+        324.2921142578125
+      ],
+      [
+        0,
+        604.0645141601562,
+        259.0480041503906
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "intrinsics_detail": {
+      "matrix": [
+        [
+          603.4666137695312,
+          0,
+          324.2921142578125
+        ],
+        [
+          0,
+          604.0645141601562,
+          259.0480041503906
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "distortion_model": "distortion.inverse_brown_conrady",
+      "distortion_coefficients": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "aligned_depth_intrinsics": {
+      "matrix": [
+        [
+          603.4666137695312,
+          0,
+          324.2921142578125
+        ],
+        [
+          0,
+          604.0645141601562,
+          259.0480041503906
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "resolution": [
+        640,
+        480
+      ],
+      "distortion_model": "distortion.inverse_brown_conrady",
+      "distortion_coefficients": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "intrinsics_source": "current device aligned frame profile",
+    "alignment": "depth_to_color",
+    "depth_unit": "m",
+    "depth_convention": "optical_z",
+    "optical_frame": "realsense:346222072496:color_optical",
+    "captured_at": 1792458924.6879988,
+    "received_monotonic_s": 262778.047532014,
+    "host_clock_id": "linux-monotonic:867921c0-d14a-4c08-8d00-00e7e2ecd9a8",
+    "capture_wait_interval_monotonic_s": [
+      262778.014270397,
+      262778.047532014
+    ],
+    "color_timestamp_ms": 1792458924652.6184,
+    "depth_timestamp_ms": 1792458924647.467,
+    "color_timestamp_domain": "timestamp_domain.global_time",
+    "depth_timestamp_domain": "timestamp_domain.global_time",
+    "color_frame_number": 174,
+    "depth_frame_number": 91,
+    "raw_color_frame_metadata": {
+      "frame_timestamp": 2242895756,
+      "backend_timestamp": 1792458924657,
+      "time_of_arrival": 1792458924687
+    },
+    "raw_depth_frame_metadata": {
+      "frame_timestamp": 2242890605,
+      "backend_timestamp": 1792458924651,
+      "time_of_arrival": 1792458924658
+    },
+    "calibration_status": "HISTORICAL_EXTRINSIC_NOT_REVALIDATED",
+    "world_transform": null,
+    "assets": {
+      "aligned-z16.npy": {
+        "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/aligned-z16.npy",
+        "bytes": 614528,
+        "sha256": "db312b6af968a6bec4abf1668491dc3d24894b6d8c3cc6a45e73972a6b4c7f69"
+      },
+      "rgb.png": {
+        "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/rgb.png",
+        "bytes": 335595,
+        "sha256": "cbed0a959c83a159cf39cb4501d3d8bdf50beea454d7c19ae450107fd23a2c06"
+      },
+      "aligned-depth-m.npy": {
+        "path": "/home/tongji/alex/aspire_realman_phase1a_20261020/evidence/live-final/last/aligned-depth-m.npy",
+        "bytes": 1228928,
+        "sha256": "6d27e56122cac9de7c5244a48462661f792399d9fb79a9933f26267bc151b18c"
+      }
+    }
+  },
+  "first_depth_roi": {
+    "central_half_image_valid_fraction": 0.6341015625,
+    "central_half_positive_depth_p1_p50_p99_m": [
+      0.44700002670288086,
+      1.9630000591278076,
+      2.236999988555908
+    ]
+  },
+  "last_depth_roi": {
+    "central_half_image_valid_fraction": 0.669453125,
+    "central_half_positive_depth_p1_p50_p99_m": [
+      0.4490000307559967,
+      1.9570001363754272,
+      2.236999988555908
+    ]
+  },
+  "missing_physical_devices": {
+    "left_wrist": "254522073676",
+    "overhead": "344422071480",
+    "right_wrist": "348522072063"
+  },
+  "usb_descriptor_serial": "027223021284",
+  "usb_descriptor_is_not_sdk_calibration_key": true,
+  "world_localization_accuracy": "UNVERIFIED; historical extrinsics not loaded; no metric World result",
+  "time_limitations": "global_time is SDK host-correlated time, not independent exposure synchronization or cross-camera/arm synchronization proof"
+}
