@@ -1,0 +1,41 @@
+{
+  "status": "OFFLINE_OWNER_CONTRACT_PREPARATION_PASS_NOT_LIVE_INTEGRATION",
+  "arm_scope": [
+    "left"
+  ],
+  "input_source": {
+    "path": "/home/tongji/alex/aspire_realman_phase1b_20261020/aspire_realman_phase0/evidence/replay_snapshot.json",
+    "sha256": "600cfb8f33b8965298832bd6efce1972f0c99c225a68f62401f9b7a301e5d7a5",
+    "kind": "HISTORICAL_REPLAY"
+  },
+  "source_sha256": "40af8a7627287dda3764d1f90e3e0f5d60dc6a83e607cce81277f45a59d989de",
+  "refusals": {
+    "wrong_arm": "OWNER_OR_SINGLE_ARM_SCOPE_MISMATCH",
+    "changed_frame": "WORK_TOOL_CHANGED_DURING_SAMPLE",
+    "bad_units": "SDK_METRES_RADIANS_REQUIRED_NO_SCALE_GUESS",
+    "connect": "PHYSICAL_CONNECTION_DISABLED_OWNER_PREPARATION_ONLY",
+    "start": "PHYSICAL_CONNECTION_DISABLED_OWNER_PREPARATION_ONLY",
+    "poll": "PHYSICAL_CONNECTION_DISABLED_OWNER_PREPARATION_ONLY",
+    "native_state": "CURRENT_FIELD_BINDING_AND_NATIVE_CODEC_NOT_ENABLED",
+    "history_without_five_sdk_reads": "FIVE_SUCCESSFUL_SDK_READS_REQUIRED",
+    "repeated_sample": "REPEATED_OR_REGRESSED_SAMPLE"
+  },
+  "missing_velocity_preserved_as_null": true,
+  "historical_state_not_freshened": true,
+  "receipt_bounds_ms": {
+    "comparable": true,
+    "minimum_ms": 4.9999999999954525,
+    "maximum_ms": 30.000000000001137,
+    "physical_exposure_or_controller_synchronization_verified": false
+  },
+  "different_time_domains_not_subtracted": {
+    "comparable": false,
+    "minimum_ms": null,
+    "maximum_ms": null
+  },
+  "sdk_imports": 0,
+  "hardware_connections": 0,
+  "motion_dispatches": 0,
+  "current_robot_state": null,
+  "native_cap_observation_available": false
+}

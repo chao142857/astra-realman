@@ -1,5 +1,7 @@
 # ASPIRE → RealMan Phase 1B：远程感知与模型准备
 
+**121631d9后的独立标准预处理诊断**见[GEOMETRY_DIAGNOSTICS.md](GEOMETRY_DIAGNOSTICS.md)：同一封存Mask/深度比较13个独立变体，保留全部78个候选和52次原生OBB失败；没有重跑SAM3、改写基准或选择最近/最大群当目标。非原始变体仅标记“ASPIRE + 标准预处理（诊断）”。[单臂只读owner准备](STATE_OWNER_PREPARATION.md)新增无硬件连接能力的接收缓存与边界检查，当前未接入live CAP，运动仍拒绝。
+
 本分支在手工几何交付`ff2cfab1`上继续，初始基线为`0fb748c172ddbd13b8e21937affb045d4d417bd7`；ASPIRE仍固定`fa00f0ef2bc1d91d594b9aa502c22133c9f538f7`。现已下载并校验官方权重，在封存RGB上完成真实SAM3及原生HTTP对照。LiveSource、native CAP/MCP、运动硬拒绝、历史Replay及封存资产不改。不启动相机、RealMan SDK、机械臂、任务Agent或规划器。
 
 **最新真实结果**：用户授权下载后，官方checkpoint大小和SHA均匹配；RTX3060模型加载5.530s，三次调用0.983/0.375/0.374s，唯一通过0.5阈值的候选score=0.921875。原生HTTP三次200，前五Mask与官方结果IoU全部1.0，服务器解码RGB像素hash一致。视觉叠加检查确认最高分Mask覆盖可见香蕉；这是封存单图的二维分割证据，**不是合格的三维定位**。Mask内233个远点导致OBB长轴1.519m，World/TCP仍null。见[真实SAM3实测](SAM3_REAL.md)、`evidence/sam3_real_summary.json`和`evidence/sam3_real_acceptance.json`。
