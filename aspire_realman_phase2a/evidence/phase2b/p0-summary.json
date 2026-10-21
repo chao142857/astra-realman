@@ -1,0 +1,1127 @@
+{
+  "status": "BLOCKED_PHYSICAL_GEOMETRY_EVIDENCE",
+  "conclusion": "Original sphere envelopes overlap while tested nominal source mesh surfaces do not. No source-proven URDF transform error; physical mount/CAD and collision cover need validation. No candidate geometry correction authorized or applied.",
+  "frozen_phase2a_hashes_unchanged": true,
+  "actual_gpu_fk_max_center_error_m": 1.229124181323371e-07,
+  "actual_gpu_fk_max_radius_error_m": 3.8859061107787696e-10,
+  "geometry_correction_applied": false,
+  "new_collision_ignore_pairs": 0,
+  "sphere_radius_changes": 0,
+  "source_sha256": {
+    "/home/tongji/alex/rm65-contact-servo-yanglab-20261017/experiments/rm65_handoff_v1/runtime_config/planning.urdf": "09b961fb80534b2ca76e059c53b72a68729e4c1f7eb9ef37ee5d0e4975d3cc68",
+    "/home/tongji/alex/rm65-contact-servo-yanglab-20261017/experiments/rm65_handoff_v1/runtime_config/curobo.yml": "4418162bef748f1428e0e18dc2dedf0179c31df1136788aba1b1d06c4cd600f1",
+    "/home/tongji/alex/rm65-handoff-runtime-20261014/assets/vendor/target_models_20260921/crt_ctag2f90d_gripper_visualization/urdf/crt_ctag2f90d_gripper_visualization.urdf": "a166ce79cfd26463e24329a53b14874bbc059771d41f70cb62b4417424fb9373"
+  },
+  "cases": [
+    {
+      "links": [
+        "Link5",
+        "ctag_base_link"
+      ],
+      "joint6_rad": -3.141592653589793,
+      "gripper_master_rad": 0.0,
+      "sphere_overlap_m": 0.005042939940062285,
+      "worst_original_sphere_pair": [
+        {
+          "link": "Link5",
+          "index_within_link": 20,
+          "center_link_m": [
+            0.0,
+            -0.125,
+            0.0
+          ],
+          "center_reference_m": [
+            -1.3877787807814457e-17,
+            -0.12500000000000006,
+            -2.4523199053748e-23
+          ],
+          "radius_m": 0.021650635094610966
+        },
+        {
+          "link": "ctag_base_link",
+          "index_within_link": 227,
+          "center_link_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "center_reference_m": [
+            0.0,
+            -0.151999999999946,
+            -2.9385640826772594e-08
+          ],
+          "radius_m": 0.010392304845413263
+        }
+      ],
+      "mesh_comparison": {
+        "surface_intersecting_triangle_pairs": 0,
+        "strict_crossing_witness_count": 0,
+        "strict_crossing_witnesses_first_32": [],
+        "triangle_aabb_candidates_tested": 0,
+        "aabb_distance_lower_bound_m": 0.03699986761916718,
+        "containment": {
+          "a_in_b": {
+            "status": "UNAVAILABLE_NON_WATERTIGHT_OR_INCONSISTENT"
+          },
+          "b_in_a": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": 5.866908592109352e-18,
+            "inside": false
+          }
+        },
+        "tolerance_m": 1e-08,
+        "status": "NO_SOURCE_MESH_SURFACE_INTERSECTION",
+        "caveat": "Surface crossing is not a penetration depth. Non-watertight containment and intentional mechanical contacts require CAD interpretation."
+      }
+    },
+    {
+      "links": [
+        "Link5",
+        "ctag_base_link"
+      ],
+      "joint6_rad": -1.5707963267948966,
+      "gripper_master_rad": 0.0,
+      "sphere_overlap_m": 0.005042939940062285,
+      "worst_original_sphere_pair": [
+        {
+          "link": "Link5",
+          "index_within_link": 20,
+          "center_link_m": [
+            0.0,
+            -0.125,
+            0.0
+          ],
+          "center_reference_m": [
+            -1.3877787807814457e-17,
+            -0.12500000000000006,
+            -2.4523199053748e-23
+          ],
+          "radius_m": 0.021650635094610966
+        },
+        {
+          "link": "ctag_base_link",
+          "index_within_link": 227,
+          "center_link_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "center_reference_m": [
+            0.0,
+            -0.151999999999946,
+            -2.9385640826772594e-08
+          ],
+          "radius_m": 0.010392304845413263
+        }
+      ],
+      "mesh_comparison": {
+        "surface_intersecting_triangle_pairs": 0,
+        "strict_crossing_witness_count": 0,
+        "strict_crossing_witnesses_first_32": [],
+        "triangle_aabb_candidates_tested": 0,
+        "aabb_distance_lower_bound_m": 0.036999867795994845,
+        "containment": {
+          "a_in_b": {
+            "status": "UNAVAILABLE_NON_WATERTIGHT_OR_INCONSISTENT"
+          },
+          "b_in_a": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": 7.730514850779382e-18,
+            "inside": false
+          }
+        },
+        "tolerance_m": 1e-08,
+        "status": "NO_SOURCE_MESH_SURFACE_INTERSECTION",
+        "caveat": "Surface crossing is not a penetration depth. Non-watertight containment and intentional mechanical contacts require CAD interpretation."
+      }
+    },
+    {
+      "links": [
+        "Link5",
+        "ctag_base_link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": 0.0,
+      "sphere_overlap_m": 0.005042939940062285,
+      "worst_original_sphere_pair": [
+        {
+          "link": "Link5",
+          "index_within_link": 20,
+          "center_link_m": [
+            0.0,
+            -0.125,
+            0.0
+          ],
+          "center_reference_m": [
+            -1.3877787807814457e-17,
+            -0.12500000000000006,
+            -2.4523199053748e-23
+          ],
+          "radius_m": 0.021650635094610966
+        },
+        {
+          "link": "ctag_base_link",
+          "index_within_link": 227,
+          "center_link_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "center_reference_m": [
+            0.0,
+            -0.151999999999946,
+            -2.9385640826772594e-08
+          ],
+          "radius_m": 0.010392304845413263
+        }
+      ],
+      "mesh_comparison": {
+        "surface_intersecting_triangle_pairs": 0,
+        "strict_crossing_witness_count": 0,
+        "strict_crossing_witnesses_first_32": [],
+        "triangle_aabb_candidates_tested": 0,
+        "aabb_distance_lower_bound_m": 0.036999868325888724,
+        "containment": {
+          "a_in_b": {
+            "status": "UNAVAILABLE_NON_WATERTIGHT_OR_INCONSISTENT"
+          },
+          "b_in_a": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": 1.1043592643970545e-17,
+            "inside": false
+          }
+        },
+        "tolerance_m": 1e-08,
+        "status": "NO_SOURCE_MESH_SURFACE_INTERSECTION",
+        "caveat": "Surface crossing is not a penetration depth. Non-watertight containment and intentional mechanical contacts require CAD interpretation."
+      }
+    },
+    {
+      "links": [
+        "ctag_Left_1_Link",
+        "ctag_Left_2_Link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": 0.0,
+      "sphere_overlap_m": 0.015483064538446077,
+      "worst_original_sphere_pair": [
+        {
+          "link": "ctag_Left_1_Link",
+          "index_within_link": 3,
+          "center_link_m": [
+            0.0,
+            0.012,
+            -0.012
+          ],
+          "center_reference_m": [
+            -1.3322625473525043e-18,
+            0.011999999999999999,
+            -0.012
+          ],
+          "radius_m": 0.010392304845413263
+        },
+        {
+          "link": "ctag_Left_2_Link",
+          "index_within_link": 6,
+          "center_link_m": [
+            0.012,
+            0.0,
+            -0.012
+          ],
+          "center_reference_m": [
+            -0.00214100000000007,
+            0.016849999999886345,
+            -0.01200006189350599
+          ],
+          "radius_m": 0.010392304845413263
+        }
+      ],
+      "mesh_comparison": {
+        "surface_intersecting_triangle_pairs": 0,
+        "strict_crossing_witness_count": 0,
+        "strict_crossing_witnesses_first_32": [],
+        "triangle_aabb_candidates_tested": 10480,
+        "aabb_distance_lower_bound_m": 0.0,
+        "containment": {
+          "a_in_b": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": -5.5217963219852725e-18,
+            "inside": false
+          },
+          "b_in_a": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": -2.3191544552338144e-17,
+            "inside": false
+          }
+        },
+        "tolerance_m": 1e-08,
+        "status": "NO_SOURCE_MESH_SURFACE_INTERSECTION",
+        "caveat": "Surface crossing is not a penetration depth. Non-watertight containment and intentional mechanical contacts require CAD interpretation."
+      }
+    },
+    {
+      "links": [
+        "ctag_Right_1_Link",
+        "ctag_Right_2_Link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": 0.0,
+      "sphere_overlap_m": 0.015483064536718749,
+      "worst_original_sphere_pair": [
+        {
+          "link": "ctag_Right_1_Link",
+          "index_within_link": 21,
+          "center_link_m": [
+            0.024,
+            0.036000000000000004,
+            -0.012
+          ],
+          "center_reference_m": [
+            0.024000000000000115,
+            0.035999999999999886,
+            -0.012
+          ],
+          "radius_m": 0.010392304845413263
+        },
+        {
+          "link": "ctag_Right_2_Link",
+          "index_within_link": 24,
+          "center_link_m": [
+            0.036000000000000004,
+            0.024,
+            -0.012
+          ],
+          "center_reference_m": [
+            0.02185900000038174,
+            0.04084999999950453,
+            -0.012000165779092723
+          ],
+          "radius_m": 0.010392304845413263
+        }
+      ],
+      "mesh_comparison": {
+        "surface_intersecting_triangle_pairs": 0,
+        "strict_crossing_witness_count": 0,
+        "strict_crossing_witnesses_first_32": [],
+        "triangle_aabb_candidates_tested": 10480,
+        "aabb_distance_lower_bound_m": 0.0,
+        "containment": {
+          "a_in_b": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": 2.5400263081132252e-17,
+            "inside": false
+          },
+          "b_in_a": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": 6.6261555863823264e-18,
+            "inside": false
+          }
+        },
+        "tolerance_m": 1e-08,
+        "status": "NO_SOURCE_MESH_SURFACE_INTERSECTION",
+        "caveat": "Surface crossing is not a penetration depth. Non-watertight containment and intentional mechanical contacts require CAD interpretation."
+      }
+    },
+    {
+      "links": [
+        "ctag_Left_1_Link",
+        "ctag_Left_2_Link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": -0.455,
+      "sphere_overlap_m": 0.014861442835443417,
+      "worst_original_sphere_pair": [
+        {
+          "link": "ctag_Left_1_Link",
+          "index_within_link": 21,
+          "center_link_m": [
+            0.024,
+            0.036000000000000004,
+            -0.012
+          ],
+          "center_reference_m": [
+            0.024000000000000053,
+            0.0359999999999999,
+            -0.012
+          ],
+          "radius_m": 0.010392304845413263
+        },
+        {
+          "link": "ctag_Left_2_Link",
+          "index_within_link": 15,
+          "center_link_m": [
+            0.024,
+            0.012,
+            -0.012
+          ],
+          "center_reference_m": [
+            0.018702630788105697,
+            0.03335013490423521,
+            -0.01200006189350599
+          ],
+          "radius_m": 0.010392304845413263
+        }
+      ],
+      "mesh_comparison": {
+        "surface_intersecting_triangle_pairs": 0,
+        "strict_crossing_witness_count": 0,
+        "strict_crossing_witnesses_first_32": [],
+        "triangle_aabb_candidates_tested": 12377,
+        "aabb_distance_lower_bound_m": 0.0,
+        "containment": {
+          "a_in_b": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": 1.1043592643970545e-18,
+            "inside": false
+          },
+          "b_in_a": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": 2.3191544552338144e-17,
+            "inside": false
+          }
+        },
+        "tolerance_m": 1e-08,
+        "status": "NO_SOURCE_MESH_SURFACE_INTERSECTION",
+        "caveat": "Surface crossing is not a penetration depth. Non-watertight containment and intentional mechanical contacts require CAD interpretation."
+      }
+    },
+    {
+      "links": [
+        "ctag_Right_1_Link",
+        "ctag_Right_2_Link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": -0.455,
+      "sphere_overlap_m": 0.014861442833374996,
+      "worst_original_sphere_pair": [
+        {
+          "link": "ctag_Right_1_Link",
+          "index_within_link": 12,
+          "center_link_m": [
+            0.012,
+            0.024,
+            -0.012
+          ],
+          "center_reference_m": [
+            0.012,
+            0.023999999999999994,
+            -0.012
+          ],
+          "radius_m": 0.010392304845413263
+        },
+        {
+          "link": "ctag_Right_2_Link",
+          "index_within_link": 6,
+          "center_link_m": [
+            0.012,
+            0.0,
+            -0.012
+          ],
+          "center_reference_m": [
+            0.006702630788280695,
+            0.021350134903724727,
+            -0.012000165779092723
+          ],
+          "radius_m": 0.010392304845413263
+        }
+      ],
+      "mesh_comparison": {
+        "surface_intersecting_triangle_pairs": 0,
+        "strict_crossing_witness_count": 0,
+        "strict_crossing_witnesses_first_32": [],
+        "triangle_aabb_candidates_tested": 12313,
+        "aabb_distance_lower_bound_m": 0.0,
+        "containment": {
+          "a_in_b": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": 0.0,
+            "inside": false
+          },
+          "b_in_a": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": -6.6261555863823264e-18,
+            "inside": false
+          }
+        },
+        "tolerance_m": 1e-08,
+        "status": "NO_SOURCE_MESH_SURFACE_INTERSECTION",
+        "caveat": "Surface crossing is not a penetration depth. Non-watertight containment and intentional mechanical contacts require CAD interpretation."
+      }
+    },
+    {
+      "links": [
+        "ctag_Left_1_Link",
+        "ctag_Left_2_Link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": -0.91,
+      "sphere_overlap_m": 0.015530759251869475,
+      "worst_original_sphere_pair": [
+        {
+          "link": "ctag_Left_1_Link",
+          "index_within_link": 12,
+          "center_link_m": [
+            0.012,
+            0.024,
+            -0.012
+          ],
+          "center_reference_m": [
+            0.011999999999999943,
+            0.024,
+            -0.012
+          ],
+          "radius_m": 0.010392304845413263
+        },
+        {
+          "link": "ctag_Left_2_Link",
+          "index_within_link": 6,
+          "center_link_m": [
+            0.012,
+            0.0,
+            -0.012
+          ],
+          "center_reference_m": [
+            0.01662415937016458,
+            0.021505988261772413,
+            -0.01200006189350599
+          ],
+          "radius_m": 0.010392304845413263
+        }
+      ],
+      "mesh_comparison": {
+        "surface_intersecting_triangle_pairs": 0,
+        "strict_crossing_witness_count": 0,
+        "strict_crossing_witnesses_first_32": [],
+        "triangle_aabb_candidates_tested": 29997,
+        "aabb_distance_lower_bound_m": 0.0,
+        "containment": {
+          "a_in_b": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": 1.8774107494749925e-17,
+            "inside": false
+          },
+          "b_in_a": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": 4.8591807633470396e-17,
+            "inside": false
+          }
+        },
+        "tolerance_m": 1e-08,
+        "status": "NO_SOURCE_MESH_SURFACE_INTERSECTION",
+        "caveat": "Surface crossing is not a penetration depth. Non-watertight containment and intentional mechanical contacts require CAD interpretation."
+      }
+    },
+    {
+      "links": [
+        "ctag_Right_1_Link",
+        "ctag_Right_2_Link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": -0.91,
+      "sphere_overlap_m": 0.015530759249423383,
+      "worst_original_sphere_pair": [
+        {
+          "link": "ctag_Right_1_Link",
+          "index_within_link": 12,
+          "center_link_m": [
+            0.012,
+            0.024,
+            -0.012
+          ],
+          "center_reference_m": [
+            0.012,
+            0.024000000000000028,
+            -0.012
+          ],
+          "radius_m": 0.010392304845413263
+        },
+        {
+          "link": "ctag_Right_2_Link",
+          "index_within_link": 6,
+          "center_link_m": [
+            0.012,
+            0.0,
+            -0.012
+          ],
+          "center_reference_m": [
+            0.016624159370097525,
+            0.02150598826123684,
+            -0.012000165779092723
+          ],
+          "radius_m": 0.010392304845413263
+        }
+      ],
+      "mesh_comparison": {
+        "surface_intersecting_triangle_pairs": 0,
+        "strict_crossing_witness_count": 0,
+        "strict_crossing_witnesses_first_32": [],
+        "triangle_aabb_candidates_tested": 29909,
+        "aabb_distance_lower_bound_m": 0.0,
+        "containment": {
+          "a_in_b": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": 5.0800526162264503e-17,
+            "inside": false
+          },
+          "b_in_a": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": -1.5461029701558764e-17,
+            "inside": false
+          }
+        },
+        "tolerance_m": 1e-08,
+        "status": "NO_SOURCE_MESH_SURFACE_INTERSECTION",
+        "caveat": "Surface crossing is not a penetration depth. Non-watertight containment and intentional mechanical contacts require CAD interpretation."
+      }
+    },
+    {
+      "links": [
+        "Link5",
+        "ctag_base_link"
+      ],
+      "joint6_rad": 1.5707963267948966,
+      "gripper_master_rad": 0.0,
+      "sphere_overlap_m": 0.005042939940062285,
+      "worst_original_sphere_pair": [
+        {
+          "link": "Link5",
+          "index_within_link": 20,
+          "center_link_m": [
+            0.0,
+            -0.125,
+            0.0
+          ],
+          "center_reference_m": [
+            -1.3877787807814457e-17,
+            -0.12500000000000006,
+            -2.4523199053748e-23
+          ],
+          "radius_m": 0.021650635094610966
+        },
+        {
+          "link": "ctag_base_link",
+          "index_within_link": 227,
+          "center_link_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "center_reference_m": [
+            0.0,
+            -0.151999999999946,
+            -2.9385640826772594e-08
+          ],
+          "radius_m": 0.010392304845413263
+        }
+      ],
+      "mesh_comparison": {
+        "surface_intersecting_triangle_pairs": 0,
+        "strict_crossing_witness_count": 0,
+        "strict_crossing_witnesses_first_32": [],
+        "triangle_aabb_candidates_tested": 0,
+        "aabb_distance_lower_bound_m": 0.03699986779592779,
+        "containment": {
+          "a_in_b": {
+            "status": "UNAVAILABLE_NON_WATERTIGHT_OR_INCONSISTENT"
+          },
+          "b_in_a": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": -8.558784299077172e-18,
+            "inside": false
+          }
+        },
+        "tolerance_m": 1e-08,
+        "status": "NO_SOURCE_MESH_SURFACE_INTERSECTION",
+        "caveat": "Surface crossing is not a penetration depth. Non-watertight containment and intentional mechanical contacts require CAD interpretation."
+      }
+    },
+    {
+      "links": [
+        "Link5",
+        "ctag_base_link"
+      ],
+      "joint6_rad": 3.141592653589793,
+      "gripper_master_rad": 0.0,
+      "sphere_overlap_m": 0.005042939940062285,
+      "worst_original_sphere_pair": [
+        {
+          "link": "Link5",
+          "index_within_link": 20,
+          "center_link_m": [
+            0.0,
+            -0.125,
+            0.0
+          ],
+          "center_reference_m": [
+            -1.3877787807814457e-17,
+            -0.12500000000000006,
+            -2.4523199053748e-23
+          ],
+          "radius_m": 0.021650635094610966
+        },
+        {
+          "link": "ctag_base_link",
+          "index_within_link": 227,
+          "center_link_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "center_reference_m": [
+            0.0,
+            -0.151999999999946,
+            -2.9385640826772594e-08
+          ],
+          "radius_m": 0.010392304845413263
+        }
+      ],
+      "mesh_comparison": {
+        "surface_intersecting_triangle_pairs": 0,
+        "strict_crossing_witness_count": 0,
+        "strict_crossing_witnesses_first_32": [],
+        "triangle_aabb_candidates_tested": 0,
+        "aabb_distance_lower_bound_m": 0.03699986761916718,
+        "containment": {
+          "a_in_b": {
+            "status": "UNAVAILABLE_NON_WATERTIGHT_OR_INCONSISTENT"
+          },
+          "b_in_a": {
+            "status": "ONE_VERTEX_WINDING_DIAGNOSTIC",
+            "winding": 6.764200494431958e-18,
+            "inside": false
+          }
+        },
+        "tolerance_m": 1e-08,
+        "status": "NO_SOURCE_MESH_SURFACE_INTERSECTION",
+        "caveat": "Surface crossing is not a penetration depth. Non-watertight containment and intentional mechanical contacts require CAD interpretation."
+      }
+    }
+  ],
+  "component_containment_reviews": [
+    {
+      "links": [
+        "Link5",
+        "ctag_base_link"
+      ],
+      "joint6_rad": -3.141592653589793,
+      "gripper_master_rad": 0.0,
+      "containment_by_component": {
+        "a_in_b": {
+          "status": "UNAVAILABLE_NON_WATERTIGHT_OR_INCONSISTENT",
+          "source_components": 1
+        },
+        "b_in_a": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 17,
+          "winding": [
+            5.866908592109352e-18,
+            -1.601320933375729e-17,
+            -3.865257425389691e-18,
+            -5.659841230034904e-18,
+            1.2147951908367599e-17,
+            1.1043592643970545e-18,
+            2.0982826023544033e-17,
+            1.801486050047695e-17,
+            -1.0698480373846464e-17,
+            1.766974823035287e-17,
+            3.3130777931911632e-18,
+            5.0800526162264503e-17,
+            -3.3130777931911632e-18,
+            2.622853252943004e-18,
+            7.868559758829014e-18,
+            -4.0723247874641385e-18,
+            1.7255613506203975e-18
+          ],
+          "any_inside": false
+        }
+      }
+    },
+    {
+      "links": [
+        "Link5",
+        "ctag_base_link"
+      ],
+      "joint6_rad": -1.5707963267948966,
+      "gripper_master_rad": 0.0,
+      "containment_by_component": {
+        "a_in_b": {
+          "status": "UNAVAILABLE_NON_WATERTIGHT_OR_INCONSISTENT",
+          "source_components": 1
+        },
+        "b_in_a": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 17,
+          "winding": [
+            7.730514850779382e-18,
+            6.6261555863823264e-18,
+            7.730514850779382e-18,
+            1.1595772276169072e-17,
+            2.208718528794109e-17,
+            -6.212020862233431e-18,
+            6.515719659942622e-17,
+            -1.1043592643970545e-18,
+            -4.417437057588218e-18,
+            1.0491413011772017e-17,
+            2.3191544552338144e-17,
+            -1.1595772276169072e-17,
+            2.4848083448933725e-17,
+            -6.350065770283063e-18,
+            1.3804490804963181e-18,
+            2.4157858908685565e-18,
+            3.382100247215979e-18
+          ],
+          "any_inside": false
+        }
+      }
+    },
+    {
+      "links": [
+        "Link5",
+        "ctag_base_link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": 0.0,
+      "containment_by_component": {
+        "a_in_b": {
+          "status": "UNAVAILABLE_NON_WATERTIGHT_OR_INCONSISTENT",
+          "source_components": 1
+        },
+        "b_in_a": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 17,
+          "winding": [
+            1.1043592643970545e-17,
+            -5.659841230034904e-18,
+            8.972919023226067e-18,
+            1.601320933375729e-17,
+            -2.7608981609926363e-18,
+            -3.865257425389691e-18,
+            1.3252311172764653e-17,
+            -1.8774107494749925e-17,
+            1.987846675914698e-17,
+            -9.387053747374963e-18,
+            -2.5676352897231515e-17,
+            -5.5217963219852725e-18,
+            -1.5461029701558764e-17,
+            -2.5193195719057803e-18,
+            8.834874115176436e-18,
+            -8.282694482977908e-19,
+            -1.6565388965955816e-18
+          ],
+          "any_inside": false
+        }
+      }
+    },
+    {
+      "links": [
+        "ctag_Left_1_Link",
+        "ctag_Left_2_Link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": 0.0,
+      "containment_by_component": {
+        "a_in_b": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 3,
+          "winding": [
+            -5.5217963219852725e-18,
+            3.3130777931911632e-18,
+            4.417437057588218e-18
+          ],
+          "any_inside": false
+        },
+        "b_in_a": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 3,
+          "winding": [
+            -2.3191544552338144e-17,
+            7.730514850779382e-18,
+            -1.1043592643970545e-18
+          ],
+          "any_inside": false
+        }
+      }
+    },
+    {
+      "links": [
+        "ctag_Right_1_Link",
+        "ctag_Right_2_Link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": 0.0,
+      "containment_by_component": {
+        "a_in_b": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 3,
+          "winding": [
+            2.5400263081132252e-17,
+            2.208718528794109e-18,
+            -2.0430646391345506e-17
+          ],
+          "any_inside": false
+        },
+        "b_in_a": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 3,
+          "winding": [
+            6.6261555863823264e-18,
+            4.417437057588218e-17,
+            7.730514850779382e-18
+          ],
+          "any_inside": false
+        }
+      }
+    },
+    {
+      "links": [
+        "ctag_Left_1_Link",
+        "ctag_Left_2_Link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": -0.455,
+      "containment_by_component": {
+        "a_in_b": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 3,
+          "winding": [
+            1.1043592643970545e-18,
+            -1.8774107494749925e-17,
+            8.834874115176436e-18
+          ],
+          "any_inside": false
+        },
+        "b_in_a": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 3,
+          "winding": [
+            2.3191544552338144e-17,
+            6.6261555863823264e-18,
+            -7.730514850779382e-18
+          ],
+          "any_inside": false
+        }
+      }
+    },
+    {
+      "links": [
+        "ctag_Right_1_Link",
+        "ctag_Right_2_Link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": -0.455,
+      "containment_by_component": {
+        "a_in_b": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 3,
+          "winding": [
+            0.0,
+            -1.2147951908367599e-17,
+            -2.5400263081132252e-17
+          ],
+          "any_inside": false
+        },
+        "b_in_a": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 3,
+          "winding": [
+            -6.6261555863823264e-18,
+            8.834874115176436e-18,
+            1.0215323195672753e-17
+          ],
+          "any_inside": false
+        }
+      }
+    },
+    {
+      "links": [
+        "ctag_Left_1_Link",
+        "ctag_Left_2_Link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": -0.91,
+      "containment_by_component": {
+        "a_in_b": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 3,
+          "winding": [
+            1.8774107494749925e-17,
+            1.3252311172764653e-17,
+            3.754821498949985e-17
+          ],
+          "any_inside": false
+        },
+        "b_in_a": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 3,
+          "winding": [
+            4.8591807633470396e-17,
+            -5.300924469105861e-17,
+            1.987846675914698e-17
+          ],
+          "any_inside": false
+        }
+      }
+    },
+    {
+      "links": [
+        "ctag_Right_1_Link",
+        "ctag_Right_2_Link"
+      ],
+      "joint6_rad": 0.0,
+      "gripper_master_rad": -0.91,
+      "containment_by_component": {
+        "a_in_b": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 3,
+          "winding": [
+            5.0800526162264503e-17,
+            3.092205940311753e-17,
+            3.3130777931911635e-17
+          ],
+          "any_inside": false
+        },
+        "b_in_a": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 3,
+          "winding": [
+            -1.5461029701558764e-17,
+            7.951386703658792e-17,
+            -1.6427344057906186e-17
+          ],
+          "any_inside": false
+        }
+      }
+    },
+    {
+      "links": [
+        "Link5",
+        "ctag_base_link"
+      ],
+      "joint6_rad": 1.5707963267948966,
+      "gripper_master_rad": 0.0,
+      "containment_by_component": {
+        "a_in_b": {
+          "status": "UNAVAILABLE_NON_WATERTIGHT_OR_INCONSISTENT",
+          "source_components": 1
+        },
+        "b_in_a": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 17,
+          "winding": [
+            -8.558784299077172e-18,
+            3.3130777931911632e-18,
+            -6.902245402481591e-19,
+            -3.3130777931911632e-18,
+            2.208718528794109e-18,
+            -1.4356670437161707e-17,
+            5.797886138084536e-18,
+            -1.1595772276169072e-17,
+            -1.2147951908367599e-17,
+            1.7117568598154344e-17,
+            8.834874115176436e-18,
+            -1.6565388965955818e-17,
+            -2.374372418453667e-17,
+            1.3804490804963181e-18,
+            -1.7255613506203975e-18,
+            5.5217963219852725e-18,
+            2.5538307989181883e-18
+          ],
+          "any_inside": false
+        }
+      }
+    },
+    {
+      "links": [
+        "Link5",
+        "ctag_base_link"
+      ],
+      "joint6_rad": 3.141592653589793,
+      "gripper_master_rad": 0.0,
+      "containment_by_component": {
+        "a_in_b": {
+          "status": "UNAVAILABLE_NON_WATERTIGHT_OR_INCONSISTENT",
+          "source_components": 1
+        },
+        "b_in_a": {
+          "status": "EACH_COMPONENT_VERTEX_WINDING",
+          "components": 17,
+          "winding": [
+            6.764200494431958e-18,
+            -4.417437057588218e-18,
+            6.350065770283063e-18,
+            -1.3528400988863916e-17,
+            -1.1043592643970545e-17,
+            -3.3130777931911632e-18,
+            3.3130777931911632e-18,
+            -2.657364479955412e-18,
+            -1.5909675652720066e-17,
+            1.766974823035287e-17,
+            -3.423513719630869e-17,
+            -2.981770013872047e-17,
+            5.5217963219852725e-18,
+            2.070673620744477e-18,
+            9.110963931275699e-18,
+            -6.212020862233431e-18,
+            3.2440553391663473e-18
+          ],
+          "any_inside": false
+        }
+      }
+    }
+  ],
+  "raw_evidence": {
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/result.json": {
+      "sha256": "f080f4c029b4d506abcfd09724cbf43107f423429d326a39d1bea016017e5beb",
+      "bytes": 81970
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-review-01/result.json": {
+      "sha256": "13a48c089b970c6bdec39ea8051e02af25ac2e69e4548baf1833205d1c214e39",
+      "bytes": 21875
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-00.png": {
+      "sha256": "18050fa45a3e7d3a4e88c4eeb2d04961fc691c17d5e1f8e2911c2fbf2c18a96b",
+      "bytes": 18343
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-01.png": {
+      "sha256": "9f2c2a23a20d78e59b059481c2be548efb003e13e90ad98c85b52fb6b1d96ec5",
+      "bytes": 18542
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-02.png": {
+      "sha256": "8a8ea80033eab3464dd7a898222520f06ac984117c278ee2c9048f9cfd41590c",
+      "bytes": 18152
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-03.png": {
+      "sha256": "2ce9e4023ed52da981c3809d4e7aca571ae99b62ad2434200c24e2202b4ee8e5",
+      "bytes": 19244
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-04.png": {
+      "sha256": "f3fb6ecbd36f0530266f80788a144bc6be161d14e5a978e38f8a7f5281f4be09",
+      "bytes": 19375
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-05.png": {
+      "sha256": "f645079fbdb3ac93e51c6dd54841359f4331c691eb219c8ca36a5b26bd00b5d2",
+      "bytes": 19161
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-06.png": {
+      "sha256": "844f661689695a7e649f3f554019d605ec055186796fdeba0e84b3d36ca732e2",
+      "bytes": 19079
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-07.png": {
+      "sha256": "1ec04520c5a6b99cb3f8b2840a1f5e07fa2ea70ceced7cc3c7c70f53b749f2c9",
+      "bytes": 19095
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-08.png": {
+      "sha256": "a6f7a49d8182cd27ff6cc8efccaf16934987d518940a4067a143f9be313f38f9",
+      "bytes": 18994
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-09.png": {
+      "sha256": "4fa736eb3fa6adf1a2495ebaa7e5502475a7a639797a3689c0af73261e9c3dc0",
+      "bytes": 18524
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-10.png": {
+      "sha256": "916c3b23027005624a3b07b089345b75c4b13d2de1b4894a721dfe23e0cf4c7d",
+      "bytes": 18327
+    }
+  },
+  "physical_commands_sent": 0
+}
