@@ -42,6 +42,8 @@ def main():
         summary['environment']={'torch':torch.__version__,'cuda_runtime':torch.version.cuda,'gpu':torch.cuda.get_device_name(0),
             'warp':wp.__version__,'cuda_home':os.environ.get('CUDA_HOME'),'curobo_commit':'a35a708ecfbb26eb9ab2d7ef22c65919c4fae4a9'}
         m=load_manifest(a.manifest)
+        summary['model_scope']=m.get('diagnostic_scope','FULL_ASSEMBLY_UNVERIFIED')
+        summary['model_manifest']=str(a.manifest)
         http=requests.Session();http.trust_env=False
         def capture(response,*args,**kwargs):
             row={'url':response.url,'status':response.status_code,'elapsed_s':response.elapsed.total_seconds(),

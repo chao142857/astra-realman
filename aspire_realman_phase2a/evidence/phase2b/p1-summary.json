@@ -1,0 +1,367 @@
+{
+  "status": "PASS_ARM_ONLY_DIAGNOSTIC_SOFTWARE_ONLY",
+  "full_realman_baseline_pass": false,
+  "model_scope": "ARM_ONLY_DIAGNOSTIC",
+  "model_manifest_sha256": "27125b0f2cf0d991709d9821ea2a1b3661770fa5051994a5512031271f2d55c0",
+  "active_spheres": 1416,
+  "body_source_agreement": {
+    "joint_origin_axis_limits": true,
+    "mesh_sha256_and_collision_origins": true
+  },
+  "gpu_fk": {
+    "ok": true,
+    "elapsed_s": 6.205966946959961,
+    "joint_names": [
+      "left_joint_1",
+      "left_joint_2",
+      "left_joint_3",
+      "left_joint_4",
+      "left_joint_5",
+      "left_joint_6",
+      "right_joint_1",
+      "right_joint_2",
+      "right_joint_3",
+      "right_joint_4",
+      "right_joint_5",
+      "right_joint_6"
+    ],
+    "pose_comparison": {
+      "left": {
+        "position_m": 8.050021753556505e-08,
+        "quaternion_abs_dot": 0.9999999829941696
+      },
+      "right": {
+        "position_m": 8.050021753556505e-08,
+        "quaternion_abs_dot": 0.9999999829941696
+      }
+    },
+    "poses": {
+      "left": {
+        "position": [
+          -0.7532615065574646,
+          -3.79293624064303e-07,
+          0.7475168704986572
+        ],
+        "quaternion_wxyz": [
+          7.312502248169039e-07,
+          0.47942879796028137,
+          -7.312528396141715e-07,
+          -0.8775807619094849
+        ]
+      },
+      "right": {
+        "position": [
+          0.7532615065574646,
+          3.79293624064303e-07,
+          0.7475168704986572
+        ],
+        "quaternion_wxyz": [
+          0.8775807619094849,
+          7.312528396141715e-07,
+          0.47942879796028137,
+          7.312502248169039e-07
+        ]
+      }
+    },
+    "collision_spheres_shape": [
+      1,
+      1,
+      1416,
+      4
+    ]
+  },
+  "default_constraints": {
+    "constraint:cspace": {
+      "maximum": 0.0,
+      "sum": 0.0
+    },
+    "constraint:self_collision": {
+      "maximum": 0.0,
+      "sum": 0.0
+    },
+    "constraint:scene_collision": {
+      "maximum": 0.0,
+      "sum": 0.0
+    },
+    "sum_constraint": 0.0
+  },
+  "cross_arm_sphere_pairs_checked": 501264,
+  "tests": {
+    "discovery": {
+      "ok": true,
+      "category": "NATIVE_MCP_PROTOCOL"
+    },
+    "cap_get_robot_state": {
+      "ok": true,
+      "category": "STUB_FEEDBACK_NATIVE_MCP",
+      "elapsed_s": 0.054611735977232456
+    },
+    "observe": {
+      "ok": true,
+      "category": "SYNTHETIC_IMAGE_NATIVE_MCP",
+      "elapsed_s": 0.07502147200284526
+    },
+    "native_cap_ik": {
+      "ok": true,
+      "category": "ACTUAL_CUROBO_GPU_IK_NATIVE_CAP",
+      "elapsed_s": 8.408363978960551,
+      "joint_positions": [
+        0.03999705985188484,
+        -0.40000012516975403,
+        0.8000004887580872,
+        4.3616855691652745e-06,
+        0.5999995470046997,
+        -2.0151583157712594e-06
+      ]
+    },
+    "cap_move_to_joints": {
+      "ok": true,
+      "category": "ACTUAL_CUROBO_GPU_THEN_STUB",
+      "elapsed_s": 31.011528806993738,
+      "steps_executed": 1,
+      "final_errors": {
+        "left": 8.344650281877364e-08
+      },
+      "diagnostics": {
+        "joint_error_rad": 8.344650281877364e-08
+      }
+    },
+    "cap_move_to_pose": {
+      "ok": true,
+      "category": "ACTUAL_CUROBO_GPU_THEN_STUB",
+      "elapsed_s": 2.81053715798771,
+      "steps_executed": 27,
+      "final_errors": {
+        "left": 2.5316745423357173e-06
+      },
+      "diagnostics": {
+        "position_error_m": 2.5316745423357173e-06,
+        "orientation_error_rad": 3.601028315304097e-07,
+        "trajectory_executed": true,
+        "joint_target_converged": true
+      }
+    },
+    "cap_move_synchronized": {
+      "ok": true,
+      "category": "ACTUAL_CUROBO_GPU_THEN_STUB",
+      "elapsed_s": 3.147717059997376,
+      "steps_executed": 27,
+      "final_errors": {
+        "left": 2.801225635818523e-07,
+        "right": 6.787012486229625e-08
+      },
+      "diagnostics": {
+        "execution_source": "STUB_ONLY",
+        "hardware_commands_sent": 0,
+        "request_id": "5136103126daecf45fce0b52405f04fed66a9f0134d362632b5ddfd638b6cde8",
+        "timed_dual_stub": true,
+        "hardware_synchronization_verified": false,
+        "duration_s": 1.3
+      }
+    },
+    "cap_set_gripper": {
+      "ok": true,
+      "category": "STUB_V17_GRIPPER_CONTRACT_ONLY",
+      "elapsed_s": 0.06262281903764233,
+      "steps_executed": 1,
+      "final_errors": {},
+      "diagnostics": {
+        "execution_source": "STUB_ONLY",
+        "contract": {
+          "arm": "left",
+          "opening_requested": 0.4329,
+          "wire_target": 432,
+          "v17_wire": {
+            "command": "hand_follow_pos",
+            "hand_pos": [
+              432
+            ]
+          },
+          "required_ack": {
+            "command": "hand_follow_pos",
+            "set_state": true
+          },
+          "retries": 0,
+          "grasp_confirmed": "UNKNOWN"
+        },
+        "hardware_commands_sent": 0,
+        "grasp_confirmed": "UNKNOWN"
+      }
+    },
+    "reject_limit": {
+      "ok": true,
+      "category": "NATIVE_PROVIDER_VALIDATION"
+    },
+    "reject_joint_order": {
+      "ok": true,
+      "category": "NATIVE_PROVIDER_VALIDATION"
+    },
+    "reject_unverified_world": {
+      "ok": true,
+      "category": "NATIVE_PROVIDER_VALIDATION"
+    },
+    "scene_collision_negative": {
+      "ok": true,
+      "category": "ACTUAL_CUROBO_GPU_SCENE_TERM"
+    }
+  },
+  "stub_feedback_events": 82,
+  "post_resample_gpu_checks": [
+    {
+      "ok": true,
+      "backend": "ACTUAL_CUROBO_GPU",
+      "checks": [
+        "joint_limits",
+        "velocity_limits",
+        "self_collision_including_cross_arm",
+        "scene_collision"
+      ],
+      "waypoints": 27,
+      "feasible": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "synthetic_layout": true,
+      "physical_execution": false
+    },
+    {
+      "ok": true,
+      "backend": "ACTUAL_CUROBO_GPU",
+      "checks": [
+        "joint_limits",
+        "velocity_limits",
+        "self_collision_including_cross_arm",
+        "scene_collision"
+      ],
+      "waypoints": 27,
+      "feasible": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "synthetic_layout": true,
+      "physical_execution": false
+    },
+    {
+      "ok": true,
+      "backend": "ACTUAL_CUROBO_GPU",
+      "checks": [
+        "joint_limits",
+        "velocity_limits",
+        "self_collision_including_cross_arm",
+        "scene_collision"
+      ],
+      "waypoints": 27,
+      "feasible": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "synthetic_layout": true,
+      "physical_execution": false
+    }
+  ],
+  "gpu_peak_allocated_bytes": 8131549184,
+  "gpu_peak_reserved_bytes": 8988393472,
+  "raw_evidence": {
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/model-arm-only/model.json": {
+      "sha256": "27125b0f2cf0d991709d9821ea2a1b3661770fa5051994a5512031271f2d55c0",
+      "bytes": 108125
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/gpu-arm-only-initial/result.json": {
+      "sha256": "7ce0804586097f02d251509af1cec118f80363ddc8f501687ef9a6d045d1823c",
+      "bytes": 3364
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/summary.json": {
+      "sha256": "821070544ead747afbb3b440cc350881b45e2b13b9f591c5b01fd59f870c5d01",
+      "bytes": 19259
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/wire.json": {
+      "sha256": "4d75b91e22081c7fd042e2af11b3a972697562eed5b6a9f465f536708bde8f44",
+      "bytes": 94435
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/stub-feedback.json": {
+      "sha256": "90246061f08659f02a549f5c03b3f9608de40e688785f35b459fcdd621452f96",
+      "bytes": 169834
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first.log": {
+      "sha256": "5e64580acf998b5745352c0c89f37a670cd14cb8479578c3cc50314671155087",
+      "bytes": 3380
+    }
+  },
+  "physical_commands_sent": 0,
+  "loaded_hardware_modules": []
+}
