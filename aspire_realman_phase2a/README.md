@@ -1,5 +1,7 @@
 # Phase 2A：双 RM65 离线规划与执行适配
 
+Phase 2B 后续实现与实际 GPU 正向闭环见 [PHASE2B.md](PHASE2B.md)。以下为冻结的 Phase 2A 验收范围；完整装配阻塞仍保留。
+
 基线 `24e71b77`；分支 `codex/aspire-realman-phase2a-offline-20261020`。
 ASPIRE 固定 `fa00f0ef2bc1d91d594b9aa502c22133c9f538f7`，其 cuRobo gitlink 固定
 `a35a708ecfbb26eb9ab2d7ef22c65919c4fae4a9`（V2）。

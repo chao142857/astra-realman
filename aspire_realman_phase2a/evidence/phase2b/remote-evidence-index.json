@@ -1,0 +1,1197 @@
+{
+  "baseline_realman": "02efb6026d05e9e0a58a2c69b2abf25aaf2f142a",
+  "aspire_commit": "fa00f0ef2bc1d91d594b9aa502c22133c9f538f7",
+  "aspire_files_verified": 71,
+  "native_session_cancel_patch": true,
+  "frozen_phase2a_evidence_changed": [],
+  "aspire_unexpected_changes": [],
+  "curobo_commit": "a35a708ecfbb26eb9ab2d7ef22c65919c4fae4a9",
+  "curobo_files_verified": 443,
+  "curobo_compatibility_patch_files": {
+    "curobo/_src/geom/collision/wp_collision_kernel.py": {
+      "original_sha256": "75c1be11f4511f20b00f6e1875f842aaf6ba7107269e04dd525c06012a7d1183",
+      "patched_sha256": "20635844f7a0de900ea5de60d3fb0c133cd1323e78ced7d3312aea3bfb0da5c4"
+    },
+    "curobo/_src/geom/collision/wp_sweep_collision_kernel.py": {
+      "original_sha256": "d983eecb00c91f5e201c6cdda7e7288622b8bca3694842ed8e086184f9bbcdef",
+      "patched_sha256": "3449d9bb7d00f78acf261ab851fb8e23754fc4e09f191612a4942e310257377b"
+    }
+  },
+  "curobo_unexpected_changes": [],
+  "models": [
+    {
+      "manifest": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/model-coincident/model.json",
+      "sha256": "8f0d64d5f0815bc30fca8e81bd3bd5c902fa0b486af3637b634e13097a359f7e",
+      "sphere_count": 2958,
+      "scope": "FULL_ASSEMBLY_UNVERIFIED",
+      "original_body_spheres_unchanged": true,
+      "original_ignore_pairs_unchanged": true,
+      "artifact_hashes_match": true,
+      "original_assets_hashes_match": true,
+      "layout": {
+        "status": "SYNTHETIC_OFFLINE_NOT_REAL_CALIBRATION",
+        "frame": "synthetic:realman_rm65_world",
+        "base_transforms": {
+          "left": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -0.65
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "right": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -0.65
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "purpose": "DELIBERATE COINCIDENT ROBOTS COLLISION NEGATIVE FIXTURE ONLY"
+      },
+      "actual_grasp_tcp": null,
+      "finger_configuration": {
+        "kind": "HISTORICAL_LOCKED_VALUES",
+        "values_rad": {
+          "ctag_Left_1_Joint": 0.0,
+          "ctag_Left_Support_Joint": 0.0,
+          "ctag_Left_2_Joint": 0.0,
+          "ctag_Right_2_Joint": 0.0,
+          "ctag_Right_1_Joint": 0.0,
+          "ctag_Right_Support_Joint": 0.0
+        },
+        "original_values_rad": {
+          "ctag_Left_1_Joint": 0.0,
+          "ctag_Left_Support_Joint": 0.0,
+          "ctag_Left_2_Joint": 0.0,
+          "ctag_Right_2_Joint": 0.0,
+          "ctag_Right_1_Joint": 0.0,
+          "ctag_Right_Support_Joint": 0.0
+        },
+        "physical_opening_mapping_verified": false
+      }
+    },
+    {
+      "manifest": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/model-finger-midpoints/model.json",
+      "sha256": "1cb68b31d041b7dfd5a323a69dd277eba562afaaf9c88e142b9f488bbc2314c3",
+      "sphere_count": 2958,
+      "scope": "FULL_ASSEMBLY_UNVERIFIED",
+      "original_body_spheres_unchanged": true,
+      "original_ignore_pairs_unchanged": true,
+      "artifact_hashes_match": true,
+      "original_assets_hashes_match": true,
+      "layout": {
+        "status": "SYNTHETIC_OFFLINE_NOT_REAL_CALIBRATION",
+        "frame": "synthetic:realman_rm65_world",
+        "base_transforms": {
+          "left": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -0.65
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "right": [
+            [
+              -1.0,
+              -1.2246467991473532e-16,
+              0.0,
+              0.65
+            ],
+            [
+              1.2246467991473532e-16,
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "purpose": "software planning validation only; never deploy as measured layout"
+      },
+      "actual_grasp_tcp": null,
+      "finger_configuration": {
+        "kind": "SYNTHETIC_SOURCE_URDF_LIMIT_MIDPOINTS",
+        "values_rad": {
+          "ctag_Left_1_Joint": -0.455,
+          "ctag_Left_Support_Joint": 0.455,
+          "ctag_Left_2_Joint": -0.455,
+          "ctag_Right_2_Joint": 0.455,
+          "ctag_Right_1_Joint": 0.455,
+          "ctag_Right_Support_Joint": 0.455
+        },
+        "original_values_rad": {
+          "ctag_Left_1_Joint": 0.0,
+          "ctag_Left_Support_Joint": 0.0,
+          "ctag_Left_2_Joint": 0.0,
+          "ctag_Right_2_Joint": 0.0,
+          "ctag_Right_1_Joint": 0.0,
+          "ctag_Right_Support_Joint": 0.0
+        },
+        "physical_opening_mapping_verified": false
+      }
+    },
+    {
+      "manifest": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/model-original/model.json",
+      "sha256": "254eabcc623f9d64317a87f2db2e5c56d8857bddbcc8f3dca359614979055252",
+      "sphere_count": 2958,
+      "scope": "FULL_ASSEMBLY_UNVERIFIED",
+      "original_body_spheres_unchanged": true,
+      "original_ignore_pairs_unchanged": true,
+      "artifact_hashes_match": true,
+      "original_assets_hashes_match": true,
+      "layout": {
+        "status": "SYNTHETIC_OFFLINE_NOT_REAL_CALIBRATION",
+        "frame": "synthetic:realman_rm65_world",
+        "base_transforms": {
+          "left": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -0.65
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "right": [
+            [
+              -1.0,
+              -1.2246467991473532e-16,
+              0.0,
+              0.65
+            ],
+            [
+              1.2246467991473532e-16,
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "purpose": "software planning validation only; never deploy as measured layout"
+      },
+      "actual_grasp_tcp": null,
+      "finger_configuration": {
+        "kind": "HISTORICAL_LOCKED_VALUES"
+      }
+    },
+    {
+      "manifest": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/model-preserved/model.json",
+      "sha256": "1162107bf912566443432ea6a32f6f35ddfbf06ab6f888631873af1ff5446bf9",
+      "sphere_count": 2958,
+      "scope": "FULL_ASSEMBLY_UNVERIFIED",
+      "original_body_spheres_unchanged": true,
+      "original_ignore_pairs_unchanged": true,
+      "artifact_hashes_match": true,
+      "original_assets_hashes_match": true,
+      "layout": {
+        "status": "SYNTHETIC_OFFLINE_NOT_REAL_CALIBRATION",
+        "frame": "synthetic:realman_rm65_world",
+        "base_transforms": {
+          "left": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -0.65
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "right": [
+            [
+              -1.0,
+              -1.2246467991473532e-16,
+              0.0,
+              0.65
+            ],
+            [
+              1.2246467991473532e-16,
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "purpose": "software planning validation only; never deploy as measured layout"
+      },
+      "actual_grasp_tcp": null,
+      "finger_configuration": {
+        "kind": "HISTORICAL_LOCKED_VALUES"
+      }
+    },
+    {
+      "manifest": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/model-arm-only/model.json",
+      "sha256": "27125b0f2cf0d991709d9821ea2a1b3661770fa5051994a5512031271f2d55c0",
+      "sphere_count": 1416,
+      "scope": "ARM_ONLY_DIAGNOSTIC",
+      "original_body_spheres_unchanged": true,
+      "original_ignore_pairs_unchanged": true,
+      "artifact_hashes_match": true,
+      "original_assets_hashes_match": true,
+      "layout": {
+        "status": "SYNTHETIC_OFFLINE_NOT_REAL_CALIBRATION",
+        "frame": "synthetic:realman_rm65_world",
+        "base_transforms": {
+          "left": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -0.65
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "right": [
+            [
+              -1.0,
+              -1.2246467991473532e-16,
+              0.0,
+              0.65
+            ],
+            [
+              1.2246467991473532e-16,
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "purpose": "software planning validation only; never deploy as measured layout"
+      },
+      "actual_grasp_tcp": null,
+      "finger_configuration": {
+        "kind": "HISTORICAL_LOCKED_VALUES",
+        "values_rad": {},
+        "original_values_rad": {},
+        "physical_opening_mapping_verified": false
+      }
+    },
+    {
+      "manifest": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/model-arm-only-coincident/model.json",
+      "sha256": "64a9598d6d2571699be28de4a8c9d37e21e0ea2bfaa083f5829853984bb6eaf7",
+      "sphere_count": 1416,
+      "scope": "ARM_ONLY_DIAGNOSTIC",
+      "original_body_spheres_unchanged": true,
+      "original_ignore_pairs_unchanged": true,
+      "artifact_hashes_match": true,
+      "original_assets_hashes_match": true,
+      "layout": {
+        "status": "SYNTHETIC_OFFLINE_NOT_REAL_CALIBRATION",
+        "frame": "synthetic:realman_rm65_world",
+        "base_transforms": {
+          "left": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -0.65
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "right": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -0.65
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "purpose": "ARM_ONLY_DIAGNOSTIC COINCIDENT CROSS_ARM_NEGATIVE ONLY"
+      },
+      "actual_grasp_tcp": null,
+      "finger_configuration": {
+        "kind": "HISTORICAL_LOCKED_VALUES",
+        "values_rad": {},
+        "original_values_rad": {},
+        "physical_opening_mapping_verified": false
+      }
+    }
+  ],
+  "raw_evidence": [
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-review-01/result.json",
+      "bytes": 21875,
+      "sha256": "13a48c089b970c6bdec39ea8051e02af25ac2e69e4548baf1833205d1c214e39"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-review-01.log",
+      "bytes": 21876,
+      "sha256": "47311b658078c50c35d9eb905588a52e738ed39b405df0be58a4463a12b7d688"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-00.png",
+      "bytes": 18343,
+      "sha256": "18050fa45a3e7d3a4e88c4eeb2d04961fc691c17d5e1f8e2911c2fbf2c18a96b"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-01.png",
+      "bytes": 18542,
+      "sha256": "9f2c2a23a20d78e59b059481c2be548efb003e13e90ad98c85b52fb6b1d96ec5"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-02.png",
+      "bytes": 18152,
+      "sha256": "8a8ea80033eab3464dd7a898222520f06ac984117c278ee2c9048f9cfd41590c"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-03.png",
+      "bytes": 19244,
+      "sha256": "2ce9e4023ed52da981c3809d4e7aca571ae99b62ad2434200c24e2202b4ee8e5"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-04.png",
+      "bytes": 19375,
+      "sha256": "f3fb6ecbd36f0530266f80788a144bc6be161d14e5a978e38f8a7f5281f4be09"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-05.png",
+      "bytes": 19161,
+      "sha256": "f645079fbdb3ac93e51c6dd54841359f4331c691eb219c8ca36a5b26bd00b5d2"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-06.png",
+      "bytes": 19079,
+      "sha256": "844f661689695a7e649f3f554019d605ec055186796fdeba0e84b3d36ca732e2"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-07.png",
+      "bytes": 19095,
+      "sha256": "1ec04520c5a6b99cb3f8b2840a1f5e07fa2ea70ceced7cc3c7c70f53b749f2c9"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-08.png",
+      "bytes": 18994,
+      "sha256": "a6f7a49d8182cd27ff6cc8efccaf16934987d518940a4067a143f9be313f38f9"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-09.png",
+      "bytes": 18524,
+      "sha256": "4fa736eb3fa6adf1a2495ebaa7e5502475a7a639797a3689c0af73261e9c3dc0"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/pair-10.png",
+      "bytes": 18327,
+      "sha256": "916c3b23027005624a3b07b089345b75c4b13d2de1b4894a721dfe23e0cf4c7d"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01/result.json",
+      "bytes": 81970,
+      "sha256": "f080f4c029b4d506abcfd09724cbf43107f423429d326a39d1bea016017e5beb"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/geometry-source-01.log",
+      "bytes": 9184,
+      "sha256": "ade69268063067fd3f60c31b5146ece9b90b0814e4d5be403e8336ef90c55800"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/gpu-arm-only-cross-negative/actual-gpu-pair-values.npy",
+      "bytes": 2398696,
+      "sha256": "24e9d8650b003486960e72863ca9a685262b411c711234b3b33e342743b81d0d"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/gpu-arm-only-cross-negative/result.json",
+      "bytes": 7126,
+      "sha256": "4bb59b05981bf7c9839d8d4f5d34343909815c575749d87120767de52381b58a"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/gpu-arm-only-cross-negative.log",
+      "bytes": 7127,
+      "sha256": "b4c5619db3af0dc757696408bf90bb368b61ebd905b17197d827ff4a36dde5d1"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/gpu-arm-only-initial/actual-gpu-pair-values.npy",
+      "bytes": 2398696,
+      "sha256": "18d5105edaa5fd6ddb37ad8c71911273242982751196411aa4535712e051f361"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/gpu-arm-only-initial/result.json",
+      "bytes": 3364,
+      "sha256": "7ce0804586097f02d251509af1cec118f80363ddc8f501687ef9a6d045d1823c"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/gpu-arm-only-initial.log",
+      "bytes": 3365,
+      "sha256": "ddb9d2834e4fa97e01dd416fa9429abe6592044e7ba6a4c1efe7bb72d2879958"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/model-arm-only/model.json",
+      "bytes": 108125,
+      "sha256": "27125b0f2cf0d991709d9821ea2a1b3661770fa5051994a5512031271f2d55c0"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/model-arm-only/rm65_dual.yml",
+      "bytes": 164801,
+      "sha256": "e00e9f365c94df7c938257bb853168628c1814330438e5f30298195e335d7473"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/model-arm-only/rm65_dual_SYNTHETIC.urdf",
+      "bytes": 17527,
+      "sha256": "b6391132ff9643b4525ab00b7dcfa2cda6caa776f48059912d41dbbed04a5264"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/model-arm-only/single_arm_locked/41478da8f16ffb29b4b9.yml",
+      "bytes": 164600,
+      "sha256": "66fb4762997e61083b016d39d8eb8fcfba04994c6768e4e3fd95741e4afb3315"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/model-arm-only/single_arm_locked/72efcb4cdf6152547721.yml",
+      "bytes": 164697,
+      "sha256": "330ee0b1b1de95292eb64942df3c1d634dc53192e1cb79a6c63e328b912751aa"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/model-arm-only-coincident/model.json",
+      "bytes": 108094,
+      "sha256": "64a9598d6d2571699be28de4a8c9d37e21e0ea2bfaa083f5829853984bb6eaf7"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/model-arm-only-coincident/rm65_dual.yml",
+      "bytes": 164812,
+      "sha256": "5975b40cbce4e2d657977c446561be99acb0940d3a71c6b4c78e06206b3895df"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/model-arm-only-coincident/rm65_dual_SYNTHETIC.urdf",
+      "bytes": 17515,
+      "sha256": "7a2a0e6aacc3c8f178fe7da58a872a85d3b9abb070b0dc1481505c69e2635afe"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/model-arm-only-coincident.log",
+      "bytes": 182,
+      "sha256": "bb44dab604d93907a6de1509eba1d08e803b30d56a42356cccbbd6ccc3ce8233"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/actual-gpu-synchronized-resampled.npz",
+      "bytes": 3344,
+      "sha256": "f3d88276f780f7d5931c064618945cca49fd195b61864f579cca517dc145634e"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/controller_error/cfddaec559def3dff8ffc31a52408fa5bcfabb906686af5c8c7d3c00546e2c50.claim.json",
+      "bytes": 7942,
+      "sha256": "5cafa1904a5d5b4dfb204ee1df60dc6d31f4427aa882ba1836fdc9508fd85719"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/controller_error/cfddaec559def3dff8ffc31a52408fa5bcfabb906686af5c8c7d3c00546e2c50.result.json",
+      "bytes": 9184,
+      "sha256": "330bc97971e53a1dcb51a0cd10117b9ffd8b3f1592d8acf1ff02e7da339f5333"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/controller_error_feedback/d13b8d9d10860ad69b6676f8557c02b4700169b1c6a310c5933c718073bfd26a.claim.json",
+      "bytes": 7951,
+      "sha256": "c2d2e6c21b3cee847799ba1107824736f990abe1c96198c4f80417bf261e03d3"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/controller_error_feedback/d13b8d9d10860ad69b6676f8557c02b4700169b1c6a310c5933c718073bfd26a.result.json",
+      "bytes": 12287,
+      "sha256": "c5ea00de1cc2938103825a6cf204df644d78976c137c214924935caafd04d286"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/duplicate/b2893e4075ef2e8b9658fe048323c84ffd6ac32f63d3da6c27945d8ba1d3644a.claim.json",
+      "bytes": 7935,
+      "sha256": "6f546454745e80edd85c1df7ce87b6ccfb0878e4031eb03919f6da67cfaedc6c"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/duplicate/b2893e4075ef2e8b9658fe048323c84ffd6ac32f63d3da6c27945d8ba1d3644a.result.json",
+      "bytes": 308,
+      "sha256": "c415d381eaede7a74d777bd38e81f0bf62b55e76359fbedd648f35ebe2cc7310"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/feedback_mismatch/d9295363302d766f093dcee2c1fe1238da7b1ae1efaef964f2922c6f7afcafae.claim.json",
+      "bytes": 7943,
+      "sha256": "f5cef727abbb45bcd3403a5c74122a992e31c6dd8cfeb4718fbd6febed5169fa"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/feedback_mismatch/d9295363302d766f093dcee2c1fe1238da7b1ae1efaef964f2922c6f7afcafae.result.json",
+      "bytes": 12246,
+      "sha256": "fa10a7c7032c4ba2c989d0706fc5b15db741d95e54a91aec6e04f17c95e3cbec"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/summary.json",
+      "bytes": 2187,
+      "sha256": "b4c1174a3bc2fdc08e2fe2737ae52634037b78e95ca95c4f871a9f9f0208f243"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/timeout/a09d4b05084e4aa2d75e307c96a8ecc22fee0247596656602911734373a6eb0c.claim.json",
+      "bytes": 7933,
+      "sha256": "b1ab49cd82bc0d4af9867c953d66261eb3fc08319182920eb3c48f8c6db2dbb9"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/timeout/a09d4b05084e4aa2d75e307c96a8ecc22fee0247596656602911734373a6eb0c.result.json",
+      "bytes": 6105,
+      "sha256": "6701e5cc5737f0671fed2feccccfeef4e951c01377d86543b59153071f46327e"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/unexpected_exception/a3b8020bcd6c7ae8053aa25f11d7c4fb3c8ba2b188a85cca39ed18e5ea9b9ffd.claim.json",
+      "bytes": 7946,
+      "sha256": "ada029fd7e4b58d6ef23a12e9da991a41273a9aa371b43c4e3c25eaf6a587088"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/gpu-trajectory-faults/unexpected_exception/a3b8020bcd6c7ae8053aa25f11d7c4fb3c8ba2b188a85cca39ed18e5ea9b9ffd.result.json",
+      "bytes": 9281,
+      "sha256": "122e73e6a98bbb8aad744a66ef256fe1d6adb9e98f09889d7feeb3174dcc056e"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/stub-ledger/370241d7503fd7805845adcc34c0df8c91c4f4598c26da4aa96fd9095a13530a.claim.json",
+      "bytes": 4285,
+      "sha256": "7adbadd4352ec3def0c4eb1b67ab4f96e48212c1a74821f549a908c0afdc950c"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/stub-ledger/370241d7503fd7805845adcc34c0df8c91c4f4598c26da4aa96fd9095a13530a.result.json",
+      "bytes": 50924,
+      "sha256": "313d0d2df96fa665b9657da1d14edb35ca7d6b231c7cb3a39441e75de144fa57"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/stub-ledger/4cfd688fb8a6f11ba6128e032bdaafece984ba585147ff46620200ed2125955c.claim.json",
+      "bytes": 3320,
+      "sha256": "0023ef423fca0d6035e888a8937e9de172a5fe7276b197512e557829c4cc41f8"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/stub-ledger/4cfd688fb8a6f11ba6128e032bdaafece984ba585147ff46620200ed2125955c.result.json",
+      "bytes": 49129,
+      "sha256": "1c6573ff518eb7d24835b0a057ea205d2139dd9850b524659d3a42eeb5b995a1"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/stub-ledger/59b4f569f044829ecbe843b8c099d54129f5dcd30a8d233a48884fcdf0f24853.claim.json",
+      "bytes": 7972,
+      "sha256": "c5125371bc62c548f8df996d68ad2bb2e5d51d627e088486fd756b93739a4e12"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/stub-ledger/59b4f569f044829ecbe843b8c099d54129f5dcd30a8d233a48884fcdf0f24853.result.json",
+      "bytes": 83327,
+      "sha256": "4d692288c592bfc3bd5e3e6e2d5633279e5691baee215127203d7ef8f7088b9b"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/stub-ledger/f33b84fdf7d00b04061988bfc0847774e6505814725a8ea4e700d375ad07f988.claim.json",
+      "bytes": 373,
+      "sha256": "b833d1aca67b000288c1f15da5c1933ba664ecf8a2f96f1bfdc3f47a717360b8"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/stub-ledger/f33b84fdf7d00b04061988bfc0847774e6505814725a8ea4e700d375ad07f988.result.json",
+      "bytes": 1250,
+      "sha256": "b5ee81772490cef917645cac8b98b24dc0cc3c34b2f7bdbfbe83e98595ead4e2"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/summary.json",
+      "bytes": 23299,
+      "sha256": "1195ced9732483eadd1362665b80bfaef69fa2faa7d9afdd9d8afc37473961f7"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/wire.json",
+      "bytes": 109142,
+      "sha256": "8c654b936b02188a0fb16c82a846efc35b8b944a2b3e5e9ccdc959f3f7eb380e"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01.log",
+      "bytes": 8409,
+      "sha256": "1dd90e570ea71d44f36e91aede780fcda4f95834a2dbe524aa88972e56dbe222"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/actual-gpu-synchronized-resampled.npz",
+      "bytes": 3344,
+      "sha256": "f3d88276f780f7d5931c064618945cca49fd195b61864f579cca517dc145634e"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/controller_error/cfddaec559def3dff8ffc31a52408fa5bcfabb906686af5c8c7d3c00546e2c50.claim.json",
+      "bytes": 7942,
+      "sha256": "5cafa1904a5d5b4dfb204ee1df60dc6d31f4427aa882ba1836fdc9508fd85719"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/controller_error/cfddaec559def3dff8ffc31a52408fa5bcfabb906686af5c8c7d3c00546e2c50.result.json",
+      "bytes": 9184,
+      "sha256": "330bc97971e53a1dcb51a0cd10117b9ffd8b3f1592d8acf1ff02e7da339f5333"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/controller_error_feedback/d13b8d9d10860ad69b6676f8557c02b4700169b1c6a310c5933c718073bfd26a.claim.json",
+      "bytes": 7951,
+      "sha256": "c2d2e6c21b3cee847799ba1107824736f990abe1c96198c4f80417bf261e03d3"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/controller_error_feedback/d13b8d9d10860ad69b6676f8557c02b4700169b1c6a310c5933c718073bfd26a.result.json",
+      "bytes": 12287,
+      "sha256": "c5ea00de1cc2938103825a6cf204df644d78976c137c214924935caafd04d286"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/duplicate/b2893e4075ef2e8b9658fe048323c84ffd6ac32f63d3da6c27945d8ba1d3644a.claim.json",
+      "bytes": 7935,
+      "sha256": "6f546454745e80edd85c1df7ce87b6ccfb0878e4031eb03919f6da67cfaedc6c"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/duplicate/b2893e4075ef2e8b9658fe048323c84ffd6ac32f63d3da6c27945d8ba1d3644a.result.json",
+      "bytes": 308,
+      "sha256": "c415d381eaede7a74d777bd38e81f0bf62b55e76359fbedd648f35ebe2cc7310"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/feedback_mismatch/d9295363302d766f093dcee2c1fe1238da7b1ae1efaef964f2922c6f7afcafae.claim.json",
+      "bytes": 7943,
+      "sha256": "f5cef727abbb45bcd3403a5c74122a992e31c6dd8cfeb4718fbd6febed5169fa"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/feedback_mismatch/d9295363302d766f093dcee2c1fe1238da7b1ae1efaef964f2922c6f7afcafae.result.json",
+      "bytes": 12246,
+      "sha256": "fa10a7c7032c4ba2c989d0706fc5b15db741d95e54a91aec6e04f17c95e3cbec"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/summary.json",
+      "bytes": 2187,
+      "sha256": "b4c1174a3bc2fdc08e2fe2737ae52634037b78e95ca95c4f871a9f9f0208f243"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/timeout/a09d4b05084e4aa2d75e307c96a8ecc22fee0247596656602911734373a6eb0c.claim.json",
+      "bytes": 7933,
+      "sha256": "b1ab49cd82bc0d4af9867c953d66261eb3fc08319182920eb3c48f8c6db2dbb9"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/timeout/a09d4b05084e4aa2d75e307c96a8ecc22fee0247596656602911734373a6eb0c.result.json",
+      "bytes": 6105,
+      "sha256": "6701e5cc5737f0671fed2feccccfeef4e951c01377d86543b59153071f46327e"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/unexpected_exception/a3b8020bcd6c7ae8053aa25f11d7c4fb3c8ba2b188a85cca39ed18e5ea9b9ffd.claim.json",
+      "bytes": 7946,
+      "sha256": "ada029fd7e4b58d6ef23a12e9da991a41273a9aa371b43c4e3c25eaf6a587088"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/unexpected_exception/a3b8020bcd6c7ae8053aa25f11d7c4fb3c8ba2b188a85cca39ed18e5ea9b9ffd.result.json",
+      "bytes": 9281,
+      "sha256": "122e73e6a98bbb8aad744a66ef256fe1d6adb9e98f09889d7feeb3174dcc056e"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/stub-feedback.json",
+      "bytes": 192792,
+      "sha256": "5f394f2907637ebbd23994f399bd263ef617ace3ef7592726437154ec0c5591c"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/stub-ledger/047da3b7168278f4e1bf5b59a37ac58074ac3477e1179fe7b116330c04a5d4aa.claim.json",
+      "bytes": 8059,
+      "sha256": "f5ea7ad68774e508fdd139c59d9f9d8c9f376c55285321ea41a93029c19439e7"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/stub-ledger/047da3b7168278f4e1bf5b59a37ac58074ac3477e1179fe7b116330c04a5d4aa.result.json",
+      "bytes": 24921,
+      "sha256": "cd096aa70e242cf17a6f3272cc05d547c3586d016ddcf454bbfecb5329c2e62a"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/stub-ledger/370241d7503fd7805845adcc34c0df8c91c4f4598c26da4aa96fd9095a13530a.claim.json",
+      "bytes": 4285,
+      "sha256": "7adbadd4352ec3def0c4eb1b67ab4f96e48212c1a74821f549a908c0afdc950c"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/stub-ledger/370241d7503fd7805845adcc34c0df8c91c4f4598c26da4aa96fd9095a13530a.result.json",
+      "bytes": 50924,
+      "sha256": "313d0d2df96fa665b9657da1d14edb35ca7d6b231c7cb3a39441e75de144fa57"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/stub-ledger/4cfd688fb8a6f11ba6128e032bdaafece984ba585147ff46620200ed2125955c.claim.json",
+      "bytes": 3320,
+      "sha256": "0023ef423fca0d6035e888a8937e9de172a5fe7276b197512e557829c4cc41f8"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/stub-ledger/4cfd688fb8a6f11ba6128e032bdaafece984ba585147ff46620200ed2125955c.result.json",
+      "bytes": 49129,
+      "sha256": "1c6573ff518eb7d24835b0a057ea205d2139dd9850b524659d3a42eeb5b995a1"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/stub-ledger/59b4f569f044829ecbe843b8c099d54129f5dcd30a8d233a48884fcdf0f24853.claim.json",
+      "bytes": 7972,
+      "sha256": "c5125371bc62c548f8df996d68ad2bb2e5d51d627e088486fd756b93739a4e12"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/stub-ledger/59b4f569f044829ecbe843b8c099d54129f5dcd30a8d233a48884fcdf0f24853.result.json",
+      "bytes": 83327,
+      "sha256": "4d692288c592bfc3bd5e3e6e2d5633279e5691baee215127203d7ef8f7088b9b"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/stub-ledger/cb8307b9aa97c3daa3ac6f3f667b7f5d3f48ad19429fc7a0b335680dcaafd77b.claim.json",
+      "bytes": 373,
+      "sha256": "35e4db869ea396f234e02b5d858fc355170da3bf293cd777011979a7835346b0"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/stub-ledger/cb8307b9aa97c3daa3ac6f3f667b7f5d3f48ad19429fc7a0b335680dcaafd77b.result.json",
+      "bytes": 1250,
+      "sha256": "95871cd597a7577e11d9b4499d616867a65405d53765ab0146ff3b45c69f5edc"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/summary.json",
+      "bytes": 32193,
+      "sha256": "aa02abb204fe6b1a5876f8f585288976c3923b6b293b0df41142b1dd8328ec54"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/wire.json",
+      "bytes": 127608,
+      "sha256": "f8e638f8cf6038df10ef6cfaa21cfe5c91127d3e4ea7da0828947bb0ef72ae91"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02.log",
+      "bytes": 9067,
+      "sha256": "a08c5ad44b4cb5e3e60fbe87ff6da9c92d9e9c8d75ebf9f1bf010d40244c4514"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/stub-feedback.json",
+      "bytes": 169834,
+      "sha256": "90246061f08659f02a549f5c03b3f9608de40e688785f35b459fcdd621452f96"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/stub-ledger/370241d7503fd7805845adcc34c0df8c91c4f4598c26da4aa96fd9095a13530a.claim.json",
+      "bytes": 4285,
+      "sha256": "7adbadd4352ec3def0c4eb1b67ab4f96e48212c1a74821f549a908c0afdc950c"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/stub-ledger/370241d7503fd7805845adcc34c0df8c91c4f4598c26da4aa96fd9095a13530a.result.json",
+      "bytes": 50924,
+      "sha256": "313d0d2df96fa665b9657da1d14edb35ca7d6b231c7cb3a39441e75de144fa57"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/stub-ledger/4cfd688fb8a6f11ba6128e032bdaafece984ba585147ff46620200ed2125955c.claim.json",
+      "bytes": 3320,
+      "sha256": "0023ef423fca0d6035e888a8937e9de172a5fe7276b197512e557829c4cc41f8"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/stub-ledger/4cfd688fb8a6f11ba6128e032bdaafece984ba585147ff46620200ed2125955c.result.json",
+      "bytes": 49129,
+      "sha256": "1c6573ff518eb7d24835b0a057ea205d2139dd9850b524659d3a42eeb5b995a1"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/stub-ledger/59b4f569f044829ecbe843b8c099d54129f5dcd30a8d233a48884fcdf0f24853.claim.json",
+      "bytes": 7972,
+      "sha256": "c5125371bc62c548f8df996d68ad2bb2e5d51d627e088486fd756b93739a4e12"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/stub-ledger/59b4f569f044829ecbe843b8c099d54129f5dcd30a8d233a48884fcdf0f24853.result.json",
+      "bytes": 83327,
+      "sha256": "4d692288c592bfc3bd5e3e6e2d5633279e5691baee215127203d7ef8f7088b9b"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/stub-ledger/de1907809e25ab0742035ee6bf711c77f64e5b7e4f42fd4390167ac72f6b2998.claim.json",
+      "bytes": 373,
+      "sha256": "45611fe890d2b96247193af39f43f176f3c912fd92f32c9f9f001aba1b69f6f0"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/stub-ledger/de1907809e25ab0742035ee6bf711c77f64e5b7e4f42fd4390167ac72f6b2998.result.json",
+      "bytes": 1250,
+      "sha256": "b7065e1a410d2efc8e7300f50b0e5ed5e1de12eb0c80cbf7fca0bbfa1371e378"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/summary.json",
+      "bytes": 19259,
+      "sha256": "821070544ead747afbb3b440cc350881b45e2b13b9f591c5b01fd59f870c5d01"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first/wire.json",
+      "bytes": 94435,
+      "sha256": "4d75b91e22081c7fd042e2af11b3a972697562eed5b6a9f465f536708bde8f44"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-first.log",
+      "bytes": 3380,
+      "sha256": "5e64580acf998b5745352c0c89f37a670cd14cb8479578c3cc50314671155087"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-cancel-patch.log",
+      "bytes": 853,
+      "sha256": "8c59d372c053af9f5dead50ab752a48b45c03f5a2d3eeebf87d62c0f176fa5f6"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_cancellation_stops_remaining_ticks/0/77e45ddc6c4c9043d345ec231e5feb8ed33d7adfd486d7d057b4ed0ee08f26f5.claim.json",
+      "bytes": 329,
+      "sha256": "e8440328e153e4ba1301241b9eb0d48eeb528fa31ff7366452ad1f2bde0f04ff"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_cancellation_stops_remaining_ticks/0/77e45ddc6c4c9043d345ec231e5feb8ed33d7adfd486d7d057b4ed0ee08f26f5.result.json",
+      "bytes": 255,
+      "sha256": "7e7f5f245dbfda399445cd4e5c1da4dfae5426ad55b7d4aa3aafaaaa124241c7"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_cancellation_stops_remaining_ticks/0/fd8ef4a3f4f22e9b4d1f578a82382f49a47b4b401f11b715b9438177f22baca8.claim.json",
+      "bytes": 877,
+      "sha256": "579b3196f323386be221a6604474b7e096713a2d6cba9d002fa35674c24e61e6"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_cancellation_stops_remaining_ticks/0/fd8ef4a3f4f22e9b4d1f578a82382f49a47b4b401f11b715b9438177f22baca8.result.json",
+      "bytes": 2970,
+      "sha256": "59599c6b827158c6d03904395e9ea8f92196449393ddbaba8d8e5d843f55acc0"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_controller_error_and_timeout_never_retry/0/fd8ef4a3f4f22e9b4d1f578a82382f49a47b4b401f11b715b9438177f22baca8.claim.json",
+      "bytes": 877,
+      "sha256": "579b3196f323386be221a6604474b7e096713a2d6cba9d002fa35674c24e61e6"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_controller_error_and_timeout_never_retry/0/fd8ef4a3f4f22e9b4d1f578a82382f49a47b4b401f11b715b9438177f22baca8.result.json",
+      "bytes": 2973,
+      "sha256": "1d5b9a02dd2b99f7c7db1a0dbe01d96ae9550f3da1b303acf9e563ce5774064f"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_controller_error_and_timeout_never_retry/1/fd8ef4a3f4f22e9b4d1f578a82382f49a47b4b401f11b715b9438177f22baca8.claim.json",
+      "bytes": 877,
+      "sha256": "579b3196f323386be221a6604474b7e096713a2d6cba9d002fa35674c24e61e6"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_controller_error_and_timeout_never_retry/1/fd8ef4a3f4f22e9b4d1f578a82382f49a47b4b401f11b715b9438177f22baca8.result.json",
+      "bytes": 5792,
+      "sha256": "d9dd32fa60925bc165d2bdeafca8038eea330733d563f5769f9fd006b2db735d"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_duplicate_claim_persists_after_failure/0/8082d8aa69408b1abb0b136be13cabe21dc23e2e01e5ffbbb33666d57f1176e0.claim.json",
+      "bytes": 821,
+      "sha256": "8a16754f0c33678f4f4f206ed6a1237e5e0ecec1a090c81bb18e599ba6f76cec"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_duplicate_claim_persists_after_failure/0/8082d8aa69408b1abb0b136be13cabe21dc23e2e01e5ffbbb33666d57f1176e0.result.json",
+      "bytes": 308,
+      "sha256": "c415d381eaede7a74d777bd38e81f0bf62b55e76359fbedd648f35ebe2cc7310"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_gripper_wire_ack_and_executor_exclusion/0/bcef9af286037bd7d29a7c9776839eda9fb249a8f651261e08ccc27fbbb1ee07.claim.json",
+      "bytes": 329,
+      "sha256": "d3bf8268edff4f13cf75eafca33809699e9c89f70d0fd85bf2bdd6a76b9e768d"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_gripper_wire_ack_and_executor_exclusion/0/bcef9af286037bd7d29a7c9776839eda9fb249a8f651261e08ccc27fbbb1ee07.result.json",
+      "bytes": 1207,
+      "sha256": "40452317ac6522261cc97eec10df5260212fd0fc25106bda88315b25d4c60b70"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_shared_time_grid_and_feedback/0/8ccf2f9e9cc41e7ad5bfd121bd355453c7b19d4f5b9c3df99d11fa90f6d05af3.claim.json",
+      "bytes": 817,
+      "sha256": "0af500421f553af22a604031272e2787653e9e80cced6ed7a43cdfccd527bce8"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression/test_shared_time_grid_and_feedback/0/8ccf2f9e9cc41e7ad5bfd121bd355453c7b19d4f5b9c3df99d11fa90f6d05af3.result.json",
+      "bytes": 8476,
+      "sha256": "e36346e59054fcc8fa453828d853d2f8eae8eb2fc41ce655d22b7df33653718e"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_cancellation_stops_remaining_ticks/0/77e45ddc6c4c9043d345ec231e5feb8ed33d7adfd486d7d057b4ed0ee08f26f5.claim.json",
+      "bytes": 329,
+      "sha256": "e8440328e153e4ba1301241b9eb0d48eeb528fa31ff7366452ad1f2bde0f04ff"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_cancellation_stops_remaining_ticks/0/77e45ddc6c4c9043d345ec231e5feb8ed33d7adfd486d7d057b4ed0ee08f26f5.result.json",
+      "bytes": 255,
+      "sha256": "7e7f5f245dbfda399445cd4e5c1da4dfae5426ad55b7d4aa3aafaaaa124241c7"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_cancellation_stops_remaining_ticks/0/fd8ef4a3f4f22e9b4d1f578a82382f49a47b4b401f11b715b9438177f22baca8.claim.json",
+      "bytes": 877,
+      "sha256": "579b3196f323386be221a6604474b7e096713a2d6cba9d002fa35674c24e61e6"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_cancellation_stops_remaining_ticks/0/fd8ef4a3f4f22e9b4d1f578a82382f49a47b4b401f11b715b9438177f22baca8.result.json",
+      "bytes": 2970,
+      "sha256": "59599c6b827158c6d03904395e9ea8f92196449393ddbaba8d8e5d843f55acc0"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_controller_error_and_timeout_never_retry/0/fd8ef4a3f4f22e9b4d1f578a82382f49a47b4b401f11b715b9438177f22baca8.claim.json",
+      "bytes": 877,
+      "sha256": "579b3196f323386be221a6604474b7e096713a2d6cba9d002fa35674c24e61e6"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_controller_error_and_timeout_never_retry/0/fd8ef4a3f4f22e9b4d1f578a82382f49a47b4b401f11b715b9438177f22baca8.result.json",
+      "bytes": 2973,
+      "sha256": "1d5b9a02dd2b99f7c7db1a0dbe01d96ae9550f3da1b303acf9e563ce5774064f"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_controller_error_and_timeout_never_retry/1/fd8ef4a3f4f22e9b4d1f578a82382f49a47b4b401f11b715b9438177f22baca8.claim.json",
+      "bytes": 877,
+      "sha256": "579b3196f323386be221a6604474b7e096713a2d6cba9d002fa35674c24e61e6"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_controller_error_and_timeout_never_retry/1/fd8ef4a3f4f22e9b4d1f578a82382f49a47b4b401f11b715b9438177f22baca8.result.json",
+      "bytes": 5792,
+      "sha256": "d9dd32fa60925bc165d2bdeafca8038eea330733d563f5769f9fd006b2db735d"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_duplicate_claim_persists_after_failure/0/8082d8aa69408b1abb0b136be13cabe21dc23e2e01e5ffbbb33666d57f1176e0.claim.json",
+      "bytes": 821,
+      "sha256": "8a16754f0c33678f4f4f206ed6a1237e5e0ecec1a090c81bb18e599ba6f76cec"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_duplicate_claim_persists_after_failure/0/8082d8aa69408b1abb0b136be13cabe21dc23e2e01e5ffbbb33666d57f1176e0.result.json",
+      "bytes": 308,
+      "sha256": "c415d381eaede7a74d777bd38e81f0bf62b55e76359fbedd648f35ebe2cc7310"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_gripper_wire_ack_and_executor_exclusion/0/bcef9af286037bd7d29a7c9776839eda9fb249a8f651261e08ccc27fbbb1ee07.claim.json",
+      "bytes": 329,
+      "sha256": "d3bf8268edff4f13cf75eafca33809699e9c89f70d0fd85bf2bdd6a76b9e768d"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_gripper_wire_ack_and_executor_exclusion/0/bcef9af286037bd7d29a7c9776839eda9fb249a8f651261e08ccc27fbbb1ee07.result.json",
+      "bytes": 1207,
+      "sha256": "40452317ac6522261cc97eec10df5260212fd0fc25106bda88315b25d4c60b70"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_quantized_gripper_hold_after_native_set/0/6ee0eb490ff832101cf82a3d387c35f29e4230be786978f7acf9e811febf6723.claim.json",
+      "bytes": 324,
+      "sha256": "44bff1e65b1596f1bdf7e2355d2a6f27ceb0ca353b6ab57ee8f1eec9e757be2b"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_quantized_gripper_hold_after_native_set/0/6ee0eb490ff832101cf82a3d387c35f29e4230be786978f7acf9e811febf6723.result.json",
+      "bytes": 1201,
+      "sha256": "57b47d9bf5b79020c5879e292392eddc8f28d2a579f91b395a994b17cc67435b"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_quantized_gripper_hold_after_native_set/0/96152419fc895ffec68fc132606304dda5e1eb3a2b78cc8d475827a82a33d0fb.claim.json",
+      "bytes": 596,
+      "sha256": "ec88132ab155dfd72bef2264111b1255eaaed31d5f5011c50650b65827e583e9"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_quantized_gripper_hold_after_native_set/0/96152419fc895ffec68fc132606304dda5e1eb3a2b78cc8d475827a82a33d0fb.result.json",
+      "bytes": 5339,
+      "sha256": "68d034a9ad02d19193dcaa527aa0618c1c7618123584d0102a888b9779b41957"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_quantized_gripper_hold_after_native_set/1/6ee0eb490ff832101cf82a3d387c35f29e4230be786978f7acf9e811febf6723.claim.json",
+      "bytes": 324,
+      "sha256": "44bff1e65b1596f1bdf7e2355d2a6f27ceb0ca353b6ab57ee8f1eec9e757be2b"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_quantized_gripper_hold_after_native_set/1/6ee0eb490ff832101cf82a3d387c35f29e4230be786978f7acf9e811febf6723.result.json",
+      "bytes": 1201,
+      "sha256": "57b47d9bf5b79020c5879e292392eddc8f28d2a579f91b395a994b17cc67435b"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_shared_time_grid_and_feedback/0/8ccf2f9e9cc41e7ad5bfd121bd355453c7b19d4f5b9c3df99d11fa90f6d05af3.claim.json",
+      "bytes": 817,
+      "sha256": "0af500421f553af22a604031272e2787653e9e80cced6ed7a43cdfccd527bce8"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02/test_shared_time_grid_and_feedback/0/8ccf2f9e9cc41e7ad5bfd121bd355453c7b19d4f5b9c3df99d11fa90f6d05af3.result.json",
+      "bytes": 8476,
+      "sha256": "e36346e59054fcc8fa453828d853d2f8eae8eb2fc41ce655d22b7df33653718e"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02.log",
+      "bytes": 1512,
+      "sha256": "18cb0f02ec4150f30b6f77548a2a4692b0268413be998c9554914891273faf41"
+    },
+    {
+      "path": "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression.log",
+      "bytes": 1383,
+      "sha256": "210dcb9fcaf476d9697aafd4f91ad1dc27b226979fc1dc61a3a3b5c6dfbb6f2a"
+    }
+  ],
+  "integration_source_sha256": {
+    "aspire_realman_phase2a/patches/0001-realman-curobo-model.patch": "a781f3532ab3325c289571c646a43a59c9adac804e1338f649887e3b517afc6a",
+    "aspire_realman_phase2a/patches/0002-curobo-warp19-registration.patch": "7563a9d820363f7070310885e9ce3f52a316c42509809c034125f2337b9f85a8",
+    "aspire_realman_phase2a/patches/0003-native-session-cancel.patch": "cfd3ff58b0c938a5873b4c8c0e0c1761154f6ea24d23bdf92986ef33e84dc71b",
+    "aspire_realman_phase2a/requirements-runtime.txt": "a89c2ddd6cad0259c906d81267980fc62fcc25df80a857157908c11cbe1c990d",
+    "aspire_realman_phase2a/src/aspire_realman_phase2a/__init__.py": "1b4fa5fcfbdc42aa380e51cf3865554e5dfe9a7ba83fe4b0379c709d3ba3b13d",
+    "aspire_realman_phase2a/src/aspire_realman_phase2a/adapter.py": "e7defeefb0410124c169b062b5e935087ab12bdbf49c9ba34e7a5b88a362be63",
+    "aspire_realman_phase2a/src/aspire_realman_phase2a/compat.py": "b97bb925cf2553afc242c087aadcc55cb76144464b7a37e5180bad22fe3c2dc4",
+    "aspire_realman_phase2a/src/aspire_realman_phase2a/control.py": "28066c9f163439acf031ae5404cf26b88c9425a91893f7a9994039b02104d4ec",
+    "aspire_realman_phase2a/src/aspire_realman_phase2a/execution.py": "bcefd5517f4f82195f39b223d831dc0d943d1cd47892637f0f2d8d09bb49ebc2",
+    "aspire_realman_phase2a/src/aspire_realman_phase2a/model.py": "0521dbd17d14f048c7c88733cbc93b222e99e035ff9b48af118e5389315d27b0",
+    "aspire_realman_phase2a/src/aspire_realman_phase2a/provider.py": "5770fb457ccf66d87dc437de1f8275c262254a137c3d426c2824a4915c706496",
+    "aspire_realman_phase2a/src/aspire_realman_phase2a/runtime.py": "a717cc52937b8659c00c2ea82dc53384526ffa181dc901a8eaae614f7191ede8",
+    "aspire_realman_phase2a/tests/test_execution.py": "83cfb016c9137413442d269a86364dcb059ff3bb77217f4fee3cd8de308c717b",
+    "aspire_realman_phase2a/tools/archive_evidence.py": "02a69f2dde915ba6e1476a3607938357aaf936c47bba5e09cdddd8b29dd229d1",
+    "aspire_realman_phase2a/tools/build_arm_only.py": "84ef6eae73cee004762805629e54ac2909799a2f6c8c6f736351794dcb65d0b6",
+    "aspire_realman_phase2a/tools/build_model.py": "7fc29e3bf721c231fe36898556fce497240614c21a432e66d50a79c77f56b70a",
+    "aspire_realman_phase2a/tools/fetch_curobo_sources.py": "d2f727af94a345d7731476d778222c1f5e986bcdcce042fe96c2d0cb6b2fe454",
+    "aspire_realman_phase2a/tools/gpu_probe.py": "8f9f53c6b42273276ac8bdded8fb285661d9f2ca332d44c50b59a2564997e41a",
+    "aspire_realman_phase2a/tools/native_gpu_acceptance.py": "c59cb51bcd1f88c462213b5932bdaa5e92c520815fbdd22e58553904a110f0e2",
+    "aspire_realman_phase2a/tools/phase2b_geometry.py": "5b45527d86f5fc56fd2c7d22048b32d33daaf4027db72dbc8aaeaac91e7499cf",
+    "aspire_realman_phase2a/tools/phase2b_geometry_verify.py": "86220c3e9ded39624abd2fed38bbad6bbd7d2b9bba39b062d71152f9b2352646",
+    "aspire_realman_phase2a/tools/prepare_curobo_compat.py": "e8a9f7d5a034d2e531693788ea91f20fd2c56e82560a5cdf0ce380bbd64774b8",
+    "aspire_realman_phase2a/tools/prepare_native.py": "0205fb45b324a2cb9b5e4eef67015db17a2aff9cd6625efa8767d909ff5ba21c",
+    "aspire_realman_phase2a/tools/prepare_native_cancel.py": "61bfc7b8f50a89785b9a015144ff2f416a6009e66b79f14a7e923ca3608f6d8d",
+    "aspire_realman_phase2a/tools/reproduce.sh": "cc2e99fe2f6b29295e59c2a6438d0659e93cedebc4aba892ee1669caa557457f",
+    "aspire_realman_phase2a/tools/reproduce_phase2b.sh": "5e311101f34844babdcf02a2f3f43c8880d1b390b660e104049ebb847942dd28",
+    "aspire_realman_phase2a/tools/run_cpu_tests.sh": "3a64e954e8d3c4e59737036eea9ad20df3fc7dbc84736ae355c03eb8249ad843"
+  },
+  "python": "3.12.13 | packaged by conda-forge | (main, Mar  5 2026, 16:50:00) [GCC 14.3.0]",
+  "executable": "/home/tongji/alex/aspire_realman_phase2a_20261020/.venv/bin/python",
+  "base_prefix": "/home/tongji/miniconda3/envs/lerobot",
+  "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.31",
+  "safety": "No additional ignore pairs; all hardware dispatch hard-disabled. Raw evidence remains on execution host."
+}

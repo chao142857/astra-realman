@@ -363,5 +363,104 @@
     }
   },
   "physical_commands_sent": 0,
-  "loaded_hardware_modules": []
+  "loaded_hardware_modules": [],
+  "cross_arm_negative": {
+    "ok": true,
+    "scope": "ARM_ONLY_DIAGNOSTIC_SYNTHETIC_COINCIDENT_NEGATIVE",
+    "default_constraint_detail": {
+      "constraint:cspace": {
+        "maximum": 0.0,
+        "sum": 0.0
+      },
+      "constraint:self_collision": {
+        "maximum": 2.0,
+        "sum": 2.0
+      },
+      "constraint:scene_collision": {
+        "maximum": 0.0,
+        "sum": 0.0
+      },
+      "sum_constraint": 2.0
+    },
+    "actual_gpu_pair_diagnostics": {
+      "native_raw_cost": 0.0009374999790452421,
+      "native_metric": "squared sphere overlap, NOT meters",
+      "cross_arm_pairs_evaluated": 501264,
+      "cross_arm_positive_pairs": 15024,
+      "cross_arm_max_native_metric": 0.0018749999580904841,
+      "same_arm_positive_pairs": 0,
+      "original_pairs_unchanged": true
+    },
+    "native_cap_gpu_execution_gate": {
+      "ok": true,
+      "execution_ok": false,
+      "error": {
+        "code": "planning_failed",
+        "message": "GPU_POST_RESAMPLE_COLLISION_OR_BOUNDS"
+      },
+      "gpu_checks": [
+        {
+          "ok": false,
+          "backend": "ACTUAL_CUROBO_GPU",
+          "checks": [
+            "joint_limits",
+            "velocity_limits",
+            "discrete_acceleration_limits",
+            "discrete_jerk_limits",
+            "self_collision_including_cross_arm",
+            "scene_collision"
+          ],
+          "discrete_derivative_maxima": {
+            "acceleration": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "jerk": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "waypoints": 2,
+          "feasible": [
+            false,
+            false
+          ],
+          "synthetic_layout": true,
+          "physical_execution": false
+        }
+      ],
+      "stub_ticks": 0,
+      "hardware_commands_sent": 0
+    },
+    "raw_evidence": {
+      "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/gpu-arm-only-cross-negative/result.json": {
+        "sha256": "4bb59b05981bf7c9839d8d4f5d34343909815c575749d87120767de52381b58a",
+        "bytes": 7126
+      },
+      "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/gpu-arm-only-cross-negative.log": {
+        "sha256": "b4c5619db3af0dc757696408bf90bb368b61ebd905b17197d827ff4a36dde5d1",
+        "bytes": 7127
+      }
+    }
+  }
 }
