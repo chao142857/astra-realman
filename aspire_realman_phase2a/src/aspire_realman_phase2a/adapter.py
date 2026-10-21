@@ -14,7 +14,7 @@ from cap_harness.geometry import matrix_to_quaternion_wxyz
 from aspire_realman.codec import rpy_matrix
 from aspire_realman.adapter import RealManAdapter
 from .model import ARMS,NAMES,FRAME,MODEL
-from .execution import StubTransport,ExecutionEngine
+from .execution import StubTransport,ExecutionEngine,same_gripper_wire_hold
 
 
 class ModelFK:
@@ -77,7 +77,7 @@ class OfflineRealManAdapter(RealManAdapter):
         if type(self.transport) is not StubTransport:raise ApiError(ErrorCode.SAFETY_INTERLOCK,'ONLY_OFFLINE_STUB_TRANSPORT')
         self.engine=ExecutionEngine(self.transport,manifest,ledger);self.fk=ModelFK(manifest)
         self.validator=None if provider is None else GpuTrajectoryValidator(provider)
-        self._closed=False;self._refusals=[];self.plans=[]
+        self._closed=False;self._refusals=[];self.plans=[];self.trajectories=[]
     @property
     def arms(self):return ARMS
     def get_robot_state(self):
@@ -86,7 +86,9 @@ class OfflineRealManAdapter(RealManAdapter):
             end_effector_poses=self.fk.poses(self.transport.positions),gripper_positions=self.transport.openings,
             base_frame=FRAME,joint_names=NAMES,timestamp_s=time.time(),embodiment='realman',
             metadata={'source_kind':'SYNTHETIC_OFFLINE','controller_feedback':'STUB_ONLY','actual_grasp_tcp':None,
-                'physical_motion_permitted':False,'model':MODEL,'pose_endpoint':'nominal Link6 flange; NOT actual grasp TCP'})
+                'physical_motion_permitted':False,'model':MODEL,
+                'model_scope':self.manifest.get('diagnostic_scope','FULL_ASSEMBLY_UNVERIFIED'),
+                'pose_endpoint':'nominal Link6 flange; NOT actual grasp TCP'})
     def get_task_context(self):
         return TaskContext('offline',0,'rm65_software_validation','Synthetic offline API integration only.','realman',
             metadata={'source_kind':'SYNTHETIC_OFFLINE','physical_motion_permitted':False})
@@ -106,19 +108,22 @@ class OfflineRealManAdapter(RealManAdapter):
         points=np.column_stack((((u-16)*c.depth_m/32).ravel(),((v-12)*c.depth_m/32).ravel(),(c.depth_m-.5).ravel()))
         return PlanningScene(PointCloud(points=points,frame=FRAME),.01,obs.timestamp_s)
     def execute_trajectory(self,trajectory):
+        if self.transport.cancel_event.is_set():return self.engine.error(ErrorCode.CANCELLED,'SESSION_STUB_ABORT_LATCHED')
         if self.provider is None or self.validator is None:
             return self.engine.error(ErrorCode.PROVIDER_UNAVAILABLE,'REAL_GPU_VALIDATION_REQUIRED_FOR_CAP_EXECUTION')
         try:self.validator(trajectory,self.get_robot_state(),self.get_planning_context(),self.scene())
         except ApiError as exc:return self.engine.error(exc.code,exc.message,**dict(exc.details))
+        self.trajectories.append(trajectory)
         result=self.engine.execute(trajectory)
         return replace(result,final_observation=self.get_observation())
     def step(self,action):
+        if self.transport.cancel_event.is_set():return StepResult(ok=False,error=ApiError(ErrorCode.CANCELLED,'SESSION_STUB_ABORT_LATCHED'))
         if len(action.arms)!=1:return StepResult(ok=False,error=ApiError(ErrorCode.UNSUPPORTED,'DUAL_STEP_IS_NOT_SYNCHRONIZED_TRAJECTORY'))
         arm,command=next(iter(action.arms.items()))
         if command.mode!='joint_position' or arm not in ARMS:return StepResult(ok=False,error=ApiError(ErrorCode.UNSUPPORTED,'SINGLE_ARM_JOINT_POSITION_REQUIRED'))
         if self.provider is None:return StepResult(ok=False,error=ApiError(ErrorCode.PROVIDER_UNAVAILABLE,'ACTUAL_CUROBO_NOT_CONFIGURED'))
         state=self.get_robot_state()
-        if command.gripper_position is not None and abs(command.gripper_position-state.gripper_positions[arm])>1e-9:
+        if command.gripper_position is not None and not same_gripper_wire_hold(arm,[command.gripper_position],state.gripper_positions[arm]):
             return StepResult(ok=False,error=ApiError(ErrorCode.UNSUPPORTED,'CHANGING_GRIPPER_REQUIRES_SEPARATE_EXPLICIT_TOOL'))
         plan=self.provider.plan_to_joints(state,np.array(command.target),arm=arm,gripper_position=state.gripper_positions[arm],
             context=self.get_planning_context(),scene=self.scene(),time_dilation_factor=.4)

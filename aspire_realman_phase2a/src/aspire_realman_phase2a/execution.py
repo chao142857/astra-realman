@@ -9,6 +9,7 @@ import math
 import os
 from pathlib import Path
 import threading
+import time
 import numpy as np
 from cap_harness.contracts import Trajectory,SynchronizedTrajectory,ExecutionResult
 from cap_harness.errors import ApiError,ErrorCode
@@ -70,14 +71,39 @@ def gripper_contract(arm,opening):
         'required_ack':{'command':'hand_follow_pos','set_state':True},'retries':0,'grasp_confirmed':'UNKNOWN'}
 
 
+def same_gripper_wire_hold(arm,requested,measured):
+    """A hold is identical at V17 wire resolution, not at unquantized float q.
+
+    Measured Stub feedback is an exact raw integer / 1000. Reject changes in
+    effective wire target; never dispatch gripper changes in an arm trajectory.
+    """
+    raw=round(float(measured)*1000)
+    if abs(float(measured)*1000-raw)>1e-7:return False
+    return all(gripper_contract(arm,float(v))['wire_target']==raw for v in np.asarray(requested).reshape(-1))
+
+
 class StubTransport:
     """Deterministic virtual-clock feedback, explicitly not a real controller."""
-    def __init__(self,positions,*,timed_dual=True,fail_at=None,delay_at=None,cancel_at=None):
+    def __init__(self,positions,*,timed_dual=True,fail_at=None,delay_at=None,cancel_at=None,pause_at=None):
         self.positions={a:np.array(positions[a],float).copy() for a in ARMS}
         self.openings={a:1. for a in ARMS};self.now_s=0.;self.timed_dual=timed_dual
         self.fail_at,self.delay_at,self.cancel_at=fail_at,delay_at or {},cancel_at
         self.events=[];self.cancel_event=threading.Event()
+        self.pause_at=pause_at;self.tick_waiting=threading.Event();self.tick_release=threading.Event()
+        self._dispatch_lock=threading.Lock()
+    def abort(self):
+        # Serialize the cancellation acknowledgement with packets. Once abort
+        # returns, no future Stub packet can be appended, including a waiting tick.
+        with self._dispatch_lock:self.cancel_event.set()
+        self.tick_release.set()
     def tick(self,values,*,when,relative_time_s,period_s,sequence,request_id):
+        if self.pause_at==sequence:
+            self.tick_waiting.set()
+            if not self.tick_release.wait(15.):raise ApiError(ErrorCode.TIMEOUT,'STUB_TEST_GATE_TIMEOUT')
+        with self._dispatch_lock:
+            if self.cancel_event.is_set():raise ApiError(ErrorCode.CANCELLED,'STUB_ABORT_LATCHED_BEFORE_PACKET')
+            return self._tick(values,when=when,relative_time_s=relative_time_s,period_s=period_s,sequence=sequence,request_id=request_id)
+    def _tick(self,values,*,when,relative_time_s,period_s,sequence,request_id):
         if len(values)>1 and not self.timed_dual:raise ApiError(ErrorCode.UNSUPPORTED,'TIMED_DUAL_STREAM_UNAVAILABLE_NO_ENDPOINT_RPC_FALLBACK')
         self.now_s=max(self.now_s,when)+self.delay_at.get(sequence,0.)
         if self.fail_at==sequence:raise ApiError(ErrorCode.CONTROLLER_FAILED,'INJECTED_STUB_CONTROLLER_ERROR',details={'stub_code':-1})
@@ -93,6 +119,10 @@ class StubTransport:
         if self.cancel_at==sequence:self.cancel_event.set()
         return event
     def gripper(self,contract,request_id):
+        with self._dispatch_lock:
+            if self.cancel_event.is_set():raise ApiError(ErrorCode.CANCELLED,'STUB_ABORT_LATCHED_BEFORE_PACKET')
+            return self._gripper(contract,request_id)
+    def _gripper(self,contract,request_id):
         self.openings[contract['arm']]=contract['wire_target']/1000.
         event={'source':'STUB_GRIPPER_FEEDBACK_NOT_HARDWARE','request_id':request_id,'contract':contract,
             'ack':contract['required_ack'],'position_raw':contract['wire_target'],'physical_commands_sent':0}
@@ -116,7 +146,7 @@ class ExecutionEngine:
         return ExecutionResult(ok=False,steps_executed=steps,error=ApiError(code,message,details=details),
             diagnostics={'execution_source':'STUB_ONLY','hardware_commands_sent':0,'physical_stop_verified':False,**details})
     def abort(self):
-        self.transport.cancel_event.set()
+        self.transport.abort()
         return {'future_stub_ticks_cancelled':True,'physical_stop_verified':False,'hardware_commands_sent':0}
     def execute(self,trajectory,*,request_id=None,timeout_s=60.):
         if not isinstance(trajectory,(Trajectory,SynchronizedTrajectory)):return self.error(ErrorCode.INVALID_REQUEST,'NATIVE_TRAJECTORY_REQUIRED')
@@ -139,7 +169,7 @@ class ExecutionEngine:
                 if set(trajectory.expected_start.joint_positions)!=set(ARMS):raise ApiError(ErrorCode.INVALID_REQUEST,'BOTH_START_ARMS_REQUIRED')
                 grippers=trajectory.gripper_positions
                 grippers={} if grippers is None else dict(grippers) if sync else {trajectory.arm:grippers}
-                if any(np.any(np.abs(g-self.transport.openings[a])>1e-9) for a,g in grippers.items()):
+                if any(not same_gripper_wire_hold(a,g,self.transport.openings[a]) for a,g in grippers.items()):
                     raise ApiError(ErrorCode.UNSUPPORTED,'TRAJECTORY_GRIPPER_CHANGES_REQUIRE_SEPARATE_TOOL')
                 for arm in ARMS:
                     if tuple(trajectory.expected_start.joint_names[arm])!=NAMES[arm]:raise ApiError(ErrorCode.INVALID_REQUEST,'JOINT_ORDER_MISMATCH')
@@ -151,18 +181,21 @@ class ExecutionEngine:
                     if np.max(np.abs(q[0]-self.transport.positions[arm]))>1e-5:raise ApiError(ErrorCode.STALE_PLAN,'FIRST_SAMPLE_JUMP')
                     if count>1 and np.any(np.abs(np.diff(q,axis=0))/trajectory.dt_s>vel+1e-5):raise ApiError(ErrorCode.INVALID_REQUEST,'VELOCITY_LIMIT')
                 key=self.claim(request_id,payload);start=self.transport.now_s;deadline=start+timeout_s
+                wall_deadline=time.monotonic()+timeout_s
                 for i in range(count):
                     if self.transport.cancel_event.is_set():raise ApiError(ErrorCode.CANCELLED,'ABORT_STOPS_FUTURE_STUB_TICKS_NOT_VERIFIED_HARDWARE_STOP')
                     when=start+i*trajectory.dt_s
-                    if when>deadline:raise ApiError(ErrorCode.TIMEOUT,'TRAJECTORY_TIMEOUT_BEFORE_TICK')
+                    if when>deadline or time.monotonic()>wall_deadline:raise ApiError(ErrorCode.TIMEOUT,'TRAJECTORY_TIMEOUT_BEFORE_TICK')
                     feedback=self.transport.tick({a:q[i] for a,q in values.items()},when=when,relative_time_s=i*trajectory.dt_s,period_s=trajectory.dt_s,sequence=i,request_id=request_id);steps+=1
-                    if feedback['feedback_s']>deadline:raise ApiError(ErrorCode.TIMEOUT,'FEEDBACK_TIMEOUT_NO_RETRY')
+                    if feedback['feedback_s']>deadline or time.monotonic()>wall_deadline:raise ApiError(ErrorCode.TIMEOUT,'FEEDBACK_TIMEOUT_NO_RETRY')
+                    if feedback.get('controller_error')!=0:raise ApiError(ErrorCode.CONTROLLER_FAILED,'CONTROLLER_ERROR_FEEDBACK')
                     for arm,q in values.items():
                         if np.max(np.abs(self.transport.positions[arm]-q[i]))>1e-5:raise ApiError(ErrorCode.CONTROLLER_FAILED,'FEEDBACK_MISMATCH')
                 result=ExecutionResult(ok=True,steps_executed=steps,diagnostics={'execution_source':'STUB_ONLY','hardware_commands_sent':0,
                     'request_id':request_id,'timed_dual_stub':sync,'hardware_synchronization_verified':False,'duration_s':(count-1)*trajectory.dt_s})
             except ApiError as exc:result=self.error(exc.code,exc.message,steps,**dict(exc.details))
             except (ValueError,KeyError,TypeError) as exc:result=self.error(ErrorCode.INVALID_REQUEST,str(exc),steps)
+            except Exception as exc:result=self.error(ErrorCode.CONTROLLER_FAILED,'UNEXPECTED_STUB_TRANSPORT_EXCEPTION',steps,exception_type=type(exc).__name__,exception_message=str(exc))
             self.last=result
             if key:
                 path=self.ledger/(key+'.result.json')
@@ -182,6 +215,7 @@ class ExecutionEngine:
                 result=ExecutionResult(ok=True,steps_executed=1,diagnostics={'execution_source':'STUB_ONLY','contract':contract,'hardware_commands_sent':0,'grasp_confirmed':'UNKNOWN'})
             except (ApiError,ValueError,TypeError) as exc:
                 result=self.error(exc.code if isinstance(exc,ApiError) else ErrorCode.INVALID_REQUEST,str(exc))
+            except Exception as exc:result=self.error(ErrorCode.CONTROLLER_FAILED,'UNEXPECTED_STUB_GRIPPER_EXCEPTION',exception_type=type(exc).__name__,exception_message=str(exc))
             self.last=result
             if key:
                 with (self.ledger/(key+'.result.json')).open('x') as stream:

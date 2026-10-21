@@ -92,14 +92,24 @@ def install_validation_routes(service):
         counts={len(v) for v in req.waypoints.values()}
         if len(counts)!=1 or not counts or not 1<=next(iter(counts))<=5000:raise HTTPException(400,'BOUNDED_EQUAL_LENGTH_TRAJECTORIES_REQUIRED')
         count=next(iter(counts));parts=[]
+        cspace=yaml.safe_load(Path(m['config']['path']).read_text())['robot_cfg']['kinematics']['cspace']
         for arm in ARMS:
             values=np.asarray(req.waypoints.get(arm,[req.joint_positions[arm]]*count),float)
             for row in values:check_limits(arm,row,m)
             vmax=np.array([l['velocity'] for l in m['joint_limits'][arm]])
             if count>1 and np.any(np.abs(np.diff(values,axis=0))/req.dt_s > vmax+1e-5):raise HTTPException(400,'TRAJECTORY_VELOCITY_LIMIT')
             parts.append(values)
+        positions=np.concatenate(parts,axis=1)
+        derivative_max={}
+        for degree,name,key in [(2,'acceleration','max_acceleration'),(3,'jerk','max_jerk')]:
+            limit=np.broadcast_to(np.asarray(cspace[key],float),(12,))
+            if not np.isfinite(limit).all() or np.any(limit<=0):raise HTTPException(503,'SOURCE_DERIVATIVE_LIMIT_REQUIRED')
+            observed=np.max(np.abs(np.diff(positions,n=degree,axis=0))/req.dt_s**degree,axis=0) if count>degree else np.zeros(12)
+            derivative_max[name]=observed.tolist()
+            if np.any(observed>limit+1e-5):raise HTTPException(400,'TRAJECTORY_'+name.upper()+'_LIMIT')
         planner=service._planner(req)
-        q=torch.as_tensor(np.concatenate(parts,axis=1),device='cuda',dtype=torch.float32)
+        q=torch.as_tensor(positions,device='cuda',dtype=torch.float32)
         mask=planner.graph_planner.check_samples_feasibility(q).detach().cpu().numpy().astype(bool).reshape(-1)
-        return {'ok':bool(mask.all()),'backend':'ACTUAL_CUROBO_GPU','checks':['joint_limits','velocity_limits','self_collision_including_cross_arm','scene_collision'],
+        return {'ok':bool(mask.all()),'backend':'ACTUAL_CUROBO_GPU','checks':['joint_limits','velocity_limits','discrete_acceleration_limits','discrete_jerk_limits','self_collision_including_cross_arm','scene_collision'],
+            'discrete_derivative_maxima':derivative_max,
             'waypoints':count,'feasible':mask.tolist(),'synthetic_layout':True,'physical_execution':False}

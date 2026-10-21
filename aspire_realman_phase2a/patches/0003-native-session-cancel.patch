@@ -1,0 +1,86 @@
+--- a/src/cap_harness/agent/session.py
++++ b/src/cap_harness/agent/session.py
+@@ -52,6 +52,7 @@
+     result: Any = None
+     error: str | None = None
+     terminal_state: Any = None
++    cancellation_requested: bool = False
+ 
+     @property
+     def active(self) -> bool:
+@@ -463,6 +464,25 @@
+         job.thread.start()
+         return job.id
+ 
++    def cancel_job(self, job_id: str) -> dict[str, Any]:
++        """Request cooperative controller abort for this exact active job.
++
++        A cancellation acknowledgement is not proof of a physical stop. The
++        operation result and terminal feedback remain owned by the job thread.
++        """
++        with self._lock:
++            job = self._job
++            if job is None or job.id != job_id or not job.active:
++                raise ValueError("exact active job_id required for cancellation")
++            cancel = getattr(self._operation_controller, "cancel_operation", None)
++            if not callable(cancel):
++                raise RuntimeError("operation controller does not support cancellation")
++            receipt = cancel()
++            job.cancellation_requested = True
++        self.publish("system", f"cancellation requested [{job_id}]")
++        return {"ok": True, "job_id": job_id, "cancellation_requested": True,
++                "controller_receipt": receipt}
++
+     def job(self, job_id: str | None = None, *, detail: str = "compact") -> dict[str, Any] | None:
+         if detail not in {"compact", "full"}:
+             raise ValueError("detail must be 'compact' or 'full'")
+@@ -485,6 +505,7 @@
+                 "label": job.label,
+                 "phase": job.phase,
+                 "active": job.active,
++                "cancellation_requested": job.cancellation_requested,
+                 "elapsed_s": round(
+                     (job.finished_s or time.time()) - job.started_s,
+                     3,
+--- a/src/cap_harness/agent/mcp.py
++++ b/src/cap_harness/agent/mcp.py
+@@ -263,6 +263,11 @@
+                 "get_job",
+                 "Read job status and terminal state. Cameras are omitted unless requested.",
+                 _object_schema({"job_id": {"type": "string"}, "cameras": _CAMERAS}),
++            ),
++            (
++                "cancel_job",
++                "Request cooperative cancellation of an exact active job; inspect its terminal result separately.",
++                _object_schema({"job_id": {"type": "string"}}, required=["job_id"]),
+             ),
+             ("read_operator_messages", "Drain pending operator instructions.", _object_schema()),
+         ]
+@@ -380,6 +385,8 @@
+             job = self.session.job(args.get("job_id"))
+             value = {"ok": job is not None, "job": job}
+             return self._snapshot(value, args["cameras"]) if args.get("cameras") else (value, {})
++        if name == "cancel_job":
++            return self.session.cancel_job(args["job_id"]), {}
+         if name == "read_operator_messages":
+             return {"ok": True, "messages": self.session.drain_steering()}, {}
+         if name.startswith("cap_program_"):
+--- a/src/cap_harness/agent/server.py
++++ b/src/cap_harness/agent/server.py
+@@ -30,6 +30,16 @@
+     def steer(payload: dict[str, str]) -> dict[str, Any]:
+         event = session.steer(payload["message"])
+         return {"ok": True, "seq": event.seq}
++
++    @app.post("/jobs/{job_id}/cancel")
++    def cancel_job(job_id: str) -> dict[str, Any]:
++        from fastapi import HTTPException
++        try:
++            return session.cancel_job(job_id)
++        except ValueError as exc:
++            raise HTTPException(409, str(exc)) from exc
++        except RuntimeError as exc:
++            raise HTTPException(501, str(exc)) from exc
+ 
+     return app
+ 

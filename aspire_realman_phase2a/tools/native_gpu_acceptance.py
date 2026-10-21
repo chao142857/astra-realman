@@ -8,6 +8,38 @@ from datetime import timedelta
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 sys.path[:0]=[str(ROOT/'aspire_realman_phase2a/src'),str(ROOT/'aspire_realman_phase05/src'),str(ROOT/'.cache/ASPIRE/src'),str(ROOT/'.cache/curobo'),str(ROOT/'aspire_realman_phase05/tests')]
+
+def replay_gpu_trajectory_faults(trajectory,manifest,output):
+    """Inject faults into the actual successful cuRobo trajectory, not hand q."""
+    import numpy as np
+    from aspire_realman_phase2a.execution import ExecutionEngine,StubTransport
+    from cap_harness.errors import ErrorCode
+    output.mkdir(exist_ok=False);tests={}
+    for name in ('timeout','controller_error','unexpected_exception','feedback_mismatch','controller_error_feedback','duplicate','state_changed','no_dual_fallback'):
+        positions=trajectory.expected_start.joint_positions
+        t=StubTransport(positions,timed_dual=name!='no_dual_fallback',fail_at=3 if name=='controller_error' else 0 if name=='duplicate' else None)
+        engine=ExecutionEngine(t,manifest,output/name)
+        if name=='state_changed':t.positions['right'][0]+=.001
+        original=t._tick
+        if name in ('unexpected_exception','feedback_mismatch','controller_error_feedback'):
+            def tick(*args,**kwargs):
+                if kwargs['sequence']==3 and name=='unexpected_exception':raise RuntimeError('INJECTED_UNEXPECTED_STUB_EXCEPTION')
+                value=original(*args,**kwargs)
+                if kwargs['sequence']==3 and name=='feedback_mismatch':t.positions['left'][0]+=.001
+                if kwargs['sequence']==3 and name=='controller_error_feedback':value['controller_error']=-2
+                return value
+            t._tick=tick
+        result=engine.execute(trajectory,request_id='actual-gpu-replay:'+name,timeout_s=.075 if name=='timeout' else 60.)
+        if name=='duplicate':
+            t.fail_at=None;result=engine.execute(trajectory,request_id='actual-gpu-replay:'+name)
+        expected=ErrorCode.TIMEOUT if name=='timeout' else ErrorCode.STALE_PLAN if name=='state_changed' else ErrorCode.UNSUPPORTED if name=='no_dual_fallback' else ErrorCode.SAFETY_INTERLOCK if name=='duplicate' else ErrorCode.CONTROLLER_FAILED
+        stopped=len(t.events);claim_count=len(list(engine.ledger.glob('*.claim.json')))
+        tests[name]={'ok':not result.ok and result.error.code==expected and stopped<trajectory.waypoint_count,
+            'status':result.status.value,'error':result.error.code.value,'steps_executed':result.steps_executed,'stub_ticks':stopped,
+            'claim_count':claim_count,'trajectory_origin':'ACTUAL_CUROBO_GPU_NATIVE_CAP_RESAMPLED','hardware_commands_sent':0}
+    (output/'summary.json').write_text(json.dumps(tests,indent=2))
+    return {'ok':all(v['ok'] for v in tests.values()),'category':'ACTUAL_GPU_TRAJECTORY_FAULT_REPLAY_STUB_ONLY','cases':tests}
+
 def main():
     def hardware_guard(event,args):
         if event=='socket.connect' and isinstance(args[1],tuple) and args[1][0] not in ('127.0.0.1','::1','localhost'):
@@ -18,7 +50,7 @@ def main():
             raise RuntimeError('OFFLINE_RUN_FORBIDS_REALMAN_LIBRARY_LOAD')
     sys.addaudithook(hardware_guard)
     p=argparse.ArgumentParser();p.add_argument('--manifest',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
-    p.add_argument('--warp-cubin',action='store_true');a=p.parse_args()
+    p.add_argument('--warp-cubin',action='store_true');p.add_argument('--phase2b-controls',action='store_true');a=p.parse_args()
     a.output.resolve().relative_to(ROOT);a.output.mkdir(parents=True,exist_ok=False)
     summary={'scope':'SYNTHETIC_OFFLINE_ONLY','hardware_commands_sent':0,'tests':{},'ok':False}
     wire=[];runtime=None
@@ -96,10 +128,65 @@ def main():
                             await call('cap_move_synchronized',{'targets':{arm:pose_mapping(q,arm) for arm in ARMS},'max_steps':300,'strategy':strategy})
                             await call('cap_set_gripper',{'position':.4329,'arm':'left'},'STUB_V17_GRIPPER_CONTRACT_ONLY')
                             await call('cap_get_robot_state',category='STUB_FEEDBACK_NATIVE_MCP')
+                            if a.phase2b_controls:
+                                from cap_harness.contracts import Pose
+                                t=time.perf_counter()
+                                bad_ik=runtime.api.solve_ik(Pose(np.array([100.,0.,0.]),np.array([1.,0.,0.,0.]),FRAME),arm='left',backend='curobo')
+                                summary['tests']['unreachable_ik_negative']={'ok':not bad_ik.ok and bad_ik.error is not None and bad_ik.error.details.get('status_code')==422 and 'unreachable' in bad_ik.error.message,'category':'ACTUAL_CUROBO_GPU_UNREACHABLE_IK',
+                                    'elapsed_s':time.perf_counter()-t,'error':None if bad_ik.error is None else {'code':bad_ik.error.code.value,'message':bad_ik.error.message,'details':dict(bad_ik.error.details)}}
+                                if not runtime.adapter.trajectories:raise RuntimeError('NO_SUCCESSFUL_GPU_TRAJECTORY_FOR_CONTROL_ACCEPTANCE')
+                                actual=runtime.adapter.trajectories[-1]
+                                np.savez(a.output/'actual-gpu-synchronized-resampled.npz',**dict(actual.joint_positions),dt_s=actual.dt_s)
+                                summary['tests']['gpu_trajectory_fault_replay']=replay_gpu_trajectory_faults(actual,m,a.output/'gpu-trajectory-faults')
+                                # Cancel the real native MCP job while its actual GPU
+                                # trajectory is held before a middle Stub packet.
+                                transport=runtime.adapter.transport;transport.pause_at=8
+                                transport.tick_waiting.clear();transport.tick_release.clear()
+                                q={arm:v.copy() for arm,v in runtime.adapter.get_robot_state().joint_positions.items()}
+                                q['left'][0]+=.025;q['right'][0]-=.025
+                                args={'targets':{arm:pose_mapping(q,arm) for arm in ARMS},'max_steps':300,'strategy':strategy}
+                                before=len(transport.events)
+                                pending=asyncio.create_task(session.call_tool('cap_move_synchronized',args))
+                                try:
+                                    waiting=await asyncio.to_thread(transport.tick_waiting.wait,15.)
+                                    if not waiting:
+                                        if pending.done():
+                                            early=pending.result();wire.append({'early_cancel_action_response':early.structuredContent});save()
+                                        raise RuntimeError('NATIVE_GPU_TRAJECTORY_DID_NOT_REACH_MIDDLE_GATE')
+                                    status=await session.call_tool('get_job',{})
+                                    job_id=status.structuredContent['job']['id']
+                                    wrong=await client.post(base+'/jobs/not-the-active-job/cancel')
+                                    cancel=await session.call_tool('cancel_job',{'job_id':job_id})
+                                    acknowledged=len(transport.events)
+                                    action=await asyncio.wait_for(pending,timeout=15.)
+                                    result=action.structuredContent['job']['result']
+                                    terminal=action.structuredContent['job']
+                                    after=len(transport.events)
+                                    provider_calls_before=len([r for r in wire if 'url' in r])
+                                    rejected=await session.call_tool('cap_move_synchronized',args)
+                                    stale_cancel=await client.post(base+'/jobs/'+job_id+'/cancel')
+                                    provider_calls_after=len([r for r in wire if 'url' in r])
+                                    row={'ok':bool(waiting and not cancel.isError and result['status']=='cancelled'
+                                        and terminal['cancellation_requested'] and acknowledged==after==len(transport.events)
+                                        and 0<after-before<runtime.adapter.trajectories[-1].waypoint_count
+                                        and rejected.isError and provider_calls_before==provider_calls_after and wrong.status_code==409 and stale_cancel.status_code==409),
+                                        'category':'NATIVE_MCP_SESSION_CANCEL_ACTUAL_GPU_TRAJECTORY_STUB_ABORT',
+                                        'job_id':job_id,'ticks_before_job':before,'ticks_at_cancel_ack':acknowledged,'ticks_after_terminal':after,
+                                        'planned_waypoints':runtime.adapter.trajectories[-1].waypoint_count,
+                                        'executed_job_ticks':after-before,'terminal_result':result,
+                                        'cancel_receipt':cancel.structuredContent,'wrong_job_http_status':wrong.status_code,'finished_job_http_status':stale_cancel.status_code,
+                                        'post_cancel_action_rejected':rejected.isError,'post_cancel_provider_calls':provider_calls_after-provider_calls_before,
+                                        'physical_stop_verified':False,'hardware_commands_sent':0}
+                                    summary['tests']['native_session_cancel']=row
+                                    wire.append({'native_cancel_arguments':args,'cancel_response':cancel.structuredContent,'cancelled_action_response':action.structuredContent,'post_cancel_action_response':rejected.structuredContent})
+                                finally:
+                                    transport.abort()
+                                    if not pending.done():await asyncio.wait_for(pending,timeout=15.)
             with loopback_server(runtime.app) as mcp_url:asyncio.run(flow(mcp_url))
             summary['post_resample_gpu_checks']=runtime.adapter.validator.records
             summary['stub_feedback_events']=len(runtime.adapter.transport.events)
             (a.output/'stub-feedback.json').write_text(json.dumps(runtime.adapter.transport.events,indent=2))
+            summary['operation_controller_events']=runtime.runtime.session._operation_controller.events
             # Reject malformed physical/fake calibration and joint limit inputs at native HTTP boundary.
             payload=provider._base_payload(runtime.adapter.get_robot_state(),runtime.adapter.get_planning_context())
             for label,mutate in [('limit',lambda x:x['joint_positions']['left'].__setitem__(0,10.)),

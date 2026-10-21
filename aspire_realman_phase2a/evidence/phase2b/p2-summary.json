@@ -1,0 +1,616 @@
+{
+  "status": "PASS_NATIVE_SESSION_CANCEL_TO_STUB_ON_ACTUAL_GPU_TRAJECTORY",
+  "full_realman_baseline_pass": false,
+  "model_scope": "ARM_ONLY_DIAGNOSTIC",
+  "tests": {
+    "native_session_cancel": {
+      "ok": true,
+      "category": "NATIVE_MCP_SESSION_CANCEL_ACTUAL_GPU_TRAJECTORY_STUB_ABORT",
+      "job_id": "22a3afa2c1a7",
+      "ticks_before_job": 82,
+      "ticks_at_cancel_ack": 90,
+      "ticks_after_terminal": 90,
+      "planned_waypoints": 27,
+      "executed_job_ticks": 8,
+      "terminal_result": {
+        "ok": false,
+        "status": "cancelled",
+        "postcondition_satisfied": false,
+        "steps_executed": 8,
+        "terminated": false,
+        "truncated": false,
+        "final_errors": {},
+        "diagnostics": {
+          "execution_source": "STUB_ONLY",
+          "hardware_commands_sent": 0,
+          "physical_stop_verified": false
+        },
+        "error": {
+          "code": "cancelled",
+          "message": "STUB_ABORT_LATCHED_BEFORE_PACKET",
+          "recoverable": true,
+          "details": {}
+        },
+        "terminal_state": {
+          "base_frame": "synthetic:realman_rm65_world",
+          "embodiment": "realman",
+          "joint_positions": {
+            "left": [
+              0.068158,
+              -0.4,
+              0.835,
+              0.000392,
+              0.6,
+              -0.000192
+            ],
+            "right": [
+              -0.033415,
+              -0.400001,
+              0.8,
+              -1e-06,
+              0.6,
+              0.0
+            ]
+          },
+          "joint_velocities": {
+            "left": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "gripper_positions": {
+            "left": 0.432,
+            "right": 1.0
+          },
+          "end_effector_poses": {
+            "left": {
+              "position": [
+                -0.762364,
+                -0.007703,
+                0.740249
+              ],
+              "quaternion_wxyz": [
+                0.029723,
+                0.494423,
+                0.016919,
+                -0.868548
+              ],
+              "frame": "synthetic:realman_rm65_world"
+            },
+            "right": {
+              "position": [
+                0.753204,
+                -0.003449,
+                0.747517
+              ],
+              "quaternion_wxyz": [
+                0.877458,
+                0.008011,
+                0.479362,
+                -0.014661
+              ],
+              "frame": "synthetic:realman_rm65_world"
+            }
+          },
+          "timestamp_s": 1792573047.2254229,
+          "metadata": {
+            "source_kind": "SYNTHETIC_OFFLINE",
+            "controller_feedback": "STUB_ONLY",
+            "actual_grasp_tcp": null,
+            "physical_motion_permitted": false,
+            "model": "realman_rm65_dual",
+            "model_scope": "ARM_ONLY_DIAGNOSTIC",
+            "pose_endpoint": "nominal Link6 flange; NOT actual grasp TCP"
+          }
+        },
+        "terminal_observation_timestamp_s": 1792573047.2254229,
+        "state_refresh_required": false
+      },
+      "cancel_receipt": {
+        "ok": true,
+        "job_id": "22a3afa2c1a7",
+        "cancellation_requested": true,
+        "controller_receipt": {
+          "event": "cancel",
+          "stub_ticks_at_ack": 90,
+          "future_stub_ticks_cancelled": true,
+          "physical_stop_verified": false,
+          "hardware_commands_sent": 0
+        }
+      },
+      "wrong_job_http_status": 409,
+      "finished_job_http_status": 409,
+      "post_cancel_action_rejected": true,
+      "post_cancel_provider_calls": 0,
+      "physical_stop_verified": false,
+      "hardware_commands_sent": 0
+    },
+    "gpu_trajectory_fault_replay": {
+      "ok": true,
+      "category": "ACTUAL_GPU_TRAJECTORY_FAULT_REPLAY_STUB_ONLY",
+      "cases": {
+        "timeout": {
+          "ok": true,
+          "status": "timeout",
+          "error": "timeout",
+          "steps_executed": 2,
+          "stub_ticks": 2,
+          "claim_count": 1,
+          "trajectory_origin": "ACTUAL_CUROBO_GPU_NATIVE_CAP_RESAMPLED",
+          "hardware_commands_sent": 0
+        },
+        "controller_error": {
+          "ok": true,
+          "status": "controller_failed",
+          "error": "controller_failed",
+          "steps_executed": 3,
+          "stub_ticks": 3,
+          "claim_count": 1,
+          "trajectory_origin": "ACTUAL_CUROBO_GPU_NATIVE_CAP_RESAMPLED",
+          "hardware_commands_sent": 0
+        },
+        "unexpected_exception": {
+          "ok": true,
+          "status": "controller_failed",
+          "error": "controller_failed",
+          "steps_executed": 3,
+          "stub_ticks": 3,
+          "claim_count": 1,
+          "trajectory_origin": "ACTUAL_CUROBO_GPU_NATIVE_CAP_RESAMPLED",
+          "hardware_commands_sent": 0
+        },
+        "feedback_mismatch": {
+          "ok": true,
+          "status": "controller_failed",
+          "error": "controller_failed",
+          "steps_executed": 4,
+          "stub_ticks": 4,
+          "claim_count": 1,
+          "trajectory_origin": "ACTUAL_CUROBO_GPU_NATIVE_CAP_RESAMPLED",
+          "hardware_commands_sent": 0
+        },
+        "controller_error_feedback": {
+          "ok": true,
+          "status": "controller_failed",
+          "error": "controller_failed",
+          "steps_executed": 4,
+          "stub_ticks": 4,
+          "claim_count": 1,
+          "trajectory_origin": "ACTUAL_CUROBO_GPU_NATIVE_CAP_RESAMPLED",
+          "hardware_commands_sent": 0
+        },
+        "duplicate": {
+          "ok": true,
+          "status": "failed",
+          "error": "safety_interlock",
+          "steps_executed": 0,
+          "stub_ticks": 0,
+          "claim_count": 1,
+          "trajectory_origin": "ACTUAL_CUROBO_GPU_NATIVE_CAP_RESAMPLED",
+          "hardware_commands_sent": 0
+        },
+        "state_changed": {
+          "ok": true,
+          "status": "stale_plan",
+          "error": "stale_plan",
+          "steps_executed": 0,
+          "stub_ticks": 0,
+          "claim_count": 0,
+          "trajectory_origin": "ACTUAL_CUROBO_GPU_NATIVE_CAP_RESAMPLED",
+          "hardware_commands_sent": 0
+        },
+        "no_dual_fallback": {
+          "ok": true,
+          "status": "unsupported",
+          "error": "unsupported",
+          "steps_executed": 0,
+          "stub_ticks": 0,
+          "claim_count": 0,
+          "trajectory_origin": "ACTUAL_CUROBO_GPU_NATIVE_CAP_RESAMPLED",
+          "hardware_commands_sent": 0
+        }
+      }
+    },
+    "unreachable_ik_negative": {
+      "ok": true,
+      "category": "ACTUAL_CUROBO_GPU_UNREACHABLE_IK",
+      "elapsed_s": 6.584918702021241,
+      "error": {
+        "code": "ik_failed",
+        "message": "cuRobo IK target is unreachable",
+        "details": {
+          "url": "http://127.0.0.1:40389/ik",
+          "status_code": 422,
+          "response": "{\"detail\":\"cuRobo IK target is unreachable\"}",
+          "attempt": 1,
+          "http_error_code": "invalid_request"
+        }
+      }
+    }
+  },
+  "forward_gpu_successes": {
+    "native_cap_ik": {
+      "ok": true,
+      "category": "ACTUAL_CUROBO_GPU_IK_NATIVE_CAP",
+      "elapsed_s": 8.455161626043264
+    },
+    "cap_move_to_joints": {
+      "ok": true,
+      "category": "ACTUAL_CUROBO_GPU_THEN_STUB",
+      "elapsed_s": 31.065857963985763
+    },
+    "cap_move_to_pose": {
+      "ok": true,
+      "category": "ACTUAL_CUROBO_GPU_THEN_STUB",
+      "elapsed_s": 2.9667714849929325
+    },
+    "cap_move_synchronized": {
+      "ok": true,
+      "category": "ACTUAL_CUROBO_GPU_THEN_STUB",
+      "elapsed_s": 3.401725644012913
+    }
+  },
+  "post_resample_gpu_checks": [
+    {
+      "ok": true,
+      "backend": "ACTUAL_CUROBO_GPU",
+      "checks": [
+        "joint_limits",
+        "velocity_limits",
+        "discrete_acceleration_limits",
+        "discrete_jerk_limits",
+        "self_collision_including_cross_arm",
+        "scene_collision"
+      ],
+      "discrete_derivative_maxima": {
+        "acceleration": [
+          0.18367457848328658,
+          1.4671912573760434e-05,
+          2.9343825147520868e-05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "jerk": [
+          1.3644881904698327,
+          0.0004034775957784119,
+          0.0008069551915568238,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "waypoints": 27,
+      "feasible": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "synthetic_layout": true,
+      "physical_execution": false
+    },
+    {
+      "ok": true,
+      "backend": "ACTUAL_CUROBO_GPU",
+      "checks": [
+        "joint_limits",
+        "velocity_limits",
+        "discrete_acceleration_limits",
+        "discrete_jerk_limits",
+        "self_collision_including_cross_arm",
+        "scene_collision"
+      ],
+      "discrete_derivative_maxima": {
+        "acceleration": [
+          0.0010439982781079713,
+          1.6505901623276028e-05,
+          0.1641842035146723,
+          0.0015854853420303216,
+          7.886152997294003e-05,
+          0.0007761722932068167,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "jerk": [
+          0.008188761197625015,
+          0.0003301180324655206,
+          1.1476370004510625,
+          0.012494649966426474,
+          0.0022007868842877083,
+          0.006117559538464632,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "waypoints": 27,
+      "feasible": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "synthetic_layout": true,
+      "physical_execution": false
+    },
+    {
+      "ok": true,
+      "backend": "ACTUAL_CUROBO_GPU",
+      "checks": [
+        "joint_limits",
+        "velocity_limits",
+        "discrete_acceleration_limits",
+        "discrete_jerk_limits",
+        "self_collision_including_cross_arm",
+        "scene_collision"
+      ],
+      "discrete_derivative_maxima": {
+        "acceleration": [
+          0.11678544374612573,
+          1.8339890694996083e-05,
+          4.401573763246346e-05,
+          0.00016594556375190258,
+          5.685366120111722e-05,
+          8.122386554112883e-05,
+          0.14086745348042587,
+          2.4758852457118504e-05,
+          1.8339890717200543e-05,
+          3.367573789056637e-06,
+          3.6679781389992165e-05,
+          1.552961328763127e-06
+        ],
+        "jerk": [
+          0.818876119760503,
+          0.0004034775953343227,
+          0.0012104327842266114,
+          0.0012751238850452517,
+          0.0009536743181826066,
+          0.0006239861249923705,
+          0.9795416934558975,
+          0.0007886153001734895,
+          0.0006235562848289077,
+          2.587470449865313e-05,
+          0.0009903540973965617,
+          1.1932710409522333e-05
+        ]
+      },
+      "waypoints": 27,
+      "feasible": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "synthetic_layout": true,
+      "physical_execution": false
+    },
+    {
+      "ok": true,
+      "backend": "ACTUAL_CUROBO_GPU",
+      "checks": [
+        "joint_limits",
+        "velocity_limits",
+        "discrete_acceleration_limits",
+        "discrete_jerk_limits",
+        "self_collision_including_cross_arm",
+        "scene_collision"
+      ],
+      "discrete_derivative_maxima": {
+        "acceleration": [
+          0.11741266800807112,
+          2.7509836053596353e-05,
+          5.135169391934368e-05,
+          0.00016399515936009031,
+          3.3011803246552056e-05,
+          8.032925856801429e-05,
+          0.11752872512890558,
+          3.6679781412196626e-05,
+          7.335956277998433e-05,
+          1.7956678605584775e-06,
+          3.301180329096098e-05,
+          8.485008388211545e-07
+        ],
+        "jerk": [
+          0.8117602421686685,
+          0.0007702754096783335,
+          0.0005868765038385958,
+          0.0012589332002853509,
+          0.0009536743164062498,
+          0.0006165713644947205,
+          0.8124938377966904,
+          0.0008619748634863809,
+          0.0019807081947931233,
+          1.3796894703631682e-05,
+          0.0009169945345277595,
+          6.513381287312733e-06
+        ]
+      },
+      "waypoints": 27,
+      "feasible": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "synthetic_layout": true,
+      "physical_execution": false
+    }
+  ],
+  "first_attempt": {
+    "passed": false,
+    "error_type": "ExceptionGroup",
+    "error_message": "NATIVE_GPU_TRAJECTORY_DID_NOT_REACH_MIDDLE_GATE",
+    "diagnosis": "CAP commanded .4329 hold vs V17 quantized .432 Stub feedback rejected by float equality preflight. Fixed by exact effective wire identity, not a relaxed motion tolerance."
+  },
+  "cpu_regression": "11 passed; exact quantized hold accepts wire 432 and rejects change to 433",
+  "raw_evidence": {
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/summary.json": {
+      "sha256": "aa02abb204fe6b1a5876f8f585288976c3923b6b293b0df41142b1dd8328ec54",
+      "bytes": 32193
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01/summary.json": {
+      "sha256": "1195ced9732483eadd1362665b80bfaef69fa2faa7d9afdd9d8afc37473961f7",
+      "bytes": 23299
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-01.log": {
+      "sha256": "1dd90e570ea71d44f36e91aede780fcda4f95834a2dbe524aa88972e56dbe222",
+      "bytes": 8409
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02.log": {
+      "sha256": "a08c5ad44b4cb5e3e60fbe87ff6da9c92d9e9c8d75ebf9f1bf010d40244c4514",
+      "bytes": 9067
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/wire.json": {
+      "sha256": "f8e638f8cf6038df10ef6cfaa21cfe5c91127d3e4ea7da0828947bb0ef72ae91",
+      "bytes": 127608
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/stub-feedback.json": {
+      "sha256": "5f394f2907637ebbd23994f399bd263ef617ace3ef7592726437154ec0c5591c",
+      "bytes": 192792
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/actual-gpu-synchronized-resampled.npz": {
+      "sha256": "f3d88276f780f7d5931c064618945cca49fd195b61864f579cca517dc145634e",
+      "bytes": 3344
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-arm-only-controls-02/gpu-trajectory-faults/summary.json": {
+      "sha256": "b4c1174a3bc2fdc08e2fe2737ae52634037b78e95ca95c4f871a9f9f0208f243",
+      "bytes": 2187
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/native-cancel-patch.log": {
+      "sha256": "8c59d372c053af9f5dead50ab752a48b45c03f5a2d3eeebf87d62c0f176fa5f6",
+      "bytes": 853
+    },
+    "/home/tongji/alex/aspire_realman_phase2a_20261020/evidence/phase2b/stub-regression-02.log": {
+      "sha256": "18cb0f02ec4150f30b6f77548a2a4692b0268413be998c9554914891273faf41",
+      "bytes": 1512
+    }
+  },
+  "hardware_commands_sent": 0,
+  "loaded_hardware_modules": [],
+  "peak_allocated_bytes": 8250578432,
+  "peak_reserved_bytes": 9040822272
+}

@@ -89,6 +89,15 @@ class StubAcceptance(unittest.TestCase):
     def test_trajectory_does_not_silently_ignore_gripper_changes(self):
         e=self.engine();t=replace(self.trajectory(sync=False),gripper_positions=np.array([1.,.5,0.]))
         self.assert_error(e.execute(t),ErrorCode.UNSUPPORTED);self.assertEqual(e.transport.events,[])
+    def test_quantized_gripper_hold_after_native_set(self):
+        e=self.engine();self.assertTrue(e.set_gripper(.4329,'left',request_id='set').ok)
+        state=replace(self.trajectory().expected_start,gripper_positions={'left':.432,'right':1.})
+        t=replace(self.trajectory(sync=False),expected_start=state,gripper_positions=np.full(3,.4329))
+        self.assertTrue(e.execute(t,request_id='hold-wire-432').ok)
+        e=self.engine();self.assertTrue(e.set_gripper(.4329,'left',request_id='set').ok)
+        t=replace(t,gripper_positions=np.full(3,.433))
+        self.assert_error(e.execute(t,request_id='change-wire-433'),ErrorCode.UNSUPPORTED)
+        self.assertEqual(len(e.transport.events),1) # only the explicit set, no arm ticks
     def test_physical_dispatch_has_no_enable_switch(self):
         with self.assertRaises(ApiError) as ctx:PhysicalDispatch(allow_motion=True)
         self.assertEqual(ctx.exception.code,ErrorCode.SAFETY_INTERLOCK)
