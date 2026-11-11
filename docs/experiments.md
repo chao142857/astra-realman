@@ -12,7 +12,7 @@ The five branches retain different research implementations. Results below disti
 
 **Code — `realman/v17`:** [GUI](https://github.com/chao142857/astra-realman/blob/realman/v17/astra_realman_harness/astra_gui.py), [model backend](https://github.com/chao142857/astra-realman/blob/realman/v17/astra_realman_harness/codex_astra_backend.py), [dual-arm coordinator](https://github.com/chao142857/astra-realman/blob/realman/v17/astra_realman_harness/parallel_arms.py), [V17 prompts](https://github.com/chao142857/astra-realman/tree/realman/v17/astra_realman_harness/prompts/banana_handoff_v17).
 
-**Evidence:** [V17 manifest](https://github.com/chao142857/astra-realman/blob/realman/v17/astra_realman_harness/docs/V17_SUCCESS_SNAPSHOT_20261018.md) · [V17/V19 lightweight records and analysis](https://github.com/chao142857/astra-realman/blob/realman/v17/astra_realman_harness/docs/banana_v17_v19_light_20261018/README.md). Full raw inputs and media remain outside public Git; the homepage GIF is only a platform demonstration.
+**Evidence:** [V17 manifest](https://github.com/chao142857/astra-realman/blob/realman/v17/astra_realman_harness/docs/V17_SUCCESS_SNAPSHOT_20261018.md) · [V17/V19 lightweight records and analysis](https://github.com/chao142857/astra-realman/blob/realman/v17/astra_realman_harness/docs/banana_v17_v19_light_20261018/README.md). The homepage GIF shows the V17 successful execution at 3× playback, as confirmed by the project owner. The full raw-input and run archive remains separately retained.
 
 ## Spatial A/B/C
 

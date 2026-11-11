@@ -16,9 +16,9 @@ Astra × RealMan 将多模态决策模型连接到真实双臂机器人，探索
 
 [V17 实验记录](https://github.com/chao142857/astra-realman/blob/realman/v17/astra_realman_harness/docs/V17_SUCCESS_SNAPSHOT_20261018.md) · [V17 / V19 分析](https://github.com/chao142857/astra-realman/blob/realman/v17/astra_realman_harness/docs/banana_v17_v19_light_20261018/README.md)
 
-![RealMan 双臂平台展示，3 倍速；未确认对应 V17 成功回合](assets/realman-platform.gif)
+![RealMan 双臂 V17 香蕉抓取、交接与放置成功记录，3 倍速](assets/realman-v17-success.gif)
 
-**RealMan 平台展示（3 倍速）。** [原速平台视频](https://chao142857.github.io/assets/video/realman.mp4)。此素材尚未确认对应 V17 成功回合；该任务的证据见上方独立记录。[素材来源](assets/README.md)。
+**V17 香蕉抓取 → 交接 → 放置成功记录（3 倍速）。** [原速视频](https://chao142857.github.io/assets/video/realman.mp4)。[素材来源](assets/README.md)。
 
 ## 操作闭环如何工作
 

@@ -11,4 +11,4 @@ No standard repository-level LICENSE was found on any of the five branch tips in
 | RealMan SDK, robot/mesh/calibration assets | External installation referenced by the experiment records | No complete redistribution-rights audit or bundled SDK license was established; no SDK or private assets were added |
 | Astra / decision backend | External model access and local transport adapters | This repository records integration and experiments, not ownership of the model |
 
-[Platform media provenance](../assets/README.md) records the already-public owner-supplied demo. Its reuse here does not license private experiment recordings or raw data. Existing third-party notices and historical evidence were preserved.
+[V17 media provenance](../assets/README.md) records the already-public owner-supplied V17 success recording. Its reuse here does not license private experiment recordings or raw data. Existing third-party notices and historical evidence were preserved.

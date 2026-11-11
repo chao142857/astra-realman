@@ -16,9 +16,9 @@ This was one successful real-robot execution rather than a repeatability benchma
 
 [V17 experiment record](https://github.com/chao142857/astra-realman/blob/realman/v17/astra_realman_harness/docs/V17_SUCCESS_SNAPSHOT_20261018.md) · [V17 / V19 analysis](https://github.com/chao142857/astra-realman/blob/realman/v17/astra_realman_harness/docs/banana_v17_v19_light_20261018/README.md)
 
-![RealMan dual-arm platform preview, 3× playback; not verified as the V17 successful run](assets/realman-platform.gif)
+![V17 successful banana pick–handoff–place on the RealMan dual-arm robot, 3× playback](assets/realman-v17-success.gif)
 
-**RealMan platform preview (3× playback).** [Original-speed platform video](https://chao142857.github.io/assets/video/realman.mp4). This footage is not verified as the V17 successful run; that task is documented separately above. [Media source](assets/README.md).
+**V17 successful banana pick → handoff → place (3× playback).** [Original-speed video](https://chao142857.github.io/assets/video/realman.mp4). [Media source](assets/README.md).
 
 ## How the manipulation loop works
 
