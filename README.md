@@ -1,88 +1,17 @@
-# Astra × RealMan
+# Astra × RealMan — RealMan V17 / V19
 
-[![English](https://img.shields.io/badge/Language-English-2ea44f)](README.md)
-[![简体中文](https://img.shields.io/badge/语言-简体中文-blue)](README_CN.md)
+[English](README.md) · [简体中文](README_CN.md) · [Project overview](https://github.com/chao142857/astra-realman/tree/main)
 
-Experimental real-robot manipulation harness for running Astra-style vision-language decision loops on a RealMan platform.
+One operator-confirmed banana pick–handoff–place on October 18, 2026: 33 model requests, 1176.332 seconds. V19 did not complete the handoff.
 
-> **Status:** v0.1 — first public real-robot baseline snapshot (2026-10-05).  
-> This repository is under active development; later revisions and experiments will continue here.
+- [GUI](astra_realman_harness/astra_gui.py)
+- [Model backend / 模型后端](astra_realman_harness/codex_astra_backend.py)
+- [Dual-arm execution / 双臂执行](astra_realman_harness/parallel_arms.py)
+- [V17 prompts / 提示词](astra_realman_harness/prompts/banana_handoff_v17)
+- [V17 experiment record / 实验记录](astra_realman_harness/docs/V17_SUCCESS_SNAPSHOT_20261018.md)
+- [V17 / V19 analysis / 分析](astra_realman_harness/docs/banana_v17_v19_light_20261018/README.md)
+- [Earlier Persistent World simulation / 早期仿真](LAB_CODEX_HANDOFF_1011.md)
 
-## What this repository is
+[Experiment results and evidence](https://github.com/chao142857/astra-realman/blob/main/docs/experiments.md) · [Reproduction and dependencies](https://github.com/chao142857/astra-realman/blob/main/docs/reproduction.md) · [Third-party notices](https://github.com/chao142857/astra-realman/blob/main/docs/third-party.md)
 
-This project is the integration and experimentation stack I built to connect a multimodal decision backend to a real RealMan robot, execute structured manipulation actions, and verify the resulting robot state in a closed loop.
-
-The repository contains the RealMan integration, camera/observation pipeline, decision backend adapters, action protocol, execution/safety checks, telemetry, replay tooling, tests, and experiment runners used in the first real-robot baseline.
-
-**Implementation and experiment pipeline in this repository were developed by [@chao142857](https://github.com/chao142857).**  
-Astra/model backends, RealMan hardware, and the RealMan SDK are external dependencies; this repository is an independent research integration rather than an implementation of those upstream systems.
-
-## Current baseline
-
-The current snapshot captures the first end-to-end RealMan baseline used for real-robot manipulation experiments.
-
-Core components include:
-
-- multi-view RGB observation and persistent camera sessions;
-- RealMan robot-state / frame integration;
-- structured action proposals with explicit Cartesian deltas and gripper commands;
-- pluggable decision backends, including the current Codex/Astra experiment path;
-- frame, safety, feasibility, and execution checks;
-- supervised / step-wise real-robot execution utilities;
-- execution telemetry, verification, replay, and offline tests;
-- snapshot manifests for reproducibility.
-
-A simplified data flow is:
-
-```text
-multi-view RGB + robot state
-            ↓
-     decision backend
-            ↓
-   structured action proposal
-            ↓
- frame / safety / feasibility checks
-            ↓
-        robot executor
-            ↓
- telemetry + state verification
-            ↓
-      next observation
-```
-
-## Repository layout
-
-```text
-astra_realman_harness/
-├── decision_backends.py        # backend abstraction / model integration
-├── codex_astra_backend.py      # current Astra/Codex backend path
-├── observation.py              # observation construction
-├── camera_session.py           # multi-camera capture/session handling
-├── realman_state.py            # RealMan state integration
-├── decision_protocol.py        # structured action protocol
-├── decision_safety.py          # safety / validity gates
-├── supervised_step.py          # supervised step execution
-├── supervised_live.py          # live supervised execution path
-├── execution_telemetry.py      # execution logging
-├── execution_verification.py   # post-action verification
-├── scripts/                    # experiment / replay runners
-├── config/                     # experiment configuration
-├── schema/                     # action schemas
-├── docs/                       # engineering notes / evidence
-└── tests/                      # offline tests
-
-SNAPSHOT.md
-SNAPSHOT_SHA256.json
-```
-
-## Notes
-
-This is an **experimental research harness**, not a production robot-control SDK or a safety-certified system.
-
-The codebase contains both earlier shadow / dry-run safety paths and later real-robot execution experiments. Some paths and configuration values in the archived snapshot are workstation-specific and will need adaptation on another machine.
-
-The first version is intentionally preserved as a baseline. Future work will iterate on the decision loop, execution reliability, latency, placement accuracy, and higher-level reasoning while keeping the earlier snapshot reproducible.
-
-## Development
-
-Current work is ongoing. This repository will be updated as the next RealMan experiments and system revisions are completed.
+[Previous branch overview](docs/archive/README_before_showcase.md). Historical source and reports are retained.
